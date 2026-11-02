@@ -5,6 +5,18 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import final
 
+from ksdft2effmass.band_equivalence_hopping_locality.rankN.base import (
+    PeriodicRankNBandEquivalenceHoppingLocalityAction,
+    PeriodicRankNBandEquivalenceHoppingLocalityAnalysisRole,
+    PeriodicRankNBandEquivalenceHoppingLocalityAnalyzerRole,
+    PeriodicRankNBandEquivalenceHoppingLocalityCapability,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseAction,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseCapability,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseRequest,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseValue,
+    PeriodicRankNBandEquivalenceHoppingLocalityRequestRole,
+    PeriodicRankNBandEquivalenceHoppingLocalityValue,
+)
 from ksdft2effmass.periodic3d.band_equivalence_hopping_locality.base import (
     Periodic3DBandEquivalenceHoppingLocality,
     Periodic3DBandEquivalenceHoppingLocalityAction,
@@ -24,34 +36,27 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence.base import (
 class Periodic3DRankNBandEquivalenceHoppingLocalityCapability(
     Periodic3DRankNBandEquivalence,
     Periodic3DBandEquivalenceHoppingLocality,
+    PeriodicRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
 ):
     """Coordinate one periodic-3D arbitrary-rank aggregate study family."""
 
     __slots__ = ()
 
-    @property
-    @abstractmethod
-    def band_subspace_ranks(self) -> tuple[int, ...]:
-        """Return the represented band-subspace rank inventory."""
-
 
 class Periodic3DRankNBandEquivalenceHoppingLocalityCaseCapability(
     Periodic3DBandEquivalenceHoppingLocality,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseCapability,
     ABC,
 ):
     """Identify one concrete finite-rank case in the rank-N family."""
 
     __slots__ = ()
 
-    @property
-    @abstractmethod
-    def band_subspace_rank(self) -> int:
-        """Return the represented band-subspace rank for this case."""
-
 
 class Periodic3DRankNBandEquivalenceHoppingLocalityCaseRequest(
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseCapability,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseRequest,
     ABC,
 ):  # noqa: B024
     """Bind one rank-N aggregate case supporting request."""
@@ -61,6 +66,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseRequest(
 
 class Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue(
     Periodic3DBandEquivalenceHoppingLocalityValue,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseValue,
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseCapability,
     ABC,
 ):
@@ -71,6 +77,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue(
 
 class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAction(
     Periodic3DBandEquivalenceHoppingLocalityAction,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseAction,
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseCapability,
     ABC,
 ):
@@ -82,6 +89,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAction(
 class Periodic3DRankNBandEquivalenceHoppingLocalityRequestRole(
     Periodic3DRankNBandEquivalenceRequest,
     Periodic3DBandEquivalenceHoppingLocalityRequest,
+    PeriodicRankNBandEquivalenceHoppingLocalityRequestRole,
     Periodic3DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
 ):
@@ -95,6 +103,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityAnalysisRole[
 ](
     Periodic3DRankNBandEquivalenceAnalysis[RequestT],
     Periodic3DBandEquivalenceHoppingLocalityAnalysis[RequestT],
+    PeriodicRankNBandEquivalenceHoppingLocalityAnalysisRole[RequestT],
     Periodic3DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
 ):
@@ -108,6 +117,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzerRole[
 ](
     Periodic3DRankNBandEquivalenceAnalyzer[RequestT],
     Periodic3DBandEquivalenceHoppingLocalityAnalyzer[RequestT],
+    PeriodicRankNBandEquivalenceHoppingLocalityAnalyzerRole[RequestT],
     Periodic3DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
 ):
@@ -130,6 +140,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzerRole[
 
 class Periodic3DRankNBandEquivalenceHoppingLocalityValue(
     Periodic3DBandEquivalenceHoppingLocalityValue,
+    PeriodicRankNBandEquivalenceHoppingLocalityValue,
     Periodic3DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
 ):
@@ -140,6 +151,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityValue(
 
 class Periodic3DRankNBandEquivalenceHoppingLocalityAction(
     Periodic3DBandEquivalenceHoppingLocalityAction,
+    PeriodicRankNBandEquivalenceHoppingLocalityAction,
     Periodic3DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
 ):

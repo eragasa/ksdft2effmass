@@ -5,6 +5,18 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import final
 
+from ksdft2effmass.band_equivalence_hopping_locality.rankN.base import (
+    PeriodicRankNBandEquivalenceHoppingLocalityAction,
+    PeriodicRankNBandEquivalenceHoppingLocalityAnalysisRole,
+    PeriodicRankNBandEquivalenceHoppingLocalityAnalyzerRole,
+    PeriodicRankNBandEquivalenceHoppingLocalityCapability,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseAction,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseCapability,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseRequest,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseValue,
+    PeriodicRankNBandEquivalenceHoppingLocalityRequestRole,
+    PeriodicRankNBandEquivalenceHoppingLocalityValue,
+)
 from ksdft2effmass.periodic2d.band_equivalence_hopping_locality.base import (
     Periodic2DBandEquivalenceHoppingLocality,
     Periodic2DBandEquivalenceHoppingLocalityAction,
@@ -24,34 +36,27 @@ from ksdft2effmass.periodic2d.rankN.band_equivalence.base import (
 class Periodic2DRankNBandEquivalenceHoppingLocalityCapability(
     Periodic2DRankNBandEquivalence,
     Periodic2DBandEquivalenceHoppingLocality,
+    PeriodicRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
 ):
     """Coordinate one periodic-2D arbitrary-rank aggregate study family."""
 
     __slots__ = ()
 
-    @property
-    @abstractmethod
-    def band_subspace_ranks(self) -> tuple[int, ...]:
-        """Return the represented band-subspace rank inventory."""
-
 
 class Periodic2DRankNBandEquivalenceHoppingLocalityCaseCapability(
     Periodic2DBandEquivalenceHoppingLocality,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseCapability,
     ABC,
 ):
     """Identify one concrete finite-rank case in the rank-N family."""
 
     __slots__ = ()
 
-    @property
-    @abstractmethod
-    def band_subspace_rank(self) -> int:
-        """Return the represented band-subspace rank for this case."""
-
 
 class Periodic2DRankNBandEquivalenceHoppingLocalityCaseRequest(
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseCapability,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseRequest,
     ABC,
 ):  # noqa: B024
     """Bind one rank-N aggregate case supporting request."""
@@ -61,6 +66,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseRequest(
 
 class Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue(
     Periodic2DBandEquivalenceHoppingLocalityValue,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseValue,
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseCapability,
     ABC,
 ):
@@ -71,6 +77,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue(
 
 class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction(
     Periodic2DBandEquivalenceHoppingLocalityAction,
+    PeriodicRankNBandEquivalenceHoppingLocalityCaseAction,
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseCapability,
     ABC,
 ):
@@ -82,6 +89,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction(
 class Periodic2DRankNBandEquivalenceHoppingLocalityRequestRole(
     Periodic2DRankNBandEquivalenceRequest,
     Periodic2DBandEquivalenceHoppingLocalityRequest,
+    PeriodicRankNBandEquivalenceHoppingLocalityRequestRole,
     Periodic2DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
 ):
@@ -95,6 +103,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityAnalysisRole[
 ](
     Periodic2DRankNBandEquivalenceAnalysis[RequestT],
     Periodic2DBandEquivalenceHoppingLocalityAnalysis[RequestT],
+    PeriodicRankNBandEquivalenceHoppingLocalityAnalysisRole[RequestT],
     Periodic2DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
 ):
@@ -108,6 +117,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzerRole[
 ](
     Periodic2DRankNBandEquivalenceAnalyzer[RequestT],
     Periodic2DBandEquivalenceHoppingLocalityAnalyzer[RequestT],
+    PeriodicRankNBandEquivalenceHoppingLocalityAnalyzerRole[RequestT],
     Periodic2DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
 ):
@@ -130,6 +140,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzerRole[
 
 class Periodic2DRankNBandEquivalenceHoppingLocalityValue(
     Periodic2DBandEquivalenceHoppingLocalityValue,
+    PeriodicRankNBandEquivalenceHoppingLocalityValue,
     Periodic2DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
 ):
@@ -140,6 +151,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityValue(
 
 class Periodic2DRankNBandEquivalenceHoppingLocalityAction(
     Periodic2DBandEquivalenceHoppingLocalityAction,
+    PeriodicRankNBandEquivalenceHoppingLocalityAction,
     Periodic2DRankNBandEquivalenceHoppingLocalityCapability,
     ABC,
 ):

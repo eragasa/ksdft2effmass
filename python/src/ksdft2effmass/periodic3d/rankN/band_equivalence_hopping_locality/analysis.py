@@ -2,21 +2,11 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import final
+from typing import ClassVar, final
 
 import numpy as np
-from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
 from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
     NumpyFiniteFourierMatrixSeries,
-)
-from projectkoios.numerics.finite_periodic.numpy.tensor_product_evaluation import (
-    NumpyTensorProductFourierMatrixEvaluationDefinition,
-    NumpyTensorProductFourierMatrixSeriesEvaluator,
-)
-from projectkoios.numerics.finite_periodic.numpy.transforms import (
-    NumpyCenteredUniformMeshMatrixFourierTransformDefinition,
-    NumpyCenteredUniformMeshMatrixFourierTransformer,
 )
 from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array, Int64Array
 from projectkoios.physkit.solidstate.tb.diagnostics import BlockHoppingPowerAnalyzer
@@ -29,18 +19,17 @@ from ksdft2effmass.band_equivalence_hopping_locality.fourier import (
 from ksdft2effmass.band_equivalence_hopping_locality.geometry import (
     metric_shell_classification,
 )
+from ksdft2effmass.band_equivalence_hopping_locality.rankN.analysis import (
+    _PeriodicRankNBandEquivalenceHoppingLocalityProductionArithmetic,
+    _ReferenceFourierData,
+)
 from ksdft2effmass.band_equivalence_hopping_locality.results import (
     BandEquivalenceHoppingLocalityErrorChannels,
 )
 from ksdft2effmass.band_equivalence_hopping_locality.shell_power import (
     MetricShellHoppingPowerResult,
 )
-from ksdft2effmass.gauge_alignment import (
-    GaugeAlignmentActionConvention,
-    GaugeAlignmentAnalysisIdentity,
-    GaugeAlignmentGroupIdentity,
-    GaugeAlignmentInnerProductConvention,
-)
+from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalysisIdentity
 from ksdft2effmass.periodic3d.rankN.band_alignment.frame_transport.analysis import (
     Periodic3DRankNTransportAnalyzer,
 )
@@ -89,7 +78,6 @@ from ksdft2effmass.periodic3d.rankN.support_truncation.request import (
     Periodic3DRankNSupportTruncationChannelEnum,
 )
 from ksdft2effmass.real_space_support_truncation import (
-    MetricShellClassification,
     MinimumToleranceSatisfyingSupport,
     SupportToleranceSelectionOutcome,
     SupportToleranceUnresolved,
@@ -120,28 +108,24 @@ from .result import (
 )
 
 
-@dataclass(frozen=True, slots=True)
-class _ReferenceFourierData:
-    source_mesh: CenteredUniformMesh
-    construction_axes: tuple[Float64Array, Float64Array, Float64Array]
-    evaluation_axes: tuple[Float64Array, Float64Array, Float64Array]
-    ordinary_series: NumpyFiniteFourierMatrixSeries
-    full_construction: Complex128Array
-    full_evaluation: Complex128Array
-    shell_classification: MetricShellClassification
-    metric_indices: Int64Array
-    metric_shell_values: tuple[int, ...]
-    locality: MetricShellHoppingPowerResult
-    shell_evaluation_fields: tuple[Complex128Array, ...]
-
-
 @final
 class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
-    Periodic3DRankNBandEquivalenceHoppingLocalityCaseAction
+    _PeriodicRankNBandEquivalenceHoppingLocalityProductionArithmetic,
+    Periodic3DRankNBandEquivalenceHoppingLocalityCaseAction,
 ):
-    """Compose installed capability owners for one exact analytic case."""
+    """Compose installed capability owners for one exact analytic case.
+
+    The retained locality summary currently derives non-onsite power by subtracting
+    the separately rounded onsite power from total power and clipping at zero.  For
+    the selected bounded analytic baseline this can suppress only roundoff-scale
+    power and does not affect shell selection, which uses direct shell sums.  It is
+    deferred numerical robustness debt recorded as ``TD-BEL-003``; a reported zero
+    must not be interpreted as proof of an exactly onsite-only model.
+    """
 
     __slots__ = ("_geometry", "_model", "_request")
+
+    _SPATIAL_DIMENSION: ClassVar[int] = 3
 
     @property
     def band_subspace_rank(self) -> int:
@@ -192,91 +176,13 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
         """Return the immutable aggregate request bound to this action."""
         return self._request
 
-    @staticmethod
-    def _coordinate_axis(size: int, offset: float) -> Float64Array:
-        return np.asarray(
-            -0.5 + (np.arange(size, dtype=np.float64) + offset) / float(size),
-            dtype=np.float64,
-        )
-
-    @classmethod
-    def _coordinates(cls, size: int, offset: float) -> Float64Array:
-        axis = cls._coordinate_axis(size, offset)
-        return np.asarray(
-            np.stack(np.meshgrid(axis, axis, axis, indexing="ij"), axis=-1),
-            dtype=np.float64,
-        )
-
-    @staticmethod
-    def _transform(
-        mesh: CenteredUniformMesh,
-        values: Complex128Array,
-    ) -> NumpyFiniteFourierMatrixSeries:
-        return (
-            NumpyCenteredUniformMeshMatrixFourierTransformer(
-                definition=NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
-                    mesh,
-                    values,
-                )
-            )
-            .result()
-            .series
-        )
-
-    @staticmethod
-    def _evaluate(
-        mesh: CenteredUniformMesh,
-        series: NumpyFiniteFourierMatrixSeries,
-        axes: tuple[Float64Array, Float64Array, Float64Array],
-    ) -> Complex128Array:
-        return (
-            NumpyTensorProductFourierMatrixSeriesEvaluator(
-                definition=NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
-                    mesh,
-                    series,
-                    axes,
-                )
-            )
-            .result()
-            .matrix_values
-        )
-
-    @staticmethod
-    def _ordinary_series(
-        construction_size: int,
-        series: NumpyFiniteFourierMatrixSeries,
-    ) -> NumpyFiniteFourierMatrixSeries:
-        ordinary = ~np.any(
-            series.integer_modes == -construction_size // 2,
-            axis=1,
-        )
-        return NumpyFiniteFourierMatrixSeries.from_arrays(
-            3,
-            series.integer_modes[ordinary],
-            series.matrix_coefficients[ordinary],
-        )
-
     def _alignment_identity(
         self,
         retained_rank: int,
     ) -> GaugeAlignmentAnalysisIdentity:
-        return GaugeAlignmentAnalysisIdentity(
-            gauge_group_identity=GaugeAlignmentGroupIdentity.unitary(
-                represented_dimension=retained_rank
-            ),
-            alignment_sample_count=self._request.construction_size**3,
-            action_convention=GaugeAlignmentActionConvention.RIGHT,
-            inner_product_convention=GaugeAlignmentInnerProductConvention.EUCLIDEAN,
-        )
-
-    @staticmethod
-    def _apply_right_action(
-        operators: Complex128Array,
-        right_action: Complex128Array,
-    ) -> Complex128Array:
-        return np.asarray(
-            np.swapaxes(right_action.conjugate(), -1, -2) @ operators @ right_action,
-            dtype=np.complex128,
+        return super()._common_alignment_identity(
+            retained_rank,
+            self._request.construction_size,
         )
 
     @staticmethod
@@ -294,6 +200,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     def _locality_summary(
         value: MetricShellHoppingPowerResult,
     ) -> Periodic3DRankNBandEquivalenceHoppingLocalityLocalitySummary:
+        """Project powers through the deferred subtraction policy of TD-BEL-003."""
         onsite = tuple(
             power.displacement for power in value.powers if power.displacement.is_zero
         )
@@ -335,22 +242,14 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
         construction_values: Complex128Array,
     ) -> _ReferenceFourierData:
         size = self._request.construction_size
-        source_mesh = CenteredUniformMesh(3, size, (0.5, 0.5, 0.5))
+        source_mesh = self._centered_mesh(size, 0.5)
         construction_axis = self._coordinate_axis(size, 0.5)
         evaluation_axis = self._coordinate_axis(
             self._request.evaluation_size,
             0.5 + self._request.evaluation_shift,
         )
-        construction_axes = (
-            construction_axis,
-            construction_axis,
-            construction_axis,
-        )
-        evaluation_axes = (
-            evaluation_axis,
-            evaluation_axis,
-            evaluation_axis,
-        )
+        construction_axes = self._tensor_axes(construction_axis)
+        evaluation_axes = self._tensor_axes(evaluation_axis)
         series = self._ordinary_series(
             size,
             self._transform(source_mesh, construction_values),

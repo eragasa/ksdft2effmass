@@ -125,13 +125,36 @@ BandEquivalenceHoppingLocalityAnalyzer
         └── Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer
 ```
 
+The periodic-2D and periodic-3D rank-N analyzer roles additionally inherit
+`PeriodicRankNBandEquivalenceHoppingLocalityAnalyzerRole`. That common role owns only the
+cross-dimensional periodic rank-N contract; each concrete role also retains its
+corresponding dimensional branch above. The same additive ownership applies to the
+rank-N capability, request, analysis, case, value, and action roles. It does not make one
+dimension inherit from the other.
+
 Rank-two and rank-N analyzers are sibling specializations. Neither rank branch inherits
 from the other. `Rank2BandEquivalenceHoppingLocalityAnalyzer` separately owns the shared
 rank-two arithmetic composed by the periodic-2D and periodic-3D rank-two analyzers; it is
-not a rank-N parent. This hierarchy is an enforceable ownership guardrail rather than a
-compatibility export tree.
+not a rank-N parent. Dimension-neutral rank-N leaf-result parents centralize validation
+without replacing the exact periodic-2D and periodic-3D result types. This hierarchy is
+an enforceable ownership guardrail rather than a compatibility export tree.
 
 ## Production composition
+
+The periodic-2D and periodic-3D rank-N case analyzers inherit one internal common
+production-arithmetic parent for coordinate grids, finite-Fourier transformation and
+evaluation, ordinary-mode filtering, right-unitary action, and alignment-identity sample
+counting. Each dimensional analyzer still owns its exact request and model admission,
+mesh and geometry selection, transport topology, gauge-alignment collaborators,
+hopping-locality route, support-truncation route, result construction, and public return
+type.
+
+Independent reconstruction does not inherit that production parent. Parent and alignment
+references share a separate direct-formula implementation across dimensions. Fourier,
+shell, error, and support references share a separate explicit dense-sum implementation.
+The reference implementations do not call the production transformer, evaluator, model,
+shell classifier, hopping-locality analyzer, or support selector for the quantity being
+checked.
 
 `Rank2BandEquivalenceHoppingLocalityAnalyzer` binds one immutable rank-two request at
 construction and exposes

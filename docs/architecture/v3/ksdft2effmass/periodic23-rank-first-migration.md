@@ -145,6 +145,17 @@ owner. Public requests, analyses, results, verification, retained records, and
 visualizations that bind a two- or three-dimensional lattice domain belong under the
 corresponding `periodic2d` or `periodic3d` rank-first namespace.
 
+The installed `band_equivalence_hopping_locality.rankN` namespace owns the common
+periodic rank-N aggregate roles, dimension-neutral leaf-result validation, shared
+production Fourier mechanics, and separately implemented independent-reference
+arithmetic. The periodic-2D and periodic-3D roles inherit those common contracts
+additively while remaining sibling dimensional specializations. Their concrete requests,
+analyses, analyzers, results, exact type admission, geometry and topology selections, and
+wire identities remain dimension-owned. Production and reference owners are separate;
+sharing across spatial dimensions does not make the verifying route call the producer
+for the quantity under comparison. This ownership extraction changes no selected
+formula or numerical result.
+
 The shared `band_equivalence_hopping_locality` implementation is therefore
 migration input rather than the final owner for dimension- and rank-bound public types.
 The migration must keep representation equivalence, gauge alignment, frame transport,

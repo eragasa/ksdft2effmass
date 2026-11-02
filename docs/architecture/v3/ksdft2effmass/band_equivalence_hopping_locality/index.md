@@ -79,9 +79,10 @@ calculation and Wannier localization.
 
 ## Detailed architecture
 
+- [Periodic rank-N common ownership](rankN/index.md)
 - [Implementation](implementation.md)
 - [Numerical contract](numerics.md)
 - [Scientific interpretation](scientifics.md)
 - [Schematics](schematics.md)
 - [Parent `analysis.model_adequacy` boundary](../index.md)
-- [Periodic-1D direct-lifecycle guide](../../../periodic1d/index.md)
+- [Periodic-1D direct-lifecycle guide](../periodic1d/index.md)

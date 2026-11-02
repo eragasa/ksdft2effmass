@@ -7,6 +7,14 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import ClassVar, Self
 
+from ksdft2effmass.band_equivalence_hopping_locality.rankN.result import (
+    PeriodicRankNBandEquivalenceHoppingLocalityErrorChannels,
+    PeriodicRankNBandEquivalenceHoppingLocalityLocalitySummary,
+    PeriodicRankNFittedAlignmentEvidence,
+    PeriodicRankNPrescribedAlignmentEvidence,
+    PeriodicRankNSupportSelected,
+    PeriodicRankNSupportUnresolved,
+)
 from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentActionConvention,
     GaugeAlignmentAnalysisIdentity,
@@ -40,47 +48,22 @@ def _nonnegative_float(value: float, name: str) -> None:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic3DRankNBandEquivalenceHoppingLocalityErrorChannels:
+class Periodic3DRankNBandEquivalenceHoppingLocalityErrorChannels(
+    PeriodicRankNBandEquivalenceHoppingLocalityErrorChannels,
+):
     """Retain rank-normalized matrix and ordered-spectrum errors."""
-
-    maximum_matrix_frobenius: float
-    root_mean_square_matrix_frobenius: float
-    maximum_ordered_spectrum: float
-    root_mean_square_ordered_spectrum: float
-
-    def __post_init__(self) -> None:
-        for name, value in (
-            ("maximum_matrix_frobenius", self.maximum_matrix_frobenius),
-            (
-                "root_mean_square_matrix_frobenius",
-                self.root_mean_square_matrix_frobenius,
-            ),
-            ("maximum_ordered_spectrum", self.maximum_ordered_spectrum),
-            (
-                "root_mean_square_ordered_spectrum",
-                self.root_mean_square_ordered_spectrum,
-            ),
-        ):
-            _nonnegative_float(value, name)
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic3DRankNBandEquivalenceHoppingLocalityLocalitySummary:
-    """Retain normalized total, onsite, and nononsite hopping powers."""
+class Periodic3DRankNBandEquivalenceHoppingLocalityLocalitySummary(
+    PeriodicRankNBandEquivalenceHoppingLocalityLocalitySummary,
+):
+    """Retain normalized total, onsite, and nononsite hopping powers.
 
-    total_power: float
-    onsite_power: float
-    nononsite_power: float
-
-    def __post_init__(self) -> None:
-        for name, value in (
-            ("total_power", self.total_power),
-            ("onsite_power", self.onsite_power),
-            ("nononsite_power", self.nononsite_power),
-        ):
-            _nonnegative_float(value, name)
-        if abs(self.total_power - self.onsite_power - self.nononsite_power) > 1.0e-12:
-            raise ValueError("locality powers must satisfy total = onsite + nononsite")
+    A stored zero non-onsite power is not an exact onsite-only certificate.  The
+    current producer derives this scalar by subtraction and zero clipping, which can
+    suppress roundoff-scale power under the bounded baseline; see ``TD-BEL-003``.
+    """
 
 
 @dataclass(frozen=True, slots=True)
@@ -134,49 +117,13 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityShellAnalysis:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic3DRankNSupportSelected:
+class Periodic3DRankNSupportSelected(PeriodicRankNSupportSelected):
     """Retain one minimum tolerance-satisfying metric shell."""
-
-    ordinal_shell_index: int
-    metric_shell_value: int
-    satisfying_error: float
-    preceding_error: float | None
-
-    def __post_init__(self) -> None:
-        for value, name in (
-            (self.ordinal_shell_index, "ordinal_shell_index"),
-            (self.metric_shell_value, "metric_shell_value"),
-        ):
-            if type(value) is not int:
-                raise TypeError(f"{name} must be a built-in integer")
-            if value < 0:
-                raise ValueError(f"{name} must be nonnegative")
-        _nonnegative_float(self.satisfying_error, "satisfying_error")
-        if self.preceding_error is not None:
-            _nonnegative_float(self.preceding_error, "preceding_error")
-        if (self.ordinal_shell_index == 0) is not (self.preceding_error is None):
-            raise ValueError("preceding_error must be absent exactly at shell zero")
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic3DRankNSupportUnresolved:
+class Periodic3DRankNSupportUnresolved(PeriodicRankNSupportUnresolved):
     """Retain the unresolved support-selection error evidence."""
-
-    comparison_count: int
-    minimum_observed_error: float
-    largest_support_error: float
-
-    def __post_init__(self) -> None:
-        if type(self.comparison_count) is not int:
-            raise TypeError("comparison_count must be a built-in integer")
-        if self.comparison_count <= 0:
-            raise ValueError("comparison_count must be positive")
-        _nonnegative_float(self.minimum_observed_error, "minimum_observed_error")
-        _nonnegative_float(self.largest_support_error, "largest_support_error")
-        if self.minimum_observed_error > self.largest_support_error:
-            raise ValueError(
-                "minimum_observed_error cannot exceed largest_support_error"
-            )
 
 
 type Periodic3DRankNSupportSelection = (
@@ -208,46 +155,17 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityToleranceDecision:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic3DRankNFittedAlignmentEvidence:
+class Periodic3DRankNFittedAlignmentEvidence(
+    PeriodicRankNFittedAlignmentEvidence,
+):
     """Retain invariant evidence for one fitted unitary alignment."""
-
-    sample_count: int
-    minimum_numerical_rank: int
-    minimum_cross_singular_value: float
-    maximum_optimal_residual_frobenius_norm: float
-    maximum_applied_rank_cutoff: float
-
-    def __post_init__(self) -> None:
-        for value, name in (
-            (self.sample_count, "sample_count"),
-            (self.minimum_numerical_rank, "minimum_numerical_rank"),
-        ):
-            if type(value) is not int:
-                raise TypeError(f"{name} must be a built-in integer")
-            if value <= 0:
-                raise ValueError(f"{name} must be positive")
-        for name, float_value in (
-            ("minimum_cross_singular_value", self.minimum_cross_singular_value),
-            (
-                "maximum_optimal_residual_frobenius_norm",
-                self.maximum_optimal_residual_frobenius_norm,
-            ),
-            ("maximum_applied_rank_cutoff", self.maximum_applied_rank_cutoff),
-        ):
-            _nonnegative_float(float_value, name)
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic3DRankNPrescribedAlignmentEvidence:
+class Periodic3DRankNPrescribedAlignmentEvidence(
+    PeriodicRankNPrescribedAlignmentEvidence,
+):
     """Identify a prescribed identity or construction-oracle alignment."""
-
-    identifier: str
-
-    def __post_init__(self) -> None:
-        if type(self.identifier) is not str or not self.identifier:
-            raise TypeError("identifier must be a nonempty built-in string")
-        if self.identifier not in ("identity", "known-inverse-oracle"):
-            raise ValueError("identifier must be one prescribed alignment")
 
 
 type Periodic3DRankNAlignmentEvidence = (
