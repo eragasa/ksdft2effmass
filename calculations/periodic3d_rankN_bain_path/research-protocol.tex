@@ -207,12 +207,21 @@ and
  \end{pmatrix}.
 \end{equation}
 
-The map is a bijection of $\ZZ^3$ and of every cubic quotient
-$(\ZZ/N\ZZ)^3$.  This statement does not select a mesh.  The independent proof
-obligation for any noncubic or mixed-modulus quotient belongs to the
-projectkoios-formal workstream.  Such a quotient remains unresolved here until a
-reviewed proof that the same integer map is well-defined and bijective is bound to this
-protocol.  Assignment of the proof obligation does not promote a mixed-modulus mesh.
+The map is a bijection of $\ZZ^3$.  Its exact finite-quotient applicability is bound to
+projectkoios-formal PR~58, merged as commit
+\path{b98d23fe23bb5bc940c6be4cfcbc79c3569c45e7}.  The reviewed results
+\path{bainMixedModuliAdmissionCertificate_iff} and
+\path{bain_integerDiagonalLattice_quotientMap_bijective} imply that a positive runtime
+period triple $(N_1,N_2,N_3)$ is admitted exactly when
+\begin{equation}
+ N_2=N_3,\qquad N_1\mid N_2.
+\end{equation}
+Thus every positive cubic quotient is admitted, $(2,6,6)$ is an admitted mixed example,
+and $(4,6,6)$ and $(2,6,8)$ are rejected.  The KSD runtime mirror is the deliberately
+imported submodule
+\path{ksdft2effmass.periodic3d.rankN.bain_quotient_admission}.  This binding selects
+applicability only: it does not select or authenticate a mesh, authorize execution,
+establish correctness or convergence, validate scientific adequacy, or admit evidence.
 
 \section{Basis offsets and oriented bonds}
 

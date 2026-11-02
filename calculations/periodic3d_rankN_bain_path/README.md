@@ -71,8 +71,10 @@ This context follows the continuous higher-rank path order in the shared
     authorization.
 
 The current protocol stops after step 3. Steps 4--10 remain blocked and must not be
-filled from rank-two or fixed-geometry outcomes. The projectkoios-formal mixed-quotient
-proof obligation also remains fail-closed until reviewed and bound here.
+filled from rank-two or fixed-geometry outcomes. The reviewed projectkoios-formal
+finite-quotient result is now bound as an applicability gate: positive period triples are
+admitted exactly when `N2 = N3` and `N1` divides `N2`. This does not select or
+authenticate a mesh, authorize execution, establish convergence, or admit evidence.
 
 There are intentionally no Python actions, output directories, schemas, lifecycle
 writers, renderers, execution identities, or retained artifacts here. Adding any of

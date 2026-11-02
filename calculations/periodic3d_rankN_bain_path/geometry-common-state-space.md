@@ -184,14 +184,45 @@ Reciprocal reduced coordinates obey
  \mathbf q_B=U^\mathsf T\mathbf q_F.
 \]
 
-On the infinite lattice, \(U\) is a bijection of \(\mathbb Z^3\). On a finite common
-cubic quotient \((\mathbb Z/N\mathbb Z)^3\), it is a bijection for every positive
-integer \(N\). This statement does not select a mesh. The independent finite-quotient
-bijection proof obligation belongs to the projectkoios-formal workstream. A future
-noncubic or mixed-modulus quotient is admissible here only after a reviewed proof that
-the same integer map is a well-defined bijection is bound to this protocol; until then
-the common-cell comparison is typed `unresolved`. Assignment of that proof obligation
-does not promote a mixed-modulus mesh.
+On the infinite lattice, \(U\) is a bijection of \(\mathbb Z^3\). The exact
+finite-quotient obligation is discharged by
+[`projectkoios-formal` PR 58](https://github.com/eragasa/projectkoios-formal/pull/58),
+merged as commit `b98d23fe23bb5bc940c6be4cfcbc79c3569c45e7`. The reviewed Lean sources
+are `ProjectKoios/SolidState/FiniteLattice/QuotientAdmission.lean` and
+`ProjectKoios/Crosswalks/PhysKit/FccBainQuotientAdmission.lean`. In particular:
+
+- `finite_integerMatrixLattice_quotient_of_det_ne_zero` establishes finiteness for the
+  full-rank integer lattice generator;
+- `exists_integerLatticeMapCertificate_iff` characterizes preservation of the finite
+  lattice through an integer certificate;
+- `bainMixedModuliAdmissionCertificate_iff` proves the exact period criterion; and
+- `bain_integerDiagonalLattice_quotientMap_bijective` proves bijectivity after forward
+  and inverse preservation are supplied.
+
+For a runtime period triple \((N_1,N_2,N_3)\), mapped in that order to Lean indices
+`0`, `1`, and `2`, the fixed Bain/FCC map is admitted exactly when
+
+\[
+ N_1>0,\qquad N_2>0,\qquad N_3>0,\qquad
+ N_2=N_3,\qquad N_1\mid N_2.
+\]
+
+Every positive cubic quotient \((N,N,N)\) is therefore admitted. Mixed periods such as
+\((2,6,6)\) are admitted, while \((4,6,6)\) and \((2,6,8)\) are rejected. The KSD
+runtime mirror is the deliberately imported submodule
+`ksdft2effmass.periodic3d.rankN.bain_quotient_admission`:
+`periodic3d_bain_finite_quotient_is_admitted` checks applicability, and
+`Periodic3DBainFiniteQuotientAdmissionCertificate` retains one admitted positive
+built-in-integer triple together with the fixed matrices and reviewed formal identity.
+Booleans, numeric strings, nonpositive values, unequal second and third periods, and
+failed divisibility receive no fallback coordinate map; geometry qualification reports
+`FINITE_QUOTIENT_INCOMPATIBLE`.
+
+This binding establishes applicability only. It does not select a mesh, authenticate a
+runtime mesh object, establish execution correctness or numerical convergence, validate
+scientific adequacy, or admit retained evidence. Any future execution must bind its
+actual period triple to a retained certificate and independently satisfy every remaining
+protocol gate.
 
 ## Basis offsets and oriented bond inventory
 
