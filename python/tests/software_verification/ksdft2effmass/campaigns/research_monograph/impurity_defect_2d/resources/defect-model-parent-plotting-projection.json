@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "fixture_id": "ksdft2effmass.test.stage-c-parent-plotting-projection.v1",
+  "fixture_provenance": {
+    "source_kind": "authored synthetic execution-free software-verification result",
+    "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42",
+    "source_sha256": "da046691a6d0bcbd7f05b58e7e094c1893a6b62374df3c049a996261f292c4b4",
+    "projection": "exact fields consumed by DefectModelParentResultReader"
+  },
+  "accepted_parent_read": false,
+  "criteria": [
+    {
+      "comparison": "<=",
+      "criterion": "hopping_and_matrix_hermiticity",
+      "passed": true,
+      "threshold": 1e-11,
+      "value": 0.0
+    },
+    {
+      "comparison": "<=",
+      "criterion": "isotropic_D4_hopping_covariance",
+      "passed": true,
+      "threshold": 1e-10,
+      "value": 0.0
+    },
+    {
+      "comparison": "<=",
+      "criterion": "anisotropic_D2_hopping_covariance",
+      "passed": true,
+      "threshold": 1e-10,
+      "value": 1.6258599405066181e-16
+    },
+    {
+      "comparison": "<=",
+      "criterion": "alignment_unitarity",
+      "passed": true,
+      "threshold": 1e-11,
+      "value": 5.551115123125783e-16
+    },
+    {
+      "comparison": "<=",
+      "criterion": "known_recovery_maximum",
+      "passed": true,
+      "threshold": 1e-10,
+      "value": 1.6711069443220836e-16
+    },
+    {
+      "comparison": "<=",
+      "criterion": "known_recovery_frobenius",
+      "passed": true,
+      "threshold": 1e-10,
+      "value": 5.572645095600093e-16
+    },
+    {
+      "comparison": "<=",
+      "criterion": "isotropic_D4_covariance",
+      "passed": true,
+      "threshold": 1e-10,
+      "value": 5.721958498152797e-17
+    },
+    {
+      "comparison": "<=",
+      "criterion": "anisotropic_D2_covariance",
+      "passed": true,
+      "threshold": 1e-10,
+      "value": 1.0868398041499713e-16
+    },
+    {
+      "comparison": "<=",
+      "criterion": "axis_swap_covariance",
+      "passed": true,
+      "threshold": 1e-10,
+      "value": 0.0
+    },
+    {
+      "comparison": "<=",
+      "criterion": "gauge_bridge",
+      "passed": true,
+      "threshold": 1e-10,
+      "value": 2.2247786310271853e-16
+    },
+    {
+      "comparison": "<=",
+      "criterion": "selected_fit_maximum",
+      "passed": true,
+      "threshold": 1e-10,
+      "value": 1.6711069443220836e-16
+    },
+    {
+      "comparison": "<=",
+      "criterion": "selected_fit_frobenius",
+      "passed": true,
+      "threshold": 1e-10,
+      "value": 5.579195576644833e-16
+    },
+    {
+      "comparison": "<=",
+      "criterion": "selected_radius_two_exterior",
+      "passed": true,
+      "threshold": 1e-10,
+      "value": 1.6711069443220838e-16
+    },
+    {
+      "comparison": "==",
+      "criterion": "exact_support_and_first_model_class_selection",
+      "passed": true,
+      "threshold": 1.0,
+      "value": 1.0
+    },
+    {
+      "comparison": "==",
+      "criterion": "schedule_preprocessing_agreement",
+      "passed": true,
+      "threshold": 1.0,
+      "value": 1.0
+    },
+    {
+      "comparison": "==",
+      "criterion": "schedule_invariance",
+      "passed": true,
+      "threshold": 0.0,
+      "value": 0.0
+    },
+    {
+      "comparison": "==",
+      "criterion": "adverse_controls_discriminate",
+      "passed": true,
+      "threshold": 1.0,
+      "value": 1.0
+    }
+  ],
+  "inventory": {
+    "route_evaluations": 208,
+    "bridge_records": 104,
+    "model_fit_records": 1040,
+    "schedule_comparisons": 104
+  },
+  "schedules": [
+    {
+      "adverse_controls": [
+        {
+          "control_id": "prealignment_subtraction",
+          "status": "DEFECT_2D.SITE_MAP_UNRESOLVED",
+          "value": null
+        },
+        {
+          "control_id": "omit_energy_reference_correction",
+          "status": "discriminating",
+          "value": 1.096
+        },
+        {
+          "control_id": "directional_as_isotropic",
+          "status": "discriminating",
+          "value": 0.06999999999999999
+        },
+        {
+          "control_id": "nonlocal_as_directional",
+          "status": "discriminating",
+          "value": 0.03535533905932738
+        },
+        {
+          "control_id": "omit_hermitian_reverse",
+          "status": "discriminating",
+          "value": 0.04
+        },
+        {
+          "control_id": "compare_raw_gauges_without_bridge",
+          "status": "discriminating",
+          "value": 0.011583035945751817
+        },
+        {
+          "control_id": "hold_generic_twist_fixed_under_quarter_turn",
+          "status": "discriminating",
+          "value": 0.009337814554236216
+        },
+        {
+          "control_id": "claim_D4_for_anisotropic_parent",
+          "status": "discriminating",
+          "value": 0.0059999999999999975
+        },
+        {
+          "control_id": "axis_swap_defect_without_parent_swap",
+          "status": "discriminating",
+          "value": 0.005999999999999998
+        },
+        {
+          "control_id": "construct_route_B_from_route_A",
+          "status": "DEFECT_2D.ROUTE_INDEPENDENCE_VIOLATION",
+          "value": 52.0
+        }
+      ]
+    }
+  ]
+}

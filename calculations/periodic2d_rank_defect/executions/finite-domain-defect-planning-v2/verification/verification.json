@@ -1,0 +1,16 @@
+{
+  "calculation_family": "periodic2d-rank-defect",
+  "claim_boundary": "Verification authenticates and reconstructs an execution-free plan only. The 1x1 through 5x5 cases remain periodic-aliasing controls. It verifies no operator, spectrum, isolated-defect trend, convergence trend, material claim, uncertainty statement, or protected calculation.",
+  "execution_id": "finite-domain-defect-planning-v2",
+  "execution_status": "not_executed",
+  "input_sha256": "a62ba1079b984be9305172a3e8ea1e1cb35e4ebfc33d92ac62cf9f361ecb1388",
+  "outcome": "passed",
+  "planning_script_sha256": "dde6b946696d893850f18c97f595e9090209b25435dbdd145d8af58a4fe3f5d9",
+  "record_type": "finite_domain_effects_planning_verification",
+  "result_sha256": "da722ec9042b232162c46fe49e228c14c714665cae35f6043e475d3d3d9a88d5",
+  "schema_version": 1,
+  "verification_script_sha256": "e6af60dcc693452bcaa6004976843060da3f960d70d688ac31e9e46988cd7e82",
+  "verified_isotropic_case_count": 2268,
+  "verified_orientation_case_count": 324,
+  "verified_proposed_operator_evaluation_count": 3240
+}

@@ -1,0 +1,2535 @@
+{
+  "definition": {
+    "anisotropic_parent": {
+      "hopping_maximum_squared_radius": 18,
+      "lambda_x": 0.3,
+      "lambda_xy": 0.0,
+      "lambda_y": 0.7,
+      "plane_wave_cutoff": 5,
+      "reciprocal_mesh_size": 15
+    },
+    "claim_boundary": "Accepted historical dimensionless synthetic parent capability qualification only. This request does not establish material validation, isolated-defect behavior, finite-domain convergence, uncertainty quantification, or authority to execute the 3,240-evaluation defect campaign.",
+    "expected_parent_digests": [
+      {
+        "parent_identifier": "isotropic_lambda_0p5_0p5_0",
+        "sha256": "5733135bd535483a0a12089dc4419c222e254d419d0795baa0bfe4e0687a9e9c"
+      },
+      {
+        "parent_identifier": "anisotropic_lambda_0p3_0p7_0",
+        "sha256": "179738aba0791e0742f580ca8214859d3f7e49e1029d82a90476936d886bc78d"
+      },
+      {
+        "parent_identifier": "anisotropic_lambda_0p7_0p3_0",
+        "sha256": "8c4c9ea9b35bb64155d6c03c0cac749f47ee0aa3564ee61b5d5758a160c55808"
+      }
+    ],
+    "identifier": "periodic2d-rank-defect.parent-qualification.v1",
+    "isotropic_parent": {
+      "basis_identifier": "spinless-scalar-site-x-outer-y-inner",
+      "energy_reference": "accepted-periodic2d-synthetic-parent-zero",
+      "energy_unit": "unitless",
+      "identifier": "isotropic_lambda_0p5_0p5_0",
+      "terms": [
+        {
+          "displacement": [
+            -4,
+            -1
+          ],
+          "imaginary": 3.080781708349013e-16,
+          "real": 1.4155343563970746e-17
+        },
+        {
+          "displacement": [
+            -4,
+            0
+          ],
+          "imaginary": -2.0368641987911684e-16,
+          "real": 2.5271582172684364e-05
+        },
+        {
+          "displacement": [
+            -4,
+            1
+          ],
+          "imaginary": -2.753051818044703e-16,
+          "real": -5.948945040283131e-17
+        },
+        {
+          "displacement": [
+            -3,
+            -3
+          ],
+          "imaginary": -1.7252104362062792e-16,
+          "real": -5.581954651587592e-17
+        },
+        {
+          "displacement": [
+            -3,
+            -2
+          ],
+          "imaginary": -2.404870491682242e-16,
+          "real": -1.668726885068534e-16
+        },
+        {
+          "displacement": [
+            -3,
+            -1
+          ],
+          "imaginary": 1.836115997085962e-16,
+          "real": 2.139646484680371e-16
+        },
+        {
+          "displacement": [
+            -3,
+            0
+          ],
+          "imaginary": 6.749876602788046e-17,
+          "real": -0.00017902128607923335
+        },
+        {
+          "displacement": [
+            -3,
+            1
+          ],
+          "imaginary": 6.14255971263644e-17,
+          "real": -1.905574463655234e-16
+        },
+        {
+          "displacement": [
+            -3,
+            2
+          ],
+          "imaginary": 7.762380519751355e-18,
+          "real": -1.3446034409349117e-16
+        },
+        {
+          "displacement": [
+            -3,
+            3
+          ],
+          "imaginary": -9.650857769424781e-17,
+          "real": 1.4704287170590963e-16
+        },
+        {
+          "displacement": [
+            -2,
+            -3
+          ],
+          "imaginary": 1.6017433730826675e-16,
+          "real": -3.2902692915904987e-16
+        },
+        {
+          "displacement": [
+            -2,
+            -2
+          ],
+          "imaginary": 7.898846970038944e-17,
+          "real": 1.8668708554356625e-16
+        },
+        {
+          "displacement": [
+            -2,
+            -1
+          ],
+          "imaginary": 1.498277965322646e-16,
+          "real": -1.4957171303977804e-16
+        },
+        {
+          "displacement": [
+            -2,
+            0
+          ],
+          "imaginary": 8.747070364649568e-17,
+          "real": 0.0015363199693359786
+        },
+        {
+          "displacement": [
+            -2,
+            1
+          ],
+          "imaginary": -1.2621961544409253e-16,
+          "real": -5.0576826677368245e-18
+        },
+        {
+          "displacement": [
+            -2,
+            2
+          ],
+          "imaginary": 4.294722520738331e-17,
+          "real": 2.604089783315228e-16
+        },
+        {
+          "displacement": [
+            -2,
+            3
+          ],
+          "imaginary": -5.007152608990394e-18,
+          "real": -1.640662914168287e-16
+        },
+        {
+          "displacement": [
+            -1,
+            -4
+          ],
+          "imaginary": -2.198592733926581e-17,
+          "real": -1.0676644753478589e-16
+        },
+        {
+          "displacement": [
+            -1,
+            -3
+          ],
+          "imaginary": -1.9458677220798005e-16,
+          "real": 1.457167719820518e-16
+        },
+        {
+          "displacement": [
+            -1,
+            -2
+          ],
+          "imaginary": -9.686807145505358e-17,
+          "real": 9.868649107779169e-17
+        },
+        {
+          "displacement": [
+            -1,
+            -1
+          ],
+          "imaginary": 8.75473967737095e-17,
+          "real": 1.4614852538051713e-16
+        },
+        {
+          "displacement": [
+            -1,
+            0
+          ],
+          "imaginary": 5.358549598032457e-17,
+          "real": -0.02137252443807221
+        },
+        {
+          "displacement": [
+            -1,
+            1
+          ],
+          "imaginary": -1.0583071204158915e-16,
+          "real": -1.6653345369377347e-17
+        },
+        {
+          "displacement": [
+            -1,
+            2
+          ],
+          "imaginary": -5.2977348754837637e-17,
+          "real": 1.4087496601354765e-16
+        },
+        {
+          "displacement": [
+            -1,
+            3
+          ],
+          "imaginary": -1.6023084177575332e-16,
+          "real": -1.5897776922063006e-16
+        },
+        {
+          "displacement": [
+            -1,
+            4
+          ],
+          "imaginary": -9.602208746688152e-17,
+          "real": -2.546111469807026e-16
+        },
+        {
+          "displacement": [
+            0,
+            -4
+          ],
+          "imaginary": 1.0709514767033201e-16,
+          "real": 2.5271582172869648e-05
+        },
+        {
+          "displacement": [
+            0,
+            -3
+          ],
+          "imaginary": 8.771040185911854e-17,
+          "real": -0.00017902128607927547
+        },
+        {
+          "displacement": [
+            0,
+            -2
+          ],
+          "imaginary": 1.7474422368001343e-16,
+          "real": 0.0015363199693359014
+        },
+        {
+          "displacement": [
+            0,
+            -1
+          ],
+          "imaginary": 1.7637969535818454e-16,
+          "real": -0.021372524438071864
+        },
+        {
+          "displacement": [
+            0,
+            0
+          ],
+          "imaginary": 0.0,
+          "real": -0.14759591107467127
+        },
+        {
+          "displacement": [
+            0,
+            1
+          ],
+          "imaginary": -1.7637969535818454e-16,
+          "real": -0.021372524438071864
+        },
+        {
+          "displacement": [
+            0,
+            2
+          ],
+          "imaginary": -1.7474422368001343e-16,
+          "real": 0.0015363199693359014
+        },
+        {
+          "displacement": [
+            0,
+            3
+          ],
+          "imaginary": -8.771040185911854e-17,
+          "real": -0.00017902128607927547
+        },
+        {
+          "displacement": [
+            0,
+            4
+          ],
+          "imaginary": -1.0709514767033201e-16,
+          "real": 2.5271582172869648e-05
+        },
+        {
+          "displacement": [
+            1,
+            -4
+          ],
+          "imaginary": 9.602208746688152e-17,
+          "real": -2.546111469807026e-16
+        },
+        {
+          "displacement": [
+            1,
+            -3
+          ],
+          "imaginary": 1.6023084177575332e-16,
+          "real": -1.5897776922063006e-16
+        },
+        {
+          "displacement": [
+            1,
+            -2
+          ],
+          "imaginary": 5.2977348754837637e-17,
+          "real": 1.4087496601354765e-16
+        },
+        {
+          "displacement": [
+            1,
+            -1
+          ],
+          "imaginary": 1.0583071204158915e-16,
+          "real": -1.6653345369377347e-17
+        },
+        {
+          "displacement": [
+            1,
+            0
+          ],
+          "imaginary": -5.358549598032457e-17,
+          "real": -0.02137252443807221
+        },
+        {
+          "displacement": [
+            1,
+            1
+          ],
+          "imaginary": -8.75473967737095e-17,
+          "real": 1.4614852538051713e-16
+        },
+        {
+          "displacement": [
+            1,
+            2
+          ],
+          "imaginary": 9.686807145505358e-17,
+          "real": 9.868649107779169e-17
+        },
+        {
+          "displacement": [
+            1,
+            3
+          ],
+          "imaginary": 1.9458677220798005e-16,
+          "real": 1.457167719820518e-16
+        },
+        {
+          "displacement": [
+            1,
+            4
+          ],
+          "imaginary": 2.198592733926581e-17,
+          "real": -1.0676644753478589e-16
+        },
+        {
+          "displacement": [
+            2,
+            -3
+          ],
+          "imaginary": 5.007152608990394e-18,
+          "real": -1.640662914168287e-16
+        },
+        {
+          "displacement": [
+            2,
+            -2
+          ],
+          "imaginary": -4.294722520738331e-17,
+          "real": 2.604089783315228e-16
+        },
+        {
+          "displacement": [
+            2,
+            -1
+          ],
+          "imaginary": 1.2621961544409253e-16,
+          "real": -5.0576826677368245e-18
+        },
+        {
+          "displacement": [
+            2,
+            0
+          ],
+          "imaginary": -8.747070364649568e-17,
+          "real": 0.0015363199693359786
+        },
+        {
+          "displacement": [
+            2,
+            1
+          ],
+          "imaginary": -1.498277965322646e-16,
+          "real": -1.4957171303977804e-16
+        },
+        {
+          "displacement": [
+            2,
+            2
+          ],
+          "imaginary": -7.898846970038944e-17,
+          "real": 1.8668708554356625e-16
+        },
+        {
+          "displacement": [
+            2,
+            3
+          ],
+          "imaginary": -1.6017433730826675e-16,
+          "real": -3.2902692915904987e-16
+        },
+        {
+          "displacement": [
+            3,
+            -3
+          ],
+          "imaginary": 9.650857769424781e-17,
+          "real": 1.4704287170590963e-16
+        },
+        {
+          "displacement": [
+            3,
+            -2
+          ],
+          "imaginary": -7.762380519751355e-18,
+          "real": -1.3446034409349117e-16
+        },
+        {
+          "displacement": [
+            3,
+            -1
+          ],
+          "imaginary": -6.14255971263644e-17,
+          "real": -1.905574463655234e-16
+        },
+        {
+          "displacement": [
+            3,
+            0
+          ],
+          "imaginary": -6.749876602788046e-17,
+          "real": -0.00017902128607923335
+        },
+        {
+          "displacement": [
+            3,
+            1
+          ],
+          "imaginary": -1.836115997085962e-16,
+          "real": 2.139646484680371e-16
+        },
+        {
+          "displacement": [
+            3,
+            2
+          ],
+          "imaginary": 2.404870491682242e-16,
+          "real": -1.668726885068534e-16
+        },
+        {
+          "displacement": [
+            3,
+            3
+          ],
+          "imaginary": 1.7252104362062792e-16,
+          "real": -5.581954651587592e-17
+        },
+        {
+          "displacement": [
+            4,
+            -1
+          ],
+          "imaginary": 2.753051818044703e-16,
+          "real": -5.948945040283131e-17
+        },
+        {
+          "displacement": [
+            4,
+            0
+          ],
+          "imaginary": 2.0368641987911684e-16,
+          "real": 2.5271582172684364e-05
+        },
+        {
+          "displacement": [
+            4,
+            1
+          ],
+          "imaginary": -3.080781708349013e-16,
+          "real": 1.4155343563970746e-17
+        }
+      ]
+    },
+    "isotropic_pretruncation_parent": {
+      "basis_identifier": "spinless-scalar-site-x-outer-y-inner",
+      "energy_reference": "accepted-periodic2d-synthetic-parent-zero",
+      "energy_unit": "unitless",
+      "identifier": "isotropic_lambda_0p5_0p5_0.pretruncation",
+      "terms": [
+        {
+          "displacement": [
+            -7,
+            -7
+          ],
+          "imaginary": -2.0136775196546826e-16,
+          "real": -7.894919286223336e-17
+        },
+        {
+          "displacement": [
+            -7,
+            -6
+          ],
+          "imaginary": -2.9487181824147774e-16,
+          "real": -1.6776703483224588e-17
+        },
+        {
+          "displacement": [
+            -7,
+            -5
+          ],
+          "imaginary": -4.5059944816191825e-17,
+          "real": 2.1316282072803005e-16
+        },
+        {
+          "displacement": [
+            -7,
+            -4
+          ],
+          "imaginary": 1.1891578145125048e-16,
+          "real": 1.652998725553011e-16
+        },
+        {
+          "displacement": [
+            -7,
+            -3
+          ],
+          "imaginary": -9.734514681032824e-17,
+          "real": 5.970532710206398e-17
+        },
+        {
+          "displacement": [
+            -7,
+            -2
+          ],
+          "imaginary": -1.0889138477361258e-16,
+          "real": 1.8750433304780422e-16
+        },
+        {
+          "displacement": [
+            -7,
+            -1
+          ],
+          "imaginary": 2.790777682140414e-17,
+          "real": 1.9046492778013796e-16
+        },
+        {
+          "displacement": [
+            -7,
+            0
+          ],
+          "imaginary": -2.088170370823862e-17,
+          "real": -9.460154349956914e-08
+        },
+        {
+          "displacement": [
+            -7,
+            1
+          ],
+          "imaginary": 1.502131130240925e-16,
+          "real": 8.289665250534503e-17
+        },
+        {
+          "displacement": [
+            -7,
+            2
+          ],
+          "imaginary": 2.6463854412210575e-16,
+          "real": -1.4062824978585316e-16
+        },
+        {
+          "displacement": [
+            -7,
+            3
+          ],
+          "imaginary": -5.312087291830003e-17,
+          "real": 1.9046492778013796e-16
+        },
+        {
+          "displacement": [
+            -7,
+            4
+          ],
+          "imaginary": -3.357587618313581e-16,
+          "real": -2.294460917558657e-16
+        },
+        {
+          "displacement": [
+            -7,
+            5
+          ],
+          "imaginary": 9.638205292462615e-17,
+          "real": 1.973729821555834e-18
+        },
+        {
+          "displacement": [
+            -7,
+            6
+          ],
+          "imaginary": -4.763459023517955e-16,
+          "real": 2.348738487651442e-16
+        },
+        {
+          "displacement": [
+            -7,
+            7
+          ],
+          "imaginary": 2.955939966567763e-16,
+          "real": -1.1052887000712669e-16
+        },
+        {
+          "displacement": [
+            -6,
+            -7
+          ],
+          "imaginary": 1.5018992796049523e-16,
+          "real": 1.5493779099213297e-16
+        },
+        {
+          "displacement": [
+            -6,
+            -6
+          ],
+          "imaginary": 1.5634212585624578e-16,
+          "real": -1.5148376380441024e-16
+        },
+        {
+          "displacement": [
+            -6,
+            -5
+          ],
+          "imaginary": 9.320047044049219e-17,
+          "real": 7.688294445529209e-17
+        },
+        {
+          "displacement": [
+            -6,
+            -4
+          ],
+          "imaginary": 1.699896451739248e-16,
+          "real": -4.558082306655504e-17
+        },
+        {
+          "displacement": [
+            -6,
+            -3
+          ],
+          "imaginary": 6.572140892234135e-17,
+          "real": -9.313537595466591e-18
+        },
+        {
+          "displacement": [
+            -6,
+            -2
+          ],
+          "imaginary": -4.6522953967618516e-17,
+          "real": -8.450030798535914e-18
+        },
+        {
+          "displacement": [
+            -6,
+            -1
+          ],
+          "imaginary": -9.892604066710567e-17,
+          "real": -1.3001945199499057e-16
+        },
+        {
+          "displacement": [
+            -6,
+            0
+          ],
+          "imaginary": 1.7562835139032061e-16,
+          "real": 6.569794969560031e-07
+        },
+        {
+          "displacement": [
+            -6,
+            1
+          ],
+          "imaginary": 1.3217068331086641e-16,
+          "real": 1.142912924794675e-16
+        },
+        {
+          "displacement": [
+            -6,
+            2
+          ],
+          "imaginary": -1.2168081992933516e-16,
+          "real": 9.270362255620057e-17
+        },
+        {
+          "displacement": [
+            -6,
+            3
+          ],
+          "imaginary": -4.1868129621830326e-17,
+          "real": -1.3569392523196358e-18
+        },
+        {
+          "displacement": [
+            -6,
+            4
+          ],
+          "imaginary": -1.3363313038215077e-17,
+          "real": -2.3314683517128286e-17
+        },
+        {
+          "displacement": [
+            -6,
+            5
+          ],
+          "imaginary": -2.7202281912889124e-17,
+          "real": 3.2156376327129184e-16
+        },
+        {
+          "displacement": [
+            -6,
+            6
+          ],
+          "imaginary": 4.3141192242619386e-17,
+          "real": -1.8010284621696984e-16
+        },
+        {
+          "displacement": [
+            -6,
+            7
+          ],
+          "imaginary": -2.1958294693268215e-17,
+          "real": -5.723816482511918e-17
+        },
+        {
+          "displacement": [
+            -5,
+            -7
+          ],
+          "imaginary": 2.3436311844318114e-16,
+          "real": -8.388351741612294e-17
+        },
+        {
+          "displacement": [
+            -5,
+            -6
+          ],
+          "imaginary": -1.9166213699778477e-16,
+          "real": 6.809367884367626e-17
+        },
+        {
+          "displacement": [
+            -5,
+            -5
+          ],
+          "imaginary": 2.356987038771747e-17,
+          "real": -2.4554432561293043e-16
+        },
+        {
+          "displacement": [
+            -5,
+            -4
+          ],
+          "imaginary": 4.130205464756968e-17,
+          "real": -7.7222179268372e-17
+        },
+        {
+          "displacement": [
+            -5,
+            -3
+          ],
+          "imaginary": -2.7896510068815684e-17,
+          "real": 1.849754917139358e-16
+        },
+        {
+          "displacement": [
+            -5,
+            -2
+          ],
+          "imaginary": 3.057896624631895e-16,
+          "real": 2.1257686968725567e-16
+        },
+        {
+          "displacement": [
+            -5,
+            -1
+          ],
+          "imaginary": 8.159263758508129e-17,
+          "real": 6.926558092522505e-17
+        },
+        {
+          "displacement": [
+            -5,
+            0
+          ],
+          "imaginary": 1.8437133933458326e-17,
+          "real": -3.955442451156847e-06
+        },
+        {
+          "displacement": [
+            -5,
+            1
+          ],
+          "imaginary": 1.744122411527732e-17,
+          "real": -5.982868521591121e-18
+        },
+        {
+          "displacement": [
+            -5,
+            2
+          ],
+          "imaginary": -8.644077975189992e-17,
+          "real": 3.605140877185578e-17
+        },
+        {
+          "displacement": [
+            -5,
+            3
+          ],
+          "imaginary": -1.1969854393528074e-16,
+          "real": 2.0835185428798772e-16
+        },
+        {
+          "displacement": [
+            -5,
+            4
+          ],
+          "imaginary": 1.7517588658939396e-17,
+          "real": 1.8010284621696984e-16
+        },
+        {
+          "displacement": [
+            -5,
+            5
+          ],
+          "imaginary": 9.983327956852262e-17,
+          "real": -2.837236618486511e-16
+        },
+        {
+          "displacement": [
+            -5,
+            6
+          ],
+          "imaginary": -6.950526431604239e-17,
+          "real": 1.3137639124731019e-17
+        },
+        {
+          "displacement": [
+            -5,
+            7
+          ],
+          "imaginary": -1.7687432594616964e-16,
+          "real": 2.6645352591003756e-16
+        },
+        {
+          "displacement": [
+            -4,
+            -7
+          ],
+          "imaginary": 1.2978364196840233e-17,
+          "real": -1.1941065420412795e-16
+        },
+        {
+          "displacement": [
+            -4,
+            -6
+          ],
+          "imaginary": -1.1332861133868388e-16,
+          "real": -6.537980033903699e-18
+        },
+        {
+          "displacement": [
+            -4,
+            -5
+          ],
+          "imaginary": -2.1636414256772335e-17,
+          "real": 1.1126901869021012e-16
+        },
+        {
+          "displacement": [
+            -4,
+            -4
+          ],
+          "imaginary": 2.226455775550542e-16,
+          "real": 6.747688827444007e-17
+        },
+        {
+          "displacement": [
+            -4,
+            -3
+          ],
+          "imaginary": -1.7789120810318624e-18,
+          "real": -1.0263395072090336e-16
+        },
+        {
+          "displacement": [
+            -4,
+            -2
+          ],
+          "imaginary": -7.214089777081205e-17,
+          "real": -5.952028993129311e-18
+        },
+        {
+          "displacement": [
+            -4,
+            -1
+          ],
+          "imaginary": 3.080781708349013e-16,
+          "real": 1.4155343563970746e-17
+        },
+        {
+          "displacement": [
+            -4,
+            0
+          ],
+          "imaginary": -2.0368641987911684e-16,
+          "real": 2.5271582172684364e-05
+        },
+        {
+          "displacement": [
+            -4,
+            1
+          ],
+          "imaginary": -2.753051818044703e-16,
+          "real": -5.948945040283131e-17
+        },
+        {
+          "displacement": [
+            -4,
+            2
+          ],
+          "imaginary": -1.0509788207489258e-16,
+          "real": 2.381428387820961e-16
+        },
+        {
+          "displacement": [
+            -4,
+            3
+          ],
+          "imaginary": -1.2007993658858485e-16,
+          "real": 1.7529187977692748e-16
+        },
+        {
+          "displacement": [
+            -4,
+            4
+          ],
+          "imaginary": -6.542952784575718e-17,
+          "real": -1.768955352569416e-16
+        },
+        {
+          "displacement": [
+            -4,
+            5
+          ],
+          "imaginary": 1.4110937298825836e-16,
+          "real": -3.4046839421838136e-16
+        },
+        {
+          "displacement": [
+            -4,
+            6
+          ],
+          "imaginary": 6.530249953924267e-17,
+          "real": 2.0859857051568218e-16
+        },
+        {
+          "displacement": [
+            -4,
+            7
+          ],
+          "imaginary": -1.8915546906102344e-18,
+          "real": -3.1332960917198864e-16
+        },
+        {
+          "displacement": [
+            -3,
+            -7
+          ],
+          "imaginary": -2.169780413623149e-16,
+          "real": 1.6184584536757838e-16
+        },
+        {
+          "displacement": [
+            -3,
+            -6
+          ],
+          "imaginary": -7.490840041548154e-17,
+          "real": -2.243884090881289e-16
+        },
+        {
+          "displacement": [
+            -3,
+            -5
+          ],
+          "imaginary": 4.2856018260916725e-17,
+          "real": -8.857112574231805e-17
+        },
+        {
+          "displacement": [
+            -3,
+            -4
+          ],
+          "imaginary": -6.117947095074928e-17,
+          "real": -1.4287953536356528e-16
+        },
+        {
+          "displacement": [
+            -3,
+            -3
+          ],
+          "imaginary": -1.7252104362062792e-16,
+          "real": -5.581954651587592e-17
+        },
+        {
+          "displacement": [
+            -3,
+            -2
+          ],
+          "imaginary": -2.404870491682242e-16,
+          "real": -1.668726885068534e-16
+        },
+        {
+          "displacement": [
+            -3,
+            -1
+          ],
+          "imaginary": 1.836115997085962e-16,
+          "real": 2.139646484680371e-16
+        },
+        {
+          "displacement": [
+            -3,
+            0
+          ],
+          "imaginary": 6.749876602788046e-17,
+          "real": -0.00017902128607923335
+        },
+        {
+          "displacement": [
+            -3,
+            1
+          ],
+          "imaginary": 6.14255971263644e-17,
+          "real": -1.905574463655234e-16
+        },
+        {
+          "displacement": [
+            -3,
+            2
+          ],
+          "imaginary": 7.762380519751355e-18,
+          "real": -1.3446034409349117e-16
+        },
+        {
+          "displacement": [
+            -3,
+            3
+          ],
+          "imaginary": -9.650857769424781e-17,
+          "real": 1.4704287170590963e-16
+        },
+        {
+          "displacement": [
+            -3,
+            4
+          ],
+          "imaginary": 2.393384522789921e-16,
+          "real": 1.6517651444145386e-16
+        },
+        {
+          "displacement": [
+            -3,
+            5
+          ],
+          "imaginary": 1.883932008855738e-17,
+          "real": 7.833240229299716e-17
+        },
+        {
+          "displacement": [
+            -3,
+            6
+          ],
+          "imaginary": 1.8438094990624588e-16,
+          "real": 8.264993627765054e-17
+        },
+        {
+          "displacement": [
+            -3,
+            7
+          ],
+          "imaginary": 3.094059494982624e-17,
+          "real": 8.68441121484567e-17
+        },
+        {
+          "displacement": [
+            -2,
+            -7
+          ],
+          "imaginary": 6.153907750018544e-17,
+          "real": -5.2797272726618556e-17
+        },
+        {
+          "displacement": [
+            -2,
+            -6
+          ],
+          "imaginary": -2.1196363760398908e-16,
+          "real": -7.793148842299363e-17
+        },
+        {
+          "displacement": [
+            -2,
+            -5
+          ],
+          "imaginary": -1.5184348968325845e-16,
+          "real": 7.031412489292658e-17
+        },
+        {
+          "displacement": [
+            -2,
+            -4
+          ],
+          "imaginary": 1.1582178936626272e-16,
+          "real": 2.5288413338684122e-18
+        },
+        {
+          "displacement": [
+            -2,
+            -3
+          ],
+          "imaginary": 1.6017433730826675e-16,
+          "real": -3.2902692915904987e-16
+        },
+        {
+          "displacement": [
+            -2,
+            -2
+          ],
+          "imaginary": 7.898846970038944e-17,
+          "real": 1.8668708554356625e-16
+        },
+        {
+          "displacement": [
+            -2,
+            -1
+          ],
+          "imaginary": 1.498277965322646e-16,
+          "real": -1.4957171303977804e-16
+        },
+        {
+          "displacement": [
+            -2,
+            0
+          ],
+          "imaginary": 8.747070364649568e-17,
+          "real": 0.0015363199693359786
+        },
+        {
+          "displacement": [
+            -2,
+            1
+          ],
+          "imaginary": -1.2621961544409253e-16,
+          "real": -5.0576826677368245e-18
+        },
+        {
+          "displacement": [
+            -2,
+            2
+          ],
+          "imaginary": 4.294722520738331e-17,
+          "real": 2.604089783315228e-16
+        },
+        {
+          "displacement": [
+            -2,
+            3
+          ],
+          "imaginary": -5.007152608990394e-18,
+          "real": -1.640662914168287e-16
+        },
+        {
+          "displacement": [
+            -2,
+            4
+          ],
+          "imaginary": 4.072186915639617e-17,
+          "real": -6.775444403059636e-17
+        },
+        {
+          "displacement": [
+            -2,
+            5
+          ],
+          "imaginary": -6.496091500649564e-17,
+          "real": 2.142730437526552e-16
+        },
+        {
+          "displacement": [
+            -2,
+            6
+          ],
+          "imaginary": -6.749219658928509e-17,
+          "real": 1.429103748920271e-16
+        },
+        {
+          "displacement": [
+            -2,
+            7
+          ],
+          "imaginary": 1.765348768259469e-16,
+          "real": 2.955660407779861e-16
+        },
+        {
+          "displacement": [
+            -1,
+            -7
+          ],
+          "imaginary": -3.054501256822514e-16,
+          "real": 1.376676550535194e-16
+        },
+        {
+          "displacement": [
+            -1,
+            -6
+          ],
+          "imaginary": 3.7738113859817264e-17,
+          "real": -1.7017251805226705e-16
+        },
+        {
+          "displacement": [
+            -1,
+            -5
+          ],
+          "imaginary": -1.3984623862072658e-16,
+          "real": 1.6634841652300262e-16
+        },
+        {
+          "displacement": [
+            -1,
+            -4
+          ],
+          "imaginary": -2.198592733926581e-17,
+          "real": -1.0676644753478589e-16
+        },
+        {
+          "displacement": [
+            -1,
+            -3
+          ],
+          "imaginary": -1.9458677220798005e-16,
+          "real": 1.457167719820518e-16
+        },
+        {
+          "displacement": [
+            -1,
+            -2
+          ],
+          "imaginary": -9.686807145505358e-17,
+          "real": 9.868649107779169e-17
+        },
+        {
+          "displacement": [
+            -1,
+            -1
+          ],
+          "imaginary": 8.75473967737095e-17,
+          "real": 1.4614852538051713e-16
+        },
+        {
+          "displacement": [
+            -1,
+            0
+          ],
+          "imaginary": 5.358549598032457e-17,
+          "real": -0.02137252443807221
+        },
+        {
+          "displacement": [
+            -1,
+            1
+          ],
+          "imaginary": -1.0583071204158915e-16,
+          "real": -1.6653345369377347e-17
+        },
+        {
+          "displacement": [
+            -1,
+            2
+          ],
+          "imaginary": -5.2977348754837637e-17,
+          "real": 1.4087496601354765e-16
+        },
+        {
+          "displacement": [
+            -1,
+            3
+          ],
+          "imaginary": -1.6023084177575332e-16,
+          "real": -1.5897776922063006e-16
+        },
+        {
+          "displacement": [
+            -1,
+            4
+          ],
+          "imaginary": -9.602208746688152e-17,
+          "real": -2.546111469807026e-16
+        },
+        {
+          "displacement": [
+            -1,
+            5
+          ],
+          "imaginary": 2.36558818817782e-17,
+          "real": -4.63826508065621e-17
+        },
+        {
+          "displacement": [
+            -1,
+            6
+          ],
+          "imaginary": -9.727096734664973e-17,
+          "real": -1.1950317278951337e-16
+        },
+        {
+          "displacement": [
+            -1,
+            7
+          ],
+          "imaginary": -8.03423616581994e-18,
+          "real": 9.325873406851315e-17
+        },
+        {
+          "displacement": [
+            0,
+            -7
+          ],
+          "imaginary": 2.343518946070129e-17,
+          "real": -9.4601543464042e-08
+        },
+        {
+          "displacement": [
+            0,
+            -6
+          ],
+          "imaginary": -1.634981047884384e-16,
+          "real": 6.569794972792938e-07
+        },
+        {
+          "displacement": [
+            0,
+            -5
+          ],
+          "imaginary": -1.2150161877182964e-16,
+          "real": -3.955442451127857e-06
+        },
+        {
+          "displacement": [
+            0,
+            -4
+          ],
+          "imaginary": 1.0709514767033201e-16,
+          "real": 2.5271582172869648e-05
+        },
+        {
+          "displacement": [
+            0,
+            -3
+          ],
+          "imaginary": 8.771040185911854e-17,
+          "real": -0.00017902128607927547
+        },
+        {
+          "displacement": [
+            0,
+            -2
+          ],
+          "imaginary": 1.7474422368001343e-16,
+          "real": 0.0015363199693359014
+        },
+        {
+          "displacement": [
+            0,
+            -1
+          ],
+          "imaginary": 1.7637969535818454e-16,
+          "real": -0.021372524438071864
+        },
+        {
+          "displacement": [
+            0,
+            0
+          ],
+          "imaginary": 0.0,
+          "real": -0.14759591107467127
+        },
+        {
+          "displacement": [
+            0,
+            1
+          ],
+          "imaginary": -1.7637969535818454e-16,
+          "real": -0.021372524438071864
+        },
+        {
+          "displacement": [
+            0,
+            2
+          ],
+          "imaginary": -1.7474422368001343e-16,
+          "real": 0.0015363199693359014
+        },
+        {
+          "displacement": [
+            0,
+            3
+          ],
+          "imaginary": -8.771040185911854e-17,
+          "real": -0.00017902128607927547
+        },
+        {
+          "displacement": [
+            0,
+            4
+          ],
+          "imaginary": -1.0709514767033201e-16,
+          "real": 2.5271582172869648e-05
+        },
+        {
+          "displacement": [
+            0,
+            5
+          ],
+          "imaginary": 1.2150161877182964e-16,
+          "real": -3.955442451127857e-06
+        },
+        {
+          "displacement": [
+            0,
+            6
+          ],
+          "imaginary": 1.634981047884384e-16,
+          "real": 6.569794972792938e-07
+        },
+        {
+          "displacement": [
+            0,
+            7
+          ],
+          "imaginary": -2.343518946070129e-17,
+          "real": -9.4601543464042e-08
+        },
+        {
+          "displacement": [
+            1,
+            -7
+          ],
+          "imaginary": 8.03423616581994e-18,
+          "real": 9.325873406851315e-17
+        },
+        {
+          "displacement": [
+            1,
+            -6
+          ],
+          "imaginary": 9.727096734664973e-17,
+          "real": -1.1950317278951337e-16
+        },
+        {
+          "displacement": [
+            1,
+            -5
+          ],
+          "imaginary": -2.36558818817782e-17,
+          "real": -4.63826508065621e-17
+        },
+        {
+          "displacement": [
+            1,
+            -4
+          ],
+          "imaginary": 9.602208746688152e-17,
+          "real": -2.546111469807026e-16
+        },
+        {
+          "displacement": [
+            1,
+            -3
+          ],
+          "imaginary": 1.6023084177575332e-16,
+          "real": -1.5897776922063006e-16
+        },
+        {
+          "displacement": [
+            1,
+            -2
+          ],
+          "imaginary": 5.2977348754837637e-17,
+          "real": 1.4087496601354765e-16
+        },
+        {
+          "displacement": [
+            1,
+            -1
+          ],
+          "imaginary": 1.0583071204158915e-16,
+          "real": -1.6653345369377347e-17
+        },
+        {
+          "displacement": [
+            1,
+            0
+          ],
+          "imaginary": -5.358549598032457e-17,
+          "real": -0.02137252443807221
+        },
+        {
+          "displacement": [
+            1,
+            1
+          ],
+          "imaginary": -8.75473967737095e-17,
+          "real": 1.4614852538051713e-16
+        },
+        {
+          "displacement": [
+            1,
+            2
+          ],
+          "imaginary": 9.686807145505358e-17,
+          "real": 9.868649107779169e-17
+        },
+        {
+          "displacement": [
+            1,
+            3
+          ],
+          "imaginary": 1.9458677220798005e-16,
+          "real": 1.457167719820518e-16
+        },
+        {
+          "displacement": [
+            1,
+            4
+          ],
+          "imaginary": 2.198592733926581e-17,
+          "real": -1.0676644753478589e-16
+        },
+        {
+          "displacement": [
+            1,
+            5
+          ],
+          "imaginary": 1.3984623862072658e-16,
+          "real": 1.6634841652300262e-16
+        },
+        {
+          "displacement": [
+            1,
+            6
+          ],
+          "imaginary": -3.7738113859817264e-17,
+          "real": -1.7017251805226705e-16
+        },
+        {
+          "displacement": [
+            1,
+            7
+          ],
+          "imaginary": 3.054501256822514e-16,
+          "real": 1.376676550535194e-16
+        },
+        {
+          "displacement": [
+            2,
+            -7
+          ],
+          "imaginary": -1.765348768259469e-16,
+          "real": 2.955660407779861e-16
+        },
+        {
+          "displacement": [
+            2,
+            -6
+          ],
+          "imaginary": 6.749219658928509e-17,
+          "real": 1.429103748920271e-16
+        },
+        {
+          "displacement": [
+            2,
+            -5
+          ],
+          "imaginary": 6.496091500649564e-17,
+          "real": 2.142730437526552e-16
+        },
+        {
+          "displacement": [
+            2,
+            -4
+          ],
+          "imaginary": -4.072186915639617e-17,
+          "real": -6.775444403059636e-17
+        },
+        {
+          "displacement": [
+            2,
+            -3
+          ],
+          "imaginary": 5.007152608990394e-18,
+          "real": -1.640662914168287e-16
+        },
+        {
+          "displacement": [
+            2,
+            -2
+          ],
+          "imaginary": -4.294722520738331e-17,
+          "real": 2.604089783315228e-16
+        },
+        {
+          "displacement": [
+            2,
+            -1
+          ],
+          "imaginary": 1.2621961544409253e-16,
+          "real": -5.0576826677368245e-18
+        },
+        {
+          "displacement": [
+            2,
+            0
+          ],
+          "imaginary": -8.747070364649568e-17,
+          "real": 0.0015363199693359786
+        },
+        {
+          "displacement": [
+            2,
+            1
+          ],
+          "imaginary": -1.498277965322646e-16,
+          "real": -1.4957171303977804e-16
+        },
+        {
+          "displacement": [
+            2,
+            2
+          ],
+          "imaginary": -7.898846970038944e-17,
+          "real": 1.8668708554356625e-16
+        },
+        {
+          "displacement": [
+            2,
+            3
+          ],
+          "imaginary": -1.6017433730826675e-16,
+          "real": -3.2902692915904987e-16
+        },
+        {
+          "displacement": [
+            2,
+            4
+          ],
+          "imaginary": -1.1582178936626272e-16,
+          "real": 2.5288413338684122e-18
+        },
+        {
+          "displacement": [
+            2,
+            5
+          ],
+          "imaginary": 1.5184348968325845e-16,
+          "real": 7.031412489292658e-17
+        },
+        {
+          "displacement": [
+            2,
+            6
+          ],
+          "imaginary": 2.1196363760398908e-16,
+          "real": -7.793148842299363e-17
+        },
+        {
+          "displacement": [
+            2,
+            7
+          ],
+          "imaginary": -6.153907750018544e-17,
+          "real": -5.2797272726618556e-17
+        },
+        {
+          "displacement": [
+            3,
+            -7
+          ],
+          "imaginary": -3.094059494982624e-17,
+          "real": 8.68441121484567e-17
+        },
+        {
+          "displacement": [
+            3,
+            -6
+          ],
+          "imaginary": -1.8438094990624588e-16,
+          "real": 8.264993627765054e-17
+        },
+        {
+          "displacement": [
+            3,
+            -5
+          ],
+          "imaginary": -1.883932008855738e-17,
+          "real": 7.833240229299716e-17
+        },
+        {
+          "displacement": [
+            3,
+            -4
+          ],
+          "imaginary": -2.393384522789921e-16,
+          "real": 1.6517651444145386e-16
+        },
+        {
+          "displacement": [
+            3,
+            -3
+          ],
+          "imaginary": 9.650857769424781e-17,
+          "real": 1.4704287170590963e-16
+        },
+        {
+          "displacement": [
+            3,
+            -2
+          ],
+          "imaginary": -7.762380519751355e-18,
+          "real": -1.3446034409349117e-16
+        },
+        {
+          "displacement": [
+            3,
+            -1
+          ],
+          "imaginary": -6.14255971263644e-17,
+          "real": -1.905574463655234e-16
+        },
+        {
+          "displacement": [
+            3,
+            0
+          ],
+          "imaginary": -6.749876602788046e-17,
+          "real": -0.00017902128607923335
+        },
+        {
+          "displacement": [
+            3,
+            1
+          ],
+          "imaginary": -1.836115997085962e-16,
+          "real": 2.139646484680371e-16
+        },
+        {
+          "displacement": [
+            3,
+            2
+          ],
+          "imaginary": 2.404870491682242e-16,
+          "real": -1.668726885068534e-16
+        },
+        {
+          "displacement": [
+            3,
+            3
+          ],
+          "imaginary": 1.7252104362062792e-16,
+          "real": -5.581954651587592e-17
+        },
+        {
+          "displacement": [
+            3,
+            4
+          ],
+          "imaginary": 6.117947095074928e-17,
+          "real": -1.4287953536356528e-16
+        },
+        {
+          "displacement": [
+            3,
+            5
+          ],
+          "imaginary": -4.2856018260916725e-17,
+          "real": -8.857112574231805e-17
+        },
+        {
+          "displacement": [
+            3,
+            6
+          ],
+          "imaginary": 7.490840041548154e-17,
+          "real": -2.243884090881289e-16
+        },
+        {
+          "displacement": [
+            3,
+            7
+          ],
+          "imaginary": 2.169780413623149e-16,
+          "real": 1.6184584536757838e-16
+        },
+        {
+          "displacement": [
+            4,
+            -7
+          ],
+          "imaginary": 1.8915546906102344e-18,
+          "real": -3.1332960917198864e-16
+        },
+        {
+          "displacement": [
+            4,
+            -6
+          ],
+          "imaginary": -6.530249953924267e-17,
+          "real": 2.0859857051568218e-16
+        },
+        {
+          "displacement": [
+            4,
+            -5
+          ],
+          "imaginary": -1.4110937298825836e-16,
+          "real": -3.4046839421838136e-16
+        },
+        {
+          "displacement": [
+            4,
+            -4
+          ],
+          "imaginary": 6.542952784575718e-17,
+          "real": -1.768955352569416e-16
+        },
+        {
+          "displacement": [
+            4,
+            -3
+          ],
+          "imaginary": 1.2007993658858485e-16,
+          "real": 1.7529187977692748e-16
+        },
+        {
+          "displacement": [
+            4,
+            -2
+          ],
+          "imaginary": 1.0509788207489258e-16,
+          "real": 2.381428387820961e-16
+        },
+        {
+          "displacement": [
+            4,
+            -1
+          ],
+          "imaginary": 2.753051818044703e-16,
+          "real": -5.948945040283131e-17
+        },
+        {
+          "displacement": [
+            4,
+            0
+          ],
+          "imaginary": 2.0368641987911684e-16,
+          "real": 2.5271582172684364e-05
+        },
+        {
+          "displacement": [
+            4,
+            1
+          ],
+          "imaginary": -3.080781708349013e-16,
+          "real": 1.4155343563970746e-17
+        },
+        {
+          "displacement": [
+            4,
+            2
+          ],
+          "imaginary": 7.214089777081205e-17,
+          "real": -5.952028993129311e-18
+        },
+        {
+          "displacement": [
+            4,
+            3
+          ],
+          "imaginary": 1.7789120810318624e-18,
+          "real": -1.0263395072090336e-16
+        },
+        {
+          "displacement": [
+            4,
+            4
+          ],
+          "imaginary": -2.226455775550542e-16,
+          "real": 6.747688827444007e-17
+        },
+        {
+          "displacement": [
+            4,
+            5
+          ],
+          "imaginary": 2.1636414256772335e-17,
+          "real": 1.1126901869021012e-16
+        },
+        {
+          "displacement": [
+            4,
+            6
+          ],
+          "imaginary": 1.1332861133868388e-16,
+          "real": -6.537980033903699e-18
+        },
+        {
+          "displacement": [
+            4,
+            7
+          ],
+          "imaginary": -1.2978364196840233e-17,
+          "real": -1.1941065420412795e-16
+        },
+        {
+          "displacement": [
+            5,
+            -7
+          ],
+          "imaginary": 1.7687432594616964e-16,
+          "real": 2.6645352591003756e-16
+        },
+        {
+          "displacement": [
+            5,
+            -6
+          ],
+          "imaginary": 6.950526431604239e-17,
+          "real": 1.3137639124731019e-17
+        },
+        {
+          "displacement": [
+            5,
+            -5
+          ],
+          "imaginary": -9.983327956852262e-17,
+          "real": -2.837236618486511e-16
+        },
+        {
+          "displacement": [
+            5,
+            -4
+          ],
+          "imaginary": -1.7517588658939396e-17,
+          "real": 1.8010284621696984e-16
+        },
+        {
+          "displacement": [
+            5,
+            -3
+          ],
+          "imaginary": 1.1969854393528074e-16,
+          "real": 2.0835185428798772e-16
+        },
+        {
+          "displacement": [
+            5,
+            -2
+          ],
+          "imaginary": 8.644077975189992e-17,
+          "real": 3.605140877185578e-17
+        },
+        {
+          "displacement": [
+            5,
+            -1
+          ],
+          "imaginary": -1.744122411527732e-17,
+          "real": -5.982868521591121e-18
+        },
+        {
+          "displacement": [
+            5,
+            0
+          ],
+          "imaginary": -1.8437133933458326e-17,
+          "real": -3.955442451156847e-06
+        },
+        {
+          "displacement": [
+            5,
+            1
+          ],
+          "imaginary": -8.159263758508129e-17,
+          "real": 6.926558092522505e-17
+        },
+        {
+          "displacement": [
+            5,
+            2
+          ],
+          "imaginary": -3.057896624631895e-16,
+          "real": 2.1257686968725567e-16
+        },
+        {
+          "displacement": [
+            5,
+            3
+          ],
+          "imaginary": 2.7896510068815684e-17,
+          "real": 1.849754917139358e-16
+        },
+        {
+          "displacement": [
+            5,
+            4
+          ],
+          "imaginary": -4.130205464756968e-17,
+          "real": -7.7222179268372e-17
+        },
+        {
+          "displacement": [
+            5,
+            5
+          ],
+          "imaginary": -2.356987038771747e-17,
+          "real": -2.4554432561293043e-16
+        },
+        {
+          "displacement": [
+            5,
+            6
+          ],
+          "imaginary": 1.9166213699778477e-16,
+          "real": 6.809367884367626e-17
+        },
+        {
+          "displacement": [
+            5,
+            7
+          ],
+          "imaginary": -2.3436311844318114e-16,
+          "real": -8.388351741612294e-17
+        },
+        {
+          "displacement": [
+            6,
+            -7
+          ],
+          "imaginary": 2.1958294693268215e-17,
+          "real": -5.723816482511918e-17
+        },
+        {
+          "displacement": [
+            6,
+            -6
+          ],
+          "imaginary": -4.3141192242619386e-17,
+          "real": -1.8010284621696984e-16
+        },
+        {
+          "displacement": [
+            6,
+            -5
+          ],
+          "imaginary": 2.7202281912889124e-17,
+          "real": 3.2156376327129184e-16
+        },
+        {
+          "displacement": [
+            6,
+            -4
+          ],
+          "imaginary": 1.3363313038215077e-17,
+          "real": -2.3314683517128286e-17
+        },
+        {
+          "displacement": [
+            6,
+            -3
+          ],
+          "imaginary": 4.1868129621830326e-17,
+          "real": -1.3569392523196358e-18
+        },
+        {
+          "displacement": [
+            6,
+            -2
+          ],
+          "imaginary": 1.2168081992933516e-16,
+          "real": 9.270362255620057e-17
+        },
+        {
+          "displacement": [
+            6,
+            -1
+          ],
+          "imaginary": -1.3217068331086641e-16,
+          "real": 1.142912924794675e-16
+        },
+        {
+          "displacement": [
+            6,
+            0
+          ],
+          "imaginary": -1.7562835139032061e-16,
+          "real": 6.569794969560031e-07
+        },
+        {
+          "displacement": [
+            6,
+            1
+          ],
+          "imaginary": 9.892604066710567e-17,
+          "real": -1.3001945199499057e-16
+        },
+        {
+          "displacement": [
+            6,
+            2
+          ],
+          "imaginary": 4.6522953967618516e-17,
+          "real": -8.450030798535914e-18
+        },
+        {
+          "displacement": [
+            6,
+            3
+          ],
+          "imaginary": -6.572140892234135e-17,
+          "real": -9.313537595466591e-18
+        },
+        {
+          "displacement": [
+            6,
+            4
+          ],
+          "imaginary": -1.699896451739248e-16,
+          "real": -4.558082306655504e-17
+        },
+        {
+          "displacement": [
+            6,
+            5
+          ],
+          "imaginary": -9.320047044049219e-17,
+          "real": 7.688294445529209e-17
+        },
+        {
+          "displacement": [
+            6,
+            6
+          ],
+          "imaginary": -1.5634212585624578e-16,
+          "real": -1.5148376380441024e-16
+        },
+        {
+          "displacement": [
+            6,
+            7
+          ],
+          "imaginary": -1.5018992796049523e-16,
+          "real": 1.5493779099213297e-16
+        },
+        {
+          "displacement": [
+            7,
+            -7
+          ],
+          "imaginary": -2.955939966567763e-16,
+          "real": -1.1052887000712669e-16
+        },
+        {
+          "displacement": [
+            7,
+            -6
+          ],
+          "imaginary": 4.763459023517955e-16,
+          "real": 2.348738487651442e-16
+        },
+        {
+          "displacement": [
+            7,
+            -5
+          ],
+          "imaginary": -9.638205292462615e-17,
+          "real": 1.973729821555834e-18
+        },
+        {
+          "displacement": [
+            7,
+            -4
+          ],
+          "imaginary": 3.357587618313581e-16,
+          "real": -2.294460917558657e-16
+        },
+        {
+          "displacement": [
+            7,
+            -3
+          ],
+          "imaginary": 5.312087291830003e-17,
+          "real": 1.9046492778013796e-16
+        },
+        {
+          "displacement": [
+            7,
+            -2
+          ],
+          "imaginary": -2.6463854412210575e-16,
+          "real": -1.4062824978585316e-16
+        },
+        {
+          "displacement": [
+            7,
+            -1
+          ],
+          "imaginary": -1.502131130240925e-16,
+          "real": 8.289665250534503e-17
+        },
+        {
+          "displacement": [
+            7,
+            0
+          ],
+          "imaginary": 2.088170370823862e-17,
+          "real": -9.460154349956914e-08
+        },
+        {
+          "displacement": [
+            7,
+            1
+          ],
+          "imaginary": -2.790777682140414e-17,
+          "real": 1.9046492778013796e-16
+        },
+        {
+          "displacement": [
+            7,
+            2
+          ],
+          "imaginary": 1.0889138477361258e-16,
+          "real": 1.8750433304780422e-16
+        },
+        {
+          "displacement": [
+            7,
+            3
+          ],
+          "imaginary": 9.734514681032824e-17,
+          "real": 5.970532710206398e-17
+        },
+        {
+          "displacement": [
+            7,
+            4
+          ],
+          "imaginary": -1.1891578145125048e-16,
+          "real": 1.652998725553011e-16
+        },
+        {
+          "displacement": [
+            7,
+            5
+          ],
+          "imaginary": 4.5059944816191825e-17,
+          "real": 2.1316282072803005e-16
+        },
+        {
+          "displacement": [
+            7,
+            6
+          ],
+          "imaginary": 2.9487181824147774e-16,
+          "real": -1.6776703483224588e-17
+        },
+        {
+          "displacement": [
+            7,
+            7
+          ],
+          "imaginary": 2.0136775196546826e-16,
+          "real": -7.894919286223336e-17
+        }
+      ]
+    },
+    "perturbations": [
+      {
+        "basis_identifier": "spinless-scalar-site-x-outer-y-inner",
+        "energy_reference": "accepted-periodic2d-synthetic-parent-zero",
+        "energy_unit": "unitless",
+        "identifier": "directional_nearest_neighbor",
+        "terms": [
+          {
+            "displacement": [
+              0,
+              1
+            ],
+            "imaginary": 0.0,
+            "kind": "bond",
+            "real": -0.03,
+            "start": [
+              0,
+              0
+            ]
+          },
+          {
+            "displacement": [
+              1,
+              0
+            ],
+            "imaginary": 0.0,
+            "kind": "bond",
+            "real": 0.04,
+            "start": [
+              0,
+              0
+            ]
+          },
+          {
+            "displacement": [
+              0,
+              -1
+            ],
+            "imaginary": 0.0,
+            "kind": "bond",
+            "real": -0.03,
+            "start": [
+              0,
+              1
+            ]
+          },
+          {
+            "displacement": [
+              -1,
+              0
+            ],
+            "imaginary": 0.0,
+            "kind": "bond",
+            "real": 0.04,
+            "start": [
+              1,
+              0
+            ]
+          }
+        ]
+      },
+      {
+        "basis_identifier": "spinless-scalar-site-x-outer-y-inner",
+        "energy_reference": "accepted-periodic2d-synthetic-parent-zero",
+        "energy_unit": "unitless",
+        "identifier": "finite_range_diagonal_nonlocal",
+        "terms": [
+          {
+            "displacement": [
+              1,
+              1
+            ],
+            "imaginary": 0.0,
+            "kind": "bond",
+            "real": 0.025,
+            "start": [
+              0,
+              0
+            ]
+          },
+          {
+            "displacement": [
+              -1,
+              -1
+            ],
+            "imaginary": 0.0,
+            "kind": "bond",
+            "real": 0.025,
+            "start": [
+              1,
+              1
+            ]
+          }
+        ]
+      }
+    ],
+    "resource_envelope": {
+      "external_executables": [],
+      "maximum_defect_route_evaluations": 4536,
+      "maximum_matrix_dimension": 256,
+      "maximum_parent_route_evaluations": 6804,
+      "maximum_peak_memory_gib": 2.0,
+      "maximum_retained_output_mib": 5.0,
+      "maximum_runtime_seconds": 600,
+      "network_access": false,
+      "new_dependencies": []
+    },
+    "shapes": [
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        6,
+        6
+      ],
+      [
+        8,
+        8
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        12,
+        12
+      ],
+      [
+        16,
+        16
+      ],
+      [
+        8,
+        18
+      ],
+      [
+        9,
+        16
+      ],
+      [
+        16,
+        9
+      ],
+      [
+        18,
+        8
+      ]
+    ],
+    "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42",
+    "sources": [
+      {
+        "path": "calculations/research-monograph/periodic-2d/input.json",
+        "role": "accepted_periodic_parent_input",
+        "sha256": "82e9915101e755f7cc77cb8901478f88d878ffaa808732036631b7ae5cfd78ec"
+      },
+      {
+        "path": "calculations/research-monograph/periodic-2d/result.json",
+        "role": "accepted_periodic_parent_result",
+        "sha256": "4eb55bde9d456d86bad1d65c8ac60267c07873c6936f8af876b07fd3e1d27be6"
+      },
+      {
+        "path": "calculations/research-monograph/impurity-defect-2d/stage-b-result.json",
+        "role": "accepted_stage_b_parent_and_route_evidence",
+        "sha256": "711c91064e498a183fab9a0ad48f115779bdcb6059e0c23d84270aac75867d9b"
+      },
+      {
+        "path": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-result.json",
+        "role": "accepted_stage_c_numerical_verification_result",
+        "sha256": "b5ff50b6a2494dc4314854fff61c830f7ca562543ab5a42c9e15b41087902cc4"
+      }
+    ],
+    "tolerances": {
+      "gauge_bridge_absolute": 1e-10,
+      "hopping_hermiticity_absolute": 1e-11,
+      "hopping_symmetry_absolute": 1e-10,
+      "reconstruction_absolute": 5e-12,
+      "represented_hermiticity_absolute": 1e-11,
+      "separability_absolute": 1e-10
+    },
+    "twist_mesh_counts": [
+      9,
+      9
+    ]
+  },
+  "evidence_status": "accepted_historical_synthetic_parent_projection",
+  "record_type": "periodic2d_rank_defect_parent_qualification_request",
+  "schema_version": 1
+}

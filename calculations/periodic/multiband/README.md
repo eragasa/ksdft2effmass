@@ -8,7 +8,7 @@ It is not a second implementation owner. Reusable algorithms remain under `pytho
 
 | Spatial dimension | Retained rank | Current owner | Status |
 |---|---:|---|---|
-| 1-D | 1 | [`periodic1d/rank1/fourier-locality/`](../../periodic1d/rank1/fourier-locality/) | Implemented typed calculate → independently verify → authenticated render lifecycle; provisional in-memory control reports all 725 named comparisons passing; no retained execution or evidence promotion |
+| 1-D | 1 | [`periodic1d_rank1/`](../../periodic1d_rank1/) | Operation-first gauge-alignment, band-equivalence, hopping-locality, and support-truncation context with an implemented aggregate calculate → independently verify → authenticated render lifecycle; one local unsealed scalar-producer execution passed all 725 named comparisons and rendered the closed two-figure inventory; no sealing or evidence promotion |
 | 1-D | 2 | [`periodic1d/rank2/band-equivalence-versus-hopping-locality/`](../../periodic1d/rank2/band-equivalence-versus-hopping-locality/) | Extracted development calculation; no retained successor run |
 | 1-D | 2 | [`periodic1d/rank2/composite-band-alignment-locality/`](../../periodic1d/rank2/composite-band-alignment-locality/) | Three-file protocol migrated; donor reconciliation and implementation remain open; no successor execution |
 | 2-D | 2 | [`periodic2d/rank2/orthogonal/band-equivalence-locality/`](../../periodic2d/rank2/orthogonal/band-equivalence-locality/) | Bounded orthogonal development calculation |
@@ -34,7 +34,7 @@ The levels below describe increasing model, geometry, alignment, verification, a
 
 ### Level 0 --- structural and analytic null controls
 
-- [`periodic1d/rank1/fourier-locality/`](../../periodic1d/rank1/fourier-locality/) --- implemented compatible scalar control for Fourier interpolation and truncation, recording that scalar phase conjugation cannot alter the represented Hamiltonian. Its provisional in-memory development control reports all 725 named comparisons passing. No retained execution or evidence promotion exists.
+- [`periodic1d_rank1/`](../../periodic1d_rank1/) --- operation-first compatible scalar context. Its [`band_equivalence_hopping_locality/`](../../periodic1d_rank1/band_equivalence_hopping_locality/) aggregate records that scalar phase conjugation cannot alter the represented Hamiltonian and sequences Fourier interpolation, descriptive locality, and truncation. One local unsealed scalar-producer execution passed all 725 named comparisons. No sealing or evidence promotion exists.
 
 ### Level 1 --- scalar single-band periodic reduction
 

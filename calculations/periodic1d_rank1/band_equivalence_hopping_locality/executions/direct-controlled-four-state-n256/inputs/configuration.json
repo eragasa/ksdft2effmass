@@ -1,0 +1,127 @@
+{
+  "application_threshold": 1e-08,
+  "coefficient_denominator": 100,
+  "construction_mesh_sizes": {
+    "__ksd_type__": "tuple",
+    "items": [
+      32,
+      64,
+      128,
+      256
+    ]
+  },
+  "dimensionless_absolute_tolerance": 1e-12,
+  "energy_absolute_tolerance": 1e-12,
+  "evaluation_shift_denominator": 257,
+  "evaluation_shift_numerator": 1,
+  "evaluation_size": 1025,
+  "maximum_ranges": {
+    "__ksd_type__": "tuple",
+    "items": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ]
+  },
+  "onsite_numerators": {
+    "__ksd_type__": "tuple",
+    "items": [
+      {
+        "__ksd_type__": "tuple",
+        "items": [
+          -120,
+          6,
+          0,
+          0
+        ]
+      },
+      {
+        "__ksd_type__": "tuple",
+        "items": [
+          6,
+          -35,
+          0,
+          0
+        ]
+      },
+      {
+        "__ksd_type__": "tuple",
+        "items": [
+          0,
+          0,
+          100,
+          4
+        ]
+      },
+      {
+        "__ksd_type__": "tuple",
+        "items": [
+          0,
+          0,
+          4,
+          175
+        ]
+      }
+    ]
+  },
+  "parent_identity": "ksdft2effmass.periodic1d.controlled-four-state-parent.v1",
+  "positive_hopping_numerators": {
+    "__ksd_type__": "tuple",
+    "items": [
+      {
+        "__ksd_type__": "tuple",
+        "items": [
+          15,
+          0,
+          12,
+          0
+        ]
+      },
+      {
+        "__ksd_type__": "tuple",
+        "items": [
+          0,
+          -10,
+          0,
+          10
+        ]
+      },
+      {
+        "__ksd_type__": "tuple",
+        "items": [
+          0,
+          0,
+          5,
+          0
+        ]
+      },
+      {
+        "__ksd_type__": "tuple",
+        "items": [
+          0,
+          0,
+          0,
+          -4
+        ]
+      }
+    ]
+  },
+  "production_construction_size": 256,
+  "refinement_tolerance": 1e-10,
+  "relative_tolerance": 1e-12,
+  "sampled_gap_threshold": 0.25,
+  "squared_energy_absolute_tolerance": 1e-12
+}

@@ -20,8 +20,8 @@ from projectkoios.physkit.periodic.lattice.finite_domain import (
     LatticeDisplacement,
 )
 from projectkoios.physkit.periodic.lattice.hopping import (
-    BlockHoppingModel,
-    BlockHoppingTerm,
+    DenseBlockHoppingModel,
+    DenseBlockHoppingTerm,
 )
 from projectkoios.physkit.solidstate.tb.bands import (
     BlockHoppingBandEvaluation,
@@ -429,12 +429,12 @@ class SmoothFourStateTruncationExperiment:
         identifier: str,
         displacements: tuple[int, ...],
         blocks: ComplexArray,
-    ) -> BlockHoppingModel:
-        return BlockHoppingModel(
+    ) -> DenseBlockHoppingModel:
+        return DenseBlockHoppingModel(
             identifier=identifier,
             dimension=LatticeDimension.ONE,
             terms=tuple(
-                BlockHoppingTerm(
+                DenseBlockHoppingTerm(
                     displacement=LatticeDisplacement(
                         LatticeDimension.ONE, (displacement,)
                     ),
@@ -449,7 +449,7 @@ class SmoothFourStateTruncationExperiment:
 
     @staticmethod
     def _maximum_hermiticity_defect(
-        model: BlockHoppingModel, tolerance: float
+        model: DenseBlockHoppingModel, tolerance: float
     ) -> float:
         result = BlockHoppingHermiticityAnalyzer().execute(model)
         if result.missing_targets:
@@ -468,7 +468,7 @@ class SmoothFourStateTruncationExperiment:
 
     @staticmethod
     def _evaluate_range_family(
-        model: BlockHoppingModel,
+        model: DenseBlockHoppingModel,
         maximum_ranges: tuple[int, ...],
         coordinates: RealArray,
         hermiticity_tolerance: float,

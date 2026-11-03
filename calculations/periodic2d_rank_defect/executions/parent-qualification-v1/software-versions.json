@@ -1,0 +1,8 @@
+{
+  "numpy": "2.5.1",
+  "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "python": "3.14.6",
+  "record_type": "periodic2d_rank_defect_parent_qualification_versions",
+  "schema_version": 1,
+  "scipy": "1.18.0"
+}

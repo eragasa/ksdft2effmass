@@ -14,7 +14,7 @@ from ..periodic_1d import (
     Periodic1DStressCampaign,
     Periodic1DStressCampaignModel,
 )
-from .impurity_defect_2d import StageCParentSvgPlotter
+from .impurity_defect_2d import DefectModelParentSvgPlotter
 
 __all__ = [
     "Periodic1DCompositeCampaign",
@@ -23,5 +23,5 @@ __all__ = [
     "Periodic1DIsolatedBandCampaignModel",
     "Periodic1DStressCampaign",
     "Periodic1DStressCampaignModel",
-    "StageCParentSvgPlotter",
+    "DefectModelParentSvgPlotter",
 ]

@@ -1,0 +1,22 @@
+{
+  "calculation_family": "periodic2d-rank-defect",
+  "calculation_script_sha256": "8bb215c1611871b2b65af4ae864b656c12e43c969a956122a03e86eb17c8eda1",
+  "claim_boundary": "Independent reconstruction of accepted historical dimensionless synthetic parent capability only; not material validation, finite-domain convergence, uncertainty quantification, or defect campaign execution authority.",
+  "criteria_match": true,
+  "criterion_status": "pass",
+  "execution_id": "parent-qualification-v1",
+  "maximum_metric_absolute_difference": 2.79359868571305e-14,
+  "outcome": "passed",
+  "reconstructed_defect_route_evaluations": 4536,
+  "reconstructed_parent_route_evaluations": 6804,
+  "reconstruction_passed": true,
+  "record_type": "periodic2d_rank_defect_parent_qualification_verification",
+  "request_sha256": "61e4865806c4dff8f0da3ea4e50c369b058c28af317c1176a4ce2856c60a339f",
+  "resource_observation": {
+    "peak_memory_bytes": 142983168,
+    "runtime_seconds": 13.155915041919798
+  },
+  "result_sha256": "e5626e48ce844e215306fa03630a1faa89519075918032af986727f57ecf9ca5",
+  "schema_version": 1,
+  "verification_script_sha256": "204b92e33247f64f285586ef696628729987105fe8f3c9eecc12d81f2abea3e9"
+}
