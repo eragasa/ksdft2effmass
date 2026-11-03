@@ -24,6 +24,27 @@ labelled downstream development and exploratory analysis while retaining these l
 Production and publication-grade acceptance remain pending, and this directory
 authorizes no additional Quantum ESPRESSO or Wannier90 execution.
 
+## Local artifact storage
+
+The completed native Quantum ESPRESSO and Wannier90 occurrence directories are stored
+outside Git under:
+
+```text
+~/projects/ksdft2effmass/
+```
+
+In particular, the retained `C6-B20-W21` rank-10 Wannier Hamiltonian is:
+
+```text
+~/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_hr.dat
+```
+
+Its associated `silicon_wsvec.dat`, `silicon_u.mat`, `silicon_u_dis.mat`, checkpoint,
+interface, and localization outputs are in the same external occurrence directory.
+The repository retains compact evidence and authenticated external-artifact inventories;
+the absence of these larger native files from the Git worktree does not mean that the
+calculation must be repeated.
+
 ## Ownership boundary
 
 This root owns the forward-looking scientific plan, source crosswalk, verified-input
