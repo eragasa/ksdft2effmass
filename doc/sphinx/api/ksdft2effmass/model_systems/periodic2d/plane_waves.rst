@@ -155,7 +155,7 @@ Implementation and evidence mapping
 * Numerical verification:
   ``python/tests/ksdft2effmass/model_systems/periodic2d/test__PlaneWaveBlochHamiltonian2DConstructor.py``
 * Campaign adapter:
-  ``python/src/ksdft2effmass/periodic2d/model/toy_models/cosine.py``
+  ``python/src/ksdft2effmass/periodic2d/model/control_models/cosine.py``
 
 Software-verification tests cover strict runtime types, deterministic ordering,
 Fourier conjugate symmetry, result correlation, dimensions, units, and immutability.

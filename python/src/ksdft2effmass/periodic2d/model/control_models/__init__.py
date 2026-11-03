@@ -1,7 +1,7 @@
-"""Public controlled toy models for periodic two-dimensional campaigns."""
+"""Public controlled models for periodic two-dimensional campaigns."""
 
 from .cosine import (
-    Periodic2DCosinePotentialToyModel,
+    Periodic2DCosinePotentialControlModel,
     Periodic2DFiniteDifferenceHamiltonianConstructor,
     Periodic2DFiniteDifferenceHamiltonianRequest,
     Periodic2DFiniteDifferenceHamiltonianResult,
@@ -14,7 +14,7 @@ from .cosine import (
 )
 
 __all__ = [
-    "Periodic2DCosinePotentialToyModel",
+    "Periodic2DCosinePotentialControlModel",
     "Periodic2DFiniteDifferenceHamiltonianConstructor",
     "Periodic2DFiniteDifferenceHamiltonianRequest",
     "Periodic2DFiniteDifferenceHamiltonianResult",

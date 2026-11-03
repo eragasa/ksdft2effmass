@@ -10,7 +10,7 @@ observations use ``ksdft2effmass.ksdft``; and plane-wave records and serializati
 use ``ksdft2effmass.ksdft.pw``.
 
 ``ksdft2effmass.periodic`` owns the nominal one- through three-dimensional scientific-
-model hierarchy and explicit toy-model catalogs. It temporarily also re-exports the
+model hierarchy and explicit control-model catalogs. It temporarily also re-exports the
 former geometry and sampling inventory for source compatibility; new geometry and
 sampling code uses the owning packages above.
 

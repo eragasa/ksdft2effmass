@@ -1,4 +1,4 @@
-"""Dimensionless two-dimensional cosine-potential toy Hamiltonians."""
+"""Dimensionless two-dimensional cosine-potential control Hamiltonians."""
 
 from dataclasses import dataclass
 from typing import Literal
@@ -25,7 +25,7 @@ type ComplexMatrix = npt.NDArray[np.complex128]
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic2DCosinePotentialToyModel:
+class Periodic2DCosinePotentialControlModel:
     """Represent a spinless dimensionless periodic cosine potential.
 
     The represented potential is
@@ -142,7 +142,7 @@ class Periodic2DUniformCellGrid:
 
 @dataclass(frozen=True, slots=True)
 class Periodic2DPlaneWaveHamiltonianRequest:
-    r"""Request a finite plane-wave representation of the toy Hamiltonian.
+    r"""Request a finite plane-wave representation of the control Hamiltonian.
 
     Reduced momentum components are built-in floats giving the coefficients
     :math:`\boldsymbol\kappa` in the PhysKit reciprocal primitive basis ``B`` of the
@@ -154,7 +154,7 @@ class Periodic2DPlaneWaveHamiltonianRequest:
     fixed square lattice and is not a scientific acceptance threshold.
     """
 
-    model: Periodic2DCosinePotentialToyModel
+    model: Periodic2DCosinePotentialControlModel
     reduced_momentum_x: float
     reduced_momentum_y: float
     cutoff: int
@@ -162,8 +162,8 @@ class Periodic2DPlaneWaveHamiltonianRequest:
 
     def __post_init__(self) -> None:
         """Validate the model, momentum coordinates, and symmetric cutoff."""
-        if type(self.model) is not Periodic2DCosinePotentialToyModel:
-            raise TypeError("model must be Periodic2DCosinePotentialToyModel")
+        if type(self.model) is not Periodic2DCosinePotentialControlModel:
+            raise TypeError("model must be Periodic2DCosinePotentialControlModel")
         for name, value in (
             ("reduced_momentum_x", self.reduced_momentum_x),
             ("reduced_momentum_y", self.reduced_momentum_y),
@@ -214,15 +214,15 @@ class Periodic2DFiniteDifferenceHamiltonianRequest:
     and fixed zero of energy.
     """
 
-    model: Periodic2DCosinePotentialToyModel
+    model: Periodic2DCosinePotentialControlModel
     reduced_momentum_x: float
     reduced_momentum_y: float
     points_per_direction: int
 
     def __post_init__(self) -> None:
         """Validate the model, momentum coordinates, and odd grid size."""
-        if type(self.model) is not Periodic2DCosinePotentialToyModel:
-            raise TypeError("model must be Periodic2DCosinePotentialToyModel")
+        if type(self.model) is not Periodic2DCosinePotentialControlModel:
+            raise TypeError("model must be Periodic2DCosinePotentialControlModel")
         for name, value in (
             ("reduced_momentum_x", self.reduced_momentum_x),
             ("reduced_momentum_y", self.reduced_momentum_y),

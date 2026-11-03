@@ -12,8 +12,8 @@ from projectkoios.physkit.periodic.lattice.finite_domain import (
     LatticeDisplacement,
 )
 from projectkoios.physkit.periodic.lattice.hopping import (
-    BlockHoppingModel,
-    BlockHoppingTerm,
+    DenseBlockHoppingModel,
+    DenseBlockHoppingTerm,
 )
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
@@ -92,7 +92,7 @@ class Periodic3DRankNBlockHoppingParentBuilder:
             f"hopping-scale-{canonical_scale.hex()}:bonds-{bond_identity}"
         )
 
-    def execute(self) -> BlockHoppingModel:
+    def execute(self) -> DenseBlockHoppingModel:
         """Construct the exact onsite, first-, and second-harmonic blocks."""
         rank = self.retained_rank
         orbital_index = np.arange(rank, dtype=np.float64)
@@ -146,7 +146,7 @@ class Periodic3DRankNBlockHoppingParentBuilder:
 
         energy_unit = Unitless()
         terms = tuple(
-            BlockHoppingTerm(
+            DenseBlockHoppingTerm(
                 displacement=LatticeDisplacement(
                     dimension=LatticeDimension.THREE,
                     components=displacement,
@@ -158,7 +158,7 @@ class Periodic3DRankNBlockHoppingParentBuilder:
             )
             for displacement, diagonal in sorted(coefficient_diagonals.items())
         )
-        return BlockHoppingModel(
+        return DenseBlockHoppingModel(
             identifier=self.model_identifier,
             dimension=LatticeDimension.THREE,
             terms=terms,

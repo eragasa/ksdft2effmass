@@ -59,7 +59,7 @@ Compatibility prerequisites
 
 The request rejects comparison unless both represented results have:
 
-* the same exact ``Periodic2DCosinePotentialToyModel`` values;
+* the same exact ``Periodic2DCosinePotentialControlModel`` values;
 * the same reduced Bloch momentum;
 * the same dimensionless period-:math:`2\pi` geometry, energy scale, fixed energy zero,
   and spinless scalar convention supplied by those concrete result types;
@@ -84,7 +84,7 @@ Algorithm and data flow
 Units, types, and numerical behavior
 ------------------------------------
 
-The current toy-model operators and all comparison outputs are dimensionless.  Public
+The current control-model operators and all comparison outputs are dimensionless.  Public
 inputs require exact represented-result classes and a nonempty string identity; no
 array or scalar coercion is performed at this boundary.  The matrix products use
 binary64 complex arithmetic.  Dense storage scales as :math:`N^2(2M+1)^2` for the

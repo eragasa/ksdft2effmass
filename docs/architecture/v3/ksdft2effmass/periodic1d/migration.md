@@ -77,7 +77,7 @@ and [`calculations/mathieu1d/legacy-contract-retirement.md`](../../../../../calc
 ## Phase 2 — implement the compatible rank-one null control
 
 Implement the distinct
-`calculations/periodic1d/rank1/fourier-locality/` family from the documentation-first
+`calculations/periodic1d_rank1/band_equivalence_hopping_locality/` aggregate family from the documentation-first
 [`ksdft2effmass.periodic1d.fourier_locality`](fourier_locality/index.md) contract. Reuse
 scalar Fourier behavior that has the same meaning, but retain the compatible parent
 definition and explicit operator-trivial phase result. The prospective package, every
@@ -94,8 +94,8 @@ stage scripts, Architecture v3 corpus, and provisional non-retained technical re
 implemented. After exact consumer and recovery review, explicit authorization permitted
 removal of the legacy M1 source package, Fourier toy-parent export, aggregate predecessor test,
 and obsolete Sphinx page. The recovery boundary is recorded in
-[`calculations/periodic1d/rank1/fourier-locality/legacy-retirement.md`](../../../../../calculations/periodic1d/rank1/fourier-locality/legacy-retirement.md).
-No retained execution, seal, publication update, or Formal certificate exists.
+[`calculations/periodic1d_rank1/band_equivalence_hopping_locality/legacy-retirement.md`](../../../../../calculations/periodic1d_rank1/band_equivalence_hopping_locality/legacy-retirement.md).
+One local unsealed execution has completed calculation, independent verification, and authenticated rendering. No seal, evidence promotion, publication update, or Formal certificate exists.
 
 ## Phase 3 — split the rank-two families
 

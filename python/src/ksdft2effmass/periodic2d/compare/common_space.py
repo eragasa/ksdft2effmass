@@ -18,7 +18,7 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ..model.toy_models import (
+from ..model.control_models import (
     Periodic2DFiniteDifferenceHamiltonianResult,
     Periodic2DPlaneWaveHamiltonianResult,
 )
@@ -61,7 +61,7 @@ class Periodic2DCommonSpaceComparisonRequest:
         plane_request = self.plane_wave.request
         finite_request = self.finite_difference.request
         if plane_request.model != finite_request.model:
-            raise ValueError("represented operators must use the same toy model")
+            raise ValueError("represented operators must use the same control model")
         if (
             plane_request.reduced_momentum_x != finite_request.reduced_momentum_x
             or plane_request.reduced_momentum_y != finite_request.reduced_momentum_y

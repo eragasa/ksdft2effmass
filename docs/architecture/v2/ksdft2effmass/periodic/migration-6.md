@@ -1,10 +1,9 @@
-# Migration phase 6: toy catalog execution
+# Migration phase 6: control-model catalog execution
 
 ## Status
 
-**Proposed.** `PeriodicToyModelCatalog` is implemented, but no concrete scientific toy
-model is registered by the migration program and no campaign consumes a catalog
-snapshot.
+**Proposed.** `PeriodicControlModelCatalog` is implemented, but no cross-model
+campaign consumes an exact catalog snapshot.
 
 ## Purpose
 
@@ -15,8 +14,8 @@ subclass discovery, structural protocol matching, or a common calculation method
 
 1. Register only concrete models that completed nominal migration in phase 5 or an
    applicable later phase.
-2. Construct one immutable `PeriodicToyModelCatalog` with deterministic tuple order and
-   unique stable model identities.
+2. Construct one immutable `PeriodicControlModelCatalog` with deterministic tuple order
+   and unique stable model identities.
 3. Define an immutable campaign request that contains the exact catalog snapshot and
    explicit per-model evaluation adapters or declared observation request.
 4. Return typed observations that preserve model identity, spatial dimension, role,
@@ -32,7 +31,7 @@ for all periodic models.
 
 - Registration is explicit; no module scan or subclass enumeration is allowed.
 - Catalog order is semantically retained and deterministic.
-- Each entry is a nominal `PeriodicModel` with exact `TOY` role.
+- Each entry is a nominal `PeriodicModel` with exact `CONTROL_MODEL` role.
 - Model identifiers are nonempty and unique.
 - Reported dimension agrees with nominal dimension membership.
 - A catalog snapshot used by a campaign is immutable and retained in the request or
@@ -41,11 +40,11 @@ for all periodic models.
 ## Excluded work
 
 Phase 6 does not register material-reference models, compare incompatible operators,
-claim all toy models share one numerical method, or establish scientific acceptance.
+claim all control models share one numerical method, or establish scientific acceptance.
 
 ## Completion gate
 
-- At least the migrated 1D toy inventory is registered.
+- At least one maintained control-model inventory is registered.
 - One campaign consumes an exact immutable snapshot without rediscovery.
 - Tests cover deterministic order, duplicate rejection, nominal membership, snapshot
   preservation, explicit unavailability, and stable observation identity.

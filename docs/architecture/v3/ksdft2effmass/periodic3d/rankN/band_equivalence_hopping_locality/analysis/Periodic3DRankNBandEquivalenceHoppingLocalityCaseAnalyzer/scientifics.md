@@ -6,7 +6,7 @@ software-development results, not material validation or retained scientific evi
 
 The finite-range block-hopping parent and the synthetic attack are distinct scientific
 objects. `Periodic3DRankNBlockHoppingParentBuilder` constructs the parent as a PhysKit
-`BlockHoppingModel` with an onsite block and selected first- and second-harmonic hopping
+`DenseBlockHoppingModel` with an onsite block and selected first- and second-harmonic hopping
 blocks. The v1 `parent_scale` field is therefore a hopping/dispersion scale owned by
 this parent construction, not a generic analysis parameter. The retained v1 field
 sampler evaluates the equivalent closed-form Bloch law so that this internal ownership

@@ -11,14 +11,27 @@ from ksdft2effmass.periodic1d.model.blochhopping import (
 
 
 class Periodic1DRank2BlochHoppingModel(Periodic1DBlochHoppingModel, ABC):
-    """Identify periodic-1D Bloch-hopping models with retained dimension two."""
+    """Identify periodic-1D models with retained dimension two.
+
+    Notes
+    -----
+    Rank two remains a sibling of the arbitrary finite-rank owner. Concrete rank-two
+    models retain responsibility for coefficient, basis, and scientific admissibility
+    rules beyond this exact retained-space dimension.
+    """
 
     __slots__ = ()
 
     @property
     @final
     def band_subspace_rank(self) -> Literal[2]:
-        """Return the exact retained-space dimension two."""
+        """Return the retained-space dimension.
+
+        Returns
+        -------
+        Literal[2]
+            Exact retained basis size two.
+        """
         return 2
 
 
