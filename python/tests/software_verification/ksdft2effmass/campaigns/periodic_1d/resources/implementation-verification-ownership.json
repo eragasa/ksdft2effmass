@@ -2,28 +2,28 @@
   "schema_version": 1,
   "modules": [
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DIsolatedBandCalculationWorkflow.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DIsolatedBandCalculationWorkflow__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DIsolatedBandCalculationWorkflow"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DIsolatedVerifiedWorkflow.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DIsolatedVerifiedWorkflow__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DIsolatedVerifiedWorkflow"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DCompositeVerifiedWorkflow.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DCompositeVerifiedWorkflow__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DCompositeVerifiedWorkflow"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DStressVerifiedWorkflow.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DStressVerifiedWorkflow__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
@@ -51,63 +51,63 @@
       "sut": "Periodic1DWannier90NativeArtifactWorkflow"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DCompositeResultJsonSerializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DCompositeResultJsonSerializer__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DCompositeResultJsonSerializer"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DCompositeCampaignWorkflow.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DCompositeCampaignWorkflow__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DCompositeCampaignWorkflow"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DWannier90ResultJsonSerializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DWannier90ResultJsonSerializer__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DWannier90ResultJsonSerializer"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DWannier90CampaignWorkflow.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DWannier90CampaignWorkflow__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DWannier90CampaignWorkflow"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DIsolatedBandCampaignWorkflow.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DIsolatedBandCampaignWorkflow__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DIsolatedBandCampaignWorkflow"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DStressCampaignWorkflow.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DStressCampaignWorkflow__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DStressCampaignWorkflow"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DStressResultJsonSerializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DStressResultJsonSerializer__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DStressResultJsonSerializer"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DIsolatedBandResultJsonSerializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DIsolatedBandResultJsonSerializer__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DIsolatedBandResultJsonSerializer"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DRetainedResultJsonSerializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DRetainedResultJsonSerializer__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
@@ -121,21 +121,21 @@
       "sut": "Periodic1DCampaignJsonDecoder"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DStressCampaignJsonSerializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DStressCampaignJsonSerializer__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DStressCampaignJsonSerializer"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DIsolatedBandCampaignJsonSerializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DIsolatedBandCampaignJsonSerializer__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DIsolatedBandCampaignJsonSerializer"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DCompositeCampaignJsonSerializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DCompositeCampaignJsonSerializer__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",

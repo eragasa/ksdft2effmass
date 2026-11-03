@@ -1,7 +1,9 @@
 """Unit contracts for the periodic-1D lattice kinetic-energy scale."""
 
+from typing import cast
+
 import pytest
-from projectkoios.physkit.units import PhysicalUnit, Unitless
+from projectkoios.physkit.units import PhysicalUnit, UnitSystem
 
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.model.blochhopping import (
@@ -18,42 +20,42 @@ class TestPeriodic1DLatticeKineticEnergyScale:
     def test__Periodic1DLatticeKineticEnergyScale__one_bohr_matches_hartree(
         self,
     ) -> None:
-        """Match one Hartree at one bohr within constant precision."""
+        """Match one Hartree at one bohr in the atomic unit system."""
         scale = Periodic1DLatticeKineticEnergyScale(
             lattice_geometry=Periodic1DLatticeGeometry(
                 1.0,
                 PhysicalUnit("bohr"),
             ),
-            energy_unit=PhysicalUnit("hartree"),
+            unit_system=UnitSystem.ATOMIC,
         )
 
         # The convention intentionally omits the kinetic-operator factor one half.
         assert scale.energy_scale.magnitude == pytest.approx(
             1.0,
             rel=0.0,
-            abs=2.0e-9,
+            abs=3.0e-15,
         )
 
-    def test__Periodic1DLatticeKineticEnergyScale__retains_scale_metadata(
+    def test__Periodic1DLatticeKineticEnergyScale__retains_atomic_metadata(
         self,
     ) -> None:
-        """Retain energy, action, mass, length, and convention identity metadata."""
+        """Retain one coherent atomic action, mass, length, and energy inventory."""
         scale = Periodic1DLatticeKineticEnergyScale(
             Periodic1DLatticeGeometry(1.0, PhysicalUnit("bohr")),
-            PhysicalUnit("hartree"),
+            UnitSystem.ATOMIC,
         )
 
-        # These fields jointly identify the dimensional scale convention.
+        # These fields jointly identify the coherent dimensional scale convention.
         assert (
             scale.energy_scale.unit,
             scale.action_scale.unit,
             scale.mass_scale.unit,
             scale.length_scale.unit,
-            "hbar2-over-me-a2" in scale.identity,
+            "unit-system-atomic" in scale.identity,
         ) == (
             PhysicalUnit("hartree"),
-            PhysicalUnit("joule * second"),
-            PhysicalUnit("kilogram"),
+            PhysicalUnit("atomic_unit_of_action"),
+            PhysicalUnit("electron_mass"),
             PhysicalUnit("bohr"),
             True,
         )
@@ -63,59 +65,81 @@ class TestPeriodic1DLatticeKineticEnergyScale:
         self,
     ) -> None:
         """Scale energy by the inverse square of the lattice period."""
-        unit = PhysicalUnit("hartree")
         one = Periodic1DLatticeKineticEnergyScale(
             Periodic1DLatticeGeometry(1.0, PhysicalUnit("bohr")),
-            unit,
+            UnitSystem.ATOMIC,
         )
         two = Periodic1DLatticeKineticEnergyScale(
             Periodic1DLatticeGeometry(2.0, PhysicalUnit("bohr")),
-            unit,
+            UnitSystem.ATOMIC,
         )
 
         assert two.energy_scale.magnitude == pytest.approx(
             one.energy_scale.magnitude / 4.0,
-            rel=1.0e-15,
-            abs=0.0,
+            rel=0.0,
+            abs=3.0e-15,
         )
 
     @pytest.mark.numerical_verification
     def test__Periodic1DLatticeKineticEnergyScale__converts_to_electron_volt(
         self,
     ) -> None:
-        """Express the one-bohr scale explicitly in electron volts."""
+        """Express the one-bohr scale through the coherent metal unit system."""
         scale = Periodic1DLatticeKineticEnergyScale(
             Periodic1DLatticeGeometry(1.0, PhysicalUnit("bohr")),
-            PhysicalUnit("electron_volt"),
+            UnitSystem.METAL,
         )
 
-        assert scale.energy_scale.unit == PhysicalUnit("electron_volt")
+        # The tolerance reflects the maintained Pint constant precision only.
         assert scale.energy_scale.magnitude == pytest.approx(
             27.21138625,
             rel=0.0,
             abs=5.0e-8,
         )
 
-    def test__Periodic1DLatticeKineticEnergyScale__rejects_unitless_output(
+    def test__Periodic1DLatticeKineticEnergyScale__retains_metal_energy_unit(
         self,
     ) -> None:
-        """Reject a dimensionless output unit at the physical scale boundary."""
+        """Return the exact energy unit selected by the metal unit system."""
+        scale = Periodic1DLatticeKineticEnergyScale(
+            Periodic1DLatticeGeometry(1.0, PhysicalUnit("bohr")),
+            UnitSystem.METAL,
+        )
+
+        assert scale.energy_scale.unit == PhysicalUnit("electron_volt")
+
+    def test__Periodic1DLatticeKineticEnergyScale__reports_denominator_underflow(
+        self,
+    ) -> None:
+        """Report mass-length underflow rather than dividing by binary64 zero."""
+        scale = Periodic1DLatticeKineticEnergyScale(
+            Periodic1DLatticeGeometry(1.0e-150, PhysicalUnit("meter")),
+            UnitSystem.SI,
+        )
+
+        with pytest.raises(FloatingPointError, match="denominator"):
+            _ = scale.energy_scale
+
+    def test__Periodic1DLatticeKineticEnergyScale__rejects_nondimensional_system(
+        self,
+    ) -> None:
+        """Reject a unitless control system at the physical model boundary."""
         geometry = Periodic1DLatticeGeometry(1.0, PhysicalUnit("bohr"))
 
-        with pytest.raises(TypeError, match="PhysicalUnit"):
+        with pytest.raises(ValueError, match="must be physical"):
             Periodic1DLatticeKineticEnergyScale(
                 geometry,
-                Unitless(),  # type: ignore[arg-type]
+                UnitSystem.NONDIMENSIONAL,
             )
 
-    def test__Periodic1DLatticeKineticEnergyScale__rejects_nonenergy_output(
+    def test__Periodic1DLatticeKineticEnergyScale__rejects_foreign_unit_system(
         self,
     ) -> None:
-        """Reject physical output units without energy dimensionality."""
+        """Reject strings rather than coercing them to unit-system members."""
         geometry = Periodic1DLatticeGeometry(1.0, PhysicalUnit("bohr"))
 
-        with pytest.raises(ValueError, match="energy dimensionality"):
+        with pytest.raises(TypeError, match="UnitSystem"):
             Periodic1DLatticeKineticEnergyScale(
                 geometry,
-                PhysicalUnit("meter"),
+                cast(UnitSystem, "atomic"),
             )

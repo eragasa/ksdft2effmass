@@ -1,0 +1,2555 @@
+{
+  "calculation_status": "calculated illustrative result",
+  "claim_boundary": "Adversarial numerical verification of the frozen cosine-model workflow; not material validation or uncertainty quantification.",
+  "evidence_status": "illustrative numerical stress test",
+  "experiment_id": "research-monograph.periodic-1d.stress.v1",
+  "gauge_covariance_stress": {
+    "closure_holonomy_difference_modulo_2pi": 8.881784197001252e-16,
+    "mesh_size": 64,
+    "parallel_transport_frame_maximum_aligned_defect": 8.000746362220836e-16,
+    "potential_strength": 0.5,
+    "random_phase_projector_maximum_frobenius_defect": 2.8191597583644804e-16
+  },
+  "mesh_band_and_isolation_stress": [
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.02220623673967126,
+      "full_reconstruction_maximum_error": 2.7755575615628914e-17,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.04617270323700484,
+      "full_reconstruction_maximum_error": 0.0,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.07050756213866816,
+      "full_reconstruction_maximum_error": 4.440892098500626e-16,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.09493174538960147,
+      "full_reconstruction_maximum_error": 4.440892098500626e-16,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.1437801118914681,
+      "full_reconstruction_maximum_error": 8.881784197001252e-16,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.19262847839333652,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.02405313163016437,
+      "full_reconstruction_maximum_error": 1.1102230246251565e-16,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.043475231802572845,
+      "full_reconstruction_maximum_error": 1.6653345369377348e-16,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.06289733197498126,
+      "full_reconstruction_maximum_error": 8.881784197001252e-16,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.0823194321473899,
+      "full_reconstruction_maximum_error": 8.881784197001252e-16,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.12116363249220896,
+      "full_reconstruction_maximum_error": 4.440892098500626e-15,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.16000783283702447,
+      "full_reconstruction_maximum_error": 7.105427357601002e-15,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.02760907488884351,
+      "full_reconstruction_maximum_error": 3.885780586188048e-16,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.0511360964811558,
+      "full_reconstruction_maximum_error": 6.661338147750939e-16,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.07466311807346848,
+      "full_reconstruction_maximum_error": 4.440892098500626e-15,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.09819013966578094,
+      "full_reconstruction_maximum_error": 5.329070518200751e-15,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.14524418285040497,
+      "full_reconstruction_maximum_error": 1.4210854715202004e-14,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.19229822603503166,
+      "full_reconstruction_maximum_error": 2.842170943040401e-14,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.028471896560987697,
+      "full_reconstruction_maximum_error": 8.881784197001252e-16,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.05298740302271754,
+      "full_reconstruction_maximum_error": 1.7208456881689926e-15,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.07750290948444771,
+      "full_reconstruction_maximum_error": 8.881784197001252e-15,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.10201841594617722,
+      "full_reconstruction_maximum_error": 1.0658141036401503e-14,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.15104942886963713,
+      "full_reconstruction_maximum_error": 3.019806626980426e-14,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.20008044179309614,
+      "full_reconstruction_maximum_error": 5.684341886080802e-14,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.028686035798876686,
+      "full_reconstruction_maximum_error": 1.4710455076283324e-15,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.05344642065736016,
+      "full_reconstruction_maximum_error": 3.83026943495679e-15,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.07820680551584402,
+      "full_reconstruction_maximum_error": 1.8207657603852567e-14,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.102967190374327,
+      "full_reconstruction_maximum_error": 2.531308496145357e-14,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.15248796009129428,
+      "full_reconstruction_maximum_error": 6.394884621840902e-14,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.20200872980826112,
+      "full_reconstruction_maximum_error": 1.2612133559741778e-13,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 0.0,
+      "potential_strength": 0.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.01685303860441212,
+      "full_reconstruction_maximum_error": 5.551115123125783e-17,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.019999500015278227,
+      "minimum_sewn_neighbor_overlap": 0.7347579619938835,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.045769566159235775,
+      "full_reconstruction_maximum_error": 1.1102230246251565e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.00019996445733305723,
+      "minimum_sewn_neighbor_overlap": 0.7072324449733345,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.0705015406583307,
+      "full_reconstruction_maximum_error": 8.881784197001252e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 4.999843747910404e-07,
+      "minimum_sewn_neighbor_overlap": 0.7071068021343204,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.09493132336347987,
+      "full_reconstruction_maximum_error": 8.881784197001252e-16,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 5.555493842734904e-10,
+      "minimum_sewn_neighbor_overlap": 0.707106224645291,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.14378000791590573,
+      "full_reconstruction_maximum_error": 2.6645352591003757e-15,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 2.7801000233518084e-06,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.19262843676591146,
+      "full_reconstruction_maximum_error": 5.329070518200751e-15,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 1.3713241751052211e-25,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.018924094137054703,
+      "full_reconstruction_maximum_error": 1.1102230246251565e-16,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.019999500015278227,
+      "minimum_sewn_neighbor_overlap": 0.7609135033462298,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.044014581888826565,
+      "full_reconstruction_maximum_error": 3.3306690738754696e-16,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.00019996445733305723,
+      "minimum_sewn_neighbor_overlap": 0.7073837682091845,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.06290333445759266,
+      "full_reconstruction_maximum_error": 1.1102230246251565e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 4.999843747910404e-07,
+      "minimum_sewn_neighbor_overlap": 0.7071071999856512,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.08231927817958073,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 5.555493842734904e-10,
+      "minimum_sewn_neighbor_overlap": 0.7071062528823915,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.12116357040118508,
+      "full_reconstruction_maximum_error": 4.440892098500626e-15,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 2.7800999064481704e-06,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.16000780531287973,
+      "full_reconstruction_maximum_error": 7.105427357601002e-15,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 6.556015669715256e-26,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.02074985370043947,
+      "full_reconstruction_maximum_error": 4.163336342344337e-16,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.019999500015278227,
+      "minimum_sewn_neighbor_overlap": 0.8076988653348394,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.05140211683177587,
+      "full_reconstruction_maximum_error": 7.771561172376096e-16,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.00019996445733305723,
+      "minimum_sewn_neighbor_overlap": 0.7076696770138317,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.07466571406425881,
+      "full_reconstruction_maximum_error": 4.440892098500626e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 4.999843747910404e-07,
+      "minimum_sewn_neighbor_overlap": 0.707107708723217,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.0981899066969647,
+      "full_reconstruction_maximum_error": 5.773159728050814e-15,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 5.555493842734904e-10,
+      "minimum_sewn_neighbor_overlap": 0.7071062596312783,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.1452441030162781,
+      "full_reconstruction_maximum_error": 1.509903313490213e-14,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 2.780099633123789e-06,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.1922981914431734,
+      "full_reconstruction_maximum_error": 3.019806626980426e-14,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 3.2073967071158523e-26,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.02094827828535606,
+      "full_reconstruction_maximum_error": 8.604228440844963e-16,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.019999500015278227,
+      "minimum_sewn_neighbor_overlap": 0.8772186133988409,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.05314669183361087,
+      "full_reconstruction_maximum_error": 1.7208456881689926e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.00019996445733305723,
+      "minimum_sewn_neighbor_overlap": 0.7082359669964524,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.0775038646323627,
+      "full_reconstruction_maximum_error": 8.881784197001252e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 4.999843747910404e-07,
+      "minimum_sewn_neighbor_overlap": 0.7071086614153527,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.10201816205854186,
+      "full_reconstruction_maximum_error": 1.021405182655144e-14,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 5.555493842734904e-10,
+      "minimum_sewn_neighbor_overlap": 0.7071062619329985,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.15104934478213394,
+      "full_reconstruction_maximum_error": 2.842170943040401e-14,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 2.78009907797868e-06,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.20008040550454353,
+      "full_reconstruction_maximum_error": 5.5067062021407764e-14,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 1.5865754657457195e-26,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.020956902615862583,
+      "full_reconstruction_maximum_error": 1.4432899320127035e-15,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.019999500015278227,
+      "minimum_sewn_neighbor_overlap": 0.9455162525866281,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.053570760198000555,
+      "full_reconstruction_maximum_error": 3.83026943495679e-15,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.00019996445733305723,
+      "minimum_sewn_neighbor_overlap": 0.7093650993127141,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.07820695583592041,
+      "full_reconstruction_maximum_error": 1.8207657603852567e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 4.999843747910404e-07,
+      "minimum_sewn_neighbor_overlap": 0.7071105499741303,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.10296693032019277,
+      "full_reconstruction_maximum_error": 2.4424906541753444e-14,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 5.555493842734904e-10,
+      "minimum_sewn_neighbor_overlap": 0.7071062638750724,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.1524878749512535,
+      "full_reconstruction_maximum_error": 6.572520305780927e-14,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 2.780097966596204e-06,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.20200869309969427,
+      "full_reconstruction_maximum_error": 1.2434497875801753e-13,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.0,
+      "minimum_sewn_neighbor_overlap": 7.890710557588216e-27,
+      "potential_strength": 0.02
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.005649586001569923,
+      "full_reconstruction_maximum_error": 5.551115123125783e-17,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.09993754778014957,
+      "minimum_sewn_neighbor_overlap": 0.8278751728409575,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.043324930507320114,
+      "full_reconstruction_maximum_error": 1.1102230246251565e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.004977976957815544,
+      "minimum_sewn_neighbor_overlap": 0.7102411681309738,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.07034133510008589,
+      "full_reconstruction_maximum_error": 8.881784197001252e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 6.245113490965792e-05,
+      "minimum_sewn_neighbor_overlap": 0.7071284485939233,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.09491993516673158,
+      "full_reconstruction_maximum_error": 4.440892098500626e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 3.47129624600484e-07,
+      "minimum_sewn_neighbor_overlap": 0.7071059788830132,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.1437775123602787,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 2.168931700907706e-12,
+      "minimum_sewn_neighbor_overlap": 0.7069154734207992,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.1926274376957462,
+      "full_reconstruction_maximum_error": 3.552713678800501e-15,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 5.329070518200751e-15,
+      "minimum_sewn_neighbor_overlap": 1.7375881475284927e-05,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.006831671495991343,
+      "full_reconstruction_maximum_error": 1.3877787807814457e-16,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.09993754778014957,
+      "minimum_sewn_neighbor_overlap": 0.9011025267948268,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.044469084764402256,
+      "full_reconstruction_maximum_error": 2.7755575615628914e-16,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.004977976957815544,
+      "minimum_sewn_neighbor_overlap": 0.7139850445221895,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.06303171569826604,
+      "full_reconstruction_maximum_error": 1.3322676295501878e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 6.245113490965792e-05,
+      "minimum_sewn_neighbor_overlap": 0.7071633325103654,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.08231705387593014,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 3.47129624600484e-07,
+      "minimum_sewn_neighbor_overlap": 0.7071068105384992,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.12116208023209651,
+      "full_reconstruction_maximum_error": 4.440892098500626e-15,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 2.168931700907706e-12,
+      "minimum_sewn_neighbor_overlap": 0.706915566878268,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.1600071447285103,
+      "full_reconstruction_maximum_error": 7.105427357601002e-15,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 5.329070518200751e-15,
+      "minimum_sewn_neighbor_overlap": 1.7375882419782314e-05,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.006908808154340335,
+      "full_reconstruction_maximum_error": 3.608224830031759e-16,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.09993754778014957,
+      "minimum_sewn_neighbor_overlap": 0.9611321005710212,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.05105347145253036,
+      "full_reconstruction_maximum_error": 8.881784197001252e-16,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.004977976957815544,
+      "minimum_sewn_neighbor_overlap": 0.7210077756162119,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.07470911675359915,
+      "full_reconstruction_maximum_error": 4.440892098500626e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 6.245113490965792e-05,
+      "minimum_sewn_neighbor_overlap": 0.70722371250013,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.09818496854277381,
+      "full_reconstruction_maximum_error": 4.440892098500626e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 3.47129624600484e-07,
+      "minimum_sewn_neighbor_overlap": 0.7071072180278358,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.14524218697478197,
+      "full_reconstruction_maximum_error": 1.5987211554602254e-14,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 2.168931700907706e-12,
+      "minimum_sewn_neighbor_overlap": 0.7069155889541501,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.1922973612318195,
+      "full_reconstruction_maximum_error": 2.842170943040401e-14,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 5.329070518200751e-15,
+      "minimum_sewn_neighbor_overlap": 1.737588266514268e-05,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.006908969205539683,
+      "full_reconstruction_maximum_error": 7.771561172376096e-16,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.09993754778014957,
+      "minimum_sewn_neighbor_overlap": 0.9885141325575033,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.0525180510914931,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.004977976957815544,
+      "minimum_sewn_neighbor_overlap": 0.7346727321871337,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.07750734425803518,
+      "full_reconstruction_maximum_error": 9.325873406851315e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 6.245113490965792e-05,
+      "minimum_sewn_neighbor_overlap": 0.70734197845143,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.1020123133471631,
+      "full_reconstruction_maximum_error": 1.1102230246251565e-14,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 3.47129624600484e-07,
+      "minimum_sewn_neighbor_overlap": 0.7071077482793795,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.15104732664609166,
+      "full_reconstruction_maximum_error": 2.842170943040401e-14,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 2.168931700907706e-12,
+      "minimum_sewn_neighbor_overlap": 0.706915594323033,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.20007953457190553,
+      "full_reconstruction_maximum_error": 5.861977570020827e-14,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 5.329070518200751e-15,
+      "minimum_sewn_neighbor_overlap": 1.7375882724872082e-05,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 0.006908969207912896,
+      "full_reconstruction_maximum_error": 1.27675647831893e-15,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.09993754778014957,
+      "minimum_sewn_neighbor_overlap": 0.9969874113472894,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.05282418521462773,
+      "full_reconstruction_maximum_error": 3.9968028886505635e-15,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.004977976957815544,
+      "minimum_sewn_neighbor_overlap": 0.7607925183903765,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.0781918759540976,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 6.245113490965792e-05,
+      "minimum_sewn_neighbor_overlap": 0.707577646998757,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.10296072953869295,
+      "full_reconstruction_maximum_error": 2.4868995751603507e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 3.47129624600484e-07,
+      "minimum_sewn_neighbor_overlap": 0.7071087401236833,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.15248583154884088,
+      "full_reconstruction_maximum_error": 6.483702463810914e-14,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 2.168931700907706e-12,
+      "minimum_sewn_neighbor_overlap": 0.7069155956503982,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.20200781208668417,
+      "full_reconstruction_maximum_error": 1.2612133559741778e-13,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 5.329070518200751e-15,
+      "minimum_sewn_neighbor_overlap": 1.73758827339542e-05,
+      "potential_strength": 0.1
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 5.2924765595929735e-05,
+      "full_reconstruction_maximum_error": 2.7755575615628914e-17,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.4923392223766146,
+      "minimum_sewn_neighbor_overlap": 0.9709656110622669,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.018707363452676096,
+      "full_reconstruction_maximum_error": 1.6653345369377348e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.11356905243415372,
+      "minimum_sewn_neighbor_overlap": 0.7786179724912801,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.0654518165525717,
+      "full_reconstruction_maximum_error": 6.661338147750939e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.007657396848431475,
+      "minimum_sewn_neighbor_overlap": 0.7102300287007993,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.09442474502952036,
+      "full_reconstruction_maximum_error": 1.3322676295501878e-15,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.0002155647384292081,
+      "minimum_sewn_neighbor_overlap": 0.7071515140398924,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.14371496241935589,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 3.385306968084478e-08,
+      "minimum_sewn_neighbor_overlap": 0.7071018784728565,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.192602453504092,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 1.2008172234345693e-12,
+      "minimum_sewn_neighbor_overlap": 0.7054047516667319,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 6.0054859653088655e-05,
+      "full_reconstruction_maximum_error": 2.7755575615628914e-17,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.4923392223766146,
+      "minimum_sewn_neighbor_overlap": 0.9918103583245061,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.021994765841356956,
+      "full_reconstruction_maximum_error": 5.551115123125783e-16,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.11356905243415372,
+      "minimum_sewn_neighbor_overlap": 0.8432874636980633,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.06370813559866662,
+      "full_reconstruction_maximum_error": 1.3322676295501878e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.007657396848431475,
+      "minimum_sewn_neighbor_overlap": 0.7141595401573573,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.08239300438242525,
+      "full_reconstruction_maximum_error": 2.220446049250313e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.0002155647384292081,
+      "minimum_sewn_neighbor_overlap": 0.7072505532774513,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.12112491025797922,
+      "full_reconstruction_maximum_error": 4.440892098500626e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 3.385306968084478e-08,
+      "minimum_sewn_neighbor_overlap": 0.7071060563434406,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.1599906271540732,
+      "full_reconstruction_maximum_error": 7.105427357601002e-15,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 1.2008172234345693e-12,
+      "minimum_sewn_neighbor_overlap": 0.705405388586293,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 6.0054872728497466e-05,
+      "full_reconstruction_maximum_error": 7.632783294297951e-17,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.4923392223766146,
+      "minimum_sewn_neighbor_overlap": 0.9978831340978845,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.02276495892828767,
+      "full_reconstruction_maximum_error": 1.1657341758564144e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.11356905243415372,
+      "minimum_sewn_neighbor_overlap": 0.9182429621965568,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.07362301592933607,
+      "full_reconstruction_maximum_error": 4.440892098500626e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.007657396848431475,
+      "minimum_sewn_neighbor_overlap": 0.7214247183050064,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.09807850453313804,
+      "full_reconstruction_maximum_error": 6.217248937900877e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.0002155647384292081,
+      "minimum_sewn_neighbor_overlap": 0.7074092597385137,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.14519430118598642,
+      "full_reconstruction_maximum_error": 1.4210854715202004e-14,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 3.385306968084478e-08,
+      "minimum_sewn_neighbor_overlap": 0.7071066257166208,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.1922766016904145,
+      "full_reconstruction_maximum_error": 2.842170943040401e-14,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 1.2008172234345693e-12,
+      "minimum_sewn_neighbor_overlap": 0.7054055415518536,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 6.0054872728497466e-05,
+      "full_reconstruction_maximum_error": 2.0816681711721685e-16,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.4923392223766146,
+      "minimum_sewn_neighbor_overlap": 0.9994662279099812,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.022777229222339046,
+      "full_reconstruction_maximum_error": 2.1094237467877974e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.11356905243415372,
+      "minimum_sewn_neighbor_overlap": 0.9706167999642262,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.07579761211061875,
+      "full_reconstruction_maximum_error": 8.881784197001252e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.007657396848431475,
+      "minimum_sewn_neighbor_overlap": 0.7355135162013665,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.10182774879970768,
+      "full_reconstruction_maximum_error": 1.1102230246251565e-14,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.0002155647384292081,
+      "minimum_sewn_neighbor_overlap": 0.707716447168434,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.15099685738599788,
+      "full_reconstruction_maximum_error": 2.930988785010413e-14,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 3.385306968084478e-08,
+      "minimum_sewn_neighbor_overlap": 0.7071067922286121,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.2000577566890911,
+      "full_reconstruction_maximum_error": 6.039613253960852e-14,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 1.2008172234345693e-12,
+      "minimum_sewn_neighbor_overlap": 0.7054055790430049,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 6.005487272846971e-05,
+      "full_reconstruction_maximum_error": 4.440892098500626e-16,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.4923392223766146,
+      "minimum_sewn_neighbor_overlap": 0.9998662687118677,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.022777239734494303,
+      "full_reconstruction_maximum_error": 5.162537064506978e-15,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.11356905243415372,
+      "minimum_sewn_neighbor_overlap": 0.9916858985783835,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.07624910917012029,
+      "full_reconstruction_maximum_error": 1.865174681370263e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.007657396848431475,
+      "minimum_sewn_neighbor_overlap": 0.7623809639663662,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.1027414363888326,
+      "full_reconstruction_maximum_error": 2.531308496145357e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.0002155647384292081,
+      "minimum_sewn_neighbor_overlap": 0.708327385011661,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.15243471585287338,
+      "full_reconstruction_maximum_error": 6.572520305780927e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 3.385306968084478e-08,
+      "minimum_sewn_neighbor_overlap": 0.7071068892937961,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.20198578211756235,
+      "full_reconstruction_maximum_error": 1.2967404927621828e-13,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 1.2008172234345693e-12,
+      "minimum_sewn_neighbor_overlap": 0.7054055883253333,
+      "potential_strength": 0.5
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 4.117048255647404e-07,
+      "full_reconstruction_maximum_error": 5.551115123125783e-17,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.9424690954285022,
+      "minimum_sewn_neighbor_overlap": 0.9896066931949346,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.0023769123524529645,
+      "full_reconstruction_maximum_error": 2.220446049250313e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.3751081067152755,
+      "minimum_sewn_neighbor_overlap": 0.8974869111325836,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.04890299433940015,
+      "full_reconstruction_maximum_error": 6.661338147750939e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.05742368646366547,
+      "minimum_sewn_neighbor_overlap": 0.7312496259214146,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.09147535743097235,
+      "full_reconstruction_maximum_error": 4.440892098500626e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.0033789582655776584,
+      "minimum_sewn_neighbor_overlap": 0.7080788458915351,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.14351576122600207,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 2.1559764782352886e-06,
+      "minimum_sewn_neighbor_overlap": 0.7070948477320339,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.19252428480415418,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": false,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 3.0678393159178086e-10,
+      "minimum_sewn_neighbor_overlap": 0.7071002543117039,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 4.2893278323630213e-07,
+      "full_reconstruction_maximum_error": 2.220446049250313e-16,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.9424690954285022,
+      "minimum_sewn_neighbor_overlap": 0.9973088680816142,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.0029510305921709445,
+      "full_reconstruction_maximum_error": 4.440892098500626e-16,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.3751081067152755,
+      "minimum_sewn_neighbor_overlap": 0.9617717901628182,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.05359884003942916,
+      "full_reconstruction_maximum_error": 1.3322676295501878e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.05742368646366547,
+      "minimum_sewn_neighbor_overlap": 0.759257413193095,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.08268672740283822,
+      "full_reconstruction_maximum_error": 1.3322676295501878e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.0033789582655776584,
+      "minimum_sewn_neighbor_overlap": 0.7094339740958732,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.12101097052247844,
+      "full_reconstruction_maximum_error": 3.552713678800501e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 2.1559764782352886e-06,
+      "minimum_sewn_neighbor_overlap": 0.707104826448437,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.1599389737094814,
+      "full_reconstruction_maximum_error": 7.105427357601002e-15,
+      "isolation_applicable": false,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 3.0678393159178086e-10,
+      "minimum_sewn_neighbor_overlap": 0.7071028124108664,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 4.2893278323630213e-07,
+      "full_reconstruction_maximum_error": 8.326672684688674e-16,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.9424690954285022,
+      "minimum_sewn_neighbor_overlap": 0.9993210693828936,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.0029524189655891764,
+      "full_reconstruction_maximum_error": 1.5543122344752192e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.3751081067152755,
+      "minimum_sewn_neighbor_overlap": 0.9889410456033589,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.058922503533966886,
+      "full_reconstruction_maximum_error": 4.884981308350689e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.05742368646366547,
+      "minimum_sewn_neighbor_overlap": 0.8064509461843812,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.09728292615978296,
+      "full_reconstruction_maximum_error": 4.884981308350689e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.0033789582655776584,
+      "minimum_sewn_neighbor_overlap": 0.711880491246833,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.14504503494634235,
+      "full_reconstruction_maximum_error": 1.509903313490213e-14,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 2.1559764782352886e-06,
+      "minimum_sewn_neighbor_overlap": 0.7071080857870857,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.19221167560390384,
+      "full_reconstruction_maximum_error": 3.197442310920451e-14,
+      "isolation_applicable": false,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 3.0678393159178086e-10,
+      "minimum_sewn_neighbor_overlap": 0.7071034268264984,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 4.2893278323630213e-07,
+      "full_reconstruction_maximum_error": 1.4988010832439613e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.9424690954285022,
+      "minimum_sewn_neighbor_overlap": 0.9998298773430803,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.0029524189763278086,
+      "full_reconstruction_maximum_error": 2.6645352591003757e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.3751081067152755,
+      "minimum_sewn_neighbor_overlap": 0.99711807094619,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.05950570441135872,
+      "full_reconstruction_maximum_error": 9.325873406851315e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.05742368646366547,
+      "minimum_sewn_neighbor_overlap": 0.8760582174928189,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.10060944052066656,
+      "full_reconstruction_maximum_error": 1.0658141036401503e-14,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.0033789582655776584,
+      "minimum_sewn_neighbor_overlap": 0.7166695085652817,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.15083864086931875,
+      "full_reconstruction_maximum_error": 2.7533531010703882e-14,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 2.1559764782352886e-06,
+      "minimum_sewn_neighbor_overlap": 0.707110669515761,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.19998964422129362,
+      "full_reconstruction_maximum_error": 5.684341886080802e-14,
+      "isolation_applicable": false,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 3.0678393159178086e-10,
+      "minimum_sewn_neighbor_overlap": 0.7071035775995451,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 4.289327832918133e-07,
+      "full_reconstruction_maximum_error": 3.4416913763379853e-15,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.9424690954285022,
+      "minimum_sewn_neighbor_overlap": 0.9999574448689116,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 0.0029524189763278086,
+      "full_reconstruction_maximum_error": 6.328271240363392e-15,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.3751081067152755,
+      "minimum_sewn_neighbor_overlap": 0.9992717256154126,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.05953149552982007,
+      "full_reconstruction_maximum_error": 1.9095836023552692e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.05742368646366547,
+      "minimum_sewn_neighbor_overlap": 0.9447460167088397,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.10137305196915003,
+      "full_reconstruction_maximum_error": 2.5757174171303632e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.0033789582655776584,
+      "minimum_sewn_neighbor_overlap": 0.7261068883594,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.15227405072222666,
+      "full_reconstruction_maximum_error": 6.572520305780927e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 2.1559764782352886e-06,
+      "minimum_sewn_neighbor_overlap": 0.7071148780056237,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.20191688081382964,
+      "full_reconstruction_maximum_error": 1.2789769243681803e-13,
+      "isolation_applicable": false,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 3.0678393159178086e-10,
+      "minimum_sewn_neighbor_overlap": 0.7071036153029087,
+      "potential_strength": 1.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 1.6531442881273506e-10,
+      "full_reconstruction_maximum_error": 4.440892098500626e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 1.6442977676668669,
+      "minimum_sewn_neighbor_overlap": 0.9950834410761777,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 1.5956466608013642e-05,
+      "full_reconstruction_maximum_error": 1.1102230246251565e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 1.0205484518434322,
+      "minimum_sewn_neighbor_overlap": 0.973683944047371,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.009266445664625422,
+      "full_reconstruction_maximum_error": 8.881784197001252e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.3523952428535515,
+      "minimum_sewn_neighbor_overlap": 0.8469339780189484,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.07182229720054378,
+      "full_reconstruction_maximum_error": 4.440892098500626e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.049445904172090493,
+      "minimum_sewn_neighbor_overlap": 0.7226161646485944,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.1425984721481477,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.0001352706014809968,
+      "minimum_sewn_neighbor_overlap": 0.7070841573652614,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.1922100880895723,
+      "full_reconstruction_maximum_error": 3.552713678800501e-15,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 7.794351120082865e-08,
+      "minimum_sewn_neighbor_overlap": 0.7070864057195793,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 1.662665560786536e-10,
+      "full_reconstruction_maximum_error": 6.661338147750939e-16,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 1.6442977676668669,
+      "minimum_sewn_neighbor_overlap": 0.9987615672445285,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 1.740495413116161e-05,
+      "full_reconstruction_maximum_error": 5.551115123125783e-16,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 1.0205484518434322,
+      "minimum_sewn_neighbor_overlap": 0.9930261611612915,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.011374396944019427,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.3523952428535515,
+      "minimum_sewn_neighbor_overlap": 0.9273632270493475,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.07513088453879124,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.049445904172090493,
+      "minimum_sewn_neighbor_overlap": 0.7415380850504353,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.12060537186355269,
+      "full_reconstruction_maximum_error": 3.552713678800501e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.0001352706014809968,
+      "minimum_sewn_neighbor_overlap": 0.7071572209855335,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.15973189391160325,
+      "full_reconstruction_maximum_error": 7.105427357601002e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 7.794351120082865e-08,
+      "minimum_sewn_neighbor_overlap": 0.7071028095415265,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 1.662665560786536e-10,
+      "full_reconstruction_maximum_error": 2.4424906541753444e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 1.6442977676668669,
+      "minimum_sewn_neighbor_overlap": 0.9996897963937568,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 1.7404954198552147e-05,
+      "full_reconstruction_maximum_error": 1.5543122344752192e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 1.0205484518434322,
+      "minimum_sewn_neighbor_overlap": 0.9982289800619316,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.011421644491864669,
+      "full_reconstruction_maximum_error": 4.884981308350689e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.3523952428535515,
+      "minimum_sewn_neighbor_overlap": 0.975538100556876,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.08413107213802284,
+      "full_reconstruction_maximum_error": 6.661338147750939e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.049445904172090493,
+      "minimum_sewn_neighbor_overlap": 0.7747960236389346,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.1444387968114782,
+      "full_reconstruction_maximum_error": 1.509903313490213e-14,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.0001352706014809968,
+      "minimum_sewn_neighbor_overlap": 0.7072314294121652,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.1919511948960757,
+      "full_reconstruction_maximum_error": 2.842170943040401e-14,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 7.794351120082865e-08,
+      "minimum_sewn_neighbor_overlap": 0.7071060152901822,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 1.662665560786536e-10,
+      "full_reconstruction_maximum_error": 4.440892098500626e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 1.6442977676668669,
+      "minimum_sewn_neighbor_overlap": 0.9999224116516421,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 1.7404954198552147e-05,
+      "full_reconstruction_maximum_error": 2.55351295663786e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 1.0205484518434322,
+      "minimum_sewn_neighbor_overlap": 0.9995554715345962,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.01142166134779421,
+      "full_reconstruction_maximum_error": 9.325873406851315e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.3523952428535515,
+      "minimum_sewn_neighbor_overlap": 0.9932624814015206,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.08546852492951995,
+      "full_reconstruction_maximum_error": 1.2434497875801753e-14,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.049445904172090493,
+      "minimum_sewn_neighbor_overlap": 0.8308027475740977,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.1501678205092194,
+      "full_reconstruction_maximum_error": 3.019806626980426e-14,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.0001352706014809968,
+      "minimum_sewn_neighbor_overlap": 0.7073624012133319,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.19971632683781237,
+      "full_reconstruction_maximum_error": 5.684341886080802e-14,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 7.794351120082865e-08,
+      "minimum_sewn_neighbor_overlap": 0.7071066766916169,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 1.662665560786536e-10,
+      "full_reconstruction_maximum_error": 9.992007221626409e-15,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 1.6442977676668669,
+      "minimum_sewn_neighbor_overlap": 0.9999806005688219,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 1.7404954198552147e-05,
+      "full_reconstruction_maximum_error": 5.773159728050814e-15,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 1.0205484518434322,
+      "minimum_sewn_neighbor_overlap": 0.9998887562184684,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 0.01142166134780176,
+      "full_reconstruction_maximum_error": 2.042810365310288e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.3523952428535515,
+      "minimum_sewn_neighbor_overlap": 0.9982707586885443,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.08558362505212358,
+      "full_reconstruction_maximum_error": 2.7977620220553945e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.049445904172090493,
+      "minimum_sewn_neighbor_overlap": 0.904370818863635,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.15157939637423645,
+      "full_reconstruction_maximum_error": 6.661338147750939e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.0001352706014809968,
+      "minimum_sewn_neighbor_overlap": 0.7076197711723915,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.20164037729232653,
+      "full_reconstruction_maximum_error": 1.2612133559741778e-13,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 7.794351120082865e-08,
+      "minimum_sewn_neighbor_overlap": 0.7071069372294104,
+      "potential_strength": 2.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 3.1086244689504383e-15,
+      "full_reconstruction_maximum_error": 8.881784197001252e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 2.542356134367969,
+      "minimum_sewn_neighbor_overlap": 0.9969285063400689,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 9.891469726630575e-10,
+      "full_reconstruction_maximum_error": 2.7755575615628914e-17,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 2.1261501501113327,
+      "minimum_sewn_neighbor_overlap": 0.9893664900142152,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 2.059252239172693e-05,
+      "full_reconstruction_maximum_error": 4.440892098500626e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 1.3679915011777926,
+      "minimum_sewn_neighbor_overlap": 0.9698448979900827,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.008800068775490999,
+      "full_reconstruction_maximum_error": 8.881784197001252e-16,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.5175443221587654,
+      "minimum_sewn_neighbor_overlap": 0.8607707742653279,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.13462033429053122,
+      "full_reconstruction_maximum_error": 2.6645352591003757e-15,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 0.007968470331732647,
+      "minimum_sewn_neighbor_overlap": 0.7085786454799154,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.19091317505218797,
+      "full_reconstruction_maximum_error": 3.552713678800501e-15,
+      "isolation_applicable": true,
+      "mesh_size": 8,
+      "minimum_adjacent_gap": 1.9351031561143373e-05,
+      "minimum_sewn_neighbor_overlap": 0.7070539962324858,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 2.6645352591003757e-15,
+      "full_reconstruction_maximum_error": 1.7763568394002505e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 2.542356134367969,
+      "minimum_sewn_neighbor_overlap": 0.9992309163614737,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 9.973197545587453e-10,
+      "full_reconstruction_maximum_error": 6.938893903907228e-17,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 2.1261501501113327,
+      "minimum_sewn_neighbor_overlap": 0.9973239063528797,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 2.2442462541683028e-05,
+      "full_reconstruction_maximum_error": 1.3322676295501878e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 1.3679915011777926,
+      "minimum_sewn_neighbor_overlap": 0.992057752720604,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.010857687279233197,
+      "full_reconstruction_maximum_error": 2.220446049250313e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.5175443221587654,
+      "minimum_sewn_neighbor_overlap": 0.9396582621068358,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.11910833906612162,
+      "full_reconstruction_maximum_error": 5.329070518200751e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 0.007968470331732647,
+      "minimum_sewn_neighbor_overlap": 0.7108080067407173,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.15890320420803228,
+      "full_reconstruction_maximum_error": 8.881784197001252e-15,
+      "isolation_applicable": true,
+      "mesh_size": 16,
+      "minimum_adjacent_gap": 1.9351031561143373e-05,
+      "minimum_sewn_neighbor_overlap": 0.7071000344523292,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 2.220446049250313e-15,
+      "full_reconstruction_maximum_error": 5.773159728050814e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 2.542356134367969,
+      "minimum_sewn_neighbor_overlap": 0.9998076528947748,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 9.97319629658655e-10,
+      "full_reconstruction_maximum_error": 2.0816681711721685e-16,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 2.1261501501113327,
+      "minimum_sewn_neighbor_overlap": 0.9993298418428993,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 2.2442462621619086e-05,
+      "full_reconstruction_maximum_error": 5.329070518200751e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 1.3679915011777926,
+      "minimum_sewn_neighbor_overlap": 0.9979863149302726,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.01088176782902206,
+      "full_reconstruction_maximum_error": 7.993605777301127e-15,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.5175443221587654,
+      "minimum_sewn_neighbor_overlap": 0.9809057115009193,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.14042222852320663,
+      "full_reconstruction_maximum_error": 1.687538997430238e-14,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 0.007968470331732647,
+      "minimum_sewn_neighbor_overlap": 0.7147329448695849,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.1908958045911895,
+      "full_reconstruction_maximum_error": 3.019806626980426e-14,
+      "isolation_applicable": true,
+      "mesh_size": 32,
+      "minimum_adjacent_gap": 1.9351031561143373e-05,
+      "minimum_sewn_neighbor_overlap": 0.7071171848846894,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 2.220446049250313e-15,
+      "full_reconstruction_maximum_error": 1.1102230246251565e-14,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 2.542356134367969,
+      "minimum_sewn_neighbor_overlap": 0.9999519084526589,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 9.97319990481138e-10,
+      "full_reconstruction_maximum_error": 4.579669976578771e-16,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 2.1261501501113327,
+      "minimum_sewn_neighbor_overlap": 0.9998323890986336,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 2.2442462622063175e-05,
+      "full_reconstruction_maximum_error": 9.325873406851315e-15,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 1.3679915011777926,
+      "minimum_sewn_neighbor_overlap": 0.9994947697286305,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.010881770673663915,
+      "full_reconstruction_maximum_error": 1.509903313490213e-14,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.5175443221587654,
+      "minimum_sewn_neighbor_overlap": 0.9948664209637089,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.14518211977472006,
+      "full_reconstruction_maximum_error": 3.019806626980426e-14,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 0.007968470331732647,
+      "minimum_sewn_neighbor_overlap": 0.7223592383217846,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.19860411175168835,
+      "full_reconstruction_maximum_error": 5.684341886080802e-14,
+      "isolation_applicable": true,
+      "mesh_size": 64,
+      "minimum_adjacent_gap": 1.9351031561143373e-05,
+      "minimum_sewn_neighbor_overlap": 0.7071335122807544,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 0,
+      "fixed_range_withheld_maximum_error": 2.220446049250313e-15,
+      "full_reconstruction_maximum_error": 2.5757174171303632e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 2.542356134367969,
+      "minimum_sewn_neighbor_overlap": 0.9999879768148372,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 1,
+      "fixed_range_withheld_maximum_error": 9.97320059870077e-10,
+      "full_reconstruction_maximum_error": 1.0130785099704553e-15,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 2.1261501501113327,
+      "minimum_sewn_neighbor_overlap": 0.9999580928076006,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 2,
+      "fixed_range_withheld_maximum_error": 2.2442462622063175e-05,
+      "full_reconstruction_maximum_error": 1.9984014443252818e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 1.3679915011777926,
+      "minimum_sewn_neighbor_overlap": 0.999873578541687,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 3,
+      "fixed_range_withheld_maximum_error": 0.010881770673663915,
+      "full_reconstruction_maximum_error": 3.552713678800501e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.5175443221587654,
+      "minimum_sewn_neighbor_overlap": 0.9986915284814986,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 5,
+      "fixed_range_withheld_maximum_error": 0.1462332693260766,
+      "full_reconstruction_maximum_error": 6.838973831690964e-14,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 0.007968470331732647,
+      "minimum_sewn_neighbor_overlap": 0.7372498427388455,
+      "potential_strength": 4.0
+    },
+    {
+      "band_index": 7,
+      "fixed_range_withheld_maximum_error": 0.20051292770198614,
+      "full_reconstruction_maximum_error": 1.2256862191861728e-13,
+      "isolation_applicable": true,
+      "mesh_size": 128,
+      "minimum_adjacent_gap": 1.9351031561143373e-05,
+      "minimum_sewn_neighbor_overlap": 0.7071617401642938,
+      "potential_strength": 4.0
+    }
+  ],
+  "potential_amplitude_stress": [
+    {
+      "finite_difference_grid_study": [
+        {
+          "maximum_low_band_error": 0.8574077226806764,
+          "points": 31
+        },
+        {
+          "maximum_low_band_error": 0.2110735941984352,
+          "points": 63
+        },
+        {
+          "maximum_low_band_error": 0.05214877400761431,
+          "points": 127
+        },
+        {
+          "maximum_low_band_error": 0.012947844404665787,
+          "points": 255
+        }
+      ],
+      "isolated_band_status": "failed_gap_closure",
+      "plane_wave_cutoff_study": [
+        {
+          "cutoff": 5,
+          "maximum_low_band_error": 0.0
+        },
+        {
+          "cutoff": 7,
+          "maximum_low_band_error": 0.0
+        },
+        {
+          "cutoff": 9,
+          "maximum_low_band_error": 0.0
+        },
+        {
+          "cutoff": 11,
+          "maximum_low_band_error": 0.0
+        },
+        {
+          "cutoff": 15,
+          "maximum_low_band_error": 0.0
+        }
+      ],
+      "potential_sign_invariance_maximum_error": 0.0,
+      "potential_strength": 0.0,
+      "zone_boundary_gap": 0.0
+    },
+    {
+      "finite_difference_grid_study": [
+        {
+          "maximum_low_band_error": 0.8574081498831525,
+          "points": 31
+        },
+        {
+          "maximum_low_band_error": 0.21107368058521914,
+          "points": 63
+        },
+        {
+          "maximum_low_band_error": 0.052148794366074114,
+          "points": 127
+        },
+        {
+          "maximum_low_band_error": 0.012947849400498868,
+          "points": 255
+        }
+      ],
+      "isolated_band_status": "pass",
+      "plane_wave_cutoff_study": [
+        {
+          "cutoff": 5,
+          "maximum_low_band_error": 8.677503160470224e-12
+        },
+        {
+          "cutoff": 7,
+          "maximum_low_band_error": 1.7408297026122455e-13
+        },
+        {
+          "cutoff": 9,
+          "maximum_low_band_error": 1.7497114868092467e-13
+        },
+        {
+          "cutoff": 11,
+          "maximum_low_band_error": 1.7674750552032492e-13
+        },
+        {
+          "cutoff": 15,
+          "maximum_low_band_error": 5.329070518200751e-15
+        }
+      ],
+      "potential_sign_invariance_maximum_error": 0.0,
+      "potential_strength": 0.02,
+      "zone_boundary_gap": 0.019999500015278254
+    },
+    {
+      "finite_difference_grid_study": [
+        {
+          "maximum_low_band_error": 0.857418402654119,
+          "points": 31
+        },
+        {
+          "maximum_low_band_error": 0.21107575384870358,
+          "points": 63
+        },
+        {
+          "maximum_low_band_error": 0.0521492829668766,
+          "points": 127
+        },
+        {
+          "maximum_low_band_error": 0.01294796931794906,
+          "points": 255
+        }
+      ],
+      "isolated_band_status": "pass",
+      "plane_wave_cutoff_study": [
+        {
+          "cutoff": 5,
+          "maximum_low_band_error": 5.425050630947226e-09
+        },
+        {
+          "cutoff": 7,
+          "maximum_low_band_error": 1.0658141036401503e-14
+        },
+        {
+          "cutoff": 9,
+          "maximum_low_band_error": 1.5987211554602254e-14
+        },
+        {
+          "cutoff": 11,
+          "maximum_low_band_error": 3.1252778143198157e-14
+        },
+        {
+          "cutoff": 15,
+          "maximum_low_band_error": 7.105427357601002e-15
+        }
+      ],
+      "potential_sign_invariance_maximum_error": 0.0,
+      "potential_strength": 0.1,
+      "zone_boundary_gap": 0.0999375477801496
+    },
+    {
+      "finite_difference_grid_study": [
+        {
+          "maximum_low_band_error": 0.8576746665771537,
+          "points": 31
+        },
+        {
+          "maximum_low_band_error": 0.21112757262066673,
+          "points": 63
+        },
+        {
+          "maximum_low_band_error": 0.052161494885254456,
+          "points": 127
+        },
+        {
+          "maximum_low_band_error": 0.01295096643650595,
+          "points": 255
+        }
+      ],
+      "isolated_band_status": "pass",
+      "plane_wave_cutoff_study": [
+        {
+          "cutoff": 5,
+          "maximum_low_band_error": 3.3860932511231567e-06
+        },
+        {
+          "cutoff": 7,
+          "maximum_low_band_error": 1.7763568394002505e-14
+        },
+        {
+          "cutoff": 9,
+          "maximum_low_band_error": 2.1760371282653068e-14
+        },
+        {
+          "cutoff": 11,
+          "maximum_low_band_error": 2.9476421303797906e-14
+        },
+        {
+          "cutoff": 15,
+          "maximum_low_band_error": 5.329070518200751e-15
+        }
+      ],
+      "potential_sign_invariance_maximum_error": 0.0,
+      "potential_strength": 0.5,
+      "zone_boundary_gap": 0.4923392223766147
+    },
+    {
+      "finite_difference_grid_study": [
+        {
+          "maximum_low_band_error": 0.8584748039183729,
+          "points": 31
+        },
+        {
+          "maximum_low_band_error": 0.21128934716711179,
+          "points": 63
+        },
+        {
+          "maximum_low_band_error": 0.05219961864227152,
+          "points": 127
+        },
+        {
+          "maximum_low_band_error": 0.012960322934215895,
+          "points": 255
+        }
+      ],
+      "isolated_band_status": "pass",
+      "plane_wave_cutoff_study": [
+        {
+          "cutoff": 5,
+          "maximum_low_band_error": 5.394298233341033e-05
+        },
+        {
+          "cutoff": 7,
+          "maximum_low_band_error": 3.2791547255328624e-12
+        },
+        {
+          "cutoff": 9,
+          "maximum_low_band_error": 2.098321516541546e-14
+        },
+        {
+          "cutoff": 11,
+          "maximum_low_band_error": 1.8762769116165146e-14
+        },
+        {
+          "cutoff": 15,
+          "maximum_low_band_error": 8.881784197001252e-15
+        }
+      ],
+      "potential_sign_invariance_maximum_error": 0.0,
+      "potential_strength": 1.0,
+      "zone_boundary_gap": 0.9424690954285024
+    },
+    {
+      "finite_difference_grid_study": [
+        {
+          "maximum_low_band_error": 0.8616648722347726,
+          "points": 31
+        },
+        {
+          "maximum_low_band_error": 0.2119340216272363,
+          "points": 63
+        },
+        {
+          "maximum_low_band_error": 0.052351527501269146,
+          "points": 127
+        },
+        {
+          "maximum_low_band_error": 0.01299760418833884,
+          "points": 255
+        }
+      ],
+      "isolated_band_status": "pass",
+      "plane_wave_cutoff_study": [
+        {
+          "cutoff": 5,
+          "maximum_low_band_error": 0.0008474789709413955
+        },
+        {
+          "cutoff": 7,
+          "maximum_low_band_error": 8.355129921255866e-10
+        },
+        {
+          "cutoff": 9,
+          "maximum_low_band_error": 3.019806626980426e-14
+        },
+        {
+          "cutoff": 11,
+          "maximum_low_band_error": 4.1522341120980855e-14
+        },
+        {
+          "cutoff": 15,
+          "maximum_low_band_error": 3.552713678800501e-15
+        }
+      ],
+      "potential_sign_invariance_maximum_error": 0.0,
+      "potential_strength": 2.0,
+      "zone_boundary_gap": 1.6442977676668664
+    },
+    {
+      "finite_difference_grid_study": [
+        {
+          "maximum_low_band_error": 0.8742571572560713,
+          "points": 31
+        },
+        {
+          "maximum_low_band_error": 0.21447389180388043,
+          "points": 63
+        },
+        {
+          "maximum_low_band_error": 0.0529497736285478,
+          "points": 127
+        },
+        {
+          "maximum_low_band_error": 0.0131444108028127,
+          "points": 255
+        }
+      ],
+      "isolated_band_status": "pass",
+      "plane_wave_cutoff_study": [
+        {
+          "cutoff": 5,
+          "maximum_low_band_error": 0.012520465266399938
+        },
+        {
+          "cutoff": 7,
+          "maximum_low_band_error": 2.1044727560592946e-07
+        },
+        {
+          "cutoff": 9,
+          "maximum_low_band_error": 2.291500322826323e-13
+        },
+        {
+          "cutoff": 11,
+          "maximum_low_band_error": 2.756128658631951e-14
+        },
+        {
+          "cutoff": 15,
+          "maximum_low_band_error": 8.881784197001252e-15
+        }
+      ],
+      "potential_sign_invariance_maximum_error": 0.0,
+      "potential_strength": 4.0,
+      "zone_boundary_gap": 2.54235613436797
+    }
+  ],
+  "potential_shape_stress": {
+    "cases": [
+      {
+        "finest_grid_maximum_band_error": 0.01295096643650595,
+        "id": "baseline_cosine",
+        "minimum_adjacent_gaps": [
+          0.4923392223766147,
+          0.11356905243415372,
+          0.007657396848431475,
+          0.00021556473843009627,
+          3.3805397032793394e-06,
+          3.385306968084478e-08,
+          2.3524471259861457e-10,
+          2.3524471259861457e-10
+        ],
+        "time_reversal_energy_residual": 7.105427357601002e-15
+      },
+      {
+        "finest_grid_maximum_band_error": 0.012950966436827471,
+        "id": "translated_cosine",
+        "minimum_adjacent_gaps": [
+          0.4923392223766147,
+          0.11356905243415372,
+          0.007657396848431475,
+          0.0002155647384292081,
+          3.3805397032793394e-06,
+          3.385306968084478e-08,
+          2.3524471259861457e-10,
+          2.3524471259861457e-10
+        ],
+        "time_reversal_energy_residual": 1.0658141036401503e-14
+      },
+      {
+        "finest_grid_maximum_band_error": 0.01295096643636029,
+        "id": "constant_shifted_cosine",
+        "minimum_adjacent_gaps": [
+          0.49233922237661454,
+          0.1135690524341535,
+          0.007657396848431475,
+          0.00021556473843009627,
+          3.3805397032793394e-06,
+          3.3853067904487943e-08,
+          2.3524648895545397e-10,
+          2.3524648895545397e-10
+        ],
+        "time_reversal_energy_residual": 1.0658141036401503e-14
+      },
+      {
+        "finest_grid_maximum_band_error": 0.012951230557025184,
+        "id": "second_harmonic_cosine",
+        "minimum_adjacent_gaps": [
+          0.4554517031698596,
+          0.250518267022414,
+          0.04415114123381736,
+          0.005590177887436987,
+          0.0003959355836151701,
+          2.7239761299924226e-05,
+          1.218121070678535e-06,
+          1.218121070678535e-06
+        ],
+        "time_reversal_energy_residual": 1.5987211554602254e-14
+      },
+      {
+        "finest_grid_maximum_band_error": 0.012951136921055095,
+        "id": "inversion_broken",
+        "minimum_adjacent_gaps": [
+          0.49307019890172393,
+          0.15688577827507177,
+          0.030328648578541006,
+          0.0025979264358069187,
+          0.00020644784048062803,
+          9.803700223187661e-06,
+          4.967621567431024e-07,
+          4.967621567431024e-07
+        ],
+        "time_reversal_energy_residual": 1.9539925233402755e-14
+      },
+      {
+        "finest_grid_maximum_band_error": 0.012951258432067903,
+        "id": "three_harmonic",
+        "minimum_adjacent_gaps": [
+          0.45568958838303925,
+          0.24193440393797727,
+          0.09220381361429686,
+          0.013772319962434665,
+          0.002082681783903695,
+          0.00029156802172281004,
+          2.369701637761068e-05,
+          2.369701637761068e-05
+        ],
+        "time_reversal_energy_residual": 1.7763568394002505e-14
+      }
+    ],
+    "constant_shift_covariance_maximum_error": 8.881784197001252e-15,
+    "translation_isospectral_maximum_error": 8.881784197001252e-15
+  },
+  "provenance": {
+    "floating_point": "IEEE-754 binary64",
+    "input_path": "calculations/research-monograph/periodic-1d/stress-input.json",
+    "input_sha256": "3be86c6ee7cb08c1c194aa97e856c89458907c23428bed19f6b38cdb437d987a",
+    "numpy_version": "2.5.1",
+    "python_version": "3.14.6",
+    "script_path": "calculations/research-monograph/periodic-1d/run_stress.py",
+    "script_sha256": "4ff4f5ee69a9e2334b4d035fa2e29e93c8c109ccbf9a0458a00d7fd65ff728b8"
+  },
+  "route_assumption_stress": {
+    "hopping_range_cells": 3,
+    "incomplete_training_coefficient_defect": 0.00034363540917786966,
+    "incomplete_training_comparison_l2_defect": 0.005564800542421093,
+    "mesh_size": 64,
+    "nonuniform_weight_coefficient_defect": 1.3183563511075461e-05,
+    "nonuniform_weight_comparison_l2_defect": 0.00021139261055738183,
+    "potential_strength": 0.5,
+    "uniform_complete_coefficient_defect": 5.119385367979971e-17
+  },
+  "schema_version": 1
+}

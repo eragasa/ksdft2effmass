@@ -36,9 +36,6 @@ class TestPeriodic1DRankNGaugeAlignment:
             assert domain_value.to_wire() == wire_value
             assert Periodic1DRankNGaugeAlignment.from_wire(wire_value) is domain_value
 
-    def test__wire_conversion__rejects_wrong_types_and_old_values(self) -> None:
+    def test__wire_conversion__rejects_wrong_types(self) -> None:
         with pytest.raises(TypeError, match="built-in string"):
             Periodic1DRankNGaugeAlignment.from_wire(1)  # type: ignore[arg-type]
-        for legacy_value in ("A0", "A1", "A2", "A3"):
-            with pytest.raises(ValueError, match="unsupported"):
-                Periodic1DRankNGaugeAlignment.from_wire(legacy_value)

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.periodic-1d.isolated-band.v1",
+  "evidence_status": "illustrative numerical experiment",
+  "dimensionless_convention": {
+    "lattice_period": 6.283185307179586,
+    "reciprocal_vector": 1.0,
+    "reciprocal_energy": 1.0
+  },
+  "potential_strength": 0.5,
+  "plane_wave_cutoffs": [3, 5, 7, 9, 11],
+  "plane_wave_reference_cutoff": 15,
+  "finite_difference_points": [31, 63, 127, 255],
+  "parent_sample_momenta": [-0.5, -0.25, 0.0, 0.25, 0.5],
+  "compared_band_count": 3,
+  "common_low_mode_cutoff": 3,
+  "reciprocal_mesh_size": 64,
+  "hopping_ranges": [0, 1, 2, 3, 4, 6, 8],
+  "withheld_mesh_size": 257,
+  "weak_potential_strengths": [0.02, 0.05, 0.1, 0.2]
+}

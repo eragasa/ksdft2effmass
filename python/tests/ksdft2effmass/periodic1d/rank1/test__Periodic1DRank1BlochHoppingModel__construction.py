@@ -20,6 +20,7 @@ from projectkoios.physkit.units import (
     ModelSystemUnitConverter,
     PhysicalUnit,
     Unitless,
+    UnitSystem,
 )
 
 from ksdft2effmass.model.blochhopping import BlochHoppingModel
@@ -38,7 +39,7 @@ type TestDisplacement = tuple[int] | tuple[int, int] | tuple[int, int, int]
 class _LatticeKineticParameterArguments(TypedDict):
     identifier: str
     geometry: Periodic1DLatticeGeometry
-    energy_unit: PhysicalUnit
+    unit_system: UnitSystem
     energy_reference: str
     basis_identifier: str
 
@@ -102,6 +103,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
                 2.0,
                 PhysicalUnit("angstrom"),
             ),
+            unit_system=UnitSystem.METAL,
             physkit_model=cls._physkit_model(),
         )
 
@@ -111,7 +113,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
         return {
             "identifier": "reduced-rank1-from-ea-v1",
             "geometry": Periodic1DLatticeGeometry(1.0, PhysicalUnit("bohr")),
-            "energy_unit": PhysicalUnit("hartree"),
+            "unit_system": UnitSystem.ATOMIC,
             "energy_reference": "controlled-zero-v1",
             "basis_identifier": "controlled-scalar-cell-basis-v1",
         }
@@ -122,7 +124,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
         return Periodic1DRank1BlochHoppingModel.from_lattice_kinetic_parameters(
             identifier="reduced-rank1-from-ea-v1",
             geometry=Periodic1DLatticeGeometry(2.0, PhysicalUnit("angstrom")),
-            energy_unit=PhysicalUnit("electron_volt"),
+            unit_system=UnitSystem.METAL,
             energy_reference="controlled-zero-v1",
             basis_identifier="controlled-scalar-cell-basis-v1",
             normalized_onsite=1.5,
@@ -154,6 +156,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
             model.block_hopping_model is model.physkit_model,
             model.block_hopping_model.dimension,
             model.block_hopping_model.basis_size,
+            model.unit_system,
             model.energy_unit,
             model.block_hopping_model.energy_unit is model.energy_unit,
             model.block_hopping_model.energy_reference,
@@ -162,6 +165,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
             True,
             LatticeDimension.ONE,
             1,
+            UnitSystem.METAL,
             PhysicalUnit("electron_volt"),
             True,
             "controlled-zero-v1",
@@ -178,6 +182,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
             "period-0x1.0000000000000p+1",
             "length-unit-angstrom",
             "lattice-kinetic-energy-scale.hbar2-over-me-a2.v1",
+            "unit-system-metal",
             "energy-unit-electron_volt",
             "energy-reference-controlled-zero-v1",
         )
@@ -286,6 +291,34 @@ class TestPeriodic1DRank1BlochHoppingModel:
 
         assert not coefficient.magnitude.flags.writeable
 
+    def test__Periodic1DRank1BlochHoppingModel__factory_rejects_foreign_unit_system(
+        self,
+    ) -> None:
+        """Reject strings rather than coercing them to unit-system members."""
+        arguments = self._kinetic_arguments()
+        arguments["unit_system"] = "atomic"  # type: ignore[typeddict-item]
+
+        with pytest.raises(TypeError, match="UnitSystem"):
+            Periodic1DRank1BlochHoppingModel.from_lattice_kinetic_parameters(
+                **arguments,
+                normalized_onsite=0.0,
+                normalized_positive_hoppings=(),
+            )
+
+    def test__Periodic1DRank1BlochHoppingModel__factory_rejects_unitless_system(
+        self,
+    ) -> None:
+        """Reject the nondimensional control system at the physical model boundary."""
+        arguments = self._kinetic_arguments()
+        arguments["unit_system"] = UnitSystem.NONDIMENSIONAL
+
+        with pytest.raises(ValueError, match="must be physical"):
+            Periodic1DRank1BlochHoppingModel.from_lattice_kinetic_parameters(
+                **arguments,
+                normalized_onsite=0.0,
+                normalized_positive_hoppings=(),
+            )
+
     def test__Periodic1DRank1BlochHoppingModel__onsite_rejects_boolean(self) -> None:
         """Reject booleans as normalized onsite scalars."""
         with pytest.raises(TypeError, match="normalized_onsite"):
@@ -343,9 +376,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
             Periodic1DRank1BlochHoppingModel.from_lattice_kinetic_parameters(
                 **self._kinetic_arguments(),
                 normalized_onsite=0.0,
-                normalized_positive_hoppings=(
-                    (1, complex(float("inf"), 0.0)),
-                ),
+                normalized_positive_hoppings=((1, complex(float("inf"), 0.0)),),
             )
 
     def test__Periodic1DRank1BlochHoppingModel__dimension_rejects_non_one(
@@ -367,6 +398,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
                     1.0,
                     PhysicalUnit("bohr"),
                 ),
+                unit_system=UnitSystem.METAL,
                 physkit_model=physkit_model,
             )
 
@@ -380,6 +412,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
                     1.0,
                     PhysicalUnit("bohr"),
                 ),
+                unit_system=UnitSystem.METAL,
                 physkit_model=self._physkit_model(basis_size=2),
             )
 
@@ -402,9 +435,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
                 "conjugate transposes",
             ),
             (
-                (
-                    ((0,), 1.0 + 0.25j),
-                ),
+                (((0,), 1.0 + 0.25j),),
                 "conjugate transposes",
             ),
         ),
@@ -421,6 +452,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
                     1.0,
                     PhysicalUnit("bohr"),
                 ),
+                unit_system=UnitSystem.METAL,
                 physkit_model=self._physkit_model(blocks=blocks),
             )
 
@@ -430,6 +462,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
         """Accept a PhysKit model expressed in a physical energy unit."""
         model = Periodic1DRank1BlochHoppingModel(
             geometry=Periodic1DLatticeGeometry(1.0, PhysicalUnit("bohr")),
+            unit_system=UnitSystem.METAL,
             physkit_model=self._physkit_model(),
         )
 
@@ -442,22 +475,22 @@ class TestPeriodic1DRank1BlochHoppingModel:
         with pytest.raises(TypeError, match="physical energy unit"):
             Periodic1DRank1BlochHoppingModel(
                 geometry=Periodic1DLatticeGeometry(1.0, PhysicalUnit("bohr")),
+                unit_system=UnitSystem.METAL,
                 physkit_model=self._physkit_model(energy_unit=Unitless()),
             )
 
-    def test__Periodic1DRank1BlochHoppingModel__energy_unit_rejects_nonenergy(
+    def test__Periodic1DRank1BlochHoppingModel__rejects_unit_system_mismatch(
         self,
     ) -> None:
-        """Reject physical coefficient units without energy dimensionality."""
-        with pytest.raises(ValueError, match="energy dimensionality"):
+        """Reject a model unit that differs from the selected coherent system."""
+        with pytest.raises(ValueError, match="match unit_system"):
             Periodic1DRank1BlochHoppingModel(
                 geometry=Periodic1DLatticeGeometry(
                     1.0,
                     PhysicalUnit("angstrom"),
                 ),
-                physkit_model=self._physkit_model(
-                    energy_unit=PhysicalUnit("meter")
-                ),
+                unit_system=UnitSystem.METAL,
+                physkit_model=self._physkit_model(energy_unit=PhysicalUnit("meter")),
             )
 
     def test__Periodic1DRank1BlochHoppingModel__conversion_retains_geometry(
@@ -485,8 +518,16 @@ class TestPeriodic1DRank1BlochHoppingModel:
             basis_identifier=source.basis_identifier,
         )
         geometry = Periodic1DLatticeGeometry(2.0, PhysicalUnit("angstrom"))
-        source_model = Periodic1DRank1BlochHoppingModel(geometry, source)
-        converted_model = Periodic1DRank1BlochHoppingModel(geometry, converted)
+        source_model = Periodic1DRank1BlochHoppingModel(
+            geometry=geometry,
+            unit_system=UnitSystem.METAL,
+            physkit_model=source,
+        )
+        converted_model = Periodic1DRank1BlochHoppingModel(
+            geometry=geometry,
+            unit_system=UnitSystem.SI,
+            physkit_model=converted,
+        )
 
         assert (
             converted_model.energy_unit,
@@ -540,5 +581,6 @@ class TestPeriodic1DRank1BlochHoppingModel:
         with pytest.raises(TypeError, match="geometry"):
             Periodic1DRank1BlochHoppingModel(
                 geometry=geometry.direct_lattice,  # type: ignore[arg-type]
+                unit_system=UnitSystem.METAL,
                 physkit_model=self._physkit_model(),
             )

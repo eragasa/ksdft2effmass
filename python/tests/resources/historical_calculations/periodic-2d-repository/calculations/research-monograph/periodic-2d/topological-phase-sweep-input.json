@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.periodic-2d.topological-phase-sweeps.v1",
+  "evidence_status": "illustrative numerical experiment",
+  "mesh_size": 51,
+  "models": {
+    "qi_wu_zhang": {
+      "parameter_name": "mass",
+      "start": -3.0,
+      "stop": 3.0,
+      "count": 61,
+      "analytic_boundaries": [-2.0, 0.0, 2.0]
+    },
+    "hofstadter": {
+      "parameter_name": "superlattice_amplitude",
+      "start": 0.0,
+      "stop": 12.0,
+      "count": 61,
+      "flux_numerator": 1,
+      "flux_denominator": 3,
+      "hopping": 1.0
+    },
+    "haldane": {
+      "parameter_name": "sublattice_mass",
+      "start": -1.2,
+      "stop": 1.2,
+      "count": 49,
+      "nearest_hopping": 1.0,
+      "next_nearest_hopping": 0.15,
+      "phase": 1.5707963267948966,
+      "analytic_boundary_magnitude": 0.7794228634059948
+    }
+  },
+  "acceptance": {
+    "chern_integer_defect": 1e-10,
+    "analytic_boundary_exclusion_width": 0.11,
+    "minimum_endpoint_gap": 0.1
+  }
+}

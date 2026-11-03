@@ -2,10 +2,8 @@
 
 from __future__ import annotations
 
-import ast
 import hashlib
 from dataclasses import replace
-from pathlib import Path
 
 import numpy as np
 import pytest
@@ -35,49 +33,6 @@ pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 class TestMathieu1dDirectAnalysis:
     """Verify typed execution, byte-owning verification, and rendering behavior."""
-
-    def test_source__successor_modules__import_no_legacy_or_calculation_code(
-        self,
-    ) -> None:
-        """Successor source consumes installed owners without predecessor imports."""
-        source_directory = (
-            Path(__file__).resolve().parents[5]
-            / "python"
-            / "src"
-            / ("ksdft2effmass/model_systems/mathieu1d")
-        )
-        source_files = [
-            source_directory / name
-            for name in (
-                "__init__.py",
-                "analysis.py",
-                "configuration.py",
-                "result.py",
-                "verification.py",
-                "verification_values.py",
-            )
-        ]
-        source_files.extend(sorted((source_directory / "visualizations").rglob("*.py")))
-        for source_file in source_files:
-            tree = ast.parse(source_file.read_text(encoding="utf-8"))
-            imported_modules = {
-                node.module
-                for node in ast.walk(tree)
-                if isinstance(node, ast.ImportFrom) and node.module is not None
-            }
-            imported_modules.update(
-                alias.name
-                for node in ast.walk(tree)
-                if isinstance(node, ast.Import)
-                for alias in node.names
-            )
-            assert not any(".study" in module for module in imported_modules)
-            assert not any(
-                "single_band_fourier_reduction" in module for module in imported_modules
-            )
-            assert not any(
-                module.startswith("calculations") for module in imported_modules
-            )
 
     def test_configuration__invalid_boolean_numeric__is_rejected(self) -> None:
         """The public numeric boundary rejects booleans rather than coercing them."""

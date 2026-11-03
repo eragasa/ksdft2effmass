@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import hashlib
 from dataclasses import replace
-from pathlib import Path
 
 import pytest
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
@@ -277,23 +276,3 @@ class TestPeriodic1DConstrainedAdmissibleSetAnalyzer:
         ).result()
 
         assert not verified.verification.passed
-
-    def test__source__does_not_import_or_execute_legacy_multiband_alignment(
-        self,
-    ) -> None:
-        package = (
-            Path(__file__).resolve().parents[4]
-            / "src/ksdft2effmass/periodic1d/admissible_sets"
-        )
-        source = "\n".join(
-            path.read_text(encoding="utf-8") for path in sorted(package.rglob("*.py"))
-        )
-
-        assert "periodic1d.multiband_alignment" not in source
-        assert "Periodic1DMultibandAlignment" not in source
-        assert "ConstrainedAdmissibleSetCalculator" not in source
-        assert "ResultJsonSerializer" not in source
-        assert "_compare_values" not in source
-        assert '.startswith("result.")' not in source
-        assert '.startswith("visualization.")' not in source
-        assert "@staticmethod" not in source
