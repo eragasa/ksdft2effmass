@@ -648,52 +648,6 @@ class HumanAuthoredResultProducer:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class UnknownLegacyResultProducer:
-    """Retain bounded legacy provenance with actual evidence and limitations.
-
-    Parameters
-    ----------
-    identity, source_identity
-        Exact provenance-record and retained legacy-source identities.
-    evidence_identities
-        Nonempty unique evidence identities in lexical order.
-    limitations
-        Nonempty statements explaining the unknown historical provenance.
-    """
-
-    identity: ResultProducerProvenanceIdentity
-    source_identity: RetainedResultSourceIdentity
-    evidence_identities: tuple[ResultProducerEvidenceIdentity, ...]
-    limitations: tuple[str, ...]
-
-    def __post_init__(self) -> None:
-        """Validate exact bounded legacy evidence without fabricating a producer."""
-        if type(self.identity) is not ResultProducerProvenanceIdentity:
-            raise TypeError("identity must be ResultProducerProvenanceIdentity")
-        if type(self.source_identity) is not RetainedResultSourceIdentity:
-            raise TypeError("source_identity must be RetainedResultSourceIdentity")
-        evidence = self.evidence_identities
-        if type(evidence) is not tuple or any(
-            type(value) is not ResultProducerEvidenceIdentity for value in evidence
-        ):
-            raise TypeError(
-                "evidence_identities must be a tuple of ResultProducerEvidenceIdentity"
-            )
-        if (
-            not evidence
-            or evidence != tuple(sorted(evidence, key=lambda value: value.value))
-            or len(set(evidence)) != len(evidence)
-        ):
-            raise ValueError("evidence identities must be nonempty, unique, and sorted")
-        if type(self.limitations) is not tuple or any(
-            type(value) is not str for value in self.limitations
-        ):
-            raise TypeError("limitations must be a tuple of strings")
-        if not self.limitations or any(not value for value in self.limitations):
-            raise ValueError("limitations must contain nonempty strings")
-
-
-@dataclass(frozen=True, slots=True, kw_only=True)
 class ResultObjectReference:
     """Correlate one concrete immutable ResultObject and its exact producer.
 
@@ -708,8 +662,8 @@ class ResultObjectReference:
     content_identity
         Exact immutable represented-content identity supplied by the owning domain.
     producer_provenance
-        Exactly one represented-Task, represented-decision, external, imported,
-        human-authored, or unknown-legacy producer record.
+        Exactly one represented-Task, represented-decision, external, imported, or
+        human-authored producer record.
     """
 
     identity: ResultObjectReferenceIdentity
@@ -723,7 +677,6 @@ class ResultObjectReference:
         | ExternalResultProducer
         | ImportedRetainedResultProducer
         | HumanAuthoredResultProducer
-        | UnknownLegacyResultProducer
     )
 
     def __post_init__(self) -> None:
@@ -760,7 +713,6 @@ class ResultObjectReference:
             ExternalResultProducer,
             ImportedRetainedResultProducer,
             HumanAuthoredResultProducer,
-            UnknownLegacyResultProducer,
         }:
             raise TypeError("producer_provenance must be a closed producer variant")
 

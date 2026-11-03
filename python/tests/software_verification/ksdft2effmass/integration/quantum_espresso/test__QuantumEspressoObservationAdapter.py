@@ -65,9 +65,9 @@ from ksdft2effmass.workflows.artifacts import (
     ArtifactManifestIdentity,
     ArtifactProducerKind,
     ArtifactProducerProvenanceIdentity,
+    ImportedRetainedFixture,
     RepresentedWorkflowProducer,
     ResultArtifactRelationIdentity,
-    UnknownLegacyProducer,
 )
 from ksdft2effmass.workflows.model import WorkflowIdentity, WorkflowRunIdentity
 
@@ -175,7 +175,7 @@ class TestQuantumEspressoObservationAdapter:
 
         Evidence ID: Helper owns no identifier.
 
-        Requirement: Support admitted legacy-lineage artifact test inputs.
+        Requirement: Support admitted retained-fixture artifact test inputs.
 
         Method: Construct one internally closed immutable synthetic manifest.
 
@@ -185,19 +185,27 @@ class TestQuantumEspressoObservationAdapter:
 
         Interpretation: Failure blocks the consuming software-verification evidence.
 
-        Limitations: Unknown-legacy provenance is synthetic and explicitly limited.
+        Limitations: Retained-fixture provenance is synthetic and explicitly limited.
         """
         artifact = ArtifactIdentity("artifact.synthetic.qexsd")
-        producer = UnknownLegacyProducer(
+        producer = ImportedRetainedFixture(
             ArtifactProducerProvenanceIdentity("producer.synthetic.qexsd"),
             1,
-            ArtifactProducerKind.UNKNOWN_LEGACY,
+            ArtifactProducerKind.IMPORTED_RETAINED_FIXTURE,
             artifact,
             content,
             ("evidence.synthetic.qexsd",),
             ("claim.synthetic-test-data-only",),
-            "synthetic source has no represented Workflow producer",
-            ("producer lineage intentionally unavailable",),
+            "fixture.synthetic.qexsd",
+            "fixture.revision.1",
+            "source.synthetic.qexsd",
+            "synthetic/qexsd/source.xml",
+            "import.synthetic.qexsd",
+            "import.receipt.synthetic.qexsd",
+            "retained.source.synthetic.qexsd",
+            content,
+            "checksum.synthetic.qexsd",
+            "provenance.synthetic.qexsd",
             "synthetic_test_data",
         )
         entry = ArtifactManifestEntry(

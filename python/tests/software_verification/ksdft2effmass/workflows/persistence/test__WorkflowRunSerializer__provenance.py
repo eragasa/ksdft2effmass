@@ -1,13 +1,13 @@
 r"""Software verification of ``WorkflowRunSerializer``.
 
-Bounded artifact scope: six result-producer variants, production and native admission.
+Bounded artifact scope: five result-producer variants, production and native admission.
 
 Evidence profile: claim_bearing
 
 Facet and represented meaning
 
 Independent literals retain represented Task/decision, external, imported, declared
-human and unknown-legacy provenance around complete concrete values. The Task literal
+human and imported-retained provenance around complete concrete values. The Task literal
 also retains production relations, output binding and native-admission correlations.
 
 Intrinsic and cross-object scope
@@ -38,9 +38,7 @@ from ksdft2effmass.integration.quantum_espresso import (
 from ksdft2effmass.petrinet import colored as c
 from ksdft2effmass.workflows import WorkflowRunSerializer
 
-type ProducerKind = Literal[
-    "task", "decision", "external", "imported", "human", "legacy"
-]
+type ProducerKind = Literal["task", "decision", "external", "imported", "human"]
 type EvidenceMutation = Literal["no_evidence", "duplicate_evidence", "no_limitations"]
 type Producer = (
     w.RepresentedTaskResultProducer
@@ -48,7 +46,6 @@ type Producer = (
     | w.ExternalResultProducer
     | w.ImportedRetainedResultProducer
     | w.HumanAuthoredResultProducer
-    | w.UnknownLegacyResultProducer
 )
 
 pytestmark = pytest.mark.software_verification
@@ -181,7 +178,7 @@ class TestWorkflowRunSerializer:
                 evidence_identities=evidence,
                 limitations=limitations,
             )
-        return w.UnknownLegacyResultProducer(
+        return w.ImportedRetainedResultProducer(
             identity=identity,
             source_identity=source,
             evidence_identities=evidence,
@@ -275,7 +272,6 @@ class TestWorkflowRunSerializer:
             pytest.param("external", id="external_producer"),
             pytest.param("imported", id="imported_source"),
             pytest.param("human", id="declared_human"),
-            pytest.param("legacy", id="unknown_legacy"),
         ],
     )
     def test_method__serialize__matches_provenance_literal(
@@ -309,7 +305,6 @@ class TestWorkflowRunSerializer:
             pytest.param("external", id="external_producer"),
             pytest.param("imported", id="imported_source"),
             pytest.param("human", id="declared_human"),
-            pytest.param("legacy", id="unknown_legacy"),
         ],
     )
     def test_method__deserialize__restores_provenance_literal(
@@ -354,11 +349,6 @@ class TestWorkflowRunSerializer:
             pytest.param("human", "no_evidence", id="human_evidence_missing"),
             pytest.param("human", "duplicate_evidence", id="human_evidence_duplicate"),
             pytest.param("human", "no_limitations", id="human_limitations_missing"),
-            pytest.param("legacy", "no_evidence", id="legacy_evidence_missing"),
-            pytest.param(
-                "legacy", "duplicate_evidence", id="legacy_evidence_duplicate"
-            ),
-            pytest.param("legacy", "no_limitations", id="legacy_limitations_missing"),
         ],
     )
     def test_method__deserialize__rejects_producer_evidence_drift(

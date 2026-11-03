@@ -71,7 +71,7 @@ from ksdft2effmass.workflows.artifacts import (
     ArtifactManifestIdentity,
     ArtifactProducerKind,
     ArtifactProducerProvenanceIdentity,
-    UnknownLegacyProducer,
+    ImportedRetainedFixture,
 )
 from ksdft2effmass.workflows.model import WorkflowIdentity, WorkflowRunIdentity
 
@@ -142,16 +142,24 @@ class TestNormalizedObservationAssembler:
             "sha256", document.source_sha256, document.source_byte_count
         )
         artifact = ArtifactIdentity(f"artifact.synthetic.qexsd.{suffix}")
-        producer = UnknownLegacyProducer(
+        producer = ImportedRetainedFixture(
             ArtifactProducerProvenanceIdentity(f"producer.synthetic.qexsd.{suffix}"),
             1,
-            ArtifactProducerKind.UNKNOWN_LEGACY,
+            ArtifactProducerKind.IMPORTED_RETAINED_FIXTURE,
             artifact,
             content,
             (f"evidence.synthetic.qexsd.{suffix}",),
             ("claim.synthetic-test-data-only",),
-            "synthetic source has no represented Workflow producer",
-            ("producer lineage intentionally unavailable",),
+            f"fixture.synthetic.qexsd.{suffix}",
+            "fixture.revision.1",
+            f"source.synthetic.qexsd.{suffix}",
+            f"synthetic/qexsd/{suffix}.xml",
+            f"import.synthetic.qexsd.{suffix}",
+            f"import.receipt.synthetic.qexsd.{suffix}",
+            f"retained.source.synthetic.qexsd.{suffix}",
+            content,
+            f"checksum.synthetic.qexsd.{suffix}",
+            f"provenance.synthetic.qexsd.{suffix}",
             "synthetic_test_data",
         )
         entry_identity = ArtifactManifestEntryIdentity(

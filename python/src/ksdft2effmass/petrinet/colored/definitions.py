@@ -85,7 +85,7 @@ class ColoredPetriNetColorDefinition:
 
     Notes
     -----
-    A legacy no-payload color is represented explicitly by the singleton
+    A no-payload color is represented explicitly by the singleton
     ``NONE`` kind rather than an empty admitted set.
     """
 

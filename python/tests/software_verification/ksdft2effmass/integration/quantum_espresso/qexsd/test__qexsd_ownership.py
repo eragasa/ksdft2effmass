@@ -2,8 +2,7 @@ r"""Software verification of canonical QEXSD integration ownership.
 
 Evidence profile: routine
 
-Bounded artifact scope: canonical integration ownership and removed legacy-I/O
-namespace.
+Bounded artifact scope: canonical integration ownership and dependency direction.
 
 Facet and represented meaning
 
@@ -11,8 +10,8 @@ The artifact identifies the canonical QEXSD source, native document, and parser 
 
 Intrinsic and cross-object scope
 
-Public export identity, legacy-path absence, and forbidden neutral-package imports are
-covered; semantic adaptation and schema-v1 serialization are separate.
+Public export identity and forbidden neutral-package imports are covered; semantic
+adaptation and schema-v1 serialization are separate.
 
 VVUQ and scientific exclusions
 
@@ -39,11 +38,9 @@ class TestQexsdOwnership:
         """Evidence ID: SV-QEXSD-001
 
         Requirement: Canonical QEXSD integration exports source, native document,
-        parser, and schema-version-1 translation contracts, with no ununderscored
-        namespace.
+        parser, and schema-version-1 translation contracts.
 
-        Acceptance: Ordered ``__all__`` and defining modules match exactly, and the
-        removed compatibility package directory is absent.
+        Acceptance: Ordered ``__all__`` and defining modules match exactly.
         """
         assert tuple(canonical.__all__) == (
             "ConstructQexsdKohnShamPlaneWaveRecord",
@@ -60,28 +57,12 @@ class TestQexsdOwnership:
         assert canonical.QuantumEspressoXsdDocumentParser.__module__ == (
             "ksdft2effmass.integration.quantum_espresso.qexsd.parsing"
         )
-        assert not hasattr(canonical, "QexsdDocumentParser")
-        assert not hasattr(canonical, "ParseQexsdDocument")
-        integration_root = Path(canonical.__file__).resolve().parents[2]
-        assert not (integration_root / "quantumespresso").exists()
-
-    def test_public_api__legacy_io_path__is_absent(self) -> None:
-        """Evidence ID: SV-QEXSD-002
-
-        Requirement: The former ``io.quantum_espresso.qexsd`` forwarding path is
-        removed.
-
-        Acceptance: No legacy-I/O package directory remains beneath the source root.
-        """
-        package_root = Path(canonical.__file__).resolve().parents[3]
-        assert not (package_root / "io" / "quantum_espresso" / "qexsd").exists()
 
     def test_artifact__dependency__neutral_packages_import_no_qexsd_owner(self) -> None:
         """Evidence ID: SV-QEXSD-003
 
         Requirement: Neutral structure, electronic-sampling, compatibility, and
-        Kohn--Sham packages import neither canonical integration nor legacy QEXSD
-        modules.
+        Kohn--Sham packages do not import the QEXSD integration owner.
 
         Acceptance: Static imports under both neutral package trees contain no forbidden
         integration or QEXSD prefix.
@@ -127,7 +108,4 @@ class TestQexsdOwnership:
             name.startswith(forbidden)
             for name in direct | from_names | absolute_from_names
         )
-        assert not any(
-            name.startswith(("integration", "io.quantum_espresso.qexsd"))
-            for name in relative_names
-        )
+        assert not any(name.startswith("integration") for name in relative_names)

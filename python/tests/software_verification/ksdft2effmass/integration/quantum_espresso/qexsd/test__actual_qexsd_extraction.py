@@ -241,27 +241,23 @@ class TestActualQexsdExtraction:
             == retained
         )
 
-    def test_public_api__package__exports_exact_defining_modules_without_old_aliases(
-        self,
-    ) -> None:
+    def test_public_api__package__exports_exact_defining_modules(self) -> None:
         """Evidence ID: SV-PERIODIC-020
 
-        Requirement: Public classes have selected owners, and the six named old
-        periodic imports are absent.
+        Requirement: Public classes have selected integration and Kohn--Sham owners.
 
-        Method: Check defining modules and the periodic package namespace.
+        Method: Check exported identities and defining modules.
 
-        Oracle: Selected package architecture and relocation table.
+        Oracle: Selected package architecture.
 
-        Acceptance: All defining modules and absent legacy names match exactly.
+        Acceptance: All identities and defining modules match exactly.
 
-        Interpretation: Failure indicates ownership or compatibility-alias drift.
+        Interpretation: Failure indicates public ownership drift.
 
         Limitations: Import ownership alone establishes no scientific behavior.
 
         Provenance: Active Task architecture correction instruction.
         """
-        import ksdft2effmass.periodic as periodic
         from ksdft2effmass.integration.quantum_espresso.qexsd import (
             QexsdDocument as CanonicalQexsdDocument,
         )
@@ -300,11 +296,3 @@ class TestActualQexsdExtraction:
             KohnShamPlaneWaveCalculationRecordJsonSerializer.__module__
             == "ksdft2effmass.ksdft.pw.serialization"
         )
-        assert not hasattr(periodic, "QexsdSource")
-        assert not hasattr(periodic, "QexsdDocument")
-        assert not hasattr(periodic, "QuantumEspressoXsdDocumentParser")
-        assert not hasattr(periodic, "QexsdDocumentParser")
-        assert not hasattr(periodic, "ParseQexsdDocument")
-        assert not hasattr(periodic, "PeriodicCalculationRecord")
-        assert not hasattr(periodic, "ConstructPeriodicCalculationRecord")
-        assert not hasattr(periodic, "PeriodicCalculationRecordJsonSerializer")

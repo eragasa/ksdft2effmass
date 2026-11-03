@@ -499,8 +499,8 @@ class TestWorkflowRunSerializer:
             content_identity=w.ResultObjectContentIdentity(
                 metadata["content_identity"]
             ),
-            producer_provenance=w.UnknownLegacyResultProducer(
-                identity=w.ResultProducerProvenanceIdentity("legacy-producer"),
+            producer_provenance=w.ImportedRetainedResultProducer(
+                identity=w.ResultProducerProvenanceIdentity("retained-producer"),
                 source_identity=w.RetainedResultSourceIdentity("synthetic-source"),
                 evidence_identities=(
                     w.ResultProducerEvidenceIdentity("synthetic-evidence"),

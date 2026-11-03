@@ -7,8 +7,8 @@ external execution, scientific interpretation, or retention action.
 
 The records are calculator-independent.  A represented Workflow producer retains the
 exact Workflow, run, Task, activation, attempt, and ResultObject identities.  External,
-fixture, human-authored, and unknown-legacy producers retain their actual evidence
-boundary without fabricated Workflow lineage.  Exact byte identity does not establish
+fixture, and human-authored producers retain their actual evidence boundary without
+fabricated Workflow lineage.  Exact byte identity does not establish
 format validity, semantic compatibility, scientific correctness, validation,
 uncertainty quantification, or human acceptance.  Callers must not encode
 credentials, private keys, tokens, scheduler secrets, or restricted data in identity,
@@ -285,15 +285,12 @@ class ArtifactProducerKind(StrEnum):
         Retained fixture imported without upgrading its source evidence.
     HUMAN_AUTHORED_COMPACT_INPUT
         Compact input authored under an identified human authority boundary.
-    UNKNOWN_LEGACY
-        Legacy artifact whose producer cannot be represented without inference.
     """
 
     REPRESENTED_WORKFLOW = "represented_workflow"
     EXTERNAL_SOURCE_OBSERVATION = "external_source_observation"
     IMPORTED_RETAINED_FIXTURE = "imported_retained_fixture"
     HUMAN_AUTHORED_COMPACT_INPUT = "human_authored_compact_input"
-    UNKNOWN_LEGACY = "unknown_legacy"
 
 
 class ArtifactLineageKind(StrEnum):
@@ -789,72 +786,11 @@ class HumanAuthoredCompactInput:
         )
 
 
-@dataclass(frozen=True, slots=True)
-class UnknownLegacyProducer:
-    """Explicitly limited producer provenance for an incompletely known artifact.
-
-    Parameters
-    ----------
-    identity, schema_version, kind
-        Provenance identity, version ``1``, and mandatory
-        :attr:`ArtifactProducerKind.UNKNOWN_LEGACY` discriminator.
-    artifact_identity, content_identity
-        Legacy artifact and already-observed SHA-256/byte-count identities.
-    evidence_identity_values, claim_boundary_identity_values
-        Nonempty, unique, lexically sorted identities for all known evidence and claim
-        boundaries.  Unknown facts must not be replaced by invented identities.
-    reason
-        Nonempty reason complete producer provenance is unavailable.
-    limitation_values
-        Nonempty immutable tuple of explicit limitations, preserving caller order.
-    claim_status
-        Nonempty bounded claim-status identity.
-
-    Notes
-    -----
-    This variant cannot upgrade the artifact's evidence status.  It contains no
-    Workflow, Task, fixture, external-producer, or human-authorship fields.
-    """
-
-    identity: ArtifactProducerProvenanceIdentity
-    schema_version: int
-    kind: ArtifactProducerKind
-    artifact_identity: ArtifactIdentity
-    content_identity: ArtifactContentIdentity
-    evidence_identity_values: tuple[str, ...]
-    claim_boundary_identity_values: tuple[str, ...]
-    reason: str
-    limitation_values: tuple[str, ...]
-    claim_status: str
-
-    def __post_init__(self) -> None:
-        """Validate explicit legacy uncertainty, limitations, and claim status."""
-        _require_common_provenance(
-            identity=self.identity,
-            schema_version=self.schema_version,
-            kind=self.kind,
-            expected_kind=ArtifactProducerKind.UNKNOWN_LEGACY,
-            artifact_identity=self.artifact_identity,
-            content_identity=self.content_identity,
-            evidence_identity_values=self.evidence_identity_values,
-            claim_boundary_identity_values=self.claim_boundary_identity_values,
-        )
-        _require_identity(self.reason, "reason")
-        if type(self.limitation_values) is not tuple:
-            raise TypeError("limitation_values must be a built-in tuple")
-        if not self.limitation_values:
-            raise ValueError("limitation_values must not be empty")
-        for limitation in self.limitation_values:
-            _require_identity(limitation, "limitation_values member")
-        _require_identity(self.claim_status, "claim_status")
-
-
 type ArtifactProducerProvenance = (
     RepresentedWorkflowProducer
     | ExternalSourceObservation
     | ImportedRetainedFixture
     | HumanAuthoredCompactInput
-    | UnknownLegacyProducer
 )
 """Closed producer-provenance union for Workflow-owned artifact manifests."""
 
@@ -972,7 +908,6 @@ class ArtifactManifestEntry:
             ExternalSourceObservation,
             ImportedRetainedFixture,
             HumanAuthoredCompactInput,
-            UnknownLegacyProducer,
         )
         if type(self.producer_provenance) not in variants:
             raise TypeError(

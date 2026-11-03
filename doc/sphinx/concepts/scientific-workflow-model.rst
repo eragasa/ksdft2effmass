@@ -153,9 +153,9 @@ cross-Task retry predecessors fail replay correlation.
 
 Every ``ResultObjectReference`` records concrete type, owning domain, immutable content,
 and one closed producer variant. Represented Task and scientific-decision producers
-carry exact run-specific lineage. External, imported-retained, human-authored, and
-unknown-legacy producers instead retain actual evidence identities and explicit
-limitations. Those variants prevent missing historical lineage from being fabricated.
+carry exact run-specific lineage. External, imported-retained, and human-authored
+producers instead retain actual evidence identities and explicit limitations. Those
+variants prevent missing lineage from being fabricated.
 A ``ResultDependency`` records consumption independently of ordinary or nested
 membership. A confirmed Task transition closes over all outcome results, production
 records, and the exact generic external-output binding.

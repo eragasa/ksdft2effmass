@@ -5,7 +5,6 @@ from __future__ import annotations
 import builtins
 import hashlib
 import json
-import warnings
 from dataclasses import dataclass
 from enum import StrEnum
 
@@ -215,30 +214,6 @@ class Periodic1DRetainedResultJsonSerializer(
         return (
             json.dumps(document, sort_keys=True, separators=(",", ":")) + "\n"
         ).encode("utf-8")
-
-    def decode(
-        self,
-        payload: bytes,
-        kind: Periodic1DRetainedResultKind | None = None,
-    ) -> Periodic1DRetainedResultDocument:
-        """Deprecated compatibility alias for :meth:`deserialize`."""
-        warnings.warn(
-            "decode() is deprecated; use deserialize()",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        if kind is not None and kind is not self.kind:
-            raise ValueError("kind must match the serializer kind")
-        return self.deserialize(payload)
-
-    def encode(self, value: Periodic1DRetainedResultDocument) -> bytes:
-        """Deprecated compatibility alias for :meth:`serialize`."""
-        warnings.warn(
-            "encode() is deprecated; use serialize()",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return self.serialize(value)
 
     def object_value(self, value: object, name: str) -> Periodic1DJsonObject:
         """Convert one decoded string-keyed mapping to its immutable representation."""

@@ -85,7 +85,6 @@ from .records import (
     TaskInvocationOutcome,
     TaskInvocationOutcomeKind,
     TaskWorkflowTransitionRecord,
-    UnknownLegacyResultProducer,
     WorkflowDefinitionReference,
 )
 
@@ -1472,7 +1471,6 @@ class _WorkflowRunStructureValidator:
                 ExternalResultProducer,
                 ImportedRetainedResultProducer,
                 HumanAuthoredResultProducer,
-                UnknownLegacyResultProducer,
             }:
                 return WorkflowRunReplayIssue(
                     code=WorkflowRunReplayIssueCode.RESULT_CORRELATION_ERROR,
