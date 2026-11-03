@@ -36,11 +36,12 @@ coefficient matrix.
 - the lattice dimension is exactly one;
 - every coefficient block has shape `1 x 1`;
 - lattice geometry and its physical length unit are explicit;
-- energy unit, energy-reference identity, and basis identity remain owned by the wrapped
-  PhysKit model;
-- coefficient units must be physical energy units; normalized dimensionless values must
-  be dimensionalized by the declared lattice kinetic-energy scale before model
-  construction;
+- one physical PhysKit `UnitSystem` supplies coherent length, mass, action, and energy
+  units;
+- the wrapped PhysKit model energy unit must equal the selected unit system's energy
+  unit, while energy-reference and basis identities remain explicit;
+- normalized dimensionless values are dimensionalized by the declared lattice
+  kinetic-energy scale before model construction;
 - every displacement has an exact conjugate partner, including the onsite block; and
 - model values are operationally immutable.
 
@@ -56,15 +57,15 @@ The lattice period retains its explicit physical length unit. The natural scale 
 E_a=\frac{\hbar^2}{m_e a^2},
 \]
 
-without the kinetic-operator factor `1/2`. Thus the corresponding reduced convention has
-`hbar = 1`, `m_e = 1`, `a = 1`, and `E_a = 1`; when `a = 1 bohr`, `E_a` is one Hartree
-within the declared physical-constant precision.
+without the kinetic-operator factor `1/2`. In `UnitSystem.ATOMIC`, `hbar = 1`,
+`m_e = 1`, and `a = 1 bohr`, so `E_a = 1 hartree` within binary64 arithmetic.
 
-Coefficient blocks retain one exact common physical energy unit supplied by PhysKit. The
-model performs no implicit conversion: callers use `ModelSystemUnitConverter` before
-construction when changing energy units. PhysKit rejects mixed coefficient/model units,
-and KSD rejects `Unitless` or physical units without energy dimensionality at this model
-boundary. The model identity binds the scale convention, length unit, energy unit,
+Coefficient blocks retain the exact physical energy unit selected by `UnitSystem`.
+Changing representation means selecting another coherent unit system and explicitly
+converting the complete PhysKit model; the KSD owner rejects a model/unit-system
+mismatch. PhysKit rejects mixed coefficient/model units, and KSD rejects
+`UnitSystem.NONDIMENSIONAL` at this physical model boundary. The model identity binds
+the scale convention, source length unit, coherent unit system, energy unit,
 energy-reference identity, and ordered basis identity.
 
 ## Scientific separation

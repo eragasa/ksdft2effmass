@@ -8,7 +8,12 @@ from numpy.typing import NDArray
 from projectkoios.physkit.solidstate.tb.bloch import (
     DenseBlockHoppingBlochEvaluator,
 )
-from projectkoios.physkit.units import MatrixQuantity, PhysicalUnit, Unitless
+from projectkoios.physkit.units import (
+    MatrixQuantity,
+    PhysicalUnit,
+    Unitless,
+    UnitSystem,
+)
 
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.rank1.model.blochhopping import (
@@ -41,7 +46,7 @@ class TestPeriodic1DRank1BlochHoppingEvaluation:
                 2.5,
                 PhysicalUnit("angstrom"),
             ),
-            energy_unit=PhysicalUnit("electron_volt"),
+            unit_system=UnitSystem.METAL,
             energy_reference="rank1-analytic-zero-v1",
             basis_identifier="rank1-analytic-cell-basis-v1",
             normalized_onsite=cls.normalized_onsite,

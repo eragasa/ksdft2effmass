@@ -10,14 +10,27 @@ from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 
 
 class Periodic1DBlochHoppingModel(BlochHoppingModel, Periodic1DModel, ABC):
-    """Bind ordinary hopping data to one explicit periodic-1D lattice geometry."""
+    """Bind ordinary hopping data to a periodic one-dimensional geometry.
+
+    Notes
+    -----
+    This owner fixes the spatial dimension and requires an explicit physical lattice
+    geometry. Rank-specific siblings retain responsibility for their basis-size and
+    coefficient admissibility rules.
+    """
 
     __slots__ = ()
 
     @property
     @abstractmethod
     def lattice_geometry(self) -> Periodic1DLatticeGeometry:
-        """Return the explicit physical one-dimensional lattice geometry."""
+        """Return the physical one-dimensional lattice geometry.
+
+        Returns
+        -------
+        Periodic1DLatticeGeometry
+            Immutable primitive-period convention associated with the hopping model.
+        """
 
 
 __all__ = ["Periodic1DBlochHoppingModel"]
