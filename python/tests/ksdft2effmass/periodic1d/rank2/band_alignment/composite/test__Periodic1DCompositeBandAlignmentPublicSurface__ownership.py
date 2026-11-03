@@ -1,4 +1,6 @@
-"""Tests for direct composite-alignment public ownership and donor isolation."""
+"""Tests for composite-alignment public ownership and donor isolation."""
+
+from __future__ import annotations
 
 import ast
 import importlib.util
@@ -23,23 +25,47 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 class TestPeriodic1DCompositeBandAlignmentPublicSurface:
     """Establish explicit exports and prohibit predecessor runtime dependencies."""
 
-    def test__periodic_root__and_composite_package__are_non_eager_namespaces(
+    def test__Periodic1DCompositeBandAlignmentPublicSurface__keeps_root_non_eager(
         self,
     ) -> None:
+        """Keep the periodic-1D root free of an eager export inventory."""
         assert not hasattr(periodic1d, "__all__")
+
+    def test__Periodic1DCompositeBandAlignmentPublicSurface__keeps_package_non_eager(
+        self,
+    ) -> None:
+        """Keep the composite package free of an eager export inventory."""
         assert not hasattr(composite_band_alignment, "__all__")
+
+    def test__Periodic1DCompositeBandAlignmentPublicSurface__avoids_package_reexports(
+        self,
+    ) -> None:
+        """Require callers to import composite owners from defining modules."""
         assert not any(
             name.startswith("Periodic1DCompositeBandAlignment")
             for name in vars(composite_band_alignment)
         )
 
-    def test__defining_modules__use_the_rank_first_owners(self) -> None:
+    def test__Periodic1DCompositeBandAlignmentPublicSurface__owns_configuration(
+        self,
+    ) -> None:
+        """Define the configuration in the rank-two band-alignment package."""
         assert Periodic1DCompositeBandAlignmentConfiguration.__module__ == (
             "ksdft2effmass.periodic1d.rank2.band_alignment.configuration"
         )
+
+    def test__Periodic1DCompositeBandAlignmentPublicSurface__owns_analyzer(
+        self,
+    ) -> None:
+        """Define the analyzer in the rank-two composite-analysis package."""
         assert Periodic1DCompositeBandAlignmentAnalyzer.__module__ == (
             "ksdft2effmass.periodic1d.rank2.band_alignment.composite.analysis"
         )
+
+    def test__Periodic1DCompositeBandAlignmentPublicSurface__predecessor_absent(
+        self,
+    ) -> None:
+        """Keep the former dimension-level composite package non-importable."""
         assert (
             importlib.util.find_spec(
                 "ksdft2effmass.periodic1d.composite_band_alignment"
@@ -47,7 +73,10 @@ class TestPeriodic1DCompositeBandAlignmentPublicSurface:
             is None
         )
 
-    def test__package__has_no_legacy_multiband_alignment_surface(self) -> None:
+    def test__Periodic1DCompositeBandAlignmentPublicSurface__removes_former_exports(
+        self,
+    ) -> None:
+        """Remove former multiband-alignment names from the periodic-1D root."""
         former_names = {
             "Periodic1DBlockHamiltonianToyModel",
             "Periodic1DMultibandAlignmentCalculationDefinition",
@@ -59,40 +88,67 @@ class TestPeriodic1DCompositeBandAlignmentPublicSurface:
             "Periodic1DMultibandAlignmentResultVerifier",
             "Periodic1DMultibandAlignmentVerificationResult",
         }
+
         assert all(not hasattr(periodic1d, name) for name in former_names)
+
+    def test__Periodic1DCompositeBandAlignmentPublicSurface__removes_legacy_package(
+        self,
+    ) -> None:
+        """Keep the former multiband-alignment package non-importable."""
         assert (
             importlib.util.find_spec("ksdft2effmass.periodic1d.multiband_alignment")
             is None
         )
-        assert importlib.util.find_spec("ksdft2effmass.periodic1d.model") is None
 
-    def test__independent_reference__has_no_verification_values_facade(self) -> None:
+    def test__Periodic1DCompositeBandAlignmentPublicSurface__legacy_model_absent(
+        self,
+    ) -> None:
+        """Do not place multiband compatibility APIs below the new model owner."""
+        assert (
+            importlib.util.find_spec(
+                "ksdft2effmass.periodic1d.model.multiband_alignment"
+            )
+            is None
+        )
+
+    def test__Periodic1DCompositeBandAlignmentPublicSurface__removes_verifier_exports(
+        self,
+    ) -> None:
+        """Do not expose a second verifier through the composite package."""
         former_names = {
             "Periodic1DCompositeBandAlignmentIndependentVerification",
             "Periodic1DCompositeBandAlignmentIndependentVerificationRequest",
             "Periodic1DCompositeBandAlignmentIndependentVerifier",
         }
+
         assert all(not hasattr(composite_band_alignment, name) for name in former_names)
+
+    def test__Periodic1DCompositeBandAlignmentPublicSurface__removes_verifier_facade(
+        self,
+    ) -> None:
+        """Keep the predecessor verification-values facade non-importable."""
         assert (
             importlib.util.find_spec(
-                "ksdft2effmass.periodic1d.rank2.band_alignment.composite.verification_values"
+                "ksdft2effmass.periodic1d.rank2.band_alignment.composite."
+                "verification_values"
             )
             is None
         )
 
-    def test__source__does_not_import_predecessor_or_calculation_workflows(
+    def test__Periodic1DCompositeBandAlignmentPublicSurface__isolates_donor_imports(
         self,
     ) -> None:
+        """Exclude predecessor and workflow imports from composite source modules."""
         package = Path(composite_band_alignment.__file__).resolve().parent
         forbidden = (
             "ksdft2effmass.periodic1d.multiband_alignment",
             "ksdft2effmass.campaigns.periodic_1d",
             "workflow",
         )
+        violations: list[tuple[str, str]] = []
 
         for path in package.glob("*.py"):
-            source = path.read_text(encoding="utf-8")
-            tree = ast.parse(source, filename=str(path))
+            tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
             modules = {
                 node.module
                 for node in ast.walk(tree)
@@ -103,6 +159,10 @@ class TestPeriodic1DCompositeBandAlignmentPublicSurface:
                 if isinstance(node, ast.Import)
                 for alias in node.names
             }
-            assert all(
-                not any(token in module for token in forbidden) for module in modules
+            violations.extend(
+                (path.name, module)
+                for module in modules
+                if any(token in module for token in forbidden)
             )
+
+        assert violations == []
