@@ -35,13 +35,13 @@ from ksdft2effmass.analysis.matrix_field import (
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 _OPTIMIZATION_REVISION = "f0fa13693543c89b2c40f11583a1140df0cf7b0b"
-_PHYSKIT_REVISION = "3250679023cb131f98d50f8d3451335176c9effd"
+_PHYSKIT_REVISION = "fd814d05a6c06440024a51aa4eeb6f27cbe8b46f"
 
 
 class TestPeriodic1DRankNAlignmentAnalyzer:
     """Exercise odd transforms and fail-closed maximum-rule Procrustes selection."""
 
-    def test_installed_distributions_match_selected_owner_revisions(self) -> None:
+    def test__Periodic1DRankNAlignmentAnalyzer__matches_owner_revisions(self) -> None:
         """The synchronized environment retains both authorized immutable revisions."""
         expected = (
             (
@@ -78,7 +78,7 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         field[:, 1, 0] = off_diagonal.conjugate()
         return field
 
-    def test_physkit_odd_transform_preserves_physical_correlation(self) -> None:
+    def test__Periodic1DRankNAlignmentAnalyzer__preserves_correlation(self) -> None:
         """The D1 mesh and shifted evaluation retain units, basis, and identities."""
         construction_size = 513
         evaluation_size = 8191
@@ -141,7 +141,7 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         assert tail.retained_translations == (-1, 0, 1)
         assert tail.omitted_frobenius_l2_norm < 3.0e-15
 
-    def test_maximum_rule_procrustes_is_oriented_and_strict(self) -> None:
+    def test__Periodic1DRankNAlignmentAnalyzer__enforces_procrustes_rule(self) -> None:
         """Right actions are recovered and equality at the rank cutoff is deficient."""
         tolerance = ComplexUnitaryProcrustesTolerance(
             rank_absolute=1.0e-12,
