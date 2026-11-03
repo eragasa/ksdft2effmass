@@ -24,6 +24,7 @@ import json
 from pathlib import Path
 
 import pytest
+from projectkoios.integrations.wannier90 import Wannier90NativeArtifact
 
 from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCampaignJsonDecoder,
@@ -35,7 +36,6 @@ from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DWannier90WilsonVerificationRequest,
     Periodic1DWannier90WilsonVerifier,
 )
-from ksdft2effmass.integration.wannier90 import Wannier90NativeArtifact
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 SUT = Periodic1DWannier90WilsonVerifier

@@ -27,8 +27,13 @@ class TestPeriodic2DWannier90StudyCampaign:
 
     @staticmethod
     def root() -> Path:
-        """Return the repository root."""
-        return Path(__file__).resolve().parents[7]
+        """Return the test fixture's repository-shaped root."""
+        repository_root = Path(__file__).resolve().parents[7]
+        return (
+            repository_root
+            / "python/tests/resources/historical_calculations"
+            / "periodic-2d-repository"
+        )
 
     def campaign(self, result: bytes | None = None) -> Periodic2DWannier90StudyCampaign:
         """Construct a campaign from exact retained study documents."""
@@ -47,7 +52,9 @@ class TestPeriodic2DWannier90StudyCampaign:
         if not condition:
             raise AssertionError(message)
 
-    def test_method__verify__reconstructs_all_six_portable_cases(self) -> None:
+    def test__Periodic2DWannier90StudyCampaign__method__verify__reconstructs_all_six_portable_cases(  # noqa: E501
+        self,
+    ) -> None:
         """Evidence ID: NV-CAMPAIGN-PERIODIC-TWO-D-011.
 
         Requirement: Independent portable verification covers all six study cases.
@@ -66,7 +73,9 @@ class TestPeriodic2DWannier90StudyCampaign:
             "retained identity mismatch",
         )
 
-    def test_contract__verifier__avoids_extractors_and_rejects_corruption(self) -> None:
+    def test__Periodic2DWannier90StudyCampaign__contract__verifier__avoids_extractors_and_rejects_corruption(  # noqa: E501
+        self,
+    ) -> None:
         """Evidence ID: NV-CAMPAIGN-PERIODIC-TWO-D-012.
 
         Requirement: Verification is extractor-independent and corruption-sensitive.

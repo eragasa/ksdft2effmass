@@ -55,7 +55,7 @@ class TestPeriodic1DWannier90ResultJsonSerializer:
             ),
         ),
     )
-    def test_method__deserialize__reconstructs_circular_center_comparison(
+    def test__Periodic1DWannier90ResultJsonSerializer__method__deserialize__reconstructs_circular_center_comparison(  # noqa: E501
         self,
         kind: Periodic1DRetainedResultKind,
         filename: str,
@@ -79,7 +79,9 @@ class TestPeriodic1DWannier90ResultJsonSerializer:
         """
         root = Path(__file__).resolve().parents[6]
         payload = (
-            root / "calculations/research-monograph/periodic-1d" / filename
+            root
+            / "python/tests/resources/historical_calculations/periodic-1d"
+            / filename
         ).read_bytes()
 
         result = SUT(kind).deserialize(payload)

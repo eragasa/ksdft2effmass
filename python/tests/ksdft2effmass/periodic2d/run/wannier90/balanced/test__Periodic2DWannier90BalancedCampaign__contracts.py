@@ -27,15 +27,22 @@ class TestPeriodic2DWannier90BalancedCampaign:
 
     @staticmethod
     def root() -> Path:
-        """Return the repository root."""
-        return Path(__file__).resolve().parents[7]
+        """Return the test fixture's repository-shaped root."""
+        repository_root = Path(__file__).resolve().parents[7]
+        return (
+            repository_root
+            / "python/tests/resources/historical_calculations"
+            / "periodic-2d-repository"
+        )
 
     def campaign(
         self, result: bytes | None = None
     ) -> Periodic2DWannier90BalancedCampaign:
         """Construct a campaign from retained exact result bytes."""
-        path = self.root() / (
-            "calculations/research-monograph/periodic-2d/wannier90-balanced-result.json"
+        path = (
+            self.root()
+            / "calculations/research-monograph/periodic-2d"
+            / "wannier90-balanced-result.json"
         )
         retained = path.read_bytes()
         return Periodic2DWannier90BalancedCampaign(
@@ -50,7 +57,9 @@ class TestPeriodic2DWannier90BalancedCampaign:
         if not condition:
             raise AssertionError(message)
 
-    def test_method__verify__reconstructs_portable_balanced_comparison(self) -> None:
+    def test__Periodic2DWannier90BalancedCampaign__method__verify__reconstructs_portable_balanced_comparison(  # noqa: E501
+        self,
+    ) -> None:
         """Evidence ID: NV-CAMPAIGN-PERIODIC-TWO-D-009.
 
         Requirement: Repository evidence reconstructs the balanced comparison.
@@ -68,7 +77,7 @@ class TestPeriodic2DWannier90BalancedCampaign:
             "retained identity mismatch",
         )
 
-    def test_contract__verifier__does_not_import_extractor_and_rejects_corruption(
+    def test__Periodic2DWannier90BalancedCampaign__contract__verifier__does_not_import_extractor_and_rejects_corruption(  # noqa: E501
         self,
     ) -> None:
         """Evidence ID: NV-CAMPAIGN-PERIODIC-TWO-D-010.

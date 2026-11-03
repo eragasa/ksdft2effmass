@@ -39,7 +39,9 @@ SUT = Periodic1DWannier90CampaignWorkflow
 class TestPeriodic1DWannier90CampaignWorkflow:
     """Own retained Wannier90 Wilson campaign integration evidence."""
 
-    def test_method__execute__correlates_preconditioned_result(self) -> None:
+    def test__Periodic1DWannier90CampaignWorkflow__method__execute__correlates_preconditioned_result(  # noqa: E501
+        self,
+    ) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-016
 
         Requirement: A Wannier90 result binds to its exact composite input and groups.
@@ -57,7 +59,7 @@ class TestPeriodic1DWannier90CampaignWorkflow:
         Provenance: Retained Appendix G composite and preconditioned artifacts.
         """
         root = Path(__file__).resolve().parents[6]
-        directory = root / "calculations/research-monograph/periodic-1d"
+        directory = root / "python/tests/resources/historical_calculations/periodic-1d"
 
         result = SUT().execute(
             Periodic1DWannier90CampaignWorkflowRequest(

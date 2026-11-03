@@ -15,6 +15,7 @@ import json
 from pathlib import Path
 
 import pytest
+from projectkoios.integrations.wannier90 import Wannier90NativeArtifact
 
 from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DCampaignJsonDecoder,
@@ -25,7 +26,6 @@ from ksdft2effmass.campaigns.periodic_1d import (
     Periodic1DWannier90IntegrationVerificationResult,
     Periodic1DWannier90NativeArtifactGroup,
 )
-from ksdft2effmass.integration.wannier90 import Wannier90NativeArtifact
 
 pytestmark = [
     pytest.mark.expensive,
@@ -41,9 +41,11 @@ class TestPeriodic1DWannier90Integration:
     @staticmethod
     def _calculation_directory() -> Path:
         root = Path(__file__).resolve().parents[6]
-        return root / "calculations/research-monograph/periodic-1d"
+        return root / "python/tests/resources/historical_calculations/periodic-1d"
 
-    def test_method__correlate__delegates_retained_integration_model(self) -> None:
+    def test__Periodic1DWannier90Integration__method__correlate__delegates_retained_integration_model(  # noqa: E501
+        self,
+    ) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-031
 
         Requirement: The integration DataObject correlates exact retained controls and
@@ -83,7 +85,9 @@ class TestPeriodic1DWannier90Integration:
             "d167294da9ebb53173b91fa69f089900f11e03917969bc028b9c0e69db951535"
         )
 
-    def test_method__verify__delegates_explicit_native_artifact_state(self) -> None:
+    def test__Periodic1DWannier90Integration__method__verify__delegates_explicit_native_artifact_state(  # noqa: E501
+        self,
+    ) -> None:
         """Evidence ID: SV-CAMPAIGN-PERIODIC-ONE-D-032
 
         Requirement: The integration DataObject delegates explicit native bytes and
