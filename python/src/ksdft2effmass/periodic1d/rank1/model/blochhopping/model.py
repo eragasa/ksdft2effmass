@@ -243,9 +243,7 @@ class Periodic1DRank1BlochHoppingModel(Periodic1DBlochHoppingModel):
             raise ValueError("physkit_model must have retained-space dimension one")
         energy_unit = self.physkit_model.energy_unit
         if type(energy_unit) is not PhysicalUnit:
-            raise TypeError(
-                "physkit_model energy_unit must be a physical energy unit"
-            )
+            raise TypeError("physkit_model energy_unit must be a physical energy unit")
         if energy_unit != self.unit_system.energy_unit:
             raise ValueError(
                 "physkit_model energy_unit must match unit_system.energy_unit"

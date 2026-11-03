@@ -376,9 +376,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
             Periodic1DRank1BlochHoppingModel.from_lattice_kinetic_parameters(
                 **self._kinetic_arguments(),
                 normalized_onsite=0.0,
-                normalized_positive_hoppings=(
-                    (1, complex(float("inf"), 0.0)),
-                ),
+                normalized_positive_hoppings=((1, complex(float("inf"), 0.0)),),
             )
 
     def test__Periodic1DRank1BlochHoppingModel__dimension_rejects_non_one(
@@ -437,9 +435,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
                 "conjugate transposes",
             ),
             (
-                (
-                    ((0,), 1.0 + 0.25j),
-                ),
+                (((0,), 1.0 + 0.25j),),
                 "conjugate transposes",
             ),
         ),
@@ -494,9 +490,7 @@ class TestPeriodic1DRank1BlochHoppingModel:
                     PhysicalUnit("angstrom"),
                 ),
                 unit_system=UnitSystem.METAL,
-                physkit_model=self._physkit_model(
-                    energy_unit=PhysicalUnit("meter")
-                ),
+                physkit_model=self._physkit_model(energy_unit=PhysicalUnit("meter")),
             )
 
     def test__Periodic1DRank1BlochHoppingModel__conversion_retains_geometry(
