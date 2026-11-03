@@ -1,3 +1,20 @@
+# Test conventions
+
+New or substantively revised class-owned tests use these names:
+
+```text
+test__ClassName__split_slug.py
+test__ClassName__split_slug
+```
+
+The split slug names one observable requirement. Every test has a concise docstring,
+and non-obvious fixtures, reference arithmetic, tolerances, or representation choices
+have inline rationale comments. Split unrelated requirements into separate tests;
+retain multiple assertions only when they describe one correlated invariant. Prefer
+one array-level comparison over assertion loops, and use parameterization when the
+same behavior is exercised over multiple cases. Setup and extraction helpers must not
+hide assertion trains.
+
 # Test markers
 
 Markers describe independent properties of a test. Directory names do not assign
