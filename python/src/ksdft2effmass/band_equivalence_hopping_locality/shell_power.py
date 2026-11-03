@@ -21,8 +21,8 @@ from projectkoios.physkit.periodic.lattice.finite_domain import (
     LatticeDisplacement,
 )
 from projectkoios.physkit.periodic.lattice.hopping import (
-    BlockHoppingModel,
-    BlockHoppingTerm,
+    DenseBlockHoppingModel,
+    DenseBlockHoppingTerm,
 )
 from projectkoios.physkit.solidstate.tb.diagnostics import (
     BlockHoppingPowerAnalyzer,
@@ -265,11 +265,11 @@ class BandEquivalenceHoppingLocalityFourierShellPowerAnalyzer:
             if self._series.dimension == 2
             else LatticeDimension.THREE
         )
-        model = BlockHoppingModel(
+        model = DenseBlockHoppingModel(
             identifier=self._identifier,
             dimension=dimension,
             terms=tuple(
-                BlockHoppingTerm(
+                DenseBlockHoppingTerm(
                     displacement=displacement,
                     coefficient=ComplexMatrixQuantity(coefficient, Unitless()),
                 )
@@ -300,14 +300,14 @@ class MetricShellHoppingPowerAnalyzer:
     def __init__(
         self,
         *,
-        model: BlockHoppingModel,
+        model: DenseBlockHoppingModel,
         shell_indices: tuple[int, ...],
         retained_rank: int,
         power_analyzer: BlockHoppingPowerAnalyzer,
     ) -> None:
         """Bind one immutable model, shell inventory, rank, and collaborator."""
-        if type(model) is not BlockHoppingModel:
-            raise TypeError("model must be BlockHoppingModel")
+        if type(model) is not DenseBlockHoppingModel:
+            raise TypeError("model must be DenseBlockHoppingModel")
         if type(model.energy_unit) is not Unitless:
             raise ValueError("metric-shell scalar powers require a unitless model")
         if type(shell_indices) is not tuple or any(
