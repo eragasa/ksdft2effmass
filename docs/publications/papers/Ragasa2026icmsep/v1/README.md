@@ -44,13 +44,18 @@ The build uses `biber` through `latexmk`.
 - `references.bib` — bibliography;
 - `manuscript.pdf` — rendered working manuscript;
 - `evidence-allocation.md` — relationship to the existing paper program;
-- `referee-response-1.md` — disposition and response to the first technical referee review.
+- `presentation/` — conference-oriented Beamer deck with a 19-slide main talk and 9 backup slides;
+- `referee-response-1.md` — disposition and response to the first technical referee review;
+- `referee-response-3.md` — disposition and response to the silicon-results review;
+- `referee-response-4.md` — disposition and response to the Discussion, Conclusions, and appendices review;
+- `referee-response-5.md` — response to the continued review and the two independent numerical-convention checks;
+- `referee-response-6.md` — response to the mathematical, reproducibility, citation, limitation, and figure review.
 
 Auxiliary LaTeX files are build products and are not evidence records.
 
 ## Current rendering
 
-- Length: 50 pages
-- PDF SHA-256: `3c0eb7ec2ef51f5a61d8a3119f1170215f6e8a3c470eecec34ba084eb5406f1e`
+- Length: 57 pages
+- PDF SHA-256: `1c3124bf780b1d182ed55d7294434292a6c5d49a3d9ea19cd12cb74275154821`
 
 The PDF is a working synthesis artifact, not a sealed calculation result or publication record.

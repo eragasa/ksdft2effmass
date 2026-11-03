@@ -69,11 +69,16 @@ thresholds.
   headline single witness surface;
 - [`render_plots_v3.py`](render_plots_v3.py): supplementary two-panel diagnostic-map
   renderer; and
-- [`figures-v3/`](figures-v3/): the single witness surface, supplementary RMS and
-  maximum-loss maps, and separate checksum manifests.
+- [`figures-v3/`](figures-v3/): the original single witness surface, supplementary RMS
+  and maximum-loss maps, and separate checksum manifests; and
+- [`figures-v4/`](figures-v4/): first layout-only successor for the single witness
+  surface; and
+- [`figures-v5/`](figures-v5/): strict-typing successor retaining the same data and
+  keeping the upper-right `H00` annotation inside the axes.
 
 The earlier `figures/` and `figures-v2/` directories retain superseded layout attempts;
-they are not technical-report inputs.
+they are not technical-report inputs. The manuscript uses the version-5 headline
+surface and retains the version-3 diagnostic maps.
 
 ## Nonclaims
 

@@ -1,0 +1,4854 @@
+{
+  "record_type": "c6_b20_w21_cyclic_to_ordinary_conversion_ledger",
+  "records": [
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -3,
+        -3
+      ],
+      "cyclic_flat_index": 0,
+      "cyclic_mode": [
+        -3,
+        -3,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -3,
+        2
+      ],
+      "cyclic_flat_index": 1,
+      "cyclic_mode": [
+        -3,
+        -3,
+        -2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -3,
+        1
+      ],
+      "cyclic_flat_index": 2,
+      "cyclic_mode": [
+        -3,
+        -3,
+        -1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -3,
+        0
+      ],
+      "cyclic_flat_index": 3,
+      "cyclic_mode": [
+        -3,
+        -3,
+        0
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -3,
+        -1
+      ],
+      "cyclic_flat_index": 4,
+      "cyclic_mode": [
+        -3,
+        -3,
+        1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -3,
+        -2
+      ],
+      "cyclic_flat_index": 5,
+      "cyclic_mode": [
+        -3,
+        -3,
+        2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        2,
+        -3
+      ],
+      "cyclic_flat_index": 6,
+      "cyclic_mode": [
+        -3,
+        -2,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        2,
+        2
+      ],
+      "cyclic_flat_index": 7,
+      "cyclic_mode": [
+        -3,
+        -2,
+        -2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        2,
+        1
+      ],
+      "cyclic_flat_index": 8,
+      "cyclic_mode": [
+        -3,
+        -2,
+        -1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        2,
+        0
+      ],
+      "cyclic_flat_index": 9,
+      "cyclic_mode": [
+        -3,
+        -2,
+        0
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        2,
+        -1
+      ],
+      "cyclic_flat_index": 10,
+      "cyclic_mode": [
+        -3,
+        -2,
+        1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        2,
+        -2
+      ],
+      "cyclic_flat_index": 11,
+      "cyclic_mode": [
+        -3,
+        -2,
+        2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        1,
+        -3
+      ],
+      "cyclic_flat_index": 12,
+      "cyclic_mode": [
+        -3,
+        -1,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        1,
+        2
+      ],
+      "cyclic_flat_index": 13,
+      "cyclic_mode": [
+        -3,
+        -1,
+        -2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        1,
+        1
+      ],
+      "cyclic_flat_index": 14,
+      "cyclic_mode": [
+        -3,
+        -1,
+        -1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        1,
+        0
+      ],
+      "cyclic_flat_index": 15,
+      "cyclic_mode": [
+        -3,
+        -1,
+        0
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        1,
+        -1
+      ],
+      "cyclic_flat_index": 16,
+      "cyclic_mode": [
+        -3,
+        -1,
+        1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        1,
+        -2
+      ],
+      "cyclic_flat_index": 17,
+      "cyclic_mode": [
+        -3,
+        -1,
+        2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        0,
+        -3
+      ],
+      "cyclic_flat_index": 18,
+      "cyclic_mode": [
+        -3,
+        0,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        0,
+        2
+      ],
+      "cyclic_flat_index": 19,
+      "cyclic_mode": [
+        -3,
+        0,
+        -2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        0,
+        1
+      ],
+      "cyclic_flat_index": 20,
+      "cyclic_mode": [
+        -3,
+        0,
+        -1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        0,
+        0
+      ],
+      "cyclic_flat_index": 21,
+      "cyclic_mode": [
+        -3,
+        0,
+        0
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        0,
+        -1
+      ],
+      "cyclic_flat_index": 22,
+      "cyclic_mode": [
+        -3,
+        0,
+        1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        0,
+        -2
+      ],
+      "cyclic_flat_index": 23,
+      "cyclic_mode": [
+        -3,
+        0,
+        2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -1,
+        -3
+      ],
+      "cyclic_flat_index": 24,
+      "cyclic_mode": [
+        -3,
+        1,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -1,
+        2
+      ],
+      "cyclic_flat_index": 25,
+      "cyclic_mode": [
+        -3,
+        1,
+        -2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -1,
+        1
+      ],
+      "cyclic_flat_index": 26,
+      "cyclic_mode": [
+        -3,
+        1,
+        -1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -1,
+        0
+      ],
+      "cyclic_flat_index": 27,
+      "cyclic_mode": [
+        -3,
+        1,
+        0
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -1,
+        -1
+      ],
+      "cyclic_flat_index": 28,
+      "cyclic_mode": [
+        -3,
+        1,
+        1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -1,
+        -2
+      ],
+      "cyclic_flat_index": 29,
+      "cyclic_mode": [
+        -3,
+        1,
+        2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -2,
+        -3
+      ],
+      "cyclic_flat_index": 30,
+      "cyclic_mode": [
+        -3,
+        2,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -2,
+        2
+      ],
+      "cyclic_flat_index": 31,
+      "cyclic_mode": [
+        -3,
+        2,
+        -2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -2,
+        1
+      ],
+      "cyclic_flat_index": 32,
+      "cyclic_mode": [
+        -3,
+        2,
+        -1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -2,
+        0
+      ],
+      "cyclic_flat_index": 33,
+      "cyclic_mode": [
+        -3,
+        2,
+        0
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -2,
+        -1
+      ],
+      "cyclic_flat_index": 34,
+      "cyclic_mode": [
+        -3,
+        2,
+        1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -3,
+        -2,
+        -2
+      ],
+      "cyclic_flat_index": 35,
+      "cyclic_mode": [
+        -3,
+        2,
+        2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        2,
+        -3,
+        -3
+      ],
+      "cyclic_flat_index": 36,
+      "cyclic_mode": [
+        -2,
+        -3,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        2,
+        -3,
+        2
+      ],
+      "cyclic_flat_index": 37,
+      "cyclic_mode": [
+        -2,
+        -3,
+        -2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        2,
+        -3,
+        1
+      ],
+      "cyclic_flat_index": 38,
+      "cyclic_mode": [
+        -2,
+        -3,
+        -1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        2,
+        -3,
+        0
+      ],
+      "cyclic_flat_index": 39,
+      "cyclic_mode": [
+        -2,
+        -3,
+        0
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        2,
+        -3,
+        -1
+      ],
+      "cyclic_flat_index": 40,
+      "cyclic_mode": [
+        -2,
+        -3,
+        1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        2,
+        -3,
+        -2
+      ],
+      "cyclic_flat_index": 41,
+      "cyclic_mode": [
+        -2,
+        -3,
+        2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        2,
+        2,
+        -3
+      ],
+      "cyclic_flat_index": 42,
+      "cyclic_mode": [
+        -2,
+        -2,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 5.12867242982932e-05,
+      "cyclic_conjugate_mode": [
+        2,
+        2,
+        2
+      ],
+      "cyclic_flat_index": 43,
+      "cyclic_mode": [
+        -2,
+        -2,
+        -2
+      ],
+      "fcc_metric_shell_value": 48,
+      "ordinary_flat_index": 0,
+      "ordinary_mode": [
+        -2,
+        -2,
+        -2
+      ],
+      "physical_radius_angstrom": 18.945802524061527,
+      "reference_power_per_state_ev2": 5.3229411499998655e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 5.810618170069564e-05,
+      "cyclic_conjugate_mode": [
+        2,
+        2,
+        1
+      ],
+      "cyclic_flat_index": 44,
+      "cyclic_mode": [
+        -2,
+        -2,
+        -1
+      ],
+      "fcc_metric_shell_value": 34,
+      "ordinary_flat_index": 1,
+      "ordinary_mode": [
+        -2,
+        -2,
+        -1
+      ],
+      "physical_radius_angstrom": 15.945268846082675,
+      "reference_power_per_state_ev2": 5.310891779999982e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.00019841024068600852,
+      "cyclic_conjugate_mode": [
+        2,
+        2,
+        0
+      ],
+      "cyclic_flat_index": 45,
+      "cyclic_mode": [
+        -2,
+        -2,
+        0
+      ],
+      "fcc_metric_shell_value": 24,
+      "ordinary_flat_index": 2,
+      "ordinary_mode": [
+        -2,
+        -2,
+        0
+      ],
+      "physical_radius_angstrom": 13.396705439785114,
+      "reference_power_per_state_ev2": 5.9153538799999416e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.00010758406238836756,
+      "cyclic_conjugate_mode": [
+        2,
+        2,
+        -1
+      ],
+      "cyclic_flat_index": 46,
+      "cyclic_mode": [
+        -2,
+        -2,
+        1
+      ],
+      "fcc_metric_shell_value": 18,
+      "ordinary_flat_index": 3,
+      "ordinary_mode": [
+        -2,
+        -2,
+        1
+      ],
+      "physical_radius_angstrom": 11.601887237871088,
+      "reference_power_per_state_ev2": 4.900910130000021e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 5.1760213867797704e-05,
+      "cyclic_conjugate_mode": [
+        2,
+        2,
+        -2
+      ],
+      "cyclic_flat_index": 47,
+      "cyclic_mode": [
+        -2,
+        -2,
+        2
+      ],
+      "fcc_metric_shell_value": 16,
+      "ordinary_flat_index": 4,
+      "ordinary_mode": [
+        -2,
+        -2,
+        2
+      ],
+      "physical_radius_angstrom": 10.938364187280413,
+      "reference_power_per_state_ev2": 3.430465750000002e-05
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        2,
+        1,
+        -3
+      ],
+      "cyclic_flat_index": 48,
+      "cyclic_mode": [
+        -2,
+        -1,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 5.487357625772165e-05,
+      "cyclic_conjugate_mode": [
+        2,
+        1,
+        2
+      ],
+      "cyclic_flat_index": 49,
+      "cyclic_mode": [
+        -2,
+        -1,
+        -2
+      ],
+      "fcc_metric_shell_value": 34,
+      "ordinary_flat_index": 5,
+      "ordinary_mode": [
+        -2,
+        -1,
+        -2
+      ],
+      "physical_radius_angstrom": 15.945268846082675,
+      "reference_power_per_state_ev2": 4.546369730000002e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.00011100013732404516,
+      "cyclic_conjugate_mode": [
+        2,
+        1,
+        1
+      ],
+      "cyclic_flat_index": 50,
+      "cyclic_mode": [
+        -2,
+        -1,
+        -1
+      ],
+      "fcc_metric_shell_value": 22,
+      "ordinary_flat_index": 6,
+      "ordinary_mode": [
+        -2,
+        -1,
+        -1
+      ],
+      "physical_radius_angstrom": 12.826368942677062,
+      "reference_power_per_state_ev2": 7.37109501000003e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0037150109471700775,
+      "cyclic_conjugate_mode": [
+        2,
+        1,
+        0
+      ],
+      "cyclic_flat_index": 51,
+      "cyclic_mode": [
+        -2,
+        -1,
+        0
+      ],
+      "fcc_metric_shell_value": 14,
+      "ordinary_flat_index": 7,
+      "ordinary_mode": [
+        -2,
+        -1,
+        0
+      ],
+      "physical_radius_angstrom": 10.231902790140325,
+      "reference_power_per_state_ev2": 0.00034257619469999845
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0013163481849324224,
+      "cyclic_conjugate_mode": [
+        2,
+        1,
+        -1
+      ],
+      "cyclic_flat_index": 52,
+      "cyclic_mode": [
+        -2,
+        -1,
+        1
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 8,
+      "ordinary_mode": [
+        -2,
+        -1,
+        1
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0007004464579999988
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0003921569925613657,
+      "cyclic_conjugate_mode": [
+        2,
+        1,
+        -2
+      ],
+      "cyclic_flat_index": 53,
+      "cyclic_mode": [
+        -2,
+        -1,
+        2
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 9,
+      "ordinary_mode": [
+        -2,
+        -1,
+        2
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0003127288387
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        2,
+        0,
+        -3
+      ],
+      "cyclic_flat_index": 54,
+      "cyclic_mode": [
+        -2,
+        0,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.00015020348731607482,
+      "cyclic_conjugate_mode": [
+        2,
+        0,
+        2
+      ],
+      "cyclic_flat_index": 55,
+      "cyclic_mode": [
+        -2,
+        0,
+        -2
+      ],
+      "fcc_metric_shell_value": 24,
+      "ordinary_flat_index": 10,
+      "ordinary_mode": [
+        -2,
+        0,
+        -2
+      ],
+      "physical_radius_angstrom": 13.396705439785114,
+      "reference_power_per_state_ev2": 4.052547440000025e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.003258339807464581,
+      "cyclic_conjugate_mode": [
+        2,
+        0,
+        1
+      ],
+      "cyclic_flat_index": 56,
+      "cyclic_mode": [
+        -2,
+        0,
+        -1
+      ],
+      "fcc_metric_shell_value": 14,
+      "ordinary_flat_index": 11,
+      "ordinary_mode": [
+        -2,
+        0,
+        -1
+      ],
+      "physical_radius_angstrom": 10.231902790140325,
+      "reference_power_per_state_ev2": 0.00041689838419999866
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.04711047984807854,
+      "cyclic_conjugate_mode": [
+        2,
+        0,
+        0
+      ],
+      "cyclic_flat_index": 57,
+      "cyclic_mode": [
+        -2,
+        0,
+        0
+      ],
+      "fcc_metric_shell_value": 8,
+      "ordinary_flat_index": 12,
+      "ordinary_mode": [
+        -2,
+        0,
+        0
+      ],
+      "physical_radius_angstrom": 7.734591491914059,
+      "reference_power_per_state_ev2": 0.01279885590820001
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.01379149573774377,
+      "cyclic_conjugate_mode": [
+        2,
+        0,
+        -1
+      ],
+      "cyclic_flat_index": 58,
+      "cyclic_mode": [
+        -2,
+        0,
+        1
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 13,
+      "ordinary_mode": [
+        -2,
+        0,
+        1
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.010620864496900003
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.008017589294804962,
+      "cyclic_conjugate_mode": [
+        2,
+        0,
+        -2
+      ],
+      "cyclic_flat_index": 59,
+      "cyclic_mode": [
+        -2,
+        0,
+        2
+      ],
+      "fcc_metric_shell_value": 8,
+      "ordinary_flat_index": 14,
+      "ordinary_mode": [
+        -2,
+        0,
+        2
+      ],
+      "physical_radius_angstrom": 7.734591491914059,
+      "reference_power_per_state_ev2": 0.007732667943100009
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        2,
+        -1,
+        -3
+      ],
+      "cyclic_flat_index": 60,
+      "cyclic_mode": [
+        -2,
+        1,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 8.462946645326049e-05,
+      "cyclic_conjugate_mode": [
+        2,
+        -1,
+        2
+      ],
+      "cyclic_flat_index": 61,
+      "cyclic_mode": [
+        -2,
+        1,
+        -2
+      ],
+      "fcc_metric_shell_value": 18,
+      "ordinary_flat_index": 15,
+      "ordinary_mode": [
+        -2,
+        1,
+        -2
+      ],
+      "physical_radius_angstrom": 11.601887237871088,
+      "reference_power_per_state_ev2": 4.501018529999977e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0010065936444688074,
+      "cyclic_conjugate_mode": [
+        2,
+        -1,
+        1
+      ],
+      "cyclic_flat_index": 62,
+      "cyclic_mode": [
+        -2,
+        1,
+        -1
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 16,
+      "ordinary_mode": [
+        -2,
+        1,
+        -1
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.00029464039279999954
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.020684663275016148,
+      "cyclic_conjugate_mode": [
+        2,
+        -1,
+        0
+      ],
+      "cyclic_flat_index": 63,
+      "cyclic_mode": [
+        -2,
+        1,
+        0
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 17,
+      "ordinary_mode": [
+        -2,
+        1,
+        0
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.012700082691500008
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0029725899869655218,
+      "cyclic_conjugate_mode": [
+        2,
+        -1,
+        -1
+      ],
+      "cyclic_flat_index": 64,
+      "cyclic_mode": [
+        -2,
+        1,
+        1
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 18,
+      "ordinary_mode": [
+        -2,
+        1,
+        1
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.003113536984600001
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0004037780687233635,
+      "cyclic_conjugate_mode": [
+        2,
+        -1,
+        -2
+      ],
+      "cyclic_flat_index": 65,
+      "cyclic_mode": [
+        -2,
+        1,
+        2
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 19,
+      "ordinary_mode": [
+        -2,
+        1,
+        2
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0003528502544999998
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        2,
+        -2,
+        -3
+      ],
+      "cyclic_flat_index": 66,
+      "cyclic_mode": [
+        -2,
+        2,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 5.7378165041450164e-05,
+      "cyclic_conjugate_mode": [
+        2,
+        -2,
+        2
+      ],
+      "cyclic_flat_index": 67,
+      "cyclic_mode": [
+        -2,
+        2,
+        -2
+      ],
+      "fcc_metric_shell_value": 16,
+      "ordinary_flat_index": 20,
+      "ordinary_mode": [
+        -2,
+        2,
+        -2
+      ],
+      "physical_radius_angstrom": 10.938364187280413,
+      "reference_power_per_state_ev2": 3.17164824e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0005643808341077309,
+      "cyclic_conjugate_mode": [
+        2,
+        -2,
+        1
+      ],
+      "cyclic_flat_index": 68,
+      "cyclic_mode": [
+        -2,
+        2,
+        -1
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 21,
+      "ordinary_mode": [
+        -2,
+        2,
+        -1
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.00046735364169999804
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.011311110909771676,
+      "cyclic_conjugate_mode": [
+        2,
+        -2,
+        0
+      ],
+      "cyclic_flat_index": 69,
+      "cyclic_mode": [
+        -2,
+        2,
+        0
+      ],
+      "fcc_metric_shell_value": 8,
+      "ordinary_flat_index": 22,
+      "ordinary_mode": [
+        -2,
+        2,
+        0
+      ],
+      "physical_radius_angstrom": 7.734591491914059,
+      "reference_power_per_state_ev2": 0.010685169301499996
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0006061852201860266,
+      "cyclic_conjugate_mode": [
+        2,
+        -2,
+        -1
+      ],
+      "cyclic_flat_index": 70,
+      "cyclic_mode": [
+        -2,
+        2,
+        1
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 23,
+      "ordinary_mode": [
+        -2,
+        2,
+        1
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0005248930128999991
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 6.242317417620105e-05,
+      "cyclic_conjugate_mode": [
+        2,
+        -2,
+        -2
+      ],
+      "cyclic_flat_index": 71,
+      "cyclic_mode": [
+        -2,
+        2,
+        2
+      ],
+      "fcc_metric_shell_value": 16,
+      "ordinary_flat_index": 24,
+      "ordinary_mode": [
+        -2,
+        2,
+        2
+      ],
+      "physical_radius_angstrom": 10.938364187280413,
+      "reference_power_per_state_ev2": 4.2918230500000276e-05
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        1,
+        -3,
+        -3
+      ],
+      "cyclic_flat_index": 72,
+      "cyclic_mode": [
+        -1,
+        -3,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        1,
+        -3,
+        2
+      ],
+      "cyclic_flat_index": 73,
+      "cyclic_mode": [
+        -1,
+        -3,
+        -2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        1,
+        -3,
+        1
+      ],
+      "cyclic_flat_index": 74,
+      "cyclic_mode": [
+        -1,
+        -3,
+        -1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        1,
+        -3,
+        0
+      ],
+      "cyclic_flat_index": 75,
+      "cyclic_mode": [
+        -1,
+        -3,
+        0
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        1,
+        -3,
+        -1
+      ],
+      "cyclic_flat_index": 76,
+      "cyclic_mode": [
+        -1,
+        -3,
+        1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        1,
+        -3,
+        -2
+      ],
+      "cyclic_flat_index": 77,
+      "cyclic_mode": [
+        -1,
+        -3,
+        2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        1,
+        2,
+        -3
+      ],
+      "cyclic_flat_index": 78,
+      "cyclic_mode": [
+        -1,
+        -2,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 5.8387862376256385e-05,
+      "cyclic_conjugate_mode": [
+        1,
+        2,
+        2
+      ],
+      "cyclic_flat_index": 79,
+      "cyclic_mode": [
+        -1,
+        -2,
+        -2
+      ],
+      "fcc_metric_shell_value": 34,
+      "ordinary_flat_index": 25,
+      "ordinary_mode": [
+        -1,
+        -2,
+        -2
+      ],
+      "physical_radius_angstrom": 15.945268846082675,
+      "reference_power_per_state_ev2": 5.237662319999943e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 7.345563453606628e-05,
+      "cyclic_conjugate_mode": [
+        1,
+        2,
+        1
+      ],
+      "cyclic_flat_index": 80,
+      "cyclic_mode": [
+        -1,
+        -2,
+        -1
+      ],
+      "fcc_metric_shell_value": 22,
+      "ordinary_flat_index": 26,
+      "ordinary_mode": [
+        -1,
+        -2,
+        -1
+      ],
+      "physical_radius_angstrom": 12.826368942677062,
+      "reference_power_per_state_ev2": 4.6961238700000493e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0030388299213681734,
+      "cyclic_conjugate_mode": [
+        1,
+        2,
+        0
+      ],
+      "cyclic_flat_index": 81,
+      "cyclic_mode": [
+        -1,
+        -2,
+        0
+      ],
+      "fcc_metric_shell_value": 14,
+      "ordinary_flat_index": 27,
+      "ordinary_mode": [
+        -1,
+        -2,
+        0
+      ],
+      "physical_radius_angstrom": 10.231902790140325,
+      "reference_power_per_state_ev2": 0.00028803489840000104
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0013417812085430765,
+      "cyclic_conjugate_mode": [
+        1,
+        2,
+        -1
+      ],
+      "cyclic_flat_index": 82,
+      "cyclic_mode": [
+        -1,
+        -2,
+        1
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 28,
+      "ordinary_mode": [
+        -1,
+        -2,
+        1
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.00043941645710000025
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0006132133791986372,
+      "cyclic_conjugate_mode": [
+        1,
+        2,
+        -2
+      ],
+      "cyclic_flat_index": 83,
+      "cyclic_mode": [
+        -1,
+        -2,
+        2
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 29,
+      "ordinary_mode": [
+        -1,
+        -2,
+        2
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0005606592842000013
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        1,
+        1,
+        -3
+      ],
+      "cyclic_flat_index": 84,
+      "cyclic_mode": [
+        -1,
+        -1,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 9.256166524672921e-05,
+      "cyclic_conjugate_mode": [
+        1,
+        1,
+        2
+      ],
+      "cyclic_flat_index": 85,
+      "cyclic_mode": [
+        -1,
+        -1,
+        -2
+      ],
+      "fcc_metric_shell_value": 22,
+      "ordinary_flat_index": 30,
+      "ordinary_mode": [
+        -1,
+        -1,
+        -2
+      ],
+      "physical_radius_angstrom": 12.826368942677062,
+      "reference_power_per_state_ev2": 5.90484347000009e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0010738169840935436,
+      "cyclic_conjugate_mode": [
+        1,
+        1,
+        1
+      ],
+      "cyclic_flat_index": 86,
+      "cyclic_mode": [
+        -1,
+        -1,
+        -1
+      ],
+      "fcc_metric_shell_value": 12,
+      "ordinary_flat_index": 31,
+      "ordinary_mode": [
+        -1,
+        -1,
+        -1
+      ],
+      "physical_radius_angstrom": 9.472901262030764,
+      "reference_power_per_state_ev2": 0.00040178483510000036
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.029869632074124786,
+      "cyclic_conjugate_mode": [
+        1,
+        1,
+        0
+      ],
+      "cyclic_flat_index": 87,
+      "cyclic_mode": [
+        -1,
+        -1,
+        0
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 32,
+      "ordinary_mode": [
+        -1,
+        -1,
+        0
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.006083179928999994
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.02154776005379626,
+      "cyclic_conjugate_mode": [
+        1,
+        1,
+        -1
+      ],
+      "cyclic_flat_index": 88,
+      "cyclic_mode": [
+        -1,
+        -1,
+        1
+      ],
+      "fcc_metric_shell_value": 4,
+      "ordinary_flat_index": 33,
+      "ordinary_mode": [
+        -1,
+        -1,
+        1
+      ],
+      "physical_radius_angstrom": 5.469182093640207,
+      "reference_power_per_state_ev2": 0.014632737142099997
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0022791317376248264,
+      "cyclic_conjugate_mode": [
+        1,
+        1,
+        -2
+      ],
+      "cyclic_flat_index": 89,
+      "cyclic_mode": [
+        -1,
+        -1,
+        2
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 34,
+      "ordinary_mode": [
+        -1,
+        -1,
+        2
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.0023001231979999956
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        1,
+        0,
+        -3
+      ],
+      "cyclic_flat_index": 90,
+      "cyclic_mode": [
+        -1,
+        0,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0030077717602188434,
+      "cyclic_conjugate_mode": [
+        1,
+        0,
+        2
+      ],
+      "cyclic_flat_index": 91,
+      "cyclic_mode": [
+        -1,
+        0,
+        -2
+      ],
+      "fcc_metric_shell_value": 14,
+      "ordinary_flat_index": 35,
+      "ordinary_mode": [
+        -1,
+        0,
+        -2
+      ],
+      "physical_radius_angstrom": 10.231902790140325,
+      "reference_power_per_state_ev2": 0.0002553812433999989
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.031046860435655122,
+      "cyclic_conjugate_mode": [
+        1,
+        0,
+        1
+      ],
+      "cyclic_flat_index": 92,
+      "cyclic_mode": [
+        -1,
+        0,
+        -1
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 36,
+      "ordinary_mode": [
+        -1,
+        0,
+        -1
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.006523972103500005
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 2.2038240514335725,
+      "cyclic_conjugate_mode": [
+        1,
+        0,
+        0
+      ],
+      "cyclic_flat_index": 93,
+      "cyclic_mode": [
+        -1,
+        0,
+        0
+      ],
+      "fcc_metric_shell_value": 2,
+      "ordinary_flat_index": 37,
+      "ordinary_mode": [
+        -1,
+        0,
+        0
+      ],
+      "physical_radius_angstrom": 3.8672957459570294,
+      "reference_power_per_state_ev2": 2.1582264603866
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.29992061618391386,
+      "cyclic_conjugate_mode": [
+        1,
+        0,
+        -1
+      ],
+      "cyclic_flat_index": 94,
+      "cyclic_mode": [
+        -1,
+        0,
+        1
+      ],
+      "fcc_metric_shell_value": 2,
+      "ordinary_flat_index": 38,
+      "ordinary_mode": [
+        -1,
+        0,
+        1
+      ],
+      "physical_radius_angstrom": 3.8672957459570294,
+      "reference_power_per_state_ev2": 0.27935511188490003
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.01866081382638262,
+      "cyclic_conjugate_mode": [
+        1,
+        0,
+        -2
+      ],
+      "cyclic_flat_index": 95,
+      "cyclic_mode": [
+        -1,
+        0,
+        2
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 39,
+      "ordinary_mode": [
+        -1,
+        0,
+        2
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.014658943576699987
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        1,
+        -1,
+        -3
+      ],
+      "cyclic_flat_index": 96,
+      "cyclic_mode": [
+        -1,
+        1,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0014695345152077057,
+      "cyclic_conjugate_mode": [
+        1,
+        -1,
+        2
+      ],
+      "cyclic_flat_index": 97,
+      "cyclic_mode": [
+        -1,
+        1,
+        -2
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 40,
+      "ordinary_mode": [
+        -1,
+        1,
+        -2
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0004070439256999998
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.025296053269100182,
+      "cyclic_conjugate_mode": [
+        1,
+        -1,
+        1
+      ],
+      "cyclic_flat_index": 98,
+      "cyclic_mode": [
+        -1,
+        1,
+        -1
+      ],
+      "fcc_metric_shell_value": 4,
+      "ordinary_flat_index": 41,
+      "ordinary_mode": [
+        -1,
+        1,
+        -1
+      ],
+      "physical_radius_angstrom": 5.469182093640207,
+      "reference_power_per_state_ev2": 0.01096732771779999
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 1.077541414321287,
+      "cyclic_conjugate_mode": [
+        1,
+        -1,
+        0
+      ],
+      "cyclic_flat_index": 99,
+      "cyclic_mode": [
+        -1,
+        1,
+        0
+      ],
+      "fcc_metric_shell_value": 2,
+      "ordinary_flat_index": 42,
+      "ordinary_mode": [
+        -1,
+        1,
+        0
+      ],
+      "physical_radius_angstrom": 3.8672957459570294,
+      "reference_power_per_state_ev2": 1.0796772246783
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.023811147927159656,
+      "cyclic_conjugate_mode": [
+        1,
+        -1,
+        -1
+      ],
+      "cyclic_flat_index": 100,
+      "cyclic_mode": [
+        -1,
+        1,
+        1
+      ],
+      "fcc_metric_shell_value": 4,
+      "ordinary_flat_index": 43,
+      "ordinary_mode": [
+        -1,
+        1,
+        1
+      ],
+      "physical_radius_angstrom": 5.469182093640207,
+      "reference_power_per_state_ev2": 0.015744294864999994
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0013876077509994977,
+      "cyclic_conjugate_mode": [
+        1,
+        -1,
+        -2
+      ],
+      "cyclic_flat_index": 101,
+      "cyclic_mode": [
+        -1,
+        1,
+        2
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 44,
+      "ordinary_mode": [
+        -1,
+        1,
+        2
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.00048458377479999827
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        1,
+        -2,
+        -3
+      ],
+      "cyclic_flat_index": 102,
+      "cyclic_mode": [
+        -1,
+        2,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0007048536595797533,
+      "cyclic_conjugate_mode": [
+        1,
+        -2,
+        2
+      ],
+      "cyclic_flat_index": 103,
+      "cyclic_mode": [
+        -1,
+        2,
+        -2
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 45,
+      "ordinary_mode": [
+        -1,
+        2,
+        -2
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0006246987633000001
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.007303820023456524,
+      "cyclic_conjugate_mode": [
+        1,
+        -2,
+        1
+      ],
+      "cyclic_flat_index": 104,
+      "cyclic_mode": [
+        -1,
+        2,
+        -1
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 46,
+      "ordinary_mode": [
+        -1,
+        2,
+        -1
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.007746164009799991
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.05451845795933659,
+      "cyclic_conjugate_mode": [
+        1,
+        -2,
+        0
+      ],
+      "cyclic_flat_index": 105,
+      "cyclic_mode": [
+        -1,
+        2,
+        0
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 47,
+      "ordinary_mode": [
+        -1,
+        2,
+        0
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.04938478127279999
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.001098036603276946,
+      "cyclic_conjugate_mode": [
+        1,
+        -2,
+        -1
+      ],
+      "cyclic_flat_index": 106,
+      "cyclic_mode": [
+        -1,
+        2,
+        1
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 48,
+      "ordinary_mode": [
+        -1,
+        2,
+        1
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.00038405063260000123
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.00011121875828060007,
+      "cyclic_conjugate_mode": [
+        1,
+        -2,
+        -2
+      ],
+      "cyclic_flat_index": 107,
+      "cyclic_mode": [
+        -1,
+        2,
+        2
+      ],
+      "fcc_metric_shell_value": 18,
+      "ordinary_flat_index": 49,
+      "ordinary_mode": [
+        -1,
+        2,
+        2
+      ],
+      "physical_radius_angstrom": 11.601887237871088,
+      "reference_power_per_state_ev2": 5.9231838300000105e-05
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        0,
+        -3,
+        -3
+      ],
+      "cyclic_flat_index": 108,
+      "cyclic_mode": [
+        0,
+        -3,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        0,
+        -3,
+        2
+      ],
+      "cyclic_flat_index": 109,
+      "cyclic_mode": [
+        0,
+        -3,
+        -2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        0,
+        -3,
+        1
+      ],
+      "cyclic_flat_index": 110,
+      "cyclic_mode": [
+        0,
+        -3,
+        -1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        0,
+        -3,
+        0
+      ],
+      "cyclic_flat_index": 111,
+      "cyclic_mode": [
+        0,
+        -3,
+        0
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        0,
+        -3,
+        -1
+      ],
+      "cyclic_flat_index": 112,
+      "cyclic_mode": [
+        0,
+        -3,
+        1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        0,
+        -3,
+        -2
+      ],
+      "cyclic_flat_index": 113,
+      "cyclic_mode": [
+        0,
+        -3,
+        2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        0,
+        2,
+        -3
+      ],
+      "cyclic_flat_index": 114,
+      "cyclic_mode": [
+        0,
+        -2,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0001722904765206589,
+      "cyclic_conjugate_mode": [
+        0,
+        2,
+        2
+      ],
+      "cyclic_flat_index": 115,
+      "cyclic_mode": [
+        0,
+        -2,
+        -2
+      ],
+      "fcc_metric_shell_value": 24,
+      "ordinary_flat_index": 50,
+      "ordinary_mode": [
+        0,
+        -2,
+        -2
+      ],
+      "physical_radius_angstrom": 13.396705439785114,
+      "reference_power_per_state_ev2": 6.359726460000175e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.003007669237539085,
+      "cyclic_conjugate_mode": [
+        0,
+        2,
+        1
+      ],
+      "cyclic_flat_index": 116,
+      "cyclic_mode": [
+        0,
+        -2,
+        -1
+      ],
+      "fcc_metric_shell_value": 14,
+      "ordinary_flat_index": 51,
+      "ordinary_mode": [
+        0,
+        -2,
+        -1
+      ],
+      "physical_radius_angstrom": 10.231902790140325,
+      "reference_power_per_state_ev2": 0.00026485806410000024
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.044870126218068095,
+      "cyclic_conjugate_mode": [
+        0,
+        2,
+        0
+      ],
+      "cyclic_flat_index": 117,
+      "cyclic_mode": [
+        0,
+        -2,
+        0
+      ],
+      "fcc_metric_shell_value": 8,
+      "ordinary_flat_index": 52,
+      "ordinary_mode": [
+        0,
+        -2,
+        0
+      ],
+      "physical_radius_angstrom": 7.734591491914059,
+      "reference_power_per_state_ev2": 0.014744626373799983
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.054685717009027336,
+      "cyclic_conjugate_mode": [
+        0,
+        2,
+        -1
+      ],
+      "cyclic_flat_index": 118,
+      "cyclic_mode": [
+        0,
+        -2,
+        1
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 53,
+      "ordinary_mode": [
+        0,
+        -2,
+        1
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.04902665929179999
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.007246676166953426,
+      "cyclic_conjugate_mode": [
+        0,
+        2,
+        -2
+      ],
+      "cyclic_flat_index": 119,
+      "cyclic_mode": [
+        0,
+        -2,
+        2
+      ],
+      "fcc_metric_shell_value": 8,
+      "ordinary_flat_index": 54,
+      "ordinary_mode": [
+        0,
+        -2,
+        2
+      ],
+      "physical_radius_angstrom": 7.734591491914059,
+      "reference_power_per_state_ev2": 0.006492566520699998
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        0,
+        1,
+        -3
+      ],
+      "cyclic_flat_index": 120,
+      "cyclic_mode": [
+        0,
+        -1,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0032554636622921934,
+      "cyclic_conjugate_mode": [
+        0,
+        1,
+        2
+      ],
+      "cyclic_flat_index": 121,
+      "cyclic_mode": [
+        0,
+        -1,
+        -2
+      ],
+      "fcc_metric_shell_value": 14,
+      "ordinary_flat_index": 55,
+      "ordinary_mode": [
+        0,
+        -1,
+        -2
+      ],
+      "physical_radius_angstrom": 10.231902790140325,
+      "reference_power_per_state_ev2": 0.0002989061826999992
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.042622558203326145,
+      "cyclic_conjugate_mode": [
+        0,
+        1,
+        1
+      ],
+      "cyclic_flat_index": 122,
+      "cyclic_mode": [
+        0,
+        -1,
+        -1
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 56,
+      "ordinary_mode": [
+        0,
+        -1,
+        -1
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.014669547132499988
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 3.212149500609378,
+      "cyclic_conjugate_mode": [
+        0,
+        1,
+        0
+      ],
+      "cyclic_flat_index": 123,
+      "cyclic_mode": [
+        0,
+        -1,
+        0
+      ],
+      "fcc_metric_shell_value": 2,
+      "ordinary_flat_index": 57,
+      "ordinary_mode": [
+        0,
+        -1,
+        0
+      ],
+      "physical_radius_angstrom": 3.8672957459570294,
+      "reference_power_per_state_ev2": 3.2046943545301994
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.7057952617364796,
+      "cyclic_conjugate_mode": [
+        0,
+        1,
+        -1
+      ],
+      "cyclic_flat_index": 124,
+      "cyclic_mode": [
+        0,
+        -1,
+        1
+      ],
+      "fcc_metric_shell_value": 2,
+      "ordinary_flat_index": 58,
+      "ordinary_mode": [
+        0,
+        -1,
+        1
+      ],
+      "physical_radius_angstrom": 3.8672957459570294,
+      "reference_power_per_state_ev2": 0.6935922726784001
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.018693049576252473,
+      "cyclic_conjugate_mode": [
+        0,
+        1,
+        -2
+      ],
+      "cyclic_flat_index": 125,
+      "cyclic_mode": [
+        0,
+        -1,
+        2
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 59,
+      "ordinary_mode": [
+        0,
+        -1,
+        2
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.011346799152900001
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        0,
+        0,
+        -3
+      ],
+      "cyclic_flat_index": 126,
+      "cyclic_mode": [
+        0,
+        0,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.04708844271749355,
+      "cyclic_conjugate_mode": [
+        0,
+        0,
+        2
+      ],
+      "cyclic_flat_index": 127,
+      "cyclic_mode": [
+        0,
+        0,
+        -2
+      ],
+      "fcc_metric_shell_value": 8,
+      "ordinary_flat_index": 60,
+      "ordinary_mode": [
+        0,
+        0,
+        -2
+      ],
+      "physical_radius_angstrom": 7.734591491914059,
+      "reference_power_per_state_ev2": 0.019734123900399976
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 2.6874428718407577,
+      "cyclic_conjugate_mode": [
+        0,
+        0,
+        1
+      ],
+      "cyclic_flat_index": 128,
+      "cyclic_mode": [
+        0,
+        0,
+        -1
+      ],
+      "fcc_metric_shell_value": 2,
+      "ordinary_flat_index": 61,
+      "ordinary_mode": [
+        0,
+        0,
+        -1
+      ],
+      "physical_radius_angstrom": 3.8672957459570294,
+      "reference_power_per_state_ev2": 2.6528206370403
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 77.04913884148623,
+      "cyclic_conjugate_mode": [
+        0,
+        0,
+        0
+      ],
+      "cyclic_flat_index": 129,
+      "cyclic_mode": [
+        0,
+        0,
+        0
+      ],
+      "fcc_metric_shell_value": 0,
+      "ordinary_flat_index": 62,
+      "ordinary_mode": [
+        0,
+        0,
+        0
+      ],
+      "physical_radius_angstrom": 0.0,
+      "reference_power_per_state_ev2": 77.82162922770848
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 2.6874428718407586,
+      "cyclic_conjugate_mode": [
+        0,
+        0,
+        -1
+      ],
+      "cyclic_flat_index": 130,
+      "cyclic_mode": [
+        0,
+        0,
+        1
+      ],
+      "fcc_metric_shell_value": 2,
+      "ordinary_flat_index": 63,
+      "ordinary_mode": [
+        0,
+        0,
+        1
+      ],
+      "physical_radius_angstrom": 3.8672957459570294,
+      "reference_power_per_state_ev2": 2.6528206370403
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.04708844271749355,
+      "cyclic_conjugate_mode": [
+        0,
+        0,
+        -2
+      ],
+      "cyclic_flat_index": 131,
+      "cyclic_mode": [
+        0,
+        0,
+        2
+      ],
+      "fcc_metric_shell_value": 8,
+      "ordinary_flat_index": 64,
+      "ordinary_mode": [
+        0,
+        0,
+        2
+      ],
+      "physical_radius_angstrom": 7.734591491914059,
+      "reference_power_per_state_ev2": 0.019734123900399976
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        0,
+        -1,
+        -3
+      ],
+      "cyclic_flat_index": 132,
+      "cyclic_mode": [
+        0,
+        1,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.018693049576252473,
+      "cyclic_conjugate_mode": [
+        0,
+        -1,
+        2
+      ],
+      "cyclic_flat_index": 133,
+      "cyclic_mode": [
+        0,
+        1,
+        -2
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 65,
+      "ordinary_mode": [
+        0,
+        1,
+        -2
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.011346799152900001
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.7057952617364796,
+      "cyclic_conjugate_mode": [
+        0,
+        -1,
+        1
+      ],
+      "cyclic_flat_index": 134,
+      "cyclic_mode": [
+        0,
+        1,
+        -1
+      ],
+      "fcc_metric_shell_value": 2,
+      "ordinary_flat_index": 66,
+      "ordinary_mode": [
+        0,
+        1,
+        -1
+      ],
+      "physical_radius_angstrom": 3.8672957459570294,
+      "reference_power_per_state_ev2": 0.6935922726784
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 3.212149500609378,
+      "cyclic_conjugate_mode": [
+        0,
+        -1,
+        0
+      ],
+      "cyclic_flat_index": 135,
+      "cyclic_mode": [
+        0,
+        1,
+        0
+      ],
+      "fcc_metric_shell_value": 2,
+      "ordinary_flat_index": 67,
+      "ordinary_mode": [
+        0,
+        1,
+        0
+      ],
+      "physical_radius_angstrom": 3.8672957459570294,
+      "reference_power_per_state_ev2": 3.2046943545301994
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.04262255820332616,
+      "cyclic_conjugate_mode": [
+        0,
+        -1,
+        -1
+      ],
+      "cyclic_flat_index": 136,
+      "cyclic_mode": [
+        0,
+        1,
+        1
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 68,
+      "ordinary_mode": [
+        0,
+        1,
+        1
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.014669547132499997
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0032554636622921943,
+      "cyclic_conjugate_mode": [
+        0,
+        -1,
+        -2
+      ],
+      "cyclic_flat_index": 137,
+      "cyclic_mode": [
+        0,
+        1,
+        2
+      ],
+      "fcc_metric_shell_value": 14,
+      "ordinary_flat_index": 69,
+      "ordinary_mode": [
+        0,
+        1,
+        2
+      ],
+      "physical_radius_angstrom": 10.231902790140325,
+      "reference_power_per_state_ev2": 0.0002989061826999994
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        0,
+        -2,
+        -3
+      ],
+      "cyclic_flat_index": 138,
+      "cyclic_mode": [
+        0,
+        2,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.007246676166953426,
+      "cyclic_conjugate_mode": [
+        0,
+        -2,
+        2
+      ],
+      "cyclic_flat_index": 139,
+      "cyclic_mode": [
+        0,
+        2,
+        -2
+      ],
+      "fcc_metric_shell_value": 8,
+      "ordinary_flat_index": 70,
+      "ordinary_mode": [
+        0,
+        2,
+        -2
+      ],
+      "physical_radius_angstrom": 7.734591491914059,
+      "reference_power_per_state_ev2": 0.006492566520699998
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.05468571700902732,
+      "cyclic_conjugate_mode": [
+        0,
+        -2,
+        1
+      ],
+      "cyclic_flat_index": 140,
+      "cyclic_mode": [
+        0,
+        2,
+        -1
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 71,
+      "ordinary_mode": [
+        0,
+        2,
+        -1
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.049026659291799994
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.04487012621806809,
+      "cyclic_conjugate_mode": [
+        0,
+        -2,
+        0
+      ],
+      "cyclic_flat_index": 141,
+      "cyclic_mode": [
+        0,
+        2,
+        0
+      ],
+      "fcc_metric_shell_value": 8,
+      "ordinary_flat_index": 72,
+      "ordinary_mode": [
+        0,
+        2,
+        0
+      ],
+      "physical_radius_angstrom": 7.734591491914059,
+      "reference_power_per_state_ev2": 0.014744626373799979
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0030076692375390853,
+      "cyclic_conjugate_mode": [
+        0,
+        -2,
+        -1
+      ],
+      "cyclic_flat_index": 142,
+      "cyclic_mode": [
+        0,
+        2,
+        1
+      ],
+      "fcc_metric_shell_value": 14,
+      "ordinary_flat_index": 73,
+      "ordinary_mode": [
+        0,
+        2,
+        1
+      ],
+      "physical_radius_angstrom": 10.231902790140325,
+      "reference_power_per_state_ev2": 0.0002648580641000004
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0001722904765206588,
+      "cyclic_conjugate_mode": [
+        0,
+        -2,
+        -2
+      ],
+      "cyclic_flat_index": 143,
+      "cyclic_mode": [
+        0,
+        2,
+        2
+      ],
+      "fcc_metric_shell_value": 24,
+      "ordinary_flat_index": 74,
+      "ordinary_mode": [
+        0,
+        2,
+        2
+      ],
+      "physical_radius_angstrom": 13.396705439785114,
+      "reference_power_per_state_ev2": 6.359726460000175e-05
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -1,
+        -3,
+        -3
+      ],
+      "cyclic_flat_index": 144,
+      "cyclic_mode": [
+        1,
+        -3,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -1,
+        -3,
+        2
+      ],
+      "cyclic_flat_index": 145,
+      "cyclic_mode": [
+        1,
+        -3,
+        -2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -1,
+        -3,
+        1
+      ],
+      "cyclic_flat_index": 146,
+      "cyclic_mode": [
+        1,
+        -3,
+        -1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -1,
+        -3,
+        0
+      ],
+      "cyclic_flat_index": 147,
+      "cyclic_mode": [
+        1,
+        -3,
+        0
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -1,
+        -3,
+        -1
+      ],
+      "cyclic_flat_index": 148,
+      "cyclic_mode": [
+        1,
+        -3,
+        1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -1,
+        -3,
+        -2
+      ],
+      "cyclic_flat_index": 149,
+      "cyclic_mode": [
+        1,
+        -3,
+        2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -1,
+        2,
+        -3
+      ],
+      "cyclic_flat_index": 150,
+      "cyclic_mode": [
+        1,
+        -2,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.00011121875828060022,
+      "cyclic_conjugate_mode": [
+        -1,
+        2,
+        2
+      ],
+      "cyclic_flat_index": 151,
+      "cyclic_mode": [
+        1,
+        -2,
+        -2
+      ],
+      "fcc_metric_shell_value": 18,
+      "ordinary_flat_index": 75,
+      "ordinary_mode": [
+        1,
+        -2,
+        -2
+      ],
+      "physical_radius_angstrom": 11.601887237871088,
+      "reference_power_per_state_ev2": 5.923183830000012e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0010980366032769463,
+      "cyclic_conjugate_mode": [
+        -1,
+        2,
+        1
+      ],
+      "cyclic_flat_index": 152,
+      "cyclic_mode": [
+        1,
+        -2,
+        -1
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 76,
+      "ordinary_mode": [
+        1,
+        -2,
+        -1
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.00038405063260000096
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.054518457959336575,
+      "cyclic_conjugate_mode": [
+        -1,
+        2,
+        0
+      ],
+      "cyclic_flat_index": 153,
+      "cyclic_mode": [
+        1,
+        -2,
+        0
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 77,
+      "ordinary_mode": [
+        1,
+        -2,
+        0
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.0493847812728
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.007303820023456526,
+      "cyclic_conjugate_mode": [
+        -1,
+        2,
+        -1
+      ],
+      "cyclic_flat_index": 154,
+      "cyclic_mode": [
+        1,
+        -2,
+        1
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 78,
+      "ordinary_mode": [
+        1,
+        -2,
+        1
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.007746164009799991
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0007048536595797532,
+      "cyclic_conjugate_mode": [
+        -1,
+        2,
+        -2
+      ],
+      "cyclic_flat_index": 155,
+      "cyclic_mode": [
+        1,
+        -2,
+        2
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 79,
+      "ordinary_mode": [
+        1,
+        -2,
+        2
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0006246987633000002
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -1,
+        1,
+        -3
+      ],
+      "cyclic_flat_index": 156,
+      "cyclic_mode": [
+        1,
+        -1,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.001387607750999498,
+      "cyclic_conjugate_mode": [
+        -1,
+        1,
+        2
+      ],
+      "cyclic_flat_index": 157,
+      "cyclic_mode": [
+        1,
+        -1,
+        -2
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 80,
+      "ordinary_mode": [
+        1,
+        -1,
+        -2
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.00048458377479999843
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.023811147927159656,
+      "cyclic_conjugate_mode": [
+        -1,
+        1,
+        1
+      ],
+      "cyclic_flat_index": 158,
+      "cyclic_mode": [
+        1,
+        -1,
+        -1
+      ],
+      "fcc_metric_shell_value": 4,
+      "ordinary_flat_index": 81,
+      "ordinary_mode": [
+        1,
+        -1,
+        -1
+      ],
+      "physical_radius_angstrom": 5.469182093640207,
+      "reference_power_per_state_ev2": 0.015744294864999998
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 1.077541414321287,
+      "cyclic_conjugate_mode": [
+        -1,
+        1,
+        0
+      ],
+      "cyclic_flat_index": 159,
+      "cyclic_mode": [
+        1,
+        -1,
+        0
+      ],
+      "fcc_metric_shell_value": 2,
+      "ordinary_flat_index": 82,
+      "ordinary_mode": [
+        1,
+        -1,
+        0
+      ],
+      "physical_radius_angstrom": 3.8672957459570294,
+      "reference_power_per_state_ev2": 1.0796772246783
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.025296053269100182,
+      "cyclic_conjugate_mode": [
+        -1,
+        1,
+        -1
+      ],
+      "cyclic_flat_index": 160,
+      "cyclic_mode": [
+        1,
+        -1,
+        1
+      ],
+      "fcc_metric_shell_value": 4,
+      "ordinary_flat_index": 83,
+      "ordinary_mode": [
+        1,
+        -1,
+        1
+      ],
+      "physical_radius_angstrom": 5.469182093640207,
+      "reference_power_per_state_ev2": 0.010967327717799995
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0014695345152077057,
+      "cyclic_conjugate_mode": [
+        -1,
+        1,
+        -2
+      ],
+      "cyclic_flat_index": 161,
+      "cyclic_mode": [
+        1,
+        -1,
+        2
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 84,
+      "ordinary_mode": [
+        1,
+        -1,
+        2
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0004070439256999998
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -1,
+        0,
+        -3
+      ],
+      "cyclic_flat_index": 162,
+      "cyclic_mode": [
+        1,
+        0,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.01866081382638262,
+      "cyclic_conjugate_mode": [
+        -1,
+        0,
+        2
+      ],
+      "cyclic_flat_index": 163,
+      "cyclic_mode": [
+        1,
+        0,
+        -2
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 85,
+      "ordinary_mode": [
+        1,
+        0,
+        -2
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.01465894357669999
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.29992061618391386,
+      "cyclic_conjugate_mode": [
+        -1,
+        0,
+        1
+      ],
+      "cyclic_flat_index": 164,
+      "cyclic_mode": [
+        1,
+        0,
+        -1
+      ],
+      "fcc_metric_shell_value": 2,
+      "ordinary_flat_index": 86,
+      "ordinary_mode": [
+        1,
+        0,
+        -1
+      ],
+      "physical_radius_angstrom": 3.8672957459570294,
+      "reference_power_per_state_ev2": 0.27935511188490014
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 2.2038240514335725,
+      "cyclic_conjugate_mode": [
+        -1,
+        0,
+        0
+      ],
+      "cyclic_flat_index": 165,
+      "cyclic_mode": [
+        1,
+        0,
+        0
+      ],
+      "fcc_metric_shell_value": 2,
+      "ordinary_flat_index": 87,
+      "ordinary_mode": [
+        1,
+        0,
+        0
+      ],
+      "physical_radius_angstrom": 3.8672957459570294,
+      "reference_power_per_state_ev2": 2.1582264603865995
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.03104686043565514,
+      "cyclic_conjugate_mode": [
+        -1,
+        0,
+        -1
+      ],
+      "cyclic_flat_index": 166,
+      "cyclic_mode": [
+        1,
+        0,
+        1
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 88,
+      "ordinary_mode": [
+        1,
+        0,
+        1
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.0065239721035000075
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0030077717602188443,
+      "cyclic_conjugate_mode": [
+        -1,
+        0,
+        -2
+      ],
+      "cyclic_flat_index": 167,
+      "cyclic_mode": [
+        1,
+        0,
+        2
+      ],
+      "fcc_metric_shell_value": 14,
+      "ordinary_flat_index": 89,
+      "ordinary_mode": [
+        1,
+        0,
+        2
+      ],
+      "physical_radius_angstrom": 10.231902790140325,
+      "reference_power_per_state_ev2": 0.000255381243399999
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -1,
+        -1,
+        -3
+      ],
+      "cyclic_flat_index": 168,
+      "cyclic_mode": [
+        1,
+        1,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0022791317376248264,
+      "cyclic_conjugate_mode": [
+        -1,
+        -1,
+        2
+      ],
+      "cyclic_flat_index": 169,
+      "cyclic_mode": [
+        1,
+        1,
+        -2
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 90,
+      "ordinary_mode": [
+        1,
+        1,
+        -2
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.002300123197999996
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.021547760053796276,
+      "cyclic_conjugate_mode": [
+        -1,
+        -1,
+        1
+      ],
+      "cyclic_flat_index": 170,
+      "cyclic_mode": [
+        1,
+        1,
+        -1
+      ],
+      "fcc_metric_shell_value": 4,
+      "ordinary_flat_index": 91,
+      "ordinary_mode": [
+        1,
+        1,
+        -1
+      ],
+      "physical_radius_angstrom": 5.469182093640207,
+      "reference_power_per_state_ev2": 0.014632737142099995
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.029869632074124797,
+      "cyclic_conjugate_mode": [
+        -1,
+        -1,
+        0
+      ],
+      "cyclic_flat_index": 171,
+      "cyclic_mode": [
+        1,
+        1,
+        0
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 92,
+      "ordinary_mode": [
+        1,
+        1,
+        0
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.006083179928999996
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0010738169840935447,
+      "cyclic_conjugate_mode": [
+        -1,
+        -1,
+        -1
+      ],
+      "cyclic_flat_index": 172,
+      "cyclic_mode": [
+        1,
+        1,
+        1
+      ],
+      "fcc_metric_shell_value": 12,
+      "ordinary_flat_index": 93,
+      "ordinary_mode": [
+        1,
+        1,
+        1
+      ],
+      "physical_radius_angstrom": 9.472901262030764,
+      "reference_power_per_state_ev2": 0.0004017848351000005
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 9.256166524672932e-05,
+      "cyclic_conjugate_mode": [
+        -1,
+        -1,
+        -2
+      ],
+      "cyclic_flat_index": 173,
+      "cyclic_mode": [
+        1,
+        1,
+        2
+      ],
+      "fcc_metric_shell_value": 22,
+      "ordinary_flat_index": 94,
+      "ordinary_mode": [
+        1,
+        1,
+        2
+      ],
+      "physical_radius_angstrom": 12.826368942677062,
+      "reference_power_per_state_ev2": 5.904843470000092e-05
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -1,
+        -2,
+        -3
+      ],
+      "cyclic_flat_index": 174,
+      "cyclic_mode": [
+        1,
+        2,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0006132133791986368,
+      "cyclic_conjugate_mode": [
+        -1,
+        -2,
+        2
+      ],
+      "cyclic_flat_index": 175,
+      "cyclic_mode": [
+        1,
+        2,
+        -2
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 95,
+      "ordinary_mode": [
+        1,
+        2,
+        -2
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0005606592842000012
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0013417812085430763,
+      "cyclic_conjugate_mode": [
+        -1,
+        -2,
+        1
+      ],
+      "cyclic_flat_index": 176,
+      "cyclic_mode": [
+        1,
+        2,
+        -1
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 96,
+      "ordinary_mode": [
+        1,
+        2,
+        -1
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0004394164571000003
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0030388299213681747,
+      "cyclic_conjugate_mode": [
+        -1,
+        -2,
+        0
+      ],
+      "cyclic_flat_index": 177,
+      "cyclic_mode": [
+        1,
+        2,
+        0
+      ],
+      "fcc_metric_shell_value": 14,
+      "ordinary_flat_index": 97,
+      "ordinary_mode": [
+        1,
+        2,
+        0
+      ],
+      "physical_radius_angstrom": 10.231902790140325,
+      "reference_power_per_state_ev2": 0.000288034898400001
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 7.345563453606626e-05,
+      "cyclic_conjugate_mode": [
+        -1,
+        -2,
+        -1
+      ],
+      "cyclic_flat_index": 178,
+      "cyclic_mode": [
+        1,
+        2,
+        1
+      ],
+      "fcc_metric_shell_value": 22,
+      "ordinary_flat_index": 98,
+      "ordinary_mode": [
+        1,
+        2,
+        1
+      ],
+      "physical_radius_angstrom": 12.826368942677062,
+      "reference_power_per_state_ev2": 4.696123870000052e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 5.838786237625635e-05,
+      "cyclic_conjugate_mode": [
+        -1,
+        -2,
+        -2
+      ],
+      "cyclic_flat_index": 179,
+      "cyclic_mode": [
+        1,
+        2,
+        2
+      ],
+      "fcc_metric_shell_value": 34,
+      "ordinary_flat_index": 99,
+      "ordinary_mode": [
+        1,
+        2,
+        2
+      ],
+      "physical_radius_angstrom": 15.945268846082675,
+      "reference_power_per_state_ev2": 5.2376623199999446e-05
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -2,
+        -3,
+        -3
+      ],
+      "cyclic_flat_index": 180,
+      "cyclic_mode": [
+        2,
+        -3,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -2,
+        -3,
+        2
+      ],
+      "cyclic_flat_index": 181,
+      "cyclic_mode": [
+        2,
+        -3,
+        -2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -2,
+        -3,
+        1
+      ],
+      "cyclic_flat_index": 182,
+      "cyclic_mode": [
+        2,
+        -3,
+        -1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -2,
+        -3,
+        0
+      ],
+      "cyclic_flat_index": 183,
+      "cyclic_mode": [
+        2,
+        -3,
+        0
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -2,
+        -3,
+        -1
+      ],
+      "cyclic_flat_index": 184,
+      "cyclic_mode": [
+        2,
+        -3,
+        1
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -2,
+        -3,
+        -2
+      ],
+      "cyclic_flat_index": 185,
+      "cyclic_mode": [
+        2,
+        -3,
+        2
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -2,
+        2,
+        -3
+      ],
+      "cyclic_flat_index": 186,
+      "cyclic_mode": [
+        2,
+        -2,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 6.242317417620098e-05,
+      "cyclic_conjugate_mode": [
+        -2,
+        2,
+        2
+      ],
+      "cyclic_flat_index": 187,
+      "cyclic_mode": [
+        2,
+        -2,
+        -2
+      ],
+      "fcc_metric_shell_value": 16,
+      "ordinary_flat_index": 100,
+      "ordinary_mode": [
+        2,
+        -2,
+        -2
+      ],
+      "physical_radius_angstrom": 10.938364187280413,
+      "reference_power_per_state_ev2": 4.291823050000027e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0006061852201860263,
+      "cyclic_conjugate_mode": [
+        -2,
+        2,
+        1
+      ],
+      "cyclic_flat_index": 188,
+      "cyclic_mode": [
+        2,
+        -2,
+        -1
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 101,
+      "ordinary_mode": [
+        2,
+        -2,
+        -1
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0005248930128999992
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.011311110909771677,
+      "cyclic_conjugate_mode": [
+        -2,
+        2,
+        0
+      ],
+      "cyclic_flat_index": 189,
+      "cyclic_mode": [
+        2,
+        -2,
+        0
+      ],
+      "fcc_metric_shell_value": 8,
+      "ordinary_flat_index": 102,
+      "ordinary_mode": [
+        2,
+        -2,
+        0
+      ],
+      "physical_radius_angstrom": 7.734591491914059,
+      "reference_power_per_state_ev2": 0.010685169301499996
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.000564380834107731,
+      "cyclic_conjugate_mode": [
+        -2,
+        2,
+        -1
+      ],
+      "cyclic_flat_index": 190,
+      "cyclic_mode": [
+        2,
+        -2,
+        1
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 103,
+      "ordinary_mode": [
+        2,
+        -2,
+        1
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0004673536416999979
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 5.737816504145027e-05,
+      "cyclic_conjugate_mode": [
+        -2,
+        2,
+        -2
+      ],
+      "cyclic_flat_index": 191,
+      "cyclic_mode": [
+        2,
+        -2,
+        2
+      ],
+      "fcc_metric_shell_value": 16,
+      "ordinary_flat_index": 104,
+      "ordinary_mode": [
+        2,
+        -2,
+        2
+      ],
+      "physical_radius_angstrom": 10.938364187280413,
+      "reference_power_per_state_ev2": 3.171648240000001e-05
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -2,
+        1,
+        -3
+      ],
+      "cyclic_flat_index": 192,
+      "cyclic_mode": [
+        2,
+        -1,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.000403778068723363,
+      "cyclic_conjugate_mode": [
+        -2,
+        1,
+        2
+      ],
+      "cyclic_flat_index": 193,
+      "cyclic_mode": [
+        2,
+        -1,
+        -2
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 105,
+      "ordinary_mode": [
+        2,
+        -1,
+        -2
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0003528502544999997
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0029725899869655218,
+      "cyclic_conjugate_mode": [
+        -2,
+        1,
+        1
+      ],
+      "cyclic_flat_index": 194,
+      "cyclic_mode": [
+        2,
+        -1,
+        -1
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 106,
+      "ordinary_mode": [
+        2,
+        -1,
+        -1
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.0031135369846
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.020684663275016134,
+      "cyclic_conjugate_mode": [
+        -2,
+        1,
+        0
+      ],
+      "cyclic_flat_index": 195,
+      "cyclic_mode": [
+        2,
+        -1,
+        0
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 107,
+      "ordinary_mode": [
+        2,
+        -1,
+        0
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.012700082691500003
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0010065936444688074,
+      "cyclic_conjugate_mode": [
+        -2,
+        1,
+        -1
+      ],
+      "cyclic_flat_index": 196,
+      "cyclic_mode": [
+        2,
+        -1,
+        1
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 108,
+      "ordinary_mode": [
+        2,
+        -1,
+        1
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0002946403927999993
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 8.462946645326045e-05,
+      "cyclic_conjugate_mode": [
+        -2,
+        1,
+        -2
+      ],
+      "cyclic_flat_index": 197,
+      "cyclic_mode": [
+        2,
+        -1,
+        2
+      ],
+      "fcc_metric_shell_value": 18,
+      "ordinary_flat_index": 109,
+      "ordinary_mode": [
+        2,
+        -1,
+        2
+      ],
+      "physical_radius_angstrom": 11.601887237871088,
+      "reference_power_per_state_ev2": 4.5010185299999775e-05
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -2,
+        0,
+        -3
+      ],
+      "cyclic_flat_index": 198,
+      "cyclic_mode": [
+        2,
+        0,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.008017589294804965,
+      "cyclic_conjugate_mode": [
+        -2,
+        0,
+        2
+      ],
+      "cyclic_flat_index": 199,
+      "cyclic_mode": [
+        2,
+        0,
+        -2
+      ],
+      "fcc_metric_shell_value": 8,
+      "ordinary_flat_index": 110,
+      "ordinary_mode": [
+        2,
+        0,
+        -2
+      ],
+      "physical_radius_angstrom": 7.734591491914059,
+      "reference_power_per_state_ev2": 0.007732667943100011
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.013791495737743764,
+      "cyclic_conjugate_mode": [
+        -2,
+        0,
+        1
+      ],
+      "cyclic_flat_index": 200,
+      "cyclic_mode": [
+        2,
+        0,
+        -1
+      ],
+      "fcc_metric_shell_value": 6,
+      "ordinary_flat_index": 111,
+      "ordinary_mode": [
+        2,
+        0,
+        -1
+      ],
+      "physical_radius_angstrom": 6.698352719892557,
+      "reference_power_per_state_ev2": 0.010620864496900003
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.04711047984807853,
+      "cyclic_conjugate_mode": [
+        -2,
+        0,
+        0
+      ],
+      "cyclic_flat_index": 201,
+      "cyclic_mode": [
+        2,
+        0,
+        0
+      ],
+      "fcc_metric_shell_value": 8,
+      "ordinary_flat_index": 112,
+      "ordinary_mode": [
+        2,
+        0,
+        0
+      ],
+      "physical_radius_angstrom": 7.734591491914059,
+      "reference_power_per_state_ev2": 0.012798855908200008
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.003258339807464583,
+      "cyclic_conjugate_mode": [
+        -2,
+        0,
+        -1
+      ],
+      "cyclic_flat_index": 202,
+      "cyclic_mode": [
+        2,
+        0,
+        1
+      ],
+      "fcc_metric_shell_value": 14,
+      "ordinary_flat_index": 113,
+      "ordinary_mode": [
+        2,
+        0,
+        1
+      ],
+      "physical_radius_angstrom": 10.231902790140325,
+      "reference_power_per_state_ev2": 0.0004168983841999987
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.00015020348731607482,
+      "cyclic_conjugate_mode": [
+        -2,
+        0,
+        -2
+      ],
+      "cyclic_flat_index": 203,
+      "cyclic_mode": [
+        2,
+        0,
+        2
+      ],
+      "fcc_metric_shell_value": 24,
+      "ordinary_flat_index": 114,
+      "ordinary_mode": [
+        2,
+        0,
+        2
+      ],
+      "physical_radius_angstrom": 13.396705439785114,
+      "reference_power_per_state_ev2": 4.052547440000025e-05
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -2,
+        -1,
+        -3
+      ],
+      "cyclic_flat_index": 204,
+      "cyclic_mode": [
+        2,
+        1,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0003921569925613657,
+      "cyclic_conjugate_mode": [
+        -2,
+        -1,
+        2
+      ],
+      "cyclic_flat_index": 205,
+      "cyclic_mode": [
+        2,
+        1,
+        -2
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 115,
+      "ordinary_mode": [
+        2,
+        1,
+        -2
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0003127288387
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0013163481849324233,
+      "cyclic_conjugate_mode": [
+        -2,
+        -1,
+        1
+      ],
+      "cyclic_flat_index": 206,
+      "cyclic_mode": [
+        2,
+        1,
+        -1
+      ],
+      "fcc_metric_shell_value": 10,
+      "ordinary_flat_index": 116,
+      "ordinary_mode": [
+        2,
+        1,
+        -1
+      ],
+      "physical_radius_angstrom": 8.647536177055676,
+      "reference_power_per_state_ev2": 0.0007004464579999986
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.003715010947170075,
+      "cyclic_conjugate_mode": [
+        -2,
+        -1,
+        0
+      ],
+      "cyclic_flat_index": 207,
+      "cyclic_mode": [
+        2,
+        1,
+        0
+      ],
+      "fcc_metric_shell_value": 14,
+      "ordinary_flat_index": 117,
+      "ordinary_mode": [
+        2,
+        1,
+        0
+      ],
+      "physical_radius_angstrom": 10.231902790140325,
+      "reference_power_per_state_ev2": 0.00034257619469999856
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.00011100013732404538,
+      "cyclic_conjugate_mode": [
+        -2,
+        -1,
+        -1
+      ],
+      "cyclic_flat_index": 208,
+      "cyclic_mode": [
+        2,
+        1,
+        1
+      ],
+      "fcc_metric_shell_value": 22,
+      "ordinary_flat_index": 118,
+      "ordinary_mode": [
+        2,
+        1,
+        1
+      ],
+      "physical_radius_angstrom": 12.826368942677062,
+      "reference_power_per_state_ev2": 7.371095010000033e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 5.4873576257721663e-05,
+      "cyclic_conjugate_mode": [
+        -2,
+        -1,
+        -2
+      ],
+      "cyclic_flat_index": 209,
+      "cyclic_mode": [
+        2,
+        1,
+        2
+      ],
+      "fcc_metric_shell_value": 34,
+      "ordinary_flat_index": 119,
+      "ordinary_mode": [
+        2,
+        1,
+        2
+      ],
+      "physical_radius_angstrom": 15.945268846082675,
+      "reference_power_per_state_ev2": 4.546369730000003e-05
+    },
+    {
+      "action": "removed_negative_nyquist",
+      "attacked_identity_power_per_state_ev2": null,
+      "cyclic_conjugate_mode": [
+        -2,
+        -2,
+        -3
+      ],
+      "cyclic_flat_index": 210,
+      "cyclic_mode": [
+        2,
+        2,
+        -3
+      ],
+      "fcc_metric_shell_value": null,
+      "ordinary_flat_index": null,
+      "ordinary_mode": null,
+      "physical_radius_angstrom": null,
+      "reference_power_per_state_ev2": null
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 5.176021386779771e-05,
+      "cyclic_conjugate_mode": [
+        -2,
+        -2,
+        2
+      ],
+      "cyclic_flat_index": 211,
+      "cyclic_mode": [
+        2,
+        2,
+        -2
+      ],
+      "fcc_metric_shell_value": 16,
+      "ordinary_flat_index": 120,
+      "ordinary_mode": [
+        2,
+        2,
+        -2
+      ],
+      "physical_radius_angstrom": 10.938364187280413,
+      "reference_power_per_state_ev2": 3.430465750000002e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0001075840623883673,
+      "cyclic_conjugate_mode": [
+        -2,
+        -2,
+        1
+      ],
+      "cyclic_flat_index": 212,
+      "cyclic_mode": [
+        2,
+        2,
+        -1
+      ],
+      "fcc_metric_shell_value": 18,
+      "ordinary_flat_index": 121,
+      "ordinary_mode": [
+        2,
+        2,
+        -1
+      ],
+      "physical_radius_angstrom": 11.601887237871088,
+      "reference_power_per_state_ev2": 4.900910130000025e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 0.0001984102406860088,
+      "cyclic_conjugate_mode": [
+        -2,
+        -2,
+        0
+      ],
+      "cyclic_flat_index": 213,
+      "cyclic_mode": [
+        2,
+        2,
+        0
+      ],
+      "fcc_metric_shell_value": 24,
+      "ordinary_flat_index": 122,
+      "ordinary_mode": [
+        2,
+        2,
+        0
+      ],
+      "physical_radius_angstrom": 13.396705439785114,
+      "reference_power_per_state_ev2": 5.915353879999942e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 5.810618170069573e-05,
+      "cyclic_conjugate_mode": [
+        -2,
+        -2,
+        -1
+      ],
+      "cyclic_flat_index": 214,
+      "cyclic_mode": [
+        2,
+        2,
+        1
+      ],
+      "fcc_metric_shell_value": 34,
+      "ordinary_flat_index": 123,
+      "ordinary_mode": [
+        2,
+        2,
+        1
+      ],
+      "physical_radius_angstrom": 15.945268846082675,
+      "reference_power_per_state_ev2": 5.310891779999991e-05
+    },
+    {
+      "action": "retained_identity",
+      "attacked_identity_power_per_state_ev2": 5.1286724298293254e-05,
+      "cyclic_conjugate_mode": [
+        -2,
+        -2,
+        -2
+      ],
+      "cyclic_flat_index": 215,
+      "cyclic_mode": [
+        2,
+        2,
+        2
+      ],
+      "fcc_metric_shell_value": 48,
+      "ordinary_flat_index": 124,
+      "ordinary_mode": [
+        2,
+        2,
+        2
+      ],
+      "physical_radius_angstrom": 18.945802524061527,
+      "reference_power_per_state_ev2": 5.3229411499998655e-05
+    }
+  ],
+  "schema_version": 1,
+  "source_result_sha256": "0b802463af64be191b3fdedc07f732120de735efce227d1ae94cd6225f1b3ea4",
+  "summary": {
+    "coefficient_matrix_boundary": "The source result retains ordinary-mode powers but not all 216 cyclic coefficient matrices; removed-mode coefficient values and power are not independently reconstructed by this audit.",
+    "construction_size": 6,
+    "cyclic_axis": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ],
+    "cyclic_mode_count": 216,
+    "maximum_metric_shell_absolute_difference": 0.0,
+    "maximum_physical_radius_absolute_difference_angstrom": 3.552713678800501e-15,
+    "ordering": "first component outermost, third component innermost",
+    "ordinary_axis": [
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ],
+    "ordinary_mode_count": 125,
+    "outcome": "passed",
+    "removed_negative_nyquist_mode_count": 91,
+    "selection_rule": "retain a cyclic mode iff no component equals -N/2; retained modes map identically"
+  }
+}

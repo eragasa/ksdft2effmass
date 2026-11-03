@@ -19,13 +19,11 @@ type JsonObject = dict[str, JsonValue]
 
 ROOT = Path(__file__).resolve().parent
 RESULT = ROOT / "result.json"
-FIGURES = ROOT / "figures-v3"
+FIGURES = ROOT / "figures-v5"
 PDF = FIGURES / "single-witness-surface.pdf"
 PNG = FIGURES / "single-witness-surface.png"
 MANIFEST = FIGURES / "single-witness-manifest.json"
-STATUS = (
-    "post-hoc-producer-checked-development-exploration-not-independently-verified"
-)
+STATUS = "post-hoc-producer-checked-development-exploration-not-independently-verified"
 
 
 def mapping(value: JsonValue, name: str) -> JsonObject:
@@ -61,9 +59,11 @@ def sha256(path: Path) -> str:
 
 
 def main() -> None:
-    for path in (PDF, PNG, MANIFEST):
-        if path.exists():
-            raise FileExistsError(f"refusing to overwrite retained witness artifact: {path}")
+    if FIGURES.exists():
+        raise FileExistsError(
+            f"refusing to overwrite retained witness directory: {FIGURES}"
+        )
+    FIGURES.mkdir()
     result_value: JsonValue = json.loads(RESULT.read_text(encoding="utf-8"))
     result = mapping(result_value, "result")
     if result.get("status") != STATUS:
@@ -74,7 +74,10 @@ def main() -> None:
         if mapping(item, "candidate")["proper_reduced_candidate"] is True
     ]
     spectral = np.asarray(
-        [numeric(item["tau_1_spectral_rms"], "tau_1 requirement") for item in candidates],
+        [
+            numeric(item["tau_1_spectral_rms"], "tau_1 requirement")
+            for item in candidates
+        ],
         dtype=np.float64,
     )
     operator = np.asarray(
@@ -113,10 +116,10 @@ def main() -> None:
     witness_cost = np.full(
         (len(y_edges) - 1, len(x_edges) - 1), np.nan, dtype=np.float64
     )
-    witness_index = np.full(
-        (len(y_edges) - 1, len(x_edges) - 1), -1, dtype=np.int64
-    )
-    for row, (lower_y, upper_y) in enumerate(zip(y_edges[:-1], y_edges[1:], strict=True)):
+    witness_index = np.full((len(y_edges) - 1, len(x_edges) - 1), -1, dtype=np.int64)
+    for row, (lower_y, upper_y) in enumerate(
+        zip(y_edges[:-1], y_edges[1:], strict=True)
+    ):
         tau_2 = float(np.sqrt(lower_y * upper_y))
         for column, (lower_x, upper_x) in enumerate(
             zip(x_edges[:-1], x_edges[1:], strict=True)
@@ -162,11 +165,14 @@ def main() -> None:
         label="candidate requirement corner",
     )
     for index, shell_id in enumerate(shell_ids):
+        is_upper_right = index == int(np.argmax(spectral + operator))
         axis.annotate(
             shell_id.replace("H-shell-", "H"),
             (spectral[index], operator[index]),
-            xytext=(4, 4),
+            xytext=(-5, -7) if is_upper_right else (4, 4),
             textcoords="offset points",
+            horizontalalignment="right" if is_upper_right else "left",
+            verticalalignment="top" if is_upper_right else "bottom",
             fontsize=6.5,
             zorder=6,
         )
@@ -191,7 +197,7 @@ def main() -> None:
     )
     colorbar = figure.colorbar(mesh, ax=axis, shrink=0.88, pad=0.025)
     colorbar.set_label("representatives in the unique minimum-support witness")
-    colorbar.set_ticks(unique_costs)
+    colorbar.set_ticks(unique_costs.astype(np.float64).tolist())
     colorbar.ax.tick_params(labelsize=7)
     axis.legend(loc="lower right", fontsize=8)
     figure.savefig(PDF, bbox_inches="tight")

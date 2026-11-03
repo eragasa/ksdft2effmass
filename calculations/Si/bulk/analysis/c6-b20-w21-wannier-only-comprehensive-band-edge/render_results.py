@@ -8,6 +8,7 @@ from types import ModuleType
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.figure import Figure
 from numpy.typing import NDArray
 
 RealArray = NDArray[np.float64]
@@ -65,8 +66,9 @@ def directional_plot_data() -> JsonObject:
     _, evaluator, _, reciprocal, _ = analysis.reconstruct()
     inverse = np.linalg.inv(reciprocal)
     q = np.linspace(-0.02, 0.02, 161, dtype=np.float64)
+    q_values: list[JsonValue] = [float(value) for value in q]
     data: JsonObject = {
-        "q_inverse_angstrom": q.tolist(),
+        "q_inverse_angstrom": q_values,
         "energy_reference": "each model's ordered band-3 energy at Gamma",
         "models": {},
     }
@@ -96,7 +98,7 @@ def directional_plot_data() -> JsonObject:
     return data
 
 
-def save(figure: plt.Figure, stem: str) -> None:
+def save(figure: Figure, stem: str) -> None:
     figure.savefig(FIGURES / f"{stem}.pdf", bbox_inches="tight")
     figure.savefig(FIGURES / f"{stem}.png", bbox_inches="tight", dpi=220)
     plt.close(figure)
@@ -113,9 +115,7 @@ def render_gamma(result: JsonObject) -> None:
         180.0
         / np.pi
         * numeric(
-            mapping(cluster[model], model)[
-                "maximum_cluster_principal_angle_radians"
-            ],
+            mapping(cluster[model], model)["maximum_cluster_principal_angle_radians"],
             "angle",
         )
         for model in MODELS
@@ -131,7 +131,9 @@ def render_gamma(result: JsonObject) -> None:
     axes[1].set_ylabel("Maximum principal angle (degrees)")
     axes[1].set_title("Source-cluster subspace rotation")
     for axis in axes:
-        axis.set_xticks(x, [DISPLAY[model] for model in MODELS], rotation=25, ha="right")
+        axis.set_xticks(
+            x, [DISPLAY[model] for model in MODELS], rotation=25, ha="right"
+        )
         axis.grid(axis="y", alpha=0.25)
     figure.suptitle(
         "Subspace preservation does not guarantee preservation of internal degeneracy"
@@ -172,11 +174,16 @@ def render_dispersions(plot_data: JsonObject) -> None:
             if row == 3:
                 axis.set_xlabel("Signed displacement ($\\mathrm{\\AA}^{-1}$)")
     handles, labels = axes[0, 0].get_legend_handles_labels()
-    figure.legend(handles, labels, loc="upper center", ncol=3, frameon=False)
-    figure.suptitle(
-        "Ordered non-SOC valence-cluster branches near $\\Gamma$", y=0.985
+    figure.legend(
+        handles,
+        labels,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.965),
+        ncol=3,
+        frameon=False,
     )
-    figure.tight_layout(rect=(0.0, 0.0, 1.0, 0.96))
+    figure.suptitle("Ordered non-SOC valence-cluster branches near $\\Gamma$", y=0.997)
+    figure.tight_layout(rect=(0.0, 0.0, 1.0, 0.93))
     save(figure, "directional-valence-cluster-dispersions")
 
 
@@ -191,7 +198,12 @@ def render_valence_sensitivity(result: JsonObject) -> None:
             if not isinstance(windows, list):
                 raise TypeError("windows must be a list")
             x = np.asarray(
-                [numeric(mapping(item, "window")["fit_window_inverse_angstrom"], "window") for item in windows],
+                [
+                    numeric(
+                        mapping(item, "window")["fit_window_inverse_angstrom"], "window"
+                    )
+                    for item in windows
+                ],
                 dtype=np.float64,
             )
             for branch_index, branch_name in enumerate(BRANCH_NAMES):
@@ -223,12 +235,19 @@ def render_valence_sensitivity(result: JsonObject) -> None:
             if row == 3:
                 axis.set_xlabel("Fit half-window ($\\mathrm{\\AA}^{-1}$)")
     handles, labels = axes[0, 0].get_legend_handles_labels()
-    figure.legend(handles, labels, loc="upper center", ncol=3, frameon=False)
+    figure.legend(
+        handles,
+        labels,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.965),
+        ncol=3,
+        frameon=False,
+    )
     figure.suptitle(
         "Fit-window sensitivity exposes the lack of unique ordered-branch hole tensors",
-        y=0.985,
+        y=0.997,
     )
-    figure.tight_layout(rect=(0.0, 0.0, 1.0, 0.96))
+    figure.tight_layout(rect=(0.0, 0.0, 1.0, 0.93))
     save(figure, "directional-valence-mass-sensitivity")
 
 
@@ -238,9 +257,7 @@ def render_electron(result: JsonObject) -> None:
     colors = [COLORS[model] for model in MODELS]
     dos = [
         numeric(
-            mapping(electron[model], model)[
-                "six_valley_dos_mass_convention_electron"
-            ],
+            mapping(electron[model], model)["six_valley_dos_mass_convention_electron"],
             "DOS mass",
         )
         for model in MODELS
@@ -269,7 +286,7 @@ def render_electron(result: JsonObject) -> None:
                 for valley in valleys.values()
             )
         )
-    figure, axes = plt.subplots(1, 3, figsize=(12.0, 3.8))
+    figure, axes = plt.subplots(1, 3, figsize=(13.5, 3.8))
     axes[0].bar(x, dos, color=colors)
     axes[0].set_ylabel("Six-valley DOS-mass convention ($m_e$)")
     axes[1].bar(x, conductivity, color=colors)
@@ -277,10 +294,12 @@ def render_electron(result: JsonObject) -> None:
     axes[2].bar(x, stencil, color=colors)
     axes[2].set_ylabel("Maximum stencil spread (%)")
     for axis in axes:
-        axis.set_xticks(x, [DISPLAY[model] for model in MODELS], rotation=25, ha="right")
+        axis.set_xticks(
+            x, [DISPLAY[model] for model in MODELS], rotation=25, ha="right"
+        )
         axis.grid(axis="y", alpha=0.25)
     figure.suptitle("Derived conduction-valley mass diagnostics")
-    figure.tight_layout()
+    figure.tight_layout(w_pad=2.2)
     save(figure, "derived-electron-mass-fidelity")
 
 
@@ -309,7 +328,9 @@ def render_high_symmetry(result: JsonObject) -> None:
         model_edges = mapping(edges[model], model)
         spreads = [
             1000.0
-            * numeric(mapping(model_edges[label], label)["symmetry_spread_ev"], "spread")
+            * numeric(
+                mapping(model_edges[label], label)["symmetry_spread_ev"], "spread"
+            )
             for label in spread_labels
         ]
         axes[1].bar(

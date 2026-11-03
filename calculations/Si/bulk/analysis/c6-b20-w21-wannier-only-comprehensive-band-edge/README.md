@@ -224,7 +224,14 @@ The expanded analysis strengthens the fidelity-ladder conclusion:
 - `multiband-result.json`: machine-readable multiband result.
 - `render_results.py`: primary figure renderer.
 - `render_multiband.py`: multiband figure renderer.
+- `render_figures_v2.py`: retained version-2 layout composition.
+- `render_figures_v3.py`: strict-typing, no-overwrite layout-only composition of the
+  two retained renderers.
 - `plot-data.json`: machine-readable directional dispersion curves.
-- `figures/`: PDF and PNG renderings.
+- `figures/`: original PDF and PNG renderings.
+- `figures-v2/`: first layout-only successor separating legends from titles and
+  increasing panel spacing.
+- `figures-v3/`: strict-typing successor used by the manuscript; no Hamiltonian or
+  scientific analysis was rerun.
 
 The calculation scripts and retained outputs are no-overwrite artifacts.

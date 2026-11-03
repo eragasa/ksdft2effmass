@@ -5,6 +5,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.figure import Figure
 
 ROOT = Path(__file__).resolve().parent
 RESULT = ROOT / "multiband-result.json"
@@ -14,7 +15,7 @@ DISPLAY = ("Full source", "H-shell-05", "H-shell-10", "H-shell-16")
 COLORS = ("#0072b2", "#cc79a7", "#d55e00")
 
 
-def save(figure: plt.Figure, stem: str) -> None:
+def save(figure: Figure, stem: str) -> None:
     pdf = FIGURES / f"{stem}.pdf"
     png = FIGURES / f"{stem}.png"
     if pdf.exists() or png.exists():
@@ -52,11 +53,16 @@ def main() -> None:
         axis.grid(alpha=0.25)
     axes[0].set_ylabel("Apparent non-SOC channel mass ($m_e$)")
     handles, labels = axes[0].get_legend_handles_labels()
-    figure.legend(handles, labels, loc="upper center", ncol=3, frameon=False)
-    figure.suptitle(
-        "Degeneracy-aware three-band valence curvature channels", y=1.02
+    figure.legend(
+        handles,
+        labels,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.94),
+        ncol=3,
+        frameon=False,
     )
-    figure.tight_layout()
+    figure.suptitle("Degeneracy-aware three-band valence curvature channels", y=0.995)
+    figure.tight_layout(rect=(0.0, 0.0, 1.0, 0.88))
     save(figure, "multiband-valence-curvature-channels")
 
     source_directions = models["full-source"]["windows"]["0.01"]["directions"]
@@ -72,15 +78,18 @@ def main() -> None:
             ]
             maximum = max(
                 maximum,
-                max(abs(left - right) / abs(right) for left, right in zip(candidate, source, strict=True)),
+                max(
+                    abs(left - right) / abs(right)
+                    for left, right in zip(candidate, source, strict=True)
+                ),
             )
         maximum_mass_changes.append(100.0 * maximum)
-    splitting = [1000.0 * models[model]["gamma_cluster_splitting_ev"] for model in MODELS]
+    splitting = [
+        1000.0 * models[model]["gamma_cluster_splitting_ev"] for model in MODELS
+    ]
     coefficient_error = [
         100.0
-        * models[model][
-            "source_relative_aligned_quadratic_coefficient_frobenius_error"
-        ]
+        * models[model]["source_relative_aligned_quadratic_coefficient_frobenius_error"]
         for model in MODELS
     ]
     bar_colors = ("#111111", "#d55e00", "#0072b2", "#009e73")

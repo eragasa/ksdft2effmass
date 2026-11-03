@@ -93,6 +93,15 @@ qualify the production parent, a Wannier bridge, or the planned local-model hier
   as unstable at the degeneracy. These are source-relative scalar-relativistic
   multiband diagnostics, not physical SOC heavy-hole, light-hole, split-off, acceptor,
   transport, DFT-parent, or silicon-validation results.
+- The independent no-calculator
+  [`C6-B20-W21` numerical-convention audit](c6-b20-w21-independent-convention-audit/)
+  recomputes the single- and six-valley DOS and equal-population conductivity-mass
+  conventions from retained tensors without importing the silicon producers. The
+  maximum formula-level difference is `6.22e-15`. It also retains a complete 216-record
+  cyclic-to-ordinary ledger: 91 modes touching the negative Nyquist boundary are
+  removed and the remaining 125 map identically, with FCC radii reproduced to
+  `3.56e-15 angstrom`. This audit does not reconstruct the Hamiltonian fields, removed
+  cyclic coefficients, valleys, Hessians, support errors, or band-edge results.
 - The authorized producer-checked
   [`C6-B20-W21` gauge-alignment/locality analysis](c6-b20-w21-gauge-alignment-locality/)
   applies the Hamiltonian-only periodic-3D rank-N represented-field framework to that
