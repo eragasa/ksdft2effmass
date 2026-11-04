@@ -36,7 +36,7 @@ control, not an admissible fitted solution.
 The maintained package provides:
 
 - immutable configuration, calculation, transport, provenance, and result records;
-- strict domain enums implemented through `StringWireEnum`;
+- strict domain enums implemented through `StrWireEnum`;
 - an analytic parent Hamiltonian and depth-dependent nearest-neighbor gauge circuit;
 - Project Koios Optimization Procrustes selection, PhysKit closed-loop transport, and
   PhysKit odd-mesh finite-periodic transforms;

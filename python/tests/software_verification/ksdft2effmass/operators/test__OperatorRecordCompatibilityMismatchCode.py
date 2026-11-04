@@ -21,7 +21,7 @@ scientific-validation, or uncertainty-quantification marker.
 Public contract
 ---------------
 The enum contract comprises exact public member names, stable machine values,
-canonical ordering, absence of aliases, Python ``StrEnum`` behavior, lookup
+canonical ordering, absence of aliases, Python ``StrWireEnum`` behavior, lookup
 round trips, canonical descriptions, and invalid-lookup exception taxonomy.
 ``EXPECTED_CONTRACT`` is an independently written executable public contract;
 it is not generated dynamically from the enum implementation.
@@ -91,13 +91,13 @@ physical correctness, scientific validation, UQ, portability, or cross-language
 agreement.
 """
 
-import enum
 import re
 from typing import NamedTuple
 
 import pytest
 
 from ksdft2effmass.operators import OperatorRecordCompatibilityMismatchCode
+from ksdft2effmass.serialization import StrWireEnum
 
 pytestmark = pytest.mark.software_verification
 
@@ -242,19 +242,16 @@ class TestOperatorRecordCompatibilityMismatchCode:
         ],
     )
     @staticmethod
-    def test_protocol__str__python_strenum_and_machine_string_behavior(
+    def test_protocol__to_wire__explicit_machine_string_behavior(
         expected: ExpectedMismatchCodeContract,
     ) -> None:
         r"""Evidence ID: SV-OCMC-002
 
-        Requirement: The enum must subclass ``enum.StrEnum`` and every value must be a
-        nonempty ASCII
-        string satisfying ``^[a-z][a-z0-9_]*$``.
+        Requirement: The enum must subclass ``StrWireEnum`` and explicitly project each
+        nonempty ASCII wire value satisfying ``^[a-z][a-z0-9_]*$``.
 
-        Method: Resolve each approved name and inspect inheritance, string
-        compatibility,
-        exact
-        value type, ``str()`` behavior, ASCII encoding, and ``re.fullmatch``.
+        Method: Resolve each approved name and inspect inheritance, separation from
+        ``str``, exact ``to_wire()`` type and value, ASCII encoding, and lexical form.
 
         Oracle: The accepted public contract, fixed literal expectations, public
         artifacts,
@@ -276,13 +273,13 @@ class TestOperatorRecordCompatibilityMismatchCode:
 
         code = OperatorRecordCompatibilityMismatchCode[expected.name]
 
-        assert issubclass(OperatorRecordCompatibilityMismatchCode, enum.StrEnum)
-        assert isinstance(code, str)
-        assert type(code.value) is str
-        assert str(code) == code.value
-        assert code.value != ""
-        code.value.encode("ascii")
-        assert re.fullmatch(r"[a-z][a-z0-9_]*", code.value) is not None
+        assert issubclass(OperatorRecordCompatibilityMismatchCode, StrWireEnum)
+        assert not isinstance(code, str)
+        assert type(code.to_wire()) is str
+        assert code.to_wire() == code.value
+        assert code.to_wire() != ""
+        code.to_wire().encode("ascii")
+        assert re.fullmatch(r"[a-z][a-z0-9_]*", code.to_wire()) is not None
 
     @pytest.mark.parametrize(
         "expected",

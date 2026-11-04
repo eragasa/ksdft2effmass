@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.solidstate import (
     BoundaryTwistMesh,
     BoundaryTwistMeshEnumerator,
@@ -14,7 +14,7 @@ from ksdft2effmass.solidstate import (
 )
 
 
-class FiniteDomainChannel(StrEnum):
+class FiniteDomainChannel(StrWireEnum):
     """Nonpooled finite-domain analysis channels."""
 
     AREA = "area"

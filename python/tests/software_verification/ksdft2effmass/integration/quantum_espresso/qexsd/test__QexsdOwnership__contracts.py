@@ -1,0 +1,111 @@
+r"""Software verification of canonical QEXSD integration ownership.
+
+Evidence profile: routine
+
+Bounded artifact scope: canonical integration ownership and dependency direction.
+
+Facet and represented meaning
+
+The artifact identifies the canonical QEXSD source, native document, and parser owners.
+
+Intrinsic and cross-object scope
+
+Public export identity and forbidden neutral-package imports are covered; semantic
+adaptation and schema-v1 serialization are separate.
+
+VVUQ and scientific exclusions
+
+These tests establish software ownership only, not scientific interpretation,
+validation, convergence, or uncertainty quantification.
+"""
+
+from __future__ import annotations
+
+import ast
+from pathlib import Path
+
+import pytest
+
+import ksdft2effmass.integration.quantum_espresso.qexsd as canonical
+
+pytestmark = pytest.mark.software_verification
+
+
+class TestQexsdOwnership:
+    """Own this module's maintained software-verification evidence."""
+
+    def test_public_api__package__exports_exact_native_qexsd_surface(self) -> None:
+        """Evidence ID: SV-QEXSD-001
+
+        Requirement: Canonical QEXSD integration exports source, native document,
+        parser, and schema-version-1 translation contracts.
+
+        Acceptance: Ordered ``__all__`` and defining modules match exactly.
+        """
+        assert tuple(canonical.__all__) == (
+            "ConstructQexsdKohnShamPlaneWaveRecord",
+            "QeXsdDocumentParser",
+            "QexsdDocument",
+            "QexsdSource",
+        )
+        assert canonical.QexsdSource.__module__ == (
+            "ksdft2effmass.integration.quantum_espresso.qexsd.records"
+        )
+        assert canonical.QexsdDocument.__module__ == (
+            "ksdft2effmass.integration.quantum_espresso.qexsd.records"
+        )
+        assert canonical.QeXsdDocumentParser.__module__ == (
+            "ksdft2effmass.integration.quantum_espresso.qexsd.parsing"
+        )
+
+    def test_artifact__dependency__neutral_packages_import_no_qexsd_owner(self) -> None:
+        """Evidence ID: SV-QEXSD-003
+
+        Requirement: Neutral structure, electronic-sampling, compatibility, and
+        Kohn--Sham packages do not import the QEXSD integration owner.
+
+        Acceptance: Static imports under both neutral package trees contain no forbidden
+        integration or QEXSD prefix.
+        """
+        source_root = Path(canonical.__file__).resolve().parents[3]
+        neutral_paths = tuple(
+            (source_root / name).rglob("*.py")
+            for name in ("structures", "electronic_structure", "periodic", "ksdft")
+        )
+        paths = tuple(path for group in neutral_paths for path in group)
+        trees = tuple(ast.parse(path.read_text(encoding="utf-8")) for path in paths)
+        nodes = tuple(node for tree in trees for node in ast.walk(tree))
+        direct = {
+            alias.name
+            for node in nodes
+            if isinstance(node, ast.Import)
+            for alias in node.names
+        }
+        from_names = {
+            node.module
+            for node in nodes
+            if isinstance(node, ast.ImportFrom) and node.module is not None
+        }
+        absolute_from_names = {
+            node.module + "." + alias.name
+            for node in nodes
+            if isinstance(node, ast.ImportFrom)
+            and node.level == 0
+            and node.module is not None
+            for alias in node.names
+        }
+        relative_names = {
+            (node.module + "." + alias.name if node.module else alias.name)
+            for node in nodes
+            if isinstance(node, ast.ImportFrom) and node.level > 0
+            for alias in node.names
+        }
+        forbidden = (
+            "ksdft2effmass.integration",
+            "ksdft2effmass.integration.quantum_espresso.qexsd",
+        )
+        assert not any(
+            name.startswith(forbidden)
+            for name in direct | from_names | absolute_from_names
+        )
+        assert not any(name.startswith("integration") for name in relative_names)

@@ -93,7 +93,7 @@ At preflight, the machine had 10 logical CPUs, 24 GiB memory, and approximately
 
 ## Independent CPN Task and workspace
 
-The operation is one reusable `QuantumEspressoVcRelaxTask` role and one run-scoped CPN
+The operation is one reusable `QeVcRelaxTask` role and one run-scoped CPN
 Task instance. The name is prospective and private, not a stabilized public API. The
 Task owns one activation, attempt, execution grant, isolated workspace, process
 observation, ResultObject, result ingress, and failure boundary.

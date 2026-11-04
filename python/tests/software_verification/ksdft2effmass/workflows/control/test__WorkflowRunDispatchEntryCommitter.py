@@ -33,7 +33,7 @@ from threading import Barrier
 import pytest
 
 from ksdft2effmass.integration.quantum_espresso import (
-    QuantumEspressoResultValueSerializer,
+    QeResultValueSerializer,
 )
 from ksdft2effmass.persistence import (
     RevisionReadRequest,
@@ -87,7 +87,7 @@ class TestWorkflowRunDispatchEntryCommitter:
     def make_repository(path: Path) -> WorkflowRunAtomicRepository:
         serializer = WorkflowRunSerializer(
             result_codec=WorkflowResultValueSerializer(
-                source_codec=QuantumEspressoResultValueSerializer()
+                source_codec=QeResultValueSerializer()
             )
         )
         return WorkflowRunAtomicRepository(

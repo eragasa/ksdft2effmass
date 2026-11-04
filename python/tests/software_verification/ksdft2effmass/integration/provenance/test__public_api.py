@@ -210,7 +210,7 @@ def test_public_api__enum_exports__are_exact_defining_class_objects() -> None:
 
     Limitations: This package-surface evidence does not retest enum members, wire
     values,
-    ``StrEnum`` behavior, or any other class-owned enum semantics.
+    ``StrWireEnum`` behavior, or any other class-owned enum semantics.
     """
     observed = {name: getattr(provenance, name) for name in EXPECTED_ENUM_EXPORTS}
     assert observed == EXPECTED_ENUM_EXPORTS

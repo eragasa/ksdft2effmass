@@ -1,5 +1,13 @@
 # Quantum ESPRESSO task-contract boundary decision
 
+> **Later refinement.** The operation-specific Task taxonomy remains accepted. The
+> executable-oriented `QePwResult` and `QeBandsResult`
+> owners are now transitional pending the
+> [Project Koios Simulations adapter boundary](../integration/quantum_espresso/simulations_adapter_boundary/).
+> Simulations `QeScfData`, `QeNscfData`, and `QeBandsData` are provider data, not
+> substitutes for those mechanical execution results; replacement result and wire
+> contracts must become reachable before removal.
+
 ## Problem
 
 **Observed fact.** The active Task must choose the public taxonomy, names, and
@@ -18,11 +26,11 @@ scientific operation in ``ksdft2effmass.workflows.model``.
 backend-neutral execution port in ``ksdft2effmass.calculators.dft.pw``.
 
 **Observed fact.** Current QE execution types are executable-oriented:
-``QuantumEspressoProgram`` has ``PW`` and ``BANDS`` roles, with corresponding
-``QuantumEspressoPwResult`` and ``QuantumEspressoBandsResult`` records in
+``QeProgram`` has ``PW`` and ``BANDS`` roles, with corresponding
+``QePwResult`` and ``QeBandsResult`` records in
 ``ksdft2effmass.integration.quantum_espresso``.
 
-**Observed fact.** ``LocalQuantumEspressoExecutor`` already owns the concrete
+**Observed fact.** ``LocalQeExecutor`` already owns the concrete
 one-attempt effect and Workflow dispatch adaptation. Workflow retains authority,
 history, result ingress, and retry control.
 
@@ -55,12 +63,12 @@ contracts through the response ``B``.
 ## Option A
 
 **Conceptual model**
-Public adapters follow executables: ``QuantumEspressoPwTask`` and
-``QuantumEspressoBandsTask``, with matching executable-oriented simulations.
+Public adapters follow executables: ``QePwTask`` and
+``QeBandsTask``, with matching executable-oriented simulations.
 
 **Authority**
 Workflow authority remains unchanged; program selection comes from
-``QuantumEspressoProgram``.
+``QeProgram``.
 
 **Ownership/dependency**
 Tasks remain QE-integration-owned and depend inward on ``PlaneWaveCalculator`` and
@@ -74,7 +82,7 @@ Add thin wrappers around current execution inputs and result types; no compatibi
 aliases are needed.
 
 **Reversibility**
-Easy initially, but later splitting ``QuantumEspressoPwTask`` into scientific
+Easy initially, but later splitting ``QePwTask`` into scientific
 operations would change public contracts.
 
 **Failures**
@@ -105,10 +113,10 @@ band-path dependency semantics.
 
 **Conceptual model**
 Public adapters represent scientific operations. The initial set is
-``QuantumEspressoScfTask``, ``QuantumEspressoNscfTask``,
-``QuantumEspressoBandPathTask``, and ``QuantumEspressoBandsExtractionTask``. Each
+``QeScfTask``, ``QeNscfTask``,
+``QeBandPathTask``, and ``QeBandsExtractionTask``. Each
 uses an immutable operation-specific simulation composition while retaining
-``QuantumEspressoPwResult`` or ``QuantumEspressoBandsResult`` as mechanical
+``QePwResult`` or ``QeBandsResult`` as mechanical
 execution evidence. DOS remains deferred until its executable/result boundary
 exists.
 
@@ -163,9 +171,9 @@ than from demonstrated workflows.
 ## Option C
 
 **Conceptual model**
-Publish one generic ``QuantumEspressoSimulationTask[InputT, ResultT]`` and one
-``QuantumEspressoSimulation``, parameterized by a closed
-``QuantumEspressoOperationDefinition``.
+Publish one generic ``QeSimulationTask[InputT, ResultT]`` and one
+``QeSimulation``, parameterized by a closed
+``QeOperationDefinition``.
 
 **Authority**
 Application composition supplies the exact operation definition; Workflow still
@@ -243,7 +251,7 @@ deferred until their concrete execution/result boundaries exist.
 ## Deferred questions
 
 **Resolved implementation disposition.** The activated composition child publishes
-one `QuantumEspressoSimulation` application-composition record rather than four
+one `QeSimulation` application-composition record rather than four
 additional operation-specific Simulation classes. The record binds one selected Task,
 its exact input and calculator, and the distinct Workflow dispatch-effect executor;
 the operation-specific Task classes remain the public scientific-operation taxonomy.

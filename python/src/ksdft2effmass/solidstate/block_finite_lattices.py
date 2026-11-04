@@ -10,7 +10,6 @@ explicit caller decision.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 import numpy as np
 from projectkoios.physkit.units import (
@@ -19,6 +18,8 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 from scipy import sparse  # type: ignore[import-untyped]
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .boundary_phases import (
     BoundaryTwistLift,
@@ -237,7 +238,7 @@ class BlockHoppingQuotientSeamOperatorConstructor1D:
         )
 
 
-class ReciprocalCoordinateInterval1D(StrEnum):
+class ReciprocalCoordinateInterval1D(StrWireEnum):
     """Identify the half-open interval used for reduced reciprocal coordinates."""
 
     UNIT = "unit_half_open"

@@ -6,17 +6,16 @@ import builtins
 import hashlib
 import json
 from dataclasses import dataclass
-from enum import StrEnum
 
 import numpy as np
 import numpy.typing as npt
 
-from ksdft2effmass.serialization import JsonCodec
+from ksdft2effmass.serialization import JsonCodec, StrWireEnum
 
 from .serialization import Periodic1DCampaignJsonDecoder
 
 
-class Periodic1DRetainedResultKind(StrEnum):
+class Periodic1DRetainedResultKind(StrWireEnum):
     """Identify each demonstrated Appendix G retained result format."""
 
     ISOLATED_BAND = "isolated_band"

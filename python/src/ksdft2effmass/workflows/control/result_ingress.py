@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
-from enum import StrEnum
 from typing import final
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from ..runs.aggregate import WorkflowRun
 from ..runs.identities import WorkflowRunRevisionIdentity
@@ -123,7 +124,7 @@ class SimulationDispatchResultIngressRequest:
             raise TypeError("transition must be TaskWorkflowTransitionRecord or None")
 
 
-class SimulationDispatchResultIngressOutcomeKind(StrEnum):
+class SimulationDispatchResultIngressOutcomeKind(StrWireEnum):
     """Closed outcomes of dispatch-observation ingress preparation."""
 
     ADMITTED = "admitted"

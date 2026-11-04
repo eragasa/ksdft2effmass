@@ -9,17 +9,18 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from enum import StrEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 
-class DftBackend(StrEnum):
+class DftBackend(StrWireEnum):
     """Closed backends exercised by the initial internal slice."""
 
     QUANTUM_ESPRESSO = "quantum_espresso"
     ABINIT = "abinit"
 
 
-class BandEnergyUnit(StrEnum):
+class BandEnergyUnit(StrWireEnum):
     """Closed energy units admitted by normalized band observations."""
 
     HARTREE = "hartree"

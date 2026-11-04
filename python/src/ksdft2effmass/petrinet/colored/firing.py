@@ -4,12 +4,12 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from enum import StrEnum
 from hashlib import sha256
 from itertools import product
 from string import hexdigits
 from typing import final
 
+from ...serialization import StrWireEnum
 from .definitions import (
     ColoredPetriNetArcDefinition,
     ColoredPetriNetArcIdentity,
@@ -248,7 +248,7 @@ class ColoredPetriNetFiringInput:
             )
 
 
-class ColoredPetriNetFiringFailureCode(StrEnum):
+class ColoredPetriNetFiringFailureCode(StrWireEnum):
     """Closed pure-firing failure codes."""
 
     INVALID_DEFINITION = "invalid_definition"
@@ -357,7 +357,7 @@ class ColoredPetriNetFiringAudit:
             )
 
 
-class ColoredPetriNetFiringOutcomeKind(StrEnum):
+class ColoredPetriNetFiringOutcomeKind(StrWireEnum):
     """Closed success or failure firing outcome."""
 
     SUCCESS = "success"

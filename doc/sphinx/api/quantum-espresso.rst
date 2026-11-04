@@ -8,13 +8,13 @@ authority, perform automatic retry, or claim that an emitted input is accepted b
 particular QE version.
 
 The immutable
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoScfTask`,
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoNscfTask`,
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoBandPathTask`, and
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoBandsExtractionTask`
+:class:`~ksdft2effmass.integration.quantum_espresso.QeScfTask`,
+:class:`~ksdft2effmass.integration.quantum_espresso.QeNscfTask`,
+:class:`~ksdft2effmass.integration.quantum_espresso.QeBandPathTask`, and
+:class:`~ksdft2effmass.integration.quantum_espresso.QeBandsExtractionTask`
 classes represent four distinct reusable scientific operations.  Each retains one
 exact
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoExecutionInput`,
+:class:`~ksdft2effmass.integration.quantum_espresso.QeExecutionInput`,
 uses a fixed Task-definition identity, validates its Workflow and predecessor-state
 correlations, and delegates through an explicitly injected backend-neutral
 :class:`~ksdft2effmass.calculators.dft.pw.PlaneWaveCalculator`.  SCF has no
@@ -25,11 +25,11 @@ native-state manifest lineage.  These conditions establish continuation eligibil
 only, not numerical convergence or scientific acceptance.  DOS remains deferred.
 
 The immutable
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoSimulation`
+:class:`~ksdft2effmass.integration.quantum_espresso.QeSimulation`
 composition binds one of those Tasks, its equal exact execution input, the identical
 calculator object already injected into the Task, and a Workflow
 :class:`~ksdft2effmass.workflows.SimulationDispatchEffect`.  The implemented
-:class:`~ksdft2effmass.integration.quantum_espresso.LocalQuantumEspressoExecutor`
+:class:`~ksdft2effmass.integration.quantum_espresso.LocalQeExecutor`
 satisfies that effect port.  The composition records the two distinct structural
 boundaries and selected immutable result class but does not invoke either boundary,
 adapt their call signatures, retain output state, or create execution authority.
@@ -43,7 +43,7 @@ process runner consumes an already prepared and staged attempt, enters at most o
 process, and returns either a closed mechanical observation or a typed integration
 failure. The outcome resolver applies fail-closed compatibility and precedence rules
 to closed process, diagnostic, and native-output records.
-:class:`~ksdft2effmass.integration.quantum_espresso.LocalQuantumEspressoExecutor`
+:class:`~ksdft2effmass.integration.quantum_espresso.LocalQeExecutor`
 composes these boundaries for one Workflow-entered attempt. It independently checks
 the exact run, Task, activation, operation, attempt, executor, destination, resource,
 grant, obligation, authorization, and dispatch-entry correlations before staging. A
@@ -57,20 +57,20 @@ thread-control environment keys. Aggregate workspace limits are actively observe
 fail closed but are not an operating-system disk quota.
 
 The first stage of QEXSD observation adaptation is
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoObservationAdapter`.
+:class:`~ksdft2effmass.integration.quantum_espresso.QeObservationAdapter`.
 It requires an exact
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoObservationExtractionRequest`
+:class:`~ksdft2effmass.integration.quantum_espresso.QeObservationExtractionRequest`
 that binds a
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoParsedDocumentRecord`
+:class:`~ksdft2effmass.integration.quantum_espresso.QeParsedDocumentRecord`
 with exact source-content, parser-implementation, and parser-version correlation to
 one admitted Workflow manifest entry, reserved result identity, and explicit supported
 normalization policy.
 Success returns an integration-owned
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoExtractedObservationResult`
+:class:`~ksdft2effmass.integration.quantum_espresso.QeExtractedObservationResult`
 containing the unchanged schema-version-1 neutral plane-wave record and exact source,
 producer, parsed-document, parser, policy, and limitation fields. Expected disagreement
 returns
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoObservationAdaptationFailure`
+:class:`~ksdft2effmass.integration.quantum_espresso.QeObservationAdaptationFailure`
 without a partial observation while retaining the reserved result identity and exact
 request correlation. Under the human-selected two-stage architecture, this result is
 not itself a Workflow ``NormalizedObservationSet``. The Workflow-owned
@@ -80,35 +80,33 @@ not itself a Workflow ``NormalizedObservationSet``. The Workflow-owned
 Complete result-value wire
 --------------------------
 
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoResultValueSerializer`
+:class:`~ksdft2effmass.integration.quantum_espresso.QeResultValueSerializer`
 is the outward, explicitly injected Workflow result codec for exactly
-``QuantumEspressoPwResult``, ``QuantumEspressoBandsResult`` and
-``QuantumEspressoExtractedObservationResult``. It performs no native-file reads,
+``QePwResult``, ``QeBandsResult`` and
+``QeExtractedObservationResult``. It performs no native-file reads,
 process invocation, parsing, normalization, replay or repository operation. This
 three-family codec does not complete the WorkflowRun persistence Task.
 
-``qe-result-value:1`` retains every declared field: complete operation input with
-native-input, pseudopotential and predecessor-state references; all process
-termination, stream, diagnostic, marker and calculator-outcome variants; native
-manifest/entry references and terminal identity. These are references, not native
-bytes or expanded manifests absent from the source result. Extracted observations
-retain source manifest, entry, artifact, content, producer, parsed-document and parser
-identities, parser version, policy and all six explicit limitation values. The
-parsed-document identity is retained, not an invented or reconstructed native document.
+``QePwResult`` uses ``quantum-espresso-simulations-result:1`` and contract
+``qe-pw-result:2``. It is a ``BaseTypedRecord`` whose nested QE-owned execution,
+process, diagnostic, outcome, and terminal values are themselves typed records.
+The canonical JSON therefore preserves the immutable object hierarchy rather than
+flattening it or rebuilding a separate tagged-node graph. It retains exact native
+manifest entries, provider ``execution.json`` content/publication references, and
+terminal-record content identity. Execution inputs require
+``qe-execution-input:1``.
 
-Supported PW/bands result versions are ``qe-pw-result:1`` and ``qe-bands-result:1``;
-execution inputs require ``qe-execution-input:1``. The constructor-supported parser
-and policy identities require version ``1``. Other observer, classifier and program
-labels remain exact provenance data, not dynamically loaded implementations.
+The unchanged ``QeBandsResult`` and ``QeExtractedObservationResult`` branches remain
+on ``qe-result-value:1``. Bands retains its legacy operation-evidence structure and
+``qe-bands-result:1`` contract. Extracted observations retain source manifest, entry,
+artifact, content, producer, parsed-document, parser, policy, and all six explicit
+limitation values. This migration grants no ``bands.x`` execution capability.
 
-Records have exactly ``type`` and ``fields``; nominal identities and enums retain
-explicit tags. Integers use tagged canonical signed hexadecimal strings (no bool
-coercion); tuples are ordered arrays. Canonical ASCII JSON uses sorted keys, compact
-separators and no final newline. Content identity is
-``qe-result-value:1:sha256:<digest>`` over the complete payload; the envelope also
-binds exact bytes with a separate SHA-256 digest. Type labels are supported public
-import names followed by ``:1``; domain is
-``ksdft2effmass.integration.quantum_espresso``.
+The PW content identity is
+``quantum-espresso-simulations-result:1:sha256:<digest>`` over canonical typed JSON.
+Legacy branch content identities remain ``qe-result-value:1:sha256:<digest>``. Every
+envelope separately binds the exact payload digest, result identity, concrete type,
+domain, and schema.
 
 The neutral observation is delegated to
 :class:`~ksdft2effmass.ksdft.pw.KohnShamPlaneWaveCalculationRecordJsonSerializer`

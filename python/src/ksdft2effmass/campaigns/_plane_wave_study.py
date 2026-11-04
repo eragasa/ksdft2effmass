@@ -9,7 +9,6 @@ scientific acceptance, authority decision, persistence, or native rendering.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 from itertools import pairwise
 
 from ksdft2effmass.analysis._parameter_study import (
@@ -62,6 +61,7 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetValueExpressionKind,
     ColoredPetriNetValueKind,
 )
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.units import UnitIdentity
 from ksdft2effmass.workflows import (
     TaskInstance,
@@ -120,7 +120,7 @@ class PlaneWaveStudyTaskRoleIdentity:
         return ParameterStudyObservationRoleIdentity(self.value)
 
 
-class PlaneWaveStudyCompilationOutcome(StrEnum):
+class PlaneWaveStudyCompilationOutcome(StrWireEnum):
     """Closed outcome kinds of effect-free study compilation."""
 
     COMPILED = "compiled"
@@ -130,7 +130,7 @@ class PlaneWaveStudyCompilationOutcome(StrEnum):
     ERROR = "error"
 
 
-class PlaneWaveStudyCompilationFailureCode(StrEnum):
+class PlaneWaveStudyCompilationFailureCode(StrWireEnum):
     """Stable fail-closed study-compilation codes."""
 
     COMPILER_IDENTITY_MISMATCH = "compiler_identity_mismatch"

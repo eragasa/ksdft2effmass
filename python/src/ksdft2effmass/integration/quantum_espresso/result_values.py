@@ -15,6 +15,8 @@ import json
 from dataclasses import dataclass
 from typing import Literal, Never, cast
 
+from projectkoios.simulations.execution import CalculatorExitCode
+
 from ksdft2effmass.ksdft.pw import (
     KohnShamPlaneWaveCalculationRecord,
     KohnShamPlaneWaveCalculationRecordJsonSerializer,
@@ -39,11 +41,7 @@ from . import contracts as c
 from . import observation as o
 
 type _Json = None | bool | str | list[_Json] | dict[str, _Json]
-type _Result = (
-    c.QuantumEspressoPwResult
-    | c.QuantumEspressoBandsResult
-    | o.QuantumEspressoExtractedObservationResult
-)
+type _Result = c.QePwResult | c.QeBandsResult | o.QeExtractedObservationResult
 type _Nominal = (
     m.ResultObjectIdentity
     | m.AttemptIdentity
@@ -55,48 +53,48 @@ type _Nominal = (
     | a.ArtifactManifestIdentity
     | a.ArtifactManifestEntryIdentity
     | a.ArtifactProducerProvenanceIdentity
-    | c.QuantumEspressoExecutionInputIdentity
-    | c.QuantumEspressoExecutableConfigurationIdentity
-    | c.QuantumEspressoPreparationIdentity
-    | c.QuantumEspressoProcessObservationIdentity
-    | c.QuantumEspressoDiagnosticClassifierIdentity
-    | c.QuantumEspressoDiagnosticObservationIdentity
-    | c.QuantumEspressoOutputMarkerObservationIdentity
-    | c.QuantumEspressoDiagnosticReportIdentity
-    | c.QuantumEspressoTerminalRecordIdentity
-    | c.QuantumEspressoArtifactDestination
-    | o.QuantumEspressoParsedDocumentIdentity
-    | o.QuantumEspressoXsdParserIdentity
-    | o.QuantumEspressoObservationNormalizationPolicyIdentity
+    | c.QeExecutionInputIdentity
+    | c.QeExecutableConfigurationIdentity
+    | c.QePreparationIdentity
+    | c.QeProcessObservationIdentity
+    | c.QeDiagnosticClassifierIdentity
+    | c.QeDiagnosticObservationIdentity
+    | c.QeOutputMarkerObservationIdentity
+    | c.QeDiagnosticReportIdentity
+    | c.QeTerminalRecordIdentity
+    | c.QeArtifactDestination
+    | o.QeParsedDocumentIdentity
+    | o.QeXsdParserIdentity
+    | o.QeObservationNormalizationPolicyIdentity
 )
 type _Enum = (
-    c.QuantumEspressoProgram
-    | c.QuantumEspressoExecutableKind
-    | c.QuantumEspressoDiagnosticChannel
-    | c.QuantumEspressoDiagnosticDisposition
-    | c.QuantumEspressoDiagnosticReportKind
-    | c.QuantumEspressoProcessFailureKind
+    c.QeProgram
+    | c.QeExecutableKind
+    | c.QeDiagnosticChannel
+    | c.QeDiagnosticDisposition
+    | c.QeDiagnosticReportKind
+    | c.QeProcessFailureKind
 )
 type _Record = (
     _Result
     | _Nominal
     | _Enum
     | a.ArtifactContentIdentity
-    | c.QuantumEspressoFileArtifactContent
-    | c.QuantumEspressoTreeArtifactContent
-    | c.QuantumEspressoNativeInputArtifact
-    | c.QuantumEspressoPseudopotentialArtifact
-    | c.QuantumEspressoPredecessorNativeStateArtifact
-    | c.QuantumEspressoExecutionInput
-    | c.QuantumEspressoStreamObservation
-    | c.QuantumEspressoProcessTermination
-    | c.QuantumEspressoProcessObservation
-    | c.QuantumEspressoDiagnosticObservation
-    | c.QuantumEspressoOutputMarkerObservation
-    | c.QuantumEspressoDiagnosticReport
-    | c.QuantumEspressoCalculatorOutcome
-    | c.QuantumEspressoOperationResultEvidence
-    | o.QuantumEspressoObservationNormalizationPolicy
+    | c.QeFileArtifactContent
+    | c.QeTreeArtifactContent
+    | c.QeNativeInputArtifact
+    | c.QePseudopotentialArtifact
+    | c.QePredecessorNativeStateArtifact
+    | c.QeExecutionInput
+    | c.QeStreamObservation
+    | c.QeProcessTermination
+    | c.QeProcessObservation
+    | c.QeDiagnosticObservation
+    | c.QeOutputMarkerObservation
+    | c.QeDiagnosticReport
+    | c.QeCalculatorOutcome
+    | c.QeOperationResultEvidence
+    | o.QeObservationNormalizationPolicy
     | KohnShamPlaneWaveCalculationRecord
 )
 type _Node = None | bool | str | int | _Record | tuple[_Node, ...]
@@ -107,37 +105,22 @@ class _UnsupportedVersion(ValueError):
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoResultValueSerializer:
-    """Effect-free, closed three-family QE result codec, version 1.
+class QeResultValueSerializer:
+    """Effect-free codec for replacement PW and retained legacy QE results.
 
     Notes
     -----
-    There are no configurable fields or mutable dependencies. A fresh neutral
-    serializer is constructed for each operation with its approved ``1.0e-12``
-    absolute duality tolerance. The nested neutral JSON is retained exactly,
-    including its final newline and represented tolerance; it is not reinterpreted
-    as this codec's tagged scalar grammar.
+    ``QePwResult`` uses its ``BaseTypedRecord`` boundary and schema identity
+    ``quantum-espresso-simulations-result:1``. Its nested QE-owned records retain
+    their object hierarchy through their own ``to_dict`` and ``from_dict``
+    implementations. The unchanged ``QeBandsResult`` and extracted-observation
+    branches continue to use the legacy ``qe-result-value:1`` tagged wire.
 
-    Supported public class labels end in ``:1`` under domain
-    ``ksdft2effmass.integration.quantum_espresso``. PW and bands record versions
-    are ``qe-pw-result:1`` and ``qe-bands-result:1``; execution inputs require
-    ``qe-execution-input:1``. Parser and normalization policy require their
-    constructor-supported identities and version ``1``. Observer, classifier and
-    program version labels are provenance data, not executable implementations.
-
-    Every declared field is a member of an explicit ``{type, fields}`` record.
-    Nominal identities and enums have tagged ``value`` fields. Integers use tagged
-    canonical Python ``hex`` strings without bool coercion or precision loss;
-    tuples are ordered arrays. Strings, null and booleans retain JSON types.
-    Canonical ASCII JSON has sorted keys, compact separators and no final newline.
-    Content identity is ``qe-result-value:1:sha256:<digest>`` over those complete
-    bytes; the separate payload digest binds the same bytes.
-
-    Unknown versions are incompatible; malformed known records, noncanonical
-    bytes, detached identities and constructor violations are corrupt. No partial
-    value, native data access, arbitrary ResultObject support or aggregate repository
-    capability is provided. Immutable reconstructed records retain scientific units
-    and provenance but do not authenticate their external source.
+    Every branch is exact-type, content-digest, result-identity, domain-identity,
+    and schema bound. Unknown envelope versions are incompatible; malformed known
+    records, noncanonical bytes, detached correlations, and constructor violations
+    are corrupt. The codec performs no filesystem access, calculator execution,
+    scientific interpretation, migration fallback, or partial reconstruction.
     """
 
     def encode(self, value: m.ResultObject) -> WorkflowResultValueEncodeResult:
@@ -165,9 +148,9 @@ class QuantumEspressoResultValueSerializer:
         ):
             raise TypeError("value must expose an exact ResultObjectIdentity")
         if type(value) not in (
-            c.QuantumEspressoPwResult,
-            c.QuantumEspressoBandsResult,
-            o.QuantumEspressoExtractedObservationResult,
+            c.QePwResult,
+            c.QeBandsResult,
+            o.QeExtractedObservationResult,
         ):
             return WorkflowResultValueEncodeResult(
                 status="incompatible",
@@ -179,25 +162,35 @@ class QuantumEspressoResultValueSerializer:
             )
         result = cast(_Result, value)
         try:
-            payload = self._payload(result)
-            # Constructor and nested identity checks apply equally on both sides.
-            self._decode_result(payload, self._result_tag(result))
+            if type(result) is c.QePwResult:
+                payload = result.to_json()
+                schema_identity = "quantum-espresso-simulations-result:1"
+                concrete_type_identity = (
+                    "ksdft2effmass.integration.quantum_espresso.QePwResult:2"
+                )
+                c.QePwResult.from_json(payload)
+            else:
+                payload = self._payload(result)
+                tag = self._result_tag(result)
+                schema_identity = "qe-result-value:1"
+                concrete_type_identity = (
+                    "ksdft2effmass.integration.quantum_espresso." + tag + ":1"
+                )
+                self._decode_result(payload, tag)
             digest = hashlib.sha256(payload).hexdigest()
             return WorkflowResultValueEncodeResult(
                 status="encoded",
                 encoded=WorkflowEncodedResultValue(
                     result_identity=result.identity,
                     concrete_type_identity=ResultObjectTypeIdentity(
-                        "ksdft2effmass.integration.quantum_espresso."
-                        + self._result_tag(result)
-                        + ":1"
+                        concrete_type_identity
                     ),
                     owning_domain_identity=ResultObjectDomainIdentity(
                         "ksdft2effmass.integration.quantum_espresso"
                     ),
-                    schema_identity="qe-result-value:1",
+                    schema_identity=schema_identity,
                     content_identity=ResultObjectContentIdentity(
-                        f"qe-result-value:1:sha256:{digest}"
+                        f"{schema_identity}:sha256:{digest}"
                     ),
                     payload=payload,
                     payload_digest=digest,
@@ -248,29 +241,33 @@ class QuantumEspressoResultValueSerializer:
             value.schema_identity,
             value.concrete_type_identity.value,
         )
-        if value.schema_identity != "qe-result-value:1":
+        label = value.concrete_type_identity.value
+        if (
+            value.schema_identity == "quantum-espresso-simulations-result:1"
+            and label == "ksdft2effmass.integration.quantum_espresso.QePwResult:2"
+        ):
+            tag = "QePwResult"
+        elif (
+            value.schema_identity == "qe-result-value:1"
+            and label
+            == "ksdft2effmass.integration.quantum_espresso.QuantumEspressoBandsResult:1"
+        ):
+            tag = "QuantumEspressoBandsResult"
+        elif value.schema_identity == "qe-result-value:1" and label == (
+            "ksdft2effmass.integration.quantum_espresso."
+            "QuantumEspressoExtractedObservationResult:1"
+        ):
+            tag = "QuantumEspressoExtractedObservationResult"
+        elif value.schema_identity not in (
+            "quantum-espresso-simulations-result:1",
+            "qe-result-value:1",
+        ):
             return WorkflowResultValueDecodeResult(
                 status="incompatible",
                 failure=self._failure(
                     "decode", WorkflowPersistenceFailureCode.UNSUPPORTED_VERSION, inputs
                 ),
             )
-        label = value.concrete_type_identity.value
-        if (
-            label
-            == "ksdft2effmass.integration.quantum_espresso.QuantumEspressoPwResult:1"
-        ):
-            tag = "QuantumEspressoPwResult"
-        elif (
-            label
-            == "ksdft2effmass.integration.quantum_espresso.QuantumEspressoBandsResult:1"
-        ):
-            tag = "QuantumEspressoBandsResult"
-        elif label == (
-            "ksdft2effmass.integration.quantum_espresso."
-            "QuantumEspressoExtractedObservationResult:1"
-        ):
-            tag = "QuantumEspressoExtractedObservationResult"
         else:
             return WorkflowResultValueDecodeResult(
                 status="incompatible",
@@ -294,7 +291,8 @@ class QuantumEspressoResultValueSerializer:
             digest = hashlib.sha256(value.payload).hexdigest()
             if (
                 value.payload_digest != digest
-                or value.content_identity.value != f"qe-result-value:1:sha256:{digest}"
+                or value.content_identity.value
+                != f"{value.schema_identity}:sha256:{digest}"
             ):
                 return WorkflowResultValueDecodeResult(
                     status="corrupt",
@@ -304,7 +302,10 @@ class QuantumEspressoResultValueSerializer:
                         inputs,
                     ),
                 )
-            result = self._decode_result(value.payload, tag)
+            if tag == "QePwResult":
+                result: _Result = c.QePwResult.from_json(value.payload)
+            else:
+                result = self._decode_result(value.payload, tag)
             if result.identity != value.result_identity:
                 return WorkflowResultValueDecodeResult(
                     status="corrupt",
@@ -314,7 +315,12 @@ class QuantumEspressoResultValueSerializer:
                         inputs,
                     ),
                 )
-            if self._payload(result) != value.payload:
+            canonical_payload = (
+                result.to_json()
+                if type(result) is c.QePwResult
+                else self._payload(result)
+            )
+            if canonical_payload != value.payload:
                 raise ValueError("noncanonical complete representation")
             return WorkflowResultValueDecodeResult(status="decoded", value=result)
         except _UnsupportedVersion:
@@ -338,7 +344,7 @@ class QuantumEspressoResultValueSerializer:
         phase: str, code: WorkflowPersistenceFailureCode, inputs: tuple[str, ...]
     ) -> WorkflowPersistenceFailure:
         return WorkflowPersistenceFailure(
-            implementation_identity="ksdft2effmass.integration.quantum_espresso.QuantumEspressoResultValueSerializer:1",
+            implementation_identity="ksdft2effmass.integration.quantum_espresso.QeResultValueSerializer:2",
             phase=phase,
             code=code,
             input_identities=inputs,
@@ -352,11 +358,9 @@ class QuantumEspressoResultValueSerializer:
 
     @staticmethod
     def _result_tag(value: _Result) -> str:
-        if type(value) is c.QuantumEspressoPwResult:
-            return "QuantumEspressoPwResult"
-        if type(value) is c.QuantumEspressoBandsResult:
+        if type(value) is c.QeBandsResult:
             return "QuantumEspressoBandsResult"
-        if type(value) is o.QuantumEspressoExtractedObservationResult:
+        if type(value) is o.QeExtractedObservationResult:
             return "QuantumEspressoExtractedObservationResult"
         raise TypeError("unsupported exact result")
 
@@ -399,11 +403,10 @@ class QuantumEspressoResultValueSerializer:
             raise ValueError("result type does not match envelope")
         value = cls._decode_node(wire)
         if type(value) not in (
-            c.QuantumEspressoPwResult,
-            c.QuantumEspressoBandsResult,
-            o.QuantumEspressoExtractedObservationResult,
+            c.QeBandsResult,
+            o.QeExtractedObservationResult,
         ):
-            raise TypeError("not a supported result")
+            raise TypeError("not a supported legacy result")
         return cast(_Result, value)
 
     @classmethod
@@ -443,76 +446,76 @@ class QuantumEspressoResultValueSerializer:
             return cls._record(
                 "ArtifactProducerProvenanceIdentity", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoExecutionInputIdentity:
+        if type(value) is c.QeExecutionInputIdentity:
             return cls._record(
                 "QuantumEspressoExecutionInputIdentity", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoExecutableConfigurationIdentity:
+        if type(value) is c.QeExecutableConfigurationIdentity:
             return cls._record(
                 "QuantumEspressoExecutableConfigurationIdentity", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoPreparationIdentity:
+        if type(value) is c.QePreparationIdentity:
             return cls._record(
                 "QuantumEspressoPreparationIdentity", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoProcessObservationIdentity:
+        if type(value) is c.QeProcessObservationIdentity:
             return cls._record(
                 "QuantumEspressoProcessObservationIdentity", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoDiagnosticClassifierIdentity:
+        if type(value) is c.QeDiagnosticClassifierIdentity:
             return cls._record(
                 "QuantumEspressoDiagnosticClassifierIdentity", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoDiagnosticObservationIdentity:
+        if type(value) is c.QeDiagnosticObservationIdentity:
             return cls._record(
                 "QuantumEspressoDiagnosticObservationIdentity", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoOutputMarkerObservationIdentity:
+        if type(value) is c.QeOutputMarkerObservationIdentity:
             return cls._record(
                 "QuantumEspressoOutputMarkerObservationIdentity", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoDiagnosticReportIdentity:
+        if type(value) is c.QeDiagnosticReportIdentity:
             return cls._record(
                 "QuantumEspressoDiagnosticReportIdentity", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoTerminalRecordIdentity:
+        if type(value) is c.QeTerminalRecordIdentity:
             return cls._record(
                 "QuantumEspressoTerminalRecordIdentity", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoArtifactDestination:
+        if type(value) is c.QeArtifactDestination:
             return cls._record(
                 "QuantumEspressoArtifactDestination", {"value": value.value}
             )
-        if type(value) is o.QuantumEspressoParsedDocumentIdentity:
+        if type(value) is o.QeParsedDocumentIdentity:
             return cls._record(
                 "QuantumEspressoParsedDocumentIdentity", {"value": value.value}
             )
-        if type(value) is o.QuantumEspressoXsdParserIdentity:
+        if type(value) is o.QeXsdParserIdentity:
             return cls._record(
                 "QuantumEspressoXsdParserIdentity", {"value": value.value}
             )
-        if type(value) is o.QuantumEspressoObservationNormalizationPolicyIdentity:
+        if type(value) is o.QeObservationNormalizationPolicyIdentity:
             return cls._record(
                 "QuantumEspressoObservationNormalizationPolicyIdentity",
                 {"value": value.value},
             )
-        if type(value) is c.QuantumEspressoProgram:
+        if type(value) is c.QeProgram:
             return cls._record("QuantumEspressoProgram", {"value": value.value})
-        if type(value) is c.QuantumEspressoExecutableKind:
+        if type(value) is c.QeExecutableKind:
             return cls._record("QuantumEspressoExecutableKind", {"value": value.value})
-        if type(value) is c.QuantumEspressoDiagnosticChannel:
+        if type(value) is c.QeDiagnosticChannel:
             return cls._record(
                 "QuantumEspressoDiagnosticChannel", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoDiagnosticDisposition:
+        if type(value) is c.QeDiagnosticDisposition:
             return cls._record(
                 "QuantumEspressoDiagnosticDisposition", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoDiagnosticReportKind:
+        if type(value) is c.QeDiagnosticReportKind:
             return cls._record(
                 "QuantumEspressoDiagnosticReportKind", {"value": value.value}
             )
-        if type(value) is c.QuantumEspressoProcessFailureKind:
+        if type(value) is c.QeProcessFailureKind:
             return cls._record(
                 "QuantumEspressoProcessFailureKind", {"value": value.value}
             )
@@ -525,12 +528,12 @@ class QuantumEspressoResultValueSerializer:
                     "byte_count": value.byte_count,
                 },
             )
-        if type(value) is c.QuantumEspressoFileArtifactContent:
+        if type(value) is c.QeFileArtifactContent:
             return cls._record(
                 "QuantumEspressoFileArtifactContent",
                 {"content_identity": value.content_identity},
             )
-        if type(value) is c.QuantumEspressoTreeArtifactContent:
+        if type(value) is c.QeTreeArtifactContent:
             return cls._record(
                 "QuantumEspressoTreeArtifactContent",
                 {
@@ -538,7 +541,7 @@ class QuantumEspressoResultValueSerializer:
                     "manifest_entry_identities": value.manifest_entry_identities,
                 },
             )
-        if type(value) is c.QuantumEspressoNativeInputArtifact:
+        if type(value) is c.QeNativeInputArtifact:
             return cls._record(
                 "QuantumEspressoNativeInputArtifact",
                 {
@@ -547,7 +550,7 @@ class QuantumEspressoResultValueSerializer:
                     "destination": value.destination,
                 },
             )
-        if type(value) is c.QuantumEspressoPseudopotentialArtifact:
+        if type(value) is c.QePseudopotentialArtifact:
             return cls._record(
                 "QuantumEspressoPseudopotentialArtifact",
                 {
@@ -556,7 +559,7 @@ class QuantumEspressoResultValueSerializer:
                     "destination": value.destination,
                 },
             )
-        if type(value) is c.QuantumEspressoPredecessorNativeStateArtifact:
+        if type(value) is c.QePredecessorNativeStateArtifact:
             return cls._record(
                 "QuantumEspressoPredecessorNativeStateArtifact",
                 {
@@ -569,7 +572,7 @@ class QuantumEspressoResultValueSerializer:
                     ),
                 },
             )
-        if type(value) is c.QuantumEspressoExecutionInput:
+        if type(value) is c.QeExecutionInput:
             return cls._record(
                 "QuantumEspressoExecutionInput",
                 {
@@ -586,7 +589,7 @@ class QuantumEspressoResultValueSerializer:
                     "contract_version": value.contract_version,
                 },
             )
-        if type(value) is c.QuantumEspressoStreamObservation:
+        if type(value) is c.QeStreamObservation:
             return cls._record(
                 "QuantumEspressoStreamObservation",
                 {
@@ -595,16 +598,17 @@ class QuantumEspressoResultValueSerializer:
                     "content_identity": value.content_identity,
                 },
             )
-        if type(value) is c.QuantumEspressoNormalProcessExit:
+        if type(value) is c.QeNormalProcessExit:
             return cls._record(
-                "QuantumEspressoNormalProcessExit", {"exit_code": value.exit_code}
+                "QuantumEspressoNormalProcessExit",
+                {"exit_code": value.exit_code.value},
             )
-        if type(value) is c.QuantumEspressoProcessSignalTermination:
+        if type(value) is c.QeProcessSignalTermination:
             return cls._record(
                 "QuantumEspressoProcessSignalTermination",
                 {"signal_number": value.signal_number},
             )
-        if type(value) is c.QuantumEspressoProcessTimeout:
+        if type(value) is c.QeProcessTimeout:
             return cls._record(
                 "QuantumEspressoProcessTimeout",
                 {
@@ -613,7 +617,7 @@ class QuantumEspressoResultValueSerializer:
                     "kill_sent": value.kill_sent,
                 },
             )
-        if type(value) is c.QuantumEspressoProcessObservation:
+        if type(value) is c.QeProcessObservation:
             return cls._record(
                 "QuantumEspressoProcessObservation",
                 {
@@ -637,7 +641,7 @@ class QuantumEspressoResultValueSerializer:
                     "observer_version": value.observer_version,
                 },
             )
-        if type(value) is c.QuantumEspressoDiagnosticObservation:
+        if type(value) is c.QeDiagnosticObservation:
             return cls._record(
                 "QuantumEspressoDiagnosticObservation",
                 {
@@ -653,7 +657,7 @@ class QuantumEspressoResultValueSerializer:
                     "claim_boundary": value.claim_boundary,
                 },
             )
-        if type(value) is c.QuantumEspressoOutputMarkerObservation:
+        if type(value) is c.QeOutputMarkerObservation:
             return cls._record(
                 "QuantumEspressoOutputMarkerObservation",
                 {
@@ -666,7 +670,7 @@ class QuantumEspressoResultValueSerializer:
                     "signature_identity": value.signature_identity,
                 },
             )
-        if type(value) is c.QuantumEspressoDiagnosticReport:
+        if type(value) is c.QeDiagnosticReport:
             return cls._record(
                 "QuantumEspressoDiagnosticReport",
                 {
@@ -686,21 +690,21 @@ class QuantumEspressoResultValueSerializer:
                     "claim_boundary": value.claim_boundary,
                 },
             )
-        if type(value) is c.QuantumEspressoCompletedOutcome:
+        if type(value) is c.QeCompletedOutcome:
             return cls._record(
                 "QuantumEspressoCompletedOutcome",
                 {"completion_marker_identities": value.completion_marker_identities},
             )
-        if type(value) is c.QuantumEspressoCalculatorFailedOutcome:
+        if type(value) is c.QeCalculatorFailedOutcome:
             return cls._record(
                 "QuantumEspressoCalculatorFailedOutcome",
                 {"fatal_diagnostic_identities": value.fatal_diagnostic_identities},
             )
-        if type(value) is c.QuantumEspressoProcessFailedOutcome:
+        if type(value) is c.QeProcessFailedOutcome:
             return cls._record(
                 "QuantumEspressoProcessFailedOutcome", {"reason": value.reason}
             )
-        if type(value) is c.QuantumEspressoDiagnosticUnresolvedOutcome:
+        if type(value) is c.QeDiagnosticUnresolvedOutcome:
             return cls._record(
                 "QuantumEspressoDiagnosticUnresolvedOutcome",
                 {
@@ -708,7 +712,7 @@ class QuantumEspressoResultValueSerializer:
                     "reason_identities": value.reason_identities,
                 },
             )
-        if type(value) is c.QuantumEspressoOperationResultEvidence:
+        if type(value) is c.QeOperationResultEvidence:
             return cls._record(
                 "QuantumEspressoOperationResultEvidence",
                 {
@@ -725,16 +729,7 @@ class QuantumEspressoResultValueSerializer:
                     "terminal_record_identity": value.terminal_record_identity,
                 },
             )
-        if type(value) is c.QuantumEspressoPwResult:
-            return cls._record(
-                "QuantumEspressoPwResult",
-                {
-                    "identity": value.identity,
-                    "evidence": value.evidence,
-                    "contract_version": value.contract_version,
-                },
-            )
-        if type(value) is c.QuantumEspressoBandsResult:
+        if type(value) is c.QeBandsResult:
             return cls._record(
                 "QuantumEspressoBandsResult",
                 {
@@ -743,7 +738,7 @@ class QuantumEspressoResultValueSerializer:
                     "contract_version": value.contract_version,
                 },
             )
-        if type(value) is o.QuantumEspressoObservationNormalizationPolicy:
+        if type(value) is o.QeObservationNormalizationPolicy:
             return cls._record(
                 "QuantumEspressoObservationNormalizationPolicy",
                 {"identity": value.identity, "version": value.version},
@@ -757,7 +752,7 @@ class QuantumEspressoResultValueSerializer:
                     ).serialize(value)
                 },
             )
-        if type(value) is o.QuantumEspressoExtractedObservationResult:
+        if type(value) is o.QeExtractedObservationResult:
             return cls._record(
                 "QuantumEspressoExtractedObservationResult",
                 {
@@ -810,27 +805,27 @@ class QuantumEspressoResultValueSerializer:
         return tuple(cls._as(item, expected) for item in value)
 
     @classmethod
-    def _termination(cls, value: _Json) -> c.QuantumEspressoProcessTermination:
+    def _termination(cls, value: _Json) -> c.QeProcessTermination:
         decoded = cls._decode_node(value)
         if type(decoded) not in (
-            c.QuantumEspressoNormalProcessExit,
-            c.QuantumEspressoProcessSignalTermination,
-            c.QuantumEspressoProcessTimeout,
+            c.QeNormalProcessExit,
+            c.QeProcessSignalTermination,
+            c.QeProcessTimeout,
         ):
             raise TypeError("wrong termination variant")
-        return cast(c.QuantumEspressoProcessTermination, decoded)
+        return cast(c.QeProcessTermination, decoded)
 
     @classmethod
-    def _outcome(cls, value: _Json) -> c.QuantumEspressoCalculatorOutcome:
+    def _outcome(cls, value: _Json) -> c.QeCalculatorOutcome:
         decoded = cls._decode_node(value)
         if type(decoded) not in (
-            c.QuantumEspressoCompletedOutcome,
-            c.QuantumEspressoCalculatorFailedOutcome,
-            c.QuantumEspressoProcessFailedOutcome,
-            c.QuantumEspressoDiagnosticUnresolvedOutcome,
+            c.QeCompletedOutcome,
+            c.QeCalculatorFailedOutcome,
+            c.QeProcessFailedOutcome,
+            c.QeDiagnosticUnresolvedOutcome,
         ):
             raise TypeError("wrong outcome variant")
-        return cast(c.QuantumEspressoCalculatorOutcome, decoded)
+        return cast(c.QeCalculatorOutcome, decoded)
 
     @classmethod
     def _version(cls, value: _Json, expected: str) -> str:
@@ -908,43 +903,43 @@ class QuantumEspressoResultValueSerializer:
             if tag == "ArtifactProducerProvenanceIdentity":
                 return a.ArtifactProducerProvenanceIdentity(text)
             if tag == "QuantumEspressoExecutionInputIdentity":
-                return c.QuantumEspressoExecutionInputIdentity(text)
+                return c.QeExecutionInputIdentity(text)
             if tag == "QuantumEspressoExecutableConfigurationIdentity":
-                return c.QuantumEspressoExecutableConfigurationIdentity(text)
+                return c.QeExecutableConfigurationIdentity(text)
             if tag == "QuantumEspressoPreparationIdentity":
-                return c.QuantumEspressoPreparationIdentity(text)
+                return c.QePreparationIdentity(text)
             if tag == "QuantumEspressoProcessObservationIdentity":
-                return c.QuantumEspressoProcessObservationIdentity(text)
+                return c.QeProcessObservationIdentity(text)
             if tag == "QuantumEspressoDiagnosticClassifierIdentity":
-                return c.QuantumEspressoDiagnosticClassifierIdentity(text)
+                return c.QeDiagnosticClassifierIdentity(text)
             if tag == "QuantumEspressoDiagnosticObservationIdentity":
-                return c.QuantumEspressoDiagnosticObservationIdentity(text)
+                return c.QeDiagnosticObservationIdentity(text)
             if tag == "QuantumEspressoOutputMarkerObservationIdentity":
-                return c.QuantumEspressoOutputMarkerObservationIdentity(text)
+                return c.QeOutputMarkerObservationIdentity(text)
             if tag == "QuantumEspressoDiagnosticReportIdentity":
-                return c.QuantumEspressoDiagnosticReportIdentity(text)
+                return c.QeDiagnosticReportIdentity(text)
             if tag == "QuantumEspressoTerminalRecordIdentity":
-                return c.QuantumEspressoTerminalRecordIdentity(text)
+                return c.QeTerminalRecordIdentity(text)
             if tag == "QuantumEspressoArtifactDestination":
-                return c.QuantumEspressoArtifactDestination(text)
+                return c.QeArtifactDestination(text)
             if tag == "QuantumEspressoParsedDocumentIdentity":
-                return o.QuantumEspressoParsedDocumentIdentity(text)
+                return o.QeParsedDocumentIdentity(text)
             if tag == "QuantumEspressoXsdParserIdentity":
-                return o.QuantumEspressoXsdParserIdentity(text)
+                return o.QeXsdParserIdentity(text)
             if tag == "QuantumEspressoObservationNormalizationPolicyIdentity":
-                return o.QuantumEspressoObservationNormalizationPolicyIdentity(text)
+                return o.QeObservationNormalizationPolicyIdentity(text)
             if tag == "QuantumEspressoProgram":
-                return c.QuantumEspressoProgram(text)
+                return c.QeProgram(text)
             if tag == "QuantumEspressoExecutableKind":
-                return c.QuantumEspressoExecutableKind(text)
+                return c.QeExecutableKind(text)
             if tag == "QuantumEspressoDiagnosticChannel":
-                return c.QuantumEspressoDiagnosticChannel(text)
+                return c.QeDiagnosticChannel(text)
             if tag == "QuantumEspressoDiagnosticDisposition":
-                return c.QuantumEspressoDiagnosticDisposition(text)
+                return c.QeDiagnosticDisposition(text)
             if tag == "QuantumEspressoDiagnosticReportKind":
-                return c.QuantumEspressoDiagnosticReportKind(text)
+                return c.QeDiagnosticReportKind(text)
             if tag == "QuantumEspressoProcessFailureKind":
-                return c.QuantumEspressoProcessFailureKind(text)
+                return c.QeProcessFailureKind(text)
         if tag == "ArtifactContentIdentity":
             f = cls._fields(value, ("algorithm", "digest", "byte_count"))
             return a.ArtifactContentIdentity(
@@ -954,12 +949,12 @@ class QuantumEspressoResultValueSerializer:
             )
         if tag == "QuantumEspressoFileArtifactContent":
             f = cls._fields(value, ("content_identity",))
-            return c.QuantumEspressoFileArtifactContent(
+            return c.QeFileArtifactContent(
                 cls._as(f["content_identity"], a.ArtifactContentIdentity)
             )
         if tag == "QuantumEspressoTreeArtifactContent":
             f = cls._fields(value, ("manifest_identity", "manifest_entry_identities"))
-            return c.QuantumEspressoTreeArtifactContent(
+            return c.QeTreeArtifactContent(
                 cls._as(f["manifest_identity"], a.ArtifactManifestIdentity),
                 cls._tuple_as(
                     f["manifest_entry_identities"], a.ArtifactManifestEntryIdentity
@@ -967,17 +962,17 @@ class QuantumEspressoResultValueSerializer:
             )
         if tag == "QuantumEspressoNativeInputArtifact":
             f = cls._fields(value, ("identity", "content", "destination"))
-            return c.QuantumEspressoNativeInputArtifact(
+            return c.QeNativeInputArtifact(
                 cls._as(f["identity"], a.ArtifactIdentity),
-                cls._as(f["content"], c.QuantumEspressoFileArtifactContent),
-                cls._as(f["destination"], c.QuantumEspressoArtifactDestination),
+                cls._as(f["content"], c.QeFileArtifactContent),
+                cls._as(f["destination"], c.QeArtifactDestination),
             )
         if tag == "QuantumEspressoPseudopotentialArtifact":
             f = cls._fields(value, ("identity", "content", "destination"))
-            return c.QuantumEspressoPseudopotentialArtifact(
+            return c.QePseudopotentialArtifact(
                 cls._as(f["identity"], a.ArtifactIdentity),
-                cls._as(f["content"], c.QuantumEspressoFileArtifactContent),
-                cls._as(f["destination"], c.QuantumEspressoArtifactDestination),
+                cls._as(f["content"], c.QeFileArtifactContent),
+                cls._as(f["destination"], c.QeArtifactDestination),
             )
         if tag == "QuantumEspressoPredecessorNativeStateArtifact":
             f = cls._fields(
@@ -990,10 +985,10 @@ class QuantumEspressoResultValueSerializer:
                     "predecessor_manifest_entry_identity",
                 ),
             )
-            return c.QuantumEspressoPredecessorNativeStateArtifact(
+            return c.QePredecessorNativeStateArtifact(
                 cls._as(f["identity"], a.ArtifactIdentity),
-                cls._as(f["content"], c.QuantumEspressoTreeArtifactContent),
-                cls._as(f["destination"], c.QuantumEspressoArtifactDestination),
+                cls._as(f["content"], c.QeTreeArtifactContent),
+                cls._as(f["destination"], c.QeArtifactDestination),
                 cls._as(f["predecessor_result_identity"], m.ResultObjectIdentity),
                 cls._as(
                     f["predecessor_manifest_entry_identity"],
@@ -1018,20 +1013,16 @@ class QuantumEspressoResultValueSerializer:
                 ),
             )
             version = cls._version(f["contract_version"], "qe-execution-input:1")
-            return c.QuantumEspressoExecutionInput(
-                identity=cls._as(
-                    f["identity"], c.QuantumEspressoExecutionInputIdentity
-                ),
-                program=cls._as(f["program"], c.QuantumEspressoProgram),
-                native_input=cls._as(
-                    f["native_input"], c.QuantumEspressoNativeInputArtifact
-                ),
+            return c.QeExecutionInput(
+                identity=cls._as(f["identity"], c.QeExecutionInputIdentity),
+                program=cls._as(f["program"], c.QeProgram),
+                native_input=cls._as(f["native_input"], c.QeNativeInputArtifact),
                 pseudopotentials=cls._tuple_as(
-                    f["pseudopotentials"], c.QuantumEspressoPseudopotentialArtifact
+                    f["pseudopotentials"], c.QePseudopotentialArtifact
                 ),
                 predecessor_native_state=cls._tuple_as(
                     f["predecessor_native_state"],
-                    c.QuantumEspressoPredecessorNativeStateArtifact,
+                    c.QePredecessorNativeStateArtifact,
                 ),
                 task_definition_identity=cls._as(
                     f["task_definition_identity"], m.TaskDefinitionIdentity
@@ -1050,8 +1041,8 @@ class QuantumEspressoResultValueSerializer:
             )
         if tag == "QuantumEspressoStreamObservation":
             f = cls._fields(value, ("channel", "artifact_identity", "content_identity"))
-            return c.QuantumEspressoStreamObservation(
-                channel=cls._as(f["channel"], c.QuantumEspressoDiagnosticChannel),
+            return c.QeStreamObservation(
+                channel=cls._as(f["channel"], c.QeDiagnosticChannel),
                 artifact_identity=cls._as(f["artifact_identity"], a.ArtifactIdentity),
                 content_identity=cls._as(
                     f["content_identity"], a.ArtifactContentIdentity
@@ -1059,17 +1050,17 @@ class QuantumEspressoResultValueSerializer:
             )
         if tag == "QuantumEspressoNormalProcessExit":
             f = cls._fields(value, ("exit_code",))
-            return c.QuantumEspressoNormalProcessExit(cls._as(f["exit_code"], int))
+            return c.QeNormalProcessExit(
+                CalculatorExitCode(cls._as(f["exit_code"], int))
+            )
         if tag == "QuantumEspressoProcessSignalTermination":
             f = cls._fields(value, ("signal_number",))
-            return c.QuantumEspressoProcessSignalTermination(
-                cls._as(f["signal_number"], int)
-            )
+            return c.QeProcessSignalTermination(cls._as(f["signal_number"], int))
         if tag == "QuantumEspressoProcessTimeout":
             f = cls._fields(
                 value, ("timeout_milliseconds", "termination_sent", "kill_sent")
             )
-            return c.QuantumEspressoProcessTimeout(
+            return c.QeProcessTimeout(
                 timeout_milliseconds=cls._as(f["timeout_milliseconds"], int),
                 termination_sent=cls._as(f["termination_sent"], bool),
                 kill_sent=cls._as(f["kill_sent"], bool),
@@ -1096,20 +1087,18 @@ class QuantumEspressoResultValueSerializer:
                     "observer_version",
                 ),
             )
-            return c.QuantumEspressoProcessObservation(
-                identity=cls._as(
-                    f["identity"], c.QuantumEspressoProcessObservationIdentity
-                ),
+            return c.QeProcessObservation(
+                identity=cls._as(f["identity"], c.QeProcessObservationIdentity),
                 execution_input_identity=cls._as(
                     f["execution_input_identity"],
-                    c.QuantumEspressoExecutionInputIdentity,
+                    c.QeExecutionInputIdentity,
                 ),
                 executable_configuration_identity=cls._as(
                     f["executable_configuration_identity"],
-                    c.QuantumEspressoExecutableConfigurationIdentity,
+                    c.QeExecutableConfigurationIdentity,
                 ),
                 preparation_identity=cls._as(
-                    f["preparation_identity"], c.QuantumEspressoPreparationIdentity
+                    f["preparation_identity"], c.QePreparationIdentity
                 ),
                 attempt_identity=cls._as(f["attempt_identity"], m.AttemptIdentity),
                 argv_content_identity=cls._as(
@@ -1117,8 +1106,8 @@ class QuantumEspressoResultValueSerializer:
                 ),
                 termination=cls._termination(f["termination"]),
                 wall_duration_nanoseconds=cls._as(f["wall_duration_nanoseconds"], int),
-                stdout=cls._as(f["stdout"], c.QuantumEspressoStreamObservation),
-                stderr=cls._as(f["stderr"], c.QuantumEspressoStreamObservation),
+                stdout=cls._as(f["stdout"], c.QeStreamObservation),
+                stderr=cls._as(f["stderr"], c.QeStreamObservation),
                 before_snapshot_identity=cls._as(
                     f["before_snapshot_identity"], a.ArtifactManifestIdentity
                 ),
@@ -1148,11 +1137,9 @@ class QuantumEspressoResultValueSerializer:
                     "claim_boundary",
                 ),
             )
-            return c.QuantumEspressoDiagnosticObservation(
-                identity=cls._as(
-                    f["identity"], c.QuantumEspressoDiagnosticObservationIdentity
-                ),
-                channel=cls._as(f["channel"], c.QuantumEspressoDiagnosticChannel),
+            return c.QeDiagnosticObservation(
+                identity=cls._as(f["identity"], c.QeDiagnosticObservationIdentity),
+                channel=cls._as(f["channel"], c.QeDiagnosticChannel),
                 byte_start=cls._as(f["byte_start"], int),
                 byte_end=cls._as(f["byte_end"], int),
                 stream_content_identity=cls._as(
@@ -1164,9 +1151,7 @@ class QuantumEspressoResultValueSerializer:
                 signature_identity=None
                 if f["signature_identity"] is None
                 else cls._string(f["signature_identity"]),
-                disposition=cls._as(
-                    f["disposition"], c.QuantumEspressoDiagnosticDisposition
-                ),
+                disposition=cls._as(f["disposition"], c.QeDiagnosticDisposition),
                 sanitized_summary=cls._string(f["sanitized_summary"]),
                 claim_boundary=cls._tuple_as(f["claim_boundary"], str),
             )
@@ -1183,11 +1168,9 @@ class QuantumEspressoResultValueSerializer:
                     "signature_identity",
                 ),
             )
-            return c.QuantumEspressoOutputMarkerObservation(
-                identity=cls._as(
-                    f["identity"], c.QuantumEspressoOutputMarkerObservationIdentity
-                ),
-                channel=cls._as(f["channel"], c.QuantumEspressoDiagnosticChannel),
+            return c.QeOutputMarkerObservation(
+                identity=cls._as(f["identity"], c.QeOutputMarkerObservationIdentity),
+                channel=cls._as(f["channel"], c.QeDiagnosticChannel),
                 byte_start=cls._as(f["byte_start"], int),
                 byte_end=cls._as(f["byte_end"], int),
                 stream_content_identity=cls._as(
@@ -1216,22 +1199,18 @@ class QuantumEspressoResultValueSerializer:
                     "claim_boundary",
                 ),
             )
-            return c.QuantumEspressoDiagnosticReport(
-                identity=cls._as(
-                    f["identity"], c.QuantumEspressoDiagnosticReportIdentity
-                ),
+            return c.QeDiagnosticReport(
+                identity=cls._as(f["identity"], c.QeDiagnosticReportIdentity),
                 classifier_identity=cls._as(
                     f["classifier_identity"],
-                    c.QuantumEspressoDiagnosticClassifierIdentity,
+                    c.QeDiagnosticClassifierIdentity,
                 ),
                 executable_configuration_identity=cls._as(
                     f["executable_configuration_identity"],
-                    c.QuantumEspressoExecutableConfigurationIdentity,
+                    c.QeExecutableConfigurationIdentity,
                 ),
-                executable_kind=cls._as(
-                    f["executable_kind"], c.QuantumEspressoExecutableKind
-                ),
-                program=cls._as(f["program"], c.QuantumEspressoProgram),
+                executable_kind=cls._as(f["executable_kind"], c.QeExecutableKind),
+                program=cls._as(f["program"], c.QeProgram),
                 program_version=cls._string(f["program_version"]),
                 stdout_content_identity=cls._as(
                     f["stdout_content_identity"], a.ArtifactContentIdentity
@@ -1240,41 +1219,41 @@ class QuantumEspressoResultValueSerializer:
                     f["stderr_content_identity"], a.ArtifactContentIdentity
                 ),
                 observations=cls._tuple_as(
-                    f["observations"], c.QuantumEspressoDiagnosticObservation
+                    f["observations"], c.QeDiagnosticObservation
                 ),
                 completion_markers=cls._tuple_as(
-                    f["completion_markers"], c.QuantumEspressoOutputMarkerObservation
+                    f["completion_markers"], c.QeOutputMarkerObservation
                 ),
-                kind=cls._as(f["kind"], c.QuantumEspressoDiagnosticReportKind),
+                kind=cls._as(f["kind"], c.QeDiagnosticReportKind),
                 claim_boundary=cls._tuple_as(f["claim_boundary"], str),
             )
         if tag == "QuantumEspressoCompletedOutcome":
             f = cls._fields(value, ("completion_marker_identities",))
-            return c.QuantumEspressoCompletedOutcome(
+            return c.QeCompletedOutcome(
                 cls._tuple_as(
                     f["completion_marker_identities"],
-                    c.QuantumEspressoOutputMarkerObservationIdentity,
+                    c.QeOutputMarkerObservationIdentity,
                 )
             )
         if tag == "QuantumEspressoCalculatorFailedOutcome":
             f = cls._fields(value, ("fatal_diagnostic_identities",))
-            return c.QuantumEspressoCalculatorFailedOutcome(
+            return c.QeCalculatorFailedOutcome(
                 cls._tuple_as(
                     f["fatal_diagnostic_identities"],
-                    c.QuantumEspressoDiagnosticObservationIdentity,
+                    c.QeDiagnosticObservationIdentity,
                 )
             )
         if tag == "QuantumEspressoProcessFailedOutcome":
             f = cls._fields(value, ("reason",))
-            return c.QuantumEspressoProcessFailedOutcome(
-                cls._as(f["reason"], c.QuantumEspressoProcessFailureKind)
+            return c.QeProcessFailedOutcome(
+                cls._as(f["reason"], c.QeProcessFailureKind)
             )
         if tag == "QuantumEspressoDiagnosticUnresolvedOutcome":
             f = cls._fields(value, ("diagnostic_identities", "reason_identities"))
-            return c.QuantumEspressoDiagnosticUnresolvedOutcome(
+            return c.QeDiagnosticUnresolvedOutcome(
                 cls._tuple_as(
                     f["diagnostic_identities"],
-                    c.QuantumEspressoDiagnosticObservationIdentity,
+                    c.QeDiagnosticObservationIdentity,
                 ),
                 cls._tuple_as(f["reason_identities"], str),
             )
@@ -1291,16 +1270,12 @@ class QuantumEspressoResultValueSerializer:
                     "terminal_record_identity",
                 ),
             )
-            return c.QuantumEspressoOperationResultEvidence(
-                execution_input=cls._as(
-                    f["execution_input"], c.QuantumEspressoExecutionInput
-                ),
+            return c.QeOperationResultEvidence(
+                execution_input=cls._as(f["execution_input"], c.QeExecutionInput),
                 process_observation=cls._as(
-                    f["process_observation"], c.QuantumEspressoProcessObservation
+                    f["process_observation"], c.QeProcessObservation
                 ),
-                diagnostic_report=cls._as(
-                    f["diagnostic_report"], c.QuantumEspressoDiagnosticReport
-                ),
+                diagnostic_report=cls._as(f["diagnostic_report"], c.QeDiagnosticReport),
                 calculator_outcome=cls._outcome(f["calculator_outcome"]),
                 native_output_manifest_identity=cls._as(
                     f["native_output_manifest_identity"], a.ArtifactManifestIdentity
@@ -1310,35 +1285,23 @@ class QuantumEspressoResultValueSerializer:
                 ),
                 terminal_record_identity=cls._as(
                     f["terminal_record_identity"],
-                    c.QuantumEspressoTerminalRecordIdentity,
+                    c.QeTerminalRecordIdentity,
                 ),
-            )
-        if tag == "QuantumEspressoPwResult":
-            f = cls._fields(value, ("identity", "evidence", "contract_version"))
-            version = cls._version(f["contract_version"], "qe-pw-result:1")
-            return c.QuantumEspressoPwResult(
-                identity=cls._as(f["identity"], m.ResultObjectIdentity),
-                evidence=cls._as(
-                    f["evidence"], c.QuantumEspressoOperationResultEvidence
-                ),
-                contract_version=version,
             )
         if tag == "QuantumEspressoBandsResult":
             f = cls._fields(value, ("identity", "evidence", "contract_version"))
             version = cls._version(f["contract_version"], "qe-bands-result:1")
-            return c.QuantumEspressoBandsResult(
+            return c.QeBandsResult(
                 identity=cls._as(f["identity"], m.ResultObjectIdentity),
-                evidence=cls._as(
-                    f["evidence"], c.QuantumEspressoOperationResultEvidence
-                ),
+                evidence=cls._as(f["evidence"], c.QeOperationResultEvidence),
                 contract_version=version,
             )
         if tag == "QuantumEspressoObservationNormalizationPolicy":
             f = cls._fields(value, ("identity", "version"))
-            return o.QuantumEspressoObservationNormalizationPolicy(
+            return o.QeObservationNormalizationPolicy(
                 cls._as(
                     f["identity"],
-                    o.QuantumEspressoObservationNormalizationPolicyIdentity,
+                    o.QeObservationNormalizationPolicyIdentity,
                 ),
                 cls._version(f["version"], "1"),
             )
@@ -1376,7 +1339,7 @@ class QuantumEspressoResultValueSerializer:
                 ),
             )
             version = cls._version(f["parser_version"], "1")
-            return o.QuantumEspressoExtractedObservationResult(
+            return o.QeExtractedObservationResult(
                 identity=cls._as(f["identity"], m.ResultObjectIdentity),
                 observation=cls._as(
                     f["observation"], KohnShamPlaneWaveCalculationRecord
@@ -1399,15 +1362,13 @@ class QuantumEspressoResultValueSerializer:
                 ),
                 parsed_document_identity=cls._as(
                     f["parsed_document_identity"],
-                    o.QuantumEspressoParsedDocumentIdentity,
+                    o.QeParsedDocumentIdentity,
                 ),
-                parser_identity=cls._as(
-                    f["parser_identity"], o.QuantumEspressoXsdParserIdentity
-                ),
+                parser_identity=cls._as(f["parser_identity"], o.QeXsdParserIdentity),
                 parser_version=version,
                 normalization_policy=cls._as(
                     f["normalization_policy"],
-                    o.QuantumEspressoObservationNormalizationPolicy,
+                    o.QeObservationNormalizationPolicy,
                 ),
                 limitation_values=cls._tuple_as(f["limitation_values"], str),
             )

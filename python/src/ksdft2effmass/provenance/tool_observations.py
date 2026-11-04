@@ -31,7 +31,8 @@ from __future__ import annotations
 import re
 import unicodedata
 from dataclasses import dataclass
-from enum import StrEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 # Exact version-1 identifier, digest, and opaque-version lexical grammars.
 _ID_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z")
@@ -39,7 +40,7 @@ _SHA256_PATTERN = re.compile(r"[0-9a-f]{64}\Z")
 _VERSION_PATTERN = re.compile(r"[0-9A-Za-z][0-9A-Za-z._+-]{0,63}\Z")
 
 
-class VerificationStatus(StrEnum):
+class VerificationStatus(StrWireEnum):
     """Outcome of an observed tool-capability verification.
 
     Attributes

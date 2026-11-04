@@ -18,10 +18,11 @@ alignment procedures, and validation outside this task.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from enum import StrEnum
 
 import numpy as np
 import numpy.typing as npt
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .compatibility import (
     OperatorRecordCompatibilityAnalyzer,
@@ -166,7 +167,7 @@ class OperatorRecordDifferenceResult:
     __hash__ = None  # type: ignore[assignment]
 
 
-class OperatorRecordDifferenceNumericalErrorCode(StrEnum):
+class OperatorRecordDifferenceNumericalErrorCode(StrWireEnum):
     """Stable represented-difference numerical-error categories.
 
     Attributes

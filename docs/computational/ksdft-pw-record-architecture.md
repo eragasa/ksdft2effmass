@@ -50,7 +50,7 @@ Kohn--Sham, nor plane-wave record owner imports a Quantum ESPRESSO or QEXSD modu
 
 ```text
 explicit QEXSD bytes and source identity
-→ QuantumEspressoXsdDocumentParser
+→ QeXsdDocumentParser
 → mechanically faithful QexsdDocument
 → ConstructQexsdKohnShamPlaneWaveRecord
 → KohnShamPlaneWaveCalculationRecord
@@ -68,7 +68,7 @@ remains with `ksdft.pw`. A later integration-adaptation Task owns separated outp
 |---|---|
 | `periodic.QexsdSource` | `integration.quantum_espresso.qexsd.QexsdSource` |
 | `periodic.QexsdDocument` | `integration.quantum_espresso.qexsd.QexsdDocument` |
-| `periodic.ParseQexsdDocument` | `integration.quantum_espresso.qexsd.QuantumEspressoXsdDocumentParser` |
+| `periodic.ParseQexsdDocument` | `integration.quantum_espresso.qexsd.QeXsdDocumentParser` |
 | `periodic.PeriodicCalculationRecord` | `ksdft.pw.KohnShamPlaneWaveCalculationRecord` |
 | `periodic.ConstructPeriodicCalculationRecord` | `integration.quantum_espresso.qexsd.ConstructQexsdKohnShamPlaneWaveRecord` |
 | `periodic.PeriodicCalculationRecordJsonSerializer` | `ksdft.pw.KohnShamPlaneWaveCalculationRecordJsonSerializer` |

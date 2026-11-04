@@ -73,11 +73,11 @@
       "sut": "QuantityOfInterestResultValueSerializer"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoResultValueSerializer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QeResultValueSerializer__serialization.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "claim_bearing",
-      "sut": "QuantumEspressoResultValueSerializer"
+      "sut": "QeResultValueSerializer"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/workflows/persistence/test__WorkflowResultValueSerializer.py",

@@ -38,7 +38,7 @@ QEXSD source and translation
 .. autoclass:: QexsdDocument
    :members:
 
-.. autoclass:: QuantumEspressoXsdDocumentParser
+.. autoclass:: QeXsdDocumentParser
    :members:
 
 The parser accepts exactly QEXSD ``23.03.10`` from the retained QE 7.2 artifact

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 import numpy as np
 from projectkoios.physkit.units import (
@@ -15,9 +14,10 @@ from ksdft2effmass.operators import (
     ComplexHermitianEigenpairResidualResult,
     ComplexHermitianEigenpairResult,
 )
+from ksdft2effmass.serialization import StrWireEnum
 
 
-class BoundStateSelectionStatus(StrEnum):
+class BoundStateSelectionStatus(StrWireEnum):
     """Whether the retained lowest-eigenpair window completes below-edge counting."""
 
     COMPLETE_BELOW_EDGE = "complete_below_edge"

@@ -12,7 +12,8 @@ import re
 import unicodedata
 from dataclasses import dataclass
 from datetime import datetime
-from enum import StrEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 _MAX_U64 = 18_446_744_073_709_551_615
 _ID_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z")
@@ -34,7 +35,7 @@ _TIMESTAMP_PATTERN = re.compile(
 )
 
 
-class ArtifactLocationKind(StrEnum):
+class ArtifactLocationKind(StrWireEnum):
     """Closed set of deployment-location representations.
 
     Attributes
@@ -49,7 +50,7 @@ class ArtifactLocationKind(StrEnum):
     EXTERNAL_DESCRIPTOR = "external_descriptor"
 
 
-class ManifestState(StrEnum):
+class ManifestState(StrWireEnum):
     """Recorded lifecycle state of a run manifest.
 
     Attributes
@@ -67,7 +68,7 @@ class ManifestState(StrEnum):
     FAILED = "failed"
 
 
-class LineageKind(StrEnum):
+class LineageKind(StrWireEnum):
     """Closed vocabulary for a directed parent-to-child relationship.
 
     Attributes

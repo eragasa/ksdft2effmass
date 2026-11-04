@@ -25,13 +25,13 @@ from ksdft2effmass.real_space_support_truncation import BasisResolvedMetricGeome
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
-    StringWireEnum,
+    StrWireEnum,
 )
 
 from .model import Periodic2DRankNGaugeNormalizationEnum
 
 
-class Periodic2DRankNBandEquivalenceHoppingLocalityFamilyEnum(StringWireEnum):
+class Periodic2DRankNBandEquivalenceHoppingLocalityFamilyEnum(StrWireEnum):
     """Identify one independently interpreted periodic-2D rank-N family."""
 
     ORTHOGONAL = (

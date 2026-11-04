@@ -14,7 +14,6 @@ reconstructed.  Those exclusions are explicit and never contribute to ``passes``
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 import numpy as np
 import numpy.typing as npt
@@ -23,6 +22,8 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 from scipy.special import mathieu_a, mathieu_b  # type: ignore[import-untyped]
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .isolated import Periodic1DIsolatedBandCampaignDefinition
 from .isolated_results import (
@@ -38,7 +39,7 @@ type RealVector = npt.NDArray[np.float64]
 type IntegerVector = npt.NDArray[np.int64]
 
 
-class Periodic1DIsolatedUnavailableVerificationChannel(StrEnum):
+class Periodic1DIsolatedUnavailableVerificationChannel(StrWireEnum):
     """Identify isolated-band channels lacking their required source arrays."""
 
     GAUGE_TRANSPORT_AND_OVERLAPS = "gauge_transport_and_overlaps"

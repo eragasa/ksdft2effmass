@@ -8,7 +8,7 @@ Facet and represented meaning
 
 -----------------------------
 This class-owned evidence verifies the closed one-member wire vocabulary,
-``StrEnum`` inheritance, exact name and value, declaration order, absence of
+``StrWireEnum`` inheritance, exact name and value, declaration order, absence of
 aliases, value construction, name lookup, and rejection behavior.
 
 Intrinsic and cross-object scope
@@ -27,12 +27,12 @@ numerical acceptance, scientific validation, UQ, external-tool correctness, or
 provenance truth.
 """
 
-from enum import StrEnum
 from typing import Any, cast
 
 import pytest
 
 from ksdft2effmass.provenance import ExternalExecutionStatus
+from ksdft2effmass.serialization import StrWireEnum
 
 SUT = ExternalExecutionStatus
 pytestmark = pytest.mark.software_verification
@@ -41,7 +41,7 @@ pytestmark = pytest.mark.software_verification
 def test_field__wire_vocabulary__has_exact_order_name_value_and_count() -> None:
     """Evidence ID: SV-PROV-042
 
-    Requirement: The enum is an alias-free StrEnum with only ``COMPLETED =
+    Requirement: The enum is an alias-free StrWireEnum with only ``COMPLETED =
     "completed"``.
 
     Method: Inspect inheritance, iteration, the public member mapping, and member
@@ -60,7 +60,7 @@ def test_field__wire_vocabulary__has_exact_order_name_value_and_count() -> None:
     quality.
     """
     expected = (("COMPLETED", "completed"),)
-    assert issubclass(SUT, StrEnum)
+    assert issubclass(SUT, StrWireEnum)
     assert tuple((member.name, member.value) for member in SUT) == expected
     assert tuple(SUT.__members__) == ("COMPLETED",)
     assert len(SUT.__members__) == 1

@@ -5,7 +5,6 @@ from __future__ import annotations
 import cmath
 import math
 from dataclasses import dataclass
-from enum import StrEnum
 
 import numpy as np
 from projectkoios.physkit.units import (
@@ -14,12 +13,14 @@ from projectkoios.physkit.units import (
 )
 from scipy import sparse  # type: ignore[import-untyped]
 
+from ksdft2effmass.serialization import StrWireEnum
+
 from .boundary_phases import TwistFiber, TwistGaugeRepresentation
 from .geometry import FiniteLatticeCoordinateResolver, FiniteLatticeShape
 from .represented_operators import ScalarFiniteLatticeOperator
 
 
-class TwistGaugeBridgeConvention(StrEnum):
+class TwistGaugeBridgeConvention(StrWireEnum):
     """Supported direction convention for site-diagonal gauge bridges."""
 
     TARGET_EQUALS_U_SOURCE_U_DAGGER = "target_equals_u_source_u_dagger"
@@ -111,7 +112,7 @@ class TwistGaugeBridgeResult:
             raise ValueError("gauge transformation diagonal must have unit magnitude")
 
 
-class TwistGaugeEquivalenceIssueCode(StrEnum):
+class TwistGaugeEquivalenceIssueCode(StrWireEnum):
     """Structured prerequisites that can block represented gauge comparison."""
 
     SHAPE = "shape"

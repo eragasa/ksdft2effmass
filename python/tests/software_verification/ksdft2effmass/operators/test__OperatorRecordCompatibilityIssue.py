@@ -99,7 +99,6 @@ agreement.
 """
 
 from dataclasses import FrozenInstanceError, fields
-from enum import StrEnum
 from typing import get_type_hints
 
 import numpy as np
@@ -110,6 +109,7 @@ from ksdft2effmass.operators import (
     OperatorRecordCompatibilityIssue,
     OperatorRecordCompatibilityMismatchCode,
 )
+from ksdft2effmass.serialization import StrWireEnum
 
 
 class _ArbitraryInput:
@@ -139,7 +139,7 @@ pytestmark = pytest.mark.software_verification
 SUT = OperatorRecordCompatibilityIssue
 
 
-class UnrelatedCode(StrEnum):
+class UnrelatedCode(StrWireEnum):
     r"""Local unrelated enum used only to verify exact public code typing."""
 
     VALUE = "unrelated_code"
@@ -455,7 +455,7 @@ class TestOperatorRecordCompatibilityIssue:
 
         assert same_code_left == same_code_right
         assert same_code_left != different_code
-        assert same_code_left != _ArbitraryInput()
+        assert same_code_left.__eq__(_ArbitraryInput()) is NotImplemented
 
     @pytest.mark.parametrize(
         "api_name",

@@ -41,7 +41,7 @@ suitability, or scientific acceptance.
 Exact executable classification replaces a calculator-family identity:
 
 ```python
-class ExecutableProgram(StrEnum):
+class ExecutableProgram(StrWireEnum):
     QUANTUM_ESPRESSO_PW = "quantum_espresso.pw"
     QUANTUM_ESPRESSO_PW2WANNIER90 = "quantum_espresso.pw2wannier90"
     WANNIER90 = "wannier90.wannier90"
@@ -123,7 +123,7 @@ The project-facing operation contracts are:
 
 | Operation | Immutable input | Immutable returned result | Consumer protocol or Task |
 |---|---|---|---|
-| QE SCF or uniform NSCF | `QuantumEspressoInput` | `QuantumEspressoOutput` | `QuantumEspressoExecutor`; concrete SCF and uniform-NSCF Tasks |
+| QE SCF or uniform NSCF | `QeInput` | `QeOutput` | `QeExecutor`; concrete SCF and uniform-NSCF Tasks |
 | Wannier90 preprocessing | `Wannier90PreprocessInput` | `Wannier90PreprocessOutput` containing `.nnkp` | `Wannier90Preprocessor` and `Wannier90PreprocessTask` |
 | QE--Wannier90 conversion | `Pw2Wannier90Input` | `Pw2Wannier90Output` containing `.amn`, `.mmn`, and `.eig` | `Pw2Wannier90Executor` and `Pw2Wannier90ConversionTask` |
 | Wannier localization | `Wannier90LocalizationInput` | `Wannier90LocalizationOutput` | `Wannier90Localizer` and `Wannier90LocalizationTask` |
@@ -155,10 +155,10 @@ flowchart TD
     w90_config -. read gate .-> localize
 
     scf_input["Exact SCF input"] --> scf["Task: run pw.x SCF"]
-    scf --> scf_output["QuantumEspressoOutput: SCF state"]
+    scf --> scf_output["QeOutput: SCF state"]
     scf_output --> nscf["Task: run pw.x uniform NSCF"]
     nscf_input["Exact uniform-NSCF input"] --> nscf
-    nscf --> nscf_output["QuantumEspressoOutput: uniform NSCF/save state"]
+    nscf --> nscf_output["QeOutput: uniform NSCF/save state"]
 
     win["Accepted .win specification"] --> preprocess["Task: run wannier90.x -pp"]
     preprocess --> nnkp["Wannier90PreprocessOutput: .nnkp"]

@@ -32,11 +32,11 @@ from ksdft2effmass.real_space_support_truncation import BasisResolvedMetricGeome
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
-    StringWireEnum,
+    StrWireEnum,
 )
 
 
-class Periodic3DRankNLatticeControlEnum(StringWireEnum):
+class Periodic3DRankNLatticeControlEnum(StrWireEnum):
     """Select one reviewed periodic-3D lattice and metric control."""
 
     SIMPLE_CUBIC_AXIS_CONTROL = "simple-cubic-axis-control"
@@ -45,7 +45,7 @@ class Periodic3DRankNLatticeControlEnum(StringWireEnum):
     FCC_TWO_BASIS_METRIC_CONTROL = "fcc-two-basis-metric-control"
 
 
-class Periodic3DRankNBandEquivalenceHoppingLocalityFamilyEnum(StringWireEnum):
+class Periodic3DRankNBandEquivalenceHoppingLocalityFamilyEnum(StrWireEnum):
     """Identify one independently interpreted periodic-3D rank-N family."""
 
     ORTHOGONAL = (

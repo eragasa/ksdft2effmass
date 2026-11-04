@@ -456,12 +456,12 @@ software-verification evidence is documented in
 If finite public record inputs overflow while forming :math:`H-H^\dagger`, or if
 reduction cannot produce a finite binary64
 :math:`\varepsilon_{\mathrm H}`, the Analyzer raises
-``HermiticityNumericalError``. Its structured category is the closed Python 3.14
-``StrEnum`` ``HermiticityNumericalErrorCode``. The exact sole member is
+``HermiticityNumericalError``. Its structured category is the closed KSD
+``StrWireEnum`` ``HermiticityNumericalErrorCode``. The exact sole member is
 ``NONFINITE_RESIDUAL = "nonfinite_residual"``; the public registry has no aliases.
 The enum performs no matrix operation or numerical detection. Value and name
-lookups follow standard ``StrEnum`` behavior, and the ASCII lowercase snake-case
-value is stable machine-readable Python state, not an approved serialization
+lookups follow ordinary ``Enum`` behavior, while ``to_wire()`` explicitly returns the
+stable ASCII lowercase snake-case value; this is not an approved serialization
 format.
 
 ``HermiticityNumericalError`` is a public ``ValueError`` with one structured
@@ -475,7 +475,7 @@ while ``error.reason`` remains authoritative.
 
 The exception has no independent JSON, dictionary, serializer, or deserializer
 API. ``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``.
-``StrEnum`` behavior does not approve an exception wire format. A future Rust
+``StrWireEnum`` conversion does not approve an exception wire format. A future Rust
 mapping would use a closed error enum, but no Rust implementation, serialization,
 or conformance evidence exists.
 
@@ -722,8 +722,8 @@ procedures outside this task. Future block- or shell-resolved analyzers may
 consume this represented difference, but those analyses are not implemented by
 this subsystem.
 
-``OperatorRecordDifferenceNumericalErrorCode`` is the closed public Python 3.14
-``StrEnum`` for failures owned by represented differencing. Its exact sole member
+``OperatorRecordDifferenceNumericalErrorCode`` is the closed public KSD
+``StrWireEnum`` for failures owned by represented differencing. Its exact sole member
 is ``NONFINITE_DIFFERENCE`` with stable ASCII snake-case value
 ``nonfinite_difference``. It means that subtraction of two individually finite,
 compatible represented matrices produced at least one nonfinite entry in
@@ -862,7 +862,7 @@ If a scaled metric becomes nonfinite, if a power-of-two scaled matrix is
 nonfinite, if singular-value computation fails, or if the restored norm is truly
 nonrepresentable, residual analysis raises ``OperatorRecordComparisonNumericalError``.
 Its closed ``OperatorRecordComparisonNumericalErrorCode`` taxonomy has exact
-Python 3.14 ``StrEnum`` declaration order:
+KSD ``StrWireEnum`` declaration order:
 
 .. list-table:: Residual-analysis numerical-error codes
    :header-rows: 1
@@ -909,8 +909,8 @@ The message is a secondary human-readable residual-failure summary containing th
 stable code value. Machine logic inspects ``error.code`` and does not parse
 punctuation, capitalization, quoting, or separators. The exception has no
 independent JSON, dictionary, serializer, or deserializer API.
-``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``; the residual
-``StrEnum`` values do not create an exception schema.
+``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``; explicit
+``StrWireEnum`` conversion does not create an exception schema.
 
 Signed subtraction that produces a nonfinite represented difference belongs to
 ``OperatorRecordDifferenceNumericalError`` and

@@ -9,7 +9,9 @@ supported tensor-product ordering.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import IntEnum, StrEnum
+from enum import IntEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 type LatticeIntegerComponents = tuple[int] | tuple[int, int] | tuple[int, int, int]
 """Closed integer coordinate representation for one, two, or three dimensions."""
@@ -23,7 +25,7 @@ class LatticeDimension(IntEnum):
     THREE = 3
 
 
-class LatticeSiteOrdering(StrEnum):
+class LatticeSiteOrdering(StrWireEnum):
     """Supported tensor-product site ordering conventions."""
 
     LAST_AXIS_FASTEST = "last_axis_fastest"

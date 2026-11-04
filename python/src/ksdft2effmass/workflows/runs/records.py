@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetBinding,
@@ -12,6 +11,7 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetFiringResult,
     ColoredPetriNetTransitionIdentity,
 )
+from ksdft2effmass.serialization import StrWireEnum
 
 from ..artifacts import (
     ArtifactManifestEntryIdentity,
@@ -89,7 +89,7 @@ from .identities import (
 )
 
 
-class TaskAttemptStatus(StrEnum):
+class TaskAttemptStatus(StrWireEnum):
     """Closed represented states of one bounded Task attempt."""
 
     STARTED = "started"
@@ -1063,7 +1063,7 @@ class NestedWorkflowMembership:
             )
 
 
-class NestedWorkflowInvocationKind(StrEnum):
+class NestedWorkflowInvocationKind(StrWireEnum):
     """Closed represented observations of one nested Workflow invocation."""
 
     PENDING = "pending"
@@ -1426,7 +1426,7 @@ class NestedWorkflowInvocationIntent:
             raise ValueError("input references must be unique and lexically sorted")
 
 
-class NestedWorkflowTerminalObservationKind(StrEnum):
+class NestedWorkflowTerminalObservationKind(StrWireEnum):
     """Closed first-terminal observations, never a pending intent state.
 
     Attributes
@@ -1794,7 +1794,7 @@ class SimulationExecutionRequestCorrelation:
                 raise ValueError(f"{name} must be unique and lexically sorted")
 
 
-class AuthorityReservationOutcomeKind(StrEnum):
+class AuthorityReservationOutcomeKind(StrWireEnum):
     """Closed append-only authority reservation states."""
 
     RESERVED = "reserved"
@@ -2009,7 +2009,7 @@ class SimulationDispatchObligation:
             raise ValueError("resource scope identities must be unique and sorted")
 
 
-class DispatchOutcomeKind(StrEnum):
+class DispatchOutcomeKind(StrWireEnum):
     """Closed specialized dispatch observations retained by WorkflowRun."""
 
     CONFIRMED = "confirmed"
@@ -2260,7 +2260,7 @@ class SimulationDispatchEntry:
             )
 
 
-class DispatchObservationKind(StrEnum):
+class DispatchObservationKind(StrWireEnum):
     """Closed evidence classification for one dispatch reconciliation observation."""
 
     CONFIRMED = "confirmed"
@@ -2520,7 +2520,7 @@ class DispatchOutcomeRecord:
             raise ValueError("dispatch fields do not match the outcome variant")
 
 
-class ObligationDispositionKind(StrEnum):
+class ObligationDispositionKind(StrWireEnum):
     """Closed append-only states of one dispatch obligation."""
 
     CONFIRMED = "confirmed"
@@ -2866,7 +2866,7 @@ class ScientificDecisionResolution:
             )
 
 
-class TaskInvocationOutcomeKind(StrEnum):
+class TaskInvocationOutcomeKind(StrWireEnum):
     """Closed generic invocation outcomes owned by Workflow control."""
 
     CONFIRMED = "confirmed"

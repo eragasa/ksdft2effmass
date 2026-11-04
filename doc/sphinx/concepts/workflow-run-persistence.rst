@@ -23,11 +23,11 @@ structured failures, intrinsic aggregate boundary and commit-binding records,
 :class:`~ksdft2effmass.workflows.WorkflowResultValueSerializer`,
 :class:`~ksdft2effmass.application.ApplicationResultValueSerializer`,
 :class:`~ksdft2effmass.analysis.QuantityOfInterestResultValueSerializer` and
-:class:`~ksdft2effmass.integration.quantum_espresso.QuantumEspressoResultValueSerializer`.
+:class:`~ksdft2effmass.integration.quantum_espresso.QeResultValueSerializer`.
 The scalar codec supports exactly ``ScalarQuantityOfInterestValue`` and
 ``ScalarQuantityOfInterestEvaluationFailure``. The QE codec supports exactly
-``QuantumEspressoPwResult``, ``QuantumEspressoBandsResult`` and
-``QuantumEspressoExtractedObservationResult``, including complete nested operation
+``QePwResult``, ``QeBandsResult`` and
+``QeExtractedObservationResult``, including complete nested operation
 and source/parser/policy/neutral provenance. Neither codec accepts subclasses or
 identity-only result adapters. See :doc:`../api/quantum-espresso` for the owning
 three-family wire and unchanged neutral-serializer delegation.

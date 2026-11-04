@@ -1,0 +1,285 @@
+{
+  "boundary_actions": [
+    {
+      "action_object": "QeCalculatorInputAdmission",
+      "authority": "none",
+      "consumer": "LocalQeExecutionPreparer, QeInputStager and LocalQeProcessRunner input verification",
+      "effect_free": true,
+      "id": "prepared-calculator-input",
+      "implementation_path": "ksdft2effmass.integration.quantum_espresso.calculator_input.QeCalculatorInputAdmission",
+      "ksd_inputs": [
+        "Workflow Task/run/activation/operation/attempt correlations",
+        "admitted predecessor result and artifact-manifest references"
+      ],
+      "output": "QeCalculatorInputBinding",
+      "provider_inputs": [
+        "projectkoios.simulations.calculator.input.CalculatorInputRecord"
+      ],
+      "required_checks": [
+        "explicit KSD admission-policy identity",
+        "canonical provider record SHA-256 and byte count remain owned by the retained provider instance",
+        "QE integration, schema, representation and pw.x operation identity",
+        "native input and pseudopotential artifact roles, filenames, byte counts and SHA-256 identities",
+        "native input has no owner-local preparation source path and staging writes only the retained provider artifact bytes",
+        "exact provider external-requirement instances retain pseudopotential metadata while KSD source bindings retain only artifact identity and local path",
+        "pseudopotential provider byte-count and SHA-256 identities govern preparation, staging and pre-entry snapshot verification",
+        "predecessor manifest membership and exact KSD Workflow correlations",
+        "no owner-local serialization, rendering, filesystem access, process invocation or authority grant; common Workflow serialization only if later required"
+      ],
+      "status": "implemented_and_provider_input_resource_staging_reachable"
+    },
+    {
+      "action_object": "QeExecutableBindingAdapter",
+      "authority": "none",
+      "effect_free": true,
+      "id": "executable-binding",
+      "implementation_path": "ksdft2effmass.integration.quantum_espresso.executable_binding.QeExecutableBindingAdapter",
+      "ksd_inputs": [
+        "QeExecutableConfiguration",
+        "absolute executable deployment path"
+      ],
+      "output": "projectkoios.simulations.execution.CalculatorExecutableBinding",
+      "provider_inputs": [],
+      "required_checks": [
+        "program and executable-kind namespace",
+        "exact program version",
+        "exact executable byte count and SHA-256",
+        "absolute parent-traversal-free path"
+      ],
+      "status": "implemented_and_reachable"
+    },
+    {
+      "action_object": "QePwEvidenceAdapter",
+      "authority": "none",
+      "effect_free": true,
+      "id": "mechanical-execution-evidence",
+      "implementation_path": "ksdft2effmass.integration.quantum_espresso.execution_evidence.QePwEvidenceAdapter",
+      "intermediate_output": "QePwObservation",
+      "ksd_inputs": [
+        "Workflow Task/run/activation/operation/attempt correlations",
+        "exact execution.json artifact identity",
+        "exact stream, workspace, diagnostic, native-output and terminal correlations"
+      ],
+      "output": [
+        "QePwResult"
+      ],
+      "provider_inputs": [
+        "projectkoios.simulations.execution.CalculatorExecutionRecord"
+      ],
+      "publication_action_object": "QePwEvidencePublisher",
+      "publication_output": "QePwPublishedEvidence",
+      "required_checks": [
+        "pre-entry versus post-entry disposition",
+        "normal exit versus signal versus timeout",
+        "stdout and stderr content identities",
+        "before and after workspace snapshot identities",
+        "version-bound diagnostic report",
+        "native-output manifest correlation",
+        "terminal record and publication correlation"
+      ],
+      "result_assembly_action_object": "QePwResultAssembler",
+      "result_assembly_implementation_path": "ksdft2effmass.integration.quantum_espresso.results.assembly.QePwResultAssembler",
+      "status": "pw_terminal_evidence_and_result_assembly_reachable"
+    },
+    {
+      "action_object": "QeScfObservationAdapter",
+      "authority": "none",
+      "effect_free": true,
+      "id": "scf-observation",
+      "ksd_inputs": [
+        "reserved ResultObject identity",
+        "admitted source artifact-manifest entry",
+        "explicit KSD normalization policy"
+      ],
+      "output": "QePlaneWaveObservationSource",
+      "provider_inputs": [
+        "projectkoios.integrations.quantumespresso.pw.scf.data_extraction.QeScfData"
+      ],
+      "required_checks": [
+        "complete QEXSD data is represented",
+        "source byte identity and producer provenance",
+        "declared units, geometry and spectral shape",
+        "explicit KSD basis, gauge, phase, retained-subspace and energy-reference limitations"
+      ]
+    },
+    {
+      "action_object": "QeNscfObservationAdapter",
+      "authority": "none",
+      "effect_free": true,
+      "id": "nscf-observation",
+      "ksd_inputs": [
+        "reserved ResultObject identity",
+        "admitted source artifact-manifest entry",
+        "explicit KSD normalization policy"
+      ],
+      "output": "QePlaneWaveObservationSource",
+      "provider_inputs": [
+        "projectkoios.integrations.quantumespresso.pw.nscf.data_extraction.QeNscfData"
+      ],
+      "required_checks": [
+        "declared and extracted band-count agreement",
+        "declared and extracted sampled-k-point agreement",
+        "source byte identity and producer provenance",
+        "explicit KSD basis, gauge, phase, retained-subspace and energy-reference limitations"
+      ]
+    },
+    {
+      "action_object": "QeBandPathObservationAdapter",
+      "authority": "none",
+      "effect_free": true,
+      "id": "band-path-observation",
+      "ksd_inputs": [
+        "reserved ResultObject identity",
+        "admitted source artifact-manifest entry",
+        "explicit KSD band-path and energy-reference policy"
+      ],
+      "output": "QeBandPathObservationSource",
+      "provider_inputs": [
+        "projectkoios.integrations.quantumespresso.pw.bands.data_extraction.QeBandsData"
+      ],
+      "required_checks": [
+        "cell and path correlation",
+        "raw eV energy retention",
+        "provider reference metadata exactly matches explicit KSD policy when represented",
+        "result is identified as pw.x band-path data rather than bands.x execution evidence"
+      ]
+    }
+  ],
+  "capability_reconciliation": [
+    {
+      "adapter": "QeCalculatorInputAdmission",
+      "deletion_gate": "Provider native-input bytes and exact pseudopotential requirements govern preparation, staging and pre-entry verification; predecessor correlations and legacy result-wire input records must be replaced before deletion.",
+      "id": "native-input-and-rendering",
+      "qualified_owner_count": 10,
+      "transition": "partial_provider_input_and_external_requirement_staging_reachable"
+    },
+    {
+      "adapter": "QeExecutableBindingAdapter",
+      "deletion_gate": "Provider binding/preparer is reachable and KSD-only environment, resource, predecessor-tree and process-entry semantics remain explicit.",
+      "id": "executable-binding-and-preparation",
+      "qualified_owner_count": 26,
+      "transition": "partial_adapter_reachable"
+    },
+    {
+      "adapter": "QePwEvidenceAdapter",
+      "deletion_gate": "Exact stream hashes, duration, termination variants, entry disposition and workspace snapshots are reachable.",
+      "id": "process-capture",
+      "qualified_owner_count": 14,
+      "transition": "provider_observation_and_record_publication_reachable"
+    },
+    {
+      "adapter": "QePwEvidenceAdapter",
+      "deletion_gate": "Version-bound exact diagnostics, byte spans, contradictions and diagnostic-aware outcomes are reachable.",
+      "id": "diagnostic-classification",
+      "qualified_owner_count": 14,
+      "transition": "partial_adapter_then_blocked"
+    },
+    {
+      "adapter": null,
+      "deletion_gate": "A reusable upstream owner exists or a reviewed decision explicitly retains the capability in KSD.",
+      "id": "workspace-and-native-output-evidence",
+      "qualified_owner_count": 20,
+      "transition": "retain_in_ksd"
+    },
+    {
+      "adapter": "QePwEvidenceAdapter",
+      "deletion_gate": "Diagnostic-aware outcome and exact native-output/Workflow terminal correlation are reachable.",
+      "id": "terminal-and-calculator-outcome",
+      "qualified_owner_count": 14,
+      "transition": "blocked_upstream"
+    },
+    {
+      "adapter": [
+        "QeScfObservationAdapter",
+        "QeNscfObservationAdapter",
+        "QeBandPathObservationAdapter"
+      ],
+      "deletion_gate": "All data adapters, replacement result families, replacement wire and synthetic round trips are reachable.",
+      "id": "provider-data-and-consumer-result-correlation",
+      "qualified_owner_count": 3,
+      "transition": "adapter_required"
+    }
+  ],
+  "claim_boundary": [
+    "This design authorizes no Quantum ESPRESSO or Wannier90 execution.",
+    "This design establishes no numerical convergence, material validation, scientific acceptance or publication qualification.",
+    "A passing software test establishes only the represented software contract."
+  ],
+  "failure_causes": [
+    "unsupported_provider_contract",
+    "provider_operation_mismatch",
+    "workflow_correlation_mismatch",
+    "source_content_identity_mismatch",
+    "incomplete_execution_evidence",
+    "missing_scientific_convention",
+    "energy_reference_policy_mismatch"
+  ],
+  "identity_layers": [
+    "ksd_workflow_identity",
+    "provider_contract_identity",
+    "exact_content_identity",
+    "ksd_interpretation_policy_identity"
+  ],
+  "implementation_order": [
+    "retain_design_contract",
+    "obtain_dependency_revision_authorization",
+    "implement_executable_binding_adapter",
+    "integrate_direct_provider_input_binding",
+    "implement_scf_nscf_and_band_path_observation_adapters",
+    "migrate_synthetic_fixtures_and_replace_observation_wire",
+    "close_execution_evidence_gaps_and_replace_execution_results",
+    "requalify_and_delete_only_reachable_duplicate_owners"
+  ],
+  "non_substitutability": [
+    "QeScfData is not QePwResult.",
+    "QeNscfData is not QePwResult.",
+    "QeBandsData is pw.x band-path data and is not QeBandsResult.",
+    "CalculatorExecutionRecord lacks KSD process, workspace, diagnostic and terminal correlations.",
+    "CalculatorPreparedExecutable is a read-only observation and grants no execution authority."
+  ],
+  "ownership": {
+    "ksd": [
+      "Workflow identity, correlation and persistence",
+      "predecessor admission and campaign policy",
+      "Kohn-Sham interpretation and explicit scientific conventions",
+      "scientific acceptance and intended-use decisions"
+    ],
+    "projectkoios_simulations": [
+      "prepared calculator input records",
+      "exact executable identity and read-only preparation",
+      "reusable calculator execution records",
+      "QE native stream and QEXSD data extraction",
+      "calculator-neutral plane-wave data records"
+    ]
+  },
+  "provider_baseline": {
+    "audit_owner_count": 101,
+    "ksd_audit_commit": "aa4098b3d32fe05436a1ba8dab18903a4347b20d",
+    "ksd_dependency_pin": "a3916ca442be546839a39d131642e660a04c1495",
+    "projectkoios_simulations_commit": "a3916ca442be546839a39d131642e660a04c1495",
+    "qualification_path": "docs/provenance/quantumespresso-execution-evidence-boundary.json",
+    "qualification_sha256": "ed29c76fe02913315faa1565504c6739aaf82aae457a0558cffe0817332baf88"
+  },
+  "schema_version": 1,
+  "status": "IMPLEMENTATION_BASELINE",
+  "wire_migration": {
+    "legacy_owner_types": [
+      "QeBandsResult",
+      "QeExtractedObservationResult"
+    ],
+    "legacy_schema": "qe-result-value:1",
+    "legacy_wire_type_tags": [
+      "QuantumEspressoBandsResult",
+      "QuantumEspressoExtractedObservationResult"
+    ],
+    "permanent_dual_read": false,
+    "replacement_concrete_types": [
+      "QePwResult",
+      "QePlaneWaveObservationSource",
+      "QeBandPathObservationSource"
+    ],
+    "replacement_schema": "quantum-espresso-simulations-result:1",
+    "retained_non_synthetic_legacy_records": 0,
+    "strategy": "The reachable synthetic QePwResult branch is atomically migrated without fallback or dual write. QeBandsResult and QeExtractedObservationResult remain on the unchanged legacy schema until separately reviewed replacement reachability exists."
+  }
+}

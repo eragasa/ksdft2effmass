@@ -20,8 +20,9 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 from datetime import datetime
-from enum import StrEnum
 from pathlib import PurePosixPath
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .model import (
     AttemptIdentity,
@@ -272,7 +273,7 @@ class ArtifactContentIdentity:
             raise ValueError("byte_count must be in the unsigned 64-bit range")
 
 
-class ArtifactProducerKind(StrEnum):
+class ArtifactProducerKind(StrWireEnum):
     """Closed producer-provenance discriminator.
 
     Attributes
@@ -293,7 +294,7 @@ class ArtifactProducerKind(StrEnum):
     HUMAN_AUTHORED_COMPACT_INPUT = "human_authored_compact_input"
 
 
-class ArtifactLineageKind(StrEnum):
+class ArtifactLineageKind(StrWireEnum):
     """Closed kind for an explicit edge into an artifact manifest entry.
 
     Attributes

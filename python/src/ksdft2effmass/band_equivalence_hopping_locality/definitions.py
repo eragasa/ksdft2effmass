@@ -26,7 +26,7 @@ from ksdft2effmass.real_space_support_truncation import BasisResolvedMetricGeome
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
-    StringWireEnum,
+    StrWireEnum,
 )
 
 TRANSPORT_RANK_DEFICIENT_REASON = (
@@ -34,7 +34,7 @@ TRANSPORT_RANK_DEFICIENT_REASON = (
 )
 
 
-class BandEquivalenceHoppingLocalityFamilyEnum(StringWireEnum):
+class BandEquivalenceHoppingLocalityFamilyEnum(StrWireEnum):
     """Name one independently interpreted development replication."""
 
     SQUARE = (
@@ -55,7 +55,7 @@ class BandEquivalenceHoppingLocalityFamilyEnum(StringWireEnum):
     )
 
 
-class ParentEnum(StringWireEnum):
+class ParentEnum(StrWireEnum):
     """Select one exact four-state synthetic parent law."""
 
     DIRECTED_AXIS = "directed-axis"
@@ -63,7 +63,7 @@ class ParentEnum(StringWireEnum):
     BIPARTITE_INSPIRED = "bipartite-inspired"
 
 
-class GaugeNormalizationEnum(StringWireEnum):
+class GaugeNormalizationEnum(StrWireEnum):
     """Select the declared interpretation of the gauge amplitude."""
 
     AXIS_MAXIMUM = "axis-maximum"
