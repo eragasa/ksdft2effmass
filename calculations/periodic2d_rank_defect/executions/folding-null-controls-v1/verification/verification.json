@@ -1,0 +1,16 @@
+{
+  "calculation_family": "periodic2d-rank-defect",
+  "calculation_script_sha256": "aa335e4bb2e9fb82edd39c355497819e6d03e98ed697f942f071a83efe12ba96",
+  "case_count": 8,
+  "claim_boundary": "Independent reconstruction of authored dimensionless folding and null-extraction metrics only; not accepted-parent verification, material validation, convergence evidence, UQ, or protected calculation authority.",
+  "criteria_match": true,
+  "criterion_status": "pass",
+  "execution_id": "folding-null-controls-v1",
+  "maximum_metric_absolute_difference": 3.47274002286861e-16,
+  "outcome": "passed",
+  "reconstruction_passed": true,
+  "record_type": "periodic2d_rank_defect_folding_null_verification",
+  "result_sha256": "8c771b58a135f4ea16412cfbaa825efa9ab1d26f0365a83de10d1d4af1d9b44c",
+  "schema_version": 1,
+  "verification_script_sha256": "53d5bfba30516d96240ea7f055b4dde7f890360fad62447449ec5e48aa4fad70"
+}

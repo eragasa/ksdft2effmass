@@ -1,33 +1,25 @@
-# Wannier90 integration
+# Wannier90 integration boundary
 
-`ksdft2effmass.integration.wannier90` owns deterministic anti-corruption adapters for
-native Wannier90 artifacts. The current boundary authenticates explicitly named,
-caller-supplied bytes by size and SHA-256 and parses `.nnkp`, `.eig`, `.amn`, `.mmn`,
-`_u.mat`, `_hr.dat`, and `.wout` bytes into immutable typed records. Authentication
-and parsing remain separate Actions. The package also owns deterministic writers for
-the demonstrated `.win`, `.eig`, `.amn`, and `.mmn` interface subset. The composed
-preparation Workflow checks shared k-point, band, and Wannier dimensions, compares
-`.win` and parsed `.nnkp` fractional reciprocal points under an explicit absolute
-coordinate tolerance, and correlates ordered `.mmn` headers exactly with that `.nnkp`
-record.
+Reusable native Wannier90 integration belongs to the `projectkoios-simulations`
+distribution under `projectkoios.integrations.wannier90`. That owner provides native
+artifact records, authentication, bounded parsers, parsed-artifact aggregation, and
+calculator-facing preprocessing or execution contracts available in the selected
+revision. KSD neither duplicates nor re-exports those contracts.
 
-The package does not:
+KSD consumes the integration-owned immutable values in project-specific campaign
+composition. The Appendix G native-artifact Workflow obtains its exact expected
+inventory from the retained result document, requires caller-supplied bytes, delegates
+authentication and parsing to Project Koios Simulations, and then applies KSD-owned
+correlation and independent Wilson-loop verification.
+
+The KSD composition does not:
 
 - execute Wannier90;
 - implement localization, disentanglement, or spread optimization;
-- discover native files or symbolic run roots;
-- discover a manifest or choose which artifact inventory is authoritative;
-- interpret authenticated `.win`, `.chk`, log, or other unsupported payloads;
-- construct physical eigenvalues, projection amplitudes, or neighbor overlaps;
-- convert caller-supplied energy magnitudes into a Wannier90-native unit;
-- discover or write interface files on a filesystem;
-- apply an `_hr.dat` degeneracy/interpolation convention; or
-- claim numerical agreement or scientific validation.
+- discover native files, run roots, or authoritative manifests;
+- construct eigenvalues, projections, or overlap matrices;
+- silently select an `_hr.dat` interpolation or degeneracy convention; or
+- treat byte authentication as numerical or scientific validation.
 
-The Appendix G campaign adapter extracts its expected artifact inventory from the
-retained result document. Its native-artifact Workflow requires the caller to supply
-all named bytes, authenticates the complete inventory, parses the seven supported
-scientific text formats, checks shared k-point/band/Wannier dimensions, and correlates
-parsed final centers and Wannier count with the retained result. It does not execute
-Wannier90 or infer Wilson phases from native gauge matrices. Downstream interpolation
-or alignment still requires an explicit owning convention.
+Exact dependency revision and resolved transitive dependencies are recorded in
+`python/pyproject.toml` and `python/uv.lock`.

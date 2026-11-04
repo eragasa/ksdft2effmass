@@ -214,7 +214,7 @@ class TestOperatorRecordDifferenceNumericalError:
         structured- code
         identity retention.
 
-        Limitations: Member count, aliases, ``StrEnum`` behavior, lookup taxonomy,
+        Limitations: Member count, aliases, ``StrWireEnum`` behavior, lookup taxonomy,
         exception
         equality/hashability, differencer execution, numerical verification, scientific
         validation, uncertainty quantification, and Rust conformance belong elsewhere or

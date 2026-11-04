@@ -19,7 +19,6 @@ from __future__ import annotations
 
 import hashlib
 from dataclasses import dataclass
-from enum import StrEnum
 
 import numpy as np
 import numpy.typing as npt
@@ -27,6 +26,8 @@ from projectkoios.physkit.units import (
     ScalarQuantity,
     Unitless,
 )
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .composite import Periodic1DCompositeCampaignDefinition
 from .composite_results import Periodic1DCompositeBandGroupResult
@@ -37,7 +38,7 @@ type IntegerVector = npt.NDArray[np.int64]
 type RealVector = npt.NDArray[np.float64]
 
 
-class Periodic1DCompositeUnavailableVerificationChannel(StrEnum):
+class Periodic1DCompositeUnavailableVerificationChannel(StrWireEnum):
     """Identify retained channels lacking sufficient independent source values."""
 
     SAMPLED_GAPS = "sampled_gaps"

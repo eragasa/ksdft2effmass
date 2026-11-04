@@ -26,7 +26,7 @@ update below; the M2 and M3 rows remain live until their own replacement gates p
 
 | Baseline source surface | Exported names | Replacement owner and gate |
 |---|---|---|
-| `periodic1d.model` | `Periodic1DFourierHamiltonianToyModel`, `Periodic1DBlockHamiltonianToyModel` | Replace with concrete typed parent data owned by `model_systems.mathieu1d`, `periodic1d.fourier_locality`, and the two rank-two owners as applicable; remove after Phases 1--4 migrate callers. |
+| Historical `periodic1d/model.py` | `Periodic1DFourierHamiltonianToyModel`, `Periodic1DBlockHamiltonianToyModel` | Replace with concrete typed parent data owned by `model_systems.mathieu1d`, `periodic1d.fourier_locality`, and the two rank-two owners as applicable; retire the file after Phases 1--4 migrate callers. The later `periodic1d.model` package namespace is a distinct reviewed owner for `model.blochhopping` and does not restore these toy-parent exports. |
 | `periodic1d.isolated_band.definition` | `Periodic1DIsolatedBandCalculationDefinition` | Replace in `periodic1d.fourier_locality` during Phase 2. |
 | `periodic1d.isolated_band.calculate` | `Periodic1DIsolatedBandCalculator` | Replace with the Phase 2 analyzer; do not preserve the Action signature. |
 | `periodic1d.isolated_band.results` | `Periodic1DPlaneWaveConvergenceObservation`, `Periodic1DFiniteDifferenceConvergenceObservation`, `Periodic1DIsolatedBandRangeResult`, `Periodic1DIsolatedBandCalculationResult` | Replace with immutable Phase 2 result sections. |
@@ -76,7 +76,7 @@ its sole direct external test consumer, the `Periodic1DFourierHamiltonianToyMode
 definition and exports, and the obsolete Sphinx page. The package-aligned direct
 Fourier-locality tests and a legacy-surface-removal test now own the replacement boundary.
 Exact source, test, documentation, export-module, and recovery identities are recorded in
-[`legacy-retirement.md`](../../../../../calculations/periodic1d/rank1/fourier-locality/legacy-retirement.md).
+[`legacy-retirement.md`](../../../../../calculations/periodic1d_rank1/band_equivalence_hopping_locality/legacy-retirement.md).
 The historical Architecture v2 pages remain unchanged and the distinct
 `campaigns.periodic_1d` API is outside this retirement.
 

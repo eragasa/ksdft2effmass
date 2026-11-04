@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from ksdft2effmass.integration.wannier90 import Wannier90NativeArtifact
+from projectkoios.integrations.wannier90 import Wannier90NativeArtifact
 
 from ...result_documents import Periodic1DRetainedResultKind
 

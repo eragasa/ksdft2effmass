@@ -14,7 +14,7 @@ from projectkoios.physkit.periodic.lattice import DirectLattice3D, DirectLattice
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
-    StringWireEnum,
+    StrWireEnum,
 )
 
 FloatArray = npt.NDArray[np.float64]
@@ -35,7 +35,7 @@ BAIN_DIAMOND_BASIS_OFFSETS: tuple[tuple[float, float, float], ...] = (
 )
 
 
-class SyntheticStrainPathEnum(StringWireEnum):
+class SyntheticStrainPathEnum(StrWireEnum):
     """Name one volume-normalized homogeneous deformation path."""
 
     @property

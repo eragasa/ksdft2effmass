@@ -55,7 +55,7 @@ adapters to the same immutable boundary; neither becomes a block-hopping model. 
 construction inventory is the regular transform mesh, while evaluation coordinates may
 be either a tensor product or an arbitrary ordered reciprocal-point inventory.
 The selected synthetic parent is constructed as the existing PhysKit
-``BlockHoppingModel`` rather than as a competing KSD model hierarchy.
+``DenseBlockHoppingModel`` rather than as a competing KSD model hierarchy.
 
 .. currentmodule:: ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality
 

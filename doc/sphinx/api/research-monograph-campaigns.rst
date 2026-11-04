@@ -111,6 +111,131 @@ an independent References owner verifies it.
 .. autoclass:: ResearchMonographCitationSnapshotCompiler
    :members:
 
+Defect-2D Folding and Null-Alignment Controls
+---------------------------------------------
+
+The maintained Folding and Null-Alignment Controls lifecycle owns a bounded,
+dimensionless synthetic folding and null-recovery campaign.  ``FoldingNullStudyDefinition`` binds one explicitly Hermitian scalar
+hopping parent, ordered two-dimensional finite shapes and unreduced twist lifts, a
+known translation/site-phase/energy-reference attack, and prospective algebraic
+criteria.  ``FoldingNullCalculator`` uses the public quotient-seam constructor and an
+explicit dense finite Bloch folding boundary.  The result retains every metric even
+when a prospective criterion fails.
+
+``FoldingNullIndependentVerifier`` does not import the production calculator or quotient-
+seam constructor.  It reconstructs seam shifts, folding matrices, primitive energies,
+and null extraction through separate dense Kronecker arithmetic.  A verifier pass
+means arithmetic and criterion-disposition agreement; it does not require the
+scientific criteria themselves to pass.
+
+``FoldingNullCalculationWorkflow`` composes authored calculation and canonical
+version-one serialization only. ``FoldingNullIndependentVerificationWorkflow`` separately
+deserializes and reconstructs a retained result without invoking the calculation route.
+Neither Workflow reads an accepted-parent artifact, grants protected execution
+authority, or establishes material validation, finite-size convergence, or an
+uncertainty estimate.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.impurity_defect_2d
+
+.. autoclass:: FoldingNullCase
+   :members:
+
+.. autoclass:: FoldingNullAlignmentAttack
+   :members:
+
+.. autoclass:: FoldingNullTolerances
+   :members:
+
+.. autoclass:: FoldingNullStudyDefinition
+   :members:
+
+.. autoclass:: FoldingNullResult
+   :members:
+
+.. autoclass:: FoldingNullCalculator
+   :members:
+
+.. autoclass:: FoldingNullResultJsonSerializer
+   :members:
+
+.. autoclass:: FoldingNullIndependentVerifier
+   :members:
+
+.. autoclass:: FoldingNullVerificationResult
+   :members:
+
+.. autoclass:: FoldingNullCalculationWorkflow
+   :members:
+
+.. autoclass:: FoldingNullCalculationWorkflowResult
+   :members:
+
+.. autoclass:: FoldingNullIndependentVerificationWorkflow
+   :members:
+
+.. autoclass:: FoldingNullVerificationWorkflowResult
+   :members:
+
+Defect-2D parent qualification
+------------------------------
+
+The parent-qualification lifecycle binds the three accepted historical dimensionless
+synthetic scalar parents to maintained solid-state contracts without restoring the
+removed historical calculation implementation.  The request retains exact source
+revision and artifact identities, compact and pretruncation hopping inventories,
+rank-one basis and energy-reference identities, all fourteen planned finite shapes,
+the complete ``9 x 9`` boundary-twist mesh, the two frozen Hermitian perturbation
+inventories, prospective criteria, resource bounds, and the claim boundary.
+
+``ParentQualificationCalculator`` reconstructs the anisotropic parents, checks exact
+historical compact-hopping identities, and evaluates maintained uniform-link,
+quotient-seam, and gauge-bridge routes over the complete parent-side inventory.
+Inherited radius-18 truncation losses remain separate reported quantities rather than
+being pooled with gauge or represented-Hermiticity residuals.
+
+``ParentQualificationIndependentVerifier`` imports no production qualification
+calculator and invokes no maintained operator constructor or gauge bridge.  It uses
+independent FFT coefficient reconstruction and direct sparse uniform/seam arithmetic.
+A passing result qualifies represented numerical capability for these exact synthetic
+parents and declared perturbation terms.  It does not establish material validation,
+finite-domain convergence, isolated-defect behavior, uncertainty quantification, or
+authority to execute the 3,240-evaluation defect campaign.
+
+.. currentmodule:: ksdft2effmass.campaigns.research_monograph.impurity_defect_2d
+
+.. autoclass:: ParentQualificationDefinition
+   :members:
+
+.. autoclass:: ParentQualificationTolerances
+   :members:
+
+.. autoclass:: ParentQualificationResourceEnvelope
+   :members:
+
+.. autoclass:: ParentQualificationResult
+   :members:
+
+.. autoclass:: ParentQualificationRequestJsonSerializer
+   :members:
+
+.. autoclass:: ParentQualificationResultJsonSerializer
+   :members:
+
+.. autoclass:: ParentQualificationCalculator
+   :members:
+
+.. autoclass:: ParentQualificationIndependentVerifier
+   :members:
+
+.. autoclass:: ParentQualificationVerificationResult
+   :members:
+
+.. autoclass:: ParentQualificationCalculationWorkflow
+   :members:
+
+.. autoclass:: ParentQualificationIndependentVerificationWorkflow
+   :members:
+
 Defect-2D retained-result plotting
 ----------------------------------
 
@@ -122,8 +247,8 @@ clears, populates, and returns that same object.  Adverse numerical bars are nor
 by their maximum solely for display.  A status-only adverse control receives a fixed
 purple bar, so neither bar length nor color is a physical quantity.
 
-``StageCParentSvgPlotter`` composes both components for new Stage C plotting
-operations.  It consumes an explicitly supplied retained JSON result and writes a new
+``DefectModelParentSvgPlotter`` composes both components for maintained defect-model
+plotting operations.  It consumes an explicitly supplied retained JSON result and writes a new
 SVG containing only scalar criterion and adverse-control diagnostics.  It performs no
 accepted-parent calculation, matrix-artifact read, scientific validation, or
 uncertainty quantification.  Existing output paths are rejected.  Historical retained
@@ -145,7 +270,7 @@ historical results.
 .. autoclass:: AdverseControlBarPlot
    :members:
 
-.. autoclass:: StageCParentSvgPlotter
+.. autoclass:: DefectModelParentSvgPlotter
    :members:
 
 Periodic2d isolated-band campaign
@@ -159,13 +284,13 @@ parity. Canonical correlation reproduces the retained document but makes no
 numerical claim. The verifier authenticates retained input and runner identities and
 independently reconstructs parent convergence, separability, projector, topology,
 hopping, effective-mass, coupling, and anisotropy channels without importing the
-maintained calculation route or toy-model constructors.
+maintained calculation route or control-model constructors.
 
 Reusable represented mechanics live under
-``ksdft2effmass.periodic2d.model.toy_models``.
-``Periodic2DCosinePotentialToyModel`` owns the dimensionless separable-to-coupled
+``ksdft2effmass.periodic2d.model.control_models``.
+``Periodic2DCosinePotentialControlModel`` owns the dimensionless separable-to-coupled
 cosine potential. Separate constructors produce finite plane-wave and centered Bloch
-finite-difference Hamiltonians. These toy owners contain no campaign provenance,
+finite-difference Hamiltonians. These control-model owners contain no campaign provenance,
 acceptance policy, or material interpretation. See
 :doc:`../concepts/periodic2d-controlled-reduction` for the represented and evidence
 boundaries.
@@ -330,9 +455,9 @@ preconditions, numerical evidence, and limitations.
    :members:
    :no-index:
 
-.. currentmodule:: ksdft2effmass.periodic2d.model.toy_models
+.. currentmodule:: ksdft2effmass.periodic2d.model.control_models
 
-.. autoclass:: Periodic2DCosinePotentialToyModel
+.. autoclass:: Periodic2DCosinePotentialControlModel
    :members:
 
 .. autoclass:: Periodic2DPlaneWaveBasis
@@ -438,220 +563,6 @@ Wannier90 Workflows separately bind retained Wilson spectra and circular center
 comparisons to exact inputs. Historical calculation scripts remain frozen and are
 deprecated for new execution; these Workflows perform no filesystem discovery or
 external Wannier90 operation.
-
-.. currentmodule:: ksdft2effmass.campaigns.periodic_1d
-
-Historical periodic-1D defect APIs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The following defect subsections describe historical source APIs that are no longer
-part of the maintained import surface. Retained calculations and provenance continue
-to identify their exact repository revisions; this page does not recreate compatibility
-imports for them.
-
-Reusable controlled systems demonstrated by the historical defect campaigns were
-available from
-``ksdft2effmass.campaigns.periodic_1d.model.toy_defects``.
-``Periodic1DFiniteHoppingToyModel`` represents a finite Hermitian hopping family.
-Separate Actionizers construct primitive Bloch fibers and explicitly twisted finite
-supercells. ``Periodic1DBasisScramblingModel`` represents controlled site translation,
-orbital permutation and rotation, site and orbital phases, and optional spin-half
-rotation; its constructor returns both explicitly oriented unitary map directions.
-``Periodic1DGaussianOnsiteDefectModel`` represents a dimensionless
-minimum-image Gaussian onsite perturbation and its constructor returns the profile,
-coordinates, and represented block-diagonal operator.
-
-These classes own reusable toy-model state and numerical construction only. They own
-no retained paths, campaign thresholds, phase labels, evidence acceptance, silicon
-interpretation, or protected execution. A general finite-extent operator perturbation
-with directed bond blocks is not represented as an onsite Gaussian potential.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Periodic-1D matched defect extraction
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The historical matched known-map capability was available from
-``ksdft2effmass.campaigns.periodic_1d.defects.matched_extraction``.
-Its immutable records preserve the retained version-one controls and represented-space
-metadata.  ``MatchedDefectOperatorCompatibilityAnalyzer`` checks every declared
-comparison convention before subtraction.  ``MatchedDefectExtractionWorkflow``
-constructs the bounded synthetic folding, extraction, finite-size, model-class, and
-observable controls.  ``MatchedDefectExtractionResultVerifier`` reconstructs the
-retained result independently without importing the workflow.
-
-The input deserializer rejects unsupported schemas, booleans in numeric fields,
-numeric strings, nonfinite values, and malformed fixed-shape controls.  The parent
-loader authenticates exact retained periodic-1D parent identities before decoding
-hopping records.  A newly serialized result records the maintained implementation's
-own provenance; it does not inherit the historical result's acceptance status.  See
-:doc:`../concepts/periodic-1d-defect-extraction` for the comparison and evidence
-boundary.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Periodic-1D blind alignment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The historical public route exported ``BlindAlignmentCampaign`` and
-``BlindAlignmentCampaignModel`` from
-``ksdft2effmass.campaigns.periodic_1d.defects.blind_alignment``.
-The model encapsulates exact input and retained-result bytes plus the repository
-resolution boundary. The façade delegates retained decoding, complete calculation, and
-identity-only correlation to cohesive Actionizers in defining modules.
-
-Internally, ``BlindAlignmentObservation`` contains only inference-visible represented operators,
-anchor cross-covariance, retained-subspace overlap, exterior energy anchor, and the
-explicit partial-alignment declaration. ``BlindAlignmentInferenceActionizer`` applies
-only the supplied numerical policy and returns either a full or identified-sector
-result or a structured stopping code. The separate rectangular method requires an
-explicit lower-dimensional candidate and partial-alignment declaration.
-
-``BlindAlignmentInputDeserializer`` adapts the exact closed version-one retained input.
-It rejects additional or missing fields, unsupported versions, booleans in numeric
-positions, numeric strings, and nonfinite values. It does not authenticate the files
-named by source identities.
-
-``BlindAlignmentBaselineLoader`` authenticates the matched input and result plus their
-transitive periodic parents before adapting the pristine supercell, construction-only
-hidden maps, and planted compact perturbations. Hidden values remain absent from
-inference requests.
-
-``BlindAlignmentObservationConstructor`` builds the declared synthetic candidate,
-anchor covariance, retained-subspace overlap, and exterior energy anchor while
-returning authored map, perturbation, and scalar shift in the separate
-``BlindAlignmentHiddenTruth`` record. Only the observation is admissible as an
-inference request.
-
-``BlindAlignmentInferenceEvaluator`` receives successful inference and the separately
-held truth only after inference. It reports phase-quotiented map error, scalar-shift
-error, extraction error, onsite-model residuals, active-sector spectral diagnostics,
-and canonical matrix identities as distinct channels.
-
-The strict result decoder maps every retained version-one section into closed immutable
-records. The canonical serializer reproduces the sorted, two-space-indented UTF-8
-format, and the correlator reports semantic and byte identity without making a
-numerical-verification claim. ``BlindAlignmentCaseExecutionActionizer`` passes only the
-observation to inference and evaluates hidden truth only after success. The complete
-``BlindAlignmentCampaignWorkflow`` composes exact, noise, gauge, stopping, conditioning,
-angle, rank, spin, and energy-anchor cases into the typed result. The façade's
-``verify_retained`` route delegates to an independent verifier that authenticates
-sources and reconstructs all 34 retained case and diagnostic records without importing
-the maintained Workflow, construction, inference, case-execution, or evaluation
-implementations.
-
-The inference core does not discover an authored map, infer geometry or units, or
-perform post hoc campaign acceptance. Independent agreement is numerical verification
-of this bounded synthetic campaign, not material validation or uncertainty
-quantification.
-
-
-
-
-Periodic-1D independent-route reconciliation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The historical public route exported ``RouteReconciliationCampaign`` and
-``RouteReconciliationCampaignModel`` from
-``ksdft2effmass.campaigns.periodic_1d.defects.route_reconciliation``.
-The model encapsulates the exact version-one input and retained result plus the
-repository boundary used for authenticated source loading. The façade delegates
-calculation, retained identity correlation, and independent verification.
-
-``RealSpaceExtractionActionizer`` assembles and subtracts the finite twisted
-supercell directly in site coordinates. ``BlochFiberExtractionActionizer`` separately
-evaluates primitive Bloch fibers and the discrete folding transform; neither route
-invokes the other. The campaign preserves route-representation, alignment,
-truncation, quadrature, spectral, eigenspace, and operator-commutativity channels
-separately. Domain, quadrature, and alignment mismatches stop rather than being
-silently coerced, while common-parent, common-domain, explicit-dual/metric, and
-relative-unitary records represent only explicitly declared reconciliations.
-
-The retained correlator reproduces canonical bytes under retained provenance but makes
-no numerical claim. ``verify_retained`` uses a separate implementation that imports no
-maintained Workflow or route Actionizer, authenticates the three retained source
-identities, and reconstructs all 15 nominal, adversarial, and reconciliation records.
-This is bounded synthetic software and numerical verification, not evidence for
-silicon, continuum convergence, scientific validation, or uncertainty quantification.
-
-
-
-
-Periodic-1D finite-rank oracle
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-``FiniteRankOracleCampaign`` and ``FiniteRankOracleCampaignModel`` formed the
-historical route under ``periodic_1d.defects.finite_rank_oracle``. The campaign authenticates
-the periodic parent, matched-extraction result, and route-reconciliation result before
-comparing a rank-one Bloch-resolvent root with an independently assembled site-space
-eigensolution. It retains 20 attractive controls plus zero-coupling, repulsive,
-spin-degenerate, and unequal-rank boundaries.
-
-Canonical correlation reproduces the retained document without making a numerical
-claim. The separate verifier imports no maintained Workflow, independently rebuilds
-all 24 records, and reports source, structural, and numerical channels. This evidence
-concerns finite represented synthetic operators only; it does not establish an
-infinite-system limit, continuum convergence, silicon behavior, scientific validation,
-or uncertainty quantification.
-
-
-
-
-Periodic-1D separated continuum refinement
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-``ContinuumRefinementCampaign`` and ``ContinuumRefinementCampaignModel`` formed the
-historical route under ``periodic_1d.defects.continuum_refinement``. The model
-encapsulates exact version-one input and result bytes plus the repository boundary for
-three authenticated sources. The façade provides retained access, exact canonical
-correlation, and independent verification without re-exporting lower-level numerical
-owners.
-
-The historical Workflow evaluated continuum mesh, continuum domain, lattice
-supercell, lattice scale, and profile family as distinct axes. It does not relabel
-profile broadening as lattice refinement or combine discretization, finite-domain,
-periodic-image, lattice-scale, profile-model, operator, spectral, and state errors.
-The verifier independently reconstructs 31 records and reports source, structural,
-and numerical channels. Under the frozen tested controls the lattice-scale sequence
-has a persistent bounded pass, while neither profile-width family establishes a
-profile-defined continuum crossover over the tested domain. This is not an asymptotic
-theorem, material validation, transferability evidence, or uncertainty quantification.
-
-
-
 
 .. currentmodule:: ksdft2effmass.campaigns.periodic_1d
 
@@ -1221,8 +1132,9 @@ and a SHA-256 identity of all deterministically enumerated case content. Deseria
 reconstructs and authenticates that inventory. The planning Workflow composes only
 definition validation, deterministic enumeration, and canonical serialization; its
 ResultObject correlates the exact inventory and plan bytes. It does not construct
-operators, consume accepted-parent results, or authorize the 2,430 proposed
-evaluations.
+operators, consume accepted-parent results, or authorize the current 3,240 proposed
+evaluations. The ``1x1`` through ``5x5`` square entries are explicit small-cell
+periodic-aliasing controls, not isolated-defect or convergence evidence.
 
 .. currentmodule:: ksdft2effmass.campaigns.research_monograph.impurity_defect_2d
 

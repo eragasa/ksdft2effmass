@@ -1,9 +1,8 @@
-"""Software verification of visualization package ownership and legacy removal."""
+"""Software verification of visualization package ownership."""
 
 from __future__ import annotations
 
 import ast
-import importlib
 from pathlib import Path
 
 import pytest
@@ -43,7 +42,7 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestVisualizationOwnership:
-    """Keep shared mechanics domain-neutral and remove singular compatibility paths."""
+    """Keep shared visualization mechanics domain-neutral."""
 
     def test_public_api__exports_only_root_visualization_contracts(self) -> None:
         expected = {
@@ -113,18 +112,3 @@ class TestVisualizationOwnership:
             )
             assert not any("model_systems" in name for name in imported_modules)
             assert not any("periodic1d" in name for name in imported_modules)
-
-    @pytest.mark.parametrize(
-        "module_name",
-        (
-            "ksdft2effmass.model_systems.visualization",
-            "ksdft2effmass.model_systems.piab1d.visualization",
-            "ksdft2effmass.model_systems.qho1d.visualization",
-            "ksdft2effmass.model_systems.mathieu1d.visualization",
-            "ksdft2effmass.periodic1d.fourier_locality.visualization",
-            "ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualization",
-        ),
-    )
-    def test_import__singular_legacy_module__is_absent(self, module_name: str) -> None:
-        with pytest.raises(ModuleNotFoundError):
-            importlib.import_module(module_name)

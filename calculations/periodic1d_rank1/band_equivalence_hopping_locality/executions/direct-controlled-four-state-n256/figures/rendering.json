@@ -1,0 +1,15 @@
+{
+  "calculation_family": "periodic1d-rank1-fourier-locality",
+  "claim_boundary": "Presentation only from independently verified finite values; not new evidence, publication acceptance, or evidence sealing.",
+  "execution_id": "direct-controlled-four-state-n256",
+  "figures": {
+    "rank1-fourier-locality.png": "df7032249383521b91012d18ef83025a72e6333b387e6b97b9acc898b2fdff62",
+    "rank1-fourier-route-agreement.png": "c95f9ab1289baefffba637197d40218324f46c9b2b18476a8bccf2067352cf07"
+  },
+  "outcome": "completed",
+  "parent_identity": "ksdft2effmass.periodic1d.controlled-four-state-parent.v1",
+  "schema": "ksdft2effmass.periodic1d-fourier-locality-rendering.direct.v1",
+  "schema_version": 1,
+  "script_sha256": "3e855d2d5db5f9a9945022bdadc81f08d6757ca2e381de70819eb15b3b5bd42a",
+  "verification_sha256": "83d103bd44f9f22b143641bd9e578e02b5f8d30a0a78ee4cb101d4c8b2052005"
+}

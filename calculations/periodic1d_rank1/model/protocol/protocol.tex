@@ -1,0 +1,475 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,margin=27mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{array,booktabs,longtable,tabularx}
+\usepackage{enumitem}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\emergencystretch}{3em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\newcommand{\Ea}{E_{a}}
+\newcommand{\BZ}{\mathcal{B}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\Rc}{R_{\mathrm{c}}}
+\newcommand{\Hret}{H_{\mathrm{ret}}}
+
+\title{Research Protocol:\\Periodic-1D Rank-One Bloch-Hopping Models}
+\author{Project Koios}
+\date{Calculation-owned protocol, version 1}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This protocol defines the construction, evaluation, and independent verification of
+periodic one-dimensional rank-one Bloch-hopping models.  The primary Fourier duality is
+the ordinary-lattice displacement--crystal-momentum pair $R$--$k$.  The protocol binds
+physical lattice geometry, physical energy units, the lattice kinetic-energy scale
+$\Ea=\hbar^2/(m_ea^2)$ without a factor $1/2$, exact Hermiticity, explicit conversion
+between finite cyclic coefficients and ordinary-lattice hoppings, and separate
+interpolation, support-truncation, and total error channels.  Rank one denotes retained
+state-space dimension one, not algebraic matrix rank.  The protocol defines a finite
+numerical control and reduced-model contract; it does not establish continuum
+convergence, material validity, fitting optimality, or publication-qualified evidence.
+\end{abstract}
+
+\noindent\textbf{Keywords:} Bloch Hamiltonian; hopping model; Fourier duality;
+rank-one retained space; support truncation; independent verification
+
+\tableofcontents
+\clearpage
+
+\section{Protocol status}
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{L{0.34\textwidth}Y}
+\toprule
+\textbf{Field} & \textbf{Value} \\
+\midrule
+Protocol identity & \texttt{periodic1d-rank1-rk-bloch-hopping-v1} \\
+Calculation owner & \path{calculations/periodic1d_rank1/} \\
+Model protocol owner & \path{calculations/periodic1d_rank1/model/protocol/} \\
+Scientific dimension & One periodic lattice dimension \\
+Retained-space dimension & One \\
+Primary Fourier pair & Ordinary-lattice displacement $R$ and Bloch momentum $k$ \\
+Scientific model role & \texttt{REDUCED\_MODEL} \\
+Current retained calculation & One predecessor local unsealed finite control \\
+New protected or external execution authorized & No \\
+Continuum, material, validation, or publication claim & None \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+This document is the model-level protocol for the operation-first rank-one context.  It
+does not modify the bytes, identities, or interpretation of the retained predecessor
+execution at
+\path{calculations/periodic1d_rank1/band_equivalence_hopping_locality/executions/direct-controlled-four-state-n256/}.
+A future execution governed by this protocol must use a new identity and must retain its
+own configuration, result, verification, and visualization digests.
+
+\section{Research objective}
+
+The study asks how a scalar periodic Bloch Hamiltonian is represented by
+ordinary-lattice hopping coefficients, how that representation depends on finite Fourier
+construction, and what changes when hopping support is deliberately restricted.  The
+research questions are:
+
+\begin{enumerate}[leftmargin=*]
+  \item Does the declared complete finite Fourier representation reconstruct the source
+    scalar field on its construction mesh?
+  \item How accurately does that complete representation interpolate the source field on
+    a disjoint evaluation mesh?
+  \item How is complete hopping magnitude distributed over ordinary-lattice
+    displacements?
+  \item What support is removed at each declared finite range, and what error is caused
+    specifically by that removal?
+  \item Does the total finite-range candidate satisfy the declared application threshold
+    and mesh-stability rules?
+  \item Which alignment questions are inapplicable because the represented operator is
+    scalar and the internal gauge group is $U(1)$?
+\end{enumerate}
+
+The study keeps representation conversion, interpolation, descriptive locality,
+support removal, refitting when present, total error, and feature diagnostics separate.
+No one channel is substituted for another.
+
+\section{Scientific objects and notation}
+
+\subsection{Direct and reciprocal spaces}
+
+Let $a>0$ be the one-dimensional lattice constant.  The ordinary direct lattice is
+\begin{equation}
+  \Lambda=\{R=na:n\in\mathbb Z\}.
+\end{equation}
+The first Brillouin zone is represented by
+\begin{equation}
+  \BZ=[-\pi/a,\pi/a).
+\end{equation}
+The primary Fourier pair is
+\begin{align}
+  H(k) &= \sum_{R\in\Lambda} T(R)e^{\ii kR},
+  \label{eq:forward-bloch}\\
+  T(R) &= \frac{a}{2\pi}\int_{\BZ}H(k)e^{-\ii kR}\,\mathrm{d}k.
+  \label{eq:inverse-hopping}
+\end{align}
+Here $R$ is an ordinary-lattice displacement, $k$ is Bloch crystal momentum, $H(k)$ is
+the scalar represented Hamiltonian, and $T(R)$ is its hopping coefficient.
+
+The dimensionless reduced coordinate $q$ may be used only when explicitly defined by
+\begin{equation}
+  q=\frac{ak}{2\pi}\in[-1/2,1/2).
+\end{equation}
+For $R=na$, $e^{\ii kR}=e^{2\pi\ii qn}$.  The reduced coordinate is a derived
+coordinate convention; it does not replace the physical $R$--$k$ statement of the
+model.
+
+\subsection{Meaning of rank one}
+
+Rank one means that the retained state space at every $k$ has dimension one.  It does
+not mean that a sampled matrix has algebraic rank one, that the ambient parent has one
+state, or that only one hopping displacement is retained.  In the retained basis,
+$H(k)$ and every $T(R)$ are scalar complex quantities.
+
+\subsection{Hermiticity}
+
+The Bloch Hamiltonian is Hermitian for every $k$ exactly when
+\begin{equation}
+  T(-R)=T(R)^{*}
+  \label{eq:scalar-hermiticity}
+\end{equation}
+for every displacement and $T(0)\in\mathbb R$.  A finite-range constructor therefore
+accepts the onsite coefficient and positive-displacement coefficients, then generates
+the negative-displacement conjugate partners.  Callers must not independently supply
+inconsistent negative-displacement values.
+
+\section{Physical units and lattice energy scale}
+
+The model uses the lattice kinetic-energy scale
+\begin{equation}
+  \Ea=\frac{\hbar^2}{m_ea^2},
+  \label{eq:lattice-scale}
+\end{equation}
+with no factor $1/2$.  For $a=1$ bohr, this convention gives one Hartree up to the
+precision of the adopted physical constants.
+
+Normalized parameters are
+\begin{equation}
+  t_n=\frac{T(na)}{\Ea}.
+\end{equation}
+They are dimensionless analysis or fitting parameters, not valid Hamiltonian
+coefficients at the model boundary.  Model construction requires explicit
+dimensionalization,
+\begin{equation}
+  T(na)=\Ea t_n,
+\end{equation}
+followed by any explicitly requested conversion to a physical energy unit.  The model
+performs no implicit unit conversion.  Boolean values, numeric strings, unitless
+Hamiltonian coefficients, and mixed coefficient units are rejected.
+
+The model identity binds:
+\begin{enumerate}[leftmargin=*]
+  \item lattice constant and physical length unit;
+  \item the scale convention in Eq.~\eqref{eq:lattice-scale};
+  \item physical coefficient energy unit;
+  \item energy-reference identity;
+  \item retained basis identity;
+  \item retained-space dimension; and
+  \item ordered ordinary-lattice hopping inventory.
+\end{enumerate}
+
+\section{Model role and parameter acquisition}
+
+A parameterized Bloch-hopping instance has the fixed scientific role
+\texttt{REDUCED\_MODEL}.  The constructor exposes no caller-selected
+control or material-reference role.  The role states that the object is an effective
+parameterized model; it does not imply that any fitting or validation has succeeded.
+
+Every parameter set must identify exactly one acquisition route:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Analytic parameters}: coefficients specified by an exact mathematical
+    definition;
+  \item \textbf{Fourier-derived parameters}: coefficients obtained from a declared
+    sampled field and transform convention;
+  \item \textbf{Truncated parameters}: a declared subset of a complete ordinary-lattice
+    coefficient inventory; or
+  \item \textbf{Fitted parameters}: coefficients selected by a declared finite
+    objective, training inventory, bounds, and optimization procedure.
+\end{enumerate}
+
+These routes are not interchangeable.  In particular, a fitted coefficient is not
+reported as a native Fourier coefficient, and a support-truncated coefficient set is not
+reported as a refitted model.  Bounded multistart optimization, when used, supplies a
+constructive witness only; it does not establish a global optimum.
+
+\section{Frozen scalar parent and retained field}
+
+The predecessor scalar control derives its retained field from the four-state ambient
+parent
+\begin{equation}
+  K(k)=T_0+e^{\ii ka}T_{+a}+e^{-\ii ka}T_{+a}^{\dagger},
+  \qquad k\in\BZ,
+\end{equation}
+with retained scalar field
+\begin{equation}
+  \Hret(k)=\lambda_0\!\left(K(k)\right),
+\end{equation}
+where $\lambda_0$ is the least ordered eigenvalue.  The exact rational coefficients,
+selected parent identity, and rejected alternatives are owned by
+\path{calculations/periodic1d_rank1/band_equivalence_hopping_locality/scientific-control-decision.md}.
+
+The ambient matrix parent has exact support $\{-a,0,+a\}$.  This fact does not imply that
+the nonlinear retained eigenvalue field $\Hret(k)$ has finite ordinary-lattice support.
+The parent state space, retained scalar state space, and finite coefficient
+representation must remain distinct.
+
+The retained predecessor used the exact positive reference $E_{\mathrm{ref}}=1$ and
+stored dimensionless ratios to that reference.  A new execution must not silently
+reinterpret those historical bytes as coefficients in electronvolts, joules, or
+Hartrees.
+
+\section{Rank-one gauge-applicability boundary}
+
+For a scalar represented Hamiltonian and every phase field $U(k)\in U(1)$,
+\begin{equation}
+  U(k)^{*}H(k)U(k)=H(k).
+  \label{eq:u1-triviality}
+\end{equation}
+Consequently, phase conjugation cannot change the represented scalar operator or its
+hopping coefficients.  The calculation records one \texttt{operator-trivial}
+applicability result.  It does not manufacture separate identity, global-phase,
+pointwise-phase, inverse-oracle, or restricted-circuit locality channels.
+
+Equation~\eqref{eq:u1-triviality} does not claim that a chosen eigenvector phase is
+continuous, numerically stable, or physically observable.  A future study of phase
+transport itself requires a separate protocol and owner.
+
+\section{Finite cyclic and ordinary-lattice representations}
+
+A finite discrete Fourier transform produces coefficients on a finite cyclic group.
+Those coefficient classes are not automatically ordinary integer-lattice hoppings.
+Every calculation must retain:
+\begin{enumerate}[leftmargin=*]
+  \item construction-mesh identity and ordered $k$ coordinates;
+  \item forward and inverse exponent signs;
+  \item transform normalization;
+  \item centered cyclic representative inventory;
+  \item negative-Nyquist-boundary treatment when present;
+  \item explicit cyclic-to-ordinary conversion ledger; and
+  \item resulting ordinary-lattice displacement inventory.
+\end{enumerate}
+
+No finite-cyclic coefficient may be silently substituted for an ordinary-lattice
+coefficient.  If conversion removes, combines, or reassigns a cyclic representative,
+that contribution is recorded as a separate conversion channel before interpolation or
+support truncation is evaluated.
+
+\section{Finite meshes and support inventory}
+
+The numerical-control owner freezes the exact construction meshes, disjoint evaluation
+meshes, support inventory, sampled-gap gate, application threshold, refinement rule, and
+finite error--complexity diagnostic.  The current predecessor uses construction meshes
+$N\in\{32,64,128,256\}$ and integer support ranges $0,\ldots,15$.  The $N=256$ label is
+the largest production Fourier construction mesh, not the retained rank and not a
+continuum claim.  The final mesh-stability gate compares $128\to256$.
+
+A new protocol version is required before changing any mesh, support, threshold,
+tolerance, or passage rule.  The exact frozen values are owned by
+\path{calculations/periodic1d_rank1/band_equivalence_hopping_locality/numerical-control-decision.md}.
+
+\section{Locality and support truncation}
+
+\subsection{Descriptive locality}
+
+For a complete ordinary-lattice coefficient inventory, descriptive locality is measured
+before support removal.  For range $\Rc$, define the omitted-tail norm
+\begin{equation}
+  \tau_2(\Rc)
+  =\left(\sum_{|R|>\Rc}|T(R)|^2\right)^{1/2}.
+\end{equation}
+The calculation may also retain per-displacement magnitudes and cumulative retained
+power.  These values describe the selected representation; they do not themselves
+construct a finite-range model.
+
+\subsection{Deliberate finite support}
+
+The support-truncated candidate is
+\begin{equation}
+  H_{\Rc}(k)=\sum_{|R|\le\Rc}T(R)e^{\ii kR}.
+\end{equation}
+The full declared ordinary support is retained as an excluded zero-loss control.  A
+truncated candidate must identify the complete source coefficient inventory, the exact
+retained support, and the exact omitted support.  Truncation is not localization, gauge
+alignment, basis transformation, or refitting.
+
+\section{Error-channel decomposition}
+
+Let $I_N(k)$ be the complete interpolant constructed from the $N$-point mesh and let
+$H_{N,\Rc}(k)$ be the ordinary-lattice candidate after deliberate support restriction.
+On the disjoint evaluation mesh $E_M$, define
+\begin{align}
+  e_{\mathrm{int}}(N,M)
+  &=\max_{k\in E_M}|\Hret(k)-I_N(k)|,\\
+  e_{\mathrm{trunc}}(N,\Rc,M)
+  &=\max_{k\in E_M}|I_N(k)-H_{N,\Rc}(k)|,\\
+  e_{\mathrm{tot}}(N,\Rc,M)
+  &=\max_{k\in E_M}|\Hret(k)-H_{N,\Rc}(k)|.
+\end{align}
+
+Interpolation error compares the direct retained field with the complete interpolant.
+Truncation error isolates deliberate support deletion relative to that interpolant.
+Total error compares the finite-range candidate directly with the retained field.  The
+pointwise residuals telescope, but the three maxima are not added as independent
+uncertainties.  Independent verification checks
+\begin{equation}
+  e_{\mathrm{tot}}\le e_{\mathrm{int}}+e_{\mathrm{trunc}}
+\end{equation}
+without replacing any stored channel by the bound.
+
+Threshold, first-passage, and sustained-passage decisions use total error.  A direct-fit
+route, if present, has its own fit residual and coefficient discrepancy; neither is
+relabeled as transform interpolation or support-truncation error.
+
+\section{Operation-first calculation sequence}
+
+The aggregate calculation executes the following ordered workstreams:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Model definition}: bind geometry, units, scale convention, basis,
+    energy reference, and exact ordinary-lattice Hermiticity.
+  \item \textbf{Gauge applicability}: serialize the single rank-one
+    \texttt{operator-trivial} result.
+  \item \textbf{Band equivalence}: construct the retained scalar field and complete
+    finite cyclic Fourier representation.
+  \item \textbf{Representation conversion}: produce the explicit cyclic-to-ordinary
+    conversion ledger.
+  \item \textbf{Hopping locality}: calculate complete-coefficient and omitted-tail
+    quantities without deleting support.
+  \item \textbf{Support truncation}: construct each declared finite-range candidate.
+  \item \textbf{Error evaluation}: calculate interpolation, truncation-only, and total
+    channels on their declared sample roles.
+  \item \textbf{Aggregate decisions}: apply refinement, threshold, first-passage, and
+    sustained-passage rules.
+  \item \textbf{Independent verification}: reconstruct admitted values without invoking
+    the production analyzer.
+  \item \textbf{Authenticated rendering}: render only the closed figure inventory from
+    passing digest-bound verification data.
+\end{enumerate}
+
+Reusable model storage belongs to PhysKit's immutable block-hopping model.  KSD owns the
+rank-one scientific composition, configuration identity, conversion policy, thresholds,
+serialization, independent-verification policy, and evidence boundary.
+
+\section{Required immutable records}
+
+A new aggregate execution retains canonically serialized records for:
+\begin{enumerate}[leftmargin=*]
+  \item protocol, configuration, calculation, and model identities;
+  \item lattice constant, length unit, reciprocal convention, and sample ordering;
+  \item energy-scale convention, coefficient energy unit, and energy-reference identity;
+  \item parent, retained-field, and retained-basis identities;
+  \item construction and evaluation meshes with explicit sample roles;
+  \item complete cyclic coefficients and transform metadata;
+  \item cyclic-to-ordinary conversion ledger;
+  \item complete ordinary-lattice coefficients;
+  \item per-range omitted-tail quantities;
+  \item per-range retained and omitted support inventories;
+  \item interpolation, truncation-only, total, and any separately named fit channels;
+  \item finite qualification, refinement, threshold, and passage decisions;
+  \item child-result identities and SHA-256 digests;
+  \item independent-verification result; and
+  \item authenticated visualization-data and figure digests.
+\end{enumerate}
+
+The aggregate correlates child records by exact identity and digest.  It does not copy
+uncorrelated numerical values into a new result wire.
+
+\section{Independent verification}
+
+The verifier owns the exact admitted result bytes and must not call the production
+analyzer or trust stored decisions as an oracle.  It independently reconstructs:
+\begin{enumerate}[leftmargin=*]
+  \item parent and retained-field samples;
+  \item finite forward and inverse transforms;
+  \item exact scalar Hermiticity and conjugate displacement pairing;
+  \item cyclic-to-ordinary conversion;
+  \item omitted-tail quantities;
+  \item every declared support-truncated candidate;
+  \item interpolation, truncation-only, total, and separately declared fit channels;
+  \item mesh-refinement and passage decisions; and
+  \item the visualization-data projection.
+\end{enumerate}
+
+Passing verification establishes agreement with this finite software protocol.  It does
+not establish a theorem, continuum convergence, physical uncertainty, material
+validation, or publication qualification.
+
+\section{Lifecycle and overwrite policy}
+
+The direct lifecycle remains:
+\begin{enumerate}[leftmargin=*]
+  \item \path{run_01_calculation.py}: calculate and write immutable result bytes;
+  \item \path{run_02_verification.py}: independently verify the admitted result bytes;
+    and
+  \item \path{run_03_render.py}: render only passing authenticated data.
+\end{enumerate}
+Each stage refuses overwrite.  Temporary files may be used only for atomic publication.
+A new operation-first aggregate uses a new execution identity and does not alter
+\path{direct-controlled-four-state-n256}.
+
+The predecessor execution remains an illustrative local unsealed finite control.  Its
+wire predates the operation-first gauge-applicability, hopping-locality, and
+support-truncation wrappers.  Those wrappers must be serialized in a new aggregate rather
+than inserted retroactively into the predecessor result.
+
+\section{Acceptance criteria}
+
+A finite execution may receive the technical disposition \textbf{software-pass} only
+when:
+\begin{enumerate}[leftmargin=*]
+  \item all required records are present, immutable, and type-valid;
+  \item physical units and model identity are internally consistent;
+  \item exact Hermiticity and complete transform reconstruction pass;
+  \item cyclic and ordinary representations are connected by an explicit verified
+    ledger;
+  \item interpolation, locality, truncation, fit, and total channels remain distinct;
+  \item every stored value and decision is independently reconstructed;
+  \item result, verification, visualization-data, and figure digests are correlated; and
+  \item direct lifecycle no-overwrite behavior passes.
+\end{enumerate}
+
+Software passage is separate from the human decisions to seal an execution, promote it
+as evidence, use it in a publication, or judge a reduced model scientifically adequate.
+
+\section{Claims and exclusions}
+
+This protocol may support claims about the declared finite rank-one calculation,
+including exact scalar $U(1)$ operator triviality, finite Fourier reconstruction,
+descriptive coefficient locality, and sampled consequences of deliberate support
+restriction.
+
+It does not establish:
+\begin{enumerate}[leftmargin=*]
+  \item a global band-isolation theorem;
+  \item continuum or infinite-mesh convergence;
+  \item non-Abelian gauge behavior;
+  \item a globally optimal fitted model;
+  \item uncertainty quantification;
+  \item equivalence to a DFT or Wannier parent;
+  \item material or device validation;
+  \item sealing, publication qualification, or release status; or
+  \item authority to run Quantum ESPRESSO, Wannier90, remote, cluster, cloud, or other
+    external computation.
+\end{enumerate}
+
+The intended output is an auditable rank-one $R$--$k$ Bloch-hopping model package in
+which physical units, representation conversion, descriptive locality, deliberate
+support truncation, and numerical error channels cannot be conflated.
+
+\end{document}

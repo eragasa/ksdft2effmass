@@ -5,14 +5,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-from projectkoios.physkit.units import PhysicalUnit
-
-from ksdft2effmass.integration.wannier90 import (
+from projectkoios.integrations.wannier90 import (
     Wannier90NativeArtifactCorrelationResult,
     Wannier90NativeArtifactCorrelator,
     Wannier90NativeArtifactSetParser,
     Wannier90ParsedNativeArtifactSet,
 )
+from projectkoios.physkit.units import PhysicalUnit
 
 from .model.integrations import Periodic1DWannier90NativeArtifactGroup
 from .result_documents import Periodic1DRetainedResultKind

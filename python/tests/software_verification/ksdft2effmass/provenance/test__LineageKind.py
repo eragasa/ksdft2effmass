@@ -18,7 +18,7 @@ Intrinsic and cross-object scope
 
 --------------------------------
 The sole primary SUT is ``LineageKind``. Exact fixed names, wire values,
-declaration order, and Python ``StrEnum`` lookup behavior provide the oracles.
+declaration order, and Python ``StrWireEnum`` lookup behavior provide the oracles.
 The enum classifies one lineage-edge kind only. It does not validate parent or
 child identities, reject self-edges, prove derivation or representation
 equivalence, prove that a retry parent failed, authorize retry, or enforce
@@ -34,11 +34,10 @@ provenance truth, physical correctness, portability beyond the declared
 vocabulary, or cross-language agreement.
 """
 
-from enum import StrEnum
-
 import pytest
 
 from ksdft2effmass.provenance import LineageKind
+from ksdft2effmass.serialization import StrWireEnum
 
 SUT = LineageKind
 pytestmark = pytest.mark.software_verification
@@ -55,7 +54,7 @@ def test_field__wire_vocabulary__has_exact_order_names_values_and_count() -> Non
     Oracle: The accepted pairs are DERIVED/derived, REPRESENTATION/representation, and
     RETRY/retry in that order.
 
-    Acceptance: The enum subclasses StrEnum; paired order, names, values, and count
+    Acceptance: The enum subclasses StrWireEnum; paired order, names, values, and count
     match
     exactly; ``__members__`` contains exactly those identities without aliases.
 
@@ -71,7 +70,7 @@ def test_field__wire_vocabulary__has_exact_order_names_values_and_count() -> Non
         LineageKind.REPRESENTATION,
         LineageKind.RETRY,
     )
-    assert issubclass(LineageKind, StrEnum)
+    assert issubclass(LineageKind, StrWireEnum)
     assert tuple(LineageKind) == expected_members
     assert tuple((member.name, member.value) for member in LineageKind) == (
         ("DERIVED", "derived"),

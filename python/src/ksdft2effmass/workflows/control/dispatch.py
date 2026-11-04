@@ -16,9 +16,10 @@ does not import calculator or integration implementations.
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
-from enum import StrEnum
 from typing import Protocol, final, runtime_checkable
 from uuid import uuid4
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from ...persistence import Revision, RevisionReadRequest, RevisionSelector
 from ..persistence import (
@@ -283,7 +284,7 @@ class SimulationDispatchRequest:
             )
 
 
-class SimulationDispatchEntryOutcomeKind(StrEnum):
+class SimulationDispatchEntryOutcomeKind(StrWireEnum):
     """Closed result of the persistence-owned dispatch-entry compare-and-swap."""
 
     ENTERED = "entered"
@@ -842,7 +843,7 @@ class SimulationDispatchEffect(Protocol):
         ...
 
 
-class SimulationDispatchAdapterResultKind(StrEnum):
+class SimulationDispatchAdapterResultKind(StrWireEnum):
     """Closed result kind for dispatch-adapter orchestration."""
 
     DISPATCHED = "dispatched"

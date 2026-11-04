@@ -1,0 +1,16 @@
+{
+  "calculation_family": "periodic2d-rank-defect",
+  "claim_boundary": "Verification authenticates and reconstructs an execution-free plan only. It verifies no operator, spectrum, convergence trend, material claim, uncertainty statement, or protected calculation.",
+  "execution_id": "finite-domain-defect-planning-v1",
+  "execution_status": "not_executed",
+  "input_sha256": "ca3fbd20d4e76a8a6829156e54522c29b88e7cd1d313f9ef4acad8df6bf56e1a",
+  "outcome": "passed",
+  "planning_script_sha256": "c3842828a051eda1db2cd9e1edfd4f5e845cb82e72947e404430bb46390f0c75",
+  "record_type": "finite_domain_effects_planning_verification",
+  "result_sha256": "3debc53ff2c79b0ba28a64cf4be83166d823e5e08252efc33424e5d7355d46fc",
+  "schema_version": 1,
+  "verification_script_sha256": "281583a7ff713c2804c30fb693f517626ac6e6f07e3296671e696593ae1b81d8",
+  "verified_isotropic_case_count": 1458,
+  "verified_orientation_case_count": 324,
+  "verified_proposed_operator_evaluation_count": 2430
+}

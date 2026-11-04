@@ -9,8 +9,9 @@ an established observation is indeterminate rather than rejected.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 from typing import final
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from ..runs.authority import SimulationDispatchEntryReceipt
 from ..runs.identities import (
@@ -105,7 +106,7 @@ class SimulationDispatchReconciliationRequest:
             )
 
 
-class SimulationDispatchReconciliationOutcomeKind(StrEnum):
+class SimulationDispatchReconciliationOutcomeKind(StrWireEnum):
     """Closed outcome of dispatch reconciliation."""
 
     CONFIRMED = "confirmed"

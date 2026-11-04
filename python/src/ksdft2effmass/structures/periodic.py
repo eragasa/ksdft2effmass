@@ -15,7 +15,8 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from enum import StrEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 type Vector3 = tuple[float, float, float]
 type Vector3Sequence = tuple[Vector3, ...]
@@ -36,13 +37,13 @@ __all__ = [
 ]
 
 
-class UnitSystem(StrEnum):
+class UnitSystem(StrWireEnum):
     """Supported field-level unit systems."""
 
     HARTREE_ATOMIC = "hartree_atomic"
 
 
-class PhysicalDimension(StrEnum):
+class PhysicalDimension(StrWireEnum):
     """Physical dimensions represented by periodic geometry."""
 
     DIMENSIONLESS = "dimensionless"
@@ -51,25 +52,25 @@ class PhysicalDimension(StrEnum):
     MASS = "mass"
 
 
-class LengthUnit(StrEnum):
+class LengthUnit(StrWireEnum):
     """Concrete length units represented by periodic geometry."""
 
     BOHR = "bohr"
 
 
-class InverseLengthUnit(StrEnum):
+class InverseLengthUnit(StrWireEnum):
     """Concrete inverse-length units represented by periodic geometry."""
 
     PER_BOHR = "bohr^-1"
 
 
-class CoordinateConvention(StrEnum):
+class CoordinateConvention(StrWireEnum):
     """Coordinate conventions represented by periodic geometry."""
 
     CARTESIAN = "cartesian"
 
 
-class ReciprocalScaleConvention(StrEnum):
+class ReciprocalScaleConvention(StrWireEnum):
     """Scale relating raw reciprocal coefficients to physical vectors."""
 
     TWO_PI_OVER_ALAT = "2pi_over_alat"

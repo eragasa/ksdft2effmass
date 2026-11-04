@@ -83,13 +83,13 @@ The reverse `petrinet.colored → workflows` dependency is forbidden.
 | `ksdft2effmass.campaigns` | [Campaigns](campaigns/index.md) | Project-specific QoI-study and Workflow composition definitions |
 | `ksdft2effmass.calculators` | [Calculators](calculators/index.md) | Shared plane-wave specification and calculator-facing simulation contracts |
 | `ksdft2effmass.integration.quantum_espresso` | [Quantum ESPRESSO integration](integration/quantum_espresso/index.md) | Canonical QE-native contracts, loose grouped `pw.x` input writing, QEXSD parsing, diagnostics, and concrete anti-corruption actions |
-| `ksdft2effmass.integration.wannier90` | [Wannier90 integration](integration/wannier90/index.md) | Execution-independent typed adaptation of retained native Wannier90 gauge matrices, Hamiltonian blocks, and final localization observations |
+| `projectkoios.integrations.wannier90` from `projectkoios-simulations` | [Wannier90 integration boundary](integration/wannier90/index.md) | Reusable native Wannier90 records, authentication, parsers, and provider-facing contracts consumed directly by KSD campaign composition |
 | `ksdft2effmass.integration.lammps` (prospective) | [QoI-first LAMMPS integration](qoi-first-lammps-integration.md) | LAMMPS-native contracts and adapters defined only after calculator-independent QoI and atomistic requirements; no Simulation Task is implemented |
 | `ksdft2effmass.structures` | [Structures](structures/index.md) | Application-owned physical structure namespace |
 | `ksdft2effmass.structures.periodic` | [Periodic structures](structures/periodic.md) | Neutral periodic crystal geometry semantics |
 | `ksdft2effmass.electronic_structure` | [Periodic structures and sampling](structures/periodic.md) | Electronic reciprocal-space sampling semantics |
 | `ksdft2effmass.units` | [Canonical units and conversion provenance](units.md) | Canonical metal-unit identities, pinned conversion definitions, typed scalar conversions, and their provenance |
-| `ksdft2effmass.periodic` | [General periodic-model architecture](periodic/index.md) | Implemented nominal 1D--3D scientific-model hierarchy and toy-model catalog contract; transitional compatibility exports remain pending migration, and cross-dimensional comparison is prospective |
+| `ksdft2effmass.periodic` | [General periodic-model architecture](periodic/index.md) | Implemented nominal 1D--3D scientific-model hierarchy and explicit control-model catalog contract; cross-dimensional comparison is prospective |
 | `ksdft2effmass.ksdft` | [Kohn–Sham DFT](ksdft/index.md) | Representation-neutral Kohn–Sham semantics |
 | `ksdft2effmass.operators` | [Represented operators](operators/index.md) | Finite represented-operator records, serialization, exact compatibility, and fixed-representation primitive residuals; unit-bearing reusable aggregation belongs to PhysKit |
 | `ksdft2effmass.analysis` | [Analysis](analysis/index.md) | Higher-level deterministic scientific analysis |

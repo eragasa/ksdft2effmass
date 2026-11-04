@@ -1,0 +1,16 @@
+{
+  "calculation_family": "periodic1d-rank1-fourier-locality",
+  "claim_boundary": "Finite sampled four-state parent, Fourier, fit, refinement, and gap diagnostics only; not continuum isolation, uncertainty quantification, material validation, publication acceptance, or sealed evidence.",
+  "configuration_path": "inputs/configuration.json",
+  "configuration_sha256": "5c9beb47eefe9749a249a74545a25c7ef8d3dd6eafec658d23dfbee574ace173",
+  "created_utc": "2026-11-03T14:43:32.570965+00:00",
+  "evidence_status": "illustrative finite numerical control",
+  "execution_id": "direct-controlled-four-state-n256",
+  "outcome": "completed",
+  "parent_identity": "ksdft2effmass.periodic1d.controlled-four-state-parent.v1",
+  "result_path": "results/result.json",
+  "result_sha256": "3f24fbf6bd6d85040e98481b0487407932f43a70dd04690417396a50797fad2b",
+  "schema_version": 1,
+  "script_sha256": "d036ad60efa28539e14e2f4b709eb4ecf4adf1aa47986ded02f4a894f9797a4e",
+  "sealed": false
+}

@@ -208,4 +208,5 @@ type-checking configuration, Sphinx documentation, installation documentation,
 and control-plane validation commands must not claim compatibility with older
 Python versions unless those versions are explicitly supported and verified.
 Use Python 3.14 syntax and standard-library features where they improve clarity
-and interoperability, including ``enum.StrEnum`` for string-valued public enums.
+and interoperability. Public string-mapped vocabularies use KSD's ordinary-Enum
+``StrWireEnum`` so wire conversion remains explicit.

@@ -122,4 +122,4 @@ exact removal and recovery authority are recorded in
 | Repository `python/pyproject.toml` and `python/uv.lock` | Sole live dependency declarations; the calculation has no parallel environment authority. |
 | Experiment-side `pyproject.toml` and `uv.lock` | Provenance-only development-environment donors recoverable from the baseline; they are not migrated as live calculation dependencies. |
 | Removed `experiments/periodic-reduction/single-band-fourier-reduction/` | Historical 65-file migration donor: 53 exact duplicates, 10 adapted or integrated successors, and two provenance-only environment donors. It was removed after exact-manifest review and separate operator authorization and remains recoverable from `c73aa96077ee03e1f7438ecbb44349b445a3eec8`. |
-| `periodic1d/rank1/fourier-locality/` and historical M1 isolated-band work | Related donors only; scientifically distinct from Mathieu1D. |
+| `periodic1d_rank1/band_equivalence_hopping_locality/` and historical M1 isolated-band work | Related donors only; scientifically distinct from Mathieu1D. |

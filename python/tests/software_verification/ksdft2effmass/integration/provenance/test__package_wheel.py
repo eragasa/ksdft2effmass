@@ -190,9 +190,9 @@ def test_artifact__wheel_content__matches_exact_runtime_inventory_and_excludes_t
     """
     controlled_archive_paths = {
         PurePosixPath("ksdft2effmass/provenance/actions.py"),
-        PurePosixPath("ksdft2effmass/provenance/legacy.py"),
-        PurePosixPath("ksdft2effmass/provenance/legacy/__init__.py"),
-        PurePosixPath("ksdft2effmass/provenance/legacy/adapter.py"),
+        PurePosixPath("ksdft2effmass/provenance/nested.py"),
+        PurePosixPath("ksdft2effmass/provenance/nested/__init__.py"),
+        PurePosixPath("ksdft2effmass/provenance/nested/adapter.py"),
     }
     assert select_provenance_python_entries(controlled_archive_paths) == {
         path.as_posix() for path in controlled_archive_paths

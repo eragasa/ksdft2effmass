@@ -13,7 +13,7 @@ from .typed_values import SerializableValue
 class BaseTypedRecord(ABC):
     """Enforce final dictionary and JSON boundaries for one typed record.
 
-    Concrete records explicitly project a ``StringWireEnum`` through its
+    Concrete records explicitly project a ``StrWireEnum`` through its
     ``to_wire()`` method in ``_mapping`` and reconstruct it through ``from_wire()``
     in ``_from_mapping``. Enum conversion remains domain-owned while this base owns
     the final mapping and canonical-JSON pipeline.
@@ -53,7 +53,7 @@ class BaseTypedRecord(ABC):
         Notes
         -----
         The returned values retain quantities, arrays, explicitly registered enums,
-        tuples, and nested records. Concrete records project ``StringWireEnum``
+        tuples, and nested records. Concrete records project ``StrWireEnum``
         members to stable built-in strings before this boundary. This method does not
         produce JSON-native lists.
         """

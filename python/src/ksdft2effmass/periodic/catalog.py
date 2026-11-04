@@ -13,15 +13,16 @@ from .model import (
 
 
 @dataclass(frozen=True, slots=True)
-class PeriodicToyModelCatalog:
-    """Store an ordered, explicitly registered inventory of toy models.
+class PeriodicControlModelCatalog:
+    """Store an ordered, explicitly registered inventory of control models.
 
     Parameters
     ----------
     models
         A nonempty exact tuple of nominal periodic models. Every model must declare
-        the exact ``TOY`` role, a nonempty unique identifier, and membership in the
-        dimension-specific nominal branch matching its reported dimension.
+        the exact ``CONTROL_MODEL`` role, a nonempty unique identifier, and
+        membership in the dimension-specific nominal branch matching its reported
+        dimension.
 
     Notes
     -----
@@ -44,8 +45,10 @@ class PeriodicToyModelCatalog:
                 raise TypeError("every catalog member must be a PeriodicModel")
             if type(model.model_role) is not PeriodicModelRole:
                 raise TypeError("model_role must be a PeriodicModelRole")
-            if model.model_role is not PeriodicModelRole.TOY:
-                raise ValueError("every catalog member must have the TOY role")
+            if model.model_role is not PeriodicModelRole.CONTROL_MODEL:
+                raise ValueError(
+                    "every catalog member must have the CONTROL_MODEL role"
+                )
             if type(model.model_id) is not str:
                 raise TypeError("model_id must be an exact str")
             if not model.model_id:
@@ -80,4 +83,4 @@ class PeriodicToyModelCatalog:
         return tuple(model.spatial_dimension for model in self.models)
 
 
-__all__ = ["PeriodicToyModelCatalog"]
+__all__ = ["PeriodicControlModelCatalog"]

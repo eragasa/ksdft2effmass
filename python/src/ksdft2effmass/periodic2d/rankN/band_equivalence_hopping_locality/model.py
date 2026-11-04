@@ -13,10 +13,10 @@ from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructo
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.base import (
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue,
 )
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 
 
-class Periodic2DRankNGaugeNormalizationEnum(StringWireEnum):
+class Periodic2DRankNGaugeNormalizationEnum(StrWireEnum):
     """Select the reviewed interpretation of one gauge-attack coefficient."""
 
     AXIS_MAXIMUM = "axis-maximum"

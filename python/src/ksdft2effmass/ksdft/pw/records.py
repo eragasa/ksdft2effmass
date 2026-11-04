@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from enum import StrEnum
 from pathlib import PurePosixPath
 from typing import ClassVar
 
@@ -18,10 +17,11 @@ from ksdft2effmass.ksdft import (
     KohnShamSpectralObservations,
     TotalEnergyObservation,
 )
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.structures.periodic import PeriodicStructure, ReciprocalLattice
 
 
-class PlaneWaveMetadataAvailability(StrEnum):
+class PlaneWaveMetadataAvailability(StrWireEnum):
     """Unavailable plane-wave metadata states demonstrated by the artifact."""
 
     NOT_REPRESENTED = "not_represented"

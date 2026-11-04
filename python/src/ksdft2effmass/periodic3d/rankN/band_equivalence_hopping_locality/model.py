@@ -9,7 +9,7 @@ from typing import ClassVar
 import numpy as np
 from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array
 from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
-from projectkoios.physkit.periodic.lattice.hopping import BlockHoppingModel
+from projectkoios.physkit.periodic.lattice.hopping import DenseBlockHoppingModel
 
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.base import (
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
@@ -102,7 +102,7 @@ class Periodic3DRankNAnalyticCase(
         )
 
     @property
-    def parent_model(self) -> BlockHoppingModel:
+    def parent_model(self) -> DenseBlockHoppingModel:
         """Return the PhysKit block-hopping parent independent of the attack."""
         return Periodic3DRankNBlockHoppingParentBuilder(
             retained_rank=self.retained_rank,

@@ -66,7 +66,7 @@ _LOCALITY_DEFINITION_SCRIPTS = (
         "run_nominal_calculation.py"
     ),
 )
-_LEGACY_REFINEMENT_SCRIPTS = (
+_ORTHOGONAL_REFINEMENT_SCRIPTS = (
     "run_first_refinement.py",
     "run_second_refinement.py",
 )
@@ -183,7 +183,7 @@ def assert_calculation_writer_serialization(
         shutil.copy2(source, destination)
 
         script_name = source.name
-        if script_name in _LEGACY_REFINEMENT_SCRIPTS:
+        if script_name in _ORTHOGONAL_REFINEMENT_SCRIPTS:
             shutil.copy2(source.parent / "run_development.py", destination.parent)
         if script_name == "run_second_refinement.py":
             shutil.copy2(source.parent / "run_first_refinement.py", destination.parent)
@@ -224,7 +224,7 @@ def assert_calculation_writer_serialization(
                 if definition_module is not None:
                     definition_module.__dict__["DEFINITION"] = bounded_definition
             if script_name in (
-                *_LEGACY_REFINEMENT_SCRIPTS,
+                *_ORTHOGONAL_REFINEMENT_SCRIPTS,
                 *_CONTEXT_REFINEMENT_SCRIPTS,
             ):
                 script_globals["REFINEMENT"] = replace(

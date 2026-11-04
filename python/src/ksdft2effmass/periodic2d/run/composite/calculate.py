@@ -12,8 +12,8 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from ...model.toy_models import (
-    Periodic2DCosinePotentialToyModel,
+from ...model.control_models import (
+    Periodic2DCosinePotentialControlModel,
     Periodic2DPlaneWaveHamiltonianConstructor,
     Periodic2DPlaneWaveHamiltonianRequest,
 )
@@ -706,7 +706,7 @@ class Periodic2DCompositeCalculator:
     def _plane_wave(
         source: Periodic2DCompositeInput, kx: float, ky: float
     ) -> ComplexMatrix:
-        model = Periodic2DCosinePotentialToyModel(
+        model = Periodic2DCosinePotentialControlModel(
             source.lambda_x, source.lambda_y, source.lambda_xy
         )
         return (

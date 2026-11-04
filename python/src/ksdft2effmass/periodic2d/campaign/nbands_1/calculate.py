@@ -11,8 +11,8 @@ import numpy as np
 import numpy.typing as npt
 from scipy.linalg import eigh  # type: ignore[import-untyped]
 
-from ...model.toy_models import (
-    Periodic2DCosinePotentialToyModel,
+from ...model.control_models import (
+    Periodic2DCosinePotentialControlModel,
     Periodic2DFiniteDifferenceHamiltonianConstructor,
     Periodic2DFiniteDifferenceHamiltonianRequest,
     Periodic2DPlaneWaveHamiltonianConstructor,
@@ -778,7 +778,7 @@ class Periodic2DIsolatedBandCalculator:
         lambda_xy: float,
         cutoff: int,
     ) -> ComplexMatrix:
-        model = Periodic2DCosinePotentialToyModel(lambda_x, lambda_y, lambda_xy)
+        model = Periodic2DCosinePotentialControlModel(lambda_x, lambda_y, lambda_xy)
         return (
             Periodic2DPlaneWaveHamiltonianConstructor()
             .execute(Periodic2DPlaneWaveHamiltonianRequest(model, kx, ky, cutoff))
@@ -813,8 +813,10 @@ class Periodic2DIsolatedBandCalculator:
         period: float,
     ) -> ComplexMatrix:
         if not np.isclose(period, 2.0 * np.pi, rtol=0.0, atol=2.0e-15):
-            raise ValueError("toy finite-difference cell period must equal 2*pi")
-        model = Periodic2DCosinePotentialToyModel(lambda_x, lambda_y, lambda_xy)
+            raise ValueError(
+                "control-model finite-difference cell period must equal 2*pi"
+            )
+        model = Periodic2DCosinePotentialControlModel(lambda_x, lambda_y, lambda_xy)
         return (
             Periodic2DFiniteDifferenceHamiltonianConstructor()
             .execute(

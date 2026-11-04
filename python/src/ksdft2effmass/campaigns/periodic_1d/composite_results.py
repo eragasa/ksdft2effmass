@@ -14,7 +14,6 @@ physical model, or perform uncertainty quantification.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 import numpy as np
 from projectkoios.physkit.units import (
@@ -24,7 +23,7 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
-from ksdft2effmass.serialization import JsonCodec
+from ksdft2effmass.serialization import JsonCodec, StrWireEnum
 from ksdft2effmass.solidstate import (
     BlockHoppingModel1D,
     ReciprocalOperatorSamples1D,
@@ -40,7 +39,7 @@ from .result_documents import (
 )
 
 
-class Periodic1DCompositeExternalIsolationStatus(StrEnum):
+class Periodic1DCompositeExternalIsolationStatus(StrWireEnum):
     """Classify the retained external-gap threshold comparison.
 
     ``PASS`` means the sampled external minimum gap exceeded the historical campaign

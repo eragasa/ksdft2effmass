@@ -11,11 +11,11 @@ Three named immutable dependencies are supplied explicitly::
     from ksdft2effmass.analysis import QuantityOfInterestResultValueSerializer
     from ksdft2effmass.application import ApplicationResultValueSerializer
     from ksdft2effmass.integration.quantum_espresso import (
-        QuantumEspressoResultValueSerializer,
+        QeResultValueSerializer,
     )
     from ksdft2effmass.workflows import WorkflowResultValueSerializer
 
-    qe = QuantumEspressoResultValueSerializer()
+    qe = QeResultValueSerializer()
     codec = ApplicationResultValueSerializer(
         workflow_codec=WorkflowResultValueSerializer(source_codec=qe),
         quantum_espresso_codec=qe,

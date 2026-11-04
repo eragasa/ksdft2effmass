@@ -11,8 +11,9 @@ swap claim, effect, retry selection, result ingress, or scientific acceptance.
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
-from enum import StrEnum
 from typing import final
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from ..model import AttemptIdentity, TaskActivation
 from ..runs.aggregate import WorkflowRun
@@ -147,7 +148,7 @@ class SimulationDispatchPreparationRequest:
             raise TypeError("retry_of_attempt_identity must be AttemptIdentity or None")
 
 
-class SimulationDispatchPreparationOutcomeKind(StrEnum):
+class SimulationDispatchPreparationOutcomeKind(StrWireEnum):
     """Closed outcome of effect-free dispatch preparation."""
 
     PREPARED = "prepared"

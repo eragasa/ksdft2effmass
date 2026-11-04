@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
-from enum import StrEnum
 from typing import final
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from ..runs.aggregate import WorkflowRun
 from ..runs.authority import (
@@ -92,7 +93,7 @@ class SimulationDispatchClaimRequest:
             raise ValueError("claim_authorization_request must use claim phase")
 
 
-class SimulationDispatchClaimOutcomeKind(StrEnum):
+class SimulationDispatchClaimOutcomeKind(StrWireEnum):
     """Closed outcomes of effect-free claim preparation."""
 
     CLAIMED = "claimed"

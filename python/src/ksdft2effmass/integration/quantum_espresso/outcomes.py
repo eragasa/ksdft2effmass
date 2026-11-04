@@ -5,31 +5,33 @@ from __future__ import annotations
 import hashlib
 from dataclasses import dataclass
 
+from projectkoios.simulations.execution import CalculatorExitDisposition
+
 from .contracts import (
-    QuantumEspressoCalculatorFailedOutcome,
-    QuantumEspressoCalculatorOutcome,
-    QuantumEspressoCompletedOutcome,
-    QuantumEspressoDiagnosticDisposition,
-    QuantumEspressoDiagnosticReport,
-    QuantumEspressoDiagnosticReportKind,
-    QuantumEspressoDiagnosticUnresolvedOutcome,
-    QuantumEspressoFileArtifactContent,
-    QuantumEspressoNormalProcessExit,
-    QuantumEspressoProcessFailedOutcome,
-    QuantumEspressoProcessFailureKind,
-    QuantumEspressoProcessObservation,
-    QuantumEspressoProcessSignalTermination,
-    QuantumEspressoProcessTimeout,
+    QeCalculatorFailedOutcome,
+    QeCalculatorOutcome,
+    QeCompletedOutcome,
+    QeDiagnosticDisposition,
+    QeDiagnosticReport,
+    QeDiagnosticReportKind,
+    QeDiagnosticUnresolvedOutcome,
+    QeFileArtifactContent,
+    QeNormalProcessExit,
+    QeProcessFailedOutcome,
+    QeProcessFailureKind,
+    QeProcessObservation,
+    QeProcessSignalTermination,
+    QeProcessTimeout,
 )
 from .effects import (
-    QuantumEspressoNativeOutputExtractionSpecification,
-    QuantumEspressoNativeOutputManifest,
-    QuantumEspressoNativeOutputRole,
+    QeNativeOutputExtractionSpecification,
+    QeNativeOutputManifest,
+    QeNativeOutputRole,
 )
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoCalculatorOutcomeResolver:
+class QeCalculatorOutcomeResolver:
     """Resolve compatible process, diagnostic, and artifact facts by precedence.
 
         The resolver performs no parsing, filesystem access, retry, or scientific
@@ -52,25 +54,21 @@ class QuantumEspressoCalculatorOutcomeResolver:
 
     def execute(
         self,
-        process: QuantumEspressoProcessObservation,
-        report: QuantumEspressoDiagnosticReport,
-        manifest: QuantumEspressoNativeOutputManifest,
-        specification: QuantumEspressoNativeOutputExtractionSpecification,
-    ) -> QuantumEspressoCalculatorOutcome:
+        process: QeProcessObservation,
+        report: QeDiagnosticReport,
+        manifest: QeNativeOutputManifest,
+        specification: QeNativeOutputExtractionSpecification,
+    ) -> QeCalculatorOutcome:
         """Return one closed calculator outcome without changing any input."""
-        if type(process) is not QuantumEspressoProcessObservation:
-            raise TypeError("process must be QuantumEspressoProcessObservation")
-        if type(report) is not QuantumEspressoDiagnosticReport:
-            raise TypeError("report must be QuantumEspressoDiagnosticReport")
-        if type(manifest) is not QuantumEspressoNativeOutputManifest:
-            raise TypeError("manifest must be QuantumEspressoNativeOutputManifest")
-        if (
-            type(specification)
-            is not QuantumEspressoNativeOutputExtractionSpecification
-        ):
+        if type(process) is not QeProcessObservation:
+            raise TypeError("process must be QeProcessObservation")
+        if type(report) is not QeDiagnosticReport:
+            raise TypeError("report must be QeDiagnosticReport")
+        if type(manifest) is not QeNativeOutputManifest:
+            raise TypeError("manifest must be QeNativeOutputManifest")
+        if type(specification) is not QeNativeOutputExtractionSpecification:
             raise TypeError(
-                "specification must be "
-                "QuantumEspressoNativeOutputExtractionSpecification"
+                "specification must be QeNativeOutputExtractionSpecification"
             )
         mismatch = self._compatibility_mismatch(
             process, report, manifest, specification
@@ -78,28 +76,23 @@ class QuantumEspressoCalculatorOutcomeResolver:
         if mismatch is not None:
             return self._unresolved(report, mismatch)
         if report.kind in (
-            QuantumEspressoDiagnosticReportKind.UNRESOLVED,
-            QuantumEspressoDiagnosticReportKind.CONTRADICTORY,
+            QeDiagnosticReportKind.UNRESOLVED,
+            QeDiagnosticReportKind.CONTRADICTORY,
         ):
             return self._unresolved(report, "report:" + report.kind.value)
         termination = process.termination
-        if type(termination) is QuantumEspressoProcessSignalTermination:
-            return QuantumEspressoProcessFailedOutcome(
-                QuantumEspressoProcessFailureKind.SIGNAL
-            )
-        if type(termination) is QuantumEspressoProcessTimeout:
-            return QuantumEspressoProcessFailedOutcome(
-                QuantumEspressoProcessFailureKind.TIMEOUT
-            )
-        assert type(termination) is QuantumEspressoNormalProcessExit
-        if report.kind is QuantumEspressoDiagnosticReportKind.FATAL:
+        if type(termination) is QeProcessSignalTermination:
+            return QeProcessFailedOutcome(QeProcessFailureKind.SIGNAL)
+        if type(termination) is QeProcessTimeout:
+            return QeProcessFailedOutcome(QeProcessFailureKind.TIMEOUT)
+        assert type(termination) is QeNormalProcessExit
+        if report.kind is QeDiagnosticReportKind.FATAL:
             fatal = tuple(
                 sorted(
                     (
                         observation.identity
                         for observation in report.observations
-                        if observation.disposition
-                        is QuantumEspressoDiagnosticDisposition.FATAL
+                        if observation.disposition is QeDiagnosticDisposition.FATAL
                     ),
                     key=lambda value: value.value,
                 )
@@ -108,18 +101,16 @@ class QuantumEspressoCalculatorOutcomeResolver:
                 return self._unresolved(
                     report, "fatal-report-without-fatal-observation"
                 )
-            return QuantumEspressoCalculatorFailedOutcome(fatal)
-        if termination.exit_code != 0:
-            return QuantumEspressoProcessFailedOutcome(
-                QuantumEspressoProcessFailureKind.NONZERO_EXIT
-            )
-        if report.kind is not QuantumEspressoDiagnosticReportKind.CLEAR:
+            return QeCalculatorFailedOutcome(fatal)
+        if termination.disposition is CalculatorExitDisposition.failed:
+            return QeProcessFailedOutcome(QeProcessFailureKind.NONZERO_EXIT)
+        if report.kind is not QeDiagnosticReportKind.CLEAR:
             return self._unresolved(report, "unsupported-report-kind")
         if not report.completion_markers:
             return self._unresolved(report, "missing-completion-marker")
         if not self._required_candidates_present(manifest, specification):
             return self._unresolved(report, "required-native-output-missing")
-        return QuantumEspressoCompletedOutcome(
+        return QeCompletedOutcome(
             tuple(
                 sorted(
                     (value.identity for value in report.completion_markers),
@@ -130,10 +121,10 @@ class QuantumEspressoCalculatorOutcomeResolver:
 
     def _compatibility_mismatch(
         self,
-        process: QuantumEspressoProcessObservation,
-        report: QuantumEspressoDiagnosticReport,
-        manifest: QuantumEspressoNativeOutputManifest,
-        specification: QuantumEspressoNativeOutputExtractionSpecification,
+        process: QeProcessObservation,
+        report: QeDiagnosticReport,
+        manifest: QeNativeOutputManifest,
+        specification: QeNativeOutputExtractionSpecification,
     ) -> str | None:
         configuration = process.executable_configuration_identity
         if (
@@ -159,15 +150,15 @@ class QuantumEspressoCalculatorOutcomeResolver:
         ):
             return "observation-lineage-mismatch"
         manifest_by_role = {entry.role: entry for entry in manifest.entries}
-        stdout = manifest_by_role.get(QuantumEspressoNativeOutputRole.STDOUT)
-        stderr = manifest_by_role.get(QuantumEspressoNativeOutputRole.STDERR)
+        stdout = manifest_by_role.get(QeNativeOutputRole.STDOUT)
+        stderr = manifest_by_role.get(QeNativeOutputRole.STDERR)
         if stdout is None or stderr is None:
             return "stream-manifest-entry-missing"
         if (
             stdout.artifact_identity != process.stdout.artifact_identity
             or stderr.artifact_identity != process.stderr.artifact_identity
-            or type(stdout.content) is not QuantumEspressoFileArtifactContent
-            or type(stderr.content) is not QuantumEspressoFileArtifactContent
+            or type(stdout.content) is not QeFileArtifactContent
+            or type(stderr.content) is not QeFileArtifactContent
         ):
             return "stream-manifest-identity-mismatch"
         if (
@@ -179,8 +170,8 @@ class QuantumEspressoCalculatorOutcomeResolver:
 
     @staticmethod
     def _required_candidates_present(
-        manifest: QuantumEspressoNativeOutputManifest,
-        specification: QuantumEspressoNativeOutputExtractionSpecification,
+        manifest: QeNativeOutputManifest,
+        specification: QeNativeOutputExtractionSpecification,
     ) -> bool:
         entries = {entry.artifact_identity: entry for entry in manifest.entries}
         for candidate in specification.candidates:
@@ -199,9 +190,9 @@ class QuantumEspressoCalculatorOutcomeResolver:
 
     def _unresolved(
         self,
-        report: QuantumEspressoDiagnosticReport,
+        report: QeDiagnosticReport,
         reason: str,
-    ) -> QuantumEspressoDiagnosticUnresolvedOutcome:
+    ) -> QeDiagnosticUnresolvedOutcome:
         diagnostics = tuple(
             sorted(
                 (value.identity for value in report.observations),
@@ -214,7 +205,7 @@ class QuantumEspressoCalculatorOutcomeResolver:
         reason_identity = (
             "qe-outcome-unresolved-v1:" + hashlib.sha256(payload).hexdigest()
         )
-        return QuantumEspressoDiagnosticUnresolvedOutcome(
+        return QeDiagnosticUnresolvedOutcome(
             diagnostic_identities=diagnostics,
             reason_identities=(reason_identity,),
         )

@@ -248,7 +248,7 @@ Use exact class-qualified pytest nodes, consistent with the project test standar
 
 | Test path | Pytest node | Evidence class | Established behavior |
 |---|---|---|---|
-| `python/tests/software_verification/ksdft2effmass/periodic/test__PeriodicModel.py` | `TestPeriodicModel::test_class_definition__dimension_override__is_rejected` | Software verification | Nominal dimension cannot be overridden |
+| `python/tests/software_verification/ksdft2effmass/periodic/test__PeriodicModel__contracts.py` | `TestPeriodicModel::test_class_definition__dimension_override__is_rejected` | Software verification | Nominal dimension cannot be overridden |
 
 A mapping states only what the named assertions establish. Test success does not imply
 scientific validation, uncertainty quantification, or human acceptance.

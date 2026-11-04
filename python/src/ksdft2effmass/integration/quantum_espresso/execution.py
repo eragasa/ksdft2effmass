@@ -1,10 +1,11 @@
 """Root-confined local preparation for Quantum ESPRESSO execution.
 
 This module implements the read-only preparation stage of the local Quantum ESPRESSO
-integration. Preparation validates exact executable and input-source identities,
-checks path confinement and operational limits, and returns an immutable dry-run-ready
-result. It creates no workspace, stages no artifact, opens no output stream, and
-invokes no process.
+integration. Preparation validates exact executable, external-resource, and
+predecessor-state identities, checks path confinement and operational limits, and
+returns an immutable dry-run-ready result. Provider-owned native-input bytes require
+no local source path. Preparation creates no workspace, stages no artifact, opens no
+output stream, and invokes no process.
 
 The deterministic tree-manifest convention in this module is integration-local. It is
 not the Workflow artifact-manifest wire format and establishes no semantic,
@@ -18,9 +19,19 @@ import os
 import shutil
 import stat
 from dataclasses import dataclass
-from enum import StrEnum
 from pathlib import Path, PurePosixPath
 
+from projectkoios.simulations.calculator.input import (
+    CalculatorExternalInputRequirement,
+)
+from projectkoios.simulations.execution import (
+    CalculatorExecutablePreparationFailure,
+    CalculatorExecutablePreparationFailureCode,
+    CalculatorExecutablePreparer,
+    CalculatorPreparedExecutable,
+)
+
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.workflows import (
     ArtifactContentIdentity,
     ArtifactIdentity,
@@ -33,22 +44,24 @@ from ksdft2effmass.workflows import (
     SimulationExecutionRequestIdentity,
 )
 
-from .contracts import (
-    QuantumEspressoArtifactDestination,
-    QuantumEspressoDiagnosticClassifierIdentity,
-    QuantumEspressoExecutableConfiguration,
-    QuantumEspressoExecutableConfigurationIdentity,
-    QuantumEspressoExecutableKind,
-    QuantumEspressoExecutionInput,
-    QuantumEspressoExecutionInputIdentity,
-    QuantumEspressoFileArtifactContent,
-    QuantumEspressoInputArtifact,
-    QuantumEspressoNativeInputArtifact,
-    QuantumEspressoPredecessorNativeStateArtifact,
-    QuantumEspressoPreparationIdentity,
-    QuantumEspressoProgram,
-    QuantumEspressoPseudopotentialArtifact,
+from .calculator_input import (
+    QeCalculatorInputBinding,
+    QeExternalInputResourceBinding,
 )
+from .contracts import (
+    QeArtifactDestination,
+    QeDiagnosticClassifierIdentity,
+    QeExecutableConfiguration,
+    QeExecutableConfigurationIdentity,
+    QeExecutableKind,
+    QeExecutionInput,
+    QeExecutionInputIdentity,
+    QeNativeInputArtifact,
+    QePredecessorNativeStateArtifact,
+    QePreparationIdentity,
+    QeProgram,
+)
+from .executable_binding import QeExecutableBindingAdapter
 
 _MAX_U64 = 18_446_744_073_709_551_615
 _PREPARATION_CLAIM_BOUNDARY = (
@@ -61,7 +74,7 @@ _PREPARATION_CLAIM_BOUNDARY = (
 
 
 @dataclass(frozen=True, slots=True)
-class LocalQuantumEspressoPreparationImplementationIdentity:
+class LocalQePreparationImplementationIdentity:
     """Identify one exact local preparation implementation and version.
 
     Attributes
@@ -83,7 +96,7 @@ class LocalQuantumEspressoPreparationImplementationIdentity:
 
 
 @dataclass(frozen=True, slots=True)
-class LocalQuantumEspressoAttemptWorkspaceName:
+class LocalQeAttemptWorkspaceName:
     """Represent one parent-free attempt-workspace directory name.
 
     Attributes
@@ -118,28 +131,30 @@ class LocalQuantumEspressoAttemptWorkspaceName:
 
 
 @dataclass(frozen=True, slots=True)
-class LocalQuantumEspressoArtifactSource:
-    """Bind one exact QE input artifact to one absolute local source.
+class LocalQeArtifactSource:
+    """Bind one admitted external artifact identity to an absolute local source.
 
     Attributes
     ----------
-    artifact
-        Exact QE-native input, pseudopotential, or predecessor-state artifact record.
+    artifact_identity
+        Exact KSD Workflow-facing artifact identity. Provider external requirements or
+        KSD predecessor records own content and deployment metadata separately.
     source
-        Absolute local path. Preparation requires a nonsymlink regular file for file
-        artifacts or a nonsymlink directory tree for predecessor state.
+        Absolute local path. Preparation requires a nonsymlink regular file for a
+        provider external input or a nonsymlink directory tree for predecessor state.
+
+    Notes
+    -----
+    The source binding copies no provider filename, byte count, SHA-256, format,
+    provenance, stable identity, or element metadata.
     """
 
-    artifact: QuantumEspressoInputArtifact
+    artifact_identity: ArtifactIdentity
     source: Path
 
     def __post_init__(self) -> None:
-        if type(self.artifact) not in (
-            QuantumEspressoNativeInputArtifact,
-            QuantumEspressoPseudopotentialArtifact,
-            QuantumEspressoPredecessorNativeStateArtifact,
-        ):
-            raise TypeError("artifact must be a closed QuantumEspressoInputArtifact")
+        if type(self.artifact_identity) is not ArtifactIdentity:
+            raise TypeError("artifact_identity must be ArtifactIdentity")
         if not isinstance(self.source, Path):
             raise TypeError("source must be pathlib.Path")
         if not self.source.is_absolute():
@@ -147,7 +162,7 @@ class LocalQuantumEspressoArtifactSource:
 
 
 @dataclass(frozen=True, slots=True)
-class LocalQuantumEspressoPeakResidentBytesUnlimited:
+class LocalQePeakResidentBytesUnlimited:
     """Represent absence of a peak resident-memory ceiling.
 
     Attributes
@@ -158,7 +173,7 @@ class LocalQuantumEspressoPeakResidentBytesUnlimited:
 
 
 @dataclass(frozen=True, slots=True)
-class LocalQuantumEspressoPeakResidentBytesLimit:
+class LocalQePeakResidentBytesLimit:
     """Represent a positive peak resident-memory ceiling.
 
     Attributes
@@ -178,15 +193,14 @@ class LocalQuantumEspressoPeakResidentBytesLimit:
             )
 
 
-type LocalQuantumEspressoPeakResidentBytesPolicy = (
-    LocalQuantumEspressoPeakResidentBytesUnlimited
-    | LocalQuantumEspressoPeakResidentBytesLimit
+type LocalQePeakResidentBytesPolicy = (
+    LocalQePeakResidentBytesUnlimited | LocalQePeakResidentBytesLimit
 )
 """Closed present/absent peak resident-memory limit."""
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class LocalQuantumEspressoExecutionLimits:
+class LocalQeExecutionLimits:
     """Represent operational ceilings for one local execution attempt.
 
     Attributes
@@ -214,7 +228,7 @@ class LocalQuantumEspressoExecutionLimits:
     minimum_free_bytes: int
     maximum_created_entry_count: int
     maximum_created_total_bytes: int
-    peak_resident_bytes: LocalQuantumEspressoPeakResidentBytesPolicy
+    peak_resident_bytes: LocalQePeakResidentBytesPolicy
 
     def __post_init__(self) -> None:
         positive = (
@@ -234,13 +248,13 @@ class LocalQuantumEspressoExecutionLimits:
         if not 0 <= self.minimum_free_bytes <= _MAX_U64:
             raise ValueError("minimum_free_bytes must be in the unsigned 64-bit range")
         if type(self.peak_resident_bytes) not in (
-            LocalQuantumEspressoPeakResidentBytesUnlimited,
-            LocalQuantumEspressoPeakResidentBytesLimit,
+            LocalQePeakResidentBytesUnlimited,
+            LocalQePeakResidentBytesLimit,
         ):
             raise TypeError("peak_resident_bytes must be a closed limit policy")
 
 
-class LocalQuantumEspressoResolvedDestinationRole(StrEnum):
+class LocalQeResolvedDestinationRole(StrWireEnum):
     """Closed roles for resolved paths beneath an attempt workspace."""
 
     EXECUTABLE = "executable"
@@ -255,7 +269,7 @@ class LocalQuantumEspressoResolvedDestinationRole(StrEnum):
 
 
 @dataclass(frozen=True, slots=True)
-class LocalQuantumEspressoResolvedDestination:
+class LocalQeResolvedDestination:
     """Bind one portable destination to its confined absolute local path.
 
     Attributes
@@ -271,22 +285,20 @@ class LocalQuantumEspressoResolvedDestination:
         Absolute lexical path beneath the prepared workspace.
     """
 
-    role: LocalQuantumEspressoResolvedDestinationRole
+    role: LocalQeResolvedDestinationRole
     owner_identity: str
-    portable_destination: QuantumEspressoArtifactDestination
+    portable_destination: QeArtifactDestination
     absolute_path: Path
 
     def __post_init__(self) -> None:
-        if type(self.role) is not LocalQuantumEspressoResolvedDestinationRole:
-            raise TypeError("role must be LocalQuantumEspressoResolvedDestinationRole")
+        if type(self.role) is not LocalQeResolvedDestinationRole:
+            raise TypeError("role must be LocalQeResolvedDestinationRole")
         if type(self.owner_identity) is not str:
             raise TypeError("owner_identity must be a built-in str")
         if not self.owner_identity:
             raise ValueError("owner_identity must not be empty")
-        if type(self.portable_destination) is not QuantumEspressoArtifactDestination:
-            raise TypeError(
-                "portable_destination must be QuantumEspressoArtifactDestination"
-            )
+        if type(self.portable_destination) is not QeArtifactDestination:
+            raise TypeError("portable_destination must be QeArtifactDestination")
         if not isinstance(self.absolute_path, Path):
             raise TypeError("absolute_path must be pathlib.Path")
         if not self.absolute_path.is_absolute():
@@ -294,7 +306,31 @@ class LocalQuantumEspressoResolvedDestination:
 
 
 @dataclass(frozen=True, slots=True)
-class LocalQuantumEspressoFileSourceObservation:
+class LocalQeExecutionRecordDestination:
+    """Own the confined destination of one provider execution record.
+
+    Parameters
+    ----------
+    portable_destination
+        Parent-free path relative to the prepared attempt workspace.
+    absolute_path
+        Exact absolute lexical path confined beneath that workspace.
+    """
+
+    portable_destination: QeArtifactDestination
+    absolute_path: Path
+
+    def __post_init__(self) -> None:
+        if type(self.portable_destination) is not QeArtifactDestination:
+            raise TypeError("portable_destination must be QeArtifactDestination")
+        if not isinstance(self.absolute_path, Path):
+            raise TypeError("absolute_path must be pathlib.Path")
+        if not self.absolute_path.is_absolute():
+            raise ValueError("absolute_path must be absolute")
+
+
+@dataclass(frozen=True, slots=True)
+class LocalQeFileSourceObservation:
     """Record exact bytes observed for one local regular-file source.
 
     Attributes
@@ -323,7 +359,7 @@ class LocalQuantumEspressoFileSourceObservation:
 
 
 @dataclass(frozen=True, slots=True)
-class LocalQuantumEspressoTreeSourceObservation:
+class LocalQeTreeSourceObservation:
     """Record deterministic identity observations for one predecessor-state tree.
 
     Attributes
@@ -385,15 +421,14 @@ class LocalQuantumEspressoTreeSourceObservation:
             raise ValueError("entry_count must equal manifest entry count")
 
 
-type LocalQuantumEspressoArtifactSourceObservation = (
-    LocalQuantumEspressoFileSourceObservation
-    | LocalQuantumEspressoTreeSourceObservation
+type LocalQeArtifactSourceObservation = (
+    LocalQeFileSourceObservation | LocalQeTreeSourceObservation
 )
 """Closed exact source-observation variants."""
 
 
 @dataclass(frozen=True, slots=True)
-class LocalQuantumEspressoSupportedExecutableBinding:
+class LocalQeSupportedExecutableBinding:
     """Declare one exact executable/program/classifier combination supported locally.
 
     Attributes
@@ -412,18 +447,18 @@ class LocalQuantumEspressoSupportedExecutableBinding:
         Exact diagnostic classifier implementation/catalog identity.
     """
 
-    executable_configuration_identity: QuantumEspressoExecutableConfigurationIdentity
+    executable_configuration_identity: QeExecutableConfigurationIdentity
     executable_content_identity: ArtifactContentIdentity
-    program: QuantumEspressoProgram
-    executable_kind: QuantumEspressoExecutableKind
+    program: QeProgram
+    executable_kind: QeExecutableKind
     program_version: str
-    classifier_identity: QuantumEspressoDiagnosticClassifierIdentity
+    classifier_identity: QeDiagnosticClassifierIdentity
 
     def __post_init__(self) -> None:
         expected = (
             (
                 self.executable_configuration_identity,
-                QuantumEspressoExecutableConfigurationIdentity,
+                QeExecutableConfigurationIdentity,
                 "executable_configuration_identity",
             ),
             (
@@ -431,15 +466,15 @@ class LocalQuantumEspressoSupportedExecutableBinding:
                 ArtifactContentIdentity,
                 "executable_content_identity",
             ),
-            (self.program, QuantumEspressoProgram, "program"),
+            (self.program, QeProgram, "program"),
             (
                 self.executable_kind,
-                QuantumEspressoExecutableKind,
+                QeExecutableKind,
                 "executable_kind",
             ),
             (
                 self.classifier_identity,
-                QuantumEspressoDiagnosticClassifierIdentity,
+                QeDiagnosticClassifierIdentity,
                 "classifier_identity",
             ),
         )
@@ -453,7 +488,7 @@ class LocalQuantumEspressoSupportedExecutableBinding:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class LocalQuantumEspressoExecutionPreparationRequest:
+class LocalQeExecutionPreparationRequest:
     """Supply exact read-only inputs for one local QE preparation operation.
 
     Attributes
@@ -474,16 +509,19 @@ class LocalQuantumEspressoExecutionPreparationRequest:
         Absolute existing directory beneath which the absent workspace is authorized.
     attempt_workspace_name
         One parent-free child directory name under ``authorized_run_root``.
-    artifact_sources
-        Unique lexical tuple binding every exact input artifact to one absolute source.
+    external_artifact_sources
+        Unique lexical tuple binding every pseudopotential and predecessor-state
+        artifact to one absolute source. Native input has no local source binding.
     limits
         Operational resource ceilings.
     stdout_destination, stderr_destination
         Distinct stream artifact destinations beneath the workspace.
     before_snapshot_destination, after_snapshot_destination
         Distinct deterministic snapshot-record destinations.
+    execution_record_destination
+        Provider-owned canonical execution-record destination.
     terminal_record_destination
-        Atomic terminal-record destination.
+        Atomic KSD terminal-record destination.
     work_destination, result_destination
         Distinct mutable work and collected-result directory destinations.
     simulation_execution_request_identity
@@ -499,22 +537,23 @@ class LocalQuantumEspressoExecutionPreparationRequest:
         does not interpret it as authority to execute.
     """
 
-    execution_input: QuantumEspressoExecutionInput
-    executable_configuration: QuantumEspressoExecutableConfiguration
+    execution_input: QeExecutionInput
+    executable_configuration: QeExecutableConfiguration
     executable_path: Path
     executable_content_identity: ArtifactContentIdentity
-    executable_destination: QuantumEspressoArtifactDestination
+    executable_destination: QeArtifactDestination
     authorized_run_root: Path
-    attempt_workspace_name: LocalQuantumEspressoAttemptWorkspaceName
-    artifact_sources: tuple[LocalQuantumEspressoArtifactSource, ...]
-    limits: LocalQuantumEspressoExecutionLimits
-    stdout_destination: QuantumEspressoArtifactDestination
-    stderr_destination: QuantumEspressoArtifactDestination
-    before_snapshot_destination: QuantumEspressoArtifactDestination
-    after_snapshot_destination: QuantumEspressoArtifactDestination
-    terminal_record_destination: QuantumEspressoArtifactDestination
-    work_destination: QuantumEspressoArtifactDestination
-    result_destination: QuantumEspressoArtifactDestination
+    attempt_workspace_name: LocalQeAttemptWorkspaceName
+    external_artifact_sources: tuple[LocalQeArtifactSource, ...]
+    limits: LocalQeExecutionLimits
+    stdout_destination: QeArtifactDestination
+    stderr_destination: QeArtifactDestination
+    before_snapshot_destination: QeArtifactDestination
+    after_snapshot_destination: QeArtifactDestination
+    execution_record_destination: QeArtifactDestination
+    terminal_record_destination: QeArtifactDestination
+    work_destination: QeArtifactDestination
+    result_destination: QeArtifactDestination
     simulation_execution_request_identity: SimulationExecutionRequestIdentity
     scientific_executor_identity: ScientificExecutorIdentity
     dispatch_destination_identity: DispatchDestinationIdentity
@@ -523,10 +562,10 @@ class LocalQuantumEspressoExecutionPreparationRequest:
 
     def __post_init__(self) -> None:
         expected = (
-            (self.execution_input, QuantumEspressoExecutionInput, "execution_input"),
+            (self.execution_input, QeExecutionInput, "execution_input"),
             (
                 self.executable_configuration,
-                QuantumEspressoExecutableConfiguration,
+                QeExecutableConfiguration,
                 "executable_configuration",
             ),
             (
@@ -536,15 +575,15 @@ class LocalQuantumEspressoExecutionPreparationRequest:
             ),
             (
                 self.attempt_workspace_name,
-                LocalQuantumEspressoAttemptWorkspaceName,
+                LocalQeAttemptWorkspaceName,
                 "attempt_workspace_name",
             ),
             (
                 self.executable_destination,
-                QuantumEspressoArtifactDestination,
+                QeArtifactDestination,
                 "executable_destination",
             ),
-            (self.limits, LocalQuantumEspressoExecutionLimits, "limits"),
+            (self.limits, LocalQeExecutionLimits, "limits"),
             (
                 self.simulation_execution_request_identity,
                 SimulationExecutionRequestIdentity,
@@ -582,37 +621,41 @@ class LocalQuantumEspressoExecutionPreparationRequest:
                 raise TypeError(f"{path_name} must be pathlib.Path")
             if not path_value.is_absolute():
                 raise ValueError(f"{path_name} must be absolute")
-        sources = self.artifact_sources
+        sources: tuple[LocalQeArtifactSource, ...] = self.external_artifact_sources
         if type(sources) is not tuple or any(
-            type(value) is not LocalQuantumEspressoArtifactSource for value in sources
+            type(value) is not LocalQeArtifactSource for value in sources
         ):
             raise TypeError(
-                "artifact_sources must be a tuple of LocalQuantumEspressoArtifactSource"
+                "external_artifact_sources must be a tuple of LocalQeArtifactSource"
             )
         if sources != tuple(
-            sorted(sources, key=lambda value: value.artifact.identity.value)
-        ) or len({value.artifact.identity for value in sources}) != len(sources):
-            raise ValueError("artifact_sources must be unique and lexically sorted")
+            sorted(sources, key=lambda value: value.artifact_identity.value)
+        ) or len({value.artifact_identity for value in sources}) != len(sources):
+            raise ValueError(
+                "external_artifact_sources must be unique and lexically sorted"
+            )
         destinations = (
             (self.stdout_destination, "stdout_destination"),
             (self.stderr_destination, "stderr_destination"),
             (self.before_snapshot_destination, "before_snapshot_destination"),
             (self.after_snapshot_destination, "after_snapshot_destination"),
+            (self.execution_record_destination, "execution_record_destination"),
             (self.terminal_record_destination, "terminal_record_destination"),
             (self.work_destination, "work_destination"),
             (self.result_destination, "result_destination"),
         )
         for destination, name in destinations:
-            if type(destination) is not QuantumEspressoArtifactDestination:
-                raise TypeError(f"{name} must be QuantumEspressoArtifactDestination")
+            if type(destination) is not QeArtifactDestination:
+                raise TypeError(f"{name} must be QeArtifactDestination")
 
 
-class LocalQuantumEspressoPreparationFailureCode(StrEnum):
+class LocalQePreparationFailureCode(StrWireEnum):
     """Closed read-only preparation failure codes."""
 
     INVALID_CONFINEMENT = "invalid_confinement"
     UNEXPECTED_SYMLINK_OR_TYPE = "unexpected_symlink_or_type"
     MISSING_SOURCE = "missing_source"
+    INPUT_BINDING_MISMATCH = "input_binding_mismatch"
     SOURCE_IDENTITY_MISMATCH = "source_identity_mismatch"
     EXECUTABLE_IDENTITY_MISMATCH = "executable_identity_mismatch"
     EXECUTABLE_NOT_RUNNABLE = "executable_not_runnable"
@@ -620,9 +663,10 @@ class LocalQuantumEspressoPreparationFailureCode(StrEnum):
     INSUFFICIENT_FREE_SPACE = "insufficient_free_space"
     UNSUPPORTED_BINDING = "unsupported_binding"
     RESOURCE_OBSERVATION_FAILED = "resource_observation_failed"
+    EXECUTABLE_OBSERVATION_FAILED = "executable_observation_failed"
 
 
-class LocalQuantumEspressoPreparationPhase(StrEnum):
+class LocalQePreparationPhase(StrWireEnum):
     """Closed phases in which read-only preparation may fail."""
 
     CONFINEMENT = "confinement"
@@ -633,7 +677,7 @@ class LocalQuantumEspressoPreparationPhase(StrEnum):
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class LocalQuantumEspressoPreparationFailure:
+class LocalQePreparationFailure:
     """Represent one fail-closed read-only preparation result.
 
     Attributes
@@ -654,12 +698,10 @@ class LocalQuantumEspressoPreparationFailure:
         Explicit statements limiting interpretation of this result.
     """
 
-    code: LocalQuantumEspressoPreparationFailureCode
-    phase: LocalQuantumEspressoPreparationPhase
-    execution_input_identity: QuantumEspressoExecutionInputIdentity
-    preparation_implementation_identity: (
-        LocalQuantumEspressoPreparationImplementationIdentity
-    )
+    code: LocalQePreparationFailureCode
+    phase: LocalQePreparationPhase
+    execution_input_identity: QeExecutionInputIdentity
+    preparation_implementation_identity: LocalQePreparationImplementationIdentity
     expected_condition: str
     observed_condition: str
     related_identities: tuple[str, ...]
@@ -667,16 +709,16 @@ class LocalQuantumEspressoPreparationFailure:
 
     def __post_init__(self) -> None:
         expected = (
-            (self.code, LocalQuantumEspressoPreparationFailureCode, "code"),
-            (self.phase, LocalQuantumEspressoPreparationPhase, "phase"),
+            (self.code, LocalQePreparationFailureCode, "code"),
+            (self.phase, LocalQePreparationPhase, "phase"),
             (
                 self.execution_input_identity,
-                QuantumEspressoExecutionInputIdentity,
+                QeExecutionInputIdentity,
                 "execution_input_identity",
             ),
             (
                 self.preparation_implementation_identity,
-                LocalQuantumEspressoPreparationImplementationIdentity,
+                LocalQePreparationImplementationIdentity,
                 "preparation_implementation_identity",
             ),
         )
@@ -704,7 +746,7 @@ class LocalQuantumEspressoPreparationFailure:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class LocalQuantumEspressoPreparedExecution:
+class LocalQePreparedExecution:
     """Represent one successful read-only local execution preparation.
 
     Attributes
@@ -713,6 +755,9 @@ class LocalQuantumEspressoPreparedExecution:
         Deterministic identity of the complete preparation observation.
     request
         Exact immutable request that was prepared.
+    calculator_input_binding
+        Exact admitted provider-input and KSD correlation binding whose primary bytes
+        and external requirements govern preparation.
     preparation_implementation_identity
         Exact preparation algorithm identity.
     workspace
@@ -722,6 +767,8 @@ class LocalQuantumEspressoPreparedExecution:
         destination.
     environment_additions
         Exact canonical allowlisted environment additions from the configuration.
+    execution_record_destination
+        Exact object-owned provider execution-record destination.
     resolved_destinations
         Canonically ordered portable-to-absolute destination bindings.
     executable_content_identity
@@ -734,32 +781,42 @@ class LocalQuantumEspressoPreparedExecution:
         Free bytes observed at the authorized run root.
     """
 
-    identity: QuantumEspressoPreparationIdentity
-    request: LocalQuantumEspressoExecutionPreparationRequest
-    preparation_implementation_identity: (
-        LocalQuantumEspressoPreparationImplementationIdentity
-    )
+    identity: QePreparationIdentity
+    request: LocalQeExecutionPreparationRequest
+    calculator_input_binding: QeCalculatorInputBinding
+    preparation_implementation_identity: LocalQePreparationImplementationIdentity
     workspace: Path
     argv: tuple[str, ...]
     environment_additions: tuple[tuple[str, str], ...]
-    resolved_destinations: tuple[LocalQuantumEspressoResolvedDestination, ...]
+    execution_record_destination: LocalQeExecutionRecordDestination
+    resolved_destinations: tuple[LocalQeResolvedDestination, ...]
     executable_content_identity: ArtifactContentIdentity
-    source_observations: tuple[LocalQuantumEspressoArtifactSourceObservation, ...]
+    source_observations: tuple[LocalQeArtifactSourceObservation, ...]
     required_free_bytes: int
     observed_free_bytes: int
 
     def __post_init__(self) -> None:
         expected = (
-            (self.identity, QuantumEspressoPreparationIdentity, "identity"),
+            (self.identity, QePreparationIdentity, "identity"),
             (
                 self.request,
-                LocalQuantumEspressoExecutionPreparationRequest,
+                LocalQeExecutionPreparationRequest,
                 "request",
             ),
             (
+                self.calculator_input_binding,
+                QeCalculatorInputBinding,
+                "calculator_input_binding",
+            ),
+            (
                 self.preparation_implementation_identity,
-                LocalQuantumEspressoPreparationImplementationIdentity,
+                LocalQePreparationImplementationIdentity,
                 "preparation_implementation_identity",
+            ),
+            (
+                self.execution_record_destination,
+                LocalQeExecutionRecordDestination,
+                "execution_record_destination",
             ),
             (
                 self.executable_content_identity,
@@ -770,10 +827,26 @@ class LocalQuantumEspressoPreparedExecution:
         for value, nominal_type, name in expected:
             if type(value) is not nominal_type:
                 raise TypeError(f"{name} must be {nominal_type.__name__}")
+        if self.calculator_input_binding.execution_input is not (
+            self.request.execution_input
+        ):
+            raise ValueError(
+                "calculator_input_binding must retain the prepared execution input"
+            )
         if not isinstance(self.workspace, Path):
             raise TypeError("workspace must be pathlib.Path")
         if not self.workspace.is_absolute():
             raise ValueError("workspace must be absolute")
+        if (
+            self.execution_record_destination.portable_destination
+            != self.request.execution_record_destination
+            or not self.execution_record_destination.absolute_path.is_relative_to(
+                self.workspace
+            )
+        ):
+            raise ValueError(
+                "execution_record_destination must match and remain beneath workspace"
+            )
         if type(self.argv) is not tuple or any(
             type(value) is not str for value in self.argv
         ):
@@ -791,12 +864,10 @@ class LocalQuantumEspressoPreparedExecution:
             raise TypeError("environment_additions must contain built-in string pairs")
         destinations = self.resolved_destinations
         if type(destinations) is not tuple or any(
-            type(value) is not LocalQuantumEspressoResolvedDestination
-            for value in destinations
+            type(value) is not LocalQeResolvedDestination for value in destinations
         ):
             raise TypeError(
-                "resolved_destinations must contain "
-                "LocalQuantumEspressoResolvedDestination values"
+                "resolved_destinations must contain LocalQeResolvedDestination values"
             )
         expected_destinations = tuple(
             sorted(
@@ -810,8 +881,8 @@ class LocalQuantumEspressoPreparedExecution:
         if type(observations) is not tuple or any(
             type(value)
             not in (
-                LocalQuantumEspressoFileSourceObservation,
-                LocalQuantumEspressoTreeSourceObservation,
+                LocalQeFileSourceObservation,
+                LocalQeTreeSourceObservation,
             )
             for value in observations
         ):
@@ -830,14 +901,12 @@ class LocalQuantumEspressoPreparedExecution:
             raise ValueError("observed_free_bytes must satisfy required_free_bytes")
 
 
-type LocalQuantumEspressoPreparationResult = (
-    LocalQuantumEspressoPreparedExecution | LocalQuantumEspressoPreparationFailure
-)
+type LocalQePreparationResult = LocalQePreparedExecution | LocalQePreparationFailure
 """Closed read-only local preparation result."""
 
 
 @dataclass(frozen=True, slots=True)
-class LocalQuantumEspressoExecutionPreparer:
+class LocalQeExecutionPreparer:
     """Prepare one exact local QE execution without mutation or process invocation.
 
     Parameters
@@ -856,25 +925,24 @@ class LocalQuantumEspressoExecutionPreparer:
     gaps.
     """
 
-    implementation_identity: LocalQuantumEspressoPreparationImplementationIdentity
-    supported_bindings: tuple[LocalQuantumEspressoSupportedExecutableBinding, ...]
+    implementation_identity: LocalQePreparationImplementationIdentity
+    supported_bindings: tuple[LocalQeSupportedExecutableBinding, ...]
 
     def __post_init__(self) -> None:
         if type(self.implementation_identity) is not (
-            LocalQuantumEspressoPreparationImplementationIdentity
+            LocalQePreparationImplementationIdentity
         ):
             raise TypeError(
                 "implementation_identity must be "
-                "LocalQuantumEspressoPreparationImplementationIdentity"
+                "LocalQePreparationImplementationIdentity"
             )
         values = self.supported_bindings
         if type(values) is not tuple or any(
-            type(value) is not LocalQuantumEspressoSupportedExecutableBinding
-            for value in values
+            type(value) is not LocalQeSupportedExecutableBinding for value in values
         ):
             raise TypeError(
                 "supported_bindings must contain "
-                "LocalQuantumEspressoSupportedExecutableBinding values"
+                "LocalQeSupportedExecutableBinding values"
             )
         if not values:
             raise ValueError("supported_bindings must not be empty")
@@ -900,18 +968,22 @@ class LocalQuantumEspressoExecutionPreparer:
 
     def execute(
         self,
-        request: LocalQuantumEspressoExecutionPreparationRequest,
-    ) -> LocalQuantumEspressoPreparationResult:
+        request: LocalQeExecutionPreparationRequest,
+        calculator_input_binding: QeCalculatorInputBinding,
+    ) -> LocalQePreparationResult:
         """Return a prepared execution or a fail-closed read-only failure.
 
         Parameters
         ----------
         request
             Exact local preparation request.
+        calculator_input_binding
+            Exact admitted provider-input binding. Provider primary bytes and external
+            requirements remain authoritative for input content identities.
 
         Returns
         -------
-        LocalQuantumEspressoPreparationResult
+        LocalQePreparationResult
             Successful immutable preparation when every required fact is established;
             otherwise a typed failure. No result authorizes process execution.
 
@@ -920,45 +992,36 @@ class LocalQuantumEspressoExecutionPreparer:
         TypeError
             If ``request`` is not exactly a preparation request.
         """
-        if type(request) is not LocalQuantumEspressoExecutionPreparationRequest:
-            raise TypeError(
-                "request must be LocalQuantumEspressoExecutionPreparationRequest"
+        if type(request) is not LocalQeExecutionPreparationRequest:
+            raise TypeError("request must be LocalQeExecutionPreparationRequest")
+        if type(calculator_input_binding) is not QeCalculatorInputBinding:
+            raise TypeError("calculator_input_binding must be QeCalculatorInputBinding")
+        if calculator_input_binding.execution_input is not request.execution_input:
+            return self._failure(
+                request,
+                LocalQePreparationFailureCode.INPUT_BINDING_MISMATCH,
+                LocalQePreparationPhase.INPUT_SOURCE,
+                "provider input binding retains the exact execution input",
+                "provider input binding retains a different execution input",
+                (request.execution_input.identity.value,),
             )
         compatibility_failure = self._check_compatibility(request)
         if compatibility_failure is not None:
             return compatibility_failure
-        confinement = self._resolve_confinement(request)
-        if isinstance(confinement, LocalQuantumEspressoPreparationFailure):
+        confinement = self._resolve_confinement(request, calculator_input_binding)
+        if isinstance(confinement, LocalQePreparationFailure):
             return confinement
-        workspace, destinations = confinement
-        executable_observation = self._inspect_regular_file(
-            request=request,
-            source=request.executable_path,
-            expected=request.executable_content_identity,
-            mismatch_code=(
-                LocalQuantumEspressoPreparationFailureCode.EXECUTABLE_IDENTITY_MISMATCH
-            ),
-            phase=LocalQuantumEspressoPreparationPhase.EXECUTABLE,
-            related_identity=request.executable_configuration.identity.value,
-            require_executable=True,
-        )
-        if type(executable_observation) is LocalQuantumEspressoPreparationFailure:
+        workspace, destinations, execution_record_destination = confinement
+        executable_observation = self._inspect_executable(request)
+        if type(executable_observation) is LocalQePreparationFailure:
             return executable_observation
-        if executable_observation != (
-            request.executable_configuration.executable_content_identity
-        ):
-            return self._failure(
-                request,
-                LocalQuantumEspressoPreparationFailureCode.EXECUTABLE_IDENTITY_MISMATCH,
-                LocalQuantumEspressoPreparationPhase.EXECUTABLE,
-                "configuration and local-boundary executable identities agree",
-                "configuration identity differs from observed executable identity",
-                (request.executable_configuration.identity.value,),
+        assert type(executable_observation) is ArtifactContentIdentity
+        source_observations: list[LocalQeArtifactSourceObservation] = []
+        for source in request.external_artifact_sources:
+            observation = self._inspect_artifact_source(
+                request, calculator_input_binding, source
             )
-        source_observations: list[LocalQuantumEspressoArtifactSourceObservation] = []
-        for source in request.artifact_sources:
-            observation = self._inspect_artifact_source(request, source)
-            if isinstance(observation, LocalQuantumEspressoPreparationFailure):
+            if isinstance(observation, LocalQePreparationFailure):
                 return observation
             source_observations.append(observation)
         try:
@@ -966,8 +1029,8 @@ class LocalQuantumEspressoExecutionPreparer:
         except OSError:
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.RESOURCE_OBSERVATION_FAILED,
-                LocalQuantumEspressoPreparationPhase.RESOURCES,
+                LocalQePreparationFailureCode.RESOURCE_OBSERVATION_FAILED,
+                LocalQePreparationPhase.RESOURCES,
                 "free-space observation for the authorized run root",
                 "free-space observation failed",
                 (request.execution_input.identity.value,),
@@ -975,8 +1038,8 @@ class LocalQuantumEspressoExecutionPreparer:
         if free_bytes < request.limits.minimum_free_bytes:
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.INSUFFICIENT_FREE_SPACE,
-                LocalQuantumEspressoPreparationPhase.RESOURCES,
+                LocalQePreparationFailureCode.INSUFFICIENT_FREE_SPACE,
+                LocalQePreparationPhase.RESOURCES,
                 "observed free bytes satisfy the declared minimum",
                 "observed free bytes are below the declared minimum",
                 (request.execution_input.identity.value,),
@@ -984,13 +1047,13 @@ class LocalQuantumEspressoExecutionPreparer:
         executable_destinations = tuple(
             value
             for value in destinations
-            if value.role is LocalQuantumEspressoResolvedDestinationRole.EXECUTABLE
+            if value.role is LocalQeResolvedDestinationRole.EXECUTABLE
         )
         if len(executable_destinations) != 1:
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.INVALID_CONFINEMENT,
-                LocalQuantumEspressoPreparationPhase.CONFINEMENT,
+                LocalQePreparationFailureCode.INVALID_CONFINEMENT,
+                LocalQePreparationPhase.CONFINEMENT,
                 "one exact staged executable destination",
                 "staged executable destination is not unique",
                 (request.executable_configuration.identity.value,),
@@ -999,15 +1062,27 @@ class LocalQuantumEspressoExecutionPreparer:
             str(executable_destinations[0].absolute_path),
             *request.executable_configuration.argument_suffix,
         )
-        preparation_identity = QuantumEspressoPreparationIdentity(
+        native_input: QeNativeInputArtifact = request.execution_input.native_input
+        native_content_identity: ArtifactContentIdentity = (
+            native_input.content.content_identity
+        )
+        preparation_identity = QePreparationIdentity(
             "qe-local-preparation-v1:"
             + self._framed_digest(
                 (
                     self.implementation_identity.value,
                     request.execution_input.identity.value,
+                    calculator_input_binding.admission_policy_identity.value,
+                    calculator_input_binding.calculator_input.input_id,
+                    calculator_input_binding.provider_record_sha256,
                     request.executable_configuration.identity.value,
                     str(workspace),
                     *argv,
+                    f"native:{native_input.identity.value}:"
+                    f"{native_input.destination.value}:"
+                    f"{native_content_identity.algorithm}:"
+                    f"{native_content_identity.digest}:"
+                    f"{native_content_identity.byte_count}",
                     *(
                         f"{value.artifact_identity.value}:"
                         f"{self._source_observation_identity(value)}"
@@ -1017,17 +1092,21 @@ class LocalQuantumEspressoExecutionPreparer:
                         f"{value.role.value}:{value.portable_destination.value}"
                         for value in destinations
                     ),
+                    "provider_execution_record:"
+                    + execution_record_destination.portable_destination.value,
                     str(free_bytes),
                 )
             )
         )
-        return LocalQuantumEspressoPreparedExecution(
+        return LocalQePreparedExecution(
             identity=preparation_identity,
             request=request,
+            calculator_input_binding=calculator_input_binding,
             preparation_implementation_identity=self.implementation_identity,
             workspace=workspace,
             argv=argv,
             environment_additions=request.executable_configuration.environment_additions,
+            execution_record_destination=execution_record_destination,
             resolved_destinations=destinations,
             executable_content_identity=executable_observation,
             source_observations=tuple(source_observations),
@@ -1035,7 +1114,7 @@ class LocalQuantumEspressoExecutionPreparer:
             observed_free_bytes=free_bytes,
         )
 
-    def render_dry_run(self, prepared: LocalQuantumEspressoPreparedExecution) -> str:
+    def render_dry_run(self, prepared: LocalQePreparedExecution) -> str:
         """Render a deterministic sanitized dry-run description.
 
         Parameters
@@ -1054,8 +1133,8 @@ class LocalQuantumEspressoExecutionPreparer:
         TypeError
             If ``prepared`` is not exactly a prepared execution.
         """
-        if type(prepared) is not LocalQuantumEspressoPreparedExecution:
-            raise TypeError("prepared must be LocalQuantumEspressoPreparedExecution")
+        if type(prepared) is not LocalQePreparedExecution:
+            raise TypeError("prepared must be LocalQePreparedExecution")
         lines = [
             f"preparation_identity={prepared.identity.value}",
             f"execution_input_identity={prepared.request.execution_input.identity.value}",
@@ -1074,6 +1153,10 @@ class LocalQuantumEspressoExecutionPreparer:
             f"{value.portable_destination.value}"
             for value in prepared.resolved_destinations
         )
+        lines.append(
+            "provider_execution_record_destination="
+            + prepared.execution_record_destination.portable_destination.value
+        )
         lines.extend(
             f"source[{value.artifact_identity.value}]="
             f"{self._source_observation_identity(value)}"
@@ -1090,14 +1173,14 @@ class LocalQuantumEspressoExecutionPreparer:
 
     def _check_compatibility(
         self,
-        request: LocalQuantumEspressoExecutionPreparationRequest,
-    ) -> LocalQuantumEspressoPreparationFailure | None:
+        request: LocalQeExecutionPreparationRequest,
+    ) -> LocalQePreparationFailure | None:
         configuration = request.executable_configuration
         if request.execution_input.program is not configuration.program:
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.UNSUPPORTED_BINDING,
-                LocalQuantumEspressoPreparationPhase.COMPATIBILITY,
+                LocalQePreparationFailureCode.UNSUPPORTED_BINDING,
+                LocalQePreparationPhase.COMPATIBILITY,
                 "execution input and executable configuration use one program role",
                 "program roles differ",
                 (
@@ -1105,7 +1188,7 @@ class LocalQuantumEspressoExecutionPreparer:
                     configuration.identity.value,
                 ),
             )
-        binding = LocalQuantumEspressoSupportedExecutableBinding(
+        binding = LocalQeSupportedExecutableBinding(
             executable_configuration_identity=configuration.identity,
             executable_content_identity=configuration.executable_content_identity,
             program=configuration.program,
@@ -1116,8 +1199,8 @@ class LocalQuantumEspressoExecutionPreparer:
         if binding not in self.supported_bindings:
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.UNSUPPORTED_BINDING,
-                LocalQuantumEspressoPreparationPhase.COMPATIBILITY,
+                LocalQePreparationFailureCode.UNSUPPORTED_BINDING,
+                LocalQePreparationPhase.COMPATIBILITY,
                 "an explicitly supported program/version/classifier binding",
                 "binding is not supported by this preparer",
                 (configuration.identity.value,),
@@ -1126,17 +1209,22 @@ class LocalQuantumEspressoExecutionPreparer:
 
     def _resolve_confinement(
         self,
-        request: LocalQuantumEspressoExecutionPreparationRequest,
+        request: LocalQeExecutionPreparationRequest,
+        calculator_input_binding: QeCalculatorInputBinding,
     ) -> (
-        tuple[Path, tuple[LocalQuantumEspressoResolvedDestination, ...]]
-        | LocalQuantumEspressoPreparationFailure
+        tuple[
+            Path,
+            tuple[LocalQeResolvedDestination, ...],
+            LocalQeExecutionRecordDestination,
+        ]
+        | LocalQePreparationFailure
     ):
         root = request.authorized_run_root
         if not root.exists():
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.MISSING_SOURCE,
-                LocalQuantumEspressoPreparationPhase.CONFINEMENT,
+                LocalQePreparationFailureCode.MISSING_SOURCE,
+                LocalQePreparationPhase.CONFINEMENT,
                 "an existing authorized run root",
                 "authorized run root is missing",
                 (request.execution_input.identity.value,),
@@ -1144,8 +1232,8 @@ class LocalQuantumEspressoExecutionPreparer:
         if self._path_has_symlink(root) or not root.is_dir():
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
-                LocalQuantumEspressoPreparationPhase.CONFINEMENT,
+                LocalQePreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
+                LocalQePreparationPhase.CONFINEMENT,
                 "a nonsymlink authorized run-root directory",
                 "authorized run root has an unsupported type or symlink",
                 (request.execution_input.identity.value,),
@@ -1155,8 +1243,8 @@ class LocalQuantumEspressoExecutionPreparer:
         except OSError:
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.INVALID_CONFINEMENT,
-                LocalQuantumEspressoPreparationPhase.CONFINEMENT,
+                LocalQePreparationFailureCode.INVALID_CONFINEMENT,
+                LocalQePreparationPhase.CONFINEMENT,
                 "a resolvable authorized run root",
                 "authorized run root cannot be resolved",
                 (request.execution_input.identity.value,),
@@ -1164,8 +1252,8 @@ class LocalQuantumEspressoExecutionPreparer:
         if resolved_root != root:
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.INVALID_CONFINEMENT,
-                LocalQuantumEspressoPreparationPhase.CONFINEMENT,
+                LocalQePreparationFailureCode.INVALID_CONFINEMENT,
+                LocalQePreparationPhase.CONFINEMENT,
                 "an already canonical authorized run root",
                 "authorized run root differs from its canonical path",
                 (request.execution_input.identity.value,),
@@ -1174,80 +1262,99 @@ class LocalQuantumEspressoExecutionPreparer:
         if workspace.exists() or workspace.is_symlink():
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.EXISTING_WORKSPACE,
-                LocalQuantumEspressoPreparationPhase.CONFINEMENT,
+                LocalQePreparationFailureCode.EXISTING_WORKSPACE,
+                LocalQePreparationPhase.CONFINEMENT,
                 "an absent attempt workspace",
                 "attempt workspace already exists",
                 (request.execution_input.identity.value,),
             )
         role_destinations = (
             (
-                LocalQuantumEspressoResolvedDestinationRole.EXECUTABLE,
+                LocalQeResolvedDestinationRole.EXECUTABLE,
                 request.executable_configuration.identity.value,
                 request.executable_destination,
             ),
             (
-                LocalQuantumEspressoResolvedDestinationRole.STDOUT,
+                LocalQeResolvedDestinationRole.STDOUT,
                 "stdout",
                 request.stdout_destination,
             ),
             (
-                LocalQuantumEspressoResolvedDestinationRole.STDERR,
+                LocalQeResolvedDestinationRole.STDERR,
                 "stderr",
                 request.stderr_destination,
             ),
             (
-                LocalQuantumEspressoResolvedDestinationRole.BEFORE_SNAPSHOT,
+                LocalQeResolvedDestinationRole.BEFORE_SNAPSHOT,
                 "before_snapshot",
                 request.before_snapshot_destination,
             ),
             (
-                LocalQuantumEspressoResolvedDestinationRole.AFTER_SNAPSHOT,
+                LocalQeResolvedDestinationRole.AFTER_SNAPSHOT,
                 "after_snapshot",
                 request.after_snapshot_destination,
             ),
             (
-                LocalQuantumEspressoResolvedDestinationRole.TERMINAL_RECORD,
+                LocalQeResolvedDestinationRole.TERMINAL_RECORD,
                 "terminal_record",
                 request.terminal_record_destination,
             ),
             (
-                LocalQuantumEspressoResolvedDestinationRole.WORK,
+                LocalQeResolvedDestinationRole.WORK,
                 "work",
                 request.work_destination,
             ),
             (
-                LocalQuantumEspressoResolvedDestinationRole.RESULT,
+                LocalQeResolvedDestinationRole.RESULT,
                 "result",
                 request.result_destination,
             ),
         )
         raw_destinations: list[
             tuple[
-                LocalQuantumEspressoResolvedDestinationRole,
+                LocalQeResolvedDestinationRole,
                 str,
-                QuantumEspressoArtifactDestination,
+                QeArtifactDestination,
             ]
         ] = list(role_destinations)
+        native_input: QeNativeInputArtifact = request.execution_input.native_input
+        raw_destinations.append(
+            (
+                LocalQeResolvedDestinationRole.INPUT_ARTIFACT,
+                native_input.identity.value,
+                native_input.destination,
+            )
+        )
         raw_destinations.extend(
             (
-                LocalQuantumEspressoResolvedDestinationRole.INPUT_ARTIFACT,
-                source.artifact.identity.value,
-                source.artifact.destination,
+                LocalQeResolvedDestinationRole.INPUT_ARTIFACT,
+                resource.artifact_identity.value,
+                resource.destination,
             )
-            for source in request.artifact_sources
+            for resource in calculator_input_binding.external_input_resources
         )
-        portable_values = tuple(value.value for _, _, value in raw_destinations)
+        raw_destinations.extend(
+            (
+                LocalQeResolvedDestinationRole.INPUT_ARTIFACT,
+                predecessor.identity.value,
+                predecessor.destination,
+            )
+            for predecessor in request.execution_input.predecessor_native_state
+        )
+        portable_values = (
+            *(value.value for _, _, value in raw_destinations),
+            request.execution_record_destination.value,
+        )
         if len(set(portable_values)) != len(portable_values):
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.INVALID_CONFINEMENT,
-                LocalQuantumEspressoPreparationPhase.CONFINEMENT,
+                LocalQePreparationFailureCode.INVALID_CONFINEMENT,
+                LocalQePreparationPhase.CONFINEMENT,
                 "unique workspace-relative destinations",
                 "two or more destinations are equal",
                 (request.execution_input.identity.value,),
             )
-        resolved: list[LocalQuantumEspressoResolvedDestination] = []
+        resolved: list[LocalQeResolvedDestination] = []
         for role, owner_identity, portable in raw_destinations:
             absolute = workspace.joinpath(*PurePosixPath(portable.value).parts)
             try:
@@ -1255,8 +1362,8 @@ class LocalQuantumEspressoExecutionPreparer:
             except ValueError:
                 return self._failure(
                     request,
-                    LocalQuantumEspressoPreparationFailureCode.INVALID_CONFINEMENT,
-                    LocalQuantumEspressoPreparationPhase.CONFINEMENT,
+                    LocalQePreparationFailureCode.INVALID_CONFINEMENT,
+                    LocalQePreparationPhase.CONFINEMENT,
                     "every destination confined beneath the attempt workspace",
                     "destination confinement comparison failed",
                     (owner_identity,),
@@ -1264,92 +1371,243 @@ class LocalQuantumEspressoExecutionPreparer:
             if common != workspace:
                 return self._failure(
                     request,
-                    LocalQuantumEspressoPreparationFailureCode.INVALID_CONFINEMENT,
-                    LocalQuantumEspressoPreparationPhase.CONFINEMENT,
+                    LocalQePreparationFailureCode.INVALID_CONFINEMENT,
+                    LocalQePreparationPhase.CONFINEMENT,
                     "every destination confined beneath the attempt workspace",
                     "destination escapes the attempt workspace",
                     (owner_identity,),
                 )
             resolved.append(
-                LocalQuantumEspressoResolvedDestination(
+                LocalQeResolvedDestination(
                     role=role,
                     owner_identity=owner_identity,
                     portable_destination=portable,
                     absolute_path=absolute,
                 )
             )
-        expected_artifacts = self._input_artifacts(request.execution_input)
-        source_artifacts = tuple(value.artifact for value in request.artifact_sources)
-        if len(expected_artifacts) != len(source_artifacts) or any(
-            source.artifact != expected
-            for source, expected in zip(
-                request.artifact_sources,
-                sorted(expected_artifacts, key=lambda value: value.identity.value),
-                strict=True,
+        execution_record_absolute: Path = workspace.joinpath(
+            *PurePosixPath(request.execution_record_destination.value).parts
+        )
+        try:
+            execution_record_common: Path = Path(
+                os.path.commonpath((workspace, execution_record_absolute))
             )
+        except ValueError:
+            return self._failure(
+                request,
+                LocalQePreparationFailureCode.INVALID_CONFINEMENT,
+                LocalQePreparationPhase.CONFINEMENT,
+                "the execution-record destination confined beneath the workspace",
+                "execution-record destination confinement comparison failed",
+                (request.execution_input.identity.value,),
+            )
+        if execution_record_common != workspace:
+            return self._failure(
+                request,
+                LocalQePreparationFailureCode.INVALID_CONFINEMENT,
+                LocalQePreparationPhase.CONFINEMENT,
+                "the execution-record destination confined beneath the workspace",
+                "execution-record destination escapes the attempt workspace",
+                (request.execution_input.identity.value,),
+            )
+        execution_record_destination = LocalQeExecutionRecordDestination(
+            portable_destination=request.execution_record_destination,
+            absolute_path=execution_record_absolute,
+        )
+        expected_external_identities: tuple[ArtifactIdentity, ...] = tuple(
+            sorted(
+                (
+                    *(
+                        value.artifact_identity
+                        for value in calculator_input_binding.external_input_resources
+                    ),
+                    *(
+                        value.identity
+                        for value in request.execution_input.predecessor_native_state
+                    ),
+                ),
+                key=lambda value: value.value,
+            )
+        )
+        source_identities: tuple[ArtifactIdentity, ...] = tuple(
+            value.artifact_identity for value in request.external_artifact_sources
+        )
+        if source_identities != expected_external_identities:
+            return self._failure(
+                request,
+                LocalQePreparationFailureCode.INVALID_CONFINEMENT,
+                LocalQePreparationPhase.CONFINEMENT,
+                "exactly one external source binding for every pseudopotential and "
+                "predecessor-state artifact",
+                "external artifact-source bindings do not equal the execution input",
+                (request.execution_input.identity.value,),
+            )
+        return (
+            workspace,
+            tuple(
+                sorted(
+                    resolved,
+                    key=lambda value: (value.role.value, value.owner_identity),
+                )
+            ),
+            execution_record_destination,
+        )
+
+    def _inspect_executable(
+        self,
+        request: LocalQeExecutionPreparationRequest,
+    ) -> ArtifactContentIdentity | LocalQePreparationFailure:
+        configuration = request.executable_configuration
+        if request.executable_content_identity != (
+            configuration.executable_content_identity
         ):
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.INVALID_CONFINEMENT,
-                LocalQuantumEspressoPreparationPhase.CONFINEMENT,
-                "exactly one source binding for every execution-input artifact",
-                "artifact-source bindings do not equal the execution input",
-                (request.execution_input.identity.value,),
+                LocalQePreparationFailureCode.EXECUTABLE_IDENTITY_MISMATCH,
+                LocalQePreparationPhase.EXECUTABLE,
+                "configuration and local-boundary executable identities agree",
+                "configuration and local-boundary executable identities differ",
+                (configuration.identity.value,),
             )
-        return workspace, tuple(
-            sorted(resolved, key=lambda value: (value.role.value, value.owner_identity))
+        if self._path_has_symlink(request.executable_path):
+            return self._failure(
+                request,
+                LocalQePreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
+                LocalQePreparationPhase.EXECUTABLE,
+                "an executable path with no symbolic-link component",
+                "executable path contains a symbolic link",
+                (configuration.identity.value,),
+            )
+        try:
+            binding = QeExecutableBindingAdapter().execute(
+                configuration, request.executable_path
+            )
+        except ValueError:
+            return self._failure(
+                request,
+                LocalQePreparationFailureCode.EXECUTABLE_IDENTITY_MISMATCH,
+                LocalQePreparationPhase.EXECUTABLE,
+                "a provider-valid exact executable identity and absolute path",
+                "configuration cannot form a provider executable binding",
+                (configuration.identity.value,),
+            )
+        result = CalculatorExecutablePreparer(binding).prepare()
+        if type(result) is CalculatorExecutablePreparationFailure:
+            return self._provider_executable_failure(request, result)
+        assert type(result) is CalculatorPreparedExecutable
+        return request.executable_content_identity
+
+    def _provider_executable_failure(
+        self,
+        request: LocalQeExecutionPreparationRequest,
+        failure: CalculatorExecutablePreparationFailure,
+    ) -> LocalQePreparationFailure:
+        code_map = {
+            CalculatorExecutablePreparationFailureCode.MISSING: (
+                LocalQePreparationFailureCode.MISSING_SOURCE,
+                "an existing nonsymlink regular executable",
+            ),
+            CalculatorExecutablePreparationFailureCode.SYMBOLIC_LINK: (
+                LocalQePreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
+                "a nonsymlink regular executable",
+            ),
+            CalculatorExecutablePreparationFailureCode.NOT_REGULAR: (
+                LocalQePreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
+                "a regular executable file",
+            ),
+            CalculatorExecutablePreparationFailureCode.NOT_EXECUTABLE: (
+                LocalQePreparationFailureCode.EXECUTABLE_NOT_RUNNABLE,
+                "a regular file with an executable mode bit",
+            ),
+            CalculatorExecutablePreparationFailureCode.BYTE_SIZE_MISMATCH: (
+                LocalQePreparationFailureCode.EXECUTABLE_IDENTITY_MISMATCH,
+                "observed executable byte size equals the declared identity",
+            ),
+            CalculatorExecutablePreparationFailureCode.SHA256_MISMATCH: (
+                LocalQePreparationFailureCode.EXECUTABLE_IDENTITY_MISMATCH,
+                "observed executable SHA-256 equals the declared identity",
+            ),
+            CalculatorExecutablePreparationFailureCode.OBSERVATION_FAILED: (
+                LocalQePreparationFailureCode.EXECUTABLE_OBSERVATION_FAILED,
+                "a complete read-only executable observation",
+            ),
+        }
+        local_code, expected_condition = code_map[failure.code]
+        return self._failure(
+            request,
+            local_code,
+            LocalQePreparationPhase.EXECUTABLE,
+            expected_condition,
+            failure.observed_condition,
+            (request.executable_configuration.identity.value,),
         )
 
     def _inspect_artifact_source(
         self,
-        request: LocalQuantumEspressoExecutionPreparationRequest,
-        source: LocalQuantumEspressoArtifactSource,
-    ) -> (
-        LocalQuantumEspressoArtifactSourceObservation
-        | LocalQuantumEspressoPreparationFailure
-    ):
-        artifact = source.artifact
-        if type(artifact) in (
-            QuantumEspressoNativeInputArtifact,
-            QuantumEspressoPseudopotentialArtifact,
-        ):
-            assert type(artifact.content) is QuantumEspressoFileArtifactContent
-            observation = self._inspect_regular_file(
-                request=request,
-                source=source.source,
-                expected=artifact.content.content_identity,
-                mismatch_code=(
-                    LocalQuantumEspressoPreparationFailureCode.SOURCE_IDENTITY_MISMATCH
-                ),
-                phase=LocalQuantumEspressoPreparationPhase.INPUT_SOURCE,
-                related_identity=artifact.identity.value,
-                require_executable=False,
+        request: LocalQeExecutionPreparationRequest,
+        calculator_input_binding: QeCalculatorInputBinding,
+        source: LocalQeArtifactSource,
+    ) -> LocalQeArtifactSourceObservation | LocalQePreparationFailure:
+        resources_by_identity: dict[
+            ArtifactIdentity, QeExternalInputResourceBinding
+        ] = {
+            value.artifact_identity: value
+            for value in calculator_input_binding.external_input_resources
+        }
+        resource: QeExternalInputResourceBinding | None = resources_by_identity.get(
+            source.artifact_identity
+        )
+        if resource is not None:
+            requirement: CalculatorExternalInputRequirement = (
+                resource.external_requirement
             )
-            if isinstance(observation, LocalQuantumEspressoPreparationFailure):
+            expected: ArtifactContentIdentity = ArtifactContentIdentity(
+                "sha256", requirement.sha256, requirement.byte_size
+            )
+            observation: ArtifactContentIdentity | LocalQePreparationFailure = (
+                self._inspect_regular_file(
+                    request=request,
+                    source=source.source,
+                    expected=expected,
+                    mismatch_code=(
+                        LocalQePreparationFailureCode.SOURCE_IDENTITY_MISMATCH
+                    ),
+                    phase=LocalQePreparationPhase.INPUT_SOURCE,
+                    related_identity=source.artifact_identity.value,
+                )
+            )
+            if isinstance(observation, LocalQePreparationFailure):
                 return observation
-            return LocalQuantumEspressoFileSourceObservation(
-                artifact_identity=artifact.identity,
+            return LocalQeFileSourceObservation(
+                artifact_identity=source.artifact_identity,
                 source=source.source,
                 content_identity=observation,
             )
-        assert type(artifact) is QuantumEspressoPredecessorNativeStateArtifact
-        return self._inspect_tree_source(request, source.source, artifact)
+        predecessors_by_identity: dict[
+            ArtifactIdentity, QePredecessorNativeStateArtifact
+        ] = {
+            value.identity: value
+            for value in request.execution_input.predecessor_native_state
+        }
+        predecessor: QePredecessorNativeStateArtifact = predecessors_by_identity[
+            source.artifact_identity
+        ]
+        return self._inspect_tree_source(request, source.source, predecessor)
 
     def _inspect_regular_file(
         self,
         *,
-        request: LocalQuantumEspressoExecutionPreparationRequest,
+        request: LocalQeExecutionPreparationRequest,
         source: Path,
         expected: ArtifactContentIdentity,
-        mismatch_code: LocalQuantumEspressoPreparationFailureCode,
-        phase: LocalQuantumEspressoPreparationPhase,
+        mismatch_code: LocalQePreparationFailureCode,
+        phase: LocalQePreparationPhase,
         related_identity: str,
-        require_executable: bool,
-    ) -> ArtifactContentIdentity | LocalQuantumEspressoPreparationFailure:
+    ) -> ArtifactContentIdentity | LocalQePreparationFailure:
         if not source.exists():
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.MISSING_SOURCE,
+                LocalQePreparationFailureCode.MISSING_SOURCE,
                 phase,
                 "an existing nonsymlink regular file",
                 "source is missing",
@@ -1358,7 +1616,7 @@ class LocalQuantumEspressoExecutionPreparer:
         if self._path_has_symlink(source):
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
+                LocalQePreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
                 phase,
                 "a nonsymlink regular file",
                 "source path contains a symlink",
@@ -1369,7 +1627,7 @@ class LocalQuantumEspressoExecutionPreparer:
         except OSError:
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
+                LocalQePreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
                 phase,
                 "an inspectable nonsymlink regular file",
                 "source type observation failed",
@@ -1378,19 +1636,10 @@ class LocalQuantumEspressoExecutionPreparer:
         if not stat.S_ISREG(mode):
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
+                LocalQePreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
                 phase,
                 "a nonsymlink regular file",
                 "source is not a regular file",
-                (related_identity,),
-            )
-        if require_executable and not os.access(source, os.X_OK):
-            return self._failure(
-                request,
-                LocalQuantumEspressoPreparationFailureCode.EXECUTABLE_NOT_RUNNABLE,
-                phase,
-                "an executable regular file",
-                "executable permission is absent",
                 (related_identity,),
             )
         try:
@@ -1398,7 +1647,7 @@ class LocalQuantumEspressoExecutionPreparer:
         except OSError:
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
+                LocalQePreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
                 phase,
                 "a completely readable stable regular file",
                 "source byte observation failed",
@@ -1417,18 +1666,15 @@ class LocalQuantumEspressoExecutionPreparer:
 
     def _inspect_tree_source(
         self,
-        request: LocalQuantumEspressoExecutionPreparationRequest,
+        request: LocalQeExecutionPreparationRequest,
         source: Path,
-        artifact: QuantumEspressoPredecessorNativeStateArtifact,
-    ) -> (
-        LocalQuantumEspressoTreeSourceObservation
-        | LocalQuantumEspressoPreparationFailure
-    ):
+        artifact: QePredecessorNativeStateArtifact,
+    ) -> LocalQeTreeSourceObservation | LocalQePreparationFailure:
         if not source.exists():
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.MISSING_SOURCE,
-                LocalQuantumEspressoPreparationPhase.INPUT_SOURCE,
+                LocalQePreparationFailureCode.MISSING_SOURCE,
+                LocalQePreparationPhase.INPUT_SOURCE,
                 "an existing nonsymlink predecessor-state directory",
                 "source tree is missing",
                 (artifact.identity.value,),
@@ -1436,8 +1682,8 @@ class LocalQuantumEspressoExecutionPreparer:
         if self._path_has_symlink(source) or not source.is_dir():
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
-                LocalQuantumEspressoPreparationPhase.INPUT_SOURCE,
+                LocalQePreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
+                LocalQePreparationPhase.INPUT_SOURCE,
                 "a nonsymlink directory tree of directories and regular files",
                 "source tree has an unsupported root type or symlink",
                 (artifact.identity.value,),
@@ -1447,8 +1693,8 @@ class LocalQuantumEspressoExecutionPreparer:
         except OSError:
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
-                LocalQuantumEspressoPreparationPhase.INPUT_SOURCE,
+                LocalQePreparationFailureCode.UNEXPECTED_SYMLINK_OR_TYPE,
+                LocalQePreparationPhase.INPUT_SOURCE,
                 "a readable nonsymlink tree containing only directories and files",
                 "tree observation failed or encountered an unsupported entry",
                 (artifact.identity.value,),
@@ -1464,13 +1710,13 @@ class LocalQuantumEspressoExecutionPreparer:
         ):
             return self._failure(
                 request,
-                LocalQuantumEspressoPreparationFailureCode.SOURCE_IDENTITY_MISMATCH,
-                LocalQuantumEspressoPreparationPhase.INPUT_SOURCE,
+                LocalQePreparationFailureCode.SOURCE_IDENTITY_MISMATCH,
+                LocalQePreparationPhase.INPUT_SOURCE,
                 "observed tree manifest and entries equal declared identities",
                 "observed tree identity differs from the declared identity",
                 (artifact.identity.value,),
             )
-        return LocalQuantumEspressoTreeSourceObservation(
+        return LocalQeTreeSourceObservation(
             artifact_identity=artifact.identity,
             source=source,
             manifest_identity=manifest,
@@ -1576,16 +1822,6 @@ class LocalQuantumEspressoExecutionPreparer:
         return False
 
     @staticmethod
-    def _input_artifacts(
-        execution_input: QuantumEspressoExecutionInput,
-    ) -> tuple[QuantumEspressoInputArtifact, ...]:
-        return (
-            execution_input.native_input,
-            *execution_input.pseudopotentials,
-            *execution_input.predecessor_native_state,
-        )
-
-    @staticmethod
     def _framed_digest(values: tuple[str, ...]) -> str:
         digest = hashlib.sha256()
         for value in values:
@@ -1596,27 +1832,27 @@ class LocalQuantumEspressoExecutionPreparer:
 
     @staticmethod
     def _source_observation_identity(
-        observation: LocalQuantumEspressoArtifactSourceObservation,
+        observation: LocalQeArtifactSourceObservation,
     ) -> str:
-        if type(observation) is LocalQuantumEspressoFileSourceObservation:
+        if type(observation) is LocalQeFileSourceObservation:
             return (
                 f"{observation.content_identity.algorithm}:"
                 f"{observation.content_identity.digest}:"
                 f"{observation.content_identity.byte_count}"
             )
-        assert type(observation) is LocalQuantumEspressoTreeSourceObservation
+        assert type(observation) is LocalQeTreeSourceObservation
         return observation.manifest_identity.value
 
     def _failure(
         self,
-        request: LocalQuantumEspressoExecutionPreparationRequest,
-        code: LocalQuantumEspressoPreparationFailureCode,
-        phase: LocalQuantumEspressoPreparationPhase,
+        request: LocalQeExecutionPreparationRequest,
+        code: LocalQePreparationFailureCode,
+        phase: LocalQePreparationPhase,
         expected_condition: str,
         observed_condition: str,
         related_identities: tuple[str, ...],
-    ) -> LocalQuantumEspressoPreparationFailure:
-        return LocalQuantumEspressoPreparationFailure(
+    ) -> LocalQePreparationFailure:
+        return LocalQePreparationFailure(
             code=code,
             phase=phase,
             execution_input_identity=request.execution_input.identity,

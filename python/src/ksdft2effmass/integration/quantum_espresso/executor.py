@@ -9,12 +9,12 @@ acceptance, or executor discovery.
 
 from __future__ import annotations
 
-import hashlib
 from dataclasses import dataclass
 from typing import final
 
+from projectkoios.simulations.calculator.input import CalculatorInputRecord
+
 from ksdft2effmass.workflows import (
-    ArtifactContentIdentity,
     ArtifactManifestEntryIdentity,
     DispatchOutcomeKind,
     ExecutionGrantIdentity,
@@ -35,58 +35,71 @@ from ksdft2effmass.workflows import (
     WorkflowRunRevisionIdentity,
 )
 
+from .calculator_input import (
+    QeCalculatorInputAdmission,
+    QeCalculatorInputAdmissionFailure,
+    QeCalculatorInputAdmissionPolicyIdentity,
+    QeCalculatorInputBinding,
+)
 from .contracts import (
-    QuantumEspressoBandsResult,
-    QuantumEspressoCalculatorFailedOutcome,
-    QuantumEspressoCalculatorOutcome,
-    QuantumEspressoCompletedOutcome,
-    QuantumEspressoDiagnosticReport,
-    QuantumEspressoDiagnosticReportIdentity,
-    QuantumEspressoDiagnosticUnresolvedOutcome,
-    QuantumEspressoOperationResult,
-    QuantumEspressoOperationResultEvidence,
-    QuantumEspressoProcessFailedOutcome,
-    QuantumEspressoProgram,
-    QuantumEspressoPwResult,
-    QuantumEspressoTerminalRecordIdentity,
+    QeCalculatorFailedOutcome,
+    QeCalculatorOutcome,
+    QeCompletedOutcome,
+    QeDiagnosticReport,
+    QeDiagnosticReportIdentity,
+    QeDiagnosticUnresolvedOutcome,
+    QeProcessFailedOutcome,
+    QeProgram,
+    QePwResult,
+    QeTerminalRecordIdentity,
 )
 from .diagnostics import (
-    QuantumEspressoDiagnosticClassificationRequest,
-    QuantumEspressoDiagnosticClassifier,
+    QeDiagnosticClassificationRequest,
+    QeDiagnosticClassifier,
 )
 from .effects import (
-    QuantumEspressoInputStager,
-    QuantumEspressoNativeOutputCollectionFailure,
-    QuantumEspressoNativeOutputCollector,
-    QuantumEspressoNativeOutputExtractionSpecification,
-    QuantumEspressoNativeOutputManifest,
-    QuantumEspressoPublishedTerminalRecord,
-    QuantumEspressoStagedExecution,
-    QuantumEspressoStagingFailure,
-    QuantumEspressoTerminalPublicationFailure,
-    QuantumEspressoTerminalRecord,
-    QuantumEspressoTerminalRecordPublisher,
-    QuantumEspressoTerminalRecordSerializer,
-    QuantumEspressoTerminalStatus,
+    QeInputStager,
+    QeNativeOutputCollectionFailure,
+    QeNativeOutputCollector,
+    QeNativeOutputExtractionSpecification,
+    QeNativeOutputManifest,
+    QePublishedTerminalRecord,
+    QeStagedExecution,
+    QeStagingFailure,
+    QeTerminalPublicationFailure,
+    QeTerminalRecord,
+    QeTerminalRecordArtifact,
+    QeTerminalRecordPublisher,
+    QeTerminalRecordSerializer,
+    QeTerminalStatus,
 )
 from .execution import (
-    LocalQuantumEspressoExecutionPreparationRequest,
-    LocalQuantumEspressoExecutionPreparer,
-    LocalQuantumEspressoPreparationFailure,
-    LocalQuantumEspressoPreparedExecution,
+    LocalQeExecutionPreparationRequest,
+    LocalQeExecutionPreparer,
+    LocalQePreparationFailure,
+    LocalQePreparedExecution,
 )
-from .outcomes import QuantumEspressoCalculatorOutcomeResolver
+from .execution_evidence import (
+    QePwEvidenceAdapter,
+    QePwEvidencePublisher,
+    QePwObservation,
+    QePwObservationFailure,
+    QePwPublicationFailure,
+    QePwPublishedEvidence,
+)
+from .outcomes import QeCalculatorOutcomeResolver
 from .process import (
-    LocalQuantumEspressoCapturedProcess,
-    LocalQuantumEspressoProcessFailure,
-    LocalQuantumEspressoProcessFailureDisposition,
-    LocalQuantumEspressoProcessRunner,
-    LocalQuantumEspressoStreamArtifactBindings,
+    LocalQeCapturedProcess,
+    LocalQeProcessFailure,
+    LocalQeProcessFailureDisposition,
+    LocalQeProcessRunner,
+    LocalQeStreamArtifactBindings,
 )
+from .results import QePwResultAssembler, QePwResultAssemblyFailure
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class LocalQuantumEspressoExecutionPlan:
+class LocalQeExecutionPlan:
     """Bind one exact Workflow dispatch to caller-supplied QE result identities.
 
     Parameters
@@ -94,6 +107,11 @@ class LocalQuantumEspressoExecutionPlan:
     preparation_request
         Read-only local preparation input whose authority correlations are rechecked
         when the Workflow effect request arrives.
+    calculator_input
+        Exact immutable provider input instance admitted against the preparation
+        request before any filesystem mutation or process entry.
+    calculator_input_admission_policy_identity
+        Exact KSD admission policy applied to the provider and Workflow correlation.
     extraction_specification, stream_artifacts
         Exact native-output candidates and distinct stdout/stderr artifact bindings.
     diagnostic_report_identity, result_object_identity, terminal_record_identity
@@ -119,12 +137,14 @@ class LocalQuantumEspressoExecutionPlan:
     neither an execution grant nor a reusable calculator configuration.
     """
 
-    preparation_request: LocalQuantumEspressoExecutionPreparationRequest
-    extraction_specification: QuantumEspressoNativeOutputExtractionSpecification
-    stream_artifacts: LocalQuantumEspressoStreamArtifactBindings
-    diagnostic_report_identity: QuantumEspressoDiagnosticReportIdentity
+    preparation_request: LocalQeExecutionPreparationRequest
+    calculator_input: CalculatorInputRecord
+    calculator_input_admission_policy_identity: QeCalculatorInputAdmissionPolicyIdentity
+    extraction_specification: QeNativeOutputExtractionSpecification
+    stream_artifacts: LocalQeStreamArtifactBindings
+    diagnostic_report_identity: QeDiagnosticReportIdentity
     result_object_identity: ResultObjectIdentity
-    terminal_record_identity: QuantumEspressoTerminalRecordIdentity
+    terminal_record_identity: QeTerminalRecordIdentity
     dispatch_observation_identity: SimulationDispatchObservationIdentity
     dispatch_outcome_identity: SimulationDispatchOutcomeIdentity
     task_failure_identity: TaskInvocationFailureIdentity
@@ -144,22 +164,32 @@ class LocalQuantumEspressoExecutionPlan:
         expected = (
             (
                 self.preparation_request,
-                LocalQuantumEspressoExecutionPreparationRequest,
+                LocalQeExecutionPreparationRequest,
                 "preparation_request",
             ),
             (
+                self.calculator_input,
+                CalculatorInputRecord,
+                "calculator_input",
+            ),
+            (
+                self.calculator_input_admission_policy_identity,
+                QeCalculatorInputAdmissionPolicyIdentity,
+                "calculator_input_admission_policy_identity",
+            ),
+            (
                 self.extraction_specification,
-                QuantumEspressoNativeOutputExtractionSpecification,
+                QeNativeOutputExtractionSpecification,
                 "extraction_specification",
             ),
             (
                 self.stream_artifacts,
-                LocalQuantumEspressoStreamArtifactBindings,
+                LocalQeStreamArtifactBindings,
                 "stream_artifacts",
             ),
             (
                 self.diagnostic_report_identity,
-                QuantumEspressoDiagnosticReportIdentity,
+                QeDiagnosticReportIdentity,
                 "diagnostic_report_identity",
             ),
             (
@@ -169,7 +199,7 @@ class LocalQuantumEspressoExecutionPlan:
             ),
             (
                 self.terminal_record_identity,
-                QuantumEspressoTerminalRecordIdentity,
+                QeTerminalRecordIdentity,
                 "terminal_record_identity",
             ),
             (
@@ -239,8 +269,8 @@ class LocalQuantumEspressoExecutionPlan:
             raise ValueError("grant identity must agree with its authority reference")
         if type(self.result_contract_version) is not str:
             raise TypeError("result_contract_version must be a built-in str")
-        if not self.result_contract_version:
-            raise ValueError("result_contract_version must not be empty")
+        if self.result_contract_version != "qe-pw-result:2":
+            raise ValueError("result_contract_version must be qe-pw-result:2")
         boundary = self.diagnostic_claim_boundary
         if type(boundary) is not tuple or any(
             type(value) is not str for value in boundary
@@ -253,6 +283,8 @@ class LocalQuantumEspressoExecutionPlan:
         request = self.preparation_request
         specification = self.extraction_specification
         configuration = request.executable_configuration
+        if configuration.program is not QeProgram.PW:
+            raise ValueError("local QE execution plan supports pw.x only")
         if (
             specification.executable_configuration_identity != configuration.identity
             or specification.program is not configuration.program
@@ -282,7 +314,7 @@ class LocalQuantumEspressoExecutionPlan:
 
 @dataclass(frozen=True, slots=True)
 @final
-class LocalQuantumEspressoExecutor:
+class LocalQeExecutor:
     """Execute one authorized local QE attempt and adapt it to Workflow dispatch.
 
     Parameters
@@ -292,6 +324,9 @@ class LocalQuantumEspressoExecutor:
     preparer, stager, process_runner
         ActionObjects owning read-only preparation, no-replace staging, and at-most-
         once process entry with closed capture.
+    evidence_adapter, evidence_publisher, result_assembler
+        Provider observation adaptation, verified no-replace record publication, and
+        fail-closed assembly of the Workflow-facing result.
     classifier, collector, outcome_resolver
         ActionObjects owning exact-stream diagnostics, candidate collection, and
         fail-closed calculator outcome resolution.
@@ -305,37 +340,55 @@ class LocalQuantumEspressoExecutor:
     resolution, and scientific acceptance remain outside this ActionObject.
     """
 
-    plan: LocalQuantumEspressoExecutionPlan
-    preparer: LocalQuantumEspressoExecutionPreparer
-    stager: QuantumEspressoInputStager
-    process_runner: LocalQuantumEspressoProcessRunner
-    classifier: QuantumEspressoDiagnosticClassifier
-    collector: QuantumEspressoNativeOutputCollector
-    outcome_resolver: QuantumEspressoCalculatorOutcomeResolver
-    terminal_serializer: QuantumEspressoTerminalRecordSerializer
-    terminal_publisher: QuantumEspressoTerminalRecordPublisher
+    plan: LocalQeExecutionPlan
+    preparer: LocalQeExecutionPreparer
+    stager: QeInputStager
+    process_runner: LocalQeProcessRunner
+    evidence_adapter: QePwEvidenceAdapter
+    evidence_publisher: QePwEvidencePublisher
+    result_assembler: QePwResultAssembler
+    classifier: QeDiagnosticClassifier
+    collector: QeNativeOutputCollector
+    outcome_resolver: QeCalculatorOutcomeResolver
+    terminal_serializer: QeTerminalRecordSerializer
+    terminal_publisher: QeTerminalRecordPublisher
 
     def __post_init__(self) -> None:
         expected = (
-            (self.plan, LocalQuantumEspressoExecutionPlan, "plan"),
-            (self.preparer, LocalQuantumEspressoExecutionPreparer, "preparer"),
-            (self.stager, QuantumEspressoInputStager, "stager"),
-            (self.process_runner, LocalQuantumEspressoProcessRunner, "process_runner"),
-            (self.classifier, QuantumEspressoDiagnosticClassifier, "classifier"),
-            (self.collector, QuantumEspressoNativeOutputCollector, "collector"),
+            (self.plan, LocalQeExecutionPlan, "plan"),
+            (self.preparer, LocalQeExecutionPreparer, "preparer"),
+            (self.stager, QeInputStager, "stager"),
+            (self.process_runner, LocalQeProcessRunner, "process_runner"),
+            (
+                self.evidence_adapter,
+                QePwEvidenceAdapter,
+                "evidence_adapter",
+            ),
+            (
+                self.evidence_publisher,
+                QePwEvidencePublisher,
+                "evidence_publisher",
+            ),
+            (
+                self.result_assembler,
+                QePwResultAssembler,
+                "result_assembler",
+            ),
+            (self.classifier, QeDiagnosticClassifier, "classifier"),
+            (self.collector, QeNativeOutputCollector, "collector"),
             (
                 self.outcome_resolver,
-                QuantumEspressoCalculatorOutcomeResolver,
+                QeCalculatorOutcomeResolver,
                 "outcome_resolver",
             ),
             (
                 self.terminal_serializer,
-                QuantumEspressoTerminalRecordSerializer,
+                QeTerminalRecordSerializer,
                 "terminal_serializer",
             ),
             (
                 self.terminal_publisher,
-                QuantumEspressoTerminalRecordPublisher,
+                QeTerminalRecordPublisher,
                 "terminal_publisher",
             ),
         )
@@ -345,7 +398,8 @@ class LocalQuantumEspressoExecutor:
         catalog = self.classifier.catalog
         configuration = self.plan.preparation_request.executable_configuration
         if (
-            catalog.classifier_identity != configuration.classifier_identity
+            configuration.program is not QeProgram.PW
+            or catalog.classifier_identity != configuration.classifier_identity
             or catalog.program is not configuration.program
             or catalog.executable_kind is not configuration.executable_kind
             or catalog.program_version != configuration.program_version
@@ -365,36 +419,58 @@ class LocalQuantumEspressoExecutor:
         """Perform at most one process invocation after exact correlation checks."""
         if type(request) is not SimulationDispatchEffectRequest:
             raise TypeError("request must be SimulationDispatchEffectRequest")
-        mismatch = self._correlation_mismatch(request)
+        mismatch: str | None = self._correlation_mismatch(request)
         if mismatch is not None:
             return self._rejected(
                 request, "authorization_correlation_mismatch", mismatch
             )
 
-        preparation = self.preparer.execute(self.plan.preparation_request)
-        if type(preparation) is LocalQuantumEspressoPreparationFailure:
+        input_binding: QeCalculatorInputBinding | QeCalculatorInputAdmissionFailure = (
+            QeCalculatorInputAdmission(
+                self.plan.calculator_input_admission_policy_identity
+            ).execute(
+                self.plan.calculator_input,
+                self.plan.preparation_request.execution_input,
+            )
+        )
+        if type(input_binding) is QeCalculatorInputAdmissionFailure:
+            return self._rejected(
+                request,
+                "calculator_input_admission_failed",
+                f"provider calculator input was rejected: {input_binding.code.value}",
+            )
+        if type(input_binding) is not QeCalculatorInputBinding:
+            raise TypeError("calculator input admission returned an unsupported result")
+
+        preparation: LocalQePreparedExecution | LocalQePreparationFailure = (
+            self.preparer.execute(self.plan.preparation_request, input_binding)
+        )
+        if type(preparation) is LocalQePreparationFailure:
             return self._rejected(
                 request,
                 "preparation_failed",
                 f"local QE preparation failed: {preparation.code.value}",
             )
-        assert type(preparation) is LocalQuantumEspressoPreparedExecution
-        staging = self.stager.execute(preparation)
-        if type(staging) is QuantumEspressoStagingFailure:
+        if type(preparation) is not LocalQePreparedExecution:
+            raise TypeError("local QE preparation returned an unsupported result")
+        staging: QeStagedExecution | QeStagingFailure = self.stager.execute(
+            preparation, input_binding
+        )
+        if type(staging) is QeStagingFailure:
             return self._rejected(
                 request,
                 "staging_failed",
                 f"local QE staging failed: {staging.code.value}",
             )
-        assert type(staging) is QuantumEspressoStagedExecution
-        process = self.process_runner.execute(
-            preparation, staging, self.plan.stream_artifacts
+        if type(staging) is not QeStagedExecution:
+            raise TypeError("local QE staging returned an unsupported result")
+        process: LocalQeCapturedProcess | LocalQeProcessFailure = (
+            self.process_runner.execute(
+                preparation, staging, self.plan.stream_artifacts
+            )
         )
-        if type(process) is LocalQuantumEspressoProcessFailure:
-            if (
-                process.disposition
-                is LocalQuantumEspressoProcessFailureDisposition.REJECTED
-            ):
+        if type(process) is LocalQeProcessFailure:
+            if process.disposition is LocalQeProcessFailureDisposition.REJECTED:
                 return self._rejected(
                     request,
                     "process_entry_rejected",
@@ -409,10 +485,43 @@ class LocalQuantumEspressoExecutor:
                     "qe-process-failure:" + process.code.value,
                 ),
             )
-        assert type(process) is LocalQuantumEspressoCapturedProcess
+        if type(process) is not LocalQeCapturedProcess:
+            raise TypeError("local QE process runner returned an unsupported result")
+        observation_binding: QePwObservation | QePwObservationFailure = (
+            self.evidence_adapter.execute(preparation, process)
+        )
+        if type(observation_binding) is QePwObservationFailure:
+            return self._indeterminate(
+                request,
+                (
+                    process.observation.identity.value,
+                    "qe-execution-evidence-adaptation-failure:"
+                    + observation_binding.code.value,
+                ),
+            )
+        if type(observation_binding) is not QePwObservation:
+            raise TypeError(
+                "QE execution evidence adapter returned an unsupported result"
+            )
+        execution_evidence: QePwPublishedEvidence | QePwPublicationFailure = (
+            self.evidence_publisher.execute(observation_binding)
+        )
+        if type(execution_evidence) is QePwPublicationFailure:
+            return self._indeterminate(
+                request,
+                (
+                    process.observation.identity.value,
+                    "qe-execution-record-publication-failure:"
+                    + execution_evidence.code.value,
+                ),
+            )
+        if type(execution_evidence) is not QePwPublishedEvidence:
+            raise TypeError(
+                "QE execution record publisher returned an unsupported result"
+            )
 
-        report = self.classifier.execute(
-            QuantumEspressoDiagnosticClassificationRequest(
+        report: QeDiagnosticReport = self.classifier.execute(
+            QeDiagnosticClassificationRequest(
                 report_identity=self.plan.diagnostic_report_identity,
                 configuration=self.plan.preparation_request.executable_configuration,
                 stdout=process.stdout_bytes,
@@ -422,10 +531,12 @@ class LocalQuantumEspressoExecutor:
                 claim_boundary=self.plan.diagnostic_claim_boundary,
             )
         )
-        collection = self.collector.execute(
-            process.after_snapshot, self.plan.extraction_specification
+        collection: QeNativeOutputManifest | QeNativeOutputCollectionFailure = (
+            self.collector.execute(
+                process.after_snapshot, self.plan.extraction_specification
+            )
         )
-        if type(collection) is QuantumEspressoNativeOutputCollectionFailure:
+        if type(collection) is QeNativeOutputCollectionFailure:
             return self._indeterminate(
                 request,
                 (
@@ -434,14 +545,15 @@ class LocalQuantumEspressoExecutor:
                     "qe-output-collection-failure:" + collection.code.value,
                 ),
             )
-        assert type(collection) is QuantumEspressoNativeOutputManifest
-        outcome = self.outcome_resolver.execute(
+        if type(collection) is not QeNativeOutputManifest:
+            raise TypeError("QE output collection returned an unsupported result")
+        outcome: QeCalculatorOutcome = self.outcome_resolver.execute(
             process.observation,
             report,
             collection,
             self.plan.extraction_specification,
         )
-        terminal = QuantumEspressoTerminalRecord(
+        terminal: QeTerminalRecord = QeTerminalRecord(
             identity=self.plan.terminal_record_identity,
             status=self._terminal_status(outcome),
             simulation_execution_request_identity=(
@@ -458,18 +570,23 @@ class LocalQuantumEspressoExecutor:
             stderr_content_identity=process.observation.stderr.content_identity,
             before_snapshot_identity=process.before_snapshot.identity,
             after_snapshot_identity=process.after_snapshot.identity,
+            execution_record_manifest_entry_identity=(
+                execution_evidence.publication_entry.identity
+            ),
+            execution_record_content_identity=execution_evidence.content_identity,
+            execution_record_publication_snapshot_identity=(
+                execution_evidence.publication_snapshot.identity
+            ),
             diagnostic_report_identity=report.identity,
             native_output_manifest_identity=collection.identity,
         )
-        serialized = self.terminal_serializer.execute(terminal)
-        serialized_identity = self._content_identity(serialized)
-        publication = self.terminal_publisher.execute(
-            preparation,
-            terminal.identity,
-            serialized,
-            serialized_identity,
+        terminal_artifact: QeTerminalRecordArtifact = self.terminal_serializer.execute(
+            terminal
         )
-        if type(publication) is QuantumEspressoTerminalPublicationFailure:
+        publication: QePublishedTerminalRecord | QeTerminalPublicationFailure = (
+            self.terminal_publisher.execute(preparation, terminal_artifact)
+        )
+        if type(publication) is QeTerminalPublicationFailure:
             return self._indeterminate(
                 request,
                 (
@@ -479,8 +596,30 @@ class LocalQuantumEspressoExecutor:
                     "qe-terminal-publication-failure:" + publication.code.value,
                 ),
             )
-        assert type(publication) is QuantumEspressoPublishedTerminalRecord
-        result = self._result(process, report, collection, terminal, outcome)
+        if type(publication) is not QePublishedTerminalRecord:
+            raise TypeError("QE terminal publication returned an unsupported result")
+        result: QePwResult | QePwResultAssemblyFailure = self.result_assembler.execute(
+            self.plan.result_object_identity,
+            self.plan.result_contract_version,
+            execution_evidence,
+            report,
+            self.plan.extraction_specification,
+            collection,
+            outcome,
+            terminal,
+            publication,
+        )
+        if type(result) is QePwResultAssemblyFailure:
+            return self._indeterminate(
+                request,
+                (
+                    process.observation.identity.value,
+                    terminal.identity.value,
+                    "qe-pw-result-assembly-failure:" + result.code.value,
+                ),
+            )
+        if type(result) is not QePwResult:
+            raise TypeError("QE result assembler returned an unsupported result")
         return self._confirmed(request, result, collection)
 
     def _correlation_mismatch(
@@ -562,56 +701,11 @@ class LocalQuantumEspressoExecutor:
             return "Workflow input identities differ from the execution plan"
         return None
 
-    def _result(
-        self,
-        process: LocalQuantumEspressoCapturedProcess,
-        report: QuantumEspressoDiagnosticReport,
-        manifest: QuantumEspressoNativeOutputManifest,
-        terminal: QuantumEspressoTerminalRecord,
-        outcome: QuantumEspressoCalculatorOutcome,
-    ) -> QuantumEspressoOperationResult:
-        if type(report) is not QuantumEspressoDiagnosticReport:
-            raise TypeError("report must be QuantumEspressoDiagnosticReport")
-        if type(outcome) not in (
-            QuantumEspressoCompletedOutcome,
-            QuantumEspressoCalculatorFailedOutcome,
-            QuantumEspressoProcessFailedOutcome,
-            QuantumEspressoDiagnosticUnresolvedOutcome,
-        ):
-            raise TypeError("outcome must be a closed QE calculator outcome")
-        closed_outcome: QuantumEspressoCalculatorOutcome = outcome
-        execution_input = self.plan.preparation_request.execution_input
-        evidence = QuantumEspressoOperationResultEvidence(
-            execution_input=execution_input,
-            process_observation=process.observation,
-            diagnostic_report=report,
-            calculator_outcome=closed_outcome,
-            native_output_manifest_identity=manifest.identity,
-            native_output_entry_identities=tuple(
-                sorted(
-                    (entry.identity for entry in manifest.entries),
-                    key=lambda value: value.value,
-                )
-            ),
-            terminal_record_identity=terminal.identity,
-        )
-        if report.program is QuantumEspressoProgram.PW:
-            return QuantumEspressoPwResult(
-                identity=self.plan.result_object_identity,
-                evidence=evidence,
-                contract_version=self.plan.result_contract_version,
-            )
-        return QuantumEspressoBandsResult(
-            identity=self.plan.result_object_identity,
-            evidence=evidence,
-            contract_version=self.plan.result_contract_version,
-        )
-
     def _confirmed(
         self,
         request: SimulationDispatchEffectRequest,
-        result: QuantumEspressoOperationResult,
-        manifest: QuantumEspressoNativeOutputManifest,
+        result: QePwResult,
+        manifest: QeNativeOutputManifest,
     ) -> SimulationDispatchOutcome:
         values = request.execution_request.correlation
         return SimulationDispatchOutcome(
@@ -696,20 +790,14 @@ class LocalQuantumEspressoExecutor:
 
     @staticmethod
     def _terminal_status(
-        outcome: QuantumEspressoCalculatorOutcome,
-    ) -> QuantumEspressoTerminalStatus:
-        if type(outcome) is QuantumEspressoCompletedOutcome:
-            return QuantumEspressoTerminalStatus.COMPLETED
-        if type(outcome) is QuantumEspressoCalculatorFailedOutcome:
-            return QuantumEspressoTerminalStatus.CALCULATOR_FAILED
-        if type(outcome) is QuantumEspressoProcessFailedOutcome:
-            return QuantumEspressoTerminalStatus.PROCESS_FAILED
-        if type(outcome) is QuantumEspressoDiagnosticUnresolvedOutcome:
-            return QuantumEspressoTerminalStatus.DIAGNOSTIC_UNRESOLVED
+        outcome: QeCalculatorOutcome,
+    ) -> QeTerminalStatus:
+        if type(outcome) is QeCompletedOutcome:
+            return QeTerminalStatus.COMPLETED
+        if type(outcome) is QeCalculatorFailedOutcome:
+            return QeTerminalStatus.CALCULATOR_FAILED
+        if type(outcome) is QeProcessFailedOutcome:
+            return QeTerminalStatus.PROCESS_FAILED
+        if type(outcome) is QeDiagnosticUnresolvedOutcome:
+            return QeTerminalStatus.DIAGNOSTIC_UNRESOLVED
         raise TypeError("outcome must be a closed QE calculator outcome")
-
-    @staticmethod
-    def _content_identity(content: bytes) -> ArtifactContentIdentity:
-        return ArtifactContentIdentity(
-            "sha256", hashlib.sha256(content).hexdigest(), len(content)
-        )

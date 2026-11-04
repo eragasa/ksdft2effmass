@@ -65,13 +65,13 @@ compatibility alias.
 | `PERIODIC-XWALK-006` | `Periodic1DDefectModel` | `periodic.model` | Scientific model | **Keep.** Nominal 1D defect branch with parent identity. |
 | `PERIODIC-XWALK-007` | `Periodic2DDefectModel` | `periodic.model` | Scientific model | **Keep.** Nominal 2D defect branch with parent identity. |
 | `PERIODIC-XWALK-008` | `Periodic3DDefectModel` | `periodic.model` | Scientific model | **Keep.** Nominal 3D defect branch with parent identity. |
-| `PERIODIC-XWALK-009` | `PeriodicToyModelCatalog` | `periodic.catalog` | Scientific model | **Keep as supporting catalog owner.** Populate only with migrated nominal toy models. |
+| `PERIODIC-XWALK-009` | `PeriodicControlModelCatalog` | `periodic.catalog` | Scientific model | **Keep as supporting catalog owner.** Populate only with explicit nominal control models. |
 
 ## Scientific-model and effective-model candidates
 
 | ID | Current type | Observed meaning | Target category | Disposition and target | Preservation or blocker |
 |---|---|---|---|---|---|
-| `PERIODIC-XWALK-010` | `Periodic2DCosinePotentialToyModel` | Dimensionless 2D cosine parent potential parameters | Scientific model | **Move/adopt** under canonical `periodic2d` model ownership and inherit `Periodic2DModel`. | Preserve the cosine equation, coefficient signs, dimensionless convention, and model identity. |
+| `PERIODIC-XWALK-010` | `Periodic2DCosinePotentialControlModel` | Dimensionless 2D cosine parent potential parameters | Scientific model | **Implemented** under canonical `periodic2d.model.control_models` ownership with nominal `Periodic2DModel` membership and the `CONTROL_MODEL` role. | Preserve the cosine equation, coefficient signs, dimensionless convention, and model identity. |
 | `PERIODIC-XWALK-011` | `Periodic1DFiniteHoppingToyModel` | Finite block-hopping toy parent used by 1D defect studies | Scientific model | **Move/adopt** under canonical `periodic1d` model ownership and inherit `Periodic1DModel`. | Add stable model identity without changing block order, units, or Hermiticity contract. |
 | `PERIODIC-XWALK-012` | `Periodic2DDefectModel` in `periodic2d.defects.base` | Concrete scalar bulk-plus-localized-perturbation model | Scientific model | **Rename** to a descriptive concrete scalar-hopping defect name and inherit the nominal `periodic.Periodic2DDefectModel`. | Resolve the current name collision; preserve bulk and perturbation composition. |
 | `PERIODIC-XWALK-013` | `Periodic1DGaussianOnsiteDefectModel` | Localized Gaussian perturbation parameters, without a pristine parent | Scientific model | **Split.** Keep a descriptively named perturbation definition; construct a separate `Periodic1DDefectModel` only when a parent identity and compatibility data are supplied. | The current record alone is not a complete defect model. |
@@ -219,8 +219,8 @@ encoded-document gate is in [`migration-3.md`](migration-3.md). In crosswalk ter
 3. Complete represented-operator mapping in rows 028--036.
 4. Adopt the 1D scientific and effective model candidates in rows 011 and 013--018,
    then complete 1D campaign rows 058--066.
-5. Register only migrated nominal toy models in `PeriodicToyModelCatalog` and add one
-   campaign that consumes an exact immutable catalog snapshot.
+5. Register only explicit nominal control models in `PeriodicControlModelCatalog` and
+   add one campaign that consumes an exact immutable catalog snapshot.
 6. Adopt 2D model rows 010 and 012 while completing campaign rows 067--072 and the
    periodic2d parity gate.
 7. Remove the provisional base through row 073 after all concrete consumers are

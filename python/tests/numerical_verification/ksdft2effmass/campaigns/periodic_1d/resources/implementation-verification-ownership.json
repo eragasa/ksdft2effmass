@@ -2,21 +2,21 @@
   "schema_version": 1,
   "modules": [
     {
-      "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DIsolatedResultVerifier.py",
+      "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DIsolatedResultVerifier__contracts.py",
       "mode": "class_owned",
       "evidence_class": "numerical_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DIsolatedResultVerifier"
     },
     {
-      "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DCompositeResultVerifier.py",
+      "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DCompositeResultVerifier__contracts.py",
       "mode": "class_owned",
       "evidence_class": "numerical_verification",
       "evidence_profile": "claim_bearing",
       "sut": "Periodic1DCompositeResultVerifier"
     },
     {
-      "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DStressResultVerifier.py",
+      "path": "python/tests/numerical_verification/ksdft2effmass/campaigns/periodic_1d/test__Periodic1DStressResultVerifier__contracts.py",
       "mode": "class_owned",
       "evidence_class": "numerical_verification",
       "evidence_profile": "claim_bearing",

@@ -2,8 +2,8 @@
 
 ## Status
 
-**Proposed.** Existing represented-space foundations remain implemented, but concrete
-scientific-model and retained-space/operator adoption is incomplete.
+**Partially implemented.** The cosine control model has nominal periodic2d ownership;
+retained-space/operator adoption and broader capability parity remain incomplete.
 
 ## Purpose
 
@@ -21,8 +21,9 @@ Phase 7 primarily implements:
 
 ## Required migration
 
-1. Migrate `Periodic2DCosinePotentialToyModel` into nominal `Periodic2DModel`
-   membership with stable identity and unchanged equation and coefficient conventions.
+1. Retain `Periodic2DCosinePotentialControlModel` in nominal `Periodic2DModel`
+   membership with stable identity, the `CONTROL_MODEL` role, and unchanged equation
+   and coefficient conventions.
 2. Rename the concrete scalar-hopping `Periodic2DDefectModel` to eliminate collision
    with the nominal defect base, then adopt nominal defect membership with explicit
    parent identity.

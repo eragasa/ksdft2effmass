@@ -9,10 +9,10 @@ partial coverage rather than parity with periodic1d: typed stress controls, reus
 gauge and hopping-route Actions, granular result records, and complete serializers
 remain required by the periodic2d parity gate.
 
-Represented toy model
----------------------
+Represented control model
+-------------------------
 
-``Periodic2DCosinePotentialToyModel`` owns the reusable spinless dimensionless
+``Periodic2DCosinePotentialControlModel`` owns the reusable spinless dimensionless
 potential
 
 .. math::
@@ -87,7 +87,7 @@ runner identities and reconstructs the plane-wave cutoff sequence, finite-differ
 sequence, separable Kronecker identities, degenerate projectors, coupling sequence,
 sewn-link topology, hopping shells, effective-mass tensors, and anisotropy control.
 The independent verifier imports neither the maintained calculation Workflow nor the
-reusable toy-model constructors.
+reusable control-model constructors.
 
 Composite projected-gauge campaign
 ----------------------------------
@@ -99,7 +99,7 @@ comparing gauge-invariant spectra, Chern sums, and Wilson eigenphase sets. Local
 spreads and matrix-valued hopping locality remain gauge-dependent diagnostics rather
 than invariants. The independent verifier reconstructs polar projection, reciprocal
 links, hopping blocks, and finite-supercell density moments without importing the
-maintained calculation or toy-model constructor.
+maintained calculation or control-model constructor.
 
 Topological benchmark campaign
 ------------------------------

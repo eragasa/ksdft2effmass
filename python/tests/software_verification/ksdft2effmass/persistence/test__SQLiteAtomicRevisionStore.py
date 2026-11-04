@@ -393,7 +393,9 @@ class TestSQLiteAtomicRevisionStore:
             a = pool.submit(self.commit_at_barrier, path, barrier, left)
             b = pool.submit(self.commit_at_barrier, path, barrier, right)
             results = (a.result(timeout=10), b.result(timeout=10))
-        assert sorted(result.status for result in results) == [
+        assert sorted(
+            (result.status for result in results), key=lambda status: status.to_wire()
+        ) == [
             CommitStatus.COMMITTED,
             CommitStatus.CONFLICT,
         ]

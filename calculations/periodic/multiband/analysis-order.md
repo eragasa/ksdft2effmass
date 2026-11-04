@@ -14,7 +14,7 @@ The principal periodic analysis spine is:
 
 1. **Structural and scalar controls.** Establish analytic identities, scalar Fourier
    reconstruction, withheld interpolation, and support-truncation semantics in
-   `periodic1d/rank1/fourier-locality/`. `mathieu1d/` remains outside this multiband
+   `periodic1d_rank1/band_equivalence_hopping_locality/`. `mathieu1d/` remains outside this multiband
    authority; do not infer or install its local order from this document.
 2. **One-dimensional rank-two controls.** Establish retained-state qualification,
    gauge/frame alignment, band equivalence, matrix-valued Fourier hopping, and distinct

@@ -328,7 +328,7 @@ class ExternalProducerAttemptIdentity:
 
 @dataclass(frozen=True, slots=True)
 class RetainedResultSourceIdentity:
-    """Identify one actual retained or legacy ResultObject source.
+    """Identify one actual retained ResultObject source.
 
     Parameters
     ----------

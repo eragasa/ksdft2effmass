@@ -35,7 +35,7 @@ from ksdft2effmass import analysis as q
 from ksdft2effmass import workflows as w
 from ksdft2effmass.application import ApplicationResultValueSerializer
 from ksdft2effmass.integration.quantum_espresso import (
-    QuantumEspressoResultValueSerializer,
+    QeResultValueSerializer,
 )
 from ksdft2effmass.petrinet import colored as c
 from ksdft2effmass.workflows import WorkflowRunSerializer
@@ -60,7 +60,7 @@ class TestWorkflowRunSerializer:
 
     @staticmethod
     def make_serializer() -> WorkflowRunSerializer:
-        qe = QuantumEspressoResultValueSerializer()
+        qe = QeResultValueSerializer()
         return SUT(
             result_codec=ApplicationResultValueSerializer(
                 workflow_codec=w.WorkflowResultValueSerializer(source_codec=qe),
@@ -103,8 +103,8 @@ class TestWorkflowRunSerializer:
             content_identity=w.ResultObjectContentIdentity(
                 "qoi-result-value:1:sha256:82f1cc1a48c83ff5e3e8a112ef556608a1f181403302bfffa3731cd4be3a98ab"
             ),
-            producer_provenance=w.UnknownLegacyResultProducer(
-                identity=w.ResultProducerProvenanceIdentity("legacy-producer"),
+            producer_provenance=w.ImportedRetainedResultProducer(
+                identity=w.ResultProducerProvenanceIdentity("retained-producer"),
                 source_identity=w.RetainedResultSourceIdentity("synthetic-source"),
                 evidence_identities=(
                     w.ResultProducerEvidenceIdentity("synthetic-evidence"),

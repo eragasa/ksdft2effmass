@@ -11,9 +11,9 @@ from __future__ import annotations
 import math
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from enum import StrEnum
 from itertools import pairwise
 
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.workflows import (
     ArtifactProducerProvenanceIdentity,
     ResultObjectIdentity,
@@ -125,7 +125,7 @@ class ParameterStudyRefinementStateIdentity:
             raise ValueError("refinement-state identity value must not be empty")
 
 
-class ParameterStudyKind(StrEnum):
+class ParameterStudyKind(StrWireEnum):
     """Closed interpretation assigned to a parameter study."""
 
     NUMERICAL_CONVERGENCE = "numerical_convergence"
@@ -135,7 +135,7 @@ class ParameterStudyKind(StrEnum):
     OPERATIONAL_BENCHMARK = "operational_benchmark"
 
 
-class ParameterFactorKind(StrEnum):
+class ParameterFactorKind(StrWireEnum):
     """Closed scientific or operational role of one varied factor."""
 
     NUMERICAL = "numerical"
@@ -145,7 +145,7 @@ class ParameterFactorKind(StrEnum):
     OPERATIONAL = "operational"
 
 
-class ParameterStudyRefinementOutcome(StrEnum):
+class ParameterStudyRefinementOutcome(StrWireEnum):
     """Closed outcome of one refinement-algorithm invocation."""
 
     COMPLETE = "complete"
@@ -156,7 +156,7 @@ class ParameterStudyRefinementOutcome(StrEnum):
     ERROR = "error"
 
 
-class ParameterStudyRefinementFailureCode(StrEnum):
+class ParameterStudyRefinementFailureCode(StrWireEnum):
     """Stable failure codes of the first finite-sequence implementation."""
 
     REFINER_IDENTITY_MISMATCH = "refiner_identity_mismatch"
@@ -174,14 +174,14 @@ class ParameterStudyRefinementFailureCode(StrEnum):
     CANDIDATE_BUDGET_EXHAUSTED = "candidate_budget_exhausted"
 
 
-class ParameterStudyProposalValidationOutcome(StrEnum):
+class ParameterStudyProposalValidationOutcome(StrWireEnum):
     """Closed outcome of independent proposal validation."""
 
     VALID = "valid"
     INVALID = "invalid"
 
 
-class ParameterStudyProposalValidationCode(StrEnum):
+class ParameterStudyProposalValidationCode(StrWireEnum):
     """Stable independent proposal-validation failure codes."""
 
     CANDIDATE_BUDGET_EXHAUSTED = "candidate_budget_exhausted"

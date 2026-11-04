@@ -43,11 +43,6 @@ closed variants are:
    Retains compact-input revision, author, authority, optional source/review, and
    authorship-record identities.  Authorship is not execution provenance.
 
-``UnknownLegacyProducer``
-   Retains every known evidence identity while stating why producer information
-   is unavailable, its limitations, and bounded claim status.  It never fabricates
-   Workflow identities.
-
 Separate classes prevent inapplicable fields from being populated on the wrong
 producer kind.  Evidence and claim-boundary identity tuples are required,
 immutable, unique, and lexically ordered.  These identifiers preserve joins;

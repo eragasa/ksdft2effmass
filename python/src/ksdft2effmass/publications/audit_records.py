@@ -1,11 +1,12 @@
 """Immutable records for repository-local LaTeX manuscript auditing."""
 
 from dataclasses import dataclass, field
-from enum import StrEnum
 from pathlib import Path
 
+from ksdft2effmass.serialization import StrWireEnum
 
-class LatexManuscriptAuditIssueCode(StrEnum):
+
+class LatexManuscriptAuditIssueCode(StrWireEnum):
     """Classify one deterministic manuscript-source finding."""
 
     BIBLIOGRAPHY_PATH_ESCAPE = "bibliography_path_escape"

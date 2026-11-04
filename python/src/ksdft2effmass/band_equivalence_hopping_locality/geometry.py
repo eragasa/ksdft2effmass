@@ -35,7 +35,7 @@ from ksdft2effmass.real_space_support_truncation import (
     MetricShellSupportClassifier,
     MetricShellValueAnalyzer,
 )
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 
 type FloatArray = NDArray[np.float64]
 type IntArray = NDArray[np.int64]
@@ -107,7 +107,7 @@ def minimum_mesh_separation(construction: FloatArray, evaluation: FloatArray) ->
     return PeriodicTensorGridSeparationAnalyzer().execute(construction, evaluation)
 
 
-class BandEquivalenceHoppingLocalityMetricCovarianceProbeEnum(StringWireEnum):
+class BandEquivalenceHoppingLocalityMetricCovarianceProbeEnum(StrWireEnum):
     """Identify one campaign-selected primitive-basis covariance probe."""
 
     PRIMITIVE_BASIS_SHEAR_2D_V1 = "primitive-basis-shear-2d-v1"

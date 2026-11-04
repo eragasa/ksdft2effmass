@@ -8,7 +8,7 @@ Facet and represented meaning
 
 -----------------------------
 This class-owned evidence verifies the closed version-1 operational-failure
-vocabulary, ``StrEnum`` inheritance, exact ordered names and values, alias
+vocabulary, ``StrWireEnum`` inheritance, exact ordered names and values, alias
 absence, value construction, name lookup, and rejection behavior.
 
 Intrinsic and cross-object scope
@@ -27,12 +27,12 @@ convergence, numerical error, model inadequacy, scientific invalidity,
 uncertainty, external-execution correctness, or provenance truth.
 """
 
-from enum import StrEnum
 from typing import Any, cast
 
 import pytest
 
 from ksdft2effmass.provenance import ExternalFailureCode
+from ksdft2effmass.serialization import StrWireEnum
 
 SUT = ExternalFailureCode
 pytestmark = pytest.mark.software_verification
@@ -41,8 +41,8 @@ pytestmark = pytest.mark.software_verification
 def test_field__wire_vocabulary__has_exact_order_names_values_and_count() -> None:
     """Evidence ID: SV-PROV-074
 
-    Requirement: The enum is an alias-free StrEnum with the exact six ordered failure
-    codes.
+    Requirement: The enum is an alias-free StrWireEnum with the exact six ordered
+    failure codes.
 
     Method: Inspect inheritance, iteration, the public member mapping, and member
     counts.
@@ -65,7 +65,7 @@ def test_field__wire_vocabulary__has_exact_order_names_values_and_count() -> Non
         ("MALFORMED_RESULT", "malformed_result"),
         ("INTERNAL_ERROR", "internal_error"),
     )
-    assert issubclass(SUT, StrEnum)
+    assert issubclass(SUT, StrWireEnum)
     assert tuple((member.name, member.value) for member in SUT) == expected
     assert tuple(SUT.__members__) == tuple(name for name, _ in expected)
     assert len(SUT.__members__) == 6

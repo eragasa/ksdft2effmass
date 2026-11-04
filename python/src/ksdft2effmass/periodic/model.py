@@ -10,13 +10,18 @@ SpatialDimension = Literal[1, 2, 3]
 class PeriodicModelRole(Enum):
     """Classify the evidentiary role of a periodic scientific model.
 
-    ``TOY`` identifies a controlled model used to isolate mathematical, numerical,
-    or software behavior. ``MATERIAL_REFERENCE`` identifies an explicitly specified
-    material model without implying scientific validation or physical completeness.
+    ``CONTROL_MODEL`` identifies a controlled model used to isolate mathematical,
+    numerical, or software behavior. ``MATERIAL_REFERENCE`` identifies an explicitly
+    specified material model without implying scientific validation or physical
+    completeness.
+    ``REDUCED_MODEL`` identifies a parameterized effective model intended to be fitted
+    or compared with an identified reference; the role does not imply that fitting,
+    verification, or scientific validation has completed.
     """
 
-    TOY = "toy"
+    CONTROL_MODEL = "control_model"
     MATERIAL_REFERENCE = "material_reference"
+    REDUCED_MODEL = "reduced_model"
 
 
 class PeriodicModel(ABC):
@@ -38,7 +43,7 @@ class PeriodicModel(ABC):
     @property
     @abstractmethod
     def model_role(self) -> PeriodicModelRole:
-        """Return the exact toy or material-reference role of the model."""
+        """Return the exact scientific role of the model."""
 
     @property
     @abstractmethod

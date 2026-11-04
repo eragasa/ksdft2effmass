@@ -52,7 +52,7 @@ Evidence class, strategy, and oracle
 This cohesive module provides software-verification evidence ``SV-HNEC-001``
 through ``SV-HNEC-006``. An independently written literal tuple is the oracle
 for exact name, value, count, and order. Public ``Enum.__members__``, Python 3.14
-``StrEnum`` behavior, public name/value lookups, and standard Enum exception
+``StrWireEnum`` behavior, public name/value lookups, and standard Enum exception
 classes verify the remaining closed-vocabulary contract. Production emission
 belongs to Analyzer software-verification evidence; residual accuracy belongs to
 numerical verification.
@@ -67,7 +67,7 @@ filter, private helper, or dependent exception. They establish no Analyzer
 emission, residual accuracy, backend-independent floating-point behavior,
 physical tolerance suitability, physical Hermiticity, scientific validation,
 uncertainty quantification, Rust implementation, or Rust conformance.
-``StrEnum`` behavior does not approve a numerical-error wire format.
+``StrWireEnum`` behavior does not approve a numerical-error wire format.
 
 Intrinsic and cross-object scope
 
@@ -89,11 +89,11 @@ agreement.
 """
 
 import re
-from enum import StrEnum
 
 import pytest
 
 from ksdft2effmass.operators import HermiticityNumericalErrorCode
+from ksdft2effmass.serialization import StrWireEnum
 
 pytestmark = pytest.mark.software_verification
 
@@ -198,24 +198,18 @@ class TestHermiticityNumericalErrorCode:
         ],
     )
     @staticmethod
-    def test_field__represented_state__strenum_machine_value(
+    def test_field__represented_state__str_wire_enum_machine_value(
         code: HermiticityNumericalErrorCode,
     ) -> None:
         r"""Evidence ID: SV-HNEC-003
 
-        Requirement: The enum subclasses ``StrEnum`` and its member behaves as the ASCII
-        lowercase
-        snake-case machine-readable string ``nonfinite_residual``.
+        Requirement: The enum subclasses ``StrWireEnum`` and explicitly projects the
+        ASCII lowercase snake-case wire value ``nonfinite_residual``.
 
-        Method: Inspect public inheritance, string type/equality, ``str()``, lexical
-        full
-        match, and
-        ASCII encoding.
+        Method: Inspect public inheritance, ordinary-Enum separation from ``str``, exact
+        ``to_wire()`` projection, lexical form, and ASCII encoding.
 
-        Oracle: Python 3.14 ``StrEnum`` semantics and the approved literal machine value
-        and
-        lexical
-        convention.
+        Oracle: The common ``StrWireEnum`` contract and the approved literal wire value.
 
         Acceptance: Every inheritance, string, lexical, and ASCII check succeeds.
 
@@ -229,12 +223,12 @@ class TestHermiticityNumericalErrorCode:
         validation, uncertainty quantification, and Rust conformance are not tested.
         """
 
-        assert issubclass(HermiticityNumericalErrorCode, StrEnum)
-        assert isinstance(code, str)
-        assert code == "nonfinite_residual"
-        assert str(code) == "nonfinite_residual"
-        assert re.fullmatch(r"[a-z][a-z0-9]*(?:_[a-z0-9]+)*", code.value) is not None
-        assert code.value.encode("ascii") == b"nonfinite_residual"
+        assert issubclass(HermiticityNumericalErrorCode, StrWireEnum)
+        assert not isinstance(code, str)
+        assert type(code.to_wire()) is str
+        assert code.to_wire() == "nonfinite_residual"
+        assert re.fullmatch(r"[a-z][a-z0-9]*(?:_[a-z0-9]+)*", code.to_wire())
+        assert code.to_wire().encode("ascii") == b"nonfinite_residual"
 
     @pytest.mark.parametrize(
         "code",

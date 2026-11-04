@@ -13,7 +13,7 @@ from pathlib import Path
 import pytest
 
 from ksdft2effmass.integration.quantum_espresso import (
-    QuantumEspressoResultValueSerializer,
+    QeResultValueSerializer,
 )
 from ksdft2effmass.persistence import (
     Revision,
@@ -142,7 +142,7 @@ def persisted_claim_write(tmp_path: Path) -> WorkflowRunWriteResult:
     """Manage a genuinely shared isolated real SQLite claim for record evidence."""
     serializer = WorkflowRunSerializer(
         result_codec=WorkflowResultValueSerializer(
-            source_codec=QuantumEspressoResultValueSerializer()
+            source_codec=QeResultValueSerializer()
         )
     )
     repository = WorkflowRunAtomicRepository(
@@ -187,7 +187,7 @@ def persisted_claim_load(
     assert snapshot is not None
     serializer = WorkflowRunSerializer(
         result_codec=WorkflowResultValueSerializer(
-            source_codec=QuantumEspressoResultValueSerializer()
+            source_codec=QeResultValueSerializer()
         )
     )
     repository = WorkflowRunAtomicRepository(

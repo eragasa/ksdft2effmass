@@ -92,8 +92,8 @@ class Periodic1DRankNAnalyticCase(Periodic1DModel):
 
     @property
     def model_role(self) -> PeriodicModelRole:
-        """Classify the analytic family as a controlled toy model."""
-        return PeriodicModelRole.TOY
+        """Classify the analytic family as a control model."""
+        return PeriodicModelRole.CONTROL_MODEL
 
     @property
     def ambient_dimension(self) -> int:

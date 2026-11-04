@@ -79,8 +79,8 @@ promises.
 `CorrelationStatus` is `correlated` or `mismatch`; `CorrelationIssue` is
 `request_id_mismatch`, `correlation_id_mismatch`, or `attempt_id_mismatch` in
 that deterministic order, including when only a subset is present. All public
-string-valued enums are Python `StrEnum` classes; Python record fields require
-enum members rather than arbitrary strings.
+string-mapped vocabularies are KSD `StrWireEnum` classes; Python record fields require
+enum members rather than arbitrary strings, and wire strings are projected explicitly.
 
 These comparisons are pure represented-state operations. They do not establish
 file observation, format validity, provenance truth, numerical acceptance,

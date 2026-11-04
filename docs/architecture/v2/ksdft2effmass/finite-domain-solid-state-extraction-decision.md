@@ -53,6 +53,23 @@ geometries, two anisotropic orientation pairs, two defects, an 81-point twist me
 orientation, and boundary-phase channels and an independent seam-gauge verifier
 (`calculations/research-monograph/impurity-defect-2d/finite-domain-effects-design.json`).
 
+**Observed fact.** The maintained flat calculation owner retains that historical
+version-1 plan and adds a version-2 execution-free inventory with $1\times1$ through
+$5\times5$ small-cell periodic-aliasing controls. The expanded inventory has fourteen
+unique isotropic geometries and 3,240 proposed operator evaluations. It remains
+unexecuted and does not alter the historical accepted finite-domain contract
+(`calculations/periodic2d_rank_defect/`).
+
+**Observed fact.** The same flat owner now retains a separate version-one parent-
+qualification package. It authenticates a compact projection of the historical
+accepted synthetic isotropic, anisotropic, and axis-swapped parents; binds them to the
+maintained scalar hopping, finite-shape, twist, localized-perturbation, production
+uniform-link, quotient-seam, and gauge-bridge contracts; and independently reconstructs
+the complete fourteen-shape, $9\times9$-twist parent-side inventory through separate
+FFT and sparse arithmetic. The package reports inherited radius-18 truncation losses
+and makes no material or finite-domain convergence claim. It does not execute the
+3,240 proposed defect evaluations.
+
 **Observed fact.** The bounded extraction inventory identifies the reusable geometry,
 twist, hopping, localized perturbation, lattice-operation, gauge, sparse-construction,
 folding, compatibility, locality, spectral, and finite-domain contracts that must be

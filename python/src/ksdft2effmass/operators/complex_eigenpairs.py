@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from enum import StrEnum
 
 import numpy as np
 from projectkoios.physkit.numerics.eigenproblems.residuals import (
@@ -19,12 +18,14 @@ from projectkoios.physkit.units import (
     VectorQuantity,
 )
 
+from ksdft2effmass.serialization import StrWireEnum
+
 from .sparse_hermiticity import ComplexSparseHermiticityResult
 
 type EigenpairResidualUnit = ModelSystemUnit
 
 
-class HermitianEigenpairSelection(StrEnum):
+class HermitianEigenpairSelection(StrWireEnum):
     """Supported ordering contract for retained Hermitian eigenpairs."""
 
     LOWEST = "lowest"

@@ -2,6 +2,27 @@
   "schema_version": 1,
   "modules": [
     {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__FoldingNullControls__contracts.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "FoldingNullCalculationWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__ParentQualification__contracts.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "ParentQualificationCalculationWorkflow"
+    },
+    {
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__DefectModelParentSvgPlotter__contracts.py",
+      "mode": "class_owned",
+      "evidence_class": "software_verification",
+      "evidence_profile": "routine",
+      "sut": "DefectModelParentSvgPlotter"
+    },
+    {
       "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__AdoptedCriteriaPlot.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
@@ -30,7 +51,7 @@
       "sut": "FiniteDomainEffectsCampaignPlanResult"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__FiniteDomainEffectsCaseEnumerator.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__FiniteDomainEffectsCaseEnumerator__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
@@ -51,7 +72,7 @@
       "sut": "FiniteDomainEffectsCaseInventory"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__FiniteDomainEffectsStudyDefinition.py",
+      "path": "python/tests/software_verification/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/test__FiniteDomainEffectsStudyDefinition__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
