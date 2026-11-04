@@ -10,11 +10,21 @@ records. The durable terminal-record wire format remains private and revisable.
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
-from enum import StrEnum
 from pathlib import PurePosixPath
-from typing import ClassVar
+from typing import ClassVar, Self
 
+from projectkoios.simulations.execution import (
+    CalculatorExitCode,
+    CalculatorExitDisposition,
+)
+
+from ksdft2effmass.serialization import (
+    BaseTypedRecord,
+    SerializableValue,
+    StrWireEnum,
+)
 from ksdft2effmass.workflows import (
     ArtifactContentIdentity,
     ArtifactIdentity,
@@ -32,7 +42,7 @@ _MAX_U64 = 18_446_744_073_709_551_615
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoExecutionInputIdentity:
+class QeExecutionInputIdentity(BaseTypedRecord):
     """Identify one exact QE execution input.
 
     Attributes
@@ -49,9 +59,20 @@ class QuantumEspressoExecutionInputIdentity:
         if not self.value:
             raise ValueError("execution input identity value must not be empty")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import string_record_mapping
+
+        return string_record_mapping(self.value)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import string_record_from_mapping
+
+        return cls(string_record_from_mapping(values, "QeExecutionInputIdentity"))
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoExecutableConfigurationIdentity:
+class QeExecutableConfigurationIdentity(BaseTypedRecord):
     """Identify one exact executable configuration.
 
     Attributes
@@ -72,9 +93,22 @@ class QuantumEspressoExecutableConfigurationIdentity:
                 "executable configuration identity value must not be empty"
             )
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import string_record_mapping
+
+        return string_record_mapping(self.value)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import string_record_from_mapping
+
+        return cls(
+            string_record_from_mapping(values, "QeExecutableConfigurationIdentity")
+        )
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoDiagnosticClassifierIdentity:
+class QeDiagnosticClassifierIdentity(BaseTypedRecord):
     """Identify one exact diagnostic-classifier implementation and catalog.
 
     Attributes
@@ -91,9 +125,20 @@ class QuantumEspressoDiagnosticClassifierIdentity:
         if not self.value:
             raise ValueError("classifier identity value must not be empty")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import string_record_mapping
+
+        return string_record_mapping(self.value)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import string_record_from_mapping
+
+        return cls(string_record_from_mapping(values, "QeDiagnosticClassifierIdentity"))
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoPreparationIdentity:
+class QePreparationIdentity(BaseTypedRecord):
     """Identify one exact read-only local preparation result.
 
     Attributes
@@ -110,9 +155,20 @@ class QuantumEspressoPreparationIdentity:
         if not self.value:
             raise ValueError("preparation identity value must not be empty")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import string_record_mapping
+
+        return string_record_mapping(self.value)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import string_record_from_mapping
+
+        return cls(string_record_from_mapping(values, "QePreparationIdentity"))
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoProcessObservationIdentity:
+class QeProcessObservationIdentity(BaseTypedRecord):
     """Identify one exact mechanical process observation.
 
     Attributes
@@ -129,9 +185,20 @@ class QuantumEspressoProcessObservationIdentity:
         if not self.value:
             raise ValueError("process observation identity value must not be empty")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import string_record_mapping
+
+        return string_record_mapping(self.value)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import string_record_from_mapping
+
+        return cls(string_record_from_mapping(values, "QeProcessObservationIdentity"))
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoDiagnosticObservationIdentity:
+class QeDiagnosticObservationIdentity(BaseTypedRecord):
     """Identify one exact diagnostic observation.
 
     Attributes
@@ -150,9 +217,22 @@ class QuantumEspressoDiagnosticObservationIdentity:
         if not self.value:
             raise ValueError("diagnostic observation identity value must not be empty")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import string_record_mapping
+
+        return string_record_mapping(self.value)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import string_record_from_mapping
+
+        return cls(
+            string_record_from_mapping(values, "QeDiagnosticObservationIdentity")
+        )
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoOutputMarkerObservationIdentity:
+class QeOutputMarkerObservationIdentity(BaseTypedRecord):
     """Identify one exact calculator output-marker observation.
 
     Attributes
@@ -169,9 +249,22 @@ class QuantumEspressoOutputMarkerObservationIdentity:
         if not self.value:
             raise ValueError("marker observation identity value must not be empty")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import string_record_mapping
+
+        return string_record_mapping(self.value)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import string_record_from_mapping
+
+        return cls(
+            string_record_from_mapping(values, "QeOutputMarkerObservationIdentity")
+        )
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoDiagnosticReportIdentity:
+class QeDiagnosticReportIdentity(BaseTypedRecord):
     """Identify one exact diagnostic-classification result.
 
     Attributes
@@ -188,9 +281,20 @@ class QuantumEspressoDiagnosticReportIdentity:
         if not self.value:
             raise ValueError("diagnostic report identity value must not be empty")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import string_record_mapping
+
+        return string_record_mapping(self.value)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import string_record_from_mapping
+
+        return cls(string_record_from_mapping(values, "QeDiagnosticReportIdentity"))
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoTerminalRecordIdentity:
+class QeTerminalRecordIdentity(BaseTypedRecord):
     """Identify one exact private terminal record.
 
     Attributes
@@ -207,9 +311,20 @@ class QuantumEspressoTerminalRecordIdentity:
         if not self.value:
             raise ValueError("terminal record identity value must not be empty")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import string_record_mapping
+
+        return string_record_mapping(self.value)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import string_record_from_mapping
+
+        return cls(string_record_from_mapping(values, "QeTerminalRecordIdentity"))
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoArtifactDestination:
+class QeArtifactDestination(BaseTypedRecord):
     """Represent one parent-free portable artifact destination.
 
     Attributes
@@ -240,15 +355,26 @@ class QuantumEspressoArtifactDestination:
         ):
             raise ValueError("artifact destination must be a portable relative path")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import string_record_mapping
 
-class QuantumEspressoProgram(StrEnum):
+        return string_record_mapping(self.value)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import string_record_from_mapping
+
+        return cls(string_record_from_mapping(values, "QeArtifactDestination"))
+
+
+class QeProgram(StrWireEnum):
     """Closed initial QE program roles."""
 
     PW = "pw"
     BANDS = "bands"
 
 
-class QuantumEspressoExecutableKind(StrEnum):
+class QeExecutableKind(StrWireEnum):
     """Distinguish actual QE executables from deterministic test fixtures."""
 
     QUANTUM_ESPRESSO = "quantum_espresso"
@@ -256,7 +382,7 @@ class QuantumEspressoExecutableKind(StrEnum):
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoFileArtifactContent:
+class QeFileArtifactContent(BaseTypedRecord):
     """Represent exact content of one regular-file input artifact.
 
     Attributes
@@ -271,9 +397,21 @@ class QuantumEspressoFileArtifactContent:
         if type(self.content_identity) is not ArtifactContentIdentity:
             raise TypeError("content_identity must be ArtifactContentIdentity")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _file_content_mapping
+
+        return _file_content_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _file_content
+
+        decoded = _file_content(values, "QeFileArtifactContent")
+        return cls(decoded.content_identity)
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoTreeArtifactContent:
+class QeTreeArtifactContent(BaseTypedRecord):
     """Represent exact content of one immutable directory-tree input artifact.
 
     Attributes
@@ -307,14 +445,24 @@ class QuantumEspressoTreeArtifactContent:
                 "manifest_entry_identities must be unique and lexically sorted"
             )
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _tree_content_mapping
 
-type QuantumEspressoInputArtifactContent = (
-    QuantumEspressoFileArtifactContent | QuantumEspressoTreeArtifactContent
-)
+        return _tree_content_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _tree_content
+
+        decoded = _tree_content(values, "QeTreeArtifactContent")
+        return cls(decoded.manifest_identity, decoded.manifest_entry_identities)
+
+
+type QeInputArtifactContent = QeFileArtifactContent | QeTreeArtifactContent
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoNativeInputArtifact:
+class QeNativeInputArtifact(BaseTypedRecord):
     """Represent the exact native input file staged for one operation.
 
     Attributes
@@ -328,20 +476,32 @@ class QuantumEspressoNativeInputArtifact:
     """
 
     identity: ArtifactIdentity
-    content: QuantumEspressoFileArtifactContent
-    destination: QuantumEspressoArtifactDestination
+    content: QeFileArtifactContent
+    destination: QeArtifactDestination
 
     def __post_init__(self) -> None:
         if type(self.identity) is not ArtifactIdentity:
             raise TypeError("identity must be ArtifactIdentity")
-        if type(self.content) is not QuantumEspressoFileArtifactContent:
-            raise TypeError("content must be QuantumEspressoFileArtifactContent")
-        if type(self.destination) is not QuantumEspressoArtifactDestination:
-            raise TypeError("destination must be QuantumEspressoArtifactDestination")
+        if type(self.content) is not QeFileArtifactContent:
+            raise TypeError("content must be QeFileArtifactContent")
+        if type(self.destination) is not QeArtifactDestination:
+            raise TypeError("destination must be QeArtifactDestination")
+
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _native_input_mapping
+
+        return _native_input_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _native_input
+
+        decoded = _native_input(values)
+        return cls(decoded.identity, decoded.content, decoded.destination)
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoPseudopotentialArtifact:
+class QePseudopotentialArtifact(BaseTypedRecord):
     """Represent one exact pseudopotential file staged for an operation.
 
     Attributes
@@ -355,20 +515,32 @@ class QuantumEspressoPseudopotentialArtifact:
     """
 
     identity: ArtifactIdentity
-    content: QuantumEspressoFileArtifactContent
-    destination: QuantumEspressoArtifactDestination
+    content: QeFileArtifactContent
+    destination: QeArtifactDestination
 
     def __post_init__(self) -> None:
         if type(self.identity) is not ArtifactIdentity:
             raise TypeError("identity must be ArtifactIdentity")
-        if type(self.content) is not QuantumEspressoFileArtifactContent:
-            raise TypeError("content must be QuantumEspressoFileArtifactContent")
-        if type(self.destination) is not QuantumEspressoArtifactDestination:
-            raise TypeError("destination must be QuantumEspressoArtifactDestination")
+        if type(self.content) is not QeFileArtifactContent:
+            raise TypeError("content must be QeFileArtifactContent")
+        if type(self.destination) is not QeArtifactDestination:
+            raise TypeError("destination must be QeArtifactDestination")
+
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _pseudopotential_mapping
+
+        return _pseudopotential_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _pseudopotential
+
+        decoded = _pseudopotential(values, 0)
+        return cls(decoded.identity, decoded.content, decoded.destination)
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoPredecessorNativeStateArtifact:
+class QePredecessorNativeStateArtifact(BaseTypedRecord):
     """Represent exact admitted predecessor native state for isolated staging.
 
     Attributes
@@ -386,18 +558,18 @@ class QuantumEspressoPredecessorNativeStateArtifact:
     """
 
     identity: ArtifactIdentity
-    content: QuantumEspressoTreeArtifactContent
-    destination: QuantumEspressoArtifactDestination
+    content: QeTreeArtifactContent
+    destination: QeArtifactDestination
     predecessor_result_identity: ResultObjectIdentity
     predecessor_manifest_entry_identity: ArtifactManifestEntryIdentity
 
     def __post_init__(self) -> None:
         if type(self.identity) is not ArtifactIdentity:
             raise TypeError("identity must be ArtifactIdentity")
-        if type(self.content) is not QuantumEspressoTreeArtifactContent:
-            raise TypeError("content must be QuantumEspressoTreeArtifactContent")
-        if type(self.destination) is not QuantumEspressoArtifactDestination:
-            raise TypeError("destination must be QuantumEspressoArtifactDestination")
+        if type(self.content) is not QeTreeArtifactContent:
+            raise TypeError("content must be QeTreeArtifactContent")
+        if type(self.destination) is not QeArtifactDestination:
+            raise TypeError("destination must be QeArtifactDestination")
         if type(self.predecessor_result_identity) is not ResultObjectIdentity:
             raise TypeError("predecessor_result_identity must be ResultObjectIdentity")
         if type(self.predecessor_manifest_entry_identity) is not (
@@ -408,16 +580,32 @@ class QuantumEspressoPredecessorNativeStateArtifact:
                 "ArtifactManifestEntryIdentity"
             )
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _predecessor_mapping
 
-type QuantumEspressoInputArtifact = (
-    QuantumEspressoNativeInputArtifact
-    | QuantumEspressoPseudopotentialArtifact
-    | QuantumEspressoPredecessorNativeStateArtifact
+        return _predecessor_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _predecessor
+
+        decoded = _predecessor(values, 0)
+        return cls(
+            decoded.identity,
+            decoded.content,
+            decoded.destination,
+            decoded.predecessor_result_identity,
+            decoded.predecessor_manifest_entry_identity,
+        )
+
+
+type QeInputArtifact = (
+    QeNativeInputArtifact | QePseudopotentialArtifact | QePredecessorNativeStateArtifact
 )
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoExecutionInput:
+class QeExecutionInput(BaseTypedRecord):
     """Bind exact operation input artifacts to one Workflow Task attempt.
 
     Attributes
@@ -446,11 +634,11 @@ class QuantumEspressoExecutionInput:
         Exact public in-memory contract version string.
     """
 
-    identity: QuantumEspressoExecutionInputIdentity
-    program: QuantumEspressoProgram
-    native_input: QuantumEspressoNativeInputArtifact
-    pseudopotentials: tuple[QuantumEspressoPseudopotentialArtifact, ...]
-    predecessor_native_state: tuple[QuantumEspressoPredecessorNativeStateArtifact, ...]
+    identity: QeExecutionInputIdentity
+    program: QeProgram
+    native_input: QeNativeInputArtifact
+    pseudopotentials: tuple[QePseudopotentialArtifact, ...]
+    predecessor_native_state: tuple[QePredecessorNativeStateArtifact, ...]
     task_definition_identity: TaskDefinitionIdentity
     task_instance_identity: TaskInstanceIdentity
     activation_identity: TaskActivationIdentity
@@ -460,11 +648,11 @@ class QuantumEspressoExecutionInput:
 
     def __post_init__(self) -> None:
         expected = (
-            (self.identity, QuantumEspressoExecutionInputIdentity, "identity"),
-            (self.program, QuantumEspressoProgram, "program"),
+            (self.identity, QeExecutionInputIdentity, "identity"),
+            (self.program, QeProgram, "program"),
             (
                 self.native_input,
-                QuantumEspressoNativeInputArtifact,
+                QeNativeInputArtifact,
                 "native_input",
             ),
             (
@@ -489,22 +677,21 @@ class QuantumEspressoExecutionInput:
             if type(value) is not nominal_type:
                 raise TypeError(f"{name} must be {nominal_type.__name__}")
         if type(self.pseudopotentials) is not tuple or any(
-            type(value) is not QuantumEspressoPseudopotentialArtifact
+            type(value) is not QePseudopotentialArtifact
             for value in self.pseudopotentials
         ):
             raise TypeError(
-                "pseudopotentials must be a tuple of "
-                "QuantumEspressoPseudopotentialArtifact"
+                "pseudopotentials must be a tuple of QePseudopotentialArtifact"
             )
         if type(self.predecessor_native_state) is not tuple or any(
-            type(value) is not QuantumEspressoPredecessorNativeStateArtifact
+            type(value) is not QePredecessorNativeStateArtifact
             for value in self.predecessor_native_state
         ):
             raise TypeError(
                 "predecessor_native_state must be a tuple of "
-                "QuantumEspressoPredecessorNativeStateArtifact"
+                "QePredecessorNativeStateArtifact"
             )
-        artifacts: tuple[QuantumEspressoInputArtifact, ...] = (
+        artifacts: tuple[QeInputArtifact, ...] = (
             self.native_input,
             *self.pseudopotentials,
             *self.predecessor_native_state,
@@ -534,12 +721,36 @@ class QuantumEspressoExecutionInput:
             )
         if type(self.contract_version) is not str:
             raise TypeError("contract_version must be a built-in str")
-        if not self.contract_version:
-            raise ValueError("contract_version must not be empty")
+        if self.contract_version != "qe-execution-input:1":
+            raise ValueError("contract_version must be qe-execution-input:1")
+
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _execution_input_mapping
+
+        return _execution_input_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _execution_input
+
+        decoded = _execution_input(values)
+        return cls(
+            identity=decoded.identity,
+            program=decoded.program,
+            native_input=decoded.native_input,
+            pseudopotentials=decoded.pseudopotentials,
+            predecessor_native_state=decoded.predecessor_native_state,
+            task_definition_identity=decoded.task_definition_identity,
+            task_instance_identity=decoded.task_instance_identity,
+            activation_identity=decoded.activation_identity,
+            operation_identity=decoded.operation_identity,
+            attempt_identity=decoded.attempt_identity,
+            contract_version=decoded.contract_version,
+        )
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoExecutableConfiguration:
+class QeExecutableConfiguration:
     """Represent one exact executable and diagnostic-classifier binding.
 
     Attributes
@@ -576,27 +787,27 @@ class QuantumEspressoExecutableConfiguration:
         }
     )
 
-    identity: QuantumEspressoExecutableConfigurationIdentity
-    program: QuantumEspressoProgram
-    executable_kind: QuantumEspressoExecutableKind
+    identity: QeExecutableConfigurationIdentity
+    program: QeProgram
+    executable_kind: QeExecutableKind
     executable_content_identity: ArtifactContentIdentity
     program_version: str
     argument_suffix: tuple[str, ...]
     environment_additions: tuple[tuple[str, str], ...]
-    classifier_identity: QuantumEspressoDiagnosticClassifierIdentity
+    classifier_identity: QeDiagnosticClassifierIdentity
     contract_version: str
 
     def __post_init__(self) -> None:
         expected = (
             (
                 self.identity,
-                QuantumEspressoExecutableConfigurationIdentity,
+                QeExecutableConfigurationIdentity,
                 "identity",
             ),
-            (self.program, QuantumEspressoProgram, "program"),
+            (self.program, QeProgram, "program"),
             (
                 self.executable_kind,
-                QuantumEspressoExecutableKind,
+                QeExecutableKind,
                 "executable_kind",
             ),
             (
@@ -606,7 +817,7 @@ class QuantumEspressoExecutableConfiguration:
             ),
             (
                 self.classifier_identity,
-                QuantumEspressoDiagnosticClassifierIdentity,
+                QeDiagnosticClassifierIdentity,
                 "classifier_identity",
             ),
         )
@@ -621,7 +832,7 @@ class QuantumEspressoExecutableConfiguration:
                 raise ValueError(f"{name} must not be empty")
         fixture_version = self.program_version.startswith("fixture-")
         if (
-            self.executable_kind is QuantumEspressoExecutableKind.DETERMINISTIC_FIXTURE
+            self.executable_kind is QeExecutableKind.DETERMINISTIC_FIXTURE
         ) != fixture_version:
             raise ValueError(
                 "program_version namespace must agree with executable_kind"
@@ -664,7 +875,7 @@ class QuantumEspressoExecutableConfiguration:
             )
 
 
-class QuantumEspressoDiagnosticChannel(StrEnum):
+class QeDiagnosticChannel(StrWireEnum):
     """Closed independently captured diagnostic channels.
 
     Attributes
@@ -679,7 +890,7 @@ class QuantumEspressoDiagnosticChannel(StrEnum):
     STDERR = "stderr"
 
 
-class QuantumEspressoDiagnosticDisposition(StrEnum):
+class QeDiagnosticDisposition(StrWireEnum):
     """Closed native diagnostic dispositions.
 
     Attributes
@@ -701,7 +912,7 @@ class QuantumEspressoDiagnosticDisposition(StrEnum):
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoStreamObservation:
+class QeStreamObservation(BaseTypedRecord):
     """Represent exact content captured from one process stream.
 
     Attributes
@@ -714,41 +925,74 @@ class QuantumEspressoStreamObservation:
         Exact SHA-256 digest and byte count of the captured bytes.
     """
 
-    channel: QuantumEspressoDiagnosticChannel
+    channel: QeDiagnosticChannel
     artifact_identity: ArtifactIdentity
     content_identity: ArtifactContentIdentity
 
     def __post_init__(self) -> None:
-        if type(self.channel) is not QuantumEspressoDiagnosticChannel:
-            raise TypeError("channel must be QuantumEspressoDiagnosticChannel")
+        if type(self.channel) is not QeDiagnosticChannel:
+            raise TypeError("channel must be QeDiagnosticChannel")
         if type(self.artifact_identity) is not ArtifactIdentity:
             raise TypeError("artifact_identity must be ArtifactIdentity")
         if type(self.content_identity) is not ArtifactContentIdentity:
             raise TypeError("content_identity must be ArtifactContentIdentity")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _stream_mapping
+
+        return _stream_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _stream
+
+        decoded = _stream(values, "QeStreamObservation")
+        return cls(
+            channel=decoded.channel,
+            artifact_identity=decoded.artifact_identity,
+            content_identity=decoded.content_identity,
+        )
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoNormalProcessExit:
+class QeNormalProcessExit(BaseTypedRecord):
     """Represent one determinate normal process exit.
 
     Attributes
     ----------
     exit_code
-        Nonnegative built-in process exit code. Zero has no calculator-level meaning
-        until diagnostics and required native outputs are resolved.
+        Exact provider-owned process exit code. Consumers use its disposition rather
+        than comparing unexplained numeric values.
     """
 
-    exit_code: int
+    exit_code: CalculatorExitCode
 
     def __post_init__(self) -> None:
-        if type(self.exit_code) is not int:
-            raise TypeError("exit_code must be a built-in int excluding bool")
-        if self.exit_code < 0:
-            raise ValueError("exit_code must be nonnegative")
+        if type(self.exit_code) is not CalculatorExitCode:
+            raise TypeError("exit_code must be CalculatorExitCode")
+
+    @property
+    def disposition(self) -> CalculatorExitDisposition:
+        """Return the calculator-neutral normal-exit disposition."""
+        return self.exit_code.disposition
+
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _termination_mapping
+
+        return _termination_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _termination
+
+        decoded = _termination(values)
+        if type(decoded) is not QeNormalProcessExit:
+            raise TypeError("mapping must identify a normal process exit")
+        return cls(decoded.exit_code)
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoProcessSignalTermination:
+class QeProcessSignalTermination(BaseTypedRecord):
     """Represent one determinate process signal termination.
 
     Attributes
@@ -765,9 +1009,23 @@ class QuantumEspressoProcessSignalTermination:
         if self.signal_number <= 0:
             raise ValueError("signal_number must be positive")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _termination_mapping
+
+        return _termination_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _termination
+
+        decoded = _termination(values)
+        if type(decoded) is not QeProcessSignalTermination:
+            raise TypeError("mapping must identify a signal termination")
+        return cls(decoded.signal_number)
+
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoProcessTimeout:
+class QeProcessTimeout(BaseTypedRecord):
     """Represent a determinate timeout and its bounded cleanup actions.
 
     Attributes
@@ -798,16 +1056,32 @@ class QuantumEspressoProcessTimeout:
         if self.kill_sent and not self.termination_sent:
             raise ValueError("kill_sent requires termination_sent")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _termination_mapping
 
-type QuantumEspressoProcessTermination = (
-    QuantumEspressoNormalProcessExit
-    | QuantumEspressoProcessSignalTermination
-    | QuantumEspressoProcessTimeout
+        return _termination_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _termination
+
+        decoded = _termination(values)
+        if type(decoded) is not QeProcessTimeout:
+            raise TypeError("mapping must identify a process timeout")
+        return cls(
+            timeout_milliseconds=decoded.timeout_milliseconds,
+            termination_sent=decoded.termination_sent,
+            kill_sent=decoded.kill_sent,
+        )
+
+
+type QeProcessTermination = (
+    QeNormalProcessExit | QeProcessSignalTermination | QeProcessTimeout
 )
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoProcessObservation:
+class QeProcessObservation(BaseTypedRecord):
     """Represent one complete mechanical process and stream observation.
 
     Attributes
@@ -849,16 +1123,16 @@ class QuantumEspressoProcessObservation:
         Nonempty identity of the process-observation implementation.
     """
 
-    identity: QuantumEspressoProcessObservationIdentity
-    execution_input_identity: QuantumEspressoExecutionInputIdentity
-    executable_configuration_identity: QuantumEspressoExecutableConfigurationIdentity
-    preparation_identity: QuantumEspressoPreparationIdentity
+    identity: QeProcessObservationIdentity
+    execution_input_identity: QeExecutionInputIdentity
+    executable_configuration_identity: QeExecutableConfigurationIdentity
+    preparation_identity: QePreparationIdentity
     attempt_identity: AttemptIdentity
     argv_content_identity: ArtifactContentIdentity
-    termination: QuantumEspressoProcessTermination
+    termination: QeProcessTermination
     wall_duration_nanoseconds: int
-    stdout: QuantumEspressoStreamObservation
-    stderr: QuantumEspressoStreamObservation
+    stdout: QeStreamObservation
+    stderr: QeStreamObservation
     before_snapshot_identity: ArtifactManifestIdentity
     after_snapshot_identity: ArtifactManifestIdentity
     created_entry_count: int
@@ -868,20 +1142,20 @@ class QuantumEspressoProcessObservation:
 
     def __post_init__(self) -> None:
         expected = (
-            (self.identity, QuantumEspressoProcessObservationIdentity, "identity"),
+            (self.identity, QeProcessObservationIdentity, "identity"),
             (
                 self.execution_input_identity,
-                QuantumEspressoExecutionInputIdentity,
+                QeExecutionInputIdentity,
                 "execution_input_identity",
             ),
             (
                 self.executable_configuration_identity,
-                QuantumEspressoExecutableConfigurationIdentity,
+                QeExecutableConfigurationIdentity,
                 "executable_configuration_identity",
             ),
             (
                 self.preparation_identity,
-                QuantumEspressoPreparationIdentity,
+                QePreparationIdentity,
                 "preparation_identity",
             ),
             (self.attempt_identity, AttemptIdentity, "attempt_identity"),
@@ -890,8 +1164,8 @@ class QuantumEspressoProcessObservation:
                 ArtifactContentIdentity,
                 "argv_content_identity",
             ),
-            (self.stdout, QuantumEspressoStreamObservation, "stdout"),
-            (self.stderr, QuantumEspressoStreamObservation, "stderr"),
+            (self.stdout, QeStreamObservation, "stdout"),
+            (self.stderr, QeStreamObservation, "stderr"),
             (
                 self.before_snapshot_identity,
                 ArtifactManifestIdentity,
@@ -907,15 +1181,15 @@ class QuantumEspressoProcessObservation:
             if type(value) is not nominal_type:
                 raise TypeError(f"{name} must be {nominal_type.__name__}")
         termination_types = (
-            QuantumEspressoNormalProcessExit,
-            QuantumEspressoProcessSignalTermination,
-            QuantumEspressoProcessTimeout,
+            QeNormalProcessExit,
+            QeProcessSignalTermination,
+            QeProcessTimeout,
         )
         if type(self.termination) not in termination_types:
             raise TypeError("termination must be a closed process-termination variant")
-        if self.stdout.channel is not QuantumEspressoDiagnosticChannel.STDOUT:
+        if self.stdout.channel is not QeDiagnosticChannel.STDOUT:
             raise ValueError("stdout observation must use the stdout channel")
-        if self.stderr.channel is not QuantumEspressoDiagnosticChannel.STDERR:
+        if self.stderr.channel is not QeDiagnosticChannel.STDERR:
             raise ValueError("stderr observation must use the stderr channel")
         for name in (
             "wall_duration_nanoseconds",
@@ -940,9 +1214,40 @@ class QuantumEspressoProcessObservation:
         if not self.observer_version:
             raise ValueError("observer_version must not be empty")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _process_observation_mapping
+
+        return _process_observation_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _process_observation
+
+        decoded = _process_observation(values)
+        return cls(
+            identity=decoded.identity,
+            execution_input_identity=decoded.execution_input_identity,
+            executable_configuration_identity=(
+                decoded.executable_configuration_identity
+            ),
+            preparation_identity=decoded.preparation_identity,
+            attempt_identity=decoded.attempt_identity,
+            argv_content_identity=decoded.argv_content_identity,
+            termination=decoded.termination,
+            wall_duration_nanoseconds=decoded.wall_duration_nanoseconds,
+            stdout=decoded.stdout,
+            stderr=decoded.stderr,
+            before_snapshot_identity=decoded.before_snapshot_identity,
+            after_snapshot_identity=decoded.after_snapshot_identity,
+            created_entry_count=decoded.created_entry_count,
+            created_total_bytes=decoded.created_total_bytes,
+            peak_resident_bytes=decoded.peak_resident_bytes,
+            observer_version=decoded.observer_version,
+        )
+
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoDiagnosticObservation:
+class QeDiagnosticObservation(BaseTypedRecord):
     """Identify one diagnostic by exact stream span and classified disposition.
 
     Attributes
@@ -969,24 +1274,22 @@ class QuantumEspressoDiagnosticObservation:
         Nonempty immutable statements limiting evidentiary interpretation.
     """
 
-    identity: QuantumEspressoDiagnosticObservationIdentity
-    channel: QuantumEspressoDiagnosticChannel
+    identity: QeDiagnosticObservationIdentity
+    channel: QeDiagnosticChannel
     byte_start: int
     byte_end: int
     stream_content_identity: ArtifactContentIdentity
     span_content_identity: ArtifactContentIdentity
     signature_identity: str | None
-    disposition: QuantumEspressoDiagnosticDisposition
+    disposition: QeDiagnosticDisposition
     sanitized_summary: str
     claim_boundary: tuple[str, ...]
 
     def __post_init__(self) -> None:
-        if type(self.identity) is not QuantumEspressoDiagnosticObservationIdentity:
-            raise TypeError(
-                "identity must be QuantumEspressoDiagnosticObservationIdentity"
-            )
-        if type(self.channel) is not QuantumEspressoDiagnosticChannel:
-            raise TypeError("channel must be QuantumEspressoDiagnosticChannel")
+        if type(self.identity) is not QeDiagnosticObservationIdentity:
+            raise TypeError("identity must be QeDiagnosticObservationIdentity")
+        if type(self.channel) is not QeDiagnosticChannel:
+            raise TypeError("channel must be QeDiagnosticChannel")
         for name in ("byte_start", "byte_end"):
             value = getattr(self, name)
             if type(value) is not int:
@@ -1008,9 +1311,9 @@ class QuantumEspressoDiagnosticObservation:
                 raise TypeError("signature_identity must be a built-in str or None")
             if not self.signature_identity:
                 raise ValueError("signature_identity must not be empty")
-        if type(self.disposition) is not QuantumEspressoDiagnosticDisposition:
-            raise TypeError("disposition must be QuantumEspressoDiagnosticDisposition")
-        if (self.disposition is QuantumEspressoDiagnosticDisposition.UNRESOLVED) != (
+        if type(self.disposition) is not QeDiagnosticDisposition:
+            raise TypeError("disposition must be QeDiagnosticDisposition")
+        if (self.disposition is QeDiagnosticDisposition.UNRESOLVED) != (
             self.signature_identity is None
         ):
             raise ValueError(
@@ -1027,9 +1330,32 @@ class QuantumEspressoDiagnosticObservation:
         if not self.claim_boundary or any(not value for value in self.claim_boundary):
             raise ValueError("claim_boundary must contain nonempty strings")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _diagnostic_observation_mapping
+
+        return _diagnostic_observation_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _diagnostic_observation
+
+        decoded = _diagnostic_observation(values, 0)
+        return cls(
+            identity=decoded.identity,
+            channel=decoded.channel,
+            byte_start=decoded.byte_start,
+            byte_end=decoded.byte_end,
+            stream_content_identity=decoded.stream_content_identity,
+            span_content_identity=decoded.span_content_identity,
+            signature_identity=decoded.signature_identity,
+            disposition=decoded.disposition,
+            sanitized_summary=decoded.sanitized_summary,
+            claim_boundary=decoded.claim_boundary,
+        )
+
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoOutputMarkerObservation:
+class QeOutputMarkerObservation(BaseTypedRecord):
     """Identify one recognized completion marker by its exact stream span.
 
     Attributes
@@ -1050,8 +1376,8 @@ class QuantumEspressoOutputMarkerObservation:
         Exact nominal identity retained for cross-record correlation.
     """
 
-    identity: QuantumEspressoOutputMarkerObservationIdentity
-    channel: QuantumEspressoDiagnosticChannel
+    identity: QeOutputMarkerObservationIdentity
+    channel: QeDiagnosticChannel
     byte_start: int
     byte_end: int
     stream_content_identity: ArtifactContentIdentity
@@ -1059,12 +1385,10 @@ class QuantumEspressoOutputMarkerObservation:
     signature_identity: str
 
     def __post_init__(self) -> None:
-        if type(self.identity) is not QuantumEspressoOutputMarkerObservationIdentity:
-            raise TypeError(
-                "identity must be QuantumEspressoOutputMarkerObservationIdentity"
-            )
-        if type(self.channel) is not QuantumEspressoDiagnosticChannel:
-            raise TypeError("channel must be QuantumEspressoDiagnosticChannel")
+        if type(self.identity) is not QeOutputMarkerObservationIdentity:
+            raise TypeError("identity must be QeOutputMarkerObservationIdentity")
+        if type(self.channel) is not QeDiagnosticChannel:
+            raise TypeError("channel must be QeDiagnosticChannel")
         for name in ("byte_start", "byte_end"):
             value = getattr(self, name)
             if type(value) is not int:
@@ -1086,8 +1410,28 @@ class QuantumEspressoOutputMarkerObservation:
         if not self.signature_identity:
             raise ValueError("signature_identity must not be empty")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _marker_mapping
 
-class QuantumEspressoDiagnosticReportKind(StrEnum):
+        return _marker_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _marker
+
+        decoded = _marker(values, 0)
+        return cls(
+            identity=decoded.identity,
+            channel=decoded.channel,
+            byte_start=decoded.byte_start,
+            byte_end=decoded.byte_end,
+            stream_content_identity=decoded.stream_content_identity,
+            span_content_identity=decoded.span_content_identity,
+            signature_identity=decoded.signature_identity,
+        )
+
+
+class QeDiagnosticReportKind(StrWireEnum):
     """Closed aggregate diagnostic-report kinds."""
 
     CLEAR = "clear"
@@ -1097,7 +1441,7 @@ class QuantumEspressoDiagnosticReportKind(StrEnum):
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoDiagnosticReport:
+class QeDiagnosticReport(BaseTypedRecord):
     """Record version-bound classification of both exact process streams.
 
     Attributes
@@ -1128,38 +1472,38 @@ class QuantumEspressoDiagnosticReport:
         Nonempty immutable statements limiting evidentiary interpretation.
     """
 
-    identity: QuantumEspressoDiagnosticReportIdentity
-    classifier_identity: QuantumEspressoDiagnosticClassifierIdentity
-    executable_configuration_identity: QuantumEspressoExecutableConfigurationIdentity
-    executable_kind: QuantumEspressoExecutableKind
-    program: QuantumEspressoProgram
+    identity: QeDiagnosticReportIdentity
+    classifier_identity: QeDiagnosticClassifierIdentity
+    executable_configuration_identity: QeExecutableConfigurationIdentity
+    executable_kind: QeExecutableKind
+    program: QeProgram
     program_version: str
     stdout_content_identity: ArtifactContentIdentity
     stderr_content_identity: ArtifactContentIdentity
-    observations: tuple[QuantumEspressoDiagnosticObservation, ...]
-    completion_markers: tuple[QuantumEspressoOutputMarkerObservation, ...]
-    kind: QuantumEspressoDiagnosticReportKind
+    observations: tuple[QeDiagnosticObservation, ...]
+    completion_markers: tuple[QeOutputMarkerObservation, ...]
+    kind: QeDiagnosticReportKind
     claim_boundary: tuple[str, ...]
 
     def __post_init__(self) -> None:
         expected = (
-            (self.identity, QuantumEspressoDiagnosticReportIdentity, "identity"),
+            (self.identity, QeDiagnosticReportIdentity, "identity"),
             (
                 self.classifier_identity,
-                QuantumEspressoDiagnosticClassifierIdentity,
+                QeDiagnosticClassifierIdentity,
                 "classifier_identity",
             ),
             (
                 self.executable_configuration_identity,
-                QuantumEspressoExecutableConfigurationIdentity,
+                QeExecutableConfigurationIdentity,
                 "executable_configuration_identity",
             ),
             (
                 self.executable_kind,
-                QuantumEspressoExecutableKind,
+                QeExecutableKind,
                 "executable_kind",
             ),
-            (self.program, QuantumEspressoProgram, "program"),
+            (self.program, QeProgram, "program"),
             (
                 self.stdout_content_identity,
                 ArtifactContentIdentity,
@@ -1170,7 +1514,7 @@ class QuantumEspressoDiagnosticReport:
                 ArtifactContentIdentity,
                 "stderr_content_identity",
             ),
-            (self.kind, QuantumEspressoDiagnosticReportKind, "kind"),
+            (self.kind, QeDiagnosticReportKind, "kind"),
         )
         for value, nominal_type, name in expected:
             if type(value) is not nominal_type:
@@ -1181,19 +1525,16 @@ class QuantumEspressoDiagnosticReport:
             raise ValueError("program_version must not be empty")
         fixture_version = self.program_version.startswith("fixture-")
         if (
-            self.executable_kind is QuantumEspressoExecutableKind.DETERMINISTIC_FIXTURE
+            self.executable_kind is QeExecutableKind.DETERMINISTIC_FIXTURE
         ) != fixture_version:
             raise ValueError(
                 "program_version namespace must agree with executable_kind"
             )
         observations = self.observations
         if type(observations) is not tuple or any(
-            type(value) is not QuantumEspressoDiagnosticObservation
-            for value in observations
+            type(value) is not QeDiagnosticObservation for value in observations
         ):
-            raise TypeError(
-                "observations must be a tuple of QuantumEspressoDiagnosticObservation"
-            )
+            raise TypeError("observations must be a tuple of QeDiagnosticObservation")
         expected_observations = tuple(
             sorted(
                 observations,
@@ -1211,12 +1552,10 @@ class QuantumEspressoDiagnosticReport:
             raise ValueError("observations must be unique and canonically ordered")
         markers = self.completion_markers
         if type(markers) is not tuple or any(
-            type(value) is not QuantumEspressoOutputMarkerObservation
-            for value in markers
+            type(value) is not QeOutputMarkerObservation for value in markers
         ):
             raise TypeError(
-                "completion_markers must be a tuple of "
-                "QuantumEspressoOutputMarkerObservation"
+                "completion_markers must be a tuple of QeOutputMarkerObservation"
             )
         expected_markers = tuple(
             sorted(
@@ -1237,7 +1576,7 @@ class QuantumEspressoDiagnosticReport:
         for observation in observations:
             expected_stream = (
                 self.stdout_content_identity
-                if observation.channel is QuantumEspressoDiagnosticChannel.STDOUT
+                if observation.channel is QeDiagnosticChannel.STDOUT
                 else self.stderr_content_identity
             )
             if observation.stream_content_identity != expected_stream:
@@ -1247,28 +1586,24 @@ class QuantumEspressoDiagnosticReport:
         for marker in markers:
             expected_stream = (
                 self.stdout_content_identity
-                if marker.channel is QuantumEspressoDiagnosticChannel.STDOUT
+                if marker.channel is QeDiagnosticChannel.STDOUT
                 else self.stderr_content_identity
             )
             if marker.stream_content_identity != expected_stream:
                 raise ValueError("completion marker must identify its report stream")
         dispositions = {value.disposition for value in observations}
-        fatal = QuantumEspressoDiagnosticDisposition.FATAL in dispositions
-        secondary_fatal = (
-            QuantumEspressoDiagnosticDisposition.SECONDARY_FATAL in dispositions
-        )
-        unresolved = QuantumEspressoDiagnosticDisposition.UNRESOLVED in dispositions
+        fatal = QeDiagnosticDisposition.FATAL in dispositions
+        secondary_fatal = QeDiagnosticDisposition.SECONDARY_FATAL in dispositions
+        unresolved = QeDiagnosticDisposition.UNRESOLVED in dispositions
         contradictory = (fatal and bool(markers)) or (secondary_fatal and not fatal)
         valid_kind = {
-            QuantumEspressoDiagnosticReportKind.CLEAR: dispositions
-            <= {QuantumEspressoDiagnosticDisposition.NONBLOCKING},
-            QuantumEspressoDiagnosticReportKind.FATAL: (
+            QeDiagnosticReportKind.CLEAR: dispositions
+            <= {QeDiagnosticDisposition.NONBLOCKING},
+            QeDiagnosticReportKind.FATAL: (
                 fatal and not unresolved and not markers and not contradictory
             ),
-            QuantumEspressoDiagnosticReportKind.UNRESOLVED: (
-                unresolved and not contradictory
-            ),
-            QuantumEspressoDiagnosticReportKind.CONTRADICTORY: contradictory,
+            QeDiagnosticReportKind.UNRESOLVED: (unresolved and not contradictory),
+            QeDiagnosticReportKind.CONTRADICTORY: contradictory,
         }[self.kind]
         if not valid_kind:
             raise ValueError("diagnostic report kind does not match its observations")
@@ -1279,8 +1614,35 @@ class QuantumEspressoDiagnosticReport:
         if not self.claim_boundary or any(not value for value in self.claim_boundary):
             raise ValueError("claim_boundary must contain nonempty strings")
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _diagnostic_report_mapping
 
-class QuantumEspressoProcessFailureKind(StrEnum):
+        return _diagnostic_report_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _diagnostic_report
+
+        decoded = _diagnostic_report(values)
+        return cls(
+            identity=decoded.identity,
+            classifier_identity=decoded.classifier_identity,
+            executable_configuration_identity=(
+                decoded.executable_configuration_identity
+            ),
+            executable_kind=decoded.executable_kind,
+            program=decoded.program,
+            program_version=decoded.program_version,
+            stdout_content_identity=decoded.stdout_content_identity,
+            stderr_content_identity=decoded.stderr_content_identity,
+            observations=decoded.observations,
+            completion_markers=decoded.completion_markers,
+            kind=decoded.kind,
+            claim_boundary=decoded.claim_boundary,
+        )
+
+
+class QeProcessFailureKind(StrWireEnum):
     """Closed determinate process-failure reasons."""
 
     NONZERO_EXIT = "nonzero_exit"
@@ -1289,7 +1651,7 @@ class QuantumEspressoProcessFailureKind(StrEnum):
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoCompletedOutcome:
+class QeCompletedOutcome(BaseTypedRecord):
     """Represent mechanically complete QE output eligible for later evaluation.
 
     Attributes
@@ -1298,19 +1660,16 @@ class QuantumEspressoCompletedOutcome:
         Canonical immutable tuple of exact nominal identities.
     """
 
-    completion_marker_identities: tuple[
-        QuantumEspressoOutputMarkerObservationIdentity, ...
-    ]
+    completion_marker_identities: tuple[QeOutputMarkerObservationIdentity, ...]
 
     def __post_init__(self) -> None:
         values = self.completion_marker_identities
         if type(values) is not tuple or any(
-            type(value) is not QuantumEspressoOutputMarkerObservationIdentity
-            for value in values
+            type(value) is not QeOutputMarkerObservationIdentity for value in values
         ):
             raise TypeError(
                 "completion_marker_identities must be a tuple of "
-                "QuantumEspressoOutputMarkerObservationIdentity"
+                "QeOutputMarkerObservationIdentity"
             )
         if not values:
             raise ValueError("completion_marker_identities must not be empty")
@@ -1321,9 +1680,23 @@ class QuantumEspressoCompletedOutcome:
                 "completion_marker_identities must be unique and lexically sorted"
             )
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _calculator_outcome_mapping
+
+        return _calculator_outcome_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _calculator_outcome
+
+        decoded = _calculator_outcome(values)
+        if type(decoded) is not QeCompletedOutcome:
+            raise TypeError("mapping must identify a completed outcome")
+        return cls(decoded.completion_marker_identities)
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoCalculatorFailedOutcome:
+class QeCalculatorFailedOutcome(BaseTypedRecord):
     """Represent internally consistent calculator-reported fatal output.
 
     Attributes
@@ -1332,19 +1705,16 @@ class QuantumEspressoCalculatorFailedOutcome:
         Canonical immutable tuple of exact nominal identities.
     """
 
-    fatal_diagnostic_identities: tuple[
-        QuantumEspressoDiagnosticObservationIdentity, ...
-    ]
+    fatal_diagnostic_identities: tuple[QeDiagnosticObservationIdentity, ...]
 
     def __post_init__(self) -> None:
         values = self.fatal_diagnostic_identities
         if type(values) is not tuple or any(
-            type(value) is not QuantumEspressoDiagnosticObservationIdentity
-            for value in values
+            type(value) is not QeDiagnosticObservationIdentity for value in values
         ):
             raise TypeError(
                 "fatal_diagnostic_identities must be a tuple of "
-                "QuantumEspressoDiagnosticObservationIdentity"
+                "QeDiagnosticObservationIdentity"
             )
         if not values:
             raise ValueError("fatal_diagnostic_identities must not be empty")
@@ -1355,9 +1725,23 @@ class QuantumEspressoCalculatorFailedOutcome:
                 "fatal_diagnostic_identities must be unique and lexically sorted"
             )
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _calculator_outcome_mapping
+
+        return _calculator_outcome_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _calculator_outcome
+
+        decoded = _calculator_outcome(values)
+        if type(decoded) is not QeCalculatorFailedOutcome:
+            raise TypeError("mapping must identify a calculator-failed outcome")
+        return cls(decoded.fatal_diagnostic_identities)
+
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoProcessFailedOutcome:
+class QeProcessFailedOutcome(BaseTypedRecord):
     """Represent a determinate process-level failure with unknown retryability.
 
     Attributes
@@ -1366,15 +1750,29 @@ class QuantumEspressoProcessFailedOutcome:
         Closed mechanical process-failure reason.
     """
 
-    reason: QuantumEspressoProcessFailureKind
+    reason: QeProcessFailureKind
 
     def __post_init__(self) -> None:
-        if type(self.reason) is not QuantumEspressoProcessFailureKind:
-            raise TypeError("reason must be QuantumEspressoProcessFailureKind")
+        if type(self.reason) is not QeProcessFailureKind:
+            raise TypeError("reason must be QeProcessFailureKind")
+
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _calculator_outcome_mapping
+
+        return _calculator_outcome_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _calculator_outcome
+
+        decoded = _calculator_outcome(values)
+        if type(decoded) is not QeProcessFailedOutcome:
+            raise TypeError("mapping must identify a process-failed outcome")
+        return cls(decoded.reason)
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoDiagnosticUnresolvedOutcome:
+class QeDiagnosticUnresolvedOutcome(BaseTypedRecord):
     """Represent diagnostic or cross-observation state requiring resolution.
 
     Attributes
@@ -1385,18 +1783,17 @@ class QuantumEspressoDiagnosticUnresolvedOutcome:
         Canonical immutable tuple of exact nominal identities.
     """
 
-    diagnostic_identities: tuple[QuantumEspressoDiagnosticObservationIdentity, ...]
+    diagnostic_identities: tuple[QeDiagnosticObservationIdentity, ...]
     reason_identities: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         values = self.diagnostic_identities
         if type(values) is not tuple or any(
-            type(value) is not QuantumEspressoDiagnosticObservationIdentity
-            for value in values
+            type(value) is not QeDiagnosticObservationIdentity for value in values
         ):
             raise TypeError(
                 "diagnostic_identities must be a tuple of "
-                "QuantumEspressoDiagnosticObservationIdentity"
+                "QeDiagnosticObservationIdentity"
             )
         if values != tuple(sorted(values, key=lambda value: value.value)) or len(
             set(values)
@@ -1418,17 +1815,31 @@ class QuantumEspressoDiagnosticUnresolvedOutcome:
                 "unresolved outcome requires a diagnostic or reason identity"
             )
 
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        from ._pw_result_mapping import _calculator_outcome_mapping
 
-type QuantumEspressoCalculatorOutcome = (
-    QuantumEspressoCompletedOutcome
-    | QuantumEspressoCalculatorFailedOutcome
-    | QuantumEspressoProcessFailedOutcome
-    | QuantumEspressoDiagnosticUnresolvedOutcome
+        return _calculator_outcome_mapping(self)
+
+    @classmethod
+    def _from_mapping(cls, values: Mapping[str, SerializableValue]) -> Self:
+        from ._pw_result_mapping import _calculator_outcome
+
+        decoded = _calculator_outcome(values)
+        if type(decoded) is not QeDiagnosticUnresolvedOutcome:
+            raise TypeError("mapping must identify a diagnostic-unresolved outcome")
+        return cls(decoded.diagnostic_identities, decoded.reason_identities)
+
+
+type QeCalculatorOutcome = (
+    QeCompletedOutcome
+    | QeCalculatorFailedOutcome
+    | QeProcessFailedOutcome
+    | QeDiagnosticUnresolvedOutcome
 )
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoOperationResultEvidence:
+class QeOperationResultEvidence:
     """Collect exact correlated evidence shared by one QE program result.
 
     Parameters
@@ -1449,25 +1860,25 @@ class QuantumEspressoOperationResultEvidence:
     retry, or scientific-acceptance decision.
     """
 
-    execution_input: QuantumEspressoExecutionInput
-    process_observation: QuantumEspressoProcessObservation
-    diagnostic_report: QuantumEspressoDiagnosticReport
-    calculator_outcome: QuantumEspressoCalculatorOutcome
+    execution_input: QeExecutionInput
+    process_observation: QeProcessObservation
+    diagnostic_report: QeDiagnosticReport
+    calculator_outcome: QeCalculatorOutcome
     native_output_manifest_identity: ArtifactManifestIdentity
     native_output_entry_identities: tuple[ArtifactManifestEntryIdentity, ...]
-    terminal_record_identity: QuantumEspressoTerminalRecordIdentity
+    terminal_record_identity: QeTerminalRecordIdentity
 
     def __post_init__(self) -> None:
         expected = (
-            (self.execution_input, QuantumEspressoExecutionInput, "execution_input"),
+            (self.execution_input, QeExecutionInput, "execution_input"),
             (
                 self.process_observation,
-                QuantumEspressoProcessObservation,
+                QeProcessObservation,
                 "process_observation",
             ),
             (
                 self.diagnostic_report,
-                QuantumEspressoDiagnosticReport,
+                QeDiagnosticReport,
                 "diagnostic_report",
             ),
             (
@@ -1477,7 +1888,7 @@ class QuantumEspressoOperationResultEvidence:
             ),
             (
                 self.terminal_record_identity,
-                QuantumEspressoTerminalRecordIdentity,
+                QeTerminalRecordIdentity,
                 "terminal_record_identity",
             ),
         )
@@ -1485,10 +1896,10 @@ class QuantumEspressoOperationResultEvidence:
             if type(value) is not nominal_type:
                 raise TypeError(f"{name} must be {nominal_type.__name__}")
         if type(self.calculator_outcome) not in (
-            QuantumEspressoCompletedOutcome,
-            QuantumEspressoCalculatorFailedOutcome,
-            QuantumEspressoProcessFailedOutcome,
-            QuantumEspressoDiagnosticUnresolvedOutcome,
+            QeCompletedOutcome,
+            QeCalculatorFailedOutcome,
+            QeProcessFailedOutcome,
+            QeDiagnosticUnresolvedOutcome,
         ):
             raise TypeError("calculator_outcome must be a closed QE outcome variant")
         entries = self.native_output_entry_identities
@@ -1523,15 +1934,15 @@ class QuantumEspressoOperationResultEvidence:
         if (
             report.kind
             in (
-                QuantumEspressoDiagnosticReportKind.UNRESOLVED,
-                QuantumEspressoDiagnosticReportKind.CONTRADICTORY,
+                QeDiagnosticReportKind.UNRESOLVED,
+                QeDiagnosticReportKind.CONTRADICTORY,
             )
-            and type(outcome) is not QuantumEspressoDiagnosticUnresolvedOutcome
+            and type(outcome) is not QeDiagnosticUnresolvedOutcome
         ):
             raise ValueError(
                 "unresolved or contradictory reports require unresolved outcomes"
             )
-        if type(outcome) is QuantumEspressoCompletedOutcome:
+        if type(outcome) is QeCompletedOutcome:
             report_markers = tuple(
                 sorted(
                     (value.identity for value in report.completion_markers),
@@ -1540,54 +1951,54 @@ class QuantumEspressoOperationResultEvidence:
             )
             if (
                 outcome.completion_marker_identities != report_markers
-                or report.kind is not QuantumEspressoDiagnosticReportKind.CLEAR
-                or type(process.termination) is not QuantumEspressoNormalProcessExit
-                or process.termination.exit_code != 0
+                or report.kind is not QeDiagnosticReportKind.CLEAR
+                or type(process.termination) is not QeNormalProcessExit
+                or process.termination.disposition
+                is not CalculatorExitDisposition.succeeded
             ):
                 raise ValueError(
                     "completed outcome must agree with clear zero-exit report markers"
                 )
-        elif type(outcome) is QuantumEspressoCalculatorFailedOutcome:
+        elif type(outcome) is QeCalculatorFailedOutcome:
             report_fatal = tuple(
                 sorted(
                     (
                         value.identity
                         for value in report.observations
-                        if value.disposition
-                        is QuantumEspressoDiagnosticDisposition.FATAL
+                        if value.disposition is QeDiagnosticDisposition.FATAL
                     ),
                     key=lambda value: value.value,
                 )
             )
             if (
                 outcome.fatal_diagnostic_identities != report_fatal
-                or report.kind is not QuantumEspressoDiagnosticReportKind.FATAL
-                or type(process.termination) is not QuantumEspressoNormalProcessExit
+                or report.kind is not QeDiagnosticReportKind.FATAL
+                or type(process.termination) is not QeNormalProcessExit
             ):
                 raise ValueError(
                     "calculator-failed outcome diagnostics must equal report fatals"
                 )
-        elif type(outcome) is QuantumEspressoProcessFailedOutcome:
+        elif type(outcome) is QeProcessFailedOutcome:
             termination = process.termination
             expected_reason = (
-                QuantumEspressoProcessFailureKind.SIGNAL
-                if type(termination) is QuantumEspressoProcessSignalTermination
-                else QuantumEspressoProcessFailureKind.TIMEOUT
-                if type(termination) is QuantumEspressoProcessTimeout
-                else QuantumEspressoProcessFailureKind.NONZERO_EXIT
-                if type(termination) is QuantumEspressoNormalProcessExit
-                and termination.exit_code != 0
+                QeProcessFailureKind.SIGNAL
+                if type(termination) is QeProcessSignalTermination
+                else QeProcessFailureKind.TIMEOUT
+                if type(termination) is QeProcessTimeout
+                else QeProcessFailureKind.NONZERO_EXIT
+                if type(termination) is QeNormalProcessExit
+                and termination.disposition is CalculatorExitDisposition.failed
                 else None
             )
             if outcome.reason is not expected_reason or (
-                outcome.reason is QuantumEspressoProcessFailureKind.NONZERO_EXIT
-                and report.kind is not QuantumEspressoDiagnosticReportKind.CLEAR
+                outcome.reason is QeProcessFailureKind.NONZERO_EXIT
+                and report.kind is not QeDiagnosticReportKind.CLEAR
             ):
                 raise ValueError(
                     "process-failed outcome must agree with process termination"
                 )
         else:
-            assert type(outcome) is QuantumEspressoDiagnosticUnresolvedOutcome
+            assert type(outcome) is QeDiagnosticUnresolvedOutcome
             if any(
                 identity not in report_diagnostics
                 for identity in outcome.diagnostic_identities
@@ -1598,38 +2009,148 @@ class QuantumEspressoOperationResultEvidence:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoPwResult:
-    """Represent one immutable result from the configured QE ``pw`` program role.
+class QePwResult(BaseTypedRecord):
+    """Represent one immutable Workflow result from a verified ``pw.x`` attempt.
 
     Parameters
     ----------
     identity
         Exact Workflow ResultObject identity.
-    evidence
-        Correlated immutable QE process, diagnostic, outcome, and artifact evidence.
+    execution_input
+        Exact KSD input and Workflow producer correlations used for the attempt.
+    process_observation, diagnostic_report, calculator_outcome
+        Exact process mechanics, classified streams, and closed mechanical outcome.
+    native_output_manifest_identity, native_output_entry_identities
+        Exact verified native-output references used for predecessor admission.
+    execution_record_manifest_entry_identity, execution_record_content_identity
+        Exact published provider ``execution.json`` manifest and byte identity.
+    execution_record_publication_snapshot_identity
+        Exact post-publication workspace snapshot identity.
+    terminal_record_identity, terminal_record_content_identity
+        Exact private terminal-record identity and published byte identity.
     contract_version
-        Nonempty version identity for this result contract.
+        Exact ``qe-pw-result:2`` contract identity.
+
+    Notes
+    -----
+    The record retains mechanical and Workflow evidence only. It establishes no
+    numerical convergence, scientific validity, acceptance, or continuation policy.
     """
 
     identity: ResultObjectIdentity
-    evidence: QuantumEspressoOperationResultEvidence
+    execution_input: QeExecutionInput
+    process_observation: QeProcessObservation
+    diagnostic_report: QeDiagnosticReport
+    calculator_outcome: QeCalculatorOutcome
+    native_output_manifest_identity: ArtifactManifestIdentity
+    native_output_entry_identities: tuple[ArtifactManifestEntryIdentity, ...]
+    execution_record_manifest_entry_identity: ArtifactManifestEntryIdentity
+    execution_record_content_identity: ArtifactContentIdentity
+    execution_record_publication_snapshot_identity: ArtifactManifestIdentity
+    terminal_record_identity: QeTerminalRecordIdentity
+    terminal_record_content_identity: ArtifactContentIdentity
     contract_version: str
 
     def __post_init__(self) -> None:
-        if type(self.identity) is not ResultObjectIdentity:
-            raise TypeError("identity must be ResultObjectIdentity")
-        if type(self.evidence) is not QuantumEspressoOperationResultEvidence:
-            raise TypeError("evidence must be QuantumEspressoOperationResultEvidence")
-        if self.evidence.diagnostic_report.program is not QuantumEspressoProgram.PW:
+        expected = (
+            (self.identity, ResultObjectIdentity, "identity"),
+            (self.execution_input, QeExecutionInput, "execution_input"),
+            (
+                self.process_observation,
+                QeProcessObservation,
+                "process_observation",
+            ),
+            (self.diagnostic_report, QeDiagnosticReport, "diagnostic_report"),
+            (
+                self.native_output_manifest_identity,
+                ArtifactManifestIdentity,
+                "native_output_manifest_identity",
+            ),
+            (
+                self.execution_record_manifest_entry_identity,
+                ArtifactManifestEntryIdentity,
+                "execution_record_manifest_entry_identity",
+            ),
+            (
+                self.execution_record_content_identity,
+                ArtifactContentIdentity,
+                "execution_record_content_identity",
+            ),
+            (
+                self.execution_record_publication_snapshot_identity,
+                ArtifactManifestIdentity,
+                "execution_record_publication_snapshot_identity",
+            ),
+            (
+                self.terminal_record_identity,
+                QeTerminalRecordIdentity,
+                "terminal_record_identity",
+            ),
+            (
+                self.terminal_record_content_identity,
+                ArtifactContentIdentity,
+                "terminal_record_content_identity",
+            ),
+        )
+        for value, nominal_type, name in expected:
+            if type(value) is not nominal_type:
+                raise TypeError(f"{name} must be {nominal_type.__name__}")
+        if self.diagnostic_report.program is not QeProgram.PW:
             raise ValueError("pw result evidence must use the pw program role")
+        QeOperationResultEvidence(
+            execution_input=self.execution_input,
+            process_observation=self.process_observation,
+            diagnostic_report=self.diagnostic_report,
+            calculator_outcome=self.calculator_outcome,
+            native_output_manifest_identity=self.native_output_manifest_identity,
+            native_output_entry_identities=self.native_output_entry_identities,
+            terminal_record_identity=self.terminal_record_identity,
+        )
         if type(self.contract_version) is not str:
             raise TypeError("contract_version must be a built-in str")
-        if not self.contract_version:
-            raise ValueError("contract_version must not be empty")
+        if self.contract_version != "qe-pw-result:2":
+            raise ValueError("contract_version must be qe-pw-result:2")
+
+    def _mapping(self) -> Mapping[str, SerializableValue]:
+        """Return the exact typed mapping for the replacement PW-result wire."""
+        from ._pw_result_mapping import qe_pw_result_mapping
+
+        return qe_pw_result_mapping(self)
+
+    @classmethod
+    def _from_mapping(
+        cls,
+        values: Mapping[str, SerializableValue],
+    ) -> Self:
+        """Reconstruct one PW result through its validated domain constructors."""
+        from ._pw_result_mapping import qe_pw_result_from_mapping
+
+        decoded = qe_pw_result_from_mapping(values)
+        return cls(
+            identity=decoded.identity,
+            execution_input=decoded.execution_input,
+            process_observation=decoded.process_observation,
+            diagnostic_report=decoded.diagnostic_report,
+            calculator_outcome=decoded.calculator_outcome,
+            native_output_manifest_identity=decoded.native_output_manifest_identity,
+            native_output_entry_identities=decoded.native_output_entry_identities,
+            execution_record_manifest_entry_identity=(
+                decoded.execution_record_manifest_entry_identity
+            ),
+            execution_record_content_identity=(
+                decoded.execution_record_content_identity
+            ),
+            execution_record_publication_snapshot_identity=(
+                decoded.execution_record_publication_snapshot_identity
+            ),
+            terminal_record_identity=decoded.terminal_record_identity,
+            terminal_record_content_identity=decoded.terminal_record_content_identity,
+            contract_version=decoded.contract_version,
+        )
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoBandsResult:
+class QeBandsResult:
     """Represent an immutable result from the configured QE ``bands`` program role.
 
     Parameters
@@ -1643,15 +2164,15 @@ class QuantumEspressoBandsResult:
     """
 
     identity: ResultObjectIdentity
-    evidence: QuantumEspressoOperationResultEvidence
+    evidence: QeOperationResultEvidence
     contract_version: str
 
     def __post_init__(self) -> None:
         if type(self.identity) is not ResultObjectIdentity:
             raise TypeError("identity must be ResultObjectIdentity")
-        if type(self.evidence) is not QuantumEspressoOperationResultEvidence:
-            raise TypeError("evidence must be QuantumEspressoOperationResultEvidence")
-        if self.evidence.diagnostic_report.program is not QuantumEspressoProgram.BANDS:
+        if type(self.evidence) is not QeOperationResultEvidence:
+            raise TypeError("evidence must be QeOperationResultEvidence")
+        if self.evidence.diagnostic_report.program is not QeProgram.BANDS:
             raise ValueError("bands result evidence must use the bands program role")
         if type(self.contract_version) is not str:
             raise TypeError("contract_version must be a built-in str")
@@ -1659,6 +2180,4 @@ class QuantumEspressoBandsResult:
             raise ValueError("contract_version must not be empty")
 
 
-type QuantumEspressoOperationResult = (
-    QuantumEspressoPwResult | QuantumEspressoBandsResult
-)
+type QeOperationResult = QePwResult | QeBandsResult

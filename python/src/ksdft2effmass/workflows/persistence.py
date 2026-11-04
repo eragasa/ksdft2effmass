@@ -24,7 +24,6 @@ import json
 import math
 from dataclasses import dataclass, replace
 from datetime import UTC, datetime, timedelta
-from enum import StrEnum
 from typing import Literal, Never, Protocol, cast, runtime_checkable
 from uuid import uuid4
 
@@ -115,6 +114,7 @@ from ksdft2effmass.petrinet.colored.values import (
     ColoredPetriNetValue,
     ColoredPetriNetValueKind,
 )
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.workflows.artifacts import (
     ArtifactManifestEntryIdentity,
     ArtifactManifestIdentity,
@@ -469,7 +469,7 @@ type _RunValue = (
 )
 
 
-class WorkflowPersistenceFailureCode(StrEnum):
+class WorkflowPersistenceFailureCode(StrWireEnum):
     """Closed represented codec and persistence failure categories.
 
     Attributes

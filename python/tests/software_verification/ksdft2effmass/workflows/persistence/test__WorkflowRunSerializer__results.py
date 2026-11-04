@@ -25,6 +25,7 @@ from pathlib import Path
 from typing import Literal, cast
 
 import pytest
+from projectkoios.simulations.execution import CalculatorExitCode
 
 from ksdft2effmass import analysis as q
 from ksdft2effmass import workflows as w
@@ -69,11 +70,7 @@ from ksdft2effmass.workflows import (
 from ksdft2effmass.workflows import artifacts as a
 
 type _QeFamily = Literal["pw", "bands", "observation"]
-type _QeValue = (
-    qe.QuantumEspressoPwResult
-    | qe.QuantumEspressoBandsResult
-    | qe.QuantumEspressoExtractedObservationResult
-)
+type _QeValue = qe.QePwResult | qe.QeBandsResult | qe.QeExtractedObservationResult
 type JsonValue = None | bool | str | list[JsonValue] | dict[str, JsonValue]
 type Family = Literal[
     "pw", "bands", "observation", "scalar", "failure", "decision", "set"
@@ -88,37 +85,37 @@ class TestWorkflowRunSerializer:
 
     @staticmethod
     def make_evidence(
-        program: qe.QuantumEspressoProgram = qe.QuantumEspressoProgram.PW,
-    ) -> qe.QuantumEspressoOperationResultEvidence:
+        program: qe.QeProgram = qe.QeProgram.PW,
+    ) -> qe.QeOperationResultEvidence:
         stdout = a.ArtifactContentIdentity("sha256", "a" * 64, 8)
         stderr = a.ArtifactContentIdentity("sha256", "b" * 64, 3)
         span = a.ArtifactContentIdentity("sha256", "c" * 64, 4)
-        execution = qe.QuantumEspressoExecutionInput(
-            identity=qe.QuantumEspressoExecutionInputIdentity("input"),
+        execution = qe.QeExecutionInput(
+            identity=qe.QeExecutionInputIdentity("input"),
             program=program,
-            native_input=qe.QuantumEspressoNativeInputArtifact(
+            native_input=qe.QeNativeInputArtifact(
                 a.ArtifactIdentity("native"),
-                qe.QuantumEspressoFileArtifactContent(stdout),
-                qe.QuantumEspressoArtifactDestination("input.in"),
+                qe.QeFileArtifactContent(stdout),
+                qe.QeArtifactDestination("input.in"),
             ),
             pseudopotentials=(
-                qe.QuantumEspressoPseudopotentialArtifact(
+                qe.QePseudopotentialArtifact(
                     a.ArtifactIdentity("pseudo"),
-                    qe.QuantumEspressoFileArtifactContent(stderr),
-                    qe.QuantumEspressoArtifactDestination("pseudo/Si.upf"),
+                    qe.QeFileArtifactContent(stderr),
+                    qe.QeArtifactDestination("pseudo/Si.upf"),
                 ),
             ),
             predecessor_native_state=(
-                qe.QuantumEspressoPredecessorNativeStateArtifact(
+                qe.QePredecessorNativeStateArtifact(
                     a.ArtifactIdentity("state"),
-                    qe.QuantumEspressoTreeArtifactContent(
+                    qe.QeTreeArtifactContent(
                         a.ArtifactManifestIdentity("previous-manifest"),
                         (
                             a.ArtifactManifestEntryIdentity("previous-a"),
                             a.ArtifactManifestEntryIdentity("previous-b"),
                         ),
                     ),
-                    qe.QuantumEspressoArtifactDestination("out/si.save"),
+                    qe.QeArtifactDestination("out/si.save"),
                     ResultObjectIdentity("previous-result"),
                     a.ArtifactManifestEntryIdentity("previous-a"),
                 ),
@@ -130,24 +127,24 @@ class TestWorkflowRunSerializer:
             attempt_identity=AttemptIdentity("attempt"),
             contract_version="qe-execution-input:1",
         )
-        process = qe.QuantumEspressoProcessObservation(
-            identity=qe.QuantumEspressoProcessObservationIdentity("process"),
+        process = qe.QeProcessObservation(
+            identity=qe.QeProcessObservationIdentity("process"),
             execution_input_identity=execution.identity,
-            executable_configuration_identity=qe.QuantumEspressoExecutableConfigurationIdentity(
+            executable_configuration_identity=qe.QeExecutableConfigurationIdentity(
                 "configuration"
             ),
-            preparation_identity=qe.QuantumEspressoPreparationIdentity("preparation"),
+            preparation_identity=qe.QePreparationIdentity("preparation"),
             attempt_identity=execution.attempt_identity,
             argv_content_identity=span,
-            termination=qe.QuantumEspressoNormalProcessExit(0),
+            termination=qe.QeNormalProcessExit(CalculatorExitCode(0)),
             wall_duration_nanoseconds=18_446_744_073_709_551_615,
-            stdout=qe.QuantumEspressoStreamObservation(
-                channel=qe.QuantumEspressoDiagnosticChannel.STDOUT,
+            stdout=qe.QeStreamObservation(
+                channel=qe.QeDiagnosticChannel.STDOUT,
                 artifact_identity=a.ArtifactIdentity("stdout-artifact"),
                 content_identity=stdout,
             ),
-            stderr=qe.QuantumEspressoStreamObservation(
-                channel=qe.QuantumEspressoDiagnosticChannel.STDERR,
+            stderr=qe.QeStreamObservation(
+                channel=qe.QeDiagnosticChannel.STDERR,
                 artifact_identity=a.ArtifactIdentity("stderr-artifact"),
                 content_identity=stderr,
             ),
@@ -158,56 +155,52 @@ class TestWorkflowRunSerializer:
             peak_resident_bytes=4096,
             observer_version="synthetic-observer:99",
         )
-        notice = qe.QuantumEspressoDiagnosticObservation(
-            identity=qe.QuantumEspressoDiagnosticObservationIdentity("notice"),
-            channel=qe.QuantumEspressoDiagnosticChannel.STDOUT,
+        notice = qe.QeDiagnosticObservation(
+            identity=qe.QeDiagnosticObservationIdentity("notice"),
+            channel=qe.QeDiagnosticChannel.STDOUT,
             byte_start=0,
             byte_end=4,
             stream_content_identity=stdout,
             span_content_identity=span,
             signature_identity="notice-signature:2",
-            disposition=qe.QuantumEspressoDiagnosticDisposition.NONBLOCKING,
+            disposition=qe.QeDiagnosticDisposition.NONBLOCKING,
             sanitized_summary="synthetic notice α",
             claim_boundary=("synthetic-only", "not-convergence"),
         )
-        marker = qe.QuantumEspressoOutputMarkerObservation(
-            identity=qe.QuantumEspressoOutputMarkerObservationIdentity("marker"),
-            channel=qe.QuantumEspressoDiagnosticChannel.STDOUT,
+        marker = qe.QeOutputMarkerObservation(
+            identity=qe.QeOutputMarkerObservationIdentity("marker"),
+            channel=qe.QeDiagnosticChannel.STDOUT,
             byte_start=4,
             byte_end=8,
             stream_content_identity=stdout,
             span_content_identity=a.ArtifactContentIdentity("sha256", "d" * 64, 4),
             signature_identity="completion:5",
         )
-        report = qe.QuantumEspressoDiagnosticReport(
-            identity=qe.QuantumEspressoDiagnosticReportIdentity("report"),
-            classifier_identity=qe.QuantumEspressoDiagnosticClassifierIdentity(
-                "classifier:17"
-            ),
+        report = qe.QeDiagnosticReport(
+            identity=qe.QeDiagnosticReportIdentity("report"),
+            classifier_identity=qe.QeDiagnosticClassifierIdentity("classifier:17"),
             executable_configuration_identity=process.executable_configuration_identity,
-            executable_kind=qe.QuantumEspressoExecutableKind.DETERMINISTIC_FIXTURE,
+            executable_kind=qe.QeExecutableKind.DETERMINISTIC_FIXTURE,
             program=program,
             program_version="fixture-synthetic:23",
             stdout_content_identity=stdout,
             stderr_content_identity=stderr,
             observations=(notice,),
             completion_markers=(marker,),
-            kind=qe.QuantumEspressoDiagnosticReportKind.CLEAR,
+            kind=qe.QeDiagnosticReportKind.CLEAR,
             claim_boundary=("synthetic-only", "not-acceptance"),
         )
-        return qe.QuantumEspressoOperationResultEvidence(
+        return qe.QeOperationResultEvidence(
             execution_input=execution,
             process_observation=process,
             diagnostic_report=report,
-            calculator_outcome=qe.QuantumEspressoCompletedOutcome((marker.identity,)),
+            calculator_outcome=qe.QeCompletedOutcome((marker.identity,)),
             native_output_manifest_identity=a.ArtifactManifestIdentity("outputs"),
             native_output_entry_identities=(
                 a.ArtifactManifestEntryIdentity("output-a"),
                 a.ArtifactManifestEntryIdentity("output-b"),
             ),
-            terminal_record_identity=qe.QuantumEspressoTerminalRecordIdentity(
-                "terminal"
-            ),
+            terminal_record_identity=qe.QeTerminalRecordIdentity("terminal"),
         )
 
     @staticmethod
@@ -314,18 +307,41 @@ class TestWorkflowRunSerializer:
     @classmethod
     def make_qe_value(cls, family: _QeFamily) -> _QeValue:
         if family == "pw":
-            return qe.QuantumEspressoPwResult(
+            evidence = cls.make_evidence()
+            return qe.QePwResult(
                 identity=ResultObjectIdentity("synthetic-result"),
-                evidence=cls.make_evidence(),
-                contract_version="qe-pw-result:1",
+                execution_input=evidence.execution_input,
+                process_observation=evidence.process_observation,
+                diagnostic_report=evidence.diagnostic_report,
+                calculator_outcome=evidence.calculator_outcome,
+                native_output_manifest_identity=(
+                    evidence.native_output_manifest_identity
+                ),
+                native_output_entry_identities=(
+                    evidence.native_output_entry_identities
+                ),
+                execution_record_manifest_entry_identity=(
+                    a.ArtifactManifestEntryIdentity("execution-record")
+                ),
+                execution_record_content_identity=a.ArtifactContentIdentity(
+                    "sha256", "f" * 64, 101
+                ),
+                execution_record_publication_snapshot_identity=(
+                    a.ArtifactManifestIdentity("execution-publication")
+                ),
+                terminal_record_identity=evidence.terminal_record_identity,
+                terminal_record_content_identity=a.ArtifactContentIdentity(
+                    "sha256", "9" * 64, 202
+                ),
+                contract_version="qe-pw-result:2",
             )
         if family == "bands":
-            return qe.QuantumEspressoBandsResult(
+            return qe.QeBandsResult(
                 identity=ResultObjectIdentity("synthetic-result"),
-                evidence=cls.make_evidence(qe.QuantumEspressoProgram.BANDS),
+                evidence=cls.make_evidence(qe.QeProgram.BANDS),
                 contract_version="qe-bands-result:1",
             )
-        return qe.QuantumEspressoExtractedObservationResult(
+        return qe.QeExtractedObservationResult(
             identity=ResultObjectIdentity("synthetic-result"),
             observation=cls.make_neutral(),
             source_manifest_identity=a.ArtifactManifestIdentity("source-manifest"),
@@ -337,15 +353,13 @@ class TestWorkflowRunSerializer:
             source_producer_provenance_identity=a.ArtifactProducerProvenanceIdentity(
                 "source-producer"
             ),
-            parsed_document_identity=qe.QuantumEspressoParsedDocumentIdentity(
-                "parsed-document"
-            ),
-            parser_identity=qe.QuantumEspressoXsdParserIdentity(
+            parsed_document_identity=qe.QeParsedDocumentIdentity("parsed-document"),
+            parser_identity=qe.QeXsdParserIdentity(
                 "ksdft2effmass.quantum-espresso.qexsd-parser"
             ),
             parser_version="1",
-            normalization_policy=qe.QuantumEspressoObservationNormalizationPolicy(
-                qe.QuantumEspressoObservationNormalizationPolicyIdentity(
+            normalization_policy=qe.QeObservationNormalizationPolicy(
+                qe.QeObservationNormalizationPolicyIdentity(
                     "ksdft2effmass.quantum-espresso.qexsd-plane-wave-observation"
                 ),
                 "1",
@@ -419,7 +433,7 @@ class TestWorkflowRunSerializer:
             return cls.make_decision()
         if family == "set":
             source = cls.make_qe_value("observation")
-            assert type(source) is qe.QuantumEspressoExtractedObservationResult
+            assert type(source) is qe.QeExtractedObservationResult
             return w.NormalizedObservationSet(
                 identity=w.ResultObjectIdentity("observation-set"),
                 sources=(
@@ -453,7 +467,7 @@ class TestWorkflowRunSerializer:
 
     @staticmethod
     def make_serializer() -> w.WorkflowRunSerializer:
-        qe_codec = qe.QuantumEspressoResultValueSerializer()
+        qe_codec = qe.QeResultValueSerializer()
         return w.WorkflowRunSerializer(
             result_codec=ApplicationResultValueSerializer(
                 workflow_codec=w.WorkflowResultValueSerializer(source_codec=qe_codec),
@@ -533,8 +547,8 @@ class TestWorkflowRunSerializer:
             assert len(actual.sources) == 2
             cls.assert_result(actual.sources[0], expected.sources[0])
             cls.assert_result(actual.sources[1], expected.sources[1])
-        elif type(actual) is qe.QuantumEspressoExtractedObservationResult:
-            assert type(expected) is qe.QuantumEspressoExtractedObservationResult
+        elif type(actual) is qe.QeExtractedObservationResult:
+            assert type(expected) is qe.QeExtractedObservationResult
             # Neutral wire mechanics are independent of aggregate traversal.
             neutral = KohnShamPlaneWaveCalculationRecordJsonSerializer()
             assert neutral.serialize(actual.observation) == neutral.serialize(
@@ -776,7 +790,7 @@ class TestWorkflowRunSerializer:
         value = run.result_references[0].result
         assert type(value) is w.NormalizedObservationSet
         source = value.sources[0]
-        assert type(source) is qe.QuantumEspressoExtractedObservationResult
+        assert type(source) is qe.QeExtractedObservationResult
         changed = replace(
             source,
             source_manifest_entry_identity=a.ArtifactManifestEntryIdentity(

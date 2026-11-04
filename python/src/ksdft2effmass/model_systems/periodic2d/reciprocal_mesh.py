@@ -13,7 +13,6 @@ nonunitary because coefficients shifted beyond the retained square basis are dis
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 from typing import Literal
 
 import numpy as np
@@ -22,6 +21,8 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
+from ksdft2effmass.serialization import StrWireEnum
+
 from .plane_waves import PlaneWaveBlochHamiltonian2DModel
 
 type MeshIndex2D = tuple[int, int]
@@ -29,7 +30,7 @@ type ReciprocalTranslation2D = tuple[int, int]
 type ReducedCoordinate2D = tuple[float, float]
 
 
-class PositiveReciprocalDirection2D(StrEnum):
+class PositiveReciprocalDirection2D(StrWireEnum):
     """Identify one positive primitive reciprocal direction."""
 
     FIRST = "plus_first_reciprocal_vector"

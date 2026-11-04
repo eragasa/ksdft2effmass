@@ -10,8 +10,8 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from enum import StrEnum
 
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.structures.periodic import (
     CoordinateConvention,
     InverseLengthUnit,
@@ -22,7 +22,7 @@ from ksdft2effmass.structures.periodic import (
 )
 
 
-class KPointWeightNormalization(StrEnum):
+class KPointWeightNormalization(StrWireEnum):
     """Normalization state of represented k-point weights."""
 
     SUM_TO_TWO = "sum_to_two"

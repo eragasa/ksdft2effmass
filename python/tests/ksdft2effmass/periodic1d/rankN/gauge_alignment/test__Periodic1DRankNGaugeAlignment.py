@@ -9,7 +9,7 @@ import pytest
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
 )
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -18,7 +18,7 @@ class TestPeriodic1DRankNGaugeAlignment:
     """Establish ordinary-enum identity and strict stable wire conversion."""
 
     def test__enum__is_an_ordinary_string_wire_enum(self) -> None:
-        assert issubclass(Periodic1DRankNGaugeAlignment, StringWireEnum)
+        assert issubclass(Periodic1DRankNGaugeAlignment, StrWireEnum)
         assert issubclass(Periodic1DRankNGaugeAlignment, Enum)
         assert not issubclass(Periodic1DRankNGaugeAlignment, str)
 

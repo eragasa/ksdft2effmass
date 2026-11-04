@@ -220,7 +220,8 @@ class TestHermiticityNumericalError:
         identity retention;
         the current enum contains only ``NONFINITE_RESIDUAL``.
 
-        Limitations: Member count, aliases, ``StrEnum`` behavior, and lookup semantics
+        Limitations: Member count, aliases, ``StrWireEnum`` behavior, and lookup
+        semantics
         belong to
         ``SV-HNEC`` evidence. Analyzer emission, numerical verification, scientific
         validation, UQ, and Rust conformance are not tested.
@@ -442,7 +443,8 @@ class TestHermiticityNumericalError:
         ``reason`` as the
         in-memory machine-readable category.
 
-        Limitations: ``StrEnum`` compatibility does not create a wire format. Pickling
+        Limitations: ``StrWireEnum`` compatibility does not create a wire format.
+        Pickling
         and
         future schemas
         are unspecified; no Analyzer emission, numerical verification, scientific

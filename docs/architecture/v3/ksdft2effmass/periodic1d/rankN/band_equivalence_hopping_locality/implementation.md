@@ -16,9 +16,9 @@
 | `rankN/band_alignment/frame_transport/result.py` | Stores the request-bound aggregate closed-loop frame-transport result. |
 | `rankN/band_equivalence_hopping_locality/request.py` | Defines aggregate controls and the complete frozen study request. |
 | `rankN/band_alignment/model.py` | Constructs the analytic parent spectrum, retained frame, identity sewing, and gauge circuit. |
-| `rankN/gauge_alignment/definition.py` | Defines the four gauge-alignment identities as strict `StringWireEnum` values. |
+| `rankN/gauge_alignment/definition.py` | Defines the four gauge-alignment identities as strict `StrWireEnum` values. |
 | `rankN/gauge_alignment/status.py` | Stores gauge-alignment outcomes, backend codes, and bounded downstream applicability. |
-| `rankN/gauge_alignment/nyquist.py` | Defines the odd-mesh Nyquist disposition as a strict `StringWireEnum` value. |
+| `rankN/gauge_alignment/nyquist.py` | Defines the odd-mesh Nyquist disposition as a strict `StrWireEnum` value. |
 | `rankN/gauge_alignment/procrustes/analysis.py` | Builds bounded global and pointwise Procrustes selection evidence. |
 | `rankN/gauge_alignment/procrustes/result.py` | Stores complete Procrustes rank and integrity evidence. |
 | `rankN/gauge_alignment/fields.py` | Constructs nominal immutable gauge-aligned operators and frames. |

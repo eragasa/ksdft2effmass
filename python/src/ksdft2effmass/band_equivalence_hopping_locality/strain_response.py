@@ -27,7 +27,7 @@ from projectkoios.numerics.numpy.typing import Float64Array as FloatArray
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
-    StringWireEnum,
+    StrWireEnum,
 )
 
 from .alignment import restricted_alignment
@@ -36,14 +36,14 @@ from .strain import SyntheticStrainPathEnum
 _SEED = np.eye(4, 2, dtype=np.complex128)
 
 
-class StrainResponseModelEnum(StringWireEnum):
+class StrainResponseModelEnum(StrWireEnum):
     """Select a frozen or radial-response four-state strain control."""
 
     M1_FROZEN = "M1-frozen-four-state-bipartite"
     M2_RADIAL = "M2-fixed-radial-response"
 
 
-class StrainWitnessControlEnum(StringWireEnum):
+class StrainWitnessControlEnum(StrWireEnum):
     """Select one independently interpreted strain witness control."""
 
     GEOMETRY_ONLY = "geometry-only-control"

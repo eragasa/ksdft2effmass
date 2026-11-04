@@ -13,10 +13,10 @@ scientific acceptance, numerical validation, or uncertainty quantification.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 from ksdft2effmass.ksdft import Availability
 from ksdft2effmass.ksdft.pw import KohnShamPlaneWaveCalculationRecord
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.workflows import ResultObjectIdentity
 from ksdft2effmass.workflows.artifacts import (
     ArtifactContentIdentity,
@@ -48,7 +48,7 @@ _LIMITATION_VALUES = (
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoParsedDocumentIdentity:
+class QeParsedDocumentIdentity:
     """Nominal identity of one mechanically parsed QE-native document.
 
     Parameters
@@ -69,7 +69,7 @@ class QuantumEspressoParsedDocumentIdentity:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoXsdParserIdentity:
+class QeXsdParserIdentity:
     """Nominal identity of one QEXSD parser implementation family.
 
     Parameters
@@ -90,7 +90,7 @@ class QuantumEspressoXsdParserIdentity:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoParsedDocumentRecord:
+class QeParsedDocumentRecord:
     """Bind one parsed QEXSD document to parser and source-content identity.
 
     Parameters
@@ -111,18 +111,18 @@ class QuantumEspressoParsedDocumentRecord:
     or establish scientific validity.
     """
 
-    identity: QuantumEspressoParsedDocumentIdentity
-    parser_identity: QuantumEspressoXsdParserIdentity
+    identity: QeParsedDocumentIdentity
+    parser_identity: QeXsdParserIdentity
     parser_version: str
     source_content_identity: ArtifactContentIdentity
     document: QexsdDocument
 
     def __post_init__(self) -> None:
         """Validate exact parser, source-content, and document correlation."""
-        if type(self.identity) is not QuantumEspressoParsedDocumentIdentity:
-            raise TypeError("identity must be QuantumEspressoParsedDocumentIdentity")
-        if type(self.parser_identity) is not QuantumEspressoXsdParserIdentity:
-            raise TypeError("parser_identity must be QuantumEspressoXsdParserIdentity")
+        if type(self.identity) is not QeParsedDocumentIdentity:
+            raise TypeError("identity must be QeParsedDocumentIdentity")
+        if type(self.parser_identity) is not QeXsdParserIdentity:
+            raise TypeError("parser_identity must be QeXsdParserIdentity")
         if type(self.parser_version) is not str:
             raise TypeError("parser_version must be a built-in str")
         if not self.parser_version:
@@ -142,7 +142,7 @@ class QuantumEspressoParsedDocumentRecord:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoObservationNormalizationPolicyIdentity:
+class QeObservationNormalizationPolicyIdentity:
     """Nominal identity of one QE observation-normalization policy family.
 
     Parameters
@@ -167,7 +167,7 @@ class QuantumEspressoObservationNormalizationPolicyIdentity:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoObservationNormalizationPolicy:
+class QeObservationNormalizationPolicy:
     """Identify the exact integration-owned normalization policy and version.
 
     Parameters
@@ -179,18 +179,13 @@ class QuantumEspressoObservationNormalizationPolicy:
         schema-version-1 QEXSD plane-wave policy.
     """
 
-    identity: QuantumEspressoObservationNormalizationPolicyIdentity
+    identity: QeObservationNormalizationPolicyIdentity
     version: str
 
     def __post_init__(self) -> None:
         """Validate exact policy identity and version types."""
-        if (
-            type(self.identity)
-            is not QuantumEspressoObservationNormalizationPolicyIdentity
-        ):
-            raise TypeError(
-                "identity must be QuantumEspressoObservationNormalizationPolicyIdentity"
-            )
+        if type(self.identity) is not QeObservationNormalizationPolicyIdentity:
+            raise TypeError("identity must be QeObservationNormalizationPolicyIdentity")
         if type(self.version) is not str:
             raise TypeError("normalization policy version must be a built-in str")
         if not self.version:
@@ -198,7 +193,7 @@ class QuantumEspressoObservationNormalizationPolicy:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoObservationExtractionRequest:
+class QeObservationExtractionRequest:
     """Bind one parsed QEXSD document to admitted Workflow artifact lineage.
 
     Parameters
@@ -220,23 +215,21 @@ class QuantumEspressoObservationExtractionRequest:
     -----
     Construction validates local types only. Manifest membership, byte identity,
     native format, policy support, and neutral semantic construction are owned by
-    :class:`QuantumEspressoObservationAdapter`.
+    :class:`QeObservationAdapter`.
     """
 
     result_identity: ResultObjectIdentity
-    parsed_document: QuantumEspressoParsedDocumentRecord
+    parsed_document: QeParsedDocumentRecord
     source_manifest: ArtifactManifest
     source_manifest_entry_identity: ArtifactManifestEntryIdentity
-    normalization_policy: QuantumEspressoObservationNormalizationPolicy
+    normalization_policy: QeObservationNormalizationPolicy
 
     def __post_init__(self) -> None:
         """Validate the exact request boundary types."""
         if type(self.result_identity) is not ResultObjectIdentity:
             raise TypeError("result_identity must be ResultObjectIdentity")
-        if type(self.parsed_document) is not QuantumEspressoParsedDocumentRecord:
-            raise TypeError(
-                "parsed_document must be QuantumEspressoParsedDocumentRecord"
-            )
+        if type(self.parsed_document) is not QeParsedDocumentRecord:
+            raise TypeError("parsed_document must be QeParsedDocumentRecord")
         if type(self.source_manifest) is not ArtifactManifest:
             raise TypeError("source_manifest must be ArtifactManifest")
         if (
@@ -246,18 +239,14 @@ class QuantumEspressoObservationExtractionRequest:
             raise TypeError(
                 "source_manifest_entry_identity must be ArtifactManifestEntryIdentity"
             )
-        if (
-            type(self.normalization_policy)
-            is not QuantumEspressoObservationNormalizationPolicy
-        ):
+        if type(self.normalization_policy) is not QeObservationNormalizationPolicy:
             raise TypeError(
-                "normalization_policy must be "
-                "QuantumEspressoObservationNormalizationPolicy"
+                "normalization_policy must be QeObservationNormalizationPolicy"
             )
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoExtractedObservationResult:
+class QeExtractedObservationResult:
     """One integration-owned neutral observation with exact source correlation.
 
     Attributes
@@ -295,10 +284,10 @@ class QuantumEspressoExtractedObservationResult:
     source_artifact_identity: ArtifactIdentity
     source_content_identity: ArtifactContentIdentity
     source_producer_provenance_identity: ArtifactProducerProvenanceIdentity
-    parsed_document_identity: QuantumEspressoParsedDocumentIdentity
-    parser_identity: QuantumEspressoXsdParserIdentity
+    parsed_document_identity: QeParsedDocumentIdentity
+    parser_identity: QeXsdParserIdentity
     parser_version: str
-    normalization_policy: QuantumEspressoObservationNormalizationPolicy
+    normalization_policy: QeObservationNormalizationPolicy
     limitation_values: tuple[str, ...]
 
     def __post_init__(self) -> None:
@@ -328,26 +317,17 @@ class QuantumEspressoExtractedObservationResult:
                 "source_producer_provenance_identity must be "
                 "ArtifactProducerProvenanceIdentity"
             )
-        if (
-            type(self.parsed_document_identity)
-            is not QuantumEspressoParsedDocumentIdentity
-        ):
-            raise TypeError(
-                "parsed_document_identity must be QuantumEspressoParsedDocumentIdentity"
-            )
-        if type(self.parser_identity) is not QuantumEspressoXsdParserIdentity:
-            raise TypeError("parser_identity must be QuantumEspressoXsdParserIdentity")
+        if type(self.parsed_document_identity) is not QeParsedDocumentIdentity:
+            raise TypeError("parsed_document_identity must be QeParsedDocumentIdentity")
+        if type(self.parser_identity) is not QeXsdParserIdentity:
+            raise TypeError("parser_identity must be QeXsdParserIdentity")
         if type(self.parser_version) is not str:
             raise TypeError("parser_version must be a built-in str")
         if not self.parser_version:
             raise ValueError("parser_version must not be empty")
-        if (
-            type(self.normalization_policy)
-            is not QuantumEspressoObservationNormalizationPolicy
-        ):
+        if type(self.normalization_policy) is not QeObservationNormalizationPolicy:
             raise TypeError(
-                "normalization_policy must be "
-                "QuantumEspressoObservationNormalizationPolicy"
+                "normalization_policy must be QeObservationNormalizationPolicy"
             )
         if type(self.limitation_values) is not tuple:
             raise TypeError("limitation_values must be a built-in tuple")
@@ -398,7 +378,7 @@ class QuantumEspressoExtractedObservationResult:
             )
 
 
-class QuantumEspressoObservationAdaptationFailureCode(StrEnum):
+class QeObservationAdaptationFailureCode(StrWireEnum):
     """Closed expected failure classification for first-stage adaptation.
 
     Attributes
@@ -429,7 +409,7 @@ class QuantumEspressoObservationAdaptationFailureCode(StrEnum):
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoObservationAdaptationFailure:
+class QeObservationAdaptationFailure:
     """One deterministic first-stage adaptation failure without partial output.
 
     Parameters
@@ -451,23 +431,21 @@ class QuantumEspressoObservationAdaptationFailure:
         Nonempty deterministic explanation. It is not a scientific conclusion.
     """
 
-    code: QuantumEspressoObservationAdaptationFailureCode
+    code: QeObservationAdaptationFailureCode
     result_identity: ResultObjectIdentity
     source_manifest_identity: ArtifactManifestIdentity
     source_manifest_entry_identity: ArtifactManifestEntryIdentity
-    parsed_document_identity: QuantumEspressoParsedDocumentIdentity
+    parsed_document_identity: QeParsedDocumentIdentity
     source_content_identity: ArtifactContentIdentity
-    parser_identity: QuantumEspressoXsdParserIdentity
+    parser_identity: QeXsdParserIdentity
     parser_version: str
-    normalization_policy: QuantumEspressoObservationNormalizationPolicy
+    normalization_policy: QeObservationNormalizationPolicy
     detail: str
 
     def __post_init__(self) -> None:
         """Validate exact failure fields."""
-        if not isinstance(self.code, QuantumEspressoObservationAdaptationFailureCode):
-            raise TypeError(
-                "code must be QuantumEspressoObservationAdaptationFailureCode"
-            )
+        if not isinstance(self.code, QeObservationAdaptationFailureCode):
+            raise TypeError("code must be QeObservationAdaptationFailureCode")
         if type(self.result_identity) is not ResultObjectIdentity:
             raise TypeError("result_identity must be ResultObjectIdentity")
         if type(self.source_manifest_identity) is not ArtifactManifestIdentity:
@@ -479,28 +457,19 @@ class QuantumEspressoObservationAdaptationFailure:
             raise TypeError(
                 "source_manifest_entry_identity must be ArtifactManifestEntryIdentity"
             )
-        if (
-            type(self.parsed_document_identity)
-            is not QuantumEspressoParsedDocumentIdentity
-        ):
-            raise TypeError(
-                "parsed_document_identity must be QuantumEspressoParsedDocumentIdentity"
-            )
+        if type(self.parsed_document_identity) is not QeParsedDocumentIdentity:
+            raise TypeError("parsed_document_identity must be QeParsedDocumentIdentity")
         if type(self.source_content_identity) is not ArtifactContentIdentity:
             raise TypeError("source_content_identity must be ArtifactContentIdentity")
-        if type(self.parser_identity) is not QuantumEspressoXsdParserIdentity:
-            raise TypeError("parser_identity must be QuantumEspressoXsdParserIdentity")
+        if type(self.parser_identity) is not QeXsdParserIdentity:
+            raise TypeError("parser_identity must be QeXsdParserIdentity")
         if type(self.parser_version) is not str:
             raise TypeError("parser_version must be a built-in str")
         if not self.parser_version:
             raise ValueError("parser_version must not be empty")
-        if (
-            type(self.normalization_policy)
-            is not QuantumEspressoObservationNormalizationPolicy
-        ):
+        if type(self.normalization_policy) is not QeObservationNormalizationPolicy:
             raise TypeError(
-                "normalization_policy must be "
-                "QuantumEspressoObservationNormalizationPolicy"
+                "normalization_policy must be QeObservationNormalizationPolicy"
             )
         if type(self.detail) is not str:
             raise TypeError("detail must be a built-in str")
@@ -508,19 +477,18 @@ class QuantumEspressoObservationAdaptationFailure:
             raise ValueError("detail must not be empty")
 
 
-type QuantumEspressoObservationAdaptationResult = (
-    QuantumEspressoExtractedObservationResult
-    | QuantumEspressoObservationAdaptationFailure
+type QeObservationAdaptationResult = (
+    QeExtractedObservationResult | QeObservationAdaptationFailure
 )
 """Closed success-or-failure union for first-stage adaptation.
 
-``QuantumEspressoExtractedObservationResult`` is the sole success variant;
-``QuantumEspressoObservationAdaptationFailure`` is the sole expected-failure variant.
+``QeExtractedObservationResult`` is the sole success variant;
+``QeObservationAdaptationFailure`` is the sole expected-failure variant.
 Neither variant is the separately owned Workflow normalized-observation set.
 """
 
 
-class QuantumEspressoObservationAdapter:
+class QeObservationAdapter:
     """Correlate QEXSD source identity and construct one neutral observation.
 
     The fieldless ActionObject supports exactly the retained QEXSD plane-wave
@@ -539,8 +507,8 @@ class QuantumEspressoObservationAdapter:
     __slots__ = ()
 
     def execute(
-        self, request: QuantumEspressoObservationExtractionRequest
-    ) -> QuantumEspressoObservationAdaptationResult:
+        self, request: QeObservationExtractionRequest
+    ) -> QeObservationAdaptationResult:
         """Return one correlated extracted observation or closed expected failure.
 
         Parameters
@@ -551,7 +519,7 @@ class QuantumEspressoObservationAdapter:
 
         Returns
         -------
-        QuantumEspressoObservationAdaptationResult
+        QeObservationAdaptationResult
             Immutable extracted observation on exact agreement, otherwise one closed
             failure without a partial observation.
 
@@ -559,12 +527,10 @@ class QuantumEspressoObservationAdapter:
         ------
         TypeError
             If ``request`` is not exactly
-            :class:`QuantumEspressoObservationExtractionRequest`.
+            :class:`QeObservationExtractionRequest`.
         """
-        if type(request) is not QuantumEspressoObservationExtractionRequest:
-            raise TypeError(
-                "request must be QuantumEspressoObservationExtractionRequest"
-            )
+        if type(request) is not QeObservationExtractionRequest:
+            raise TypeError("request must be QeObservationExtractionRequest")
 
         policy = request.normalization_policy
         if (
@@ -573,7 +539,7 @@ class QuantumEspressoObservationAdapter:
         ):
             return self._failure(
                 request,
-                QuantumEspressoObservationAdaptationFailureCode.POLICY_UNSUPPORTED,
+                QeObservationAdaptationFailureCode.POLICY_UNSUPPORTED,
                 "normalization policy identity and version are unsupported",
             )
 
@@ -584,7 +550,7 @@ class QuantumEspressoObservationAdapter:
         ):
             return self._failure(
                 request,
-                QuantumEspressoObservationAdaptationFailureCode.PARSER_UNSUPPORTED,
+                QeObservationAdaptationFailureCode.PARSER_UNSUPPORTED,
                 "QEXSD parser identity and version are unsupported",
             )
 
@@ -599,19 +565,19 @@ class QuantumEspressoObservationAdapter:
         if entry is None:
             return self._failure(
                 request,
-                QuantumEspressoObservationAdaptationFailureCode.SOURCE_ENTRY_NOT_FOUND,
+                QeObservationAdaptationFailureCode.SOURCE_ENTRY_NOT_FOUND,
                 "source manifest does not contain the selected entry identity",
             )
         if entry.native_format != self.SUPPORTED_NATIVE_FORMAT:
             return self._failure(
                 request,
-                QuantumEspressoObservationAdaptationFailureCode.SOURCE_FORMAT_UNSUPPORTED,
+                QeObservationAdaptationFailureCode.SOURCE_FORMAT_UNSUPPORTED,
                 "source manifest entry native format is not quantum-espresso.qexsd",
             )
         if entry.semantic_role != self.SUPPORTED_SEMANTIC_ROLE:
             return self._failure(
                 request,
-                QuantumEspressoObservationAdaptationFailureCode.SOURCE_ROLE_UNSUPPORTED,
+                QeObservationAdaptationFailureCode.SOURCE_ROLE_UNSUPPORTED,
                 "source manifest entry role is not QEXSD native output",
             )
 
@@ -619,7 +585,7 @@ class QuantumEspressoObservationAdapter:
         if entry.content_identity != parsed_document.source_content_identity:
             return self._failure(
                 request,
-                QuantumEspressoObservationAdaptationFailureCode.SOURCE_CONTENT_MISMATCH,
+                QeObservationAdaptationFailureCode.SOURCE_CONTENT_MISMATCH,
                 "QEXSD document source identity does not equal manifest entry content",
             )
 
@@ -628,11 +594,11 @@ class QuantumEspressoObservationAdapter:
         except ValueError as error:
             return self._failure(
                 request,
-                QuantumEspressoObservationAdaptationFailureCode.OBSERVATION_INCOMPATIBLE,
+                QeObservationAdaptationFailureCode.OBSERVATION_INCOMPATIBLE,
                 str(error),
             )
 
-        return QuantumEspressoExtractedObservationResult(
+        return QeExtractedObservationResult(
             identity=request.result_identity,
             observation=observation,
             source_manifest_identity=request.source_manifest.identity,
@@ -649,12 +615,12 @@ class QuantumEspressoObservationAdapter:
 
     @staticmethod
     def _failure(
-        request: QuantumEspressoObservationExtractionRequest,
-        code: QuantumEspressoObservationAdaptationFailureCode,
+        request: QeObservationExtractionRequest,
+        code: QeObservationAdaptationFailureCode,
         detail: str,
-    ) -> QuantumEspressoObservationAdaptationFailure:
+    ) -> QeObservationAdaptationFailure:
         """Construct one correlated expected failure without partial output."""
-        return QuantumEspressoObservationAdaptationFailure(
+        return QeObservationAdaptationFailure(
             code=code,
             result_identity=request.result_identity,
             source_manifest_identity=request.source_manifest.identity,

@@ -27,16 +27,16 @@ from ksdft2effmass.workflows import (
 )
 
 from .contracts import (
-    QuantumEspressoBandsResult,
-    QuantumEspressoCompletedOutcome,
-    QuantumEspressoExecutionInput,
-    QuantumEspressoProgram,
-    QuantumEspressoPwResult,
+    QeBandsResult,
+    QeCompletedOutcome,
+    QeExecutionInput,
+    QeProgram,
+    QePwResult,
 )
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoScfTask:
+class QeScfTask:
     """Execute one exact QE self-consistent-field operation.
 
     Parameters
@@ -56,10 +56,8 @@ class QuantumEspressoScfTask:
     scientific acceptance.
     """
 
-    simulation_input: QuantumEspressoExecutionInput
-    calculator: PlaneWaveCalculator[
-        QuantumEspressoExecutionInput, QuantumEspressoPwResult
-    ]
+    simulation_input: QeExecutionInput
+    calculator: PlaneWaveCalculator[QeExecutionInput, QePwResult]
 
     _IDENTITY: ClassVar[TaskDefinitionIdentity] = TaskDefinitionIdentity(
         "quantum-espresso.scf.v1"
@@ -67,11 +65,11 @@ class QuantumEspressoScfTask:
 
     def __post_init__(self) -> None:
         """Validate the operation-specific input and injected calculator boundary."""
-        if type(self.simulation_input) is not QuantumEspressoExecutionInput:
-            raise TypeError("simulation_input must be QuantumEspressoExecutionInput")
+        if type(self.simulation_input) is not QeExecutionInput:
+            raise TypeError("simulation_input must be QeExecutionInput")
         if not isinstance(self.calculator, PlaneWaveCalculator):
             raise TypeError("calculator must implement PlaneWaveCalculator")
-        if self.simulation_input.program is not QuantumEspressoProgram.PW:
+        if self.simulation_input.program is not QeProgram.PW:
             raise ValueError("SCF input must use the pw program role")
         if self.simulation_input.task_definition_identity != self.identity:
             raise ValueError("SCF input must identify the SCF Task definition")
@@ -101,7 +99,7 @@ class QuantumEspressoScfTask:
         Returns
         -------
         tuple[ResultObject, ...]
-            One newly returned :class:`QuantumEspressoPwResult`.
+            One newly returned :class:`QePwResult`.
 
         Raises
         ------
@@ -119,9 +117,9 @@ class QuantumEspressoScfTask:
             raise ValueError("SCF Task requires no predecessor input bindings")
         self._validate_context(context)
         result = self.calculator.execute(self.simulation_input, context)
-        if type(result) is not QuantumEspressoPwResult:
-            raise TypeError("SCF calculator must return QuantumEspressoPwResult")
-        if result.evidence.execution_input != self.simulation_input:
+        if type(result) is not QePwResult:
+            raise TypeError("SCF calculator must return QePwResult")
+        if result.execution_input != self.simulation_input:
             raise ValueError("SCF result must identify the exact execution input")
         return (result,)
 
@@ -146,7 +144,7 @@ class QuantumEspressoScfTask:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoNscfTask:
+class QeNscfTask:
     """Execute one exact QE non-self-consistent-field operation.
 
     Parameters
@@ -162,13 +160,11 @@ class QuantumEspressoNscfTask:
     -----
     The fixed Task-definition identity is ``quantum-espresso.nscf.v1``.  The required
     input binding is named ``scf_result`` and must contain a mechanically completed
-    :class:`QuantumEspressoPwResult` matching the staged native state.
+    :class:`QePwResult` matching the staged native state.
     """
 
-    simulation_input: QuantumEspressoExecutionInput
-    calculator: PlaneWaveCalculator[
-        QuantumEspressoExecutionInput, QuantumEspressoPwResult
-    ]
+    simulation_input: QeExecutionInput
+    calculator: PlaneWaveCalculator[QeExecutionInput, QePwResult]
 
     _IDENTITY: ClassVar[TaskDefinitionIdentity] = TaskDefinitionIdentity(
         "quantum-espresso.nscf.v1"
@@ -176,11 +172,11 @@ class QuantumEspressoNscfTask:
 
     def __post_init__(self) -> None:
         """Validate the NSCF input shape and injected calculator boundary."""
-        if type(self.simulation_input) is not QuantumEspressoExecutionInput:
-            raise TypeError("simulation_input must be QuantumEspressoExecutionInput")
+        if type(self.simulation_input) is not QeExecutionInput:
+            raise TypeError("simulation_input must be QeExecutionInput")
         if not isinstance(self.calculator, PlaneWaveCalculator):
             raise TypeError("calculator must implement PlaneWaveCalculator")
-        if self.simulation_input.program is not QuantumEspressoProgram.PW:
+        if self.simulation_input.program is not QeProgram.PW:
             raise ValueError("NSCF input must use the pw program role")
         if self.simulation_input.task_definition_identity != self.identity:
             raise ValueError("NSCF input must identify the NSCF Task definition")
@@ -203,14 +199,14 @@ class QuantumEspressoNscfTask:
         ----------
         inputs
             Exactly one ``scf_result`` binding containing a mechanically completed
-            :class:`QuantumEspressoPwResult`.
+            :class:`QePwResult`.
         context
             Exact Workflow context matching ``simulation_input``.
 
         Returns
         -------
         tuple[ResultObject, ...]
-            One newly returned :class:`QuantumEspressoPwResult`.
+            One newly returned :class:`QePwResult`.
 
         Raises
         ------
@@ -224,15 +220,13 @@ class QuantumEspressoNscfTask:
         self._validate_predecessor(inputs)
         self._validate_context(context)
         result = self.calculator.execute(self.simulation_input, context)
-        if type(result) is not QuantumEspressoPwResult:
-            raise TypeError("NSCF calculator must return QuantumEspressoPwResult")
-        if result.evidence.execution_input != self.simulation_input:
+        if type(result) is not QePwResult:
+            raise TypeError("NSCF calculator must return QePwResult")
+        if result.execution_input != self.simulation_input:
             raise ValueError("NSCF result must identify the exact execution input")
         return (result,)
 
-    def _validate_predecessor(
-        self, inputs: tuple[TaskInputBinding, ...]
-    ) -> QuantumEspressoPwResult:
+    def _validate_predecessor(self, inputs: tuple[TaskInputBinding, ...]) -> QePwResult:
         """Require one completed SCF result matching the staged native state."""
         if type(inputs) is not tuple or any(
             type(item) is not TaskInputBinding for item in inputs
@@ -241,25 +235,23 @@ class QuantumEspressoNscfTask:
         if len(inputs) != 1 or inputs[0].name != "scf_result":
             raise ValueError("NSCF Task requires exactly one scf_result binding")
         predecessor = inputs[0].result
-        if type(predecessor) is not QuantumEspressoPwResult:
-            raise TypeError("scf_result must be QuantumEspressoPwResult")
+        if type(predecessor) is not QePwResult:
+            raise TypeError("scf_result must be QePwResult")
         self._validate_predecessor_state(predecessor)
         return predecessor
 
-    def _validate_predecessor_state(self, predecessor: QuantumEspressoPwResult) -> None:
+    def _validate_predecessor_state(self, predecessor: QePwResult) -> None:
         """Require completed evidence and exact native-state provenance closure."""
-        if type(predecessor.evidence.calculator_outcome) is not (
-            QuantumEspressoCompletedOutcome
-        ):
+        if type(predecessor.calculator_outcome) is not (QeCompletedOutcome):
             raise ValueError("NSCF predecessor must be mechanically completed")
         state = self.simulation_input.predecessor_native_state[0]
         if state.predecessor_result_identity != predecessor.identity:
             raise ValueError("NSCF native state must identify the SCF result")
         if (
             state.content.manifest_identity
-            != predecessor.evidence.native_output_manifest_identity
+            != predecessor.native_output_manifest_identity
             or state.predecessor_manifest_entry_identity
-            not in predecessor.evidence.native_output_entry_identities
+            not in predecessor.native_output_entry_identities
             or state.predecessor_manifest_entry_identity
             not in state.content.manifest_entry_identities
         ):
@@ -286,7 +278,7 @@ class QuantumEspressoNscfTask:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoBandPathTask:
+class QeBandPathTask:
     """Execute one exact QE band-path ``pw`` operation.
 
     Parameters
@@ -306,10 +298,8 @@ class QuantumEspressoBandPathTask:
     native state.
     """
 
-    simulation_input: QuantumEspressoExecutionInput
-    calculator: PlaneWaveCalculator[
-        QuantumEspressoExecutionInput, QuantumEspressoPwResult
-    ]
+    simulation_input: QeExecutionInput
+    calculator: PlaneWaveCalculator[QeExecutionInput, QePwResult]
 
     _IDENTITY: ClassVar[TaskDefinitionIdentity] = TaskDefinitionIdentity(
         "quantum-espresso.band-path.v1"
@@ -317,11 +307,11 @@ class QuantumEspressoBandPathTask:
 
     def __post_init__(self) -> None:
         """Validate the band-path input shape and injected calculator boundary."""
-        if type(self.simulation_input) is not QuantumEspressoExecutionInput:
-            raise TypeError("simulation_input must be QuantumEspressoExecutionInput")
+        if type(self.simulation_input) is not QeExecutionInput:
+            raise TypeError("simulation_input must be QeExecutionInput")
         if not isinstance(self.calculator, PlaneWaveCalculator):
             raise TypeError("calculator must implement PlaneWaveCalculator")
-        if self.simulation_input.program is not QuantumEspressoProgram.PW:
+        if self.simulation_input.program is not QeProgram.PW:
             raise ValueError("band-path input must use the pw program role")
         if self.simulation_input.task_definition_identity != self.identity:
             raise ValueError(
@@ -348,14 +338,14 @@ class QuantumEspressoBandPathTask:
         ----------
         inputs
             Exactly one ``predecessor_result`` binding containing a mechanically
-            completed :class:`QuantumEspressoPwResult`.
+            completed :class:`QePwResult`.
         context
             Exact Workflow context matching ``simulation_input``.
 
         Returns
         -------
         tuple[ResultObject, ...]
-            One newly returned :class:`QuantumEspressoPwResult`.
+            One newly returned :class:`QePwResult`.
 
         Raises
         ------
@@ -369,15 +359,13 @@ class QuantumEspressoBandPathTask:
         self._validate_predecessor(inputs)
         self._validate_context(context)
         result = self.calculator.execute(self.simulation_input, context)
-        if type(result) is not QuantumEspressoPwResult:
-            raise TypeError("band-path calculator must return QuantumEspressoPwResult")
-        if result.evidence.execution_input != self.simulation_input:
+        if type(result) is not QePwResult:
+            raise TypeError("band-path calculator must return QePwResult")
+        if result.execution_input != self.simulation_input:
             raise ValueError("band-path result must identify the exact execution input")
         return (result,)
 
-    def _validate_predecessor(
-        self, inputs: tuple[TaskInputBinding, ...]
-    ) -> QuantumEspressoPwResult:
+    def _validate_predecessor(self, inputs: tuple[TaskInputBinding, ...]) -> QePwResult:
         """Require one completed parent result matching the staged native state."""
         if type(inputs) is not tuple or any(
             type(item) is not TaskInputBinding for item in inputs
@@ -388,25 +376,23 @@ class QuantumEspressoBandPathTask:
                 "band-path Task requires exactly one predecessor_result binding"
             )
         predecessor = inputs[0].result
-        if type(predecessor) is not QuantumEspressoPwResult:
-            raise TypeError("predecessor_result must be QuantumEspressoPwResult")
+        if type(predecessor) is not QePwResult:
+            raise TypeError("predecessor_result must be QePwResult")
         self._validate_predecessor_state(predecessor)
         return predecessor
 
-    def _validate_predecessor_state(self, predecessor: QuantumEspressoPwResult) -> None:
+    def _validate_predecessor_state(self, predecessor: QePwResult) -> None:
         """Require completed evidence and exact native-state provenance closure."""
-        if type(predecessor.evidence.calculator_outcome) is not (
-            QuantumEspressoCompletedOutcome
-        ):
+        if type(predecessor.calculator_outcome) is not (QeCompletedOutcome):
             raise ValueError("band-path predecessor must be mechanically completed")
         state = self.simulation_input.predecessor_native_state[0]
         if state.predecessor_result_identity != predecessor.identity:
             raise ValueError("band-path native state must identify its predecessor")
         if (
             state.content.manifest_identity
-            != predecessor.evidence.native_output_manifest_identity
+            != predecessor.native_output_manifest_identity
             or state.predecessor_manifest_entry_identity
-            not in predecessor.evidence.native_output_entry_identities
+            not in predecessor.native_output_entry_identities
             or state.predecessor_manifest_entry_identity
             not in state.content.manifest_entry_identities
         ):
@@ -437,7 +423,7 @@ class QuantumEspressoBandPathTask:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoBandsExtractionTask:
+class QeBandsExtractionTask:
     """Execute one exact QE ``bands`` extraction operation.
 
     Parameters
@@ -454,13 +440,11 @@ class QuantumEspressoBandsExtractionTask:
     The fixed Task-definition identity is
     ``quantum-espresso.bands-extraction.v1``.  The required input binding is named
     ``band_path_result`` and must contain a mechanically completed
-    :class:`QuantumEspressoPwResult` matching the staged native state.
+    :class:`QePwResult` matching the staged native state.
     """
 
-    simulation_input: QuantumEspressoExecutionInput
-    calculator: PlaneWaveCalculator[
-        QuantumEspressoExecutionInput, QuantumEspressoBandsResult
-    ]
+    simulation_input: QeExecutionInput
+    calculator: PlaneWaveCalculator[QeExecutionInput, QeBandsResult]
 
     _IDENTITY: ClassVar[TaskDefinitionIdentity] = TaskDefinitionIdentity(
         "quantum-espresso.bands-extraction.v1"
@@ -468,11 +452,11 @@ class QuantumEspressoBandsExtractionTask:
 
     def __post_init__(self) -> None:
         """Validate the extraction input shape and injected calculator boundary."""
-        if type(self.simulation_input) is not QuantumEspressoExecutionInput:
-            raise TypeError("simulation_input must be QuantumEspressoExecutionInput")
+        if type(self.simulation_input) is not QeExecutionInput:
+            raise TypeError("simulation_input must be QeExecutionInput")
         if not isinstance(self.calculator, PlaneWaveCalculator):
             raise TypeError("calculator must implement PlaneWaveCalculator")
-        if self.simulation_input.program is not QuantumEspressoProgram.BANDS:
+        if self.simulation_input.program is not QeProgram.BANDS:
             raise ValueError("bands-extraction input must use the bands program role")
         if self.simulation_input.task_definition_identity != self.identity:
             raise ValueError(
@@ -499,14 +483,14 @@ class QuantumEspressoBandsExtractionTask:
         ----------
         inputs
             Exactly one ``band_path_result`` binding containing a mechanically
-            completed :class:`QuantumEspressoPwResult`.
+            completed :class:`QePwResult`.
         context
             Exact Workflow context matching ``simulation_input``.
 
         Returns
         -------
         tuple[ResultObject, ...]
-            One newly returned :class:`QuantumEspressoBandsResult`.
+            One newly returned :class:`QeBandsResult`.
 
         Raises
         ------
@@ -520,19 +504,15 @@ class QuantumEspressoBandsExtractionTask:
         self._validate_predecessor(inputs)
         self._validate_context(context)
         result = self.calculator.execute(self.simulation_input, context)
-        if type(result) is not QuantumEspressoBandsResult:
-            raise TypeError(
-                "bands-extraction calculator must return QuantumEspressoBandsResult"
-            )
+        if type(result) is not QeBandsResult:
+            raise TypeError("bands-extraction calculator must return QeBandsResult")
         if result.evidence.execution_input != self.simulation_input:
             raise ValueError(
                 "bands-extraction result must identify the exact execution input"
             )
         return (result,)
 
-    def _validate_predecessor(
-        self, inputs: tuple[TaskInputBinding, ...]
-    ) -> QuantumEspressoPwResult:
+    def _validate_predecessor(self, inputs: tuple[TaskInputBinding, ...]) -> QePwResult:
         """Require one completed band-path result matching staged native state."""
         if type(inputs) is not tuple or any(
             type(item) is not TaskInputBinding for item in inputs
@@ -543,16 +523,14 @@ class QuantumEspressoBandsExtractionTask:
                 "bands-extraction Task requires exactly one band_path_result binding"
             )
         predecessor = inputs[0].result
-        if type(predecessor) is not QuantumEspressoPwResult:
-            raise TypeError("band_path_result must be QuantumEspressoPwResult")
+        if type(predecessor) is not QePwResult:
+            raise TypeError("band_path_result must be QePwResult")
         self._validate_predecessor_state(predecessor)
         return predecessor
 
-    def _validate_predecessor_state(self, predecessor: QuantumEspressoPwResult) -> None:
+    def _validate_predecessor_state(self, predecessor: QePwResult) -> None:
         """Require completed evidence and exact native-state provenance closure."""
-        if type(predecessor.evidence.calculator_outcome) is not (
-            QuantumEspressoCompletedOutcome
-        ):
+        if type(predecessor.calculator_outcome) is not (QeCompletedOutcome):
             raise ValueError(
                 "bands-extraction predecessor must be mechanically completed"
             )
@@ -563,9 +541,9 @@ class QuantumEspressoBandsExtractionTask:
             )
         if (
             state.content.manifest_identity
-            != predecessor.evidence.native_output_manifest_identity
+            != predecessor.native_output_manifest_identity
             or state.predecessor_manifest_entry_identity
-            not in predecessor.evidence.native_output_entry_identities
+            not in predecessor.native_output_entry_identities
             or state.predecessor_manifest_entry_identity
             not in state.content.manifest_entry_identities
         ):

@@ -16,13 +16,13 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.protocol import (
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
-    StringWireEnum,
+    StrWireEnum,
 )
 
 from .definition import Periodic1DRankNGaugeAlignment
 
 
-class Periodic1DRankNAlignmentStatus(StringWireEnum):
+class Periodic1DRankNAlignmentStatus(StrWireEnum):
     """Retain the exact disposition of one gauge alignment."""
 
     QUALIFIED = "qualified"
@@ -33,14 +33,14 @@ class Periodic1DRankNAlignmentStatus(StringWireEnum):
     ORACLE_INTEGRITY_FAILED = "oracle-integrity-failed"
 
 
-class Periodic1DRankNGlobalUnitaryDownstreamApplicability(StringWireEnum):
+class Periodic1DRankNGlobalUnitaryDownstreamApplicability(StrWireEnum):
     """State whether global-unitary alignment has downstream values."""
 
     APPLICABLE = "applicable"
     INAPPLICABLE_AGGREGATE_RANK_DEFICIENT = "inapplicable-aggregate-rank-deficient"
 
 
-class Periodic1DRankNAlignmentBackendExceptionCode(StringWireEnum):
+class Periodic1DRankNAlignmentBackendExceptionCode(StrWireEnum):
     """Classify an alignment backend failure without retaining exception text."""
 
     ARITHMETIC_NONFINITE = "backend-arithmetic-nonfinite"

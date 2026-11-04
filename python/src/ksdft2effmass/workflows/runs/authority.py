@@ -15,7 +15,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from enum import StrEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from ..artifacts import ArtifactManifestEntryIdentity
 from ..model import (
@@ -45,7 +46,7 @@ from .identities import (
 from .records import ScientificExecutionAuthorityReference
 
 
-class ScientificExecutionAuthorityVerificationKind(StrEnum):
+class ScientificExecutionAuthorityVerificationKind(StrWireEnum):
     """Closed status of one authority-snapshot verification check.
 
     Attributes
@@ -63,7 +64,7 @@ class ScientificExecutionAuthorityVerificationKind(StrEnum):
     INDETERMINATE = "indeterminate"
 
 
-class ScientificExecutionGrantState(StrEnum):
+class ScientificExecutionGrantState(StrWireEnum):
     """Closed represented state of one externally issued execution grant.
 
     Attributes
@@ -395,7 +396,7 @@ class ScientificExecutionAuthorityGrant:
         )
 
 
-class SimulationExecutionAuthorizationPhase(StrEnum):
+class SimulationExecutionAuthorizationPhase(StrWireEnum):
     """Closed authorization phase for one simulation dispatch."""
 
     PREPARATION = "preparation"
@@ -720,7 +721,7 @@ class SimulationDispatchEntryReceipt:
                 raise ValueError(f"{name} must not be empty")
 
 
-class SimulationExecutionAuthorizationOutcomeKind(StrEnum):
+class SimulationExecutionAuthorizationOutcomeKind(StrWireEnum):
     """Closed outcome of simulation execution authorization."""
 
     AUTHORIZED = "authorized"

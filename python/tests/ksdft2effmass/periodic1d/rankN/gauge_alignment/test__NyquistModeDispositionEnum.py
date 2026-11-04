@@ -7,7 +7,7 @@ import pytest
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.nyquist import (
     NyquistModeDispositionEnum,
 )
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -16,7 +16,7 @@ class TestNyquistModeDispositionEnum:
     """Establish ordinary-enum identity and the closed wire inventory."""
 
     def test__enum__is_an_ordinary_string_wire_enum(self) -> None:
-        assert issubclass(NyquistModeDispositionEnum, StringWireEnum)
+        assert issubclass(NyquistModeDispositionEnum, StrWireEnum)
         assert issubclass(NyquistModeDispositionEnum, Enum)
         assert not issubclass(NyquistModeDispositionEnum, str)
 

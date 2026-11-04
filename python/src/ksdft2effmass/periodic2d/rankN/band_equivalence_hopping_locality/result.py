@@ -34,7 +34,7 @@ from ksdft2effmass.periodic2d.rankN.gauge_alignment.definition import (
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
-    StringWireEnum,
+    StrWireEnum,
 )
 
 from .request import Periodic2DRankNBandEquivalenceHoppingLocalityRequest
@@ -173,7 +173,7 @@ type Periodic2DRankNAlignmentEvidence = (
 )
 
 
-class Periodic2DRankNAlignmentInapplicabilityEnum(StringWireEnum):
+class Periodic2DRankNAlignmentInapplicabilityEnum(StrWireEnum):
     """Identify why one fitted alignment has no downstream aggregate values."""
 
     AGGREGATE_RANK_DEFICIENT = "aggregate-rank-deficient"
@@ -424,7 +424,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis(
             raise ValueError("alignments must follow the selected four-route inventory")
 
 
-class Periodic2DRankNBandEquivalenceHoppingLocalityAnalysisStatusEnum(StringWireEnum):
+class Periodic2DRankNBandEquivalenceHoppingLocalityAnalysisStatusEnum(StrWireEnum):
     """Identify the claim boundary of one aggregate software analysis."""
 
     SOFTWARE_QUALIFICATION_NOT_SCIENTIFIC_EVIDENCE = (

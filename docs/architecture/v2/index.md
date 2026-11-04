@@ -122,7 +122,7 @@ package or identity/result/failure hierarchy.
 - [QoI-first calculator integration and LAMMPS](ksdft2effmass/qoi-first-lammps-integration.md)
 - [Quantum ESPRESSO integration contract](ksdft2effmass/calculators/quantum-espresso.md)
 - [Quantum ESPRESSO diagnostic outcome and retry decision](ksdft2effmass/calculators/quantum-espresso-diagnostic-outcome-decision.md)
-- [Quantum ESPRESSO local-execution implementation contract](ksdft2effmass/calculators/quantum-espresso-local-execution-contract.md)
+- [Quantum ESPRESSO local-execution implementation contract](ksdft2effmass/integration/quantum_espresso/local_execution/)
 - [Plane-wave DFT and QE package-ownership decision](ksdft2effmass/calculators/quantum-espresso-package-ownership-decision.md)
 - [Integration namespace](ksdft2effmass/integration/index.md)
 - [Quantum ESPRESSO integration](ksdft2effmass/integration/quantum_espresso/index.md)
@@ -149,7 +149,7 @@ ksdft2effmass/structures-package-boundary-decision
 ksdft2effmass/structures/index
 ksdft2effmass/structures/periodic
 ksdft2effmass/calculators/quantum-espresso-diagnostic-outcome-decision
-ksdft2effmass/calculators/quantum-espresso-local-execution-contract
+ksdft2effmass/integration/quantum_espresso/local_execution/index
 ksdft2effmass/calculators/quantum-espresso-package-ownership-decision
 ksdft2effmass/calculators/quantum-espresso-task-contract-boundary-decision
 documentation/index

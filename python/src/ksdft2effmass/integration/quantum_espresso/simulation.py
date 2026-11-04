@@ -1,13 +1,13 @@
 """Immutable application composition for one Quantum ESPRESSO simulation.
 
-``QuantumEspressoSimulation`` binds one accepted operation-specific Task, its exact
+``QeSimulation`` binds one accepted operation-specific Task, its exact
 QE execution input, the same backend-neutral calculator port injected into that Task,
 and one Workflow dispatch-effect executor.  The composition keeps calculator
 invocation and authority-bearing Workflow dispatch as distinct structural boundaries;
 it performs neither operation.
 
 The value stores no output or mutable execution state.  Concrete execution remains
-owned by the injected ports, and ``LocalQuantumEspressoExecutor`` is the implemented
+owned by the injected ports, and ``LocalQeExecutor`` is the implemented
 QE ``SimulationDispatchEffect``.  Construction establishes software correlation only,
 not execution authority, numerical convergence, or scientific acceptance.
 """
@@ -20,20 +20,20 @@ from ksdft2effmass.calculators.dft.pw import PlaneWaveCalculator
 from ksdft2effmass.workflows import SimulationDispatchEffect
 
 from .contracts import (
-    QuantumEspressoBandsResult,
-    QuantumEspressoExecutionInput,
-    QuantumEspressoPwResult,
+    QeBandsResult,
+    QeExecutionInput,
+    QePwResult,
 )
 from .tasks import (
-    QuantumEspressoBandPathTask,
-    QuantumEspressoBandsExtractionTask,
-    QuantumEspressoNscfTask,
-    QuantumEspressoScfTask,
+    QeBandPathTask,
+    QeBandsExtractionTask,
+    QeNscfTask,
+    QeScfTask,
 )
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoSimulation:
+class QeSimulation:
     """Bind one exact QE Task to its calculator and Workflow effect executor.
 
     Parameters
@@ -51,7 +51,7 @@ class QuantumEspressoSimulation:
     executor
         Workflow :class:`~ksdft2effmass.workflows.SimulationDispatchEffect` selected
         for the same application composition.  The implemented local QE binding is
-        :class:`~ksdft2effmass.integration.quantum_espresso.LocalQuantumEspressoExecutor`.
+        :class:`~ksdft2effmass.integration.quantum_espresso.LocalQeExecutor`.
 
     Notes
     -----
@@ -62,30 +62,25 @@ class QuantumEspressoSimulation:
     create Workflow authority.
     """
 
-    task: (
-        QuantumEspressoScfTask
-        | QuantumEspressoNscfTask
-        | QuantumEspressoBandPathTask
-        | QuantumEspressoBandsExtractionTask
-    )
-    execution_input: QuantumEspressoExecutionInput
+    task: QeScfTask | QeNscfTask | QeBandPathTask | QeBandsExtractionTask
+    execution_input: QeExecutionInput
     calculator: (
-        PlaneWaveCalculator[QuantumEspressoExecutionInput, QuantumEspressoPwResult]
-        | PlaneWaveCalculator[QuantumEspressoExecutionInput, QuantumEspressoBandsResult]
+        PlaneWaveCalculator[QeExecutionInput, QePwResult]
+        | PlaneWaveCalculator[QeExecutionInput, QeBandsResult]
     )
     executor: SimulationDispatchEffect
 
     def __post_init__(self) -> None:
         """Validate the exact immutable application-composition bindings."""
         if type(self.task) not in (
-            QuantumEspressoScfTask,
-            QuantumEspressoNscfTask,
-            QuantumEspressoBandPathTask,
-            QuantumEspressoBandsExtractionTask,
+            QeScfTask,
+            QeNscfTask,
+            QeBandPathTask,
+            QeBandsExtractionTask,
         ):
             raise TypeError("task must be an operation-specific Quantum ESPRESSO Task")
-        if type(self.execution_input) is not QuantumEspressoExecutionInput:
-            raise TypeError("execution_input must be QuantumEspressoExecutionInput")
+        if type(self.execution_input) is not QeExecutionInput:
+            raise TypeError("execution_input must be QeExecutionInput")
         if not isinstance(self.calculator, PlaneWaveCalculator):
             raise TypeError("calculator must implement PlaneWaveCalculator")
         if not isinstance(self.executor, SimulationDispatchEffect):
@@ -100,8 +95,8 @@ class QuantumEspressoSimulation:
     @property
     def result_type(
         self,
-    ) -> type[QuantumEspressoPwResult] | type[QuantumEspressoBandsResult]:
+    ) -> type[QePwResult] | type[QeBandsResult]:
         """Return the immutable QE result class selected by the operation Task."""
-        if type(self.task) is QuantumEspressoBandsExtractionTask:
-            return QuantumEspressoBandsResult
-        return QuantumEspressoPwResult
+        if type(self.task) is QeBandsExtractionTask:
+            return QeBandsResult
+        return QePwResult

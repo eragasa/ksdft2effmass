@@ -17,10 +17,11 @@ scientifically validate an electronic-structure calculation or reduced model.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 from typing import TYPE_CHECKING
 
 import numpy as np
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .records import OperatorRecord
 
@@ -122,7 +123,7 @@ class HermiticityUnitMismatchError(ValueError):
         )
 
 
-class HermiticityNumericalErrorCode(StrEnum):
+class HermiticityNumericalErrorCode(StrWireEnum):
     """Stable structured Hermiticity numerical-error categories.
 
     Attributes

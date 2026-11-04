@@ -508,8 +508,8 @@ HermiticityNumericalErrorCode software evidence
 ``SV-HNEC-001`` through ``SV-HNEC-006`` verify the exact closed public enum
 contract for ``HermiticityNumericalErrorCode``. Evidence covers the sole member
 ``NONFINITE_RESIDUAL = "nonfinite_residual"`` in declaration order, exact public-
-registry alias absence, Python 3.14 ``StrEnum`` and ASCII lowercase snake-case
-behavior, value/name lookup identity round trips, and exact ``ValueError`` versus
+registry alias absence, KSD ``StrWireEnum`` and explicit ASCII lowercase snake-case
+wire conversion, value/name lookup identity round trips, and exact ``ValueError`` versus
 ``KeyError`` invalid-lookup taxonomy.
 
 ``NONFINITE_RESIDUAL`` means ``HermiticityAnalyzer`` could not produce a finite
@@ -523,7 +523,7 @@ public code types.
 
 These enum-contract tests are software verification of stable classification
 vocabulary. Analyzer emission belongs to Analyzer software-verification evidence,
-and residual accuracy belongs to numerical verification. ``StrEnum`` behavior
+and residual accuracy belongs to numerical verification. ``StrWireEnum`` conversion
 supports future conceptual Rust-enum mapping but approves no JSON, exception wire
 format, Rust implementation, or Rust conformance. Physical Hermiticity,
 scientific validation, and uncertainty quantification are not established.
@@ -546,7 +546,7 @@ not coerced, and no additional ``detail`` field is accepted. The approved public
 structured field remains ``error.reason`` and is the authoritative machine-
 readable category; the message is secondary human-readable text. Exact enum
 vocabulary, aliases,
-``StrEnum`` behavior, and lookups remain owned separately by ``SV-HNEC-001``
+``StrWireEnum`` behavior, and lookups remain owned separately by ``SV-HNEC-001``
 through ``SV-HNEC-006``.
 
 ``HermiticityAnalyzer`` owns production emission when a finite binary64 residual
@@ -641,7 +641,7 @@ OperatorRecordCompatibilityMismatchCode software evidence
 
 ``SV-OCMC-001`` through ``SV-OCMC-006`` verify the public enumeration contract
 for ``OperatorRecordCompatibilityMismatchCode``. Evidence covers exact names,
-stable values, canonical order, Python ``StrEnum`` and machine-string behavior,
+stable values, canonical order, KSD ``StrWireEnum`` and explicit wire behavior,
 name/value lookup round trips, unique values and absence of aliases, canonical
 public descriptions, and exact invalid-lookup exception categories.
 
@@ -757,7 +757,7 @@ OperatorRecordDifferenceNumericalErrorCode software evidence
 enumeration contract for ``OperatorRecordDifferenceNumericalErrorCode``. The
 evidence covers the sole member ``NONFINITE_DIFFERENCE`` with stable value
 ``nonfinite_difference``, deterministic one-member declaration order, explicit
-alias absence through ``Enum.__members__``, Python 3.14 ``StrEnum`` behavior,
+alias absence through ``Enum.__members__``, KSD ``StrWireEnum`` conversion,
 ASCII lowercase snake-case form, name/value lookup round trips, and exact
 ``ValueError`` versus ``KeyError`` invalid-lookup taxonomy.
 
@@ -816,8 +816,8 @@ contract for ``OperatorRecordComparisonNumericalErrorCode``. Evidence covers the
 three-member sequence ``NONFINITE_METRIC = "nonfinite_metric"``,
 ``LINEAR_ALGEBRA_FAILURE = "linear_algebra_failure"``, and
 ``METRIC_ORDER_VIOLATION = "metric_order_violation"`` in declaration order;
-explicit alias absence through ``Enum.__members__``; Python 3.14 ``StrEnum`` and
-ASCII snake-case behavior; name/value lookup identity round trips; and exact
+explicit alias absence through ``Enum.__members__``; KSD ``StrWireEnum`` and explicit
+ASCII snake-case wire conversion; name/value lookup identity round trips; and exact
 ``ValueError`` versus ``KeyError`` invalid-lookup taxonomy.
 
 Despite the retained historical type name, ``OperatorRecordResidualAnalyzer``
@@ -857,7 +857,7 @@ and absence of independent serialization APIs.
 human-readable text containing the stable code value and is not a parsing
 protocol. Raw strings are not coerced, no free-form ``detail`` field is accepted,
 and ``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``. Exact
-enum vocabulary, order, aliases, ``StrEnum`` behavior, and lookups remain owned
+enum vocabulary, order, aliases, ``StrWireEnum`` behavior, and lookups remain owned
 by ``SV-ORCNEC-001`` through ``SV-ORCNEC-006``.
 
 Despite the historical ``Comparison`` name, ``OperatorRecordResidualAnalyzer``

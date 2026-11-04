@@ -13,13 +13,14 @@ align bases, convert units, or determine physical equivalence.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 from typing import ClassVar
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .records import OperatorRecord
 
 
-class OperatorRecordCompatibilityMismatchCode(StrEnum):
+class OperatorRecordCompatibilityMismatchCode(StrWireEnum):
     """Stable mismatch codes in canonical version-1 audit order.
 
     Each member represents one exact compatibility rule.  Declaration order is

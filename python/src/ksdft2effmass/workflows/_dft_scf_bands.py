@@ -9,7 +9,6 @@ retry, parsing, convergence decision, or scientific acceptance.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetArcDefinition,
@@ -49,6 +48,7 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetValueExpressionKind,
     ColoredPetriNetValueKind,
 )
+from ksdft2effmass.serialization import StrWireEnum
 
 from .model import ResultObjectIdentity
 
@@ -104,14 +104,14 @@ class DftScfBandsCpnReplayInput:
                 raise TypeError(f"{name} must be ResultObjectIdentity")
 
 
-class DftScfBandsCpnReplayOutcome(StrEnum):
+class DftScfBandsCpnReplayOutcome(StrWireEnum):
     """Closed logical replay outcome."""
 
     CONFIRMED = "confirmed"
     REJECTED = "rejected"
 
 
-class DftScfBandsCpnReplayIssueCode(StrEnum):
+class DftScfBandsCpnReplayIssueCode(StrWireEnum):
     """Closed reasons why supplied values cannot produce a confirmed replay."""
 
     SCF_INPUT_RESULT_MISMATCH = "scf_input_result_mismatch"

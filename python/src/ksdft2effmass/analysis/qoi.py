@@ -17,8 +17,8 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from enum import StrEnum
 
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.workflows import (
     ArtifactManifestEntryIdentity,
     ArtifactManifestIdentity,
@@ -269,7 +269,7 @@ class QuantityOfInterestReferenceAssessmentIdentity:
             raise ValueError("reference-assessment identity must not be empty")
 
 
-class QuantityOfInterestCompleteness(StrEnum):
+class QuantityOfInterestCompleteness(StrWireEnum):
     """Closed completeness required from normalized observations.
 
     Attributes
@@ -285,7 +285,7 @@ class QuantityOfInterestCompleteness(StrEnum):
     DECLARED_SUBSET = "declared_subset"
 
 
-class QuantityOfInterestEvaluationFailureCode(StrEnum):
+class QuantityOfInterestEvaluationFailureCode(StrWireEnum):
     """Closed failure code for a scalar QoI evaluation attempt.
 
     Attributes

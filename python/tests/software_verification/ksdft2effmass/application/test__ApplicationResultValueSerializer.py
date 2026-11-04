@@ -36,10 +36,10 @@ from ksdft2effmass.analysis import (
 )
 from ksdft2effmass.application import ApplicationResultValueSerializer
 from ksdft2effmass.integration.quantum_espresso import (
-    QuantumEspressoBandsResult,
-    QuantumEspressoExtractedObservationResult,
-    QuantumEspressoPwResult,
-    QuantumEspressoResultValueSerializer,
+    QeBandsResult,
+    QeExtractedObservationResult,
+    QePwResult,
+    QeResultValueSerializer,
 )
 from ksdft2effmass.workflows import (
     NormalizedObservationSet,
@@ -61,9 +61,9 @@ SUT = ApplicationResultValueSerializer
 type SupportedValue = (
     ScientificDecisionResolution
     | NormalizedObservationSet
-    | QuantumEspressoPwResult
-    | QuantumEspressoBandsResult
-    | QuantumEspressoExtractedObservationResult
+    | QePwResult
+    | QeBandsResult
+    | QeExtractedObservationResult
     | ScalarQuantityOfInterestValue
     | ScalarQuantityOfInterestEvaluationFailure
 )
@@ -75,7 +75,7 @@ class TestApplicationResultValueSerializer:
 
     @staticmethod
     def make_codec() -> ApplicationResultValueSerializer:
-        qe = QuantumEspressoResultValueSerializer()
+        qe = QeResultValueSerializer()
         return ApplicationResultValueSerializer(
             workflow_codec=WorkflowResultValueSerializer(source_codec=qe),
             quantum_espresso_codec=qe,
@@ -118,11 +118,11 @@ class TestApplicationResultValueSerializer:
                 "decision", ScientificDecisionResolution, id="scientific_decision"
             ),
             pytest.param("set", NormalizedObservationSet, id="normalized_set"),
-            pytest.param("pw", QuantumEspressoPwResult, id="qe_pw"),
-            pytest.param("bands", QuantumEspressoBandsResult, id="qe_bands"),
+            pytest.param("pw", QePwResult, id="qe_pw"),
+            pytest.param("bands", QeBandsResult, id="qe_bands"),
             pytest.param(
                 "observation",
-                QuantumEspressoExtractedObservationResult,
+                QeExtractedObservationResult,
                 id="qe_observation",
             ),
             pytest.param("scalar", ScalarQuantityOfInterestValue, id="scalar_success"),
@@ -365,10 +365,8 @@ class TestApplicationResultValueSerializer:
         assert isinstance(codec, WorkflowResultValueCodec)
         assert codec.workflow_codec.source_codec is codec.quantum_espresso_codec
         with pytest.raises(FrozenInstanceError):
-            codec.quantum_espresso_codec = QuantumEspressoResultValueSerializer()  # type: ignore[misc]
-        equivalent = replace(
-            codec, quantum_espresso_codec=QuantumEspressoResultValueSerializer()
-        )
+            codec.quantum_espresso_codec = QeResultValueSerializer()  # type: ignore[misc]
+        equivalent = replace(codec, quantum_espresso_codec=QeResultValueSerializer())
         assert equivalent.decode(self.fixture_envelope("set")).status == "decoded"
         with pytest.raises(TypeError, match="Workflow source codec"):
             replace(
@@ -441,9 +439,7 @@ class TestApplicationResultValueSerializer:
             claim_boundary="software only",
         )
         expected = WorkflowResultValueDecodeResult(status="error", failure=failure)
-        with patch.object(
-            QuantumEspressoResultValueSerializer, "decode", return_value=expected
-        ):
+        with patch.object(QeResultValueSerializer, "decode", return_value=expected):
             result = self.make_codec().decode(self.fixture_envelope("pw"))
         assert result is expected
         assert result.value is None

@@ -30,8 +30,8 @@ from unittest.mock import patch
 import pytest
 
 from ksdft2effmass.integration.quantum_espresso import (
-    QuantumEspressoExtractedObservationResult,
-    QuantumEspressoResultValueSerializer,
+    QeExtractedObservationResult,
+    QeResultValueSerializer,
 )
 from ksdft2effmass.workflows import (
     ArtifactManifestEntryIdentity,
@@ -71,9 +71,7 @@ class TestWorkflowResultValueSerializer:
 
     @staticmethod
     def make_codec() -> WorkflowResultValueSerializer:
-        return WorkflowResultValueSerializer(
-            source_codec=QuantumEspressoResultValueSerializer()
-        )
+        return WorkflowResultValueSerializer(source_codec=QeResultValueSerializer())
 
     @staticmethod
     def make_decision() -> ScientificDecisionResolution:
@@ -135,7 +133,7 @@ class TestWorkflowResultValueSerializer:
         )
 
     @staticmethod
-    def make_source() -> QuantumEspressoExtractedObservationResult:
+    def make_source() -> QeExtractedObservationResult:
         payload = (
             Path(__file__)
             .parents[2]
@@ -145,7 +143,7 @@ class TestWorkflowResultValueSerializer:
             .read_bytes()
         )
         digest = hashlib.sha256(payload).hexdigest()
-        decoded = QuantumEspressoResultValueSerializer().decode(
+        decoded = QeResultValueSerializer().decode(
             WorkflowEncodedResultValue(
                 result_identity=ResultObjectIdentity("synthetic-result"),
                 concrete_type_identity=ResultObjectTypeIdentity(
@@ -162,7 +160,7 @@ class TestWorkflowResultValueSerializer:
                 payload_digest=digest,
             )
         )
-        assert type(decoded.value) is QuantumEspressoExtractedObservationResult
+        assert type(decoded.value) is QeExtractedObservationResult
         return decoded.value
 
     def make_set(self) -> NormalizedObservationSet:
@@ -324,8 +322,8 @@ class TestWorkflowResultValueSerializer:
         assert decoded.status == "decoded"
         assert type(decoded.value) is NormalizedObservationSet
         first, second = decoded.value.sources
-        assert type(first) is QuantumEspressoExtractedObservationResult
-        assert type(second) is QuantumEspressoExtractedObservationResult
+        assert type(first) is QeExtractedObservationResult
+        assert type(second) is QeExtractedObservationResult
         assert (first.identity.value, second.identity.value) == ("source-z", "source-a")
         assert (
             first.source_manifest_entry_identity.value,
@@ -607,8 +605,7 @@ class TestWorkflowResultValueSerializer:
             decoded.failure.code == WorkflowPersistenceFailureCode.UNSUPPORTED_VERSION
         )
         assert decoded.failure.implementation_identity == (
-            "ksdft2effmass.integration.quantum_espresso."
-            "QuantumEspressoResultValueSerializer:1"
+            "ksdft2effmass.integration.quantum_espresso.QeResultValueSerializer:2"
         )
 
     def test_method__decode__checks_source_reencoding_agreement(self) -> None:
@@ -633,7 +630,7 @@ class TestWorkflowResultValueSerializer:
         codec authentication.
         """
         source = self.make_set().sources[0]
-        assert type(source) is QuantumEspressoExtractedObservationResult
+        assert type(source) is QeExtractedObservationResult
         altered = replace(
             source,
             parser_version="1",
@@ -642,7 +639,7 @@ class TestWorkflowResultValueSerializer:
             ),
         )
         with patch.object(
-            QuantumEspressoResultValueSerializer,
+            QeResultValueSerializer,
             "decode",
             return_value=WorkflowResultValueDecodeResult(
                 status="decoded", value=altered
@@ -730,7 +727,7 @@ class TestWorkflowResultValueSerializer:
         codec = self.make_codec()
         assert isinstance(codec, WorkflowResultValueCodec)
         with pytest.raises(FrozenInstanceError):
-            codec.source_codec = QuantumEspressoResultValueSerializer()  # type: ignore[misc]
+            codec.source_codec = QeResultValueSerializer()  # type: ignore[misc]
         decoded = codec.decode(
             self.make_envelope(self.fixture_bytes("result-decision-v1.json"))
         )
@@ -839,7 +836,7 @@ class TestWorkflowResultValueSerializer:
             claim_boundary="software only",
         )
         with patch.object(
-            QuantumEspressoResultValueSerializer,
+            QeResultValueSerializer,
             "encode",
             return_value=WorkflowResultValueEncodeResult(
                 status=status, failure=failure
@@ -900,7 +897,7 @@ class TestWorkflowResultValueSerializer:
         Limitations: This does not claim arbitrary protocols are immutable.
         """
 
-        class SourceSubclass(QuantumEspressoExtractedObservationResult):
+        class SourceSubclass(QeExtractedObservationResult):
             pass
 
         source = self.make_source()
@@ -1004,7 +1001,7 @@ class TestWorkflowResultValueSerializer:
             claim_boundary="software only",
         )
         with patch.object(
-            QuantumEspressoResultValueSerializer,
+            QeResultValueSerializer,
             "decode",
             return_value=WorkflowResultValueDecodeResult(
                 status=status, failure=failure

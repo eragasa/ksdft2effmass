@@ -2,18 +2,18 @@
   "schema_version": 1,
   "modules": [
     {
-      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoObservationAdapter.py",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QeObservationAdapter__adaptation.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "sut": "QuantumEspressoObservationAdapter"
+      "sut": "QeObservationAdapter"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoParsedDocumentRecord.py",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QeParsedDocumentRecord__validation.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "sut": "QuantumEspressoParsedDocumentRecord"
+      "sut": "QeParsedDocumentRecord"
     }
   ]
 }

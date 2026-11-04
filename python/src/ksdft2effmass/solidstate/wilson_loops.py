@@ -35,13 +35,14 @@ References
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 import numpy as np
 from scipy.optimize import linear_sum_assignment  # type: ignore[import-untyped]
 
+from ksdft2effmass.serialization import StrWireEnum
 
-class WilsonCenterConvention1D(StrEnum):
+
+class WilsonCenterConvention1D(StrWireEnum):
     r"""Identify an explicit Wilson-phase-to-center convention.
 
     Attributes

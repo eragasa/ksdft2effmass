@@ -1,5 +1,13 @@
 # Plane-wave DFT and Quantum ESPRESSO package-ownership decision
 
+> **Later refinement.** This historical decision remains authoritative for ownership
+> *inside KSD*: backend-neutral KSD contracts stay under `calculators.dft.pw`, and
+> KSD's concrete anti-corruption boundary stays under
+> `integration.quantum_espresso`. Its statements assigning reusable calculator input,
+> executable, execution, parsing, and provider-data mechanics to KSD are superseded by
+> the [Project Koios Simulations adapter boundary](../integration/quantum_espresso/simulations_adapter_boundary/).
+> KSD retains Workflow correlation, persistence, and scientific interpretation.
+
 ## Problem
 
 The first QE execution slice placed QE-named inputs, executable configuration,

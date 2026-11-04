@@ -334,7 +334,7 @@ restriction to an invariant subspace.
 
 Every evidence leaf includes subject identity, stage identity, finite domain, method,
 exact certificate or tolerance convention, disposition, and retained bound or failure
-location as applicable.  `EvidenceMode` is a `StrEnum` with exactly:
+location as applicable.  `EvidenceMode` is a `StrWireEnum` with exactly:
 
 - `analytic-identity-declared`;
 - `checked-exact-certificate`;

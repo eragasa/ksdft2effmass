@@ -1,0 +1,242 @@
+{
+  "calculator_outcome": {
+    "completion_marker_identities": {
+      "__ksd_type__": "tuple",
+      "items": [
+        {
+          "value": "marker"
+        }
+      ]
+    },
+    "kind": "completed"
+  },
+  "contract_version": "qe-pw-result:2",
+  "diagnostic_report": {
+    "claim_boundary": {
+      "__ksd_type__": "tuple",
+      "items": [
+        "synthetic-only",
+        "not-acceptance"
+      ]
+    },
+    "classifier_identity": {
+      "value": "classifier:17"
+    },
+    "completion_markers": {
+      "__ksd_type__": "tuple",
+      "items": [
+        {
+          "byte_end": 8,
+          "byte_start": 4,
+          "channel": "stdout",
+          "identity": {
+            "value": "marker"
+          },
+          "signature_identity": "completion:5",
+          "span_content_identity": {
+            "algorithm": "sha256",
+            "byte_count": 4,
+            "digest": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+          },
+          "stream_content_identity": {
+            "algorithm": "sha256",
+            "byte_count": 8,
+            "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        }
+      ]
+    },
+    "executable_configuration_identity": {
+      "value": "configuration"
+    },
+    "executable_kind": "deterministic_fixture",
+    "identity": {
+      "value": "report"
+    },
+    "kind": "clear",
+    "observations": {
+      "__ksd_type__": "tuple",
+      "items": [
+        {
+          "byte_end": 4,
+          "byte_start": 0,
+          "channel": "stdout",
+          "claim_boundary": {
+            "__ksd_type__": "tuple",
+            "items": [
+              "synthetic-only",
+              "not-convergence"
+            ]
+          },
+          "disposition": "nonblocking",
+          "identity": {
+            "value": "notice"
+          },
+          "sanitized_summary": "synthetic notice \u03b1",
+          "signature_identity": "notice-signature:2",
+          "span_content_identity": {
+            "algorithm": "sha256",
+            "byte_count": 4,
+            "digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+          },
+          "stream_content_identity": {
+            "algorithm": "sha256",
+            "byte_count": 8,
+            "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        }
+      ]
+    },
+    "program": "pw",
+    "program_version": "fixture-synthetic:23",
+    "stderr_content_identity": {
+      "algorithm": "sha256",
+      "byte_count": 3,
+      "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    "stdout_content_identity": {
+      "algorithm": "sha256",
+      "byte_count": 8,
+      "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  },
+  "execution_input": {
+    "activation_identity": "activation",
+    "attempt_identity": "attempt",
+    "contract_version": "qe-execution-input:1",
+    "identity": {
+      "value": "input"
+    },
+    "native_input": {
+      "content": {
+        "content_identity": {
+          "algorithm": "sha256",
+          "byte_count": 8,
+          "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      },
+      "destination": {
+        "value": "input.in"
+      },
+      "identity": "native"
+    },
+    "operation_identity": "operation",
+    "predecessor_native_state": {
+      "__ksd_type__": "tuple",
+      "items": [
+        {
+          "content": {
+            "manifest_entry_identities": {
+              "__ksd_type__": "tuple",
+              "items": [
+                "previous-a",
+                "previous-b"
+              ]
+            },
+            "manifest_identity": "previous-manifest"
+          },
+          "destination": {
+            "value": "out/si.save"
+          },
+          "identity": "state",
+          "predecessor_manifest_entry_identity": "previous-a",
+          "predecessor_result_identity": "previous-result"
+        }
+      ]
+    },
+    "program": "pw",
+    "pseudopotentials": {
+      "__ksd_type__": "tuple",
+      "items": [
+        {
+          "content": {
+            "content_identity": {
+              "algorithm": "sha256",
+              "byte_count": 3,
+              "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+            }
+          },
+          "destination": {
+            "value": "pseudo/Si.upf"
+          },
+          "identity": "pseudo"
+        }
+      ]
+    },
+    "task_definition_identity": "definition",
+    "task_instance_identity": "task"
+  },
+  "execution_record_content_identity": {
+    "algorithm": "sha256",
+    "byte_count": 101,
+    "digest": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+  },
+  "execution_record_manifest_entry_identity": "execution-record",
+  "execution_record_publication_snapshot_identity": "execution-publication",
+  "identity": "synthetic-result",
+  "native_output_entry_identities": {
+    "__ksd_type__": "tuple",
+    "items": [
+      "output-a",
+      "output-b"
+    ]
+  },
+  "native_output_manifest_identity": "outputs",
+  "process_observation": {
+    "after_snapshot_identity": "after",
+    "argv_content_identity": {
+      "algorithm": "sha256",
+      "byte_count": 4,
+      "digest": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    "attempt_identity": "attempt",
+    "before_snapshot_identity": "before",
+    "created_entry_count": 2,
+    "created_total_bytes": 11,
+    "executable_configuration_identity": {
+      "value": "configuration"
+    },
+    "execution_input_identity": {
+      "value": "input"
+    },
+    "identity": {
+      "value": "process"
+    },
+    "observer_version": "synthetic-observer:99",
+    "peak_resident_bytes": 4096,
+    "preparation_identity": {
+      "value": "preparation"
+    },
+    "stderr": {
+      "artifact_identity": "stderr-artifact",
+      "channel": "stderr",
+      "content_identity": {
+        "algorithm": "sha256",
+        "byte_count": 3,
+        "digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      }
+    },
+    "stdout": {
+      "artifact_identity": "stdout-artifact",
+      "channel": "stdout",
+      "content_identity": {
+        "algorithm": "sha256",
+        "byte_count": 8,
+        "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "termination": {
+      "exit_code": 0,
+      "kind": "normal_exit"
+    },
+    "wall_duration_nanoseconds": 18446744073709551615
+  },
+  "terminal_record_content_identity": {
+    "algorithm": "sha256",
+    "byte_count": 202,
+    "digest": "9999999999999999999999999999999999999999999999999999999999999999"
+  },
+  "terminal_record_identity": {
+    "value": "terminal"
+  }
+}

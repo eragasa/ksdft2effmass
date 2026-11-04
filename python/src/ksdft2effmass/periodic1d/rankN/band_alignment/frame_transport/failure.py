@@ -18,11 +18,11 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
-    StringWireEnum,
+    StrWireEnum,
 )
 
 
-class Periodic1DRankNTransportBackendExceptionCode(StringWireEnum):
+class Periodic1DRankNTransportBackendExceptionCode(StrWireEnum):
     """Classify a frame-transport backend failure without exception text."""
 
     ARITHMETIC_NONFINITE = "backend-arithmetic-nonfinite"

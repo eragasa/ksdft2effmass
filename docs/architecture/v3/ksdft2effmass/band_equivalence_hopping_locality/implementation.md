@@ -80,7 +80,7 @@ channel. Historical point attributes remain read-only projections of that result
 case result retains a
 `BandEquivalenceHoppingLocalityMetricCovarianceDefectResult`; the result records the
 ordinary-`Enum` probe identity and maximum absolute squared-length defect. The enum
-inherits the common `StringWireEnum` behavior, whose `to_wire()` and `from_wire()`
+inherits the common `StrWireEnum` behavior, whose `to_wire()` and `from_wire()`
 methods explicitly map between enum members and stable built-in strings without making
 members strings themselves. The retained record projection continues to
 emit only the historical scalar defect, so existing

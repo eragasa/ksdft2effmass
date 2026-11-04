@@ -10,10 +10,10 @@ import numpy as np
 from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array
 from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 
 
-class Periodic3DRankNGaugeNormalizationEnum(StringWireEnum):
+class Periodic3DRankNGaugeNormalizationEnum(StrWireEnum):
     """Select the reviewed interpretation of one gauge-attack coefficient."""
 
     AXIS_MAXIMUM = "axis-maximum"

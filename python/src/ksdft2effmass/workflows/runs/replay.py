@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field, replace
-from enum import StrEnum
 from hashlib import sha256
 from typing import final
 
@@ -20,6 +19,7 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetTransitionFirerIdentity,
     ColoredPetriNetValueKind,
 )
+from ksdft2effmass.serialization import StrWireEnum
 
 from ..model import (
     AttemptIdentity,
@@ -218,7 +218,7 @@ class WorkflowRuntimeBundle:
             raise ValueError("adapter_implementation_identity must not be empty")
 
 
-class WorkflowRunReplayOutcomeKind(StrEnum):
+class WorkflowRunReplayOutcomeKind(StrWireEnum):
     """Closed deterministic WorkflowRun replay outcomes."""
 
     EQUAL = "equal"
@@ -227,7 +227,7 @@ class WorkflowRunReplayOutcomeKind(StrEnum):
     ERROR = "error"
 
 
-class WorkflowRunReplayIssueCode(StrEnum):
+class WorkflowRunReplayIssueCode(StrWireEnum):
     """Closed reasons why replay did not establish exact equality."""
 
     RUNTIME_BUNDLE_MISMATCH = "runtime_bundle_mismatch"

@@ -8,12 +8,12 @@ from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
     NumpyFiniteFourierMatrixSeries,
 )
 
-from ksdft2effmass.serialization.enums import StringWireEnum
+from ksdft2effmass.serialization.enums import StrWireEnum
 
 from .base import Periodic2DRank2HoppingLocalityAnalysisRequestRole
 
 
-class Periodic2DRank2HoppingLocalityChannelEnum(StringWireEnum):
+class Periodic2DRank2HoppingLocalityChannelEnum(StrWireEnum):
     """Identify one unchanged ordinary-hopping channel."""
 
     REFERENCE = "reference"

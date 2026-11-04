@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
-from enum import Enum, StrEnum
+from enum import Enum
 from typing import TYPE_CHECKING, Self
 
 from projectkoios.optimization.alignment.closed_loop_polar_transport import (
@@ -33,7 +33,7 @@ from ksdft2effmass.real_space_support_truncation import (
     RealSpaceSupportTruncationFamily,
     RealSpaceSupportTruncationFamilyMember,
 )
-from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue, StrWireEnum
 
 from ..amplitude_refinement.analysis import (
     Periodic1DRank2AdaptiveAmplitudeAnalysis,
@@ -101,7 +101,7 @@ class CalculationWireEnum(Enum):
     TRUNCATION_COMPLETED = "truncation-completed"
 
 
-class _QualificationWireVariant(StrEnum):
+class _QualificationWireVariant(StrWireEnum):
     """Discriminate qualification payloads only at the retained-wire boundary."""
 
     EXTERNAL_GAP_FAILURE = "external-gap-failure"

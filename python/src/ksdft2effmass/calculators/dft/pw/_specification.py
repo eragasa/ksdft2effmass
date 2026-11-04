@@ -14,8 +14,8 @@ public contract until their shared meaning is demonstrated.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.units import UnitIdentity, UnitScalar
 
 
@@ -159,7 +159,7 @@ class PlaneWaveNativeConfigurationIdentity:
             raise ValueError("native-configuration identity must not be empty")
 
 
-class PlaneWaveBackendCompilationOutcome(StrEnum):
+class PlaneWaveBackendCompilationOutcome(StrWireEnum):
     """Closed outcome kinds for portable-to-backend compilation.
 
     Attributes
@@ -183,7 +183,7 @@ class PlaneWaveBackendCompilationOutcome(StrEnum):
     ERROR = "error"
 
 
-class PlaneWaveBackendCompilationFailureCode(StrEnum):
+class PlaneWaveBackendCompilationFailureCode(StrWireEnum):
     """Closed backend-compilation failure codes.
 
     Attributes

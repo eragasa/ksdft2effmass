@@ -8,10 +8,10 @@ from dataclasses import dataclass
 
 from scipy.special import jv  # type: ignore[import-untyped]
 
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 
 
-class ConstrainedBesselGeometryEnum(StringWireEnum):
+class ConstrainedBesselGeometryEnum(StrWireEnum):
     """Name one selected dependent positive-bond inventory."""
 
     TRIANGULAR = "triangular-three-bond"

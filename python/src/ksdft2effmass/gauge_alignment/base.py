@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import final
 
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 
 
 class GaugeAlignment(ABC):  # noqa: B024 - intentionally nominal marker
@@ -22,20 +22,20 @@ class GaugeAlignment(ABC):  # noqa: B024 - intentionally nominal marker
     __slots__ = ()
 
 
-class GaugeAlignmentActionConvention(StringWireEnum):
+class GaugeAlignmentActionConvention(StrWireEnum):
     """Identify which side of a represented frame receives the gauge action."""
 
     LEFT = "left"
     RIGHT = "right"
 
 
-class GaugeAlignmentInnerProductConvention(StringWireEnum):
+class GaugeAlignmentInnerProductConvention(StrWireEnum):
     """Identify the inner-product convention used by the alignment objective."""
 
     EUCLIDEAN = "euclidean"
 
 
-class GaugeAlignmentGroupFamily(StringWireEnum):
+class GaugeAlignmentGroupFamily(StrWireEnum):
     """Classify the transformation constraint defining a gauge group.
 
     Group family does not encode the represented inner product. For example,

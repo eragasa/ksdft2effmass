@@ -226,7 +226,8 @@ class TestOperatorRecordComparisonNumericalError:
         identity
         retention.
 
-        Limitations: Member count, aliases, ``StrEnum`` behavior, and lookups belong to
+        Limitations: Member count, aliases, ``StrWireEnum`` behavior, and lookups
+        belong to
         ``SV-ORCNEC``
         evidence. Analyzer emission, numerical verification, scientific validation,
         uncertainty quantification, and Rust conformance are not tested.
@@ -525,7 +526,8 @@ class TestOperatorRecordComparisonNumericalError:
         preserving
         ``error.code`` as in-memory structured state.
 
-        Limitations: ``StrEnum`` values do not independently create an exception schema.
+        Limitations: ``StrWireEnum`` values do not independently create an exception
+        schema.
         Pickling and
         future schemas are unspecified; Rust mapping remains conceptual, and no Analyzer
         emission, numerical verification, scientific validation, uncertainty

@@ -13,16 +13,16 @@ Prospective capabilities are selected individually:
 Membership in the QE distribution does not make every executable required.
 
 The public Python integration distinguishes four reusable software operations:
-`QuantumEspressoScfTask`, `QuantumEspressoNscfTask`,
-`QuantumEspressoBandPathTask`, and `QuantumEspressoBandsExtractionTask`. Each
+`QeScfTask`, `QeNscfTask`,
+`QeBandPathTask`, and `QeBandsExtractionTask`. Each
 retains an exact QE execution input and delegates through an explicitly injected
 plane-wave calculator port. Downstream operations require a mechanically
 completed predecessor result with exact native-state lineage. These software
 contracts do not select scientific settings, establish numerical convergence, or
-authorize a QE executable. `QuantumEspressoSimulation` is the immutable application
+authorize a QE executable. `QeSimulation` is the immutable application
 composition for one such Task: it binds the Task's equal exact execution input and
 identical calculator object together with a separate Workflow dispatch-effect
-executor. `LocalQuantumEspressoExecutor` implements that effect port. The composition
+executor. `LocalQeExecutor` implements that effect port. The composition
 does not invoke either boundary or retain a result. DOS remains deferred until its
 executable and result boundary is defined.
 
@@ -47,15 +47,15 @@ silicon band dataset. The maintained bootstrap workflow is
 observation is recorded in
 `calculations/bulk-silicon/qe-example01-si-scf-davidson/result.md`.
 
-For admitted QEXSD output, `QuantumEspressoObservationAdapter` implements the first
+For admitted QEXSD output, `QeObservationAdapter` implements the first
 stage of observation adaptation. Callers supply a
-`QuantumEspressoParsedDocumentRecord` that binds the exact parsed document to source
+`QeParsedDocumentRecord` that binds the exact parsed document to source
 content, parser implementation, and parser version; the Workflow artifact manifest
 and entry; the intended result identity; and the supported normalization
 policy/version. The adapter requires exact agreement between the represented SHA-256
 and byte count, parser identity, native format and semantic role, and neutral-record
 compatibility. It returns an
-immutable `QuantumEspressoExtractedObservationResult` with explicit limitations or a
+immutable `QeExtractedObservationResult` with explicit limitations or a
 closed failure that retains the reserved result identity without a partial
 observation. This software transformation neither
 executes QE nor establishes convergence, numerical verification, or scientific

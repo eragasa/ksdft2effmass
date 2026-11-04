@@ -9,7 +9,8 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from enum import StrEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from ._band_observations import BandEnergyUnit, BandStructureObservation
 
@@ -92,14 +93,14 @@ class BandComparisonSpecification:
             raise ValueError(f"{name} must be nonnegative")
 
 
-class BandStructureComparisonOutcome(StrEnum):
+class BandStructureComparisonOutcome(StrWireEnum):
     """Closed fail-closed numerical comparison outcome."""
 
     COMPARED = "compared"
     REJECTED = "rejected"
 
 
-class BandStructureComparisonIssueCode(StrEnum):
+class BandStructureComparisonIssueCode(StrWireEnum):
     """Closed incompatibility reasons for the initial comparison slice."""
 
     SYSTEM_MISMATCH = "system_mismatch"
