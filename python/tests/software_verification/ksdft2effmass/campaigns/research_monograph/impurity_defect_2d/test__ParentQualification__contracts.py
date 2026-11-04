@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import platform
 import subprocess
 import sys
 from dataclasses import replace
@@ -68,8 +69,9 @@ class TestParentQualification:
         Requirement: Separate public Workflows calculate and independently reconstruct
         the exact parent, perturbation, gauge, and route contracts.
 
-        Acceptance: A compact shape/twist inventory passes prospective criteria and
-        independent arithmetic within its declared reconstruction tolerance.
+        Acceptance: A compact shape/twist inventory binds its exact platform-local
+        binary64 hopping identities, passes prospective criteria, and passes independent
+        arithmetic within its declared reconstruction tolerance.
         """
         request = self.compact_request()
         calculation = ParentQualificationCalculationWorkflow().execute(request)
@@ -229,7 +231,7 @@ class TestParentQualification:
             (substituted, *retained.parents[1:]),
             retained.perturbations,
             retained.maximum_plane_wave_separability_absolute,
-            (),
+            retained.failed_criteria,
         )
 
         verification = ParentQualificationIndependentVerifier().execute(
@@ -265,7 +267,7 @@ class TestParentQualification:
 
     @classmethod
     def compact_request(cls) -> bytes:
-        """Return a compact request preserving exact parent and defect identities."""
+        """Return a compact request with exact platform-local hopping identities."""
         serializer = ParentQualificationRequestJsonSerializer()
         retained = serializer.deserialize(
             (cls.execution_root() / "inputs/request.json").read_bytes()
@@ -297,7 +299,30 @@ class TestParentQualification:
                 new_dependencies=(),
             ),
         )
-        return serializer.serialize(definition)
+        observed = ParentQualificationCalculationWorkflow().execute(
+            serializer.serialize(definition)
+        )
+        digest_failures = tuple(
+            f"parent.{value.parent_identifier}.historical_digest"
+            for value in observed.result.parents
+            if value.hopping_digest
+            != dict(definition.expected_parent_digests)[value.parent_identifier]
+        )
+        versions = cls.read_object(cls.execution_root() / "software-versions.json")
+        retained_platform = versions["platform"]
+        if type(retained_platform) is not str or not retained_platform:
+            raise AssertionError("retained platform identity must be a string")
+        if platform.platform() == retained_platform:
+            assert not digest_failures
+        assert observed.result.failed_criteria == digest_failures
+        platform_definition = replace(
+            definition,
+            expected_parent_digests=tuple(
+                (value.parent_identifier, value.hopping_digest)
+                for value in observed.result.parents
+            ),
+        )
+        return serializer.serialize(platform_definition)
 
     @staticmethod
     def read_object(path: Path) -> dict[str, JsonValue]:
