@@ -952,6 +952,34 @@ class TestQeResultValueSerializer:
         assert result.value is None
         assert result.failure is not None
 
+    def test_method__decode__rejects_retired_pw_envelope(self) -> None:
+        """Evidence ID: SV-QE-CODEC-008
+
+        Requirement: The retired PW schema and concrete-type pair has no fallback.
+
+        Method: Bind a complete PW payload to the exact retired envelope identities.
+
+        Oracle: PW decoding admits only the replacement schema and ``QePwResult:2``.
+
+        Acceptance: Incompatible unsupported-type evidence with no reconstructed value.
+
+        Interpretation: Retained legacy branches do not imply legacy PW admission.
+
+        Limitations: The retired payload itself is intentionally not retained.
+        """
+        envelope = replace(
+            self.make_envelope(self.fixture_bytes("pw")),
+            schema_identity="qe-result-value:1",
+            concrete_type_identity=ResultObjectTypeIdentity(
+                "ksdft2effmass.integration.quantum_espresso.QuantumEspressoPwResult:1"
+            ),
+        )
+        result = QeResultValueSerializer().decode(envelope)
+        assert result.status == "incompatible"
+        assert result.value is None
+        assert result.failure is not None
+        assert result.failure.code is WorkflowPersistenceFailureCode.UNSUPPORTED_TYPE
+
     def test_method__encode__rejects_identity_only_standins(self) -> None:
         """Evidence ID: SV-QE-CODEC-009
 
