@@ -51,7 +51,6 @@ from projectkoios.simulations.execution import (
     CalculatorExitDisposition,
 )
 
-import ksdft2effmass.integration.quantum_espresso.process as quantum_espresso_process
 from ksdft2effmass.integration.quantum_espresso import (
     LocalQeArtifactSource,
     LocalQeAttemptWorkspaceName,
@@ -1453,8 +1452,7 @@ class TestLocalQeExecutionPreparer:
         spawn produces a timeout rather than a normal exit.
         """
         monkeypatch.setattr(
-            quantum_espresso_process.time,
-            "monotonic_ns",
+            "ksdft2effmass.integration.quantum_espresso.process.time.monotonic_ns",
             Mock(side_effect=(1_000_000, 21_000_000, 22_000_000)),
         )
 
@@ -1560,8 +1558,7 @@ class TestLocalQeExecutionPreparer:
         staged = self.stage(prepared)
         assert type(staged) is QeStagedExecution
         monkeypatch.setattr(
-            quantum_espresso_process.subprocess,
-            "Popen",
+            "ksdft2effmass.integration.quantum_espresso.process.subprocess.Popen",
             Mock(side_effect=OSError("synthetic spawn failure")),
         )
 
