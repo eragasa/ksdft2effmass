@@ -167,6 +167,7 @@ projectkoios-simulations = { git = "https://github.com/eragasa/projectkoios-simu
 python_version = "3.14"
 files = ["src", "tests"]
 mypy_path = [
+    "$MYPY_CONFIG_FILE_DIR",
     "$MYPY_CONFIG_FILE_DIR/../calculations/research-monograph/impurity-defect-2d",
 ]
 warn_unused_configs = true

@@ -455,7 +455,7 @@ class TestOperatorRecordCompatibilityIssue:
 
         assert same_code_left == same_code_right
         assert same_code_left != different_code
-        assert same_code_left != _ArbitraryInput()
+        assert same_code_left.__eq__(_ArbitraryInput()) is NotImplemented
 
     @pytest.mark.parametrize(
         "api_name",
