@@ -85,6 +85,65 @@ centers, spreads, convergence status, symmetry conventions, reciprocal sewing, a
 energy reference. Compare direct-parent and Wannier bands, projectors, and represented
 operators on construction and withheld meshes.
 
+### Staggered withheld momentum validation
+
+Use separate reciprocal-space roles rather than evaluating interpolation only on the
+Wannier90 construction mesh:
+
+1. the SCF mesh qualifies the self-consistent density under Stage 2;
+2. a uniform construction mesh supplies the wavefunctions and overlaps used to build
+   the frozen `spd` Wannier representation; and
+3. a separately calculated staggered mesh supplies withheld parent values for
+   interpolation and truncation assessment.
+
+Freeze all three point sets in reduced reciprocal coordinates, including origins,
+shifts, weights, reciprocal-cell conventions, symmetry reduction and unfolding, and
+canonical ordering. The construction and withheld sets must be disjoint after
+reciprocal-lattice equivalence and every symmetry identification used by the
+calculation. A three-dimensional shifted Monkhorst--Pack mesh may provide the withheld
+set, but its dimensions and shift require their own prospective review; the rational
+one-dimensional stagger used by controlled models is a design pattern, not a silicon
+mesh prescription. A high-symmetry band path is a presentation and targeted-diagnostic
+inventory, not a substitute for the withheld uniform mesh.
+
+Evaluate the withheld Quantum ESPRESSO parent values with the same frozen SCF density,
+pseudopotential, cutoffs, geometry, occupations, spin branch, symmetry policy, units,
+and scalar energy reference used by the construction calculation. This isolates
+Wannier interpolation for one finite parent. It does not test SCF reciprocal-mesh
+convergence, which remains a separate Stage 2 obligation.
+
+For every admitted momentum and matched retained band, retain the parent value
+$E_n^{\mathrm{DFT}}(\mathbf{k})$, the complete Wannier-interpolated value
+$E_n^{\mathrm{W}}(\mathbf{k})$, and each support-truncated value
+$E_{n,R}^{\mathrm{W}}(\mathbf{k})$. Report maximum and declared weighted-RMS forms of
+three separate channels:
+
+\[
+ e_{\mathrm{interp}}=\lVert E^{\mathrm{DFT}}-E^{\mathrm{W}}\rVert,
+ \qquad
+ e_{\mathrm{trunc}}(R)=\lVert E^{\mathrm{W}}-E_R^{\mathrm{W}}\rVert,
+ \qquad
+ e_{\mathrm{total}}(R)=\lVert E^{\mathrm{DFT}}-E_R^{\mathrm{W}}\rVert.
+\]
+
+The residuals telescope pointwise, but their reported norms are not independent terms
+to be added. Check the applicable triangle inequality and preserve all three values.
+Stage 5 may use the total withheld error in an attained support--error or Pareto
+analysis; interpolation and deliberate truncation remain separately visible so an
+interpolation floor is not misreported as a locality limit.
+
+For entangled bands, freeze the outer and frozen windows, retained rank, projector or
+cluster matching, degeneracy policy, and failure disposition before evaluating these
+channels. Direct operator differences require an explicitly identified common retained
+space, basis or alignment, units, and energy reference. Without that bridge, report
+matched spectral and projector diagnostics rather than subtracting the plane-wave and
+Wannier matrices.
+
+A finite staggered mesh establishes only a withheld finite-sample result. It does not
+certify a continuum supremum, eliminate aliasing, or prove Wannier convergence. Any
+validation-mesh refinement or additional shifts must be declared prospectively and
+retained as separate sensitivity controls.
+
 The tutorial-scale silicon Wannier preview is a software/integration precursor only and
 cannot fill this gate.
 
