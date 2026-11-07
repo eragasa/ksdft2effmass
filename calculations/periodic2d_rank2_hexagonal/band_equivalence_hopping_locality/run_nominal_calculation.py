@@ -6,11 +6,6 @@ import math
 from pathlib import Path
 
 import numpy as np
-from projectkoios.physkit.periodic.lattice import (
-    DirectLattice2D,
-    DirectLatticeMetric,
-)
-
 from ksdft2effmass.band_equivalence_hopping_locality.calculation import (
     BandEquivalenceHoppingLocalityVerifier,
 )
@@ -35,6 +30,14 @@ from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.result imp
     Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder,
     Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
+from projectkoios.physkit.periodic.lattice import (
+    DirectLattice2D,
+    DirectLatticeMetric,
+)
 
 SQUARE_METRIC = DirectLatticeMetric(
     DirectLattice2D(
@@ -51,6 +54,13 @@ TRIANGULAR_METRIC = DirectLatticeMetric(
 SQUARE_BONDS = ((1, 0), (0, 1))
 TRIANGULAR_BONDS = ((1, 0), (0, 1), (1, -1))
 MAXIMUM_AMPLITUDE = math.pi / (4.0 * math.sqrt(6.0))
+IDENTITY_RECIPROCAL_SEWING = IdentityReciprocalSewing(ambient_dimension=4)
+ENDPOINT_SEWING = ReciprocalEndpointSewingInventory(
+    positive_axis_maps=(
+        IDENTITY_RECIPROCAL_SEWING.endpoint_map,
+        IDENTITY_RECIPROCAL_SEWING.endpoint_map,
+    )
+)
 
 DEFINITION = Periodic2DRank2BandEquivalenceHoppingLocalityRequest(
     family=BandEquivalenceHoppingLocalityFamilyEnum.GRAPHENE_INSPIRED,
@@ -104,7 +114,8 @@ def construct_artifacts(
 ]:
     """Calculate and independently verify one typed result."""
     analysis = Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
-        request=request
+        request=request,
+        endpoint_sewing=ENDPOINT_SEWING,
     ).execute()
     result = Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(
         analysis

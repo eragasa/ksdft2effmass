@@ -30,6 +30,10 @@ from ksdft2effmass.band_equivalence_hopping_locality.records import (
 from ksdft2effmass.band_equivalence_hopping_locality.result import (
     BandEquivalenceHoppingLocalityAnalysisRecorder,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 
 RefinementReferenceAnalyzer = refinement_reference.BandEquivalenceHoppingLocalityRetainedRefinementReferenceAnalyzer  # noqa: E501
 
@@ -67,6 +71,13 @@ def _request() -> BandEquivalenceHoppingLocalityRequest:
     )
 
 
+def _endpoint_sewing() -> ReciprocalEndpointSewingInventory:
+    identity_sewing = IdentityReciprocalSewing(ambient_dimension=4)
+    return ReciprocalEndpointSewingInventory(
+        positive_axis_maps=(identity_sewing.endpoint_map,) * 2
+    )
+
+
 def _diagnostics() -> tuple[BandEquivalenceHoppingLocalityDiagnostics, ...]:
     base = _request()
     requests = (
@@ -76,7 +87,10 @@ def _diagnostics() -> tuple[BandEquivalenceHoppingLocalityDiagnostics, ...]:
     )
     return tuple(
         BandEquivalenceHoppingLocalityAnalysisRecorder(
-            Rank2BandEquivalenceHoppingLocalityAnalyzer(request=request).execute()
+            Rank2BandEquivalenceHoppingLocalityAnalyzer(
+                request=request,
+                endpoint_sewing=_endpoint_sewing(),
+            ).execute()
         )
         .result()
         .diagnostics

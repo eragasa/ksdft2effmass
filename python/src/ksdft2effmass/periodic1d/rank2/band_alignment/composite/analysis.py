@@ -63,6 +63,7 @@ from ksdft2effmass.solidstate import (
     CenteredEvenMeshCyclicToOrdinaryRequest1D,
     CenteredUniformReciprocalMesh1D,
     ReciprocalBandFramePath1D,
+    ReciprocalEndpointSewingMap,
     ReciprocalOperatorFourierTransformer1D,
     ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorSamples1D,
@@ -81,12 +82,13 @@ from .result import (
 class Periodic1DCompositeBandAlignmentAnalyzer:
     """Calculate one complete rank-two alignment and block-locality result."""
 
-    __slots__ = ("_procrustes_solver", "_request")
+    __slots__ = ("_endpoint_sewing", "_procrustes_solver", "_request")
 
     def __init__(
         self,
         request: Periodic1DCompositeBandAlignmentConfiguration,
         procrustes_solver: NumpyBatchedComplexUnitaryProcrustesSolver,
+        endpoint_sewing: ReciprocalEndpointSewingMap,
     ) -> None:
         if type(request) is not Periodic1DCompositeBandAlignmentConfiguration:
             raise TypeError(
@@ -96,8 +98,13 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             raise TypeError(
                 "procrustes_solver must be NumpyBatchedComplexUnitaryProcrustesSolver"
             )
+        if type(endpoint_sewing) is not ReciprocalEndpointSewingMap:
+            raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingMap")
+        if endpoint_sewing.ambient_dimension != len(request.onsite_numerators):
+            raise ValueError("endpoint sewing must match the parent ambient dimension")
         self._request = request
         self._procrustes_solver = procrustes_solver
+        self._endpoint_sewing = endpoint_sewing
 
     @property
     def request(self) -> Periodic1DCompositeBandAlignmentConfiguration:
@@ -108,6 +115,11 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
     def procrustes_solver(self) -> NumpyBatchedComplexUnitaryProcrustesSolver:
         """Return the explicitly selected right-action Procrustes collaborator."""
         return self._procrustes_solver
+
+    @property
+    def endpoint_sewing(self) -> ReciprocalEndpointSewingMap:
+        """Return the explicit ambient-space reciprocal-endpoint map."""
+        return self._endpoint_sewing
 
     def execute(self) -> Periodic1DCompositeBandAlignmentCalculationResult:
         """Construct the exact parent, align frames, and evaluate finite ranges."""
@@ -140,7 +152,7 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
         raw_path = ReciprocalBandFramePath1D(
             mesh=mesh,
             frames=raw_frames,
-            sewing_map=ComplexMatrixQuantity(np.eye(4, dtype=np.complex128), unit),
+            sewing_map=self.endpoint_sewing.coefficient_map,
             orthonormality_absolute_tolerance=(
                 configuration.dimensionless_absolute_tolerance
             ),

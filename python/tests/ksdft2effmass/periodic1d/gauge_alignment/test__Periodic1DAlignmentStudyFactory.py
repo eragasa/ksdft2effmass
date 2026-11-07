@@ -43,6 +43,7 @@ from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request im
     Periodic1DRankNBandEquivalenceHoppingLocalityControls,
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import IdentityReciprocalSewing
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
@@ -180,6 +181,7 @@ class TestPeriodic1DAlignmentStudyFactory:
             lattice_geometry=rank2_geometry,
             configuration=self.rank2_configuration(),
             procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
+            endpoint_sewing=IdentityReciprocalSewing(ambient_dimension=4).endpoint_map,
         )
         rank2_factory = Periodic1DAlignmentStudyFactory(rank2_specification)
         rank2 = rank2_factory.create()
@@ -222,6 +224,9 @@ class TestPeriodic1DAlignmentStudyFactory:
                 lattice_geometry=object(),  # type: ignore[arg-type]
                 configuration=self.rank2_configuration(),
                 procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
+                endpoint_sewing=IdentityReciprocalSewing(
+                    ambient_dimension=4
+                ).endpoint_map,
             )
         with pytest.raises(TypeError, match="lattice_geometry"):
             Periodic1DRankNAlignmentStudySpecification(

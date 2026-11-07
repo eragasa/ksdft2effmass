@@ -19,6 +19,8 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     FinitePeriodicMeshFrameInventory,
 )
 
+from ksdft2effmass.solidstate.reciprocal_sewing import IdentityReciprocalSewing
+
 from .parent_hamiltonian import _Periodic1DRank2Parent
 from .request import Periodic1DRank2Request
 from .results import (
@@ -214,6 +216,11 @@ class _Periodic1DRank2ParentQualifier:
             return _Periodic1DRank2UnqualifiedPreparation(
                 Periodic1DRank2ExternalGapFailure(parent.minimum_external_gap)
             )
+        endpoint_sewing = IdentityReciprocalSewing(
+            ambient_dimension=request.ambient_rank
+        ).endpoint_map
+        if endpoint_sewing.identifier != request.endpoint_sewing_identifier:
+            raise ValueError("endpoint sewing identity does not match the request")
         source = FinitePeriodicMeshFrameInventory.from_arrays(
             mesh=CenteredUniformMesh(
                 dimension=1,
@@ -221,7 +228,7 @@ class _Periodic1DRank2ParentQualifier:
                 offsets=(0.0,),
             ),
             frames=parent.raw_retained_frames,
-            endpoint_sewing_map=np.eye(4, dtype=np.complex128),
+            endpoint_sewing_map=endpoint_sewing.coefficient_map.magnitude,
             ambient_basis_identifier=request.ambient_basis_identifier,
             retained_frame_identifier=request.retained_frame_identifier,
             endpoint_sewing_identifier=request.endpoint_sewing_identifier,

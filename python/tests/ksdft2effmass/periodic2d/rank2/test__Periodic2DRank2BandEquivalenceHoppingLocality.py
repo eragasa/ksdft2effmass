@@ -7,7 +7,11 @@ from dataclasses import replace
 import numpy as np
 import pytest
 from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
-from projectkoios.physkit.units import ScalarQuantity, Unitless
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    ScalarQuantity,
+    Unitless,
+)
 
 from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
     FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
@@ -15,6 +19,10 @@ from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
     BandEquivalenceHoppingLocalityFamilyEnum,
     GaugeNormalizationEnum,
     ParentEnum,
+)
+from ksdft2effmass.band_equivalence_hopping_locality.result import (
+    SewnBandEquivalenceRecorder,
+    SewnBandEquivalenceResult,
 )
 from ksdft2effmass.band_equivalence_hopping_locality.verification import (
     BandEquivalenceHoppingLocalityVerificationThresholds,
@@ -44,12 +52,27 @@ from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.visualizat
 from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.visualizations.visualizer import (  # noqa: E501
     Periodic2DRank2BandEquivalenceHoppingLocalityVisualizer,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+    ReciprocalEndpointSewingMap,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestPeriodic2DRank2BandEquivalenceHoppingLocality:
     """Establish rank-first delegation and typed serialization boundaries."""
+
+    @staticmethod
+    def _endpoint_sewing() -> ReciprocalEndpointSewingInventory:
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=4)
+        return ReciprocalEndpointSewingInventory(
+            positive_axis_maps=(
+                identity_sewing.endpoint_map,
+                identity_sewing.endpoint_map,
+            )
+        )
 
     @staticmethod
     def _request() -> Periodic2DRank2BandEquivalenceHoppingLocalityRequest:
@@ -93,7 +116,8 @@ class TestPeriodic2DRank2BandEquivalenceHoppingLocality:
 
     def test__analysis_and_result__retain_rank_first_owner_types(self) -> None:
         analysis = Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
-            request=self._request()
+            request=self._request(),
+            endpoint_sewing=self._endpoint_sewing(),
         ).execute()
         result = Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(
             analysis
@@ -119,9 +143,57 @@ class TestPeriodic2DRank2BandEquivalenceHoppingLocality:
         )
         assert restored.to_json() == result.to_json()
 
+    def test__sewn_result__retains_the_exact_ordered_maps(self) -> None:
+        analysis = Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
+            request=self._request(),
+            endpoint_sewing=self._endpoint_sewing(),
+        ).execute()
+        result = SewnBandEquivalenceRecorder(analysis).result()
+        restored = SewnBandEquivalenceResult.from_json(result.to_json())
+
+        assert restored.to_json() == result.to_json()
+        assert restored.endpoint_sewing.spatial_dimension == 2
+        assert restored.endpoint_sewing.ambient_dimension == 4
+        assert (
+            tuple(
+                endpoint_map.identifier
+                for endpoint_map in restored.endpoint_sewing.positive_axis_maps
+            )
+            == (IdentityReciprocalSewing.IDENTIFIER,) * 2
+        )
+
+    def test__legacy_result__rejects_nonidentity_sewing_without_a_wire_field(
+        self,
+    ) -> None:
+        phase_matrix = np.eye(4, dtype=np.complex128)
+        phase_matrix[0, 0] = np.exp(0.25j)
+        nonidentity_map = ReciprocalEndpointSewingMap(
+            identifier="diagonal-phase-axis-1.test",
+            coefficient_map=ComplexMatrixQuantity(phase_matrix, Unitless()),
+        )
+        identity_map = IdentityReciprocalSewing(ambient_dimension=4).endpoint_map
+        analysis = Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
+            request=self._request(),
+            endpoint_sewing=ReciprocalEndpointSewingInventory(
+                positive_axis_maps=(nonidentity_map, identity_map)
+            ),
+        ).execute()
+
+        with pytest.raises(ValueError, match="v1 calculation result"):
+            Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(
+                analysis
+            ).result()
+
+        bound_result = SewnBandEquivalenceRecorder(analysis).result()
+        assert np.array_equal(
+            bound_result.endpoint_sewing.map_for_axis(0).coefficient_map.magnitude,
+            phase_matrix,
+        )
+
     def test__verification_and_visualization__retain_rank_first_actions(self) -> None:
         analysis = Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
-            request=self._request()
+            request=self._request(),
+            endpoint_sewing=self._endpoint_sewing(),
         ).execute()
         result = Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(
             analysis

@@ -29,11 +29,23 @@ from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.result imp
     Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRecorder,
     Periodic3DRank2BandEquivalenceHoppingLocalityCalculationResult,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 from projectkoios.physkit.periodic.lattice import (
     BravaisLattice,
     DirectLatticeMetric,
 )
 
+IDENTITY_RECIPROCAL_SEWING = IdentityReciprocalSewing(ambient_dimension=4)
+ENDPOINT_SEWING = ReciprocalEndpointSewingInventory(
+    positive_axis_maps=(
+        IDENTITY_RECIPROCAL_SEWING.endpoint_map,
+        IDENTITY_RECIPROCAL_SEWING.endpoint_map,
+        IDENTITY_RECIPROCAL_SEWING.endpoint_map,
+    )
+)
 SIMPLE_CUBIC_METRIC = DirectLatticeMetric(
     BravaisLattice.cubic_primitive().direct_lattice
 )
@@ -71,7 +83,8 @@ def construct_artifacts(
 ]:
     """Calculate and independently verify one typed result."""
     analysis = Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer(
-        request=request
+        request=request,
+        endpoint_sewing=ENDPOINT_SEWING,
     ).execute()
     result = Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(
         analysis

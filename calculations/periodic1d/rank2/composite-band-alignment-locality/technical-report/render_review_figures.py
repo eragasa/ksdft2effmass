@@ -21,6 +21,7 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.visu
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import IdentityReciprocalSewing
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )
@@ -38,6 +39,7 @@ def main() -> int:
     result = Periodic1DCompositeBandAlignmentAnalyzer(
         request,
         NumpyBatchedComplexUnitaryProcrustesSolver(),
+        IdentityReciprocalSewing(ambient_dimension=4).endpoint_map,
     ).execute()
     verified = Periodic1DCompositeBandAlignmentVerifier(
         result_wire=result.to_json()

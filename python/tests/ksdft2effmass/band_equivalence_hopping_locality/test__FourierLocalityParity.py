@@ -32,6 +32,10 @@ from ksdft2effmass.band_equivalence_hopping_locality.result import (
 from ksdft2effmass.band_equivalence_hopping_locality.results import (
     BandEquivalenceHoppingLocalityErrorChannels,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -59,6 +63,13 @@ _DIRECTED = np.array(
 )
 _HERMITIAN_BOND = _DIRECTED + _DIRECTED.conjugate().T
 _SEED = np.eye(4, 2, dtype=np.complex128)
+
+
+def _endpoint_sewing(dimension: int) -> ReciprocalEndpointSewingInventory:
+    identity_sewing = IdentityReciprocalSewing(ambient_dimension=4)
+    return ReciprocalEndpointSewingInventory(
+        positive_axis_maps=(identity_sewing.endpoint_map,) * dimension
+    )
 
 
 @dataclass(frozen=True, slots=True)
@@ -635,7 +646,8 @@ class TestFourierLocalityParity:
             amplitude_resolution_intervals=(1, 2),
         )
         scientific_analysis = analysis.Rank2BandEquivalenceHoppingLocalityAnalyzer(
-            request=request
+            request=request,
+            endpoint_sewing=_endpoint_sewing(request.dimension),
         ).execute()
         retained = BandEquivalenceHoppingLocalityAnalysisRecorder(
             scientific_analysis
@@ -1117,7 +1129,8 @@ class TestFourierLocalityParity:
             amplitude_resolution_intervals=(1, 2),
         )
         scientific_analysis = analysis.Rank2BandEquivalenceHoppingLocalityAnalyzer(
-            request=request
+            request=request,
+            endpoint_sewing=_endpoint_sewing(request.dimension),
         ).execute()
         point = scientific_analysis.cases[0].points[0]
         coordinates = _coordinates(6, case.dimension, 0.5)
@@ -1192,7 +1205,8 @@ class TestFourierLocalityParity:
         )
         results = tuple(
             analysis.Rank2BandEquivalenceHoppingLocalityAnalyzer(
-                request=request
+                request=request,
+                endpoint_sewing=_endpoint_sewing(request.dimension),
             ).execute()
             for request in requests
         )

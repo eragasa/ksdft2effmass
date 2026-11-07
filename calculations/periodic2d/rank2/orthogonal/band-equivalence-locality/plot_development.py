@@ -3,8 +3,6 @@
 from dataclasses import replace
 from pathlib import Path
 
-from run_development import DEFINITION
-
 from ksdft2effmass.band_equivalence_hopping_locality.plotting import (
     BandEquivalenceHoppingLocalityPlotRequest,
     BandEquivalenceHoppingLocalityPlotWriter,
@@ -12,6 +10,7 @@ from ksdft2effmass.band_equivalence_hopping_locality.plotting import (
 from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.analysis import (
     Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer,
 )
+from run_development import DEFINITION, ENDPOINT_SEWING
 
 
 def main() -> int:
@@ -22,7 +21,10 @@ def main() -> int:
         replace(DEFINITION, construction_size=64, evaluation_size=129),
     )
     diagnostics = tuple(
-        Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(request=request).execute()
+        Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
+            request=request,
+            endpoint_sewing=ENDPOINT_SEWING,
+        ).execute()
         for request in requests
     )
     figures = Path(__file__).resolve().parent / "analysis" / "development" / "figures"

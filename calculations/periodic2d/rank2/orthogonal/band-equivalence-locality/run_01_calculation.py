@@ -10,9 +10,7 @@ from importlib.metadata import version
 from pathlib import Path
 
 import numpy as np
-from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
-
-from ksdft2effmass.band_equivalence_hopping_locality.definitions import (  # noqa: E501
+from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
     FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
     BandEquivalenceHoppingLocalityCase,
     BandEquivalenceHoppingLocalityFamilyEnum,
@@ -32,9 +30,21 @@ from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.result imp
     Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder,
     Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
+from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
 
 EXECUTION_ID = "direct-square-rank2-n16"
 CALCULATION_FAMILY = "periodic2d-rank2-orthogonal-band-equivalence-locality"
+identity_reciprocal_sewing = IdentityReciprocalSewing(ambient_dimension=4)
+endpoint_sewing = ReciprocalEndpointSewingInventory(
+    positive_axis_maps=(
+        identity_reciprocal_sewing.endpoint_map,
+        identity_reciprocal_sewing.endpoint_map,
+    )
+)
 configuration = Periodic2DRank2BandEquivalenceHoppingLocalityRequest(
     family=BandEquivalenceHoppingLocalityFamilyEnum.SQUARE,
     cases=(
@@ -68,9 +78,12 @@ temporary_directory = execution_directory.with_name(f".{EXECUTION_ID}.incomplete
 if execution_directory.exists() or temporary_directory.exists():
     raise FileExistsError("refusing to overwrite a periodic-2D locality execution")
 analysis = Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
-    request=configuration
+    request=configuration,
+    endpoint_sewing=endpoint_sewing,
 ).execute()
-result = Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(analysis).result()
+result = Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(
+    analysis
+).result()
 configuration_bytes = configuration.to_json()
 result_bytes = result.to_json()
 if Periodic2DRank2BandEquivalenceHoppingLocalityRequest.from_json(

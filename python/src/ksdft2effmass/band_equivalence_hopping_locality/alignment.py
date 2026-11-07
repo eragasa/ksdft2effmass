@@ -27,6 +27,10 @@ from projectkoios.optimization.selection.harmonic import (
     PeriodicHarmonicMaximumStatus,
 )
 
+from ksdft2effmass.solidstate.reciprocal_sewing import (
+    ReciprocalEndpointSewingInventory,
+)
+
 from .definitions import TRANSPORT_RANK_DEFICIENT_REASON
 
 type ComplexArray = NDArray[np.complex128]
@@ -190,16 +194,24 @@ def frame_transport_diagnostics(
     rank_absolute: float,
     rank_relative: float,
     *,
+    endpoint_sewing: ReciprocalEndpointSewingInventory,
     procrustes_solve: _ProcrustesSolve | None = None,
 ) -> FrameTransportDiagnostic:
-    """Measure neighbor transport, loop closure, and plaquette sewing sparsely."""
+    """Measure neighbor transport, sewn loop closure, and plaquettes sparsely."""
     if type(dimension) is not int or dimension <= 0:
         raise ValueError("dimension must be a positive built-in integer")
     if frame.ndim != dimension + 2:
         raise ValueError("frame tensor rank must match the spatial dimension")
     retained_rank = int(frame.shape[-1])
-    if retained_rank <= 0 or frame.shape[-2] < retained_rank:
+    ambient_dimension = int(frame.shape[-2])
+    if retained_rank <= 0 or ambient_dimension < retained_rank:
         raise ValueError("frame must have a positive admitted retained rank")
+    if type(endpoint_sewing) is not ReciprocalEndpointSewingInventory:
+        raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingInventory")
+    if endpoint_sewing.spatial_dimension != dimension:
+        raise ValueError("endpoint sewing must match the spatial dimension")
+    if endpoint_sewing.ambient_dimension != ambient_dimension:
+        raise ValueError("endpoint sewing must match the frame ambient dimension")
     identity = np.eye(retained_rank, dtype=np.complex128)
     tolerance = ComplexUnitaryProcrustesTolerance(
         rank_absolute=rank_absolute,
@@ -215,6 +227,18 @@ def frame_transport_diagnostics(
     link_unitaries: list[ComplexArray] = []
     for axis in range(dimension):
         neighbor = np.roll(frame, shift=-1, axis=axis)
+        # ``np.roll`` identifies the last point directly with the first. Replace only
+        # that wrap target so interior links remain ordinary same-chart overlaps.
+        boundary_source = np.take(frame, indices=0, axis=axis)
+        sewing_matrix = endpoint_sewing.map_for_axis(axis).coefficient_map.magnitude
+        sewn_boundary = np.einsum(
+            "ab,...br->...ar",
+            sewing_matrix,
+            boundary_source,
+        )
+        boundary_index: list[slice | int] = [slice(None)] * frame.ndim
+        boundary_index[axis] = -1
+        neighbor[tuple(boundary_index)] = sewn_boundary
         transport = solve(frame, neighbor, tolerance)
         links = transport.right_unitary_completions
         singular_values = transport.cross_singular_values

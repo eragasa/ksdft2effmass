@@ -16,12 +16,16 @@ from ksdft2effmass.band_equivalence_hopping_locality.plotting import (
     BandEquivalenceToleranceMapRequest,
     BandEquivalenceToleranceMapWriter,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import (
+    ReciprocalEndpointSewingInventory,
+)
 
 
 class _DevelopmentDefinitionModule(Protocol):
     """Expose the typed request owned by one family composition root."""
 
     DEFINITION: BandEquivalenceHoppingLocalityRequest
+    ENDPOINT_SEWING: ReciprocalEndpointSewingInventory
 
 
 CALCULATION_DIRECTORY = Path(__file__).resolve().parent
@@ -49,8 +53,11 @@ FAMILY_DEFINITION_PATHS = (
 OUTPUT_DIRECTORY = CALCULATION_DIRECTORY / "analysis" / "development" / "generated"
 
 
-def _load_definition(path: Path, index: int) -> BandEquivalenceHoppingLocalityRequest:
-    """Load one explicit family request without making experiment roots packages."""
+def _load_composition(
+    path: Path,
+    index: int,
+) -> tuple[BandEquivalenceHoppingLocalityRequest, ReciprocalEndpointSewingInventory]:
+    """Load one explicit family request and reciprocal-axis sewing inventory."""
     specification = importlib.util.spec_from_file_location(
         f"band_equivalence_tolerance_family_{index}",
         path,
@@ -61,22 +68,28 @@ def _load_definition(path: Path, index: int) -> BandEquivalenceHoppingLocalityRe
     specification.loader.exec_module(module)
     typed_module = cast(_DevelopmentDefinitionModule, module)
     definition = typed_module.DEFINITION
+    endpoint_sewing = typed_module.ENDPOINT_SEWING
     if type(definition) is not BandEquivalenceHoppingLocalityRequest:
         raise TypeError(
             f"DEFINITION is not a BandEquivalenceHoppingLocalityRequest: {path}"
         )
-    return definition
+    if type(endpoint_sewing) is not ReciprocalEndpointSewingInventory:
+        raise TypeError(f"ENDPOINT_SEWING has the wrong type: {path}")
+    return definition, endpoint_sewing
 
 
 def main() -> int:
     """Calculate typed development diagnostics and render the shared protocol map."""
-    definitions = tuple(
-        _load_definition(path, index)
+    compositions = tuple(
+        _load_composition(path, index)
         for index, path in enumerate(FAMILY_DEFINITION_PATHS)
     )
     diagnostics = tuple(
-        Rank2BandEquivalenceHoppingLocalityAnalyzer(request=definition).execute()
-        for definition in definitions
+        Rank2BandEquivalenceHoppingLocalityAnalyzer(
+            request=definition,
+            endpoint_sewing=endpoint_sewing,
+        ).execute()
+        for definition, endpoint_sewing in compositions
     )
     result = BandEquivalenceToleranceMapWriter(
         request=BandEquivalenceToleranceMapRequest(

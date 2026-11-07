@@ -18,6 +18,10 @@ from ksdft2effmass.band_equivalence_hopping_locality.result import (
     BandEquivalenceHoppingLocalityAnalysisRecorder,
     BandEquivalenceHoppingLocalityCalculationResult,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 from numpy.typing import NDArray
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesDefinition,
@@ -43,6 +47,15 @@ def _full_rank_frame(dimension: int, size: int = 3) -> ComplexArray:
     for index in np.ndindex(shape):
         frame[index][:2, :] = _rotation(float(angle[index]))
     return frame
+
+
+def _identity_endpoint_sewing(
+    dimension: int,
+) -> ReciprocalEndpointSewingInventory:
+    identity_sewing = IdentityReciprocalSewing(ambient_dimension=4)
+    return ReciprocalEndpointSewingInventory(
+        positive_axis_maps=(identity_sewing.endpoint_map,) * dimension
+    )
 
 
 def _deficient_frame(dimension: int) -> ComplexArray:
@@ -160,7 +173,11 @@ class TestFrameTransportDiagnostics:
     def test_full_rank_transport_matches_local_reference(self, dimension: int) -> None:
         frame = _full_rank_frame(dimension)
         observed = alignment.frame_transport_diagnostics(
-            frame, dimension, 1.0e-10, 1.0e-12
+            frame,
+            dimension,
+            1.0e-10,
+            1.0e-12,
+            endpoint_sewing=_identity_endpoint_sewing(dimension),
         )
         expected = _local_full_rank_reference(frame, dimension)
 
@@ -208,7 +225,13 @@ class TestFrameTransportDiagnostics:
             "alignment.NumpyBatchedComplexUnitaryProcrustesSolver",
             CapturingSolver,
         )
-        alignment.frame_transport_diagnostics(frame, 2, 1.0e-10, 1.0e-12)
+        alignment.frame_transport_diagnostics(
+            frame,
+            2,
+            1.0e-10,
+            1.0e-12,
+            endpoint_sewing=_identity_endpoint_sewing(2),
+        )
 
         assert len(captured) == 2
         for definition, completions in captured:
@@ -226,7 +249,13 @@ class TestFrameTransportDiagnostics:
         frame[1, ..., 1, 1] = 0.5
         frame[1, ..., 2, 1] = np.sqrt(0.75)
 
-        observed = alignment.frame_transport_diagnostics(frame, 2, 0.2, 0.3)
+        observed = alignment.frame_transport_diagnostics(
+            frame,
+            2,
+            0.2,
+            0.3,
+            endpoint_sewing=_identity_endpoint_sewing(2),
+        )
 
         assert observed.maximum_rank_cutoff == pytest.approx(0.5)
         assert observed.rank_deficient_link_count > 0
@@ -249,7 +278,11 @@ class TestFrameTransportDiagnostics:
             prohibited_eigenvalues,
         )
         observed = alignment.frame_transport_diagnostics(
-            _deficient_frame(dimension), dimension, 1.0e-10, 1.0e-12
+            _deficient_frame(dimension),
+            dimension,
+            1.0e-10,
+            1.0e-12,
+            endpoint_sewing=_identity_endpoint_sewing(dimension),
         )
 
         assert observed.rank_deficient_link_count > 0
@@ -275,13 +308,18 @@ class TestFrameTransportDiagnostics:
         )
         with pytest.raises(np.linalg.LinAlgError, match="synthetic owner failure"):
             alignment.frame_transport_diagnostics(
-                _full_rank_frame(2), 2, 1.0e-10, 1.0e-12
+                _full_rank_frame(2),
+                2,
+                1.0e-10,
+                1.0e-12,
+                endpoint_sewing=_identity_endpoint_sewing(2),
             )
 
     def test_roundoff_cutoff_survives_typed_result_round_trip(self) -> None:
         definition = self.analysis_request()
         analysis = Rank2BandEquivalenceHoppingLocalityAnalyzer(
-            request=definition
+            request=definition,
+            endpoint_sewing=_identity_endpoint_sewing(definition.dimension),
         ).execute()
         result = BandEquivalenceHoppingLocalityAnalysisRecorder(analysis).result()
         point = result.diagnostics.cases[0].points[0]
@@ -296,7 +334,8 @@ class TestFrameTransportDiagnostics:
     def test_analysis_rejects_zero_filled_inapplicable_topology(self) -> None:
         definition = self.analysis_request()
         analysis = Rank2BandEquivalenceHoppingLocalityAnalyzer(
-            request=definition
+            request=definition,
+            endpoint_sewing=_identity_endpoint_sewing(definition.dimension),
         ).execute()
         point = analysis.cases[0].points[0]
         with pytest.raises(ValueError, match="prohibits topology diagnostics"):

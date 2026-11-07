@@ -99,9 +99,20 @@ A scalar Fourier-locality analyzer may compose:
    diagnostics.
 
 A composite analyzer additionally owns the declared retained frame, sewing, alignment,
-projection, block transform, and block-Hermiticity composition. An admissible-set
-analyzer consumes typed upstream values and declared threshold policy; it does not
-recompute a hidden alternative upstream calculation or subclass its analyzer.
+projection, block transform, and block-Hermiticity composition. Reciprocal-endpoint
+sewing enters that analyzer as an explicit immutable
+`ReciprocalEndpointSewingMap`; the identity construction is selected by the
+caller rather than hard-coded inside transport. Alternative constructions may produce
+the same exact value type while retaining technique-specific inputs and validation.
+The shared value does not infer basis identity: correlation with the exact ordered
+ambient basis and Bloch convention remains a caller-owned scientific obligation. The
+single dimension name is `ambient_dimension`. For
+$F(k)\in\mathbb{C}^{\mathtt{ambient\_dimension}\times r}$, named identity sewing means
+$Q_G=I_{\mathtt{ambient\_dimension}}$, not $I_r$. The existing embedded control has
+`ambient_dimension = 4` and $r=2$, so its identity endpoint map is $I_4$ and its projected
+closure $F_{\mathrm{end}}^\dagger Q_GF_{\mathrm{start}}$ remains a $2\times2$ value that
+may be nonidentity. An admissible-set analyzer consumes typed upstream values and declared threshold policy; it
+does not recompute a hidden alternative upstream calculation or subclass its analyzer.
 
 One expensive solve or eigensystem per declared finite case supplies every downstream
 channel that refers to that case. Different representations or refinement axes remain

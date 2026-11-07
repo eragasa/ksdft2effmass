@@ -21,6 +21,10 @@ from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
     GaugeNormalizationEnum,
     ParentEnum,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 
 pytestmark = pytest.mark.unit
 
@@ -63,10 +67,14 @@ class TestShellScaleDecisionLandscapeCalculator:
             locality_request=self.locality_request(),
             scale_sample_count=5,
         )
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=4)
         result = ShellScaleDecisionLandscapeCalculator(
             request=request,
             analyzer=Rank2BandEquivalenceHoppingLocalityAnalyzer(
-                request=request.locality_request
+                request=request.locality_request,
+                endpoint_sewing=ReciprocalEndpointSewingInventory(
+                    positive_axis_maps=(identity_sewing.endpoint_map,) * 2
+                ),
             ),
         ).execute()
 

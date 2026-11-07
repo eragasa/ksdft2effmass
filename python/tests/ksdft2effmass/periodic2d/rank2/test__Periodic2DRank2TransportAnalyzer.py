@@ -5,6 +5,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 from projectkoios.numerics.numpy.typing import Complex128Array
+from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
 from ksdft2effmass.periodic2d.rank2.band_alignment.frame_transport.analysis import (
     Periodic2DRank2TransportAnalyzer,
@@ -20,12 +21,27 @@ from ksdft2effmass.periodic2d.rank2.band_alignment.frame_transport.request impor
 from ksdft2effmass.periodic2d.rank2.band_alignment.frame_transport.result import (
     Periodic2DRank2TransportDiagnosticAnalysis,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+    ReciprocalEndpointSewingMap,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestPeriodic2DRank2TransportAnalyzer:
     """Bind immutable two-dimensional frame fields to sparse loop diagnostics."""
+
+    @staticmethod
+    def _endpoint_sewing() -> ReciprocalEndpointSewingInventory:
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=2)
+        return ReciprocalEndpointSewingInventory(
+            positive_axis_maps=(
+                identity_sewing.endpoint_map,
+                identity_sewing.endpoint_map,
+            )
+        )
 
     @staticmethod
     def _identity_frame(shape: tuple[int, ...]) -> Complex128Array:
@@ -40,6 +56,7 @@ class TestPeriodic2DRank2TransportAnalyzer:
             frame=frame,
             rank_absolute=1.0e-12,
             rank_relative=1.0e-10,
+            endpoint_sewing=self._endpoint_sewing(),
         )
         frame[...] = 0.0
 
@@ -63,10 +80,43 @@ class TestPeriodic2DRank2TransportAnalyzer:
         with pytest.raises(ValueError):
             request.frame.setflags(write=True)
 
+    def test_uses_ambient_sewing_on_boundary_links(self) -> None:
+        phase = 0.25
+        frame = np.broadcast_to(
+            np.eye(3, 2, dtype=np.complex128),
+            (2, 3, 3, 2),
+        ).copy()
+        phase_matrix = np.eye(3, dtype=np.complex128)
+        phase_matrix[0, 0] = np.exp(1j * phase)
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=3)
+        request = Periodic2DRank2TransportAnalysisRequest(
+            frame=frame,
+            rank_absolute=1.0e-12,
+            rank_relative=1.0e-10,
+            endpoint_sewing=ReciprocalEndpointSewingInventory(
+                positive_axis_maps=(
+                    ReciprocalEndpointSewingMap(
+                        identifier="diagonal-phase-axis-1.test",
+                        coefficient_map=ComplexMatrixQuantity(
+                            phase_matrix,
+                            Unitless(),
+                        ),
+                    ),
+                    identity_sewing.endpoint_map,
+                )
+            ),
+        )
+
+        result = Periodic2DRank2TransportAnalyzer(request=request).execute()
+
+        assert result.maximum_absolute_closure_phases == pytest.approx((0.0, phase))
+        assert result.maximum_plaquette_phase == pytest.approx(0.0)
+
     def test_rejects_a_three_dimensional_frame_field(self) -> None:
-        with pytest.raises(ValueError, match="N1, N2, ambient, 2"):
+        with pytest.raises(ValueError, match="N1, N2, ambient_dimension, 2"):
             Periodic2DRank2TransportAnalysisRequest(
                 frame=self._identity_frame((2, 2, 2)),
                 rank_absolute=1.0e-12,
                 rank_relative=1.0e-10,
+                endpoint_sewing=self._endpoint_sewing(),
             )

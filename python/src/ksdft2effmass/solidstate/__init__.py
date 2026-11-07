@@ -125,6 +125,11 @@ from .reciprocal_paths import (
     PlaneWaveReciprocalSewingResult,
     ReciprocalSewingDirection1D,
 )
+from .reciprocal_sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+    ReciprocalEndpointSewingMap,
+)
 from .represented_operators import ScalarFiniteLatticeOperator
 from .route_reconciliation import (
     ScalarFiniteLatticeRouteReconciliationResult,
@@ -187,6 +192,7 @@ __all__ = [
     "FiniteLatticeShape",
     "GaugeAttack",
     "GaugeRotation",
+    "IdentityReciprocalSewing",
     "IntegralLatticeOperation",
     "Lattice1D",
     "Lattice2D",
@@ -208,6 +214,8 @@ __all__ = [
     "LocalizedOnsiteTerm",
     "LocalizedPerturbation",
     "LocalizedPerturbationOperatorConstructor",
+    "ReciprocalEndpointSewingInventory",
+    "ReciprocalEndpointSewingMap",
     "PeriodicImageResolver",
     "PeriodicImageResult",
     "PlaneWaveBasis1D",

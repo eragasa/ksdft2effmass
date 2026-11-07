@@ -44,6 +44,7 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite.verification import
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import IdentityReciprocalSewing
 
 pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
 
@@ -78,6 +79,7 @@ def composite_wire() -> bytes:
         Periodic1DCompositeBandAlignmentAnalyzer(
             configuration,
             NumpyBatchedComplexUnitaryProcrustesSolver(),
+            IdentityReciprocalSewing(ambient_dimension=4).endpoint_map,
         )
         .execute()
         .to_json()

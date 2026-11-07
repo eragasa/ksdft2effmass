@@ -14,6 +14,7 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import IdentityReciprocalSewing
 
 
 @pytest.fixture(scope="session")
@@ -52,6 +53,7 @@ def composite_result(
     analyzer = Periodic1DCompositeBandAlignmentAnalyzer(
         composite_configuration,
         NumpyBatchedComplexUnitaryProcrustesSolver(),
+        IdentityReciprocalSewing(ambient_dimension=4).endpoint_map,
     )
     assert analyzer.request is composite_configuration
     return analyzer.execute()

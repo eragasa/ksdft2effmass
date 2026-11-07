@@ -39,6 +39,7 @@ from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request im
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
     Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import ReciprocalEndpointSewingMap
 
 from .base import Periodic1DGaugeAlignment
 
@@ -66,6 +67,7 @@ class Periodic1DRank2AlignmentStudySpecification:
     lattice_geometry: Periodic1DLatticeGeometry
     configuration: Periodic1DCompositeBandAlignmentConfiguration
     procrustes_solver: NumpyBatchedComplexUnitaryProcrustesSolver
+    endpoint_sewing: ReciprocalEndpointSewingMap
 
     def __post_init__(self) -> None:
         if type(self.lattice_geometry) is not Periodic1DLatticeGeometry:
@@ -82,6 +84,12 @@ class Periodic1DRank2AlignmentStudySpecification:
             raise TypeError(
                 "procrustes_solver must be the canonical NumPy batched solver"
             )
+        if type(self.endpoint_sewing) is not ReciprocalEndpointSewingMap:
+            raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingMap")
+        if self.endpoint_sewing.ambient_dimension != len(
+            self.configuration.onsite_numerators
+        ):
+            raise ValueError("endpoint sewing must match the parent ambient dimension")
 
 
 @dataclass(frozen=True, slots=True)
@@ -143,6 +151,7 @@ class Periodic1DRank2AlignmentStudyAnalyzer(Periodic1DGaugeAlignment):
         self._delegate = Periodic1DCompositeBandAlignmentAnalyzer(
             specification.configuration,
             specification.procrustes_solver,
+            specification.endpoint_sewing,
         )
 
     @property

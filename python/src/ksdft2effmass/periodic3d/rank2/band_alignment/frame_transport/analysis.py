@@ -71,6 +71,7 @@ class Periodic3DRank2TransportAnalyzer(
             dimension=3,
             rank_absolute=self._request.rank_absolute,
             rank_relative=self._request.rank_relative,
+            endpoint_sewing=self._request.endpoint_sewing,
             procrustes_solve=self._solve_procrustes,
         )
         return Periodic3DRank2TransportDiagnosticAnalysis(

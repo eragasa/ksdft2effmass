@@ -11,6 +11,45 @@ Parent and retained matrices are never subtracted across unequal spaces. The ret
 frame and the declared gauge transformation supply the coordinate maps before any
 represented-Hamiltonian comparison.
 
+The ordered ambient-basis dimension is named `ambient_dimension` throughout the
+software and documentation. For retained rank $r$, a frame has shape
+
+$$
+F(\mathbf{k})\in
+\mathbb{C}^{\mathtt{ambient\_dimension}\times r}.
+$$
+
+The current synthetic control therefore has `ambient_dimension = 4` and $r=2$; its
+frame is a $4\times2$ matrix at each reciprocal coordinate. A model whose complete
+ambient basis itself has rank two would instead have `ambient_dimension = 2`.
+
+Reciprocal-endpoint sewing is an explicit calculation input. For positive reciprocal
+axis $a$, identity sewing means exactly
+
+$$
+Q_{\mathbf{G}_a}=I_{\mathtt{ambient\_dimension}},
+$$
+
+not $I_r$ merely because the retained subspace has rank $r$. This construction is
+admissible only when both endpoint coefficient arrays use the identical ordered ambient
+basis and Bloch convention. In two and three dimensions, the sewing inventory is ordered
+by reciprocal axis and contains exactly one map per axis. The projected retained-space
+closure
+
+$$
+F_{\mathrm{end}}^\dagger Q_{\mathbf{G}_a}F_{\mathrm{start}}
+$$
+
+is an $r\times r$ value and need not be the identity, even when
+$Q_{\mathbf{G}_a}$ is the ambient identity.
+
+The historical v1 calculation-result wire has no sewing field. Its recorder therefore
+admits only the deterministic named identity construction and rejects nonidentity maps.
+A calculation using any other explicit map must use the sewing-bound result, which
+retains the complete ordered map inventory alongside the calculation result. This keeps
+historical bytes unchanged while preventing two different sewing inputs from being
+retained under one indistinguishable v1 result contract.
+
 ## Geometry and reciprocal coordinates
 
 The case records a direct-lattice primitive basis with primitive vectors stored as

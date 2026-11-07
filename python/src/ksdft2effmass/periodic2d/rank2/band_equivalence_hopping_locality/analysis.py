@@ -51,6 +51,9 @@ from ksdft2effmass.real_space_support_truncation import (
     MetricShellSupportInventory,
     RealSpaceSupportTruncationModelToleranceSelection,
 )
+from ksdft2effmass.solidstate.reciprocal_sewing import (
+    ReciprocalEndpointSewingInventory,
+)
 
 from .request import Periodic2DRank2BandEquivalenceHoppingLocalityRequest
 
@@ -91,12 +94,27 @@ class Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
         self,
         *,
         request: Periodic2DRank2BandEquivalenceHoppingLocalityRequest,
+        endpoint_sewing: ReciprocalEndpointSewingInventory,
     ) -> None:
         if type(request) is not Periodic2DRank2BandEquivalenceHoppingLocalityRequest:
             raise TypeError(
                 "request must be Periodic2DRank2BandEquivalenceHoppingLocalityRequest"
             )
-        super().__init__(request=request)
+        if type(endpoint_sewing) is not ReciprocalEndpointSewingInventory:
+            raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingInventory")
+        if endpoint_sewing.spatial_dimension != 2:
+            raise ValueError("endpoint sewing must contain two axis maps")
+        ambient_dimension = int(
+            request.synthetic_model.retained_seed.magnitude.shape[0]
+        )
+        if endpoint_sewing.ambient_dimension != ambient_dimension:
+            raise ValueError("endpoint sewing must match the parent ambient dimension")
+        super().__init__(request=request, endpoint_sewing=endpoint_sewing)
+
+    @property
+    def endpoint_sewing(self) -> ReciprocalEndpointSewingInventory:
+        """Return positive reciprocal-axis maps in lattice-axis order."""
+        return self._endpoint_sewing
 
     @property
     def request(self) -> Periodic2DRank2BandEquivalenceHoppingLocalityRequest:
@@ -121,6 +139,7 @@ class Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
                 frame=frame,
                 rank_absolute=rank_absolute,
                 rank_relative=rank_relative,
+                endpoint_sewing=self.endpoint_sewing,
             )
         ).execute()
 
@@ -186,6 +205,7 @@ class Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
         analysis = Rank2BandEquivalenceHoppingLocalityAnalyzer.execute(self)
         return Periodic2DRank2BandEquivalenceHoppingLocalityAnalysis(
             request=self.request,
+            endpoint_sewing=analysis.endpoint_sewing,
             status=analysis.status,
             cases=analysis.cases,
         )
