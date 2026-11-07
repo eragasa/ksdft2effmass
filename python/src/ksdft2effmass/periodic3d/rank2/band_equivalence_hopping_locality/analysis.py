@@ -9,7 +9,6 @@ from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
     NumpyFiniteFourierMatrixSeries,
 )
 from projectkoios.numerics.numpy.typing import Complex128Array
-from projectkoios.physkit.solidstate.tb.diagnostics import BlockHoppingPowerAnalyzer
 
 from ksdft2effmass.band_equivalence_hopping_locality.alignment import (
     FrameTransportDiagnostic,
@@ -40,13 +39,6 @@ from ksdft2effmass.periodic3d.rank2.gauge_alignment.analysis import (
 )
 from ksdft2effmass.periodic3d.rank2.gauge_alignment.request import (
     Periodic3DRank2RestrictedGaugeAlignmentAnalysisRequest,
-)
-from ksdft2effmass.periodic3d.rank2.hopping_locality.analysis import (
-    Periodic3DRank2HoppingLocalityAnalyzer,
-)
-from ksdft2effmass.periodic3d.rank2.hopping_locality.request import (
-    Periodic3DRank2HoppingLocalityAnalysisRequest,
-    Periodic3DRank2HoppingLocalityChannelEnum,
 )
 from ksdft2effmass.periodic3d.rank2.support_truncation.analysis import (
     Periodic3DRank2SupportTruncationAnalyzer,
@@ -156,19 +148,20 @@ class Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer(
         shell_indices: tuple[int, ...],
         retained_rank: int,
     ) -> MetricShellHoppingPowerResult:
-        """Route one channel through its periodic-3D rank-two capability owner."""
+        """Preserve the legacy Fourier-channel diagnostic without model promotion."""
         if retained_rank != 2:
             raise ValueError("retained_rank must be two")
-        return Periodic3DRank2HoppingLocalityAnalyzer(
-            request=Periodic3DRank2HoppingLocalityAnalysisRequest(
-                channel=Periodic3DRank2HoppingLocalityChannelEnum(channel),
-                energy_reference=energy_reference,
-                basis_identifier=basis_identifier,
-                series=series,
-                shell_indices=shell_indices,
-            ),
-            power_analyzer=BlockHoppingPowerAnalyzer(),
-        ).execute()
+        # Transformed floating-point coefficients need not satisfy the exact model
+        # admissibility contract byte-for-byte. Keep this legacy diagnostic at the
+        # representation boundary rather than misclassifying it as an exact model.
+        return super().analyze_ordinary_hopping_locality(
+            channel=channel,
+            energy_reference=energy_reference,
+            basis_identifier=basis_identifier,
+            series=series,
+            shell_indices=shell_indices,
+            retained_rank=retained_rank,
+        )
 
     def analyze_support_truncation(
         self,

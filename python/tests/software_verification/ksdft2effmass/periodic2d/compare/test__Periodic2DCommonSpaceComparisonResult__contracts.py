@@ -8,17 +8,17 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
+from ksdft2effmass.periodic.periodic2d.models.control_models import (
+    Periodic2DCosinePotentialControlModel,
+    Periodic2DFiniteDifferenceHamiltonian,
+    Periodic2DFiniteDifferenceHamiltonianRequest,
+    Periodic2DPlaneWaveHamiltonian,
+    Periodic2DPlaneWaveHamiltonianRequest,
+)
 from ksdft2effmass.periodic2d.compare.common_space import (
     Periodic2DCommonSpaceComparisonRequest,
     Periodic2DCommonSpaceComparisonResult,
     Periodic2DCommonSpaceOperatorComparator,
-)
-from ksdft2effmass.periodic2d.model.control_models import (
-    Periodic2DCosinePotentialControlModel,
-    Periodic2DFiniteDifferenceHamiltonianConstructor,
-    Periodic2DFiniteDifferenceHamiltonianRequest,
-    Periodic2DPlaneWaveHamiltonianConstructor,
-    Periodic2DPlaneWaveHamiltonianRequest,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -31,12 +31,12 @@ class TestPeriodic2DCommonSpaceComparisonResult:
     def request() -> Periodic2DCommonSpaceComparisonRequest:
         """Return a compatible cutoff-one, five-point comparison request."""
         model = Periodic2DCosinePotentialControlModel(0.4, 0.7, 0.2)
-        plane = Periodic2DPlaneWaveHamiltonianConstructor().execute(
+        plane = Periodic2DPlaneWaveHamiltonian(
             Periodic2DPlaneWaveHamiltonianRequest(model, 0.1, -0.2, 1)
-        )
-        finite = Periodic2DFiniteDifferenceHamiltonianConstructor().execute(
+        ).result()
+        finite = Periodic2DFiniteDifferenceHamiltonian(
             Periodic2DFiniteDifferenceHamiltonianRequest(model, 0.1, -0.2, 5)
-        )
+        ).result()
         return Periodic2DCommonSpaceComparisonRequest(
             plane, finite, "cosine-common-space"
         )

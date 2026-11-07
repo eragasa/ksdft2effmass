@@ -83,13 +83,11 @@ which a much stronger theorem is available.
 \index{Hermitian matrix}
 \index{self-adjoint matrix}
 
-A complex matrix is Hermitian when
-\begin{equation}
-  H=H^{\dagger},
-  \label{eq:training-hermitian-definition}
-\end{equation}
-where \(\dagger\) denotes conjugate transpose. A real symmetric matrix,
-\(H=H^{\mathsf T}\), is the real-valued special case.
+Definition~\ref{def:training-hermitian-matrix} states the matrix condition
+\(H=H^{\dagger}\), with the conjugate transpose defined in
+Definition~\ref{def:training-matrix-conjugate-transpose}. A real symmetric matrix,
+\(H=H^{\mathsf T}\), is the real-valued special case. We now develop the
+spectral consequences of that condition.
 
 Suppose \((\lambda,\mathbf v)\) is an eigenpair of a Hermitian matrix. Using an
 inner product that is conjugate-linear in its first argument,

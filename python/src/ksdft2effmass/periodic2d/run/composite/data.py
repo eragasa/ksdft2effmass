@@ -3,8 +3,11 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from ksdft2effmass.periodic.periodic2d.models.retained.composite import (
+    Periodic2DCompositeCampaignModel,
+)
+
 from ...campaign.base import Periodic2DCampaign
-from ...model.retained.composite import Periodic2DCompositeCampaignModel
 from .correlate import (
     Periodic2DCompositeCampaignCorrelationRequest,
     Periodic2DCompositeCampaignCorrelationResult,

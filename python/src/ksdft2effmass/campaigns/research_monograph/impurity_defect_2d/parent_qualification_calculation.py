@@ -9,9 +9,9 @@ import numpy as np
 from projectkoios.physkit.units import Unitless
 from scipy import sparse  # type: ignore[import-untyped]
 
-from ksdft2effmass.periodic2d.model.control_models.cosine import (
+from ksdft2effmass.periodic.periodic2d.models.control_models.cosine import (
     Periodic2DCosinePotentialControlModel,
-    Periodic2DPlaneWaveHamiltonianConstructor,
+    Periodic2DPlaneWaveHamiltonian,
     Periodic2DPlaneWaveHamiltonianRequest,
 )
 from ksdft2effmass.solidstate import (
@@ -375,7 +375,6 @@ class ParentQualificationCalculator:
             definition.anisotropic_lambda_y,
             definition.anisotropic_lambda_xy,
         )
-        constructor = Periodic2DPlaneWaveHamiltonianConstructor()
         momenta = (
             (0.0, 0.0),
             (1.0 / 15.0, -2.0 / 15.0),
@@ -384,14 +383,14 @@ class ParentQualificationCalculator:
         )
         maximum = 0.0
         for kx, ky in momenta:
-            represented = constructor.execute(
+            represented = Periodic2DPlaneWaveHamiltonian(
                 Periodic2DPlaneWaveHamiltonianRequest(
                     model,
                     kx,
                     ky,
                     definition.plane_wave_cutoff,
                 )
-            )
+            ).result()
             observed = float(np.linalg.eigvalsh(represented.matrix)[0])
             expected = self._lowest_band(
                 kx, definition.anisotropic_lambda_x, definition.plane_wave_cutoff

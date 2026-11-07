@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d.model.retained.wannier90_study import (
+from ksdft2effmass.periodic.periodic2d.models.retained.wannier90_study import (
     Periodic2DWannier90StudyCampaignModel,
 )
 from ksdft2effmass.periodic2d.run import wannier90

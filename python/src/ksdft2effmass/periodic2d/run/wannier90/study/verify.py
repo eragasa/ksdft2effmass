@@ -9,7 +9,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
 
-from ....model.retained.wannier90_study import Periodic2DWannier90StudyCampaignModel
+from ksdft2effmass.periodic.periodic2d.models.retained.wannier90_study import (
+    Periodic2DWannier90StudyCampaignModel,
+)
+
 from ..balanced.verify import JsonValue, Periodic2DWannier90BalancedReconstructor
 
 

@@ -244,6 +244,14 @@ owners. They diagnose unchanged coefficients and do not become support-truncatio
 results. The rank-two point analysis remains a mixed representation-equivalence and
 locality owner and is not relabeled as a standalone hopping-locality analysis.
 
+Locality resolution is an additional peer distinction within this nominal family.
+Cell-block locality measures \(\lVert T(\mathbf n)\rVert_F^2\); orbital-resolved
+locality measures \(\lvert T_{\alpha\beta}(\mathbf n)\rvert^2\) using an explicit
+ordered basis embedding; and MLWF-resolved locality adds correlated Wannier identities,
+centers, and localization/gauge provenance. The model does not infer or select one of
+these resolutions. The prospective contracts are documented under
+[`ksdft2effmass.hopping_locality`](hopping_locality/index.md).
+
 ### Real-space support truncation
 
 `ksdft2effmass.support_truncation.SupportTruncation` identifies irreversible removal

@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d.model.retained.optimizer_reanalysis import (
+from ksdft2effmass.periodic.periodic2d.models.retained.optimizer_reanalysis import (
     Periodic2DOptimizerReanalysisCampaignModel,
 )
 from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.reanalysis.data import (

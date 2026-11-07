@@ -21,6 +21,8 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \newcommand{\C}{\mathbb C}
 \newcommand{\R}{\mathbb R}
@@ -190,7 +192,27 @@ For a finite-rank periodic representation,
  H(\kvec)=\sum_{\Rvec} e^{i\kvec\cdot\Rvec}T(\Rvec),
  \label{eq:fourier-main}
 \end{equation}
-where $T(\Rvec)$ is a matrix block associated with a lattice translation.  Equation
+where $T(\Rvec)$ is a matrix block associated with a lattice translation.
+
+\begin{definition}[Direct and reciprocal coordinate values]
+\label{def:direct-reciprocal-coordinate-values}
+Let the columns of $A$ be the ordered direct primitive vectors and let
+$B=2\pi A^{-\mathsf T}$ be the two-pi-dual reciprocal basis.  An integer lattice
+displacement is $\mathbf m\in\mathbb Z^d$, with physical translation
+$\mathbf R_{\mathbf m}=A\mathbf m$.  A dimensionless reciprocal-basis coordinate is
+$\boldsymbol\kappa\in\mathbb R^d$, with physical Bloch wavevector
+$\mathbf k_{\boldsymbol\kappa}=B\boldsymbol\kappa$.  These values satisfy
+\begin{equation}
+ \mathbf k_{\boldsymbol\kappa}\cdot\mathbf R_{\mathbf m}
+ =2\pi\boldsymbol\kappa\cdot\mathbf m.
+ \label{eq:direct-reciprocal-coordinate-distinction}
+\end{equation}
+\end{definition}
+
+Thus $\mathbf m$, $\mathbf R_{\mathbf m}$, $\boldsymbol\kappa$, and
+$\mathbf k_{\boldsymbol\kappa}$ are related but distinct objects.  Wrapping
+$\boldsymbol\kappa$ modulo integers is a separate representative-selection operation;
+it is not part of the coordinate-to-wavevector map.  Equation
 \eqref{eq:fourier-main} is meaningful only after the lattice basis, reciprocal
 coordinates, representative convention, degeneracies, units, basis ordering, and
 energy reference are fixed.
@@ -262,20 +284,26 @@ to the present periodic reduction study.
 
 Wannier functions inherit the gauge freedom of a retained Bloch subspace
 \cite{marzari1997,souza2001,marzari2012}.  Smooth gauges can differ in spread and real-space
-shape even when they span the same projector.  Here let $\mathbf m$, $\mathbf n$, and
-$\mathbf Q$ denote physical direct-lattice translation vectors, in the same convention
-as $\Rvec$ in Eq.~\eqref{eq:fourier-main}; they are not the reduced integer coordinates
-used later in the finite $6^3$ transform.  For
-$U(\kvec)=\sum_{\mathbf m}e^{i\kvec\cdot\mathbf m}U(\mathbf m)$, substitution into
-Eq.~\eqref{eq:intro-gauge} gives the hopping convolution
+shape even when they span the same projector.  Using
+Definition~\ref{def:direct-reciprocal-coordinate-values}, let
+$\mathbf m,\mathbf n,\mathbf p\in\mathbb Z^d$ and write
+$\mathbf R_{\mathbf m}=A\mathbf m$.  If
 \begin{equation}
- \widetilde T(\mathbf Q)
- =\sum_{\mathbf m,\mathbf n}
- U(\mathbf m)^\dagger T(\mathbf Q+\mathbf m-\mathbf n)U(\mathbf n).
+ U(\kvec)=\sum_{\mathbf m\in\mathbb Z^d}
+ e^{i\kvec\cdot\mathbf R_{\mathbf m}}U_{\mathbf m},
+ \label{eq:gauge-fourier-coefficients}
+\end{equation}
+then substitution into Eq.~\eqref{eq:intro-gauge} gives the hopping convolution
+\begin{equation}
+ \widetilde T(\mathbf R_{\mathbf p})
+ =\sum_{\mathbf m,\mathbf n\in\mathbb Z^d}
+ U_{\mathbf m}^\dagger
+ T(\mathbf R_{\mathbf p+\mathbf m-\mathbf n})U_{\mathbf n}.
  \label{eq:hopping-convolution}
 \end{equation}
-When reduced integer coordinates are used instead, the physical phase
-$\kvec\cdot\Rvec$ becomes $2\pi\boldsymbol\kappa\cdot\mathbf m$ explicitly.
+In reciprocal coordinates, the physical phase
+$\kvec\cdot\mathbf R_{\mathbf m}$ becomes
+$2\pi\boldsymbol\kappa\cdot\mathbf m$ explicitly.
 A constant transformation has only one Fourier coefficient and does not enlarge support.
 A momentum-dependent transformation mixes displacement indices.  Locality is therefore
 a property of the represented field and allowed gauge, not of the complete spectrum

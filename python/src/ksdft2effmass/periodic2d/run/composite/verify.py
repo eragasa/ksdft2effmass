@@ -13,7 +13,9 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from ...model.retained.composite import Periodic2DCompositeCampaignModel
+from ksdft2effmass.periodic.periodic2d.models.retained.composite import (
+    Periodic2DCompositeCampaignModel,
+)
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]

@@ -17,6 +17,14 @@ This inventory is bound to baseline commit
 `2a5681b877b5fbf9e1cf8fcdd0c9332d0bc69c63`. No source or artifact is removed by Phase
 0.
 
+The replacement decision above applies to the inventoried M1--M3 workflow-shaped APIs
+and retained schema surfaces. It does not authorize premature removal of the separately
+maintained `solidstate.hopping_transforms.BlockHoppingModel1D` representation or its
+cyclic-to-ordinary conversion values. Those reusable numerical and historical-study
+contracts remain active until each maintained consumer passes the study-specific
+migration gates in [`migration.md`](migration.md). They are not compatibility aliases
+for the new model hierarchy.
+
 ## Baseline installed package
 
 At the bound Phase 0 baseline, the root exported 31 distinct names. All were scheduled
@@ -26,7 +34,7 @@ update below; the M2 and M3 rows remain live until their own replacement gates p
 
 | Baseline source surface | Exported names | Replacement owner and gate |
 |---|---|---|
-| Historical `periodic1d/model.py` | `Periodic1DFourierHamiltonianToyModel`, `Periodic1DBlockHamiltonianToyModel` | Replace with concrete typed parent data owned by `model_systems.mathieu1d`, `periodic1d.fourier_locality`, and the two rank-two owners as applicable; retire the file after Phases 1--4 migrate callers. The later `periodic1d.model` package namespace is a distinct reviewed owner for `model.blochhopping` and does not restore these toy-parent exports. |
+| Historical `periodic1d/model.py` | `Periodic1DFourierHamiltonianToyModel`, `Periodic1DBlockHamiltonianToyModel` | Replace with concrete typed parent data owned by `model_systems.mathieu1d`, `periodic1d.fourier_locality`, and the two rank-two owners as applicable; retire the file after Phases 1--4 migrate callers. The later `periodic1d.models` package namespace is a distinct reviewed owner for `models.blochhopping` and does not restore these toy-parent exports. |
 | `periodic1d.isolated_band.definition` | `Periodic1DIsolatedBandCalculationDefinition` | Replace in `periodic1d.fourier_locality` during Phase 2. |
 | `periodic1d.isolated_band.calculate` | `Periodic1DIsolatedBandCalculator` | Replace with the Phase 2 analyzer; do not preserve the Action signature. |
 | `periodic1d.isolated_band.results` | `Periodic1DPlaneWaveConvergenceObservation`, `Periodic1DFiniteDifferenceConvergenceObservation`, `Periodic1DIsolatedBandRangeResult`, `Periodic1DIsolatedBandCalculationResult` | Replace with immutable Phase 2 result sections. |

@@ -32,6 +32,10 @@ items are not implied capabilities.
 
 ## Canonical implementation
 
+- [x] Add the calculation-owned `Periodic1dRank1Calculator` as a read-only composition
+  over the exact typed Fourier-locality result, explicit lattice geometry, and maintained
+  rank-one alignment, hopping-locality, and support-truncation owners without changing
+  retained execution bytes or introducing a new wire.
 - [x] Assign reusable operations to reviewed source owners without adding a compatibility facade; family-specific ownership follows the frozen scientific controls.
 - [x] Implement family-owned typed configuration and result records.
 - [x] Implement independent exact-formula verification without invoking the producer.

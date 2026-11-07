@@ -33,13 +33,16 @@ applications without redefining the primary discussion.
 8. `chapters/projection-and-retained-spaces.tex` — projection, exact retained
    operators, eliminated-space downfolding, and projection-induced loss of exact
    finite range;
-9. `chapters/isolated-band-fourier-reduction.tex` — one-dimensional Bloch
+9. `chapters/sewing-maps-and-periodic-fibers.tex` — periodic-fiber identity,
+   basis embedding, Bloch conventions, seven distinct sewing problems, projected
+   sewing, reciprocal loops, and sewn-loop covariance;
+10. `chapters/isolated-band-fourier-reduction.tex` — one-dimensional Bloch
    fibers, isolated scalar bands, complete hopping transforms, finite-range
    truncation, direct fitting, and withheld evaluation;
-10. `chapters/composite-band-gauge-alignment.tex` — composite Bloch frames, the
+11. `chapters/composite-band-gauge-alignment.tex` — composite Bloch frames, the
     Bloch--Wannier bridge, polar transport, reciprocal closure, Procrustes
     alignment, block hoppings, and gauge-dependent locality; and
-11. `chapters/verification-and-evidence-vocabulary.tex` — bounded claims,
+12. `chapters/verification-and-evidence-vocabulary.tex` — bounded claims,
     verification, validation, uncertainty, and negative evidence.
 
 ## Part II model-adequacy sequence
@@ -97,9 +100,13 @@ applications without redefining the primary discussion.
 | Basis transformation and gauge | `chapters/finite-representations.tex` | `chapters/composite-band-gauge-alignment.tex`; `chapters/operator-comparison.tex`; `chapters/bulk-representations.tex`; `appendices/C-operator-spaces-compression-alignment.tex` | Generic coordinate freedom followed by periodic gauge constraints |
 | Projection, localization, and truncation | `chapters/projection-and-retained-spaces.tex` | `chapters/isolated-band-fourier-reduction.tex`; `chapters/composite-band-gauge-alignment.tex`; `chapters/bulk-representations.tex`; `chapters/bulk-reduced-models.tex` | Distinct retained-space and approximation operations |
 | Isolated Bloch band | `chapters/projection-and-retained-spaces.tex` | `chapters/isolated-band-fourier-reduction.tex`; `appendices/G-periodic-reduction-experiments.tex` | Fiberwise rank-one retention separated from phase gauge and localization |
+| Periodic-fiber family and basis embedding | `chapters/sewing-maps-and-periodic-fibers.tex` (`ch:training-sewing-periodic-fibers`) | `chapters/periodic-geometry.tex`; `chapters/projection-and-retained-spaces.tex`; `chapters/bulk-representations.tex` | Correlates one admitted ordered basis identity with reciprocal fibers and fractional embedded positions without synthesizing basis identity |
+| Reciprocal-shift sewing | `chapters/sewing-maps-and-periodic-fibers.tex` | `chapters/composite-band-gauge-alignment.tex`; `appendices/G-periodic-reduction-experiments.tex`; `appendices/H-two-dimensional-wannier-reduction.tex` | Explicit directed map between reciprocal representatives, including identity, embedding-position, permutation--phase, and plane-wave-index cases |
+| Projected-subspace, symmetry, and finite-boundary sewing | `chapters/sewing-maps-and-periodic-fibers.tex` | `chapters/bloch-periodic-finite-differences.tex`; `chapters/composite-band-gauge-alignment.tex`; `chapters/bulk-representations.tex` | Keeps distinct state-space identifications separate instead of treating every closure or boundary operation as one generic sewing category |
+| Sewn reciprocal loop and Wilson diagnostic | `chapters/sewing-maps-and-periodic-fibers.tex` | `chapters/composite-band-gauge-alignment.tex`; `chapters/operator-comparison.tex`; `appendices/G-periodic-reduction-experiments.tex` | Defines loop orientation, closing shift, endpoint sewing, gauge covariance, and the limitation of full-space holonomy |
 | Composite Bloch frame and projector | `chapters/composite-band-gauge-alignment.tex` (`ch:training-composite-band-gauge-alignment`) | `chapters/projection-and-retained-spaces.tex`; `appendices/G-periodic-reduction-experiments.tex` | Higher-rank retained space separated from its gauge-dependent frame |
 | Bloch--Wannier bridge | `chapters/composite-band-gauge-alignment.tex` | `chapters/bulk-representations.tex`; `appendices/G-periodic-reduction-experiments.tex` | Derivation from a Bloch frame through a Wannier basis to matrix-valued hoppings |
-| Polar frame transport and reciprocal closure | `chapters/composite-band-gauge-alignment.tex` | `chapters/bulk-representations.tex`; `appendices/G-periodic-reduction-experiments.tex` | Neighbor-overlap conditioning, sewing, and closure holonomy without a topology claim |
+| Polar frame transport and reciprocal closure | `chapters/composite-band-gauge-alignment.tex` | `chapters/sewing-maps-and-periodic-fibers.tex`; `chapters/bulk-representations.tex`; `appendices/G-periodic-reduction-experiments.tex` | Application of explicit sewing to neighbor-overlap conditioning and closure holonomy without a topology claim |
 | Pointwise and global Procrustes alignment | `chapters/composite-band-gauge-alignment.tex` | `chapters/operator-comparison.tex`; `chapters/bulk-representations.tex` | Objective, orientation, principal-angle residual, uniqueness and rank-deficiency boundary, and exact controlled recovery versus a restricted one-unitary family |
 | Gauge-dependent block locality | `chapters/composite-band-gauge-alignment.tex` | `chapters/operator-comparison.tex`; `appendices/G-periodic-reduction-experiments.tex` | Complete spectral covariance separated from gauge-sensitive truncation |
 | Plane-wave Bloch fiber | `chapters/isolated-band-fourier-reduction.tex` (`ch:training-isolated-band-fourier-reduction`) | `chapters/bloch-periodic-finite-differences.tex`; `appendices/G-periodic-reduction-experiments.tex` | Reciprocal-basis representation of a periodic cosine Hamiltonian |

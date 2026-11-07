@@ -33,7 +33,10 @@ from pathlib import Path
 import pytest
 
 import ksdft2effmass.electronic_structure as electronic_structure
-import ksdft2effmass.periodic as periodic_api
+import ksdft2effmass.periodic.models as periodic_models
+import ksdft2effmass.periodic.periodic1d.models as periodic1d_models
+import ksdft2effmass.periodic.periodic2d.models as periodic2d_models
+import ksdft2effmass.periodic.periodic3d.models as periodic3d_models
 import ksdft2effmass.structures as structures
 import ksdft2effmass.structures.periodic as periodic
 from ksdft2effmass.electronic_structure import (
@@ -130,13 +133,13 @@ class TestPeriodicContracts:
     ) -> None:
         """Evidence ID: SV-PERIODIC-024
 
-        Requirement: The periodic package exports its documented scientific-model
-        hierarchy and catalog without geometry or sampling ownership leaks.
+        Requirement: The periodic-model package exports its documented scientific-model
+        hierarchy without geometry or sampling ownership leaks.
 
         Method: Compare the public export declaration with an independently enumerated
         architecture-owned inventory and inspect each bound name.
 
-        Oracle: The v2 periodic architecture and maintained package documentation.
+        Oracle: The v3 periodic architecture and maintained package documentation.
 
         Acceptance: ``__all__`` equals the exact inventory and every name is bound.
 
@@ -159,36 +162,29 @@ class TestPeriodicContracts:
             "UnitSystem",
         }
         sampling_names = {"KPointSampling", "KPointWeightNormalization"}
-        scientific_model_names = {
-            "Periodic1DDefectModel",
-            "Periodic1DModel",
-            "Periodic2DDefectModel",
-            "Periodic2DModel",
-            "Periodic3DDefectModel",
-            "Periodic3DModel",
+        periodic_model_names = {
+            "PeriodicBlockHoppingModel",
             "PeriodicModel",
             "PeriodicModelRole",
-            "PeriodicControlModelCatalog",
+            "PeriodicRank2BlockHoppingModel",
             "SpatialDimension",
         }
+        periodic1d_model_names = {"Periodic1DDefectModel", "Periodic1DModel"}
+        periodic2d_model_names = {"Periodic2DDefectModel", "Periodic2DModel"}
+        periodic3d_model_names = {"Periodic3DDefectModel", "Periodic3DModel"}
         assert set(structures.__all__) == structure_names
         assert set(periodic.__all__) == structure_names
         assert set(electronic_structure.__all__) == sampling_names
-        assert set(periodic_api.__all__) == scientific_model_names
+        assert set(periodic_models.__all__) == periodic_model_names
+        assert periodic1d_model_names <= set(periodic1d_models.__all__)
+        assert periodic2d_model_names <= set(periodic2d_models.__all__)
+        assert set(periodic3d_models.__all__) == periodic3d_model_names
         assert {
-            name: (
-                getattr(structures, name) is getattr(periodic, name)
-                and not hasattr(periodic_api, name)
-            )
+            name: getattr(structures, name) is getattr(periodic, name)
             for name in structure_names
         } == dict.fromkeys(structure_names, True)
-        assert {
-            name: (
-                not hasattr(periodic_api, name) and hasattr(electronic_structure, name)
-            )
-            for name in sampling_names
-        } == dict.fromkeys(sampling_names, True)
-        assert all(hasattr(periodic_api, name) for name in scientific_model_names)
+        assert all(hasattr(electronic_structure, name) for name in sampling_names)
+        assert all(hasattr(periodic_models, name) for name in periodic_model_names)
 
     def test__PeriodicContracts__constructor__lattices__preserves_units_scale_and_duality(  # noqa: E501
         self,

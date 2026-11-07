@@ -5,7 +5,10 @@ import json
 from dataclasses import dataclass
 from typing import cast
 
-from ...model.retained import Periodic2DCompositeCampaignModel
+from ksdft2effmass.periodic.periodic2d.models.retained import (
+    Periodic2DCompositeCampaignModel,
+)
+
 from .calculate import (
     JsonValue,
     Periodic2DCompositeCalculationRequest,

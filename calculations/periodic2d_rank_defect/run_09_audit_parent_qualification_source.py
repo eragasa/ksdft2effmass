@@ -22,6 +22,10 @@ type JsonValue = (
 
 CALCULATION_FAMILY = "periodic2d-rank-defect"
 EXECUTION_ID = "parent-qualification-v1"
+IMPLEMENTATION_IDENTITY_REVISION = "12a5540ef196fe2a188271977d1f67fbe85eb9bc"
+AUDIT_SCRIPT_PATH = (
+    "calculations/periodic2d_rank_defect/run_09_audit_parent_qualification_source.py"
+)
 
 
 def canonical_json(payload: dict[str, JsonValue]) -> bytes:
@@ -254,7 +258,13 @@ def audit(execution_root: Path) -> None:
     if type(pretruncation_digest) is not str:
         raise ValueError("historical anisotropic pretruncation identity is absent")
 
-    script_path = Path(__file__).resolve()
+    # The amendment authenticates the implementation snapshot that produced it,
+    # not whichever mutable source files happen to be checked out during replay.
+    retained_audit_script = historical_bytes(
+        repository_root,
+        IMPLEMENTATION_IDENTITY_REVISION,
+        AUDIT_SCRIPT_PATH,
+    )
     audit_payload = canonical_json(
         {
             "schema_version": 1,
@@ -264,7 +274,7 @@ def audit(execution_root: Path) -> None:
             "outcome": "passed",
             "source_revision": definition.source_revision,
             "request_sha256": hashlib.sha256(request_bytes).hexdigest(),
-            "audit_script_sha256": hashlib.sha256(script_path.read_bytes()).hexdigest(),
+            "audit_script_sha256": hashlib.sha256(retained_audit_script).hexdigest(),
             "sources": source_records,
             "projection_checks": {
                 "isotropic_compact_exact_record_match": True,
@@ -319,10 +329,7 @@ def audit(execution_root: Path) -> None:
         Path(
             "calculations/periodic2d_rank_defect/run_08_verify_parent_qualification.py"
         ),
-        Path(
-            "calculations/periodic2d_rank_defect/"
-            "run_09_audit_parent_qualification_source.py"
-        ),
+        Path(AUDIT_SCRIPT_PATH),
     )
     added_artifacts: list[JsonValue] = [
         {
@@ -332,12 +339,16 @@ def audit(execution_root: Path) -> None:
         }
     ]
     for relative in implementation_paths:
-        path = repository_root / relative
+        content = historical_bytes(
+            repository_root,
+            IMPLEMENTATION_IDENTITY_REVISION,
+            relative.as_posix(),
+        )
         added_artifacts.append(
             {
                 "path": relative.as_posix(),
-                "bytes": path.stat().st_size,
-                "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                "bytes": len(content),
+                "sha256": hashlib.sha256(content).hexdigest(),
             }
         )
     original_manifest = manifest_path.read_bytes()

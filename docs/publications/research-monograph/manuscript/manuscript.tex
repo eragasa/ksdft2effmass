@@ -114,7 +114,25 @@
     boxrule=0.6pt,
     before skip=11pt,
     after skip=11pt
+  },
+  monograph crosswalk/.style={
+    enhanced,
+    breakable,
+    sharp corners,
+    colback=white,
+    colframe=indigo!45,
+    coltitle=indigo,
+    boxrule=0.6pt,
+    fonttitle=\bfseries,
+    fontupper=\small,
+    before skip=11pt,
+    after skip=11pt
   }
+}
+
+\newtcolorbox{definitioncrosswalk}{
+  monograph crosswalk,
+  title={Definition ownership crosswalk}
 }
 
 \newtcblisting{pythonexample}[1]{
@@ -408,6 +426,7 @@ uncertainty quantification.
 \include{chapters/periodic-geometry}
 \include{chapters/bloch-periodic-finite-differences}
 \include{chapters/projection-and-retained-spaces}
+\include{chapters/sewing-maps-and-periodic-fibers}
 \include{chapters/isolated-band-fourier-reduction}
 \include{chapters/composite-band-gauge-alignment}
 \include{chapters/verification-and-evidence-vocabulary}
@@ -432,7 +451,6 @@ uncertainty quantification.
 \include{chapters/continuum-effective-mass}
 \include{chapters/structured-learning}
 \include{chapters/dopant-transferability}
-\include{chapters/current-evidence-boundary}
 
 \part{Mathematical and Proof Program}
 \include{chapters/proof-architecture}
@@ -440,6 +458,8 @@ uncertainty quantification.
 \include{chapters/mathematics-of-reduction}
 \include{chapters/mechanization-status}
 
+\part{Evidence Boundary and Research Sequence}
+\include{chapters/current-evidence-boundary}
 \include{chapters/conclusions}
 
 \appendix

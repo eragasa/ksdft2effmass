@@ -85,6 +85,17 @@ methods explicitly map between enum members and stable built-in strings without 
 members strings themselves. The retained record projection continues to
 emit only the historical scalar defect, so existing
 canonical result mappings and bytes do not change.
+`FourierSeriesBlockHoppingRepresentation` owns the representation-only projection from
+one finite Fourier matrix series into a sorted, immutable PhysKit dense block-hopping
+value. It preserves coefficient bytes and assigns provider identities but does not assign
+KSD scientific-model identity, infer geometry, select support, or analyze locality. The
+periodic-2D and periodic-3D rank-two hopping-locality request owners instead require one
+complete exact dimensional block-hopping model. This prevents a mesh-transformed
+floating-point series from being silently promoted into an exact scientific model when
+its opposite-displacement blocks differ from conjugate transposes by roundoff. The
+historical aggregate analyzer retains its representation-level Fourier diagnostic and
+therefore preserves existing numerical behavior and retained result bytes.
+
 `BandEquivalenceHoppingLocalityAnalysisRecorder` binds one completed analysis and projects it
 into `BandEquivalenceHoppingLocalityCalculationResult`, which passively binds the exact request
 to retained `BandEquivalenceHoppingLocalityDiagnostics`. Construction checks family, mesh sizes,
@@ -224,6 +235,13 @@ enum-to-string and string-to-enum mapping. Adding that identity to retained requ
 requires a new schema version; it must not be inserted into the existing mapping. Until
 that schema decision is authorized, the function remains a compatibility projection and
 no typed analyzer claims a physical or reduced-unit interpretation for its scalars.
+
+This distance-only projection does not establish orbital-resolved locality. It does not
+retain ordered state identities or associate a distance with the corresponding
+$\lvert T_{\alpha\beta}(\mathbf n)\rvert^2$. It also lacks the localization and gauge
+provenance required for MLWF-resolved locality. Those peer capabilities belong to the
+[`ksdft2effmass.hopping_locality`](../hopping_locality/index.md) architecture rather than
+being inferred from `basis_offsets`.
 
 ## Scientific results and retained records
 

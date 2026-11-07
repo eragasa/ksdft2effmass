@@ -11,13 +11,14 @@ import numpy as np
 import numpy.typing as npt
 from scipy.linalg import eigh  # type: ignore[import-untyped]
 
-from ...model.control_models import (
+from ksdft2effmass.periodic.periodic2d.models.control_models import (
     Periodic2DCosinePotentialControlModel,
-    Periodic2DFiniteDifferenceHamiltonianConstructor,
+    Periodic2DFiniteDifferenceHamiltonian,
     Periodic2DFiniteDifferenceHamiltonianRequest,
-    Periodic2DPlaneWaveHamiltonianConstructor,
+    Periodic2DPlaneWaveHamiltonian,
     Periodic2DPlaneWaveHamiltonianRequest,
 )
+
 from .definition import (
     Periodic2DIsolatedBandCampaignDefinition,
     Periodic2DIsolatedBandProvenance,
@@ -780,8 +781,10 @@ class Periodic2DIsolatedBandCalculator:
     ) -> ComplexMatrix:
         model = Periodic2DCosinePotentialControlModel(lambda_x, lambda_y, lambda_xy)
         return (
-            Periodic2DPlaneWaveHamiltonianConstructor()
-            .execute(Periodic2DPlaneWaveHamiltonianRequest(model, kx, ky, cutoff))
+            Periodic2DPlaneWaveHamiltonian(
+                Periodic2DPlaneWaveHamiltonianRequest(model, kx, ky, cutoff)
+            )
+            .result()
             .matrix
         )
 
@@ -818,10 +821,10 @@ class Periodic2DIsolatedBandCalculator:
             )
         model = Periodic2DCosinePotentialControlModel(lambda_x, lambda_y, lambda_xy)
         return (
-            Periodic2DFiniteDifferenceHamiltonianConstructor()
-            .execute(
+            Periodic2DFiniteDifferenceHamiltonian(
                 Periodic2DFiniteDifferenceHamiltonianRequest(model, kx, ky, points)
             )
+            .result()
             .matrix
         )
 

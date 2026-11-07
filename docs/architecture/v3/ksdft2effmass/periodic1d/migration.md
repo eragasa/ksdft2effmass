@@ -145,6 +145,38 @@ generic block-parent record, aggregate test, exports, and Sphinx pages were remo
 without a compatibility facade. Exact recovery is recorded in
 [`legacy-retirement.md`](../../../../../calculations/periodic1d/rank2/composite-band-alignment-locality/legacy-retirement.md).
 
+### Active block-hopping representation transition
+
+The rank-two scientific-model hierarchy does not replace the existing
+`BlockHoppingModel1D` representation or
+`CenteredEvenMeshCyclicToOrdinaryResult1D`. Those values remain maintained because they
+own intermediate Fourier output, arbitrary-rank dense block storage, explicit
+negative-Nyquist conversion evidence, and active historical-study contracts.
+
+Migration uses only the approved class hierarchy. No legacy-admission superclass,
+adapter subclass, parallel rank-two model, compatibility alias, or dual-write record is
+introduced. The existing `BlockHoppingModel1D` supplies only the additive
+`to_physkit_ordinary_representation()` representation conversion. Each study's existing
+composition root calls it only after cyclic-to-ordinary conversion when applicable, then
+correlates the provider representation with the existing
+`Periodic1DRank2BlockHoppingModel` constructor using explicit geometry, units, model
+identity, role, basis identity, and energy reference.
+
+A study remains on the legacy input contract until all of these gates pass:
+
+1. the source and cyclic-conversion values replay without rewriting retained bytes;
+2. integer representatives and coefficients project without support or value changes;
+3. rank-two, dimensional, and exact-Hermiticity admission passes;
+4. every affected result channel agrees under its unchanged tolerance;
+5. independent verification and retained-result replay pass;
+6. provenance records identify both the historical source and successor model; and
+7. every maintained consumer uses the successor boundary directly.
+
+This transition is per study. Passing one study's gate does not authorize migration or
+retirement of another study. Removal of active legacy source remains separately
+authorized protected work. Any proposed new class or public migration type must be
+presented for human approval before documentation or implementation.
+
 ## Phase 4 — constrained admissible sets and sensitivity
 
 Rebuild admissible-set composition over authenticated typed upstream results. Keep the

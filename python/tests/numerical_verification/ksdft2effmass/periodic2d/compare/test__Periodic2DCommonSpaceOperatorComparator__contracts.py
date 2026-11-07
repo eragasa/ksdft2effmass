@@ -4,16 +4,16 @@ import numpy as np
 import numpy.typing as npt
 import pytest
 
+from ksdft2effmass.periodic.periodic2d.models.control_models import (
+    Periodic2DCosinePotentialControlModel,
+    Periodic2DFiniteDifferenceHamiltonian,
+    Periodic2DFiniteDifferenceHamiltonianRequest,
+    Periodic2DPlaneWaveHamiltonian,
+    Periodic2DPlaneWaveHamiltonianRequest,
+)
 from ksdft2effmass.periodic2d.compare.common_space import (
     Periodic2DCommonSpaceComparisonRequest,
     Periodic2DCommonSpaceOperatorComparator,
-)
-from ksdft2effmass.periodic2d.model.control_models import (
-    Periodic2DCosinePotentialControlModel,
-    Periodic2DFiniteDifferenceHamiltonianConstructor,
-    Periodic2DFiniteDifferenceHamiltonianRequest,
-    Periodic2DPlaneWaveHamiltonianConstructor,
-    Periodic2DPlaneWaveHamiltonianRequest,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.numerical_verification]
@@ -36,14 +36,14 @@ class TestPeriodic2DCommonSpaceOperatorComparator:
         float,
     ]:
         """Return transported, difference, isometry, and Frobenius outputs."""
-        plane = Periodic2DPlaneWaveHamiltonianConstructor().execute(
+        plane = Periodic2DPlaneWaveHamiltonian(
             Periodic2DPlaneWaveHamiltonianRequest(model, momentum_x, momentum_y, cutoff)
-        )
-        finite = Periodic2DFiniteDifferenceHamiltonianConstructor().execute(
+        ).result()
+        finite = Periodic2DFiniteDifferenceHamiltonian(
             Periodic2DFiniteDifferenceHamiltonianRequest(
                 model, momentum_x, momentum_y, points
             )
-        )
+        ).result()
         result = Periodic2DCommonSpaceOperatorComparator().execute(
             Periodic2DCommonSpaceComparisonRequest(
                 plane, finite, "analytical-common-space"

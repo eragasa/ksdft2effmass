@@ -12,7 +12,9 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from ...model.retained.topological import Periodic2DTopologicalCampaignModel
+from ksdft2effmass.periodic.periodic2d.models.retained.topological import (
+    Periodic2DTopologicalCampaignModel,
+)
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]

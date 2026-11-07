@@ -2,17 +2,17 @@
 
 import pytest
 
-from ksdft2effmass.periodic2d.compare.common_space import (
-    Periodic2DCommonSpaceComparisonRequest,
-)
-from ksdft2effmass.periodic2d.model.control_models import (
+from ksdft2effmass.periodic.periodic2d.models.control_models import (
     Periodic2DCosinePotentialControlModel,
-    Periodic2DFiniteDifferenceHamiltonianConstructor,
+    Periodic2DFiniteDifferenceHamiltonian,
     Periodic2DFiniteDifferenceHamiltonianRequest,
     Periodic2DFiniteDifferenceHamiltonianResult,
-    Periodic2DPlaneWaveHamiltonianConstructor,
+    Periodic2DPlaneWaveHamiltonian,
     Periodic2DPlaneWaveHamiltonianRequest,
     Periodic2DPlaneWaveHamiltonianResult,
+)
+from ksdft2effmass.periodic2d.compare.common_space import (
+    Periodic2DCommonSpaceComparisonRequest,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -33,14 +33,14 @@ class TestPeriodic2DCommonSpaceComparisonRequest:
     ]:
         """Return compatible or intentionally varied represented test results."""
         model = Periodic2DCosinePotentialControlModel(0.4, 0.7, 0.2)
-        plane = Periodic2DPlaneWaveHamiltonianConstructor().execute(
+        plane = Periodic2DPlaneWaveHamiltonian(
             Periodic2DPlaneWaveHamiltonianRequest(model, 0.1, -0.2, cutoff)
-        )
-        finite = Periodic2DFiniteDifferenceHamiltonianConstructor().execute(
+        ).result()
+        finite = Periodic2DFiniteDifferenceHamiltonian(
             Periodic2DFiniteDifferenceHamiltonianRequest(
                 model, 0.1, finite_momentum_y, points
             )
-        )
+        ).result()
         return plane, finite
 
     def test__Periodic2DCommonSpaceComparisonRequest__construction__compatible_results__retains_common_dimension(  # noqa: E501
@@ -64,9 +64,9 @@ class TestPeriodic2DCommonSpaceComparisonRequest:
         """Operators with different Fourier potentials cannot be subtracted."""
         plane, _ = self.represented_results()
         different_model = Periodic2DCosinePotentialControlModel(0.4, 0.7, 0.3)
-        finite = Periodic2DFiniteDifferenceHamiltonianConstructor().execute(
+        finite = Periodic2DFiniteDifferenceHamiltonian(
             Periodic2DFiniteDifferenceHamiltonianRequest(different_model, 0.1, -0.2, 5)
-        )
+        ).result()
 
         with pytest.raises(ValueError, match="same control model"):
             Periodic2DCommonSpaceComparisonRequest(

@@ -6,15 +6,19 @@ from dataclasses import dataclass
 
 import pytest
 
-from ksdft2effmass.periodic import (
+from ksdft2effmass.models import Model
+from ksdft2effmass.periodic.models import PeriodicModel, PeriodicModelRole
+from ksdft2effmass.periodic.periodic1d.models import (
     Periodic1DDefectModel,
     Periodic1DModel,
+)
+from ksdft2effmass.periodic.periodic2d.models import (
     Periodic2DDefectModel,
     Periodic2DModel,
+)
+from ksdft2effmass.periodic.periodic3d.models import (
     Periodic3DDefectModel,
     Periodic3DModel,
-    PeriodicModel,
-    PeriodicModelRole,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -88,6 +92,7 @@ class TestPeriodicModel:
         two_dimensional = self.Reference2D()
         three_dimensional = self.Control3DDefect()
 
+        assert isinstance(one_dimensional, Model)
         assert isinstance(one_dimensional, PeriodicModel)
         assert isinstance(one_dimensional, Periodic1DModel)
         assert not isinstance(one_dimensional, Periodic2DModel)

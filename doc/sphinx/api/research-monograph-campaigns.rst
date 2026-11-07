@@ -287,7 +287,7 @@ hopping, effective-mass, coupling, and anisotropy channels without importing the
 maintained calculation route or control-model constructors.
 
 Reusable represented mechanics live under
-``ksdft2effmass.periodic2d.model.control_models``.
+``ksdft2effmass.periodic.periodic2d.models.control_models``.
 ``Periodic2DCosinePotentialControlModel`` owns the dimensionless separable-to-coupled
 cosine potential. Separate constructors produce finite plane-wave and centered Bloch
 finite-difference Hamiltonians. These control-model owners contain no campaign provenance,
@@ -343,7 +343,7 @@ the isolated rank-three projected-gauge study. Correlation and numerical verific
 remain distinct; the independent verifier reconstructs smooth and controlled rough
 gauges without importing the maintained calculation route.
 
-.. autoclass:: ksdft2effmass.periodic2d.model.retained.composite.Periodic2DCompositeCampaignModel
+.. autoclass:: ksdft2effmass.periodic.periodic2d.models.retained.composite.Periodic2DCompositeCampaignModel
    :members:
 
 .. autoclass:: ksdft2effmass.periodic2d.run.composite.data.Periodic2DCompositeCampaign
@@ -353,7 +353,7 @@ gauges without importing the maintained calculation route.
 families and their trivial controls. Its independent route reconstructs spectra,
 projector Bargmann invariants, Chern diagnostics, and Wilson winding.
 
-.. autoclass:: ksdft2effmass.periodic2d.model.retained.topological.Periodic2DTopologicalCampaignModel
+.. autoclass:: ksdft2effmass.periodic.periodic2d.models.retained.topological.Periodic2DTopologicalCampaignModel
    :members:
 
 .. autoclass:: ksdft2effmass.periodic2d.run.topological.data.Periodic2DTopologicalCampaign
@@ -362,7 +362,7 @@ projector Bargmann invariants, Chern diagnostics, and Wilson winding.
 ``Periodic2DTopologicalPhaseSweepCampaign`` retains separate parameter axes and
 independently reconstructs every sampled gap and Chern diagnostic.
 
-.. autoclass:: ksdft2effmass.periodic2d.model.retained.topological_phase_sweep.Periodic2DTopologicalPhaseSweepCampaignModel
+.. autoclass:: ksdft2effmass.periodic.periodic2d.models.retained.topological_phase_sweep.Periodic2DTopologicalPhaseSweepCampaignModel
    :members:
 
 .. autoclass:: ksdft2effmass.periodic2d.run.topological.phase_sweep.data.Periodic2DTopologicalPhaseSweepCampaign
@@ -372,7 +372,7 @@ independently reconstructs every sampled gap and Chern diagnostic.
 repository-portable evidence from one retained balanced Wannier90 comparison. It does
 not execute Wannier90 or access the external native-run directory.
 
-.. autoclass:: ksdft2effmass.periodic2d.model.retained.wannier90_balanced.Periodic2DWannier90BalancedCampaignModel
+.. autoclass:: ksdft2effmass.periodic.periodic2d.models.retained.wannier90_balanced.Periodic2DWannier90BalancedCampaignModel
    :members:
 
 .. autoclass:: ksdft2effmass.periodic2d.run.wannier90.balanced.data.Periodic2DWannier90BalancedCampaign
@@ -381,7 +381,7 @@ not execute Wannier90 or access the external native-run directory.
 ``Periodic2DWannier90StudyCampaign`` authenticates six compact case fixtures and
 reuses the independent portable reconstruction for each declared sensitivity axis.
 
-.. autoclass:: ksdft2effmass.periodic2d.model.retained.wannier90_study.Periodic2DWannier90StudyCampaignModel
+.. autoclass:: ksdft2effmass.periodic.periodic2d.models.retained.wannier90_study.Periodic2DWannier90StudyCampaignModel
    :members:
 
 .. autoclass:: ksdft2effmass.periodic2d.run.wannier90.study.data.Periodic2DWannier90StudyCampaign
@@ -391,7 +391,7 @@ reuses the independent portable reconstruction for each declared sensitivity axi
 partitions, censored outcomes, and the frozen negative convergence disposition without
 accessing native execution files.
 
-.. autoclass:: ksdft2effmass.periodic2d.model.retained.optimizer_basin.Periodic2DOptimizerBasinCampaignModel
+.. autoclass:: ksdft2effmass.periodic.periodic2d.models.retained.optimizer_basin.Periodic2DOptimizerBasinCampaignModel
    :members:
 
 .. autoclass:: ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.data.Periodic2DOptimizerBasinCampaign
@@ -401,7 +401,7 @@ accessing native execution files.
 decomposition, terminal-trace classifications, symmetry-aware basin partitions, and
 repository-retained estimator-grid refinements without opening external run paths.
 
-.. autoclass:: ksdft2effmass.periodic2d.model.retained.optimizer_reanalysis.Periodic2DOptimizerReanalysisCampaignModel
+.. autoclass:: ksdft2effmass.periodic.periodic2d.models.retained.optimizer_reanalysis.Periodic2DOptimizerReanalysisCampaignModel
    :members:
 
 .. autoclass:: ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.reanalysis.data.Periodic2DOptimizerReanalysisCampaign
@@ -411,7 +411,7 @@ repository-retained estimator-grid refinements without opening external run path
 exact-checkpoint continuations, density-aware basin partitions, threshold-sensitivity
 records, and the negative standalone-study disposition.
 
-.. autoclass:: ksdft2effmass.periodic2d.model.retained.optimizer_standalone.Periodic2DOptimizerStandaloneCampaignModel
+.. autoclass:: ksdft2effmass.periodic.periodic2d.models.retained.optimizer_standalone.Periodic2DOptimizerStandaloneCampaignModel
    :members:
 
 .. autoclass:: ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.standalone.data.Periodic2DOptimizerStandaloneCampaign
@@ -421,7 +421,7 @@ records, and the negative standalone-study disposition.
 right-censored log-normal likelihood, score, clustered covariance, adjusted time
 ratios, intervals, and predicted finite-trajectory convergence curves.
 
-.. autoclass:: ksdft2effmass.periodic2d.model.retained.optimizer_regression.Periodic2DOptimizerRegressionCampaignModel
+.. autoclass:: ksdft2effmass.periodic.periodic2d.models.retained.optimizer_regression.Periodic2DOptimizerRegressionCampaignModel
    :members:
 
 .. autoclass:: ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.convergence_regression.data.Periodic2DOptimizerRegressionCampaign
@@ -455,7 +455,7 @@ preconditions, numerical evidence, and limitations.
    :members:
    :no-index:
 
-.. currentmodule:: ksdft2effmass.periodic2d.model.control_models
+.. currentmodule:: ksdft2effmass.periodic.periodic2d.models.control_models
 
 .. autoclass:: Periodic2DCosinePotentialControlModel
    :members:
@@ -466,7 +466,7 @@ preconditions, numerical evidence, and limitations.
 .. autoclass:: Periodic2DPlaneWaveHamiltonianRequest
    :members:
 
-.. autoclass:: Periodic2DPlaneWaveHamiltonianConstructor
+.. autoclass:: Periodic2DPlaneWaveHamiltonian
    :members:
 
 .. autoclass:: Periodic2DPlaneWaveHamiltonianResult
@@ -478,7 +478,7 @@ preconditions, numerical evidence, and limitations.
 .. autoclass:: Periodic2DFiniteDifferenceHamiltonianRequest
    :members:
 
-.. autoclass:: Periodic2DFiniteDifferenceHamiltonianConstructor
+.. autoclass:: Periodic2DFiniteDifferenceHamiltonian
    :members:
 
 .. autoclass:: Periodic2DFiniteDifferenceHamiltonianResult

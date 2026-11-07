@@ -3,8 +3,11 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from ksdft2effmass.periodic.periodic2d.models.retained.wannier90_study import (
+    Periodic2DWannier90StudyCampaignModel,
+)
+
 from ....campaign.base import Periodic2DCampaign
-from ....model.retained.wannier90_study import Periodic2DWannier90StudyCampaignModel
 from .verify import (
     Periodic2DWannier90StudyCampaignVerificationRequest,
     Periodic2DWannier90StudyCampaignVerificationResult,

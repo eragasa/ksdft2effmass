@@ -24,7 +24,7 @@ for later model catalogs and compatible-observation comparisons.
 .. toctree::
    :maxdepth: 1
 
-   ksdft2effmass/periodic/model
+   ksdft2effmass/periodic/models
    ksdft2effmass/periodic/catalog
 
 QEXSD source and translation

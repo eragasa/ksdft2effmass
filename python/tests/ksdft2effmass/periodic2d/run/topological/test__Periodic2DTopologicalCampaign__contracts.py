@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d.model.retained.topological import (
+from ksdft2effmass.periodic.periodic2d.models.retained.topological import (
     Periodic2DTopologicalCampaignModel,
 )
 from ksdft2effmass.periodic2d.run.topological import (

@@ -44,6 +44,8 @@ type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
 )
 
+IMPLEMENTATION_IDENTITY_REVISION = "12a5540ef196fe2a188271977d1f67fbe85eb9bc"
+
 
 class TestParentQualification:
     """Own software verification of maintained parent qualification."""
@@ -174,12 +176,21 @@ class TestParentQualification:
         for value in cast(list[JsonValue], amendment["added_artifacts"]):
             record = cast(dict[str, JsonValue], value)
             represented = cast(str, record["path"])
-            path = (
-                retained / represented
-                if represented == "source-projection-audit.json"
-                else self.repository_root() / represented
-            )
-            content = path.read_bytes()
+            if represented == "source-projection-audit.json":
+                content = (retained / represented).read_bytes()
+            else:
+                # Source identities belong to the immutable implementation snapshot
+                # named by the retained amendment, not to the current checkout.
+                content = subprocess.run(
+                    (
+                        "git",
+                        "show",
+                        f"{IMPLEMENTATION_IDENTITY_REVISION}:{represented}",
+                    ),
+                    cwd=self.repository_root(),
+                    check=True,
+                    capture_output=True,
+                ).stdout
             assert len(content) == record["bytes"]
             assert hashlib.sha256(content).hexdigest() == record["sha256"]
 

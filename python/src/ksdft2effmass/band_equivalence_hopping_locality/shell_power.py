@@ -11,24 +11,21 @@ import math
 from collections.abc import Iterable
 from dataclasses import dataclass
 
-import numpy as np
-from numpy.typing import NDArray
 from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
     NumpyFiniteFourierMatrixSeries,
 )
-from projectkoios.physkit.periodic.lattice.finite_domain import (
-    LatticeDimension,
-    LatticeDisplacement,
-)
-from projectkoios.physkit.periodic.lattice.hopping import (
-    DenseBlockHoppingModel,
-    DenseBlockHoppingTerm,
-)
+from projectkoios.physkit.periodic.lattice.finite_domain import LatticeDisplacement
+from projectkoios.physkit.periodic.lattice.hopping import DenseBlockHoppingModel
 from projectkoios.physkit.solidstate.tb.diagnostics import (
     BlockHoppingPowerAnalyzer,
     BlockHoppingPowerResult,
 )
-from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
+from projectkoios.physkit.units import Unitless
+
+from .block_hopping import (
+    FourierSeriesBlockHoppingRepresentation,
+    FourierSeriesBlockHoppingRepresentationRequest,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -230,58 +227,30 @@ class BandEquivalenceHoppingLocalityFourierShellPowerAnalyzer:
         self._retained_rank = retained_rank
         self._power_analyzer = power_analyzer
 
-    def _displacement(self, components: NDArray[np.int64]) -> LatticeDisplacement:
-        """Return one typed displacement from a bound-series mode row."""
-        if self._series.dimension == 2:
-            return LatticeDisplacement(
-                LatticeDimension.TWO,
-                (int(components[0]), int(components[1])),
-            )
-        return LatticeDisplacement(
-            LatticeDimension.THREE,
-            (int(components[0]), int(components[1]), int(components[2])),
-        )
-
     def execute(self) -> MetricShellHoppingPowerResult:
         """Return typed shell powers through the PhysKit raw-power owner."""
-        entries = sorted(
-            (
-                (
-                    self._displacement(mode),
-                    np.array(coefficient, dtype=np.complex128, copy=True),
-                    shell_index,
-                )
-                for mode, coefficient, shell_index in zip(
-                    self._series.integer_modes,
-                    self._series.matrix_coefficients,
-                    self._shell_indices,
-                    strict=True,
-                )
-            ),
-            key=lambda entry: entry[0].components,
-        )
-        dimension = (
-            LatticeDimension.TWO
-            if self._series.dimension == 2
-            else LatticeDimension.THREE
-        )
-        model = DenseBlockHoppingModel(
-            identifier=self._identifier,
-            dimension=dimension,
-            terms=tuple(
-                DenseBlockHoppingTerm(
-                    displacement=displacement,
-                    coefficient=ComplexMatrixQuantity(coefficient, Unitless()),
-                )
-                for displacement, coefficient, _ in entries
-            ),
-            energy_unit=Unitless(),
-            energy_reference=self._energy_reference,
-            basis_identifier=self._basis_identifier,
-        )
+        model = FourierSeriesBlockHoppingRepresentation(
+            request=FourierSeriesBlockHoppingRepresentationRequest(
+                identifier=self._identifier,
+                energy_reference=self._energy_reference,
+                basis_identifier=self._basis_identifier,
+                series=self._series,
+            )
+        ).result()
+        shell_indices_by_displacement = {
+            tuple(int(component) for component in mode): shell_index
+            for mode, shell_index in zip(
+                self._series.integer_modes,
+                self._shell_indices,
+                strict=True,
+            )
+        }
         return MetricShellHoppingPowerAnalyzer(
             model=model,
-            shell_indices=tuple(shell_index for _, _, shell_index in entries),
+            shell_indices=tuple(
+                shell_indices_by_displacement[term.displacement.components]
+                for term in model.terms
+            ),
             retained_rank=self._retained_rank,
             power_analyzer=self._power_analyzer,
         ).execute()

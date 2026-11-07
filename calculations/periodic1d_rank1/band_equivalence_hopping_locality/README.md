@@ -20,6 +20,17 @@ The calculation therefore cannot exhibit gauge-induced represented-operator loca
 
 ## Surfaces
 
+- [`calculator.py`](calculator.py) defines `Periodic1dRank1Calculator`, a read-only,
+  request-bound composition over one exact typed Fourier-locality result and one
+  caller-selected physical lattice geometry. It exposes the unchanged source result as
+  rank-one band equivalence and constructs separate alignment-applicability,
+  hopping-locality, and support-truncation views over the exact production mesh. It
+  introduces no wire and does not rewrite retained execution bytes.
+- [`calculator.md`](calculator.md) records the calculator's ownership, correlation,
+  numerical, and scientific boundaries.
+- [`tests/test__Periodic1dRank1Calculator__result.py`](tests/test__Periodic1dRank1Calculator__result.py)
+  replays the retained typed producer result read-only and verifies exact source-object
+  correlation across all rank-one capability views.
 - [`protocol.md`](protocol.md) defines the canonical rank-one \(R\)-\(k\)
   Bloch-hopping pair, physical lattice kinetic-energy scale, cyclic-to-ordinary
   conversion boundary, three-channel error decomposition, operation-first lifecycle,
@@ -52,9 +63,10 @@ The three direct stage scripts produced the local unsealed
 verification, and authenticated two-figure rendering. The execution remains an
 illustrative finite numerical control and has not been sealed or promoted. The existing
 result wire predates the operation-first calculation layout: it contains the authoritative
-Fourier, locality, and truncation channels, but it does not yet serialize the newer
+Fourier, locality, and truncation channels, but it does not serialize the newer
 rank-owned gauge-applicability, hopping-locality, and support-truncation wrapper values as
-separate aggregate fields.
+separate aggregate fields. `Periodic1dRank1Calculator` now composes those views in memory
+without changing or reclassifying the retained wire.
 
 ## Analysis order
 

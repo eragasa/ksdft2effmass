@@ -124,16 +124,25 @@ searchable provenance aliases; they are not names for new studies or a version c
 - Calculation scripts use direct module-scope composition and contain no Workflow,
   `main()`, argument parser, JSON-authored scientific input, or reusable kernel.
 - Historical bytes are not rewritten into successor wires; retired predecessor payloads remain recoverable only through recorded Git identities.
+- The maintained `BlockHoppingModel1D` intermediate representation and its
+  cyclic-to-ordinary conversion values remain active until every dependent study passes
+  explicit model-correlation, parity, replay, provenance, and consumer-migration gates.
+- The approved periodic rank-two inheritance hierarchy is not extended during that
+  transition. Any proposed new class or public migration type requires separate human
+  approval before architecture or implementation work.
 - Passing software and bounded numerical checks do not establish continuum convergence,
   uncertainty quantification, material validity, publication acceptance, or release.
 
 ## Detailed plan
 
-- [Dimension-neutral Bloch-hopping model contract](../model/blochhopping/index.md)
-- [Periodic-1D Bloch-hopping model contract](model/blochhopping/index.md)
-- [Rank-one Bloch-hopping model contract](rank1/model/blochhopping/index.md)
-- [Rank-two Bloch-hopping model contract](rank2/model/blochhopping/index.md)
-- [Rank-N Bloch-hopping model contract](rankN/model/blochhopping/index.md)
+- [Dimension-neutral model ownership](../models/index.md)
+- [Periodic scientific-model hierarchy](../periodic/models/index.md)
+- [Periodic-1D model ownership](../periodic/periodic1d/models/index.md)
+- [Dimension-neutral Bloch-hopping model contract](../models/blochhopping/index.md)
+- [Periodic-1D Bloch-hopping model contract](../periodic/periodic1d/models/blochhopping/index.md)
+- [Rank-one Bloch-hopping model contract](rank1/models/blochhopping/index.md)
+- [Rank-two Bloch-hopping model contract](../periodic/periodic1d/rank2/models/blochhopping/index.md)
+- [Rank-N Bloch-hopping model contract](../periodic/periodic1d/rankN/models/blochhopping/index.md)
 - [Compatible rank-one Fourier-locality architecture](fourier_locality/index.md)
 - [Rank-two band-equivalence/locality architecture](rank2/band_equivalence_hopping_locality/index.md)
 - [Rank-two gauge-alignment capability](rank2/gauge_alignment/index.md)

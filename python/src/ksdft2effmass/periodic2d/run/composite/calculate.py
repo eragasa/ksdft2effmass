@@ -12,9 +12,9 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from ...model.control_models import (
+from ksdft2effmass.periodic.periodic2d.models.control_models import (
     Periodic2DCosinePotentialControlModel,
-    Periodic2DPlaneWaveHamiltonianConstructor,
+    Periodic2DPlaneWaveHamiltonian,
     Periodic2DPlaneWaveHamiltonianRequest,
 )
 
@@ -710,10 +710,10 @@ class Periodic2DCompositeCalculator:
             source.lambda_x, source.lambda_y, source.lambda_xy
         )
         return (
-            Periodic2DPlaneWaveHamiltonianConstructor()
-            .execute(
+            Periodic2DPlaneWaveHamiltonian(
                 Periodic2DPlaneWaveHamiltonianRequest(model, kx, ky, source.cutoff)
             )
+            .result()
             .matrix
         )
 

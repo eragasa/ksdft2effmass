@@ -27,6 +27,7 @@ publication acceptance is created. Refinement remains outside these nominal life
 | `diagnostics.py` | Concrete constructor-bound diagnostic analyzers implementing `BaseDiagnosticAnalyzer`. |
 | `calculation/` | Independent finite diagnostic reconstruction used only by verification. |
 | `records/` | Retained point, shell, decision, case, and diagnostic `BaseTypedRecord` projections. |
+| `block_hopping.py` | Representation-only projection from finite Fourier matrix series into sorted immutable PhysKit dense block-hopping values. |
 | `shell_power.py` | Typed KSD aggregation of PhysKit-owned block powers by physical-metric shell, with retained-rank normalization. |
 | `result.py` | Passive retained calculation result and the analysis-bound recorder that projects scientific results into retained records. |
 | `verification.py` | Exact-result-byte ownership, independent checks, verification aggregate, and stored-value readmission. |
@@ -52,6 +53,12 @@ but does not re-export the analyzer, recorder, verifier, or internal diagnostic 
 The installed package imports neither experiment nor calculation directories. Quantum
 ESPRESSO and Wannier90 are not invoked and retain ownership of first-principles
 calculation and Wannier localization.
+
+The general locality-resolution contract belongs to
+[`ksdft2effmass.hopping_locality`](../hopping_locality/index.md). This aggregate study
+currently consumes cell-block Frobenius power. Its optional `basis_offsets` support only
+basis-pair distance extrema; they do not make the installed calculation orbital-resolved
+or MLWF-resolved.
 
 ## Architectural invariants
 
@@ -79,6 +86,8 @@ calculation and Wannier localization.
 
 ## Detailed architecture
 
+- [Hopping-locality resolution owner](../hopping_locality/index.md)
+- [Fourier-series block-hopping representation](block_hopping/FourierSeriesBlockHoppingRepresentation/index.md)
 - [Periodic rank-N common ownership](rankN/index.md)
 - [Implementation](implementation.md)
 - [Numerical contract](numerics.md)

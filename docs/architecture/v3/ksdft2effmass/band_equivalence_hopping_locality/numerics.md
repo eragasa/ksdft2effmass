@@ -58,11 +58,21 @@ block. KSD then assigns the block to its declared metric shell and divides by th
 rank $r=2$. Thus the power recorded exactly on shell $s$ is
 
 $$
-P_s = \frac{1}{r}\sum_{R:\,\operatorname{shell}(R)=s}\lVert H_R\rVert_F^2,
+P_s = \frac{1}{r}\sum_{\mathbf n:\,\operatorname{shell}(\mathbf n)=s}
+\lVert T(\mathbf n)\rVert_F^2,
 $$
 
 while omitted power sums the same normalized block powers over shells strictly beyond
-$s$. The current synthetic models are explicitly unitless; scalar conversion rejects a
+$s$. The coefficient remains indexed by integer displacement $\mathbf n$; geometry
+derives the physical cell displacement $A\mathbf n$ used by the shell metric.
+
+This is cell-block locality. Although a case may retain intracell `basis_offsets`, the
+installed power does not decompose $\lvert T_{\alpha\beta}(\mathbf n)\rvert^2$ by ordered
+basis pair and does not correlate matrix indices with MLWF identities. The three peer
+resolution contracts are specified by
+[`ksdft2effmass.hopping_locality`](../hopping_locality/index.md).
+
+The current synthetic models are explicitly unitless; scalar conversion rejects a
 physical-unit model rather than dropping squared-energy units. A shell result records the
 complete retained block count, reference and comparison shell power, omitted power, and
 both Hamiltonian and ordered-band consequences. Shells are compared only within one

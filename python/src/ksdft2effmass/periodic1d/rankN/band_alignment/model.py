@@ -9,14 +9,15 @@ import numpy as np
 from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
 
-from ksdft2effmass.periodic import Periodic1DModel, PeriodicModelRole
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic1d.rankN.models import Periodic1DRankNModel
 
 from .configuration import Periodic1DRankNAlignmentConfiguration
 
 
 @final
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNAnalyticCase(Periodic1DModel):
+class Periodic1DRankNAnalyticCase(Periodic1DRankNModel):
     """Represent one exact analytic parent family and synthetic frame attack.
 
     Reduced coordinates lie in one reciprocal period. The ambient basis is the
@@ -94,6 +95,11 @@ class Periodic1DRankNAnalyticCase(Periodic1DModel):
     def model_role(self) -> PeriodicModelRole:
         """Classify the analytic family as a control model."""
         return PeriodicModelRole.CONTROL_MODEL
+
+    @property
+    def band_subspace_rank(self) -> int:
+        """Return this case's admitted finite retained-space rank."""
+        return self.retained_rank
 
     @property
     def ambient_dimension(self) -> int:

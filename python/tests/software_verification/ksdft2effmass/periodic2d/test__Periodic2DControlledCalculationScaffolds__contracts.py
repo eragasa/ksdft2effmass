@@ -6,11 +6,9 @@ from dataclasses import FrozenInstanceError, dataclass
 
 import pytest
 
-from ksdft2effmass.periodic import (
-    Periodic1DModel,
-    Periodic2DModel,
-    PeriodicModelRole,
-)
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic1d.models import Periodic1DModel
+from ksdft2effmass.periodic.periodic2d.models import Periodic2DModel
 from ksdft2effmass.periodic2d.studies import (
     Periodic2DRepresentedParentCalculationScaffold,
     Periodic2DShellGaugeLocalityCalculationScaffold,

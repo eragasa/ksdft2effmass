@@ -14,7 +14,7 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from ....model.retained.wannier90_balanced import (
+from ksdft2effmass.periodic.periodic2d.models.retained.wannier90_balanced import (
     Periodic2DWannier90BalancedCampaignModel,
 )
 

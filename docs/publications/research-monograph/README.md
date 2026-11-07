@@ -14,19 +14,22 @@ bounded narrative from it. Extraction is an editorial operation, not automatic
 synchronization, and does not transfer evidentiary status merely by copying
 prose.
 
-The current draft has five main divisions, arranged from lower to higher
-conceptual load: computational foundations; criteria for a good reduced model;
-the bulk-silicon representation program; the doped-silicon representation
-program; and the mathematical and proof program. Part I proceeds from
+The current draft has six main divisions: computational foundations; criteria
+for a good reduced model; the bulk-silicon representation program; the
+doped-silicon representation program; the mathematical and proof program; and
+a final evidence-boundary and research-sequence synthesis. The first five are
+arranged from lower to higher conceptual load, while the sixth integrates their
+current status and next steps. Part I proceeds from
 quantities, units, coordinates, and metadata through finite representations,
 Hermitian eigensystems and spectral subspaces, quantum operators and the
 one-dimensional box, two- and three-dimensional box
 models with Kronecker products, periodic geometry, Bloch-periodic finite
 differences, retained spaces, the distinction between spectral projection and
 eliminated-space downfolding, projection-induced loss of exact finite hopping
-range, isolated-band Fourier reduction to finite-range lattice Hamiltonians,
-composite Bloch frames, the Bloch--Wannier bridge, gauge
-transport and alignment, block locality, and evidence vocabulary. Part II then
+range, periodic-fiber sewing maps and reciprocal closure, isolated-band Fourier
+reduction to finite-range lattice Hamiltonians, composite Bloch frames, the
+Bloch--Wannier bridge, gauge transport and alignment, block locality, and
+evidence vocabulary. Part II then
 moves from the scientific adequacy question through common-space operator
 comparison to weighted spectral and operator losses, with fitting and
 model-class-expressivity precedents integrated where the corresponding concepts
@@ -115,6 +118,7 @@ contracts are stable:
 - `particle_in_box_dimensions.ipynb`;
 - `periodic_geometry.ipynb`;
 - `bloch_periodic_finite_differences.ipynb`;
+- `sewing_maps_and_periodic_fibers.ipynb`;
 - `isolated_band_fourier_reduction.ipynb`; and
 - `composite_band_gauge_alignment.ipynb`.
 

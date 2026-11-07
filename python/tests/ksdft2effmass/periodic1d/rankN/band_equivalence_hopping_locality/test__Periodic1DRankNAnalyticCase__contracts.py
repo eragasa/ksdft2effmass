@@ -3,11 +3,10 @@
 import numpy as np
 import pytest
 
-from ksdft2effmass.periodic import (
-    Periodic1DModel,
-    PeriodicControlModelCatalog,
-    PeriodicModelRole,
-)
+from ksdft2effmass.periodic.catalog import PeriodicControlModelCatalog
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic1d.models import Periodic1DModel
+from ksdft2effmass.periodic.periodic1d.rankN.models import Periodic1DRankNModel
 from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
     Periodic1DRankNAnalyticCaseConstructor,
 )
@@ -28,6 +27,7 @@ class TestPeriodic1DRankNAnalyticCase:
         ).execute()
 
         assert isinstance(model, Periodic1DModel)
+        assert isinstance(model, Periodic1DRankNModel)
         assert model.model_role is PeriodicModelRole.CONTROL_MODEL
         assert model.model_id.endswith(":r03-L01")
         assert PeriodicControlModelCatalog((model,)).model_ids == (model.model_id,)

@@ -2,13 +2,22 @@
 
 from dataclasses import dataclass
 
-from .model import (
-    Periodic1DModel,
-    Periodic2DModel,
-    Periodic3DModel,
+from ksdft2effmass.periodic.models import (
     PeriodicModel,
     PeriodicModelRole,
     SpatialDimension,
+)
+from ksdft2effmass.periodic.periodic1d.models import Periodic1DModel
+from ksdft2effmass.periodic.periodic1d.rank2.models import (
+    Periodic1DRank2BlockHoppingModel,
+)
+from ksdft2effmass.periodic.periodic2d.models import Periodic2DModel
+from ksdft2effmass.periodic.periodic2d.rank2.models import (
+    Periodic2DRank2BlockHoppingModel,
+)
+from ksdft2effmass.periodic.periodic3d.models import Periodic3DModel
+from ksdft2effmass.periodic.periodic3d.rank2.models import (
+    Periodic3DRank2BlockHoppingModel,
 )
 
 
@@ -28,12 +37,23 @@ class PeriodicControlModelCatalog:
     -----
     Tuple order is catalog order and is preserved. The catalog performs no module
     scanning, subclass discovery, model evaluation, comparison, or acceptance.
+
     """
 
     models: tuple[PeriodicModel, ...]
 
     def __post_init__(self) -> None:
-        """Validate explicit membership, roles, dimensions, and identities."""
+        """Validate explicit membership, roles, dimensions, and identities.
+
+        Raises
+        ------
+        TypeError
+            If the inventory or a model attribute lacks its exact runtime owner.
+        ValueError
+            If the inventory is empty, identities repeat, a role is not a control
+            role, or reported dimension disagrees with admitted dimensional ownership.
+
+        """
         if type(self.models) is not tuple:
             raise TypeError("models must be an exact tuple")
         if not self.models:
@@ -60,10 +80,13 @@ class PeriodicControlModelCatalog:
             dimension = model.spatial_dimension
             if type(dimension) is not int:
                 raise TypeError("spatial_dimension must be an exact int")
+            # The block-hopping family inherits its mandatory shared rank-two parent
+            # directly, so dimensional admission lists that family explicitly rather
+            # than introducing a second or multiple-inheritance model hierarchy.
             expected_membership = {
-                1: Periodic1DModel,
-                2: Periodic2DModel,
-                3: Periodic3DModel,
+                1: (Periodic1DModel, Periodic1DRank2BlockHoppingModel),
+                2: (Periodic2DModel, Periodic2DRank2BlockHoppingModel),
+                3: (Periodic3DModel, Periodic3DRank2BlockHoppingModel),
             }.get(dimension)
             if expected_membership is None:
                 raise ValueError("spatial_dimension must be 1, 2, or 3")
@@ -74,12 +97,26 @@ class PeriodicControlModelCatalog:
 
     @property
     def model_ids(self) -> tuple[str, ...]:
-        """Return model identities in deterministic catalog order."""
+        """Return model identities in deterministic catalog order.
+
+        Returns
+        -------
+        tuple[str, ...]
+            Stable model identities in exact caller registration order.
+
+        """
         return tuple(model.model_id for model in self.models)
 
     @property
     def spatial_dimensions(self) -> tuple[SpatialDimension, ...]:
-        """Return exact dimensions in deterministic catalog order."""
+        """Return exact dimensions in deterministic catalog order.
+
+        Returns
+        -------
+        tuple[SpatialDimension, ...]
+            Built-in spatial dimensions in exact caller registration order.
+
+        """
         return tuple(model.spatial_dimension for model in self.models)
 
 

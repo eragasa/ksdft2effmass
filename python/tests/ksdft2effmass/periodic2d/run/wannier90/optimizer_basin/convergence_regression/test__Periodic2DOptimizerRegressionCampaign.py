@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d.model.retained.optimizer_regression import (
+from ksdft2effmass.periodic.periodic2d.models.retained.optimizer_regression import (
     Periodic2DOptimizerRegressionCampaignModel,
 )
 from ksdft2effmass.periodic2d.run.wannier90.optimizer_basin.convergence_regression.data import (  # noqa: E501

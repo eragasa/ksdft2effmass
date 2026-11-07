@@ -11,7 +11,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ksdft2effmass.periodic import Periodic2DModel, PeriodicModelRole
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic2d.models import Periodic2DModel
 
 
 def _validate_definition_id(value: str) -> None:

@@ -16,6 +16,9 @@ or supported import already exists.
 - [`spaces`](spaces/index.md): finite state-space and subspace contracts.
 - [`analysis`](analysis/index.md): reusable analyses over already typed numerical
   objects.
+- [`hopping_locality`](hopping_locality/index.md): the nominal locality owner and the
+  prospective separation of cell-block, orbital-resolved, and MLWF-resolved peer
+  diagnostics on unchanged hopping coefficients.
 - [`band_equivalence_hopping_locality`](band_equivalence_hopping_locality/index.md):
   the cross-dimensional aggregate study comparing band equivalence with hopping
   locality while leaving support truncation separate.
@@ -29,6 +32,19 @@ or supported import already exists.
   final record boundaries.
 - [`visualizations`](visualizations/index.md): domain-neutral authenticated projection,
   figure composition, PNG admission, and closed-inventory mechanics.
+- [`models`](models/index.md): the nominal KSD scientific-model root and maintained
+  dimension-neutral model families.
+- [`periodic`](periodic/index.md): dimension-neutral periodic model vocabulary, the
+  domain → dimension → rank nominal hierarchy, and the prospective basis-embedding and
+  reciprocal-shift-sewing prerequisites for Wilson analysis.
+- [`sewing`](sewing/index.md): dimension-neutral abstract sewing classes, with concrete
+  reciprocal, projected-subspace, symmetry, and finite-boundary mechanics retained by
+  their applicable domain owners.
+- [`study`](study/index.md): reusable one-model study identity and the parallel periodic
+  dimension → rank orchestration hierarchy.
+- [`geometry/periodic`](geometry/periodic/index.md): prospective typed periodic lattice
+  geometry, direct- and reciprocal-lattice displacements, reciprocal coordinates,
+  reciprocal-space vectors, and residual-reporting coordinate recovery.
 - [`model_systems`](model_systems/index.md): controlled physical and mathematical
   systems plus shared model-analysis verification sequencing.
 - [`model_systems/piab1d`](model_systems/piab1d/index.md): the complete typed PIAB1D
@@ -58,8 +74,9 @@ not an ownership reassignment.
 
 ## Ownership boundary
 
-Model construction remains under `ksdft2effmass.model_systems`. Selection and
-composition of multiple diagnostics remain with `experiments/` or `calculations/`.
+Model construction remains under `ksdft2effmass.model_systems`. Reusable study
+contracts may correlate one exact model without selecting diagnostics. Named diagnostic
+composition and multi-model comparison remain with `experiments/` or `calculations/`.
 This source mirror does not define a workflow engine, registry, or universal diagnostic
 suite.
 

@@ -18,7 +18,7 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ..model.control_models import (
+from ksdft2effmass.periodic.periodic2d.models.control_models import (
     Periodic2DFiniteDifferenceHamiltonianResult,
     Periodic2DPlaneWaveHamiltonianResult,
 )

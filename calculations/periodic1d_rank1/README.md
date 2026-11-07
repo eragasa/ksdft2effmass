@@ -9,7 +9,7 @@ higher-rank periodic calculations.
 
 ## Model contract
 
-`ksdft2effmass.periodic1d.rank1.model.blochhopping.Periodic1DRank1BlochHoppingModel`
+`ksdft2effmass.periodic1d.rank1.models.blochhopping.Periodic1DRank1BlochHoppingModel`
 binds an explicit periodic-1D lattice geometry to PhysKit's immutable ordinary-lattice
 `DenseBlockHoppingModel`, fixes its scientific role as a parameterized `REDUCED_MODEL`,
 enforces retained-space dimension one and exact Hermiticity, binds the physical scale
@@ -17,7 +17,7 @@ enforces retained-space dimension one and exact Hermiticity, binds the physical 
 finite-DFT cyclic coefficients outside the ordinary model boundary. The calculation-owned [model research protocol](model/README.md) defines the canonical
 \(R\)--\(k\) notation, parameter and unit contracts, conversion boundary, verification,
 and claim exclusions. The source contract is documented in the
-[architecture record](../../docs/architecture/v3/ksdft2effmass/periodic1d/rank1/model/blochhopping/index.md).
+[architecture record](../../docs/architecture/v3/ksdft2effmass/periodic1d/rank1/models/blochhopping/index.md).
 
 ## Operation owners
 

@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d.model.retained.topological_phase_sweep import (
+from ksdft2effmass.periodic.periodic2d.models.retained.topological_phase_sweep import (
     Periodic2DTopologicalPhaseSweepCampaignModel,
 )
 from ksdft2effmass.periodic2d.run.topological import (

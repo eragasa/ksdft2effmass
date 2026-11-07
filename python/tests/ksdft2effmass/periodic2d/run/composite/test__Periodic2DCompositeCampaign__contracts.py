@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d.model.retained.composite import (
+from ksdft2effmass.periodic.periodic2d.models.retained.composite import (
     Periodic2DCompositeCampaignModel,
 )
 from ksdft2effmass.periodic2d.run.composite.data import Periodic2DCompositeCampaign

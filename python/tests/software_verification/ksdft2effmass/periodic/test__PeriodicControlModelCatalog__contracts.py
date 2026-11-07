@@ -6,14 +6,11 @@ from dataclasses import FrozenInstanceError, dataclass
 
 import pytest
 
-from ksdft2effmass.periodic import (
-    Periodic1DModel,
-    Periodic2DModel,
-    Periodic3DModel,
-    PeriodicControlModelCatalog,
-    PeriodicModel,
-    PeriodicModelRole,
-)
+from ksdft2effmass.periodic.catalog import PeriodicControlModelCatalog
+from ksdft2effmass.periodic.models import PeriodicModel, PeriodicModelRole
+from ksdft2effmass.periodic.periodic1d.models import Periodic1DModel
+from ksdft2effmass.periodic.periodic2d.models import Periodic2DModel
+from ksdft2effmass.periodic.periodic3d.models import Periodic3DModel
 
 pytestmark = pytest.mark.software_verification
 
