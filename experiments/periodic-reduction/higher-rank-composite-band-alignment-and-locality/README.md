@@ -7,15 +7,12 @@ higher-rank study. It separates retained rank, noncommuting Givens-circuit depth
 admissible alignment family, and spatial dimension across orthogonal periodic one-, two-,
 and three-dimensional controls.
 
-The first bounded 1-D P0/G0 specialization is now a complete pre-execution protocol
-candidate with reserved identity
-`ksdft2effmass.campaign.periodic-reduction.periodic1d.higher-rank-composite-band-alignment-and-locality.v1`.
-Its parent, exact analytic certificates, real Givens-angle law, rank/depth ladder,
-A0--A3 channels, exact Procrustes orientation and application rules, fail-closed
-alignment dispositions, Part 2-compatible sequential transport and distributed closure,
-meshes, tolerances, supports, per-channel sampled Pareto diagnostics, convergence and
-claim-resolution rules, complete diagnostic ledger, strict input/result/verification/provenance field
-inventory, verifier method, resource gate, and evidence policy are selected. Reusable,
+The first bounded 1-D P0/G0 specialization has a complete scientific and numerical
+protocol. It fixes the parent, exact analytic certificates, real Givens-angle law,
+rank/depth ladder, A0--A3 channels, exact Procrustes orientation and application rules,
+fail-closed alignment dispositions, Part 2-compatible sequential transport and
+distributed closure, meshes, tolerances, supports, per-channel sampled Pareto
+diagnostics, convergence rules, and scientific claim-resolution rules. Reusable,
 rank-generic diagnostic primitives are now under software verification at
 `python/src/ksdft2effmass/analysis/matrix_field/diagnostics/`. A schema-free development
 calculator now implements the P0/G0 formulas, A0--A3 alignment, sequential transport,
@@ -49,12 +46,10 @@ grammar explicitly: retained rank, projector, represented spectrum, periodicity 
 declared input constraints, and exterior isolation are analytic guarantees, whereas
 restricted alignment residuals, hopping tails, truncation errors, per-channel sampled
 support--error Pareto membership, refinement behavior, and finite rank/depth trends remain
-measured outcomes. The Paper 1 v3 supplementary
-workflow is used only as a diagnostic-completeness checklist: applicable gap, frame,
-sewing, Fourier, Parseval, error-decomposition, perturbation-bound, evaluation,
-refinement, serialization, and verification channels are retained, while rank-two-only
-admissible-set, Nyquist, amplitude-optimization, and first-passing-range channels are
-explicitly inapplicable.
+measured outcomes. The selected diagnostics include the applicable gap, frame, sewing,
+Fourier, Parseval, error-decomposition, perturbation-bound, evaluation, and refinement
+quantities. Rank-two-only admissible-set, Nyquist, amplitude-optimization, and
+first-passing-range quantities are explicitly inapplicable.
 
 The global analytic frame makes the initial family topologically trivial. Closure,
 Wilson-loop, and plaquette quantities are sewing and transport diagnostics, not
@@ -68,8 +63,8 @@ but are not executions of this analytic protocol.
 ## Documents
 
 - [`experimental-protocol.tex`](experimental-protocol.tex) is the canonical protocol
-  manuscript. It defines the common family and the complete unexecuted D1 v1 candidate;
-  later-dimensional numerical controls remain prospective.
+  manuscript. It defines the common mathematical family and the complete D1 P0/G0 v1
+  scientific and numerical protocol; later-dimensional controls remain prospective.
 - [`python/src/ksdft2effmass/analysis/matrix_field/diagnostics/`](../../../python/src/ksdft2effmass/analysis/matrix_field/diagnostics/)
   provides reusable typed structural, error-channel, perturbation-bound, decomposition,
   block-norm, tail, monotonicity, and scalar-refinement diagnostics. These primitives do
@@ -94,7 +89,6 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error \\
   -outdir=/tmp/hr-cbal-protocol-build experimental-protocol.tex
 ```
 
-The bounded local schema-free development composition is separate from retained evidence.
-No retained calculation, evidence promotion, production external-code execution,
-publication, or other protected action is authorized by these documents. Strict schema,
-serializer, and independent-verifier review must precede any retained execution request.
+The bounded local development composition is separate from retained evidence. No retained
+calculation, evidence promotion, production external-code execution, publication, or
+other protected action is authorized by these documents.
