@@ -93,7 +93,9 @@ Reference-data and extraction records use `ksdft2effmass.reference` and
 | Current locator or label | Permanent campaign-family ID | Scope note |
 |---|---|---|
 | `calculations/research-monograph/harmonic-oscillator/`; Appendix E | `ksdft2effmass.campaign.model-systems.harmonic-oscillator.common-space-comparison` | Analytical, finite-difference, and ladder-operator representations in one declared finite comparison space |
-| `calculations/research-monograph/particle-in-box/`; Appendix D | `ksdft2effmass.campaign.model-systems.particle-in-box.finite-representation-diagnostics` | Residual meaning, grid and mode refinement, norm behavior, and model-class identifiability |
+| `calculations/research-monograph/particle-in-box/`; Appendix D; normalized experiment path `experiments/model-systems/piab/piab1d/` | `ksdft2effmass.campaign.model-systems.piab.piab1d.finite-representation-diagnostics` | Existing one-dimensional residual meaning, grid and mode refinement, norm behavior, and model-class identifiability; the former `model-systems.particle-in-box` spelling remains a historical identity alias |
+| `experiments/model-systems/piab/piab2d/` | `ksdft2effmass.campaign.model-systems.piab.piab2d.finite-representation-diagnostics` | Prospective orthogonal rectangular-box analytical and finite-representation diagnostics; no immutable version or run exists |
+| `experiments/model-systems/piab/piab3d/` | `ksdft2effmass.campaign.model-systems.piab.piab3d.finite-representation-diagnostics` | Prospective orthogonal rectangular-cuboid diagnostics; the finite-difference owner gap blocks an immutable numerical version |
 | `calculations/research-monograph/impurity-spin-spaces/`; Appendix I spin slice | `ksdft2effmass.campaign.operator-comparison.impurity.spin-space-compatibility` | Spinless, spin-degenerate, collinear, and spinor finite-space mappings and compatibility |
 
 ### One-dimensional periodic reduction and model adequacy

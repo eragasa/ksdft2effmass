@@ -14,8 +14,10 @@ implementing `ClassName`.
 
 Within `periodic-reduction/`, reusable scientific experiment families are grouped first
 and dimensional realizations (`periodic1d/`, later `periodic2d/` or `periodic3d/`) are
-children. A family container is organizational; each dimensional child retains its own
-stable experiment-family identity. Empty dimensional placeholders are not created.
+children. Within `model-systems/piab/`, the particle-in-a-box family similarly contains
+`piab1d/`, `piab2d/`, and `piab3d/` dimensional experiments. A family container is
+organizational; each dimensional child retains its own stable experiment-family
+identity. Empty dimensional placeholders are not created.
 
 Experiment code is not part of the public `ksdft2effmass` wheel. Installed packages
 must never import this tree. Reusable behavior is extracted into its domain owner and
@@ -64,6 +66,9 @@ operator errors and different real-space hopping ranges.
 
 | Experiment family | Maintained locator | Lifecycle status | Current evidence boundary |
 |---|---|---|---|
+| `ksdft2effmass.campaign.model-systems.piab.piab1d.finite-representation-diagnostics` | [`model-systems/piab/piab1d/`](model-systems/piab/piab1d/) | **Retained version; structural normalization in progress** | The retained Appendix D package remains at its historical checksum-bound calculation path. The maintained path is currently a crosswalk and future composition boundary, not a duplicate evidence package. |
+| `ksdft2effmass.campaign.model-systems.piab.piab2d.finite-representation-diagnostics` | [`model-systems/piab/piab2d/`](model-systems/piab/piab2d/) | **Prospective protocol** | The orthogonal rectangular-box question and owner boundary are documented. Meshes, mode inventories, tolerances, schemas, verifier identity, resource ceilings, and evidence policy remain unfrozen; no run exists. |
+| `ksdft2effmass.campaign.model-systems.piab.piab3d.finite-representation-diagnostics` | [`model-systems/piab/piab3d/`](model-systems/piab/piab3d/) | **Prospective protocol; owner-blocked** | PhysKit supplies the rectangular PIAB3D model and analytical spectrum at the pinned revision, but no reviewed PIAB3D finite-difference solver. No run exists. |
 | `ksdft2effmass.campaign.periodic-reduction.periodic1d.single-band-fourier-reduction` | [`periodic-reduction/single-band-fourier-reduction/periodic1d/`](periodic-reduction/single-band-fourier-reduction/periodic1d/) | **Retained version** | Immutable `.v1`, strict schemas, independent reconstruction, exact predecessor provenance, retained runs, and content-addressed evidence exist. This is controlled synthetic evidence, not material validation. |
 | `ksdft2effmass.campaign.periodic-reduction.periodic1d.composite-band-alignment-and-locality` | [`periodic-reduction/composite-band-alignment-and-locality/periodic1d/`](periodic-reduction/composite-band-alignment-and-locality/periodic1d/) | **Prospective protocol** | The rank-two alignment/locality successor and owner boundary are documented; no immutable version or maintained run exists. |
 | `ksdft2effmass.campaign.model-adequacy.periodic1d.band-equivalence-versus-hopping-locality` (**Band Equivalence versus Hopping Locality**) | [`model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/`](model-adequacy/periodic1d/band-equivalence-versus-hopping-locality/) | **Pre-version implementation** | Tests whether identical Bloch bands can conceal restricted-alignment matrix mismatch and different hopping locality. The smooth flat-parent analysis finds roundoff-level momentum refinement changes and increasing matrix/hopping mismatch, but the proposed amplitude ladder through $N_a=64$ fails a $10^{-8}$ uniform linear-interpolation target. A non-flat four-state realization using the same smooth family is prospective; historical 64/257 behavior is regression-only. No retained run or evidence-package identity exists. |

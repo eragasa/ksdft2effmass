@@ -2,10 +2,13 @@
 
 ## Status and boundary
 
-This is **proposed work**, not implemented capability or completed numerical evidence.
-It extends the public one-dimensional particle-in-a-box ownership model without
-changing retained Appendix D results. It does not authorize production calculations,
-scientific validation, or uncertainty quantification.
+This is **proposed KSD experiment work**, not completed PIAB2D or PIAB3D numerical
+evidence. It extends the public one-dimensional particle-in-a-box ownership model
+without changing retained Appendix D results. The pinned PhysKit revision already owns
+rectangular PIAB2D and PIAB3D models, their analytical spectrum evaluators, and an
+oblique PIAB2D finite-difference solver. Those reusable capabilities are not KSD
+campaigns or retained KSD evidence. This plan does not authorize production
+calculations, scientific validation, or uncertainty quantification.
 
 “Non-orthonormal” can describe two mathematically different situations. This plan
 keeps them separate:
@@ -20,7 +23,12 @@ ordinary eigenproblem formula.
 
 ## Existing reusable foundation
 
-The implemented one-dimensional slice supplies:
+The normalized experiment hierarchy is
+`experiments/model-systems/piab/{piab1d,piab2d,piab3d}/`. Actual retained runs use
+matching `calculations/model-systems/piab/<dimension>/runs/<run-id>/` paths; absent
+runs do not receive calculation placeholders.
+
+The implemented one-dimensional KSD slice supplies:
 
 - `DirichletInterval`;
 - `UniformCartesianGrid1D`;
@@ -232,13 +240,18 @@ validation or uncertainty quantification.
 
 1. **Completed:** migrate the one-dimensional residual, convergence, eigenpair, norm,
    and identifiability campaigns and preserve retained numerical artifacts.
-2. Add orthonormal `DirichletRectangle` and the 2D Kronecker-sum Laplacian.
-3. Add the 2D analytical box and fixed-mode numerical-verification fixtures.
-4. Extend the same contracts to the orthonormal 3D rectangular box.
-5. Introduce affine-frame geometry and diagonal-metric equivalence tests.
-6. Add oblique 2D mixed derivatives and manufactured-solution evidence.
-7. Extend the verified metric construction to 3D.
-8. Introduce overlap-matrix and generalized-eigenproblem contracts only with a concrete
+2. **Completed by PhysKit:** own rectangular PIAB2D and PIAB3D models, analytical mode
+   inventories, and the oblique PIAB2D finite-difference solver. This establishes
+   reusable capability, not KSD experiment evidence.
+3. Freeze the orthogonal PIAB2D KSD protocol, including the explicit decision whether
+   the diagonal-basis use of PhysKit's oblique solver is admitted, then add KSD-owned
+   schemas, thin adapters, and independent campaign verification.
+4. Add or review a reusable sparse PIAB3D finite-difference owner in PhysKit before
+   freezing the KSD PIAB3D numerical protocol. KSD must not fill this gap with a
+   campaign-local reusable solver.
+5. Introduce affine-frame and oblique-coordinate KSD experiments only after the
+   orthogonal dimensional campaigns close their software-verification gates.
+6. Introduce overlap-matrix and generalized-eigenproblem contracts only with a concrete
    non-orthogonal-basis consumer.
 
 Each stage must preserve earlier public imports and retained artifacts or document an
