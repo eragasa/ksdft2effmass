@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import cast, final
+from dataclasses import dataclass
+from typing import assert_type, final
 
 import pytest
 
@@ -19,179 +20,166 @@ pytestmark = pytest.mark.software_verification
 
 
 @final
-class _SyntheticRequest(RepresentationTransformationRequestABC):
-    """Provide one nominal request for skeleton verification."""
-
-    __slots__ = ("_transformation_kind",)
-
-    def __init__(self, transformation_kind: RepresentationTransformationKind) -> None:
-        self._transformation_kind = transformation_kind
+@dataclass(frozen=True, slots=True)
+class _SyntheticGaugeConjugationRequest(RepresentationTransformationRequestABC):
+    """Provide the exact request type for one synthetic transformation."""
 
     @property
     def transformation_kind(self) -> RepresentationTransformationKind:
-        """Return the configured enum member."""
-        return self._transformation_kind
-
-
-@final
-class _SyntheticResult(RepresentationTransformationResultABC):
-    """Provide one nominal result for skeleton verification."""
-
-    __slots__ = ("_transformation_kind",)
-
-    def __init__(self, transformation_kind: RepresentationTransformationKind) -> None:
-        self._transformation_kind = transformation_kind
-
-    @property
-    def transformation_kind(self) -> RepresentationTransformationKind:
-        """Return the configured enum member."""
-        return self._transformation_kind
-
-
-@final
-class _SyntheticGaugeConjugation(
-    RepresentationTransformationABC[_SyntheticRequest, _SyntheticResult]
-):
-    """Return one configured result through the nominal skeleton."""
-
-    __slots__ = ("_result_kind",)
-
-    def __init__(self, result_kind: RepresentationTransformationKind) -> None:
-        self._result_kind = result_kind
-
-    @property
-    def transformation_kind(self) -> RepresentationTransformationKind:
-        """Return the operation family implemented by this synthetic Action."""
+        """Return the class-owned transformation kind."""
         return RepresentationTransformationKind.gauge_conjugation
 
-    def transform(self, request: _SyntheticRequest, /) -> _SyntheticResult:
-        """Validate kinds and return the configured synthetic result."""
-        self._require_compatible_request_kind(request)
-        result = _SyntheticResult(self._result_kind)
-        return self._require_compatible_result_kind(result)
-
 
 @final
-class _MalformedKindAction(
-    RepresentationTransformationABC[_SyntheticRequest, _SyntheticResult]
-):
-    """Expose a raw string through a deliberately malformed Action property."""
-
-    __slots__ = ()
+@dataclass(frozen=True, slots=True)
+class _ForeignGaugeConjugationRequest(RepresentationTransformationRequestABC):
+    """Provide a foreign exact request carrying the same enum member."""
 
     @property
     def transformation_kind(self) -> RepresentationTransformationKind:
-        """Return an invalid raw string for runtime rejection testing."""
-        return cast(RepresentationTransformationKind, "gauge_conjugation")
-
-    def transform(self, request: _SyntheticRequest, /) -> _SyntheticResult:
-        """Reject the malformed Action kind before returning a result."""
-        self._require_compatible_request_kind(request)
-        result = _SyntheticResult(RepresentationTransformationKind.gauge_conjugation)
-        return self._require_compatible_result_kind(result)
-
-
-@final
-class _NonNominalResultAction(
-    RepresentationTransformationABC[_SyntheticRequest, _SyntheticResult]
-):
-    """Return a non-nominal value for fail-closed result testing."""
-
-    __slots__ = ()
-
-    @property
-    def transformation_kind(self) -> RepresentationTransformationKind:
-        """Return the gauge-conjugation enum member."""
+        """Return the same kind as the intended synthetic request."""
         return RepresentationTransformationKind.gauge_conjugation
 
-    def transform(self, request: _SyntheticRequest, /) -> _SyntheticResult:
-        """Validate the request and reject a structural result substitute."""
-        self._require_compatible_request_kind(request)
-        result = cast(_SyntheticResult, "gauge_conjugation")
-        return self._require_compatible_result_kind(result)
+
+@final
+@dataclass(frozen=True, slots=True)
+class _SyntheticAlignmentRequest(RepresentationTransformationRequestABC):
+    """Provide a nominal request carrying another enum member."""
+
+    @property
+    def transformation_kind(self) -> RepresentationTransformationKind:
+        """Return the alignment transformation kind."""
+        return RepresentationTransformationKind.alignment
+
+
+@final
+@dataclass(frozen=True, slots=True)
+class _SyntheticGaugeConjugationResult(RepresentationTransformationResultABC):
+    """Provide the exact result type for one synthetic transformation."""
+
+    @property
+    def transformation_kind(self) -> RepresentationTransformationKind:
+        """Return the class-owned transformation kind."""
+        return RepresentationTransformationKind.gauge_conjugation
+
+
+@final
+@dataclass(frozen=True, slots=True)
+class _ForeignGaugeConjugationResult(RepresentationTransformationResultABC):
+    """Provide a foreign exact result carrying the same enum member."""
+
+    @property
+    def transformation_kind(self) -> RepresentationTransformationKind:
+        """Return the same kind as the intended synthetic result."""
+        return RepresentationTransformationKind.gauge_conjugation
+
+
+@final
+@dataclass(frozen=True, slots=True)
+class _SyntheticAlignmentResult(RepresentationTransformationResultABC):
+    """Provide a nominal result carrying another enum member."""
+
+    @property
+    def transformation_kind(self) -> RepresentationTransformationKind:
+        """Return the alignment transformation kind."""
+        return RepresentationTransformationKind.alignment
+
+
+@final
+@dataclass(frozen=True, slots=True)
+class _SyntheticGaugeConjugation(RepresentationTransformationABC):
+    """Bind one exact request and directly construct one exact result."""
+
+    _request: _SyntheticGaugeConjugationRequest
+
+    def __post_init__(self) -> None:
+        """Validate the exact request type and class-owned enum agreement."""
+        self._require_exact_request(self._request)
+        self._require_compatible_request_kind(self._request)
+
+    @property
+    def transformation_kind(self) -> RepresentationTransformationKind:
+        """Return the class-owned transformation kind."""
+        return RepresentationTransformationKind.gauge_conjugation
+
+    @staticmethod
+    def _require_exact_request(
+        request: RepresentationTransformationRequestABC,
+        /,
+    ) -> None:
+        """Reject a request outside this concrete transformation triple."""
+        if type(request) is not _SyntheticGaugeConjugationRequest:
+            raise TypeError(
+                "request must be an exact _SyntheticGaugeConjugationRequest"
+            )
+
+    @staticmethod
+    def _require_exact_result(
+        result: RepresentationTransformationResultABC,
+        /,
+    ) -> None:
+        """Reject a result outside this concrete transformation triple."""
+        if type(result) is not _SyntheticGaugeConjugationResult:
+            raise TypeError("result must be an exact _SyntheticGaugeConjugationResult")
+
+    def transform(self) -> _SyntheticGaugeConjugationResult:
+        """Directly construct, validate, and return the exact concrete result."""
+        result: _SyntheticGaugeConjugationResult = _SyntheticGaugeConjugationResult()
+        self._require_exact_result(result)
+        self._require_compatible_result_kind(result)
+        return result
 
 
 class TestRepresentationTransformationABC:
-    """Establish nominal and enum-stable request-to-result behavior."""
+    """Establish the non-generic nominal transformation contract."""
 
     def test_transform__is_the_abstract_public_override_point(self) -> None:
-        """The nominal Action contract requires concrete public transformation."""
+        """The nominal Action root requires a concrete public transformation."""
         assert "transform" in RepresentationTransformationABC.__abstractmethods__
 
-    def test_transform__returns_same_kind_nominal_result(self) -> None:
-        """A same-kind request, Action, and result pass through the skeleton."""
-        action = _SyntheticGaugeConjugation(
-            RepresentationTransformationKind.gauge_conjugation
-        )
-        request = _SyntheticRequest(RepresentationTransformationKind.gauge_conjugation)
+    def test_concrete_triple__has_one_exact_kind_and_result_type(self) -> None:
+        """One concrete request, transformation, and result share one enum member."""
+        request = _SyntheticGaugeConjugationRequest()
+        transformation = _SyntheticGaugeConjugation(request)
 
-        result = action.transform(request)
+        result = transformation.transform()
 
-        assert isinstance(result, RepresentationTransformationResultABC)
+        assert_type(result, _SyntheticGaugeConjugationResult)
+        assert type(transformation._request) is _SyntheticGaugeConjugationRequest
+        assert type(result) is _SyntheticGaugeConjugationResult
         assert (
-            result.transformation_kind
+            request.transformation_kind
+            is transformation.transformation_kind
+            is result.transformation_kind
             is RepresentationTransformationKind.gauge_conjugation
         )
 
-    def test_transform__rejects_request_kind_mismatch(self) -> None:
-        """An Action never accepts another transformation family's request."""
-        action = _SyntheticGaugeConjugation(
-            RepresentationTransformationKind.gauge_conjugation
-        )
-        request = _SyntheticRequest(RepresentationTransformationKind.alignment)
+    def test_exact_request_validator__rejects_foreign_same_kind_request(self) -> None:
+        """Enum agreement does not admit another concrete request type."""
+        foreign = _ForeignGaugeConjugationRequest()
+
+        with pytest.raises(TypeError, match="exact _SyntheticGaugeConjugationRequest"):
+            _SyntheticGaugeConjugation._require_exact_request(foreign)
+
+    def test_exact_result_validator__rejects_foreign_same_kind_result(self) -> None:
+        """Enum agreement does not admit another concrete result type."""
+        foreign = _ForeignGaugeConjugationResult()
+
+        with pytest.raises(TypeError, match="exact _SyntheticGaugeConjugationResult"):
+            _SyntheticGaugeConjugation._require_exact_result(foreign)
+
+    def test_request_kind_validator__rejects_other_kind(self) -> None:
+        """The shared helper rejects another nominal request kind."""
+        transformation = _SyntheticGaugeConjugation(_SyntheticGaugeConjugationRequest())
 
         with pytest.raises(ValueError, match="request transformation kind"):
-            action.transform(request)
+            transformation._require_compatible_request_kind(
+                _SyntheticAlignmentRequest()
+            )
 
-    def test_transform__rejects_result_kind_mismatch(self) -> None:
-        """An Action never returns another transformation family's result."""
-        action = _SyntheticGaugeConjugation(RepresentationTransformationKind.alignment)
-        request = _SyntheticRequest(RepresentationTransformationKind.gauge_conjugation)
+    def test_result_kind_validator__rejects_other_kind(self) -> None:
+        """The shared helper rejects another nominal result kind."""
+        transformation = _SyntheticGaugeConjugation(_SyntheticGaugeConjugationRequest())
 
         with pytest.raises(ValueError, match="result transformation kind"):
-            action.transform(request)
-
-    def test_transform__rejects_non_nominal_request(self) -> None:
-        """Structural similarity does not replace nominal request membership."""
-        action = _SyntheticGaugeConjugation(
-            RepresentationTransformationKind.gauge_conjugation
-        )
-
-        with pytest.raises(TypeError, match="request must implement"):
-            action.transform(cast(_SyntheticRequest, "gauge_conjugation"))
-
-    def test_transform__rejects_non_nominal_result(self) -> None:
-        """Structural similarity does not replace nominal result membership."""
-        request = _SyntheticRequest(RepresentationTransformationKind.gauge_conjugation)
-
-        with pytest.raises(TypeError, match="result must implement"):
-            _NonNominalResultAction().transform(request)
-
-    def test_transform__rejects_raw_string_action_kind(self) -> None:
-        """An Action enum property cannot use an unbound textual discriminator."""
-        request = _SyntheticRequest(RepresentationTransformationKind.gauge_conjugation)
-
-        with pytest.raises(TypeError, match="Action transformation_kind"):
-            _MalformedKindAction().transform(request)
-
-    def test_transform__rejects_raw_string_request_kind(self) -> None:
-        """A nominal request still must expose the exact enum type."""
-        action = _SyntheticGaugeConjugation(
-            RepresentationTransformationKind.gauge_conjugation
-        )
-        request = _SyntheticRequest(
-            cast(RepresentationTransformationKind, "gauge_conjugation")
-        )
-
-        with pytest.raises(TypeError, match="request transformation_kind"):
-            action.transform(request)
-
-    def test_transform__rejects_raw_string_result_kind(self) -> None:
-        """A nominal result still must expose the exact enum type."""
-        action = _SyntheticGaugeConjugation(
-            cast(RepresentationTransformationKind, "gauge_conjugation")
-        )
-        request = _SyntheticRequest(RepresentationTransformationKind.gauge_conjugation)
-
-        with pytest.raises(TypeError, match="result transformation_kind"):
-            action.transform(request)
+            transformation._require_compatible_result_kind(_SyntheticAlignmentResult())

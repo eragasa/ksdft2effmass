@@ -133,12 +133,12 @@ class TestNumpyOperatorField:
                 self.momentum_domain(), cast(Complex128Array, [[[0.0j]]])
             )
 
-    def test_equality__requires_same_leaf_domain_and_values(self) -> None:
-        """Exact equality never crosses semantic role leaves."""
+    def test_is_exactly_equal_to__requires_same_leaf_domain_and_values(self) -> None:
+        """Exact typed comparison never crosses semantic role leaves."""
         domain = self.momentum_domain()
         left = NumpyOperatorField(domain, self.square_values())
         right = NumpyOperatorField(domain, self.square_values())
         different_role = NumpyGaugeField(domain, self.square_values())
 
-        assert left == right
-        assert left != different_role
+        assert left.is_exactly_equal_to(right)
+        assert not left.is_exactly_equal_to(different_role)

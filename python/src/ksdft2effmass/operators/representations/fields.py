@@ -47,12 +47,15 @@ class MatrixFieldABC(ABC):
     def target_dimension(self) -> int:
         """Return the positive matrix target dimension."""
 
-    def __eq__(self, other: object) -> bool:
-        """Return exact value equality for one identical concrete field type."""
+    def is_exactly_equal_to(self, other: MatrixFieldABC, /) -> bool:
+        """Return exact value equality for one identical concrete field type.
+
+        This explicitly typed comparison avoids an unspecified ``object`` boundary.
+        It applies no tolerance, basis transformation, gauge equivalence, or unit
+        conversion.
+        """
         if type(self) is not type(other):
-            return NotImplemented
-        if not isinstance(other, MatrixFieldABC):
-            return NotImplemented
+            return False
         return self.domain == other.domain and bool(
             np.array_equal(self.values, other.values)
         )

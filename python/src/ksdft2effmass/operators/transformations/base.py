@@ -59,17 +59,20 @@ class RepresentationTransformationResultABC(ABC):
         """
 
 
-class RepresentationTransformationABC[
-    RequestT: RepresentationTransformationRequestABC,
-    ResultT: RepresentationTransformationResultABC,
-](ABC):
-    """Transform one nominal request into one same-kind nominal result.
+class RepresentationTransformationABC(ABC):
+    """Nominal root for one concrete request-bound transformation.
 
-    Concrete Actions expose one fixed :attr:`transformation_kind` and implement the
-    public :meth:`transform` operation. Implementations must reject a request or result
-    whose exact enum member differs from the Action. The protected final validation
-    methods provide shared fail-closed checks without replacing the selected abstract
-    public override point. Kind agreement does not infer correctness or qualification.
+    A final concrete transformation owns one exact request type, one exact result type,
+    and one fixed :class:`RepresentationTransformationKind`. Its constructor binds and
+    validates the request. Its public :meth:`transform` override narrows the nominal
+    result return type to the exact concrete result type.
+
+    This non-generic base cannot express or enforce each concrete request type. The
+    protected final methods validate nominal membership and exact enum agreement only.
+    Every concrete transformation remains responsible for its exact request check,
+    invoking both kind validators, and directly constructing its exact result. These
+    obligations require explicit verification for every concrete transformation triple.
+    Kind agreement does not infer numerical correctness or scientific qualification.
     """
 
     __slots__ = ()
@@ -86,32 +89,34 @@ class RepresentationTransformationABC[
         """
 
     @abstractmethod
-    def transform(self, request: RequestT, /) -> ResultT:
-        """Transform one operation-specific request into one nominal result.
+    def transform(self) -> RepresentationTransformationResultABC:
+        """Execute the request bound to this transformation.
 
-        Concrete Actions implement this public method and must apply the fail-closed
-        request and result kind checks, either through the protected validation methods
-        below or through an equally strict operation-specific refinement.
-
-        Parameters
-        ----------
-        request
-            Nominal operation-specific request.
+        Concrete final transformations override this method with their exact concrete
+        result return type. They directly construct that result, validate its kind, and
+        return it without a configurable result-constructor seam.
 
         Returns
         -------
-        ResultT
-            Operation-specific result carrying the same enum member.
+        RepresentationTransformationResultABC
+            Nominal result refined covariantly by each concrete transformation.
         """
 
     @final
-    def _require_compatible_request_kind(self, request: RequestT, /) -> None:
+    def _require_compatible_request_kind(
+        self,
+        request: RepresentationTransformationRequestABC,
+        /,
+    ) -> None:
         """Reject a non-nominal request or request/Action kind disagreement.
+
+        This helper does not establish the operation-specific concrete request type.
+        The concrete transformation must perform that exact type check first.
 
         Parameters
         ----------
         request
-            Operation-specific request to validate before numerical work.
+            Concrete request already checked against the transformation's exact type.
 
         Raises
         ------
@@ -138,18 +143,20 @@ class RepresentationTransformationABC[
             raise ValueError("request transformation kind does not match Action kind")
 
     @final
-    def _require_compatible_result_kind(self, result: ResultT, /) -> ResultT:
-        """Return a nominal result after rejecting result/Action kind disagreement.
+    def _require_compatible_result_kind(
+        self,
+        result: RepresentationTransformationResultABC,
+        /,
+    ) -> None:
+        """Reject a non-nominal result or result/Action kind disagreement.
+
+        This helper does not establish the operation-specific concrete result type.
+        The concrete transformation must construct and check that exact type first.
 
         Parameters
         ----------
         result
-            Operation-specific result to validate before returning it.
-
-        Returns
-        -------
-        ResultT
-            The unchanged same-kind nominal result.
+            Concrete result already checked against the transformation's exact type.
 
         Raises
         ------
@@ -174,7 +181,6 @@ class RepresentationTransformationABC[
             )
         if result_kind is not action_kind:
             raise ValueError("result transformation kind does not match Action kind")
-        return result
 
 
 __all__ = [
