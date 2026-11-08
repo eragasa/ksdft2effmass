@@ -20,5 +20,8 @@ A rejected result is a bounded rejection of that exact proposition. An unresolve
 must remain unresolved; it cannot be converted to acceptance by midpoint inspection,
 binary64 agreement, or a looser unreviewed precision or threshold.
 
-The checked runtime-certificate count is currently zero. The implemented records and
-software tests establish contract behavior only.
+The checked retained runtime-certificate count is currently zero. The optional local Arb
+parent and mediated enclosers establish only a partial producer capability. No direct
+objective or independent containment verifier is implemented, and the tests do not
+create retained scientific evidence or alter the scientific, validation, or
+human-acceptance boundaries above.

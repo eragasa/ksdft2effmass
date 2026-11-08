@@ -33,13 +33,38 @@ passes. Every overlapping or otherwise undecided case is unresolved.
 The classifier does not assume support monotonicity. It evaluates every earlier support
 from its own two intervals.
 
+## Arb provider numerics
+
+The optional provider constructs the fixed four-state parent directly from exact integer
+numerators and denominator `100` inside Arb. At each requested construction or
+evaluation point, Rump eigenvalue balls must isolate one lowest real eigenvalue. The
+mediated action forms the 256-point discrete Fourier coefficients retained by one
+requested support in `0..15` and evaluates that candidate on all 1025 staggered points.
+
+Arb balls are exported through midpoint-radius decimal integers with precision-dependent
+guard digits, then converted to exact `Fraction` endpoints. Pointwise absolute residual
+intervals are aggregated as
+
+\[
+[\max_j \ell_j,\;\max_j u_j],
+\]
+
+which contains the exact finite maximum whenever each pointwise quantity lies in
+`[\ell_j,u_j]`. No binary64 value enters the enclosure path.
+
+The provider does not implement the direct least-squares objective. No equality between
+direct and mediated routes is used to populate certification entries.
+
 ## Assurance boundary
 
 Three levels remain distinct:
 
 1. exact decision logic over supplied endpoints;
-2. rigorous native outward enclosures plus independent containment replay; and
-3. formally checked numerical containment.
+2. rigorous native outward enclosures plus separately implemented containment replay;
+   and
+3. formally checked or heterogeneous-toolchain numerical containment.
 
-The implemented tranche establishes level-one wire and classification behavior only.
-It neither promotes existing binary64 values nor claims levels two or three.
+The core wire establishes level one over supplied endpoints. The optional local Arb
+capability supplies part of a future level-two producer path for the parent and mediated
+objective only. It does not yet supply a complete producer artifact or independent
+containment replay, and level three is not claimed.

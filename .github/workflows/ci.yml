@@ -38,7 +38,7 @@ jobs:
 
       - name: Synchronize locked development and documentation environment
         working-directory: python
-        run: uv sync --locked --extra dev --extra docs
+        run: uv sync --locked --extra dev --extra docs --extra certificates
 
       - name: Check formatting
         run: python/.venv/bin/python -m ruff format --check python
@@ -96,7 +96,7 @@ jobs:
             echo "No changed non-script Python test modules."
             exit 0
           fi
-          uv run --locked --extra dev --extra docs \
+          uv run --locked --extra dev --extra docs --extra certificates \
             --with pip==26.2.1 \
             --with setuptools==84.0.0 \
             --with wheel==0.48.0 \
@@ -106,7 +106,7 @@ jobs:
         if: github.event_name != 'pull_request'
         working-directory: python
         run: >-
-          uv run --locked --extra dev --extra docs
+          uv run --locked --extra dev --extra docs --extra certificates
           --with pip==26.2.1
           --with setuptools==84.0.0
           --with wheel==0.48.0

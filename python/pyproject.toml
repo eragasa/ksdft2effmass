@@ -76,6 +76,9 @@ docs = [
     "myst-parser>=5.1,<6",
     "sphinx>=8,<10",
 ]
+certificates = [
+    "python-flint==0.9.0",
+]
 
 
 [project.urls]

@@ -15,8 +15,10 @@ It is distinct from:
 The first implemented leaf is
 [`periodic1d/rank1/first_passing_support`](periodic1d/rank1/first_passing_support/index.md).
 It owns the exact wire contract for the finite rank-one first-passing-support
-proposition. It does not yet own a complete outward-enclosure producer or an independent
-containment verifier, and no checked runtime certificate is claimed.
+proposition. Its optional `arb` provider leaf owns local lowest-parent-eigenvalue and
+transform-mediated maximum-error enclosure actions. The direct objective and independent
+containment verifier remain absent, and no checked retained runtime certificate is
+claimed.
 
 ## Ownership boundary
 
@@ -37,8 +39,9 @@ composition. Certification consumes those exact identities; it does not become t
 analysis or calculation owner.
 
 Provider-specific interval engines belong beneath the applicable certification leaf and
-must not be imported by the dependency-free wire contract. Adding Python-FLINT or any
-other enclosure engine remains a separately reviewed dependency decision.
+must not be imported by the dependency-free wire contract. The reviewed `certificates`
+extra pins `python-flint==0.9.0`; any additional or replacement enclosure engine remains
+a separately reviewed dependency decision.
 
 ## Package map
 

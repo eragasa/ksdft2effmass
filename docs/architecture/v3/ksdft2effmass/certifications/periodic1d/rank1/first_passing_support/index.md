@@ -13,14 +13,22 @@ artifact. The result binds all 32 support/objective intervals, producer and veri
 source identities, separately hashed artifacts, working precision, directed-rounding
 policy, error budget, and exact disposition.
 
+## Provider boundary
+
+The dependency-free package root imports no interval engine. The optional
+[`arb`](arb/index.md) provider leaf requires the `certificates` extra and implements
+local Python-FLINT enclosure mechanics for the frozen parent and transform-mediated
+maximum-error objective. It does not yet enclose the direct-fit objective or provide the
+independent containment verifier required by the complete result wire.
+
 ## Deliberate exclusions
 
-- No interval engine is imported by this package.
-- No outward-containment result is currently produced.
-- Structural validation does not certify containment.
-- No historical calculation bytes are rewritten.
+- Structural wire validation does not certify containment.
+- Local Arb execution does not rewrite historical calculation bytes.
 - No compatibility import is provided from `periodic1d.fourier_locality`.
-- No accepted runtime certificate is claimed.
+- No accepted retained runtime certificate is claimed.
+- No complete producer artifact, independent containment verifier, or formal proof is
+  claimed.
 
 ## Source map
 
@@ -28,3 +36,4 @@ policy, error budget, and exact disposition.
   values, closed typed mappings, and exact classification.
 - [`validation.py`](validation/index.md): exact canonical request/result byte correlation
   through the shared final JSON boundary.
+- [`arb/`](arb/index.md): optional parent and mediated enclosure records and actions.

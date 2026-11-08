@@ -314,12 +314,19 @@ execution and its independent numerical verification to the finite proposition t
 selected support is the first support jointly passing the mediated and direct
 maximum-total-error threshold.
 
-The implemented certification wire classifies supplied exact rational intervals only.
-It does not currently produce or independently verify outward enclosures, does not alter
-the retained predecessor bytes, and does not admit a runtime certificate as evidence.
-Any interval engine, producer trace, independent containment verifier, or retained
-certification execution requires separate review. A dependency addition also requires
-explicit human authorization.
+The dependency-free certification wire classifies supplied exact rational intervals.
+The separately optional
+`ksdft2effmass.certifications.periodic1d.rank1.first_passing_support.arb` leaf now
+provides local Python-FLINT enclosures for the exact controlled parent's lowest
+eigenvalue and the transform-mediated maximum-error objective. The optional dependency
+is pinned by the `certificates` extra.
+
+This partial producer capability does not enclose the direct-fit objective, provide an
+independent containment verifier, alter retained predecessor bytes, or admit a runtime
+certificate as evidence. A retained certification execution still requires separate
+review and implementation of the missing direct route, producer/verifier identities and
+source digests, artifact paths and checksums, no-overwrite behavior, and correlation with
+an admitted calculation and its independent numerical verification.
 
 ## 13. Acceptance and disposition
 

@@ -16,6 +16,8 @@ flowchart LR
     D -->|overlap or missing decision| UN[Unresolved proposition]
 ```
 
-The implemented tranche covers the request, result, canonical wire, structural
-correlation, and exact disposition nodes. Producer and independent containment-verifier
-nodes remain unimplemented in the maintained audit tree.
+The dependency-free core covers request, result, canonical wire, structural correlation,
+and exact disposition. The optional Arb leaf implements only parent and mediated pieces
+inside the producer node. The complete producer artifact, direct objective, independent
+containment verifier, and retained certification composition remain unimplemented. The
+diagram does not imply persistence, scientific validation, or human acceptance.
