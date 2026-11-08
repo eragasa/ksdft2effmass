@@ -270,8 +270,8 @@ a current V3 caller begins depending on it.
 | `band_equivalence_hopping_locality/` | `Rank2BandEquivalenceHoppingLocalityAnalyzer`; `BandEquivalenceHoppingLocalityVerifier`; `ShellScaleDecisionLandscapeCalculator`; `ShellScaleDecisionLandscapePlotWriter`; `BandEquivalenceHoppingLocalityPlotWriter`; `BandEquivalenceToleranceMapWriter`; `BandEquivalenceHoppingLocalityRefinementAnalyzer`; `SyntheticStrainCalculator`; `SyntheticStrainScanPlotWriter` | Separate band-equivalence owner decision; these are not Phase 3 composite-alignment APIs. |
 | `analysis/periodic_bands.py` | `BandGapAnalyzer1D` | A V3 family adopts this action. |
 | `analysis/wannier_localization.py` | `BornVonKarmanLocalizationAnalyzer1D` | Wannier-localization V3 migration. |
-| `model_systems/periodic2d/plane_waves.py` | `PlaneWaveBlochHamiltonian2DConstructor` | Periodic2D model-system migration. |
-| `model_systems/periodic2d/reciprocal_mesh.py` | `ReciprocalMeshNeighbor2DConstructor`; `PlaneWaveReciprocalSewing2DConstructor` | Periodic2D reciprocal-mesh migration. |
+| `periodic/periodic2d/models/plane_waves.py` | `Periodic2DPlaneWaveBlochHamiltonianConstructor` | Periodic2D model-system migration. |
+| `periodic/periodic2d/models/reciprocal_mesh.py` | `ReciprocalMeshNeighbor2DConstructor`; `PlaneWaveReciprocalSewing2DConstructor` | Periodic2D reciprocal-mesh migration. |
 | `operators/comparison.py` | `OperatorRecordComparator` | Operator-record comparison migration; remove default dependency factories. |
 | `operators/compatibility.py` | `OperatorRecordCompatibilityAnalyzer` | Operator compatibility migration. |
 | `operators/complex_eigenpairs.py` | `ComplexHermitianEigenpairResidualAnalyzer` | Complex-eigenpair diagnostic migration. |

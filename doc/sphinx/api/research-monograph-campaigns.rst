@@ -287,8 +287,8 @@ hopping, effective-mass, coupling, and anisotropy channels without importing the
 maintained calculation route or control-model constructors.
 
 Reusable represented mechanics live under
-``ksdft2effmass.periodic.periodic2d.models.control_models``.
-``Periodic2DCosinePotentialControlModel`` owns the dimensionless separable-to-coupled
+``ksdft2effmass.periodic.periodic2d.models``.
+``Periodic2DCosinePotentialModel`` owns the dimensionless separable-to-coupled
 cosine potential. Separate constructors produce finite plane-wave and centered Bloch
 finite-difference Hamiltonians. These control-model owners contain no campaign provenance,
 acceptance policy, or material interpretation. See
@@ -455,9 +455,9 @@ preconditions, numerical evidence, and limitations.
    :members:
    :no-index:
 
-.. currentmodule:: ksdft2effmass.periodic.periodic2d.models.control_models
+.. currentmodule:: ksdft2effmass.periodic.periodic2d.models
 
-.. autoclass:: Periodic2DCosinePotentialControlModel
+.. autoclass:: Periodic2DCosinePotentialModel
    :members:
 
 .. autoclass:: Periodic2DPlaneWaveBasis

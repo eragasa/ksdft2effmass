@@ -79,10 +79,14 @@ class TestPeriodicModel:
     ) -> None:
         """The reduced role remains distinct from control and material references."""
         assert (
-            PeriodicModelRole.CONTROL_MODEL.value,
-            PeriodicModelRole.REDUCED_MODEL.value,
-            PeriodicModelRole.MATERIAL_REFERENCE.value,
+            PeriodicModelRole.CONTROL_MODEL.to_wire(),
+            PeriodicModelRole.REDUCED_MODEL.to_wire(),
+            PeriodicModelRole.MATERIAL_REFERENCE.to_wire(),
         ) == ("control_model", "reduced_model", "material_reference")
+        assert (
+            PeriodicModelRole.from_wire("control_model")
+            is PeriodicModelRole.CONTROL_MODEL
+        )
 
     def test__PeriodicModel__inheritance__dimensions__uses_nominal_branches(
         self,

@@ -17,12 +17,39 @@ from ksdft2effmass.model_systems.slater_koster import (
     DiamondSp3sStarModel,
     DiamondSp3sStarParameters,
 )
+from ksdft2effmass.periodic.operators.basis import (
+    PeriodicBasisFamily,
+    SlaterKosterOrbital,
+    SlaterKosterOrbitalBasisCoordinate,
+)
 
 pytestmark = pytest.mark.software_verification
 
 
 class TestDiamondSp3sStarModel:
     """Own Slater--Koster signs, phases, Hermiticity, and cubic symmetry."""
+
+    def test_basis_identity__model_order__uses_slater_koster_coordinates(self) -> None:
+        basis = self._model().basis_identity
+
+        assert basis.family is PeriodicBasisFamily.SLATER_KOSTER_ORBITAL
+        assert basis.dimension == 10
+        assert basis.coordinates[0] == SlaterKosterOrbitalBasisCoordinate(
+            site_label="A",
+            orbital=SlaterKosterOrbital.S,
+        )
+        assert basis.coordinates[4] == SlaterKosterOrbitalBasisCoordinate(
+            site_label="A",
+            orbital=SlaterKosterOrbital.S_STAR,
+        )
+        assert basis.coordinates[5] == SlaterKosterOrbitalBasisCoordinate(
+            site_label="B",
+            orbital=SlaterKosterOrbital.S,
+        )
+        assert basis.coordinates[-1] == SlaterKosterOrbitalBasisCoordinate(
+            site_label="B",
+            orbital=SlaterKosterOrbital.S_STAR,
+        )
 
     def test_two_center_hopping__direction_reversal__transposes_map(self) -> None:
         model = self._model()

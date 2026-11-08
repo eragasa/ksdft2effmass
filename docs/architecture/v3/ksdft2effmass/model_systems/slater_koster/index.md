@@ -10,7 +10,8 @@ evidence, select a reduction, or establish semiconductor-model adequacy.
 The public model fixes:
 
 - the ten-orbital order
-  `(A:s,px,py,pz,s*, B:s,px,py,pz,s*)`;
+  `(A:s,px,py,pz,s*, B:s,px,py,pz,s*)` as a structured
+  `PeriodicBasisIdentity` of Slater--Koster site-orbital coordinates;
 - conventional Cartesian $p$ axes;
 - the right-handed two-site diamond primitive cell;
 - reciprocal-fractional k-point coordinates;
@@ -28,9 +29,11 @@ See [numerics](numerics.md) for the matrix and phase conventions and
 - `DiamondSp3sStarGeometry` owns lattice scale, handedness, site positions, and
   neighbor maps.
 - `DiamondSp3sStarParameters` owns the stable 15-entry real parameter order.
-- `DiamondSp3sStarModel` constructs an exact-Hermitian 10-by-10 Hamiltonian in eV.
+- `DiamondSp3sStarModel` binds the structured Slater--Koster basis identity and
+  constructs an exact-Hermitian 10-by-10 Hamiltonian in eV.
 - `DiamondSp3sStarModelJsonSerializer` records the definition deterministically through
-  the repository typed-JSON serializer.
+  the repository typed-JSON serializer. Model schema version 2 nests the version-1
+  structured basis wire rather than a tuple of display labels.
 
 ## Scientific boundary
 

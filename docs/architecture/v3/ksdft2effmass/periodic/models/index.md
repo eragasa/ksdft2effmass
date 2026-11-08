@@ -35,15 +35,17 @@ conjugate-displacement Hermiticity.
 The KSD hierarchy owns:
 
 - scientific-model identity;
-- scientific role;
+- scientific role through the closed `PeriodicModelRole(StrWireEnum)` vocabulary;
 - periodic spatial dimension;
 - retained band-subspace rank;
 - physical direct-lattice geometry correlation; and
 - admissibility of the composed ordinary-lattice representation.
 
-PhysKit owns dense and sparse coefficient storage, displacement records, units, basis
-identity, and energy-reference representation. KSD composes those provider values and
-does not subclass or duplicate them.
+PhysKit owns dense and sparse coefficient storage, displacement records, units,
+provider basis-identifier storage, and energy-reference representation. KSD owns
+structured periodic basis identity and composes provider values without subclassing or
+duplicating them. `PeriodicModelRole` supplies explicit `to_wire()` and `from_wire()`
+mapping; it does not create role-specific package or class hierarchies.
 
 Calculators, sampled Hamiltonian fields, Fourier transforms, gauge operations,
 equivalence analyses, locality analyses, support decisions, campaign policy,

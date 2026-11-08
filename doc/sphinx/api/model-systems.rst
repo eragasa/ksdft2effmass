@@ -371,24 +371,10 @@ the direct replacement. Exact Git recovery identities and the maintained boundar
 recorded in
 ``docs/architecture/v3/ksdft2effmass/model_systems/piab1d/legacy-disposition.md``.
 
-Two-dimensional plane-wave Bloch operators
--------------------------------------------
-
-The reusable periodic2d plane-wave owner uses PhysKit direct and reciprocal lattices,
-an explicit finite Fourier inventory, reduced primitive-basis momentum coordinates,
-and a caller-toleranced two-pi duality check. The reciprocal-mesh surface adds
-centered half-open sampling, explicit positive-neighbor translations, and truncating
-finite-basis sewing maps. See
-:doc:`ksdft2effmass/model_systems/periodic2d/plane_waves` and
-:doc:`ksdft2effmass/model_systems/periodic2d/reciprocal_mesh` for the complete
-mathematics, units, ordering, implementation, evidence, and limitation contracts.
-
 .. toctree::
    :hidden:
 
    ksdft2effmass/model_systems/mathieu1d
-   ksdft2effmass/model_systems/periodic2d/plane_waves
-   ksdft2effmass/model_systems/periodic2d/reciprocal_mesh
 
 One-dimensional periodic Fourier models
 ---------------------------------------

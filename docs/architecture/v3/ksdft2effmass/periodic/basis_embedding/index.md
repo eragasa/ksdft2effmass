@@ -2,16 +2,20 @@
 
 ## Status
 
-**Prospective architecture; not implemented.**
+**Structured basis identity implemented; embedding and reciprocal-shift sewing remain
+prospective.**
 
-This page defines the proposed ownership boundaries required before periodic rank-two
-calculations can make Wilson-loop claims. It does not claim that the classes, imports,
-wire formats, basis-identifier composition, or Wilson analyses described here already
-exist.
+`ksdft2effmass.periodic.operators.basis.PeriodicBasisIdentity` now owns the exact ordered
+coordinate inventory and deterministic version-1 wire selected by the
+[`basis-identity audit`](basis-identity-audit.md). Supported families are labeled
+components, plane-wave reciprocal indices, qualified native Wannier orbitals, and
+Slater--Koster site orbitals. Display identifiers are descriptive and do not determine
+compatibility.
 
-The definition of `basis_identifier: str` is deliberately deferred. No implementation
-may introduce calculation-local string construction, normalization, concatenation, or
-fallback behavior until the basis-identifier composition gate in this page is resolved.
+This page continues to define prospective ownership boundaries required before periodic
+rank-two calculations can make Wilson-loop claims. `PeriodicBasisEmbedding`, Bloch-basis
+conventions, reciprocal-shift sewing, provider admission adapters, and reusable Wilson
+analysis are not implemented or authorized by the basis-identity decision.
 
 ## Scientific purpose
 
@@ -49,7 +53,7 @@ The proposed immutable fields are:
 
 ```python
 embedding_id: str
-basis_identifier: str
+basis_identity: PeriodicBasisIdentity
 fractional_positions: tuple[tuple[float, ...], ...]
 ```
 
@@ -87,20 +91,16 @@ equivalent modulo lattice translation.
 Duplicate positions are valid. They may represent multiple orbitals, spin states, or
 other basis states embedded at the same point.
 
-## Deferred `basis_identifier` composition gate
+## Resolved structured basis-identity gate
 
-The field type remains provisionally written as:
+The former provisional `basis_identifier: str` contract is superseded for new periodic
+basis identity by `PeriodicBasisIdentity`. Its equality uses the concrete family and
+ordered coordinate values; its display identifier is descriptive only. The exact
+coordinate keys and first wire are recorded in the
+[`basis-identity audit`](basis-identity-audit.md).
 
-```python
-basis_identifier: str
-```
-
-This spelling records compatibility with current model and provider representation
-surfaces only. It does **not** approve arbitrary strings as a scientifically complete
-basis identity.
-
-Before implementation, the project must inventory and reconcile all current producers
-and consumers of basis identity, including:
+The baseline inventory remains relevant to migration of current producers and consumers,
+including:
 
 - KSD periodic scientific models;
 - PhysKit block-hopping representations;
@@ -111,32 +111,18 @@ and consumers of basis identity, including:
 - serialization and retained-result records; and
 - calculation-owned reference and candidate composition.
 
-The gate must decide, at minimum:
+Migration remains explicit and fail-closed:
 
-1. which components define one basis identity;
-2. whether ordering is encoded by the identifier or correlated by a separate inventory;
-3. how orbital, spin, sublattice, MLWF, and composite-band identities are represented;
-4. whether energy reference, gauge, embedding, and geometry are excluded from or
-   included in basis identity;
-5. whether the public value remains a built-in `str` or becomes a dedicated immutable
-   value type;
-6. the exact wire spelling and versioning rule;
-7. equality and compatibility rules across KSD and provider records; and
-8. migration rules for retained historical identifiers without rewriting retained
-   bytes.
-
-Until this gate is resolved:
-
-- calculations must pass through an already-owned basis identifier unchanged;
-- no code may synthesize identifiers by joining labels;
+- calculations not yet migrated continue to pass through their already-owned strings;
+- code may not synthesize compatibility from joined labels;
 - no enum of project-specific basis names is approved;
 - no lowercasing, trimming, aliasing, or fallback is approved; and
 - no sewing or Wilson result may claim cross-record basis compatibility solely because
-  two raw strings happen to compare equal.
+  two historical strings compare equal.
 
-`StrWireEnum` is not appropriate for basis identity because the set of scientific bases
-is open and calculation-specific. Enums remain appropriate for closed conventions and
-roles.
+`StrWireEnum` is used only for closed coordinate-family and Slater--Koster orbital
+vocabularies. The scientific basis inventory itself remains open and
+calculation-specific through immutable ordered coordinate values.
 
 ## Bloch basis convention
 
@@ -188,7 +174,7 @@ S_{\mathbf m}:\mathcal H_{\mathbf q}^{(\mathcal B)}
 Its proposed fields are:
 
 ```python
-basis_identifier: str
+basis_identity: PeriodicBasisIdentity
 reciprocal_shift: LatticeDisplacement
 transformation: ComplexMatrixQuantity
 convention: BlochBasisConvention
@@ -294,9 +280,9 @@ represented problem has either been implemented under its named owner or explici
 retired.
 
 The reserved category classes intentionally add no scientific fields or constructor
-parameters yet. Adding those values before basis identity, map direction, dimensional
-ownership, and wire behavior are frozen would create a false public API. No shared
-source type, target type, or map method is inferred across the seven problems.
+parameters yet. Adding those values before map direction, dimensional ownership, and
+wire behavior are frozen would create a false public API. No shared source type, target
+type, or map method is inferred across the seven problems.
 
 ## Relationship to studies and calculations
 
@@ -321,15 +307,17 @@ sewing maps, Wilson tolerances, or locality thresholds.
 
 Implementation order is:
 
-1. resolve and document `basis_identifier` composition;
-2. implement and test dimensional `PeriodicBasisEmbedding` values;
-3. implement the closed `BlochBasisConvention` vocabulary;
-4. implement `ReciprocalShiftSewingMap` and its constructor;
-5. implement dimensional reciprocal-loop values;
-6. implement frame construction and Wilson-loop analysis over explicitly selected
+1. **Complete:** implement and document the structured `PeriodicBasisIdentity` wire;
+2. design and review new operator correlation and provider admission without projecting
+   structured coordinates through legacy string labels;
+3. implement and test dimensional `PeriodicBasisEmbedding` values;
+4. implement the closed `BlochBasisConvention` vocabulary;
+5. implement `ReciprocalShiftSewingMap` and its constructor;
+6. implement dimensional reciprocal-loop values;
+7. implement frame construction and Wilson-loop analysis over explicitly selected
    subspaces;
-7. integrate those peer analyses into named calculations; and
-8. add independent numerical verification before retaining or interpreting results.
+8. integrate those peer analyses into named calculations; and
+9. add independent numerical verification before retaining or interpreting results.
 
 No step in this architecture page authorizes production electronic-structure execution,
 rewriting retained evidence, or making a scientific Wilson-loop claim.

@@ -23,11 +23,11 @@ from projectkoios.physkit.units import (
 )
 
 from ksdft2effmass.periodic.models import PeriodicModelRole
-from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic.periodic1d.models.blochhopping import (
     Periodic1DBlochHoppingModel,
     Periodic1DLatticeKineticEnergyScale,
 )
+from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.rank1.models.base import Periodic1DRank1Model
 
 
@@ -337,7 +337,7 @@ class Periodic1DRank1BlochHoppingModel(
             f"{self.MODEL_FAMILY_IDENTITY}:{self.physkit_model.identifier}:"
             f"period-{self.geometry.lattice_period.hex()}:"
             f"length-unit-{self.geometry.lattice_unit.expression}:"
-            f"role-{PeriodicModelRole.REDUCED_MODEL.value}:"
+            f"role-{PeriodicModelRole.REDUCED_MODEL.to_wire()}:"
             f"energy-scale-{Periodic1DLatticeKineticEnergyScale.SCALE_IDENTITY}:"
             f"unit-system-{self.unit_system.value}:"
             f"energy-unit-{self.energy_unit.expression}:"

@@ -12,8 +12,9 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from ksdft2effmass.periodic.periodic2d.models.control_models import (
-    Periodic2DCosinePotentialControlModel,
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic2d.models import (
+    Periodic2DCosinePotentialModel,
     Periodic2DPlaneWaveHamiltonian,
     Periodic2DPlaneWaveHamiltonianRequest,
 )
@@ -706,8 +707,11 @@ class Periodic2DCompositeCalculator:
     def _plane_wave(
         source: Periodic2DCompositeInput, kx: float, ky: float
     ) -> ComplexMatrix:
-        model = Periodic2DCosinePotentialControlModel(
-            source.lambda_x, source.lambda_y, source.lambda_xy
+        model = Periodic2DCosinePotentialModel(
+            source.lambda_x,
+            source.lambda_y,
+            source.lambda_xy,
+            role=PeriodicModelRole.CONTROL_MODEL,
         )
         return (
             Periodic2DPlaneWaveHamiltonian(

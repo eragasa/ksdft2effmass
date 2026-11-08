@@ -129,9 +129,7 @@ class FourierSeriesBlockHoppingRepresentation:
         # Close the numerical library's integer dimension onto PhysKit's exact
         # ordinary-lattice enum before constructing any displacement values.
         dimension = (
-            LatticeDimension.TWO
-            if series.dimension == 2
-            else LatticeDimension.THREE
+            LatticeDimension.TWO if series.dimension == 2 else LatticeDimension.THREE
         )
         entries: list[tuple[LatticeDisplacement, ComplexMatrixQuantity]] = []
         for mode, coefficient in zip(

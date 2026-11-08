@@ -57,18 +57,7 @@ class DiamondSp3sStarModelJsonSerializer:
             "V2_ss_sigma": parameters.second_neighbor.ss_sigma,
         }
         record: Mapping[str, SerializableValue] = {
-            "basis_order": (
-                "A:s",
-                "A:px",
-                "A:py",
-                "A:pz",
-                "A:s_star",
-                "B:s",
-                "B:px",
-                "B:py",
-                "B:pz",
-                "B:s_star",
-            ),
+            "basis": model.basis_identity,
             "geometry": {
                 "basis_fractional_primitive": (
                     (0.0, 0.0, 0.0),
@@ -100,6 +89,6 @@ class DiamondSp3sStarModelJsonSerializer:
                 "exp(+2*pi*i*k_fractional dot full_primitive_displacement); "
                 "Bloch sums include R+tau"
             ),
-            "schema_version": 1,
+            "schema_version": 2,
         }
         return self._serializer.serialize(record)

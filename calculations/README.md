@@ -276,7 +276,7 @@ surfaces are:
 - historical monograph campaign composition under
   `python/src/ksdft2effmass/campaigns/periodic_1d/`;
 - finite model constructors under `python/src/ksdft2effmass/model_systems/periodic_1d/`
-  and `model_systems/periodic2d/`;
+  and `periodic/periodic2d/models/`;
 - reusable band-equivalence, Fourier, alignment, geometry, support, refinement, and
   strain behavior under
   `python/src/ksdft2effmass/band_equivalence_hopping_locality/`;

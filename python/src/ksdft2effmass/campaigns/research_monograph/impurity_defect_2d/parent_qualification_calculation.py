@@ -9,8 +9,9 @@ import numpy as np
 from projectkoios.physkit.units import Unitless
 from scipy import sparse  # type: ignore[import-untyped]
 
-from ksdft2effmass.periodic.periodic2d.models.control_models.cosine import (
-    Periodic2DCosinePotentialControlModel,
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic2d.models import (
+    Periodic2DCosinePotentialModel,
     Periodic2DPlaneWaveHamiltonian,
     Periodic2DPlaneWaveHamiltonianRequest,
 )
@@ -370,10 +371,11 @@ class ParentQualificationCalculator:
 
     def _separability_metric(self, definition: ParentQualificationDefinition) -> float:
         """Compare selected maintained 2D fibers with separable energies."""
-        model = Periodic2DCosinePotentialControlModel(
+        model = Periodic2DCosinePotentialModel(
             definition.anisotropic_lambda_x,
             definition.anisotropic_lambda_y,
             definition.anisotropic_lambda_xy,
+            role=PeriodicModelRole.CONTROL_MODEL,
         )
         momenta = (
             (0.0, 0.0),

@@ -59,7 +59,7 @@ Compatibility prerequisites
 
 The request rejects comparison unless both represented results have:
 
-* the same exact ``Periodic2DCosinePotentialControlModel`` values;
+* the same exact ``Periodic2DCosinePotentialModel`` values;
 * the same reduced Bloch momentum;
 * the same dimensionless period-:math:`2\pi` geometry, energy scale, fixed energy zero,
   and spinless scalar convention supplied by those concrete result types;
@@ -105,7 +105,7 @@ Implementation and evidence mapping
 * Numerical verification:
   ``python/tests/numerical_verification/ksdft2effmass/periodic2d/compare/``
 * Represented operators:
-  :doc:`/api/ksdft2effmass/model_systems/periodic2d/plane_waves`
+  :doc:`/api/ksdft2effmass/periodic/periodic2d/models/plane_waves`
 
 The numerical oracle independently evaluates the centered-difference dispersion
 

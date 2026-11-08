@@ -11,8 +11,9 @@ import numpy as np
 import numpy.typing as npt
 from scipy.linalg import eigh  # type: ignore[import-untyped]
 
-from ksdft2effmass.periodic.periodic2d.models.control_models import (
-    Periodic2DCosinePotentialControlModel,
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic2d.models import (
+    Periodic2DCosinePotentialModel,
     Periodic2DFiniteDifferenceHamiltonian,
     Periodic2DFiniteDifferenceHamiltonianRequest,
     Periodic2DPlaneWaveHamiltonian,
@@ -779,7 +780,9 @@ class Periodic2DIsolatedBandCalculator:
         lambda_xy: float,
         cutoff: int,
     ) -> ComplexMatrix:
-        model = Periodic2DCosinePotentialControlModel(lambda_x, lambda_y, lambda_xy)
+        model = Periodic2DCosinePotentialModel(
+            lambda_x, lambda_y, lambda_xy, role=PeriodicModelRole.CONTROL_MODEL
+        )
         return (
             Periodic2DPlaneWaveHamiltonian(
                 Periodic2DPlaneWaveHamiltonianRequest(model, kx, ky, cutoff)
@@ -819,7 +822,9 @@ class Periodic2DIsolatedBandCalculator:
             raise ValueError(
                 "control-model finite-difference cell period must equal 2*pi"
             )
-        model = Periodic2DCosinePotentialControlModel(lambda_x, lambda_y, lambda_xy)
+        model = Periodic2DCosinePotentialModel(
+            lambda_x, lambda_y, lambda_xy, role=PeriodicModelRole.CONTROL_MODEL
+        )
         return (
             Periodic2DFiniteDifferenceHamiltonian(
                 Periodic2DFiniteDifferenceHamiltonianRequest(model, kx, ky, points)

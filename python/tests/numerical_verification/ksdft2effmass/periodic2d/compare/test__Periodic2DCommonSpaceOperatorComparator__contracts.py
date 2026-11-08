@@ -4,8 +4,9 @@ import numpy as np
 import numpy.typing as npt
 import pytest
 
-from ksdft2effmass.periodic.periodic2d.models.control_models import (
-    Periodic2DCosinePotentialControlModel,
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic2d.models import (
+    Periodic2DCosinePotentialModel,
     Periodic2DFiniteDifferenceHamiltonian,
     Periodic2DFiniteDifferenceHamiltonianRequest,
     Periodic2DPlaneWaveHamiltonian,
@@ -24,7 +25,7 @@ class TestPeriodic2DCommonSpaceOperatorComparator:
 
     @staticmethod
     def execute(
-        model: Periodic2DCosinePotentialControlModel,
+        model: Periodic2DCosinePotentialModel,
         momentum_x: float,
         momentum_y: float,
         points: int,
@@ -88,7 +89,9 @@ class TestPeriodic2DCommonSpaceOperatorComparator:
         cutoff = 1
 
         transported, difference, isometry, frobenius = self.execute(
-            Periodic2DCosinePotentialControlModel(0.0, 0.0, 0.0),
+            Periodic2DCosinePotentialModel(
+                0.0, 0.0, 0.0, role=PeriodicModelRole.CONTROL_MODEL
+            ),
             momentum_x,
             momentum_y,
             points,
@@ -132,7 +135,9 @@ class TestPeriodic2DCommonSpaceOperatorComparator:
         cutoff = 1
 
         _, difference, isometry, _ = self.execute(
-            Periodic2DCosinePotentialControlModel(0.4, 0.7, 0.2),
+            Periodic2DCosinePotentialModel(
+                0.4, 0.7, 0.2, role=PeriodicModelRole.CONTROL_MODEL
+            ),
             momentum_x,
             momentum_y,
             points,

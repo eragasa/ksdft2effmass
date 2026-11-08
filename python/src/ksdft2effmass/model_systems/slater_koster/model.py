@@ -15,6 +15,11 @@ from projectkoios.numerics.numpy.typing import (
 from projectkoios.physkit.units import ComplexMatrixQuantity
 
 from ksdft2effmass.hamiltonian import HermitianHamiltonian
+from ksdft2effmass.periodic.operators.basis import (
+    SlaterKosterOrbital,
+    SlaterKosterOrbitalBasisCoordinate,
+)
+from ksdft2effmass.periodic.periodic3d.operators.basis import Periodic3DBasisIdentity
 
 from .geometry import DiamondNeighborBond, DiamondSp3sStarGeometry
 from .parameters import (
@@ -33,6 +38,22 @@ class Sp3sStarOrbitalIndex(IntEnum):
     P_Y = 2
     P_Z = 3
     S_STAR = 4
+
+
+_DIAMOND_SP3S_STAR_BASIS = Periodic3DBasisIdentity(
+    display_identifier="diamond-spinless-sp3s-star",
+    coordinates=tuple(
+        SlaterKosterOrbitalBasisCoordinate(site_label=site, orbital=orbital)
+        for site in ("A", "B")
+        for orbital in (
+            SlaterKosterOrbital.S,
+            SlaterKosterOrbital.P_X,
+            SlaterKosterOrbital.P_Y,
+            SlaterKosterOrbital.P_Z,
+            SlaterKosterOrbital.S_STAR,
+        )
+    ),
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -65,6 +86,19 @@ class DiamondSp3sStarModel:
             raise TypeError("geometry must be DiamondSp3sStarGeometry")
         if type(self.parameters) is not DiamondSp3sStarParameters:
             raise TypeError("parameters must be DiamondSp3sStarParameters")
+
+    @property
+    def basis_identity(self) -> Periodic3DBasisIdentity:
+        """Return the ordered spinless Slater--Koster coordinate identity.
+
+        Returns
+        -------
+        Periodic3DBasisIdentity
+            The immutable order ``A:s,p_x,p_y,p_z,s*`` followed by the same order
+            on sublattice ``B``. The display identifier is descriptive; exact
+            compatibility is determined by the ordered coordinate values.
+        """
+        return _DIAMOND_SP3S_STAR_BASIS
 
     def hamiltonian_at(self, fractional_k: Float64Array) -> HermitianHamiltonian:
         """Construct the exact-Hermitian ten-by-ten Bloch Hamiltonian in eV.

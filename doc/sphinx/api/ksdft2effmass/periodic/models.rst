@@ -8,7 +8,8 @@ representations; the hierarchy owns no calculator, serializer, tolerance, proven
 or acceptance behavior.
 
 A concrete model implements a stable nonempty ``model_id`` and, for periodic models, an
-exact ``PeriodicModelRole``. Dimension-specific bases provide exact built-in integer
+exact ``PeriodicModelRole``. The role is an explicitly wire-mapped enum value, not a
+role-specific package or model subclass. Dimension-specific bases provide exact built-in integer
 dimensions and reject subclass attempts to override them. Fixed-rank bases provide exact
 ranks one or two; rank-N bases require the concrete family to report its finite retained
 rank. Rank-two and rank-N owners are siblings.

@@ -1,24 +1,38 @@
 # `ksdft2effmass.periodic.periodic2d.models`
 
-Implemented periodic-2D nominal model ownership. `Periodic2DModel` fixes
-`spatial_dimension == 2`; `Periodic2DDefectModel` additionally requires a stable pristine
-parent identity. Rank specializations are owned by the corresponding
-`ksdft2effmass.periodic.periodic2d.rank*.models` packages.
+## Ownership
 
-The existing [`control_models`](control_models/index.md) and `retained` namespaces were
-moved from singular `model` ownership without compatibility aliases. Their concrete
-scientific classification remains separate follow-up work.
+This package owns periodic-2D scientific models and their cohesive represented-operator
+construction. `Periodic2DModel` fixes `spatial_dimension == 2`;
+`Periodic2DDefectModel` additionally requires a stable pristine parent identity. A
+model's evidentiary role is the `PeriodicModelRole` value returned by `model_role`, not a
+`control_models` namespace or a `ControlModel` class-name suffix.
 
-The represented control-Hamiltonian boundary binds each exact request at construction:
+`Periodic2DCosinePotentialModel` is a `Periodic2DModel` with an explicitly supplied
+`PeriodicModelRole`; the class does not infer control, material-reference, or reduced
+status. Its plane-wave and finite-difference operations build finite representations
+without becoming separate scientific models.
 
-```python
-plane_wave = Periodic2DPlaneWaveHamiltonian(plane_wave_request).result()
-finite_difference = Periodic2DFiniteDifferenceHamiltonian(
-    finite_difference_request
-).result()
+The reusable plane-wave Bloch model, Fourier coefficients, reciprocal meshes, and
+finite-cutoff sewing mechanics are also owned here. PhysKit retains primitive lattice,
+quantity, and generic numerical ownership.
+
+## Representation flow
+
+```text
+Periodic2DCosinePotentialModel + representation request
+  -> Periodic2DPlaneWaveHamiltonian or Periodic2DFiniteDifferenceHamiltonian
+  -> immutable represented matrix result
 ```
 
-These represented-Hamiltonian operations do not inherit `Periodic2DModel`; they build
-finite matrix representations of an identified scientific model. Their immutable result
-objects retain the exact request and represented matrix. The retired zero-state
-`...Constructor().execute(request)` owners have no compatibility aliases.
+The represented-Hamiltonian operations retain exact requests and represented matrices.
+They do not select campaign meshes, convergence criteria, comparison policy, or
+scientific acceptance.
+
+## Navigation
+
+- [`Periodic2DPlaneWaveBlochHamiltonianModel`](Periodic2DPlaneWaveBlochHamiltonianModel/index.md)
+- [`Periodic2DPlaneWaveBasis`](Periodic2DPlaneWaveBasis/index.md)
+- [`Periodic2DPlaneWaveHamiltonian`](Periodic2DPlaneWaveHamiltonian/index.md)
+- [`Periodic2DFiniteDifferenceHamiltonian`](Periodic2DFiniteDifferenceHamiltonian/index.md)
+- [Periodic-2D basis identity](../../operators/basis/index.md)

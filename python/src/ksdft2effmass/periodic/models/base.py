@@ -1,15 +1,15 @@
 """Nominal root for periodic KSD scientific models."""
 
 from abc import ABC, abstractmethod
-from enum import Enum
 from typing import Literal
 
 from ksdft2effmass.models.base import Model
+from ksdft2effmass.serialization import StrWireEnum
 
 type SpatialDimension = Literal[1, 2, 3]
 
 
-class PeriodicModelRole(Enum):
+class PeriodicModelRole(StrWireEnum):
     """Classify the evidentiary role of a periodic scientific model.
 
     ``CONTROL_MODEL`` identifies a controlled model used to isolate mathematical,

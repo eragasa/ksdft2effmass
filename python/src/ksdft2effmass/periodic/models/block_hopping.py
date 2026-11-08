@@ -122,9 +122,7 @@ class PeriodicRank2BlockHoppingModel(PeriodicBlockHoppingModel):
         *,
         expected_dimension: LatticeDimension,
         expected_lattice_type: (
-            type[DirectLattice1D]
-            | type[DirectLattice2D]
-            | type[DirectLattice3D]
+            type[DirectLattice1D] | type[DirectLattice2D] | type[DirectLattice3D]
         ),
     ) -> None:
         """Validate shared rank, dimension, geometry, and Hermiticity invariants.

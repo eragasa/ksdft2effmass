@@ -8,8 +8,9 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 
-from ksdft2effmass.periodic.periodic2d.models.control_models import (
-    Periodic2DCosinePotentialControlModel,
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic2d.models import (
+    Periodic2DCosinePotentialModel,
     Periodic2DFiniteDifferenceHamiltonian,
     Periodic2DFiniteDifferenceHamiltonianRequest,
     Periodic2DPlaneWaveHamiltonian,
@@ -30,7 +31,9 @@ class TestPeriodic2DCommonSpaceComparisonResult:
     @staticmethod
     def request() -> Periodic2DCommonSpaceComparisonRequest:
         """Return a compatible cutoff-one, five-point comparison request."""
-        model = Periodic2DCosinePotentialControlModel(0.4, 0.7, 0.2)
+        model = Periodic2DCosinePotentialModel(
+            0.4, 0.7, 0.2, role=PeriodicModelRole.CONTROL_MODEL
+        )
         plane = Periodic2DPlaneWaveHamiltonian(
             Periodic2DPlaneWaveHamiltonianRequest(model, 0.1, -0.2, 1)
         ).result()

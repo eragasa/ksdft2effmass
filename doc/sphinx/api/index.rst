@@ -10,6 +10,8 @@ public compatibility contract.
    hamiltonian
    operators
    solid-state
+   periodic-basis
+   periodic2d-models
    sewing
    analysis
    model-systems

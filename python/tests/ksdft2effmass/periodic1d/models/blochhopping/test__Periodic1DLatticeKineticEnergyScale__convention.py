@@ -5,10 +5,10 @@ from typing import cast
 import pytest
 from projectkoios.physkit.units import PhysicalUnit, UnitSystem
 
-from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic.periodic1d.models.blochhopping import (
     Periodic1DLatticeKineticEnergyScale,
 )
+from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 

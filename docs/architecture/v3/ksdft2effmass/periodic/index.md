@@ -18,8 +18,14 @@ from `ksdft2effmass.periodic.models` and dimensional contracts from their exact 
 owners. The control-model catalog remains explicit at
 `ksdft2effmass.periodic.catalog`.
 
-## Prospective prerequisites
+## Basis identity and prospective prerequisites
 
-- [`basis_embedding`](basis_embedding/index.md) specifies the proposed periodic basis
-  embedding, Bloch convention, reciprocal-shift sewing map, reciprocal-loop ownership,
-  Wilson-loop boundary, and the unresolved `basis_identifier` composition gate.
+- [`ksdft2effmass.periodic.operators.basis`](operators/basis/index.md) owns the implemented immutable
+  ordered basis identity and its labeled-component, plane-wave, qualified
+  Wannier-orbital, and Slater--Koster coordinate families.
+- [`basis_embedding`](basis_embedding/index.md) specifies the still-prospective periodic
+  basis embedding, Bloch convention, reciprocal-shift sewing map, reciprocal-loop
+  ownership, and Wilson-loop boundary. Its
+  [`basis-identity audit`](basis_embedding/basis-identity-audit.md) records the selected
+  exact compatibility contract and the remaining migration and provider-admission
+  boundaries.

@@ -2,8 +2,9 @@
 
 import pytest
 
-from ksdft2effmass.periodic.periodic2d.models.control_models import (
-    Periodic2DCosinePotentialControlModel,
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic2d.models import (
+    Periodic2DCosinePotentialModel,
     Periodic2DFiniteDifferenceHamiltonian,
     Periodic2DFiniteDifferenceHamiltonianRequest,
     Periodic2DFiniteDifferenceHamiltonianResult,
@@ -32,7 +33,9 @@ class TestPeriodic2DCommonSpaceComparisonRequest:
         Periodic2DFiniteDifferenceHamiltonianResult,
     ]:
         """Return compatible or intentionally varied represented test results."""
-        model = Periodic2DCosinePotentialControlModel(0.4, 0.7, 0.2)
+        model = Periodic2DCosinePotentialModel(
+            0.4, 0.7, 0.2, role=PeriodicModelRole.CONTROL_MODEL
+        )
         plane = Periodic2DPlaneWaveHamiltonian(
             Periodic2DPlaneWaveHamiltonianRequest(model, 0.1, -0.2, cutoff)
         ).result()
@@ -63,7 +66,9 @@ class TestPeriodic2DCommonSpaceComparisonRequest:
     ) -> None:
         """Operators with different Fourier potentials cannot be subtracted."""
         plane, _ = self.represented_results()
-        different_model = Periodic2DCosinePotentialControlModel(0.4, 0.7, 0.3)
+        different_model = Periodic2DCosinePotentialModel(
+            0.4, 0.7, 0.3, role=PeriodicModelRole.CONTROL_MODEL
+        )
         finite = Periodic2DFiniteDifferenceHamiltonian(
             Periodic2DFiniteDifferenceHamiltonianRequest(different_model, 0.1, -0.2, 5)
         ).result()
