@@ -10,6 +10,7 @@ from ksdft2effmass.periodic.periodic2d.models import (
     Periodic2DPlaneWaveHamiltonianRequest,
     Periodic2DPlaneWaveHamiltonianResult,
 )
+from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -41,6 +42,8 @@ class TestPeriodic2DPlaneWaveHamiltonian:
         assert hamiltonian.request is request
         assert type(result) is Periodic2DPlaneWaveHamiltonianResult
         assert result.request is request
+        assert type(result.basis_identity) is Periodic2DBasisIdentity
+        assert result.basis_identity == request.basis_identity
         assert result.matrix.shape == (25, 25)
         assert result.maximum_duality_residual <= request.duality_absolute_tolerance
         assert np.array_equal(result.matrix, result.matrix.conj().T)

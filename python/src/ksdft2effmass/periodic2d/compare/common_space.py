@@ -22,6 +22,7 @@ from ksdft2effmass.periodic.periodic2d.models import (
     Periodic2DFiniteDifferenceHamiltonianResult,
     Periodic2DPlaneWaveHamiltonianResult,
 )
+from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 
 
 @dataclass(frozen=True, slots=True)
@@ -77,6 +78,11 @@ class Periodic2DCommonSpaceComparisonRequest:
     def common_dimension(self) -> int:
         """Return the plane-wave common-space dimension."""
         return self.plane_wave.request.represented_dimension
+
+    @property
+    def common_basis_identity(self) -> Periodic2DBasisIdentity:
+        """Return the exact plane-wave basis used for common-space matrices."""
+        return self.plane_wave.basis_identity
 
 
 @dataclass(frozen=True, slots=True, eq=False)
@@ -186,6 +192,11 @@ class Periodic2DCommonSpaceComparisonResult:
             raise ValueError(
                 "operator_maximum_absolute_error must match operator_difference"
             )
+
+    @property
+    def common_basis_identity(self) -> Periodic2DBasisIdentity:
+        """Return the basis of both retained square common-space operators."""
+        return self.request.common_basis_identity
 
 
 class Periodic2DCommonSpaceOperatorComparator:

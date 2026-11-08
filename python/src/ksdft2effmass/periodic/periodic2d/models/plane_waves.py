@@ -254,6 +254,11 @@ class Periodic2DPlaneWaveBlochHamiltonianRequest:
                 "duality_absolute_tolerance must be finite and nonnegative"
             )
 
+    @property
+    def basis_identity(self) -> Periodic2DBasisIdentity:
+        """Return the model-owned basis identity for the represented matrix."""
+        return self.model.basis_identity
+
 
 @dataclass(frozen=True, slots=True, eq=False)
 class Periodic2DPlaneWaveBlochHamiltonianResult:
@@ -296,6 +301,11 @@ class Periodic2DPlaneWaveBlochHamiltonianResult:
             raise ValueError("represented_matrix shape must match the model basis")
         if self.represented_matrix.unit != self.request.model.kinetic_scale.unit:
             raise ValueError("represented_matrix must use the model energy unit")
+
+    @property
+    def basis_identity(self) -> Periodic2DBasisIdentity:
+        """Return the request-owned basis identity of the represented matrix."""
+        return self.request.basis_identity
 
 
 class Periodic2DPlaneWaveBlochHamiltonianConstructor:

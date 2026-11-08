@@ -17,6 +17,7 @@ from ksdft2effmass.periodic.periodic2d.models import (
     Periodic2DPlaneWaveBlochHamiltonianRequest,
     Periodic2DPlaneWaveBlochHamiltonianResult,
 )
+from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -43,6 +44,21 @@ class TestPeriodic2DPlaneWaveBlochHamiltonianResult:
             "zero",
         )
         return Periodic2DPlaneWaveBlochHamiltonianRequest(model, (0.0, 0.0), 1.0e-14)
+
+    def test_basis_identity__forwards_exact_request_basis(self) -> None:
+        """The represented matrix exposes its request-owned structured basis."""
+        request = self.request()
+        result = Periodic2DPlaneWaveBlochHamiltonianResult(
+            request,
+            0.0,
+            ComplexMatrixQuantity(
+                np.eye(1, dtype=np.complex128),
+                Unitless(),
+            ),
+        )
+
+        assert type(result.basis_identity) is Periodic2DBasisIdentity
+        assert result.basis_identity == request.basis_identity
 
     def test_construction__incompatible_matrix_shape__raises_value_error(self) -> None:
         """A represented matrix must match the request's ordered basis dimension."""

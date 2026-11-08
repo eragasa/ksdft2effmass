@@ -4,10 +4,12 @@ import numpy as np
 import pytest
 
 from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.operators import PlaneWaveBasisCoordinate
 from ksdft2effmass.periodic.periodic2d.models import (
     Periodic2DCosinePotentialModel,
     Periodic2DPlaneWaveHamiltonianRequest,
 )
+from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -40,6 +42,17 @@ class TestPeriodic2DPlaneWaveHamiltonianRequest:
             (1, -1),
             (1, 0),
             (1, 1),
+        )
+
+    def test_basis_identity_preserves_exact_reciprocal_coordinate_order(self) -> None:
+        """The request exposes structured coordinates in represented matrix order."""
+        request = Periodic2DPlaneWaveHamiltonianRequest(self.model(), 0.13, -0.21, 1)
+
+        assert type(request.basis_identity) is Periodic2DBasisIdentity
+        assert request.basis_identity == request.basis.basis_identity
+        assert request.basis_identity.coordinates == tuple(
+            PlaneWaveBasisCoordinate(reciprocal_index=index)
+            for index in request.reciprocal_indices
         )
 
     def test_init_rejects_coercible_non_builtin_numeric_values(self) -> None:

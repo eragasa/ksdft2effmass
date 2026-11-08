@@ -281,10 +281,14 @@ The supported Slater--Koster orbital vocabulary is the current spinless `sp3s*` 
 diamond model binds the exact order
 `(A:s,p_x,p_y,p_z,s*, B:s,p_x,p_y,p_z,s*)` to this structured value.
 
-The `PeriodicBasisIdentity` wire uses schema version 1 and the repository-native
-`BaseTypedRecord` mapping fields `schema_version`, `display_identifier`, `family`, and
-the typed tuple `coordinates`. Each coordinate carries its exact `kind` and
-family-specific fields.
+The dimensional `PeriodicBasisIdentity` wire uses schema version 2 and the
+repository-native `BaseTypedRecord` mapping fields `schema_version`,
+`spatial_dimension`, `display_identifier`, `family`, and the typed tuple
+`coordinates`. The abstract base has no standalone wire construction; concrete
+`Periodic1DBasisIdentity`, `Periodic2DBasisIdentity`, and
+`Periodic3DBasisIdentity` values validate their fixed spatial dimension. Each
+coordinate carries its exact `kind` and family-specific fields, and plane-wave
+reciprocal-index rank must equal the identity's spatial dimension.
 
 State-space identity, retained-frame identity, gauge, embedding, geometry, energy
 reference, sewing, and artifact provenance remain separate values. In particular,

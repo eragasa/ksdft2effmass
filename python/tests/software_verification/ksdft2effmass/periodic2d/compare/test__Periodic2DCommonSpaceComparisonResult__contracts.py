@@ -16,6 +16,7 @@ from ksdft2effmass.periodic.periodic2d.models import (
     Periodic2DPlaneWaveHamiltonian,
     Periodic2DPlaneWaveHamiltonianRequest,
 )
+from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 from ksdft2effmass.periodic2d.compare.common_space import (
     Periodic2DCommonSpaceComparisonRequest,
     Periodic2DCommonSpaceComparisonResult,
@@ -53,6 +54,8 @@ class TestPeriodic2DCommonSpaceComparisonResult:
         result = Periodic2DCommonSpaceOperatorComparator().execute(request)
 
         assert result.request is request
+        assert type(result.common_basis_identity) is Periodic2DBasisIdentity
+        assert result.common_basis_identity == request.common_basis_identity
         assert result.plane_wave_to_grid.magnitude.shape == (25, 9)
         assert result.transported_finite_difference.magnitude.shape == (9, 9)
         assert result.operator_difference.magnitude.shape == (9, 9)

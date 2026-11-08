@@ -242,6 +242,11 @@ class Periodic2DPlaneWaveHamiltonianRequest:
         return self.basis.reciprocal_indices
 
     @property
+    def basis_identity(self) -> Periodic2DBasisIdentity:
+        """Return the exact ordered basis identity of the represented matrix."""
+        return self.basis.basis_identity
+
+    @property
     def represented_dimension(self) -> int:
         """Return the finite plane-wave basis dimension."""
         return self.basis.represented_dimension
@@ -368,6 +373,11 @@ class Periodic2DPlaneWaveHamiltonianResult(Periodic2DHamiltonianResult):
             raise ValueError("maximum_duality_residual must be finite and nonnegative")
         if self.maximum_duality_residual > self.request.duality_absolute_tolerance:
             raise ValueError("maximum_duality_residual exceeds the request tolerance")
+
+    @property
+    def basis_identity(self) -> Periodic2DBasisIdentity:
+        """Return the request-owned basis identity of the represented matrix."""
+        return self.request.basis_identity
 
 
 @dataclass(frozen=True, slots=True)

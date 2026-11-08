@@ -12,6 +12,7 @@ from ksdft2effmass.periodic.periodic2d.models import (
     Periodic2DPlaneWaveHamiltonianRequest,
     Periodic2DPlaneWaveHamiltonianResult,
 )
+from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 from ksdft2effmass.periodic2d.compare.common_space import (
     Periodic2DCommonSpaceComparisonRequest,
 )
@@ -59,6 +60,8 @@ class TestPeriodic2DCommonSpaceComparisonRequest:
         )
 
         assert request.common_dimension == 9
+        assert type(request.common_basis_identity) is Periodic2DBasisIdentity
+        assert request.common_basis_identity == plane.basis_identity
         assert request.comparison_identifier == "cosine-common-space"
 
     def test__Periodic2DCommonSpaceComparisonRequest__construction__different_model__raises_value_error(  # noqa: E501
