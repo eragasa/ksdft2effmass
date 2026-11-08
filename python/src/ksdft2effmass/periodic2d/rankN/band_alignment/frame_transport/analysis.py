@@ -19,10 +19,6 @@ from ksdft2effmass.periodic2d.rankN.gauge_alignment.procrustes.analysis import (
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.procrustes.request import (
     Periodic2DRankNProcrustesAnalysisRequest,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import (
-    IdentityReciprocalSewing,
-    ReciprocalEndpointSewingInventory,
-)
 
 from .base import Periodic2DRankNFrameTransportAnalyzer
 from .request import Periodic2DRankNTransportAnalysisRequest
@@ -71,17 +67,12 @@ class Periodic2DRankNTransportAnalyzer(
 
     def execute(self) -> Periodic2DRankNTransportDiagnosticAnalysis:
         """Return neighbor-link, closure, and plaquette diagnostics."""
-        identity_sewing = IdentityReciprocalSewing(
-            ambient_dimension=int(self._request.frame.shape[-2])
-        )
         diagnostic = frame_transport_diagnostics(
             self._request.frame,
             dimension=2,
             rank_absolute=self._request.rank_absolute,
             rank_relative=self._request.rank_relative,
-            endpoint_sewing=ReciprocalEndpointSewingInventory(
-                positive_axis_maps=(identity_sewing.endpoint_map,) * 2
-            ),
+            endpoint_sewing=self._request.endpoint_sewing,
             procrustes_solve=self._solve_procrustes,
         )
         return Periodic2DRankNTransportDiagnosticAnalysis(

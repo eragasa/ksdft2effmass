@@ -9,7 +9,7 @@ from typing import Self
 import numpy as np
 
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
-from ksdft2effmass.solidstate.reciprocal_sewing import (
+from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
 )

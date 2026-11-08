@@ -10,6 +10,7 @@ from projectkoios.numerics.numpy.typing import Complex128Array
 from projectkoios.optimization.alignment.procrustes import (
     ComplexUnitaryProcrustesTolerance,
 )
+from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
 from ksdft2effmass.periodic2d.rankN.band_alignment.frame_transport.analysis import (
     Periodic2DRankNTransportAnalyzer,
@@ -51,12 +52,26 @@ from ksdft2effmass.periodic2d.rankN.gauge_alignment.result import (
     Periodic2DRankNGlobalGaugeAlignmentRankDeficient,
     Periodic2DRankNGlobalGaugeAlignmentSelected,
 )
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+    ReciprocalEndpointSewingMap,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestPeriodic2DRankNAlignmentCapabilities:
     """Retain explicit finite-rank invariants and dependency-owned evidence."""
+
+    @staticmethod
+    def _endpoint_sewing(
+        ambient_dimension: int,
+    ) -> ReciprocalEndpointSewingInventory:
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=ambient_dimension)
+        return ReciprocalEndpointSewingInventory(
+            positive_axis_maps=(identity_sewing.endpoint_map,) * 2
+        )
 
     @staticmethod
     def _frames(
@@ -177,6 +192,7 @@ class TestPeriodic2DRankNAlignmentCapabilities:
             frame=frame,
             rank_absolute=1.0e-12,
             rank_relative=1.0e-10,
+            endpoint_sewing=self._endpoint_sewing(4),
         )
         frame[...] = 0.0
 
@@ -199,6 +215,65 @@ class TestPeriodic2DRankNAlignmentCapabilities:
         )
         assert result.maximum_plaquette_phase == pytest.approx(0.0)
         assert not request.frame.flags.writeable
+
+    def test_transport_uses_explicit_ambient_sewing_on_boundary_links(self) -> None:
+        phase = 0.25
+        frame = np.broadcast_to(
+            np.eye(5, 4, dtype=np.complex128),
+            (2, 3, 5, 4),
+        ).copy()
+        phase_matrix = np.eye(5, dtype=np.complex128)
+        phase_matrix[0, 0] = np.exp(1j * phase)
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=5)
+        request = Periodic2DRankNTransportAnalysisRequest(
+            retained_rank=4,
+            frame=frame,
+            rank_absolute=1.0e-12,
+            rank_relative=1.0e-10,
+            endpoint_sewing=ReciprocalEndpointSewingInventory(
+                positive_axis_maps=(
+                    ReciprocalEndpointSewingMap(
+                        identifier="rankN-diagonal-phase-axis-1.test",
+                        coefficient_map=ComplexMatrixQuantity(
+                            phase_matrix,
+                            Unitless(),
+                        ),
+                    ),
+                    identity_sewing.endpoint_map,
+                )
+            ),
+        )
+
+        result = Periodic2DRankNTransportAnalyzer(request=request).execute()
+
+        assert request.endpoint_sewing is not None
+        assert result.maximum_absolute_closure_phases == pytest.approx(
+            (0.0, 0.0, 0.0, phase)
+        )
+        assert result.maximum_plaquette_phase == pytest.approx(0.0)
+
+    def test_transport_rejects_mismatched_endpoint_sewing(self) -> None:
+        frame, _ = self._frames((2, 2), retained_rank=3)
+        with pytest.raises(ValueError, match="two axis maps"):
+            Periodic2DRankNTransportAnalysisRequest(
+                retained_rank=3,
+                frame=frame,
+                rank_absolute=1.0e-12,
+                rank_relative=1.0e-10,
+                endpoint_sewing=ReciprocalEndpointSewingInventory(
+                    positive_axis_maps=(
+                        IdentityReciprocalSewing(ambient_dimension=3).endpoint_map,
+                    )
+                ),
+            )
+        with pytest.raises(ValueError, match="frame ambient dimension"):
+            Periodic2DRankNTransportAnalysisRequest(
+                retained_rank=3,
+                frame=frame,
+                rank_absolute=1.0e-12,
+                rank_relative=1.0e-10,
+                endpoint_sewing=self._endpoint_sewing(4),
+            )
 
     def test_rejects_rank_two_and_three_dimensional_meshes(self) -> None:
         source, target = self._frames((2, 2), retained_rank=2)

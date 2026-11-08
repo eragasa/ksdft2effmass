@@ -19,7 +19,7 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
-from ksdft2effmass.solidstate.reciprocal_sewing import IdentityReciprocalSewing
+from ksdft2effmass.sewing import IdentityReciprocalSewing
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )

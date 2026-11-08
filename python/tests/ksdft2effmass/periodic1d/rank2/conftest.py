@@ -14,7 +14,7 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite.result import (
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import IdentityReciprocalSewing
+from ksdft2effmass.sewing import IdentityReciprocalSewing
 
 
 @pytest.fixture(scope="session")

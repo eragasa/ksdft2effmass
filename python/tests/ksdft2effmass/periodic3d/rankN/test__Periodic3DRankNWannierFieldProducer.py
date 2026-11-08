@@ -37,6 +37,10 @@ from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
 )
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -186,6 +190,16 @@ class TestPeriodic3DRankNWannierFieldProducer:
             ),
             transport_rank_absolute=1.0e-10,
             transport_rank_relative=1.0e-12,
+            endpoint_sewing=ReciprocalEndpointSewingInventory(
+                positive_axis_maps=(
+                    IdentityReciprocalSewing(
+                        ambient_dimension=int(
+                            fields.reference_construction_frames.shape[-2]
+                        )
+                    ).endpoint_map,
+                )
+                * 3
+            ),
         )
         geometry = Periodic3DRankNBandEquivalenceHoppingLocalityFieldGeometry(
             identifier="simple-cubic-test-geometry",

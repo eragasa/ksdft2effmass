@@ -11,6 +11,7 @@ from projectkoios.optimization.alignment.procrustes import (
     ComplexUnitaryProcrustesRankCutoffRule,
 )
 from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
+from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
 from ksdft2effmass.gauge_alignment import GaugeAlignmentActionConvention
 from ksdft2effmass.periodic2d.gauge_alignment.base import (
@@ -54,12 +55,26 @@ from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.verificati
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.definition import (
     Periodic2DRankNGaugeAlignment,
 )
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+    ReciprocalEndpointSewingMap,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
     """Exercise one case while retaining the complete aggregate wire contract."""
+
+    @staticmethod
+    def _endpoint_sewing(
+        ambient_dimension: int,
+    ) -> ReciprocalEndpointSewingInventory:
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=ambient_dimension)
+        return ReciprocalEndpointSewingInventory(
+            positive_axis_maps=(identity_sewing.endpoint_map,) * 2
+        )
 
     @staticmethod
     def _request() -> Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
@@ -115,6 +130,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
             request=request,
             model=model,
             geometry=request.cases[0],
+            endpoint_sewing=self._endpoint_sewing(model.ambient_dimension),
         )
         result = analyzer.execute()
 
@@ -165,6 +181,36 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
         assert all(len(item.shells) == 14 for item in qualified)
         assert all(len(item.tolerance_decisions) == 2 for item in qualified)
 
+    def test_v1_case_analysis_rejects_nonidentity_endpoint_sewing(self) -> None:
+        request = self._request()
+        model = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
+            request=request
+        ).execute()[1]
+        phase_matrix = np.eye(model.ambient_dimension, dtype=np.complex128)
+        phase_matrix[0, 0] = np.exp(0.25j)
+        identity_sewing = IdentityReciprocalSewing(
+            ambient_dimension=model.ambient_dimension
+        )
+
+        with pytest.raises(ValueError, match="only named identity sewing"):
+            Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
+                request=request,
+                model=model,
+                geometry=request.cases[0],
+                endpoint_sewing=ReciprocalEndpointSewingInventory(
+                    positive_axis_maps=(
+                        ReciprocalEndpointSewingMap(
+                            identifier="rankN-nonidentity.test",
+                            coefficient_map=ComplexMatrixQuantity(
+                                phase_matrix,
+                                Unitless(),
+                            ),
+                        ),
+                        identity_sewing.endpoint_map,
+                    )
+                ),
+            )
+
     def test_parent_alignment_and_transport_reference_is_independent(self) -> None:
         request = self._request()
         model = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
@@ -174,6 +220,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
             request=request,
             model=model,
             geometry=request.cases[0],
+            endpoint_sewing=self._endpoint_sewing(model.ambient_dimension),
         ).execute()
 
         reference = Periodic2DRankNBandEquivalenceHoppingLocalityReferenceAnalyzer(
@@ -200,6 +247,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
             request=request,
             model=model,
             geometry=request.cases[0],
+            endpoint_sewing=self._endpoint_sewing(model.ambient_dimension),
         ).execute()
 
         reference = Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer(  # noqa: E501
@@ -226,6 +274,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
             request=request,
             model=model,
             geometry=request.cases[0],
+            endpoint_sewing=self._endpoint_sewing(model.ambient_dimension),
         ).execute()
 
         verification = Periodic2DRankNBandEquivalenceHoppingLocalityCaseVerifier(
@@ -265,6 +314,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
             request=request,
             model=model,
             geometry=request.cases[0],
+            endpoint_sewing=self._endpoint_sewing(model.ambient_dimension),
         ).execute()
         failure_type = (
             Periodic2DRankNBandEquivalenceHoppingLocalityInapplicableAlignmentAnalysis

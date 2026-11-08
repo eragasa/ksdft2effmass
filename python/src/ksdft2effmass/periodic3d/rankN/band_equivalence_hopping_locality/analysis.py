@@ -87,6 +87,10 @@ from ksdft2effmass.real_space_support_truncation import (
     SupportToleranceSelectionOutcome,
     SupportToleranceUnresolved,
 )
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 
 from .case_expansion import Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander
 from .field_geometry import (
@@ -168,6 +172,11 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer(
             and not fields.has_comparison_inverse_right_actions
         ):
             raise ValueError("known-inverse alignment requires prescribed actions")
+        if (
+            policy.endpoint_sewing.ambient_dimension
+            != fields.reference_construction_frames.shape[-2]
+        ):
+            raise ValueError("endpoint sewing must match the field ambient dimension")
         construction_axes = tuple(
             self._coordinate_axis(policy.construction_size, offset)
             for offset in policy.construction_offsets
@@ -483,6 +492,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer(
                 frame=aligned_frame,
                 rank_absolute=self._policy.transport_rank_absolute,
                 rank_relative=self._policy.transport_rank_relative,
+                endpoint_sewing=self._policy.endpoint_sewing,
             )
         ).execute()
         if transport.rank_deficient_link_count > 0:
@@ -977,6 +987,14 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                 procrustes_tolerance=self._request.procrustes_tolerance,
                 transport_rank_absolute=self._request.transport_rank_absolute,
                 transport_rank_relative=self._request.transport_rank_relative,
+                endpoint_sewing=ReciprocalEndpointSewingInventory(
+                    positive_axis_maps=(
+                        IdentityReciprocalSewing(
+                            ambient_dimension=self._model.ambient_dimension
+                        ).endpoint_map,
+                    )
+                    * 3
+                ),
             ),
             geometry=Periodic3DRankNBandEquivalenceHoppingLocalityFieldGeometry(
                 identifier=self._geometry.lattice_control.to_wire(),

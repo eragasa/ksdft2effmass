@@ -30,7 +30,7 @@ from ksdft2effmass.band_equivalence_hopping_locality.records import (
 from ksdft2effmass.band_equivalence_hopping_locality.result import (
     BandEquivalenceHoppingLocalityAnalysisRecorder,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import (
+from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
 )

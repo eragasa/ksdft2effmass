@@ -9,6 +9,8 @@ from projectkoios.optimization.alignment.procrustes import (
     ComplexUnitaryProcrustesTolerance,
 )
 
+from ksdft2effmass.sewing import ReciprocalEndpointSewingInventory
+
 from .base import Periodic2DRankNFrameTransportAnalysisRequest
 
 
@@ -17,7 +19,13 @@ class Periodic2DRankNTransportAnalysisRequest(
 ):
     """Bind one immutable finite-rank frame field and numerical-rank policy."""
 
-    __slots__ = ("_frame", "_rank_absolute", "_rank_relative", "_retained_rank")
+    __slots__ = (
+        "_endpoint_sewing",
+        "_frame",
+        "_rank_absolute",
+        "_rank_relative",
+        "_retained_rank",
+    )
 
     def __init__(
         self,
@@ -26,6 +34,7 @@ class Periodic2DRankNTransportAnalysisRequest(
         frame: Complex128Array,
         rank_absolute: float,
         rank_relative: float,
+        endpoint_sewing: ReciprocalEndpointSewingInventory,
     ) -> None:
         if type(retained_rank) is not int:
             raise TypeError("retained_rank must be a built-in integer")
@@ -46,8 +55,15 @@ class Periodic2DRankNTransportAnalysisRequest(
             raise ValueError("frame ambient dimension must be at least retained_rank")
         if any(size <= 0 for size in admitted.shape[:2]):
             raise ValueError("periodic mesh axes must be nonempty")
+        if type(endpoint_sewing) is not ReciprocalEndpointSewingInventory:
+            raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingInventory")
+        if endpoint_sewing.spatial_dimension != 2:
+            raise ValueError("endpoint sewing must contain two axis maps")
+        if endpoint_sewing.ambient_dimension != admitted.shape[-2]:
+            raise ValueError("endpoint sewing must match the frame ambient dimension")
         self._retained_rank = retained_rank
         self._frame = admitted
+        self._endpoint_sewing = endpoint_sewing
         self._rank_absolute = tolerance.rank_absolute
         self._rank_relative = tolerance.rank_relative
 
@@ -55,6 +71,11 @@ class Periodic2DRankNTransportAnalysisRequest(
     def retained_rank(self) -> int:
         """Return the exact finite retained rank."""
         return self._retained_rank
+
+    @property
+    def endpoint_sewing(self) -> ReciprocalEndpointSewingInventory:
+        """Return the explicit ordered reciprocal-axis sewing maps."""
+        return self._endpoint_sewing
 
     @property
     def frame(self) -> Complex128Array:

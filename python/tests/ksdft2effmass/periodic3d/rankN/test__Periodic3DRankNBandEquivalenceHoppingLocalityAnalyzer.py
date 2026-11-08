@@ -67,6 +67,10 @@ from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
 )
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -141,7 +145,9 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
     @staticmethod
     def _policy(
         request: Periodic3DRankNBandEquivalenceHoppingLocalityRequest,
+        ambient_dimension: int,
     ) -> Periodic3DRankNBandEquivalenceHoppingLocalityPolicy:
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=ambient_dimension)
         return Periodic3DRankNBandEquivalenceHoppingLocalityPolicy(
             construction_size=request.construction_size,
             construction_offsets=(0.5, 0.5, 0.5),
@@ -152,6 +158,9 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
             procrustes_tolerance=request.procrustes_tolerance,
             transport_rank_absolute=request.transport_rank_absolute,
             transport_rank_relative=request.transport_rank_relative,
+            endpoint_sewing=ReciprocalEndpointSewingInventory(
+                positive_axis_maps=(identity_sewing.endpoint_map,) * 3
+            ),
         )
 
     @staticmethod
@@ -235,8 +244,9 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
             ),
         )
 
+        policy = self._policy(request, model.ambient_dimension)
         field_analysis = Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer(
-            policy=self._policy(request),
+            policy=policy,
             geometry=self._field_geometry(self._simple_cubic_case(request)),
             fields=fields,
         ).execute()
@@ -250,7 +260,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
             type(field_analysis)
             is Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalysis
         )
-        assert field_analysis.policy == self._policy(request)
+        assert field_analysis.policy is policy
         assert field_analysis.geometry_identifier == (
             self._simple_cubic_case(request).lattice_control.to_wire()
         )
@@ -281,7 +291,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
             comparison_inverse_construction_right_actions=None,
             comparison_inverse_evaluation_right_actions=None,
         )
-        full_policy = self._policy(request)
+        full_policy = self._policy(request, model.ambient_dimension)
         policy_without_oracle = replace(
             full_policy,
             gauge_alignments=full_policy.gauge_alignments[:-1],

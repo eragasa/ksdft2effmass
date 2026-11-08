@@ -1,7 +1,7 @@
-"""Abstract scientific sewing categories.
+"""Scientific sewing values and distinct reserved categories.
 
-The package preserves distinct sewing problems without defining shared scientific
-inputs, outputs, source types, target types, or executable implementations.
+The package owns concrete reciprocal-endpoint values while preserving other sewing
+problems without inventing shared scientific inputs, outputs, or executable contracts.
 """
 
 from .finite_boundary import FiniteBoundarySewing
@@ -11,6 +11,8 @@ from .reciprocal import (
     IdentityReciprocalSewing,
     PermutationPhaseReciprocalSewing,
     PlaneWaveIndexSewing,
+    ReciprocalEndpointSewingInventory,
+    ReciprocalEndpointSewingMap,
 )
 from .symmetry import SymmetrySewing
 
@@ -21,5 +23,7 @@ __all__ = [
     "PermutationPhaseReciprocalSewing",
     "PlaneWaveIndexSewing",
     "ProjectedSubspaceSewing",
+    "ReciprocalEndpointSewingInventory",
+    "ReciprocalEndpointSewingMap",
     "SymmetrySewing",
 ]

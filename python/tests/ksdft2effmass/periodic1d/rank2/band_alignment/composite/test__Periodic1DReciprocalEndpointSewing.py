@@ -13,7 +13,7 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite.analysis import (
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import (
+from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingMap,
 )

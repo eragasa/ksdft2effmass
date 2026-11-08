@@ -264,14 +264,14 @@ scientifically defined state-space restriction.
 
 ## Complete sewing problem inventory
 
-The following sewing categories are intentionally distinct. Their dimension-neutral
-abstract classes are owned by `ksdft2effmass.sewing`; scientifically typed concrete
-implementations remain with the applicable reciprocal, projected-subspace, symmetry,
-or finite-boundary domain owner.
+The following sewing categories are intentionally distinct and are owned by
+`ksdft2effmass.sewing`. Identity reciprocal sewing now has a concrete ambient-space
+value; the other six categories remain abstract until their own scientific contracts
+are selected.
 
-| Abstract class | Problem represented by the abstraction | Current boundary |
+| Sewing owner | Problem represented | Current boundary |
 |---|---|---|
-| `IdentityReciprocalSewing` | Explicitly identify reciprocal endpoints when the admitted basis is periodic and the map is the identity. | Must wait for basis-identifier and fiber-correlation rules. |
+| `IdentityReciprocalSewing` | Explicitly identify reciprocal endpoints when the admitted ordered ambient basis and Bloch convention are identical. | Constructs a named ambient identity map; it does not infer basis identity or define `basis_identifier`. |
 | `EmbeddedPositionReciprocalSewing` | Account for reciprocal endpoint phases caused by fractional basis positions. | Must wait for embedding and Bloch-phase conventions. |
 | `PermutationPhaseReciprocalSewing` | Reconcile a legitimate endpoint permutation and phase convention for the same represented basis. | Must not infer correspondence or repair accidental ordering. |
 | `PlaneWaveIndexSewing` | Review finite plane-wave reciprocal-index shifts for possible Wilson use. | Does not replace the implemented finite-cutoff plane-wave shift constructor; completeness and unitarity admission remain unresolved. |
@@ -279,25 +279,24 @@ or finite-boundary domain owner.
 | `SymmetrySewing` | Relate fibers at momenta connected by a declared spatial or antiunitary symmetry. | Ordinary reciprocal closure, unitary symmetry, and antiunitary symmetry must not be conflated. |
 | `FiniteBoundarySewing` | Correlate real-space periodic seam identification with retained twist fibers and gauge bridges. | Does not duplicate existing boundary-twist or gauge-bridge behavior. |
 
-These seven abstract classes cover the sewing categories approved by the present
-architecture inventory. They are not aliases for one another and are not
-interchangeable inputs to a Wilson-loop analyzer.
+The seven categories are not aliases and are not interchangeable inputs to a Wilson-loop
+analyzer. `ReciprocalEndpointSewingMap` and
+`ReciprocalEndpointSewingInventory` provide the implemented reciprocal-endpoint values;
+identity remains one construction of those values rather than a generic sewing base.
 
 ### Preservation rule
 
-The abstract classes must not be deleted merely because they have no concrete
-implementation. Their source comments, NumPy-style docstrings, abstract status, this
-architecture page, and focused tests jointly record distinct scientific boundaries
-rather than dead code. Removal requires a reviewed ownership decision
-showing that the represented problem has either been implemented under its named owner
-or explicitly retired.
+The six reserved abstract classes must not be deleted merely because they have no
+concrete implementation. Their source comments, NumPy-style docstrings, abstract status,
+this architecture page, and focused tests jointly record distinct scientific boundaries
+rather than dead code. Removal requires a reviewed ownership decision showing that the
+represented problem has either been implemented under its named owner or explicitly
+retired.
 
-The abstract category classes intentionally add no scientific fields or constructor
+The reserved category classes intentionally add no scientific fields or constructor
 parameters yet. Adding those values before basis identity, map direction, dimensional
 ownership, and wire behavior are frozen would create a false public API. No shared
-source type, target type, or map method is inferred across the seven problems. Each
-class remains non-instantiable until its own scientifically typed specialization is
-approved.
+source type, target type, or map method is inferred across the seven problems.
 
 ## Relationship to studies and calculations
 

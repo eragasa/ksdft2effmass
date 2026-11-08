@@ -10,6 +10,7 @@ public compatibility contract.
    hamiltonian
    operators
    solid-state
+   sewing
    analysis
    model-systems
    visualizations

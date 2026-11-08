@@ -44,7 +44,7 @@ from ksdft2effmass.real_space_support_truncation import (
     SupportToleranceSelectionOutcome,
     SupportToleranceUnresolved,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import (
+from ksdft2effmass.sewing import (
     ReciprocalEndpointSewingInventory,
 )
 

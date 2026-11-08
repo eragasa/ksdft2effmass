@@ -43,7 +43,7 @@ from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request im
     Periodic1DRankNBandEquivalenceHoppingLocalityControls,
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import IdentityReciprocalSewing
+from ksdft2effmass.sewing import IdentityReciprocalSewing
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 

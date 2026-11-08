@@ -44,7 +44,7 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite.verification import
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import IdentityReciprocalSewing
+from ksdft2effmass.sewing import IdentityReciprocalSewing
 
 pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
 

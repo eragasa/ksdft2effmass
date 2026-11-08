@@ -39,7 +39,7 @@ from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request im
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
     Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import ReciprocalEndpointSewingMap
+from ksdft2effmass.sewing import ReciprocalEndpointSewingMap
 
 from .base import Periodic1DGaugeAlignment
 

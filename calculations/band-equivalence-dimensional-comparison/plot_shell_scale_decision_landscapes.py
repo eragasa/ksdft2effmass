@@ -21,7 +21,7 @@ from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape_plotting
 from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
     BandEquivalenceHoppingLocalityRequest,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import (
+from ksdft2effmass.sewing import (
     ReciprocalEndpointSewingInventory,
 )
 

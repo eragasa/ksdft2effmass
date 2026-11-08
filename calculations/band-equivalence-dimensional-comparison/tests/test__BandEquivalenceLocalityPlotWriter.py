@@ -19,7 +19,7 @@ from ksdft2effmass.band_equivalence_hopping_locality.plotting import (
     BandEquivalenceToleranceMapRequest,
     BandEquivalenceToleranceMapWriter,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import (
+from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
 )

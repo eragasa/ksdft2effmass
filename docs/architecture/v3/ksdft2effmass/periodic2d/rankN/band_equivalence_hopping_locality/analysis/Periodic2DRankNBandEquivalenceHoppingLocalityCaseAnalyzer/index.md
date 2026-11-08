@@ -6,7 +6,13 @@ Implemented request-bound action object in
 `ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.analysis`.
 It composes one exact periodic-2D analytic case, gauge-alignment routes, frame
 transport, Fourier reconstruction, physical-metric shell powers, support decisions, and
-immutable case analysis without filesystem effects.
+immutable case analysis without filesystem effects. The case action receives an explicit
+axis-ordered `ReciprocalEndpointSewingInventory`; rank-N frame transport validates two
+axis maps and the ambient frame dimension rather than constructing identity internally.
+The retained synthetic v1 case contract accepts only named ambient-space identity
+sewing selected at the composition boundary, preserving its existing result envelope.
+The lower-level rank-N transport request is independently swappable and may receive a
+qualified nonidentity map while retaining that map with its transport result.
 
 ## Deferred numerical limitation
 

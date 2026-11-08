@@ -53,6 +53,7 @@ from ksdft2effmass.periodic1d.rank2.support_truncation.band_alignment.result imp
 from ksdft2effmass.periodic1d.translations import (
     Periodic1DSymmetricTranslationRange,
 )
+from ksdft2effmass.sewing import ReciprocalEndpointSewingMap
 from ksdft2effmass.solidstate import (
     BandProjectedOperatorPathConstructor1D,
     BandProjectedOperatorPathRequest1D,
@@ -63,7 +64,6 @@ from ksdft2effmass.solidstate import (
     CenteredEvenMeshCyclicToOrdinaryRequest1D,
     CenteredUniformReciprocalMesh1D,
     ReciprocalBandFramePath1D,
-    ReciprocalEndpointSewingMap,
     ReciprocalOperatorFourierTransformer1D,
     ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorSamples1D,

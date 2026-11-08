@@ -82,6 +82,10 @@ from ksdft2effmass.real_space_support_truncation import (
     SupportToleranceSelectionOutcome,
     SupportToleranceUnresolved,
 )
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 
 from .case_expansion import Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander
 from .model import Periodic2DRankNAnalyticCase
@@ -123,7 +127,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     must not be interpreted as proof of an exactly onsite-only model.
     """
 
-    __slots__ = ("_geometry", "_model", "_request")
+    __slots__ = ("_endpoint_sewing", "_geometry", "_model", "_request")
 
     _SPATIAL_DIMENSION: ClassVar[int] = 2
 
@@ -138,6 +142,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
         request: Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
         model: Periodic2DRankNAnalyticCase,
         geometry: Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
+        endpoint_sewing: ReciprocalEndpointSewingInventory,
     ) -> None:
         if type(request) is not Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
             raise TypeError("request must be the exact periodic-2D rank-N request")
@@ -167,9 +172,24 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             or model.attack_coefficient not in request.attack_coefficients
         ):
             raise ValueError("model must be one exact expansion of the request")
+        if type(endpoint_sewing) is not ReciprocalEndpointSewingInventory:
+            raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingInventory")
+        if endpoint_sewing.spatial_dimension != self._SPATIAL_DIMENSION:
+            raise ValueError("endpoint sewing must contain two axis maps")
+        if endpoint_sewing.ambient_dimension != model.ambient_dimension:
+            raise ValueError("endpoint sewing must match the model ambient dimension")
+        identity_endpoint_wire = IdentityReciprocalSewing(
+            ambient_dimension=model.ambient_dimension
+        ).endpoint_map.to_json()
+        if any(
+            endpoint_map.to_json() != identity_endpoint_wire
+            for endpoint_map in endpoint_sewing.positive_axis_maps
+        ):
+            raise ValueError("the v1 case analysis supports only named identity sewing")
         self._request = request
         self._model = model
         self._geometry = geometry
+        self._endpoint_sewing = endpoint_sewing
 
     @property
     def request(self) -> Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
@@ -418,6 +438,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                 frame=aligned_frame,
                 rank_absolute=self._request.transport_rank_absolute,
                 rank_relative=self._request.transport_rank_relative,
+                endpoint_sewing=self._endpoint_sewing,
             )
         ).execute()
         if transport.rank_deficient_link_count > 0:
@@ -863,6 +884,14 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer(
                 request=self._request,
                 model=model,
                 geometry=geometry_by_identifier[model.case_identifier],
+                endpoint_sewing=ReciprocalEndpointSewingInventory(
+                    positive_axis_maps=(
+                        IdentityReciprocalSewing(
+                            ambient_dimension=model.ambient_dimension
+                        ).endpoint_map,
+                    )
+                    * 2
+                ),
             ).execute()
             for model in models
         )

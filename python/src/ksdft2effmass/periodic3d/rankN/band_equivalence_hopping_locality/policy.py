@@ -12,6 +12,7 @@ from projectkoios.optimization.alignment.procrustes import (
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
 )
+from ksdft2effmass.sewing import ReciprocalEndpointSewingInventory
 
 
 @dataclass(frozen=True, slots=True)
@@ -36,6 +37,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityPolicy:
     procrustes_tolerance: ComplexUnitaryProcrustesTolerance
     transport_rank_absolute: float
     transport_rank_relative: float
+    endpoint_sewing: ReciprocalEndpointSewingInventory
 
     def __post_init__(self) -> None:
         """Validate construction, alignment, threshold, and rank selections."""
@@ -95,6 +97,10 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityPolicy:
                 raise TypeError(f"{name} must be a built-in float")
             if not math.isfinite(rank_value) or rank_value < 0.0:
                 raise ValueError(f"{name} must be finite and nonnegative")
+        if type(self.endpoint_sewing) is not ReciprocalEndpointSewingInventory:
+            raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingInventory")
+        if self.endpoint_sewing.spatial_dimension != 3:
+            raise ValueError("endpoint sewing must contain three axis maps")
 
 
 __all__ = ["Periodic3DRankNBandEquivalenceHoppingLocalityPolicy"]

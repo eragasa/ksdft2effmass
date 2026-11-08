@@ -23,9 +23,12 @@ inverse actions are optional and are required only when policy selects the
 known-inverse-oracle route. The separate
 `Periodic3DRankNBandEquivalenceHoppingLocalityPolicy` contains the regular
 construction-transform size, per-axis centered-mesh offsets, explicit error-normalization
-scale, alignment routes, optional support-decision tolerances, and numerical-rank
-selections without synthetic parent or attack parameters. An empty tolerance inventory
-retains complete support curves without manufacturing first-passing decisions.
+scale, alignment routes, optional support-decision tolerances, numerical-rank
+selections, and the explicit ordered reciprocal-endpoint sewing inventory without
+synthetic parent or attack parameters. The sewing matrices act in the ambient frame
+space and therefore have the frame ambient dimension, not merely the retained rank. An
+empty tolerance inventory retains complete support curves without manufacturing
+first-passing decisions.
 Evaluation coordinates belong to the
 sampled fields: a tensor-product inventory retains the established tensor evaluator,
 while an arbitrary ordered point inventory uses the shared-grid finite-series evaluator.

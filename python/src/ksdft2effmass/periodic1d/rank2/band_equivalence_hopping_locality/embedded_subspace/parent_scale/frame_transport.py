@@ -19,7 +19,7 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     FinitePeriodicMeshFrameInventory,
 )
 
-from ksdft2effmass.solidstate.reciprocal_sewing import IdentityReciprocalSewing
+from ksdft2effmass.sewing import IdentityReciprocalSewing
 
 from .parent_hamiltonian import _Periodic1DRank2Parent
 from .request import Periodic1DRank2Request

@@ -14,8 +14,12 @@ analysis boundary. `Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer`
 consumes that boundary together with parent-independent numerical policy and geometry.
 The construction field remains a regular centered tensor mesh for the finite transform;
 the evaluation field may instead be any ordered reciprocal-point inventory. The
-analyzer does not admit a synthetic case or parent model. Its field result excludes parent
-scale, attack coefficient, external-gap evidence, and synthetic case identity.
+parent-independent policy also carries an explicit axis-ordered
+`ReciprocalEndpointSewingInventory`. Frame transport validates three axis maps and the
+ambient field dimension, then consumes the supplied sewing without constructing
+identity internally. The analyzer does not admit a synthetic case or parent model. Its
+field result excludes parent scale, attack coefficient, external-gap evidence, and
+synthetic case identity.
 `Periodic3DRankNAnalyticCaseFieldSampler` retains its v1 public name while adapting the
 synthetic study case to the field boundary. `Periodic3DRankNWannierFieldProducer`
 adapts immutable in-memory Wannier frames and represented operators, with explicit

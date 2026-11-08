@@ -44,7 +44,7 @@ from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.visualizat
 from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.visualizations.visualizer import (  # noqa: E501
     Periodic3DRank2BandEquivalenceHoppingLocalityVisualizer,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import (
+from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
 )

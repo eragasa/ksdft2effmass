@@ -30,7 +30,7 @@ from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.result imp
     Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder,
     Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import (
+from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
 )

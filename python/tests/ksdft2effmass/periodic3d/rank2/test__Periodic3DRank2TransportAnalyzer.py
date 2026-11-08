@@ -21,7 +21,7 @@ from ksdft2effmass.periodic3d.rank2.band_alignment.frame_transport.request impor
 from ksdft2effmass.periodic3d.rank2.band_alignment.frame_transport.result import (
     Periodic3DRank2TransportDiagnosticAnalysis,
 )
-from ksdft2effmass.solidstate.reciprocal_sewing import (
+from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
     ReciprocalEndpointSewingMap,

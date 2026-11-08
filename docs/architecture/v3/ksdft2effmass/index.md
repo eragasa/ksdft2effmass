@@ -40,9 +40,8 @@ or supported import already exists.
 - [`periodic`](periodic/index.md): dimension-neutral periodic model vocabulary, the
   domain → dimension → rank nominal hierarchy, and the prospective basis-embedding and
   reciprocal-shift-sewing prerequisites for Wilson analysis.
-- [`sewing`](sewing/index.md): dimension-neutral abstract sewing classes, with concrete
-  reciprocal, projected-subspace, symmetry, and finite-boundary mechanics retained by
-  their applicable domain owners.
+- [`sewing`](sewing/index.md): authoritative concrete reciprocal-endpoint values and
+  six distinct reserved sewing categories without a generic sewing supertype.
 - [`study`](study/index.md): reusable one-model study identity and the parallel periodic
   dimension → rank orchestration hierarchy.
 - [`geometry/periodic`](geometry/periodic/index.md): prospective typed periodic lattice
