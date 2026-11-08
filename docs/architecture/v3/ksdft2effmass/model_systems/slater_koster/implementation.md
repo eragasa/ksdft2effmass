@@ -8,7 +8,9 @@ The reusable package is
 - `geometry.py` uses PhysKit's `DirectLattice3D` and PhysKit scalar quantities rather
   than defining a competing lattice primitive;
 - `parameters.py` owns immutable eV parameter records and the stable vector map;
-- `model.py` owns bond-direction maps, Bloch assembly, and exact-Hermitian refinement;
+- `model.py` owns bond-direction maps, Bloch assembly, exact-Hermitian refinement, and
+  immutable model/fiber/basis correlation in
+  `DiamondSp3sStarBlochHamiltonianEvaluation`;
 - `serialization.py` delegates canonical bytes to `TypedJsonMappingSerializer`; and
 - `__init__.py` declares the supported public imports.
 
@@ -34,6 +36,7 @@ Focused tests under
 - parameter order, units, immutability, and invalid numeric boundaries;
 - $T(-d)=T(d)^\mathsf{T}$ and fixed-zero first-neighbor channels;
 - analytic Gamma-point shell sums;
+- immutable model, fractional-fiber, matrix, and structured-basis correlation;
 - Hermiticity and spinless time reversal at a generic k point;
 - reciprocal-shift gauge covariance and cubic-axis spectral symmetry; and
 - deterministic convention-rich typed JSON.

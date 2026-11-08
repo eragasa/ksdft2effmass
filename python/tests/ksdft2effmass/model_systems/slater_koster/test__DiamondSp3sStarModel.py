@@ -13,6 +13,7 @@ from projectkoios.physkit.units import (
 
 from ksdft2effmass.hamiltonian import HermitianHamiltonian
 from ksdft2effmass.model_systems.slater_koster import (
+    DiamondSp3sStarBlochHamiltonianEvaluation,
     DiamondSp3sStarGeometry,
     DiamondSp3sStarModel,
     DiamondSp3sStarParameters,
@@ -87,11 +88,12 @@ class TestDiamondSp3sStarModel:
         model = self._model()
         k_point = np.asarray((0.137, -0.281, 0.419))
 
-        hamiltonian = model.hamiltonian_at(k_point)
+        evaluation = model.hamiltonian_at(k_point)
         matrix = self._matrix(model, k_point)
         reverse = self._matrix(model, -k_point)
 
-        assert isinstance(hamiltonian, HermitianHamiltonian)
+        assert type(evaluation) is DiamondSp3sStarBlochHamiltonianEvaluation
+        assert type(evaluation.hamiltonian) is HermitianHamiltonian
         np.testing.assert_array_equal(matrix, matrix.conjugate().T)
         np.testing.assert_allclose(
             reverse,
@@ -99,6 +101,42 @@ class TestDiamondSp3sStarModel:
             rtol=0.0,
             atol=4.0e-15,
         )
+
+    def test_hamiltonian_at__evaluation__correlates_model_fiber_and_basis(
+        self,
+    ) -> None:
+        """The evaluation retains immutable fiber coordinates and the model basis."""
+        model = self._model()
+        fractional_k = np.asarray((0.137, -0.281, 0.419))
+        expected_k = fractional_k.copy()
+
+        evaluation = model.hamiltonian_at(fractional_k)
+        fractional_k[:] = 0.0
+
+        assert evaluation.model is model
+        assert evaluation.basis_identity is model.basis_identity
+        np.testing.assert_array_equal(evaluation.fractional_k, expected_k)
+        assert evaluation.fractional_k.flags.writeable is False
+        assert evaluation.hamiltonian.matrix.magnitude.shape == (10, 10)
+
+    def test_evaluation_construction__wrong_matrix_dimension__raises_value_error(
+        self,
+    ) -> None:
+        """An evaluation matrix must match its model-owned ten-orbital basis."""
+        model = self._model()
+        source = model.hamiltonian_at(np.zeros(3))
+
+        with pytest.raises(ValueError, match="ten-orbital basis"):
+            DiamondSp3sStarBlochHamiltonianEvaluation(
+                model=model,
+                fractional_k=np.zeros(3),
+                hamiltonian=HermitianHamiltonian(
+                    matrix=ComplexMatrixQuantity(
+                        np.eye(2, dtype=np.complex128),
+                        source.hamiltonian.matrix.unit,
+                    )
+                ),
+            )
 
     def test_hamiltonian_at__reciprocal_shift__obeys_center_gauge_covariance(
         self,
@@ -162,7 +200,7 @@ class TestDiamondSp3sStarModel:
         model: DiamondSp3sStarModel,
         fractional_k: Float64Array,
     ) -> Complex128Matrix:
-        matrix = model.hamiltonian_at(fractional_k).matrix
+        matrix = model.hamiltonian_at(fractional_k).hamiltonian.matrix
         assert isinstance(matrix, ComplexMatrixQuantity)
         return matrix.magnitude
 

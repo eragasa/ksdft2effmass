@@ -56,6 +56,53 @@ _DIAMOND_SP3S_STAR_BASIS = Periodic3DBasisIdentity(
 )
 
 
+def _immutable_fractional_k(value: Float64Array) -> Float64Array:
+    """Validate and copy one fractional reciprocal coordinate into immutable storage."""
+    if not isinstance(value, np.ndarray):
+        raise TypeError("fractional_k must be a numpy.ndarray")
+    if value.dtype.kind not in "iuf":
+        raise TypeError("fractional_k must contain real numbers excluding booleans")
+    result = np.asarray(value, dtype=np.float64)
+    if result.shape != (3,):
+        raise ValueError("fractional_k must have shape (3,)")
+    if not np.all(np.isfinite(result)):
+        raise ValueError("fractional_k must be finite")
+    immutable = np.frombuffer(result.astype("<f8").tobytes(), dtype="<f8")
+    return immutable.reshape((3,))
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class DiamondSp3sStarBlochHamiltonianEvaluation:
+    """Retain one Bloch matrix with its model, fiber, and ordered basis identity."""
+
+    model: DiamondSp3sStarModel
+    fractional_k: Float64Array
+    hamiltonian: HermitianHamiltonian
+
+    def __post_init__(self) -> None:
+        """Validate exact owners and retain immutable reciprocal coordinates."""
+        if type(self.model) is not DiamondSp3sStarModel:
+            raise TypeError("model must be DiamondSp3sStarModel")
+        object.__setattr__(
+            self,
+            "fractional_k",
+            _immutable_fractional_k(self.fractional_k),
+        )
+        if type(self.hamiltonian) is not HermitianHamiltonian:
+            raise TypeError("hamiltonian must be HermitianHamiltonian")
+        if type(self.hamiltonian.matrix) is not ComplexMatrixQuantity:
+            raise TypeError("hamiltonian matrix must be ComplexMatrixQuantity")
+        if self.hamiltonian.matrix.magnitude.shape != (10, 10):
+            raise ValueError("hamiltonian matrix must match the ten-orbital basis")
+        if self.hamiltonian.matrix.unit != ELECTRON_VOLT:
+            raise ValueError("hamiltonian matrix must use electron_volt")
+
+    @property
+    def basis_identity(self) -> Periodic3DBasisIdentity:
+        """Return the model-owned Slater--Koster basis of the represented matrix."""
+        return self.model.basis_identity
+
+
 @dataclass(frozen=True, slots=True)
 class DiamondSp3sStarModel:
     r"""Orthogonal homopolar first/second-neighbor ``sp3s*`` model.
@@ -100,12 +147,17 @@ class DiamondSp3sStarModel:
         """
         return _DIAMOND_SP3S_STAR_BASIS
 
-    def hamiltonian_at(self, fractional_k: Float64Array) -> HermitianHamiltonian:
-        """Construct the exact-Hermitian ten-by-ten Bloch Hamiltonian in eV.
+    def hamiltonian_at(
+        self,
+        fractional_k: Float64Array,
+    ) -> DiamondSp3sStarBlochHamiltonianEvaluation:
+        """Evaluate the exact-Hermitian ten-by-ten Bloch Hamiltonian in eV.
 
         Boolean arrays, numeric strings, nonfinite values, and non-arrays are
         rejected rather than coerced. Arithmetic uses binary64/complex128 without
-        clipping; phase or matrix overflow raises :class:`OverflowError`.
+        clipping; phase or matrix overflow raises :class:`OverflowError`. The returned
+        evaluation retains this exact model, immutable fractional reciprocal
+        coordinates, and the model-owned ordered Slater--Koster basis identity.
         """
         k_point = self._fractional_k(fractional_k)
         with np.errstate(over="ignore", invalid="ignore"):
@@ -122,7 +174,13 @@ class DiamondSp3sStarModel:
             raise OverflowError("Slater-Koster matrix arithmetic overflowed")
         if not np.array_equal(matrix, matrix.conjugate().T):
             raise ArithmeticError("constructed Slater-Koster matrix is not Hermitian")
-        return HermitianHamiltonian(matrix=ComplexMatrixQuantity(matrix, ELECTRON_VOLT))
+        return DiamondSp3sStarBlochHamiltonianEvaluation(
+            model=self,
+            fractional_k=k_point,
+            hamiltonian=HermitianHamiltonian(
+                matrix=ComplexMatrixQuantity(matrix, ELECTRON_VOLT)
+            ),
+        )
 
     def two_center_hopping(
         self,
@@ -222,16 +280,7 @@ class DiamondSp3sStarModel:
 
     @staticmethod
     def _fractional_k(value: Float64Array) -> Float64Array:
-        if not isinstance(value, np.ndarray):
-            raise TypeError("fractional_k must be a numpy.ndarray")
-        if value.dtype.kind not in "iuf":
-            raise TypeError("fractional_k must contain real numbers excluding booleans")
-        result = np.asarray(value, dtype=np.float64)
-        if result.shape != (3,):
-            raise ValueError("fractional_k must have shape (3,)")
-        if not np.all(np.isfinite(result)):
-            raise ValueError("fractional_k must be finite")
-        return result
+        return _immutable_fractional_k(value)
 
     @staticmethod
     def _direction_cosines(value: Float64Array) -> Float64Array:

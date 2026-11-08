@@ -30,10 +30,14 @@ See [numerics](numerics.md) for the matrix and phase conventions and
   neighbor maps.
 - `DiamondSp3sStarParameters` owns the stable 15-entry real parameter order.
 - `DiamondSp3sStarModel` binds the structured Slater--Koster basis identity and
-  constructs an exact-Hermitian 10-by-10 Hamiltonian in eV.
+  evaluates an exact-Hermitian 10-by-10 Hamiltonian in eV.
+- `DiamondSp3sStarBlochHamiltonianEvaluation` retains the exact model, immutable
+  fractional reciprocal coordinates, represented Hamiltonian, and model-owned
+  `Periodic3DBasisIdentity` without folding site embedding into basis equality.
 - `DiamondSp3sStarModelJsonSerializer` records the definition deterministically through
-  the repository typed-JSON serializer. Model schema version 2 nests the version-1
-  structured basis wire rather than a tuple of display labels.
+  the repository typed-JSON serializer. Model schema version 2 nests the
+  schema-version-2 dimensional structured basis wire rather than a tuple of display
+  labels.
 
 ## Scientific boundary
 

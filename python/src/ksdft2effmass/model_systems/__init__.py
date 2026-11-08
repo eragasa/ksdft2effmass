@@ -63,6 +63,7 @@ from .result_sections import (
 )
 from .slater_koster import (
     DiamondNeighborBond,
+    DiamondSp3sStarBlochHamiltonianEvaluation,
     DiamondSp3sStarFirstNeighbor,
     DiamondSp3sStarGeometry,
     DiamondSp3sStarModel,
@@ -89,6 +90,7 @@ __all__ = [
     "DirichletBoundaryCondition",
     "DirichletInterval",
     "DiamondNeighborBond",
+    "DiamondSp3sStarBlochHamiltonianEvaluation",
     "DiamondSp3sStarFirstNeighbor",
     "DiamondSp3sStarGeometry",
     "DiamondSp3sStarModel",

@@ -11,7 +11,11 @@ from .geometry import (
     DiamondSp3sStarGeometry,
     DiamondSublattice,
 )
-from .model import DiamondSp3sStarModel, Sp3sStarOrbitalIndex
+from .model import (
+    DiamondSp3sStarBlochHamiltonianEvaluation,
+    DiamondSp3sStarModel,
+    Sp3sStarOrbitalIndex,
+)
 from .parameters import (
     DiamondSp3sStarFirstNeighbor,
     DiamondSp3sStarOnsite,
@@ -24,6 +28,7 @@ __all__ = [
     "DiamondNeighborBond",
     "DiamondSp3sStarFirstNeighbor",
     "DiamondSp3sStarGeometry",
+    "DiamondSp3sStarBlochHamiltonianEvaluation",
     "DiamondSp3sStarModel",
     "DiamondSp3sStarModelJsonSerializer",
     "DiamondSp3sStarOnsite",
