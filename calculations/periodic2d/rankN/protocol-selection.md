@@ -36,8 +36,11 @@ independent references, authenticated visualization data, and typed lifecycle re
 Every rank-bound request and result must carry an explicit retained rank. Study-level
 requests admit exactly `3`, `4`, and `8`; reusable pointwise Procrustes, transport,
 locality, and support actions may admit another finite rank only through a separately
-reviewed caller. Rank-N classes mirror applicable `Periodic2DRank2...` role names using
-`Periodic2DRankN...`; they do not inherit rank-two classes.
+reviewed caller. Dimensional rank-N owners refine dimension-neutral periodic finite-rank
+capabilities. Applicable `Periodic2DRank2...` operation owners then refine the
+corresponding `Periodic2DRankN...` owner and fix the rank to two. The rank-N study family
+does not inherit rank-two calculation policy, and its `3`, `4`, and `8` inventory remains
+calculation-owned.
 
 The recommended alignment inventory is identity, complete global-unitary Procrustes,
 pointwise-unitary Procrustes, and a separately labelled known-inverse oracle when the
@@ -106,8 +109,9 @@ synthetic analytic protocol.
 
 ## Implementation gate
 
-The package currently installs the analytic parent/gauge model, global and pointwise
-Procrustes, frame transport, hopping locality, support truncation, typed aggregate
+The package currently installs the reusable analytic parent model, independent gauge
+attack, calculation-owned structured basis inventory, explicit case composition, global
+and pointwise Procrustes, frame transport, hopping locality, support truncation, typed aggregate
 requests, case expansion, thin aggregate analysis, immutable per-case/per-alignment
 results, and bounded producer-independent parent, alignment, transport, Fourier,
 shell-power, and support-selection references plus typed aggregate verification.

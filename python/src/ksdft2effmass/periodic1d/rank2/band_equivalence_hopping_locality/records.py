@@ -70,7 +70,7 @@ def _request_mapping(
         "represented_basis_identifier": request.represented_basis_identifier,
         "energy_reference_identifier": request.energy_reference_identifier,
         "reciprocal_coordinate_convention": request.reciprocal_coordinate_convention,
-        "gauge_attack_identifier": request.gauge_attack_identifier,
+        "gauge_transformation_identifier": request.gauge_transformation_identifier,
         "construction_size": request.construction_size,
         "evaluation_size": request.evaluation_size,
         "evaluation_shift_numerator": request.evaluation_shift_numerator,
@@ -97,7 +97,7 @@ def _request_from_mapping(
             "represented_basis_identifier",
             "energy_reference_identifier",
             "reciprocal_coordinate_convention",
-            "gauge_attack_identifier",
+            "gauge_transformation_identifier",
             "construction_size",
             "evaluation_size",
             "evaluation_shift_numerator",
@@ -116,7 +116,7 @@ def _request_from_mapping(
         "represented_basis_identifier",
         "energy_reference_identifier",
         "reciprocal_coordinate_convention",
-        "gauge_attack_identifier",
+        "gauge_transformation_identifier",
     ):
         identifier = values[name]
         if type(identifier) is not str:
@@ -139,7 +139,7 @@ def _request_from_mapping(
         reciprocal_coordinate_convention=identifiers[
             "reciprocal_coordinate_convention"
         ],
-        gauge_attack_identifier=identifiers["gauge_attack_identifier"],
+        gauge_transformation_identifier=identifiers["gauge_transformation_identifier"],
         construction_size=_integer(values, "construction_size"),
         evaluation_size=_integer(values, "evaluation_size"),
         evaluation_shift_numerator=_integer(values, "evaluation_shift_numerator"),

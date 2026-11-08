@@ -22,6 +22,8 @@ Domain and periodic roles
 .. autoclass:: RealSpaceSupportTruncationAnalysis
 .. autoclass:: RealSpaceSupportTruncationAnalyzer
 .. autoclass:: PeriodicRealSpaceSupportTruncation
+.. autoclass:: PeriodicRankNSupportTruncationCapability
+   :members:
 .. autoclass:: PeriodicRealSpaceSupportTruncationAnalysisRequest
 .. autoclass:: PeriodicRealSpaceSupportTruncationAnalysis
 .. autoclass:: PeriodicRealSpaceSupportTruncationAnalyzer
@@ -54,7 +56,9 @@ Rank ownership
 --------------
 
 Implemented rank-one, rank-two, and arbitrary-rank leaves expose
-``band_subspace_rank`` through sibling rank owners. Rank four is a rank-N value, not a
-separate namespace. Standalone support policies, removed-support consequences, family
-analyses, and support-selection references inherit their truthful rank owner when they
-belong to a rank-specific study.
+``band_subspace_rank`` through explicit rank owners. Rank-two owners refine the
+applicable dimensional finite-rank owner and fix the rank to two; rank one remains a
+separate specialization. Rank four is a rank-N value, not a separate namespace.
+Standalone support policies, removed-support consequences, family analyses, and
+support-selection references inherit their truthful rank owner when they belong to a
+rank-specific study.

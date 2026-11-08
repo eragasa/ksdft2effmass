@@ -12,12 +12,17 @@ from projectkoios.optimization.alignment.procrustes import (
 )
 from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
 
+from ksdft2effmass.periodic.operators import (
+    LabeledComponentBasisCoordinate,
+    PeriodicBasisInventory,
+    PeriodicBasisInventoryEntry,
+)
+from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
+from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.case import (
+    Periodic2DRankNAnalyticCase,
+)
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.case_expansion import (  # noqa: E501
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander,
-)
-from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.model import (
-    Periodic2DRankNAnalyticCase,
-    Periodic2DRankNGaugeNormalizationEnum,
 )
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.request import (
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
@@ -34,8 +39,29 @@ from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.verificati
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.definition import (
     Periodic2DRankNGaugeAlignment,
 )
+from ksdft2effmass.periodic2d.rankN.gauge_alignment.transformation import (
+    Periodic2DRankNGaugeNormalizationEnum,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
+
+_TEST_BASIS_INVENTORY = PeriodicBasisInventory(
+    entries=tuple(
+        PeriodicBasisInventoryEntry(
+            retained_rank=rank,
+            basis_identity=Periodic2DBasisIdentity(
+                display_identifier=f"periodic2d-rankN-test-basis-r{rank}",
+                coordinates=tuple(
+                    LabeledComponentBasisCoordinate(
+                        label=f"test-retained-orbital-{index:02d}"
+                    )
+                    for index in range(rank)
+                ),
+            ),
+        )
+        for rank in (3, 4, 8)
+    )
+)
 
 
 class TestPeriodic2DRankNBandEquivalenceHoppingLocalityRequest:
@@ -76,7 +102,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityRequest:
                     shell_metric_scale=1.0,
                 ),
             )
-            attacks = (0.0, math.pi / 8.0, math.pi / 4.0)
+            transformations = (0.0, math.pi / 8.0, math.pi / 4.0)
             shell_cap = 25
         else:
             triangular_bonds = ((1, 0), (0, 1), (1, -1))
@@ -110,7 +136,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityRequest:
                     basis_offsets=((0.0, 0.0), (1.0 / 3.0, 1.0 / 3.0)),
                 ),
             )
-            attacks = (
+            transformations = (
                 0.0,
                 math.pi / (8.0 * math.sqrt(6.0)),
                 math.pi / (4.0 * math.sqrt(6.0)),
@@ -125,7 +151,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityRequest:
             evaluation_size=33,
             evaluation_shift=1.0 / 3.0,
             parent_scales=(0.0, 1.0),
-            attack_coefficients=attacks,
+            transformation_coefficients=transformations,
             band_tolerances=(1.0e-3, 1.0e-5),
             gauge_alignments=(
                 Periodic2DRankNGaugeAlignment.IDENTITY,
@@ -168,7 +194,8 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityRequest:
             encoded
         )  # noqa: E501
         expanded = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=decoded
+            request=decoded,
+            basis_inventory=_TEST_BASIS_INVENTORY,
         ).execute()
 
         assert decoded.to_json() == encoded
@@ -247,7 +274,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityRequest:
                 evaluation_size=request.evaluation_size,
                 evaluation_shift=request.evaluation_shift,
                 parent_scales=request.parent_scales,
-                attack_coefficients=request.attack_coefficients,
+                transformation_coefficients=request.transformation_coefficients,
                 band_tolerances=request.band_tolerances,
                 gauge_alignments=request.gauge_alignments,
                 shell_cap=request.shell_cap,
@@ -272,7 +299,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityRequest:
                 evaluation_size=request.evaluation_size,
                 evaluation_shift=request.evaluation_shift,
                 parent_scales=request.parent_scales,
-                attack_coefficients=(
+                transformation_coefficients=(
                     0.0,
                     math.pi / (8.0 * math.sqrt(6.0)),
                     math.pi / (4.0 * math.sqrt(6.0)),

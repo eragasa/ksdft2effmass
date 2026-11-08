@@ -3,6 +3,7 @@
 from pathlib import Path
 
 import pytest
+
 from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape import (
     ShellScaleCaseDecisionLandscape,
     ShellScaleDecisionLandscapeResult,

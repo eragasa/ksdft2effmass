@@ -66,8 +66,8 @@ def composite_wire() -> bytes:
         evaluation_shift_numerator=1,
         evaluation_shift_denominator=65,
         hopping_ranges=configuration_type.HOPPING_RANGES,
-        attack_constant_angle=0.30,
-        attack_sine_coefficients=(0.65, 0.30),
+        transformation_constant_angle=0.30,
+        transformation_sine_coefficients=(0.65, 0.30),
         sampled_gap_threshold=0.5,
         overlap_singular_value_threshold=0.8,
         procrustes_rank_absolute_tolerance=1.0e-14,
@@ -172,8 +172,8 @@ class TestPeriodic1DConstrainedAdmissibleSetAnalyzer:
         )
         assert separated.separation_lower_bound > separated.separation_resolution
         locality = separated.operator_certificate_point.locality[-1]
-        assert locality.attacked_cyclic_conversion_power >= 0.0
-        assert locality.attacked_ordinary_omitted_block_l2_norm >= 0.0
+        assert locality.gauge_transformed_cyclic_conversion_power >= 0.0
+        assert locality.gauge_transformed_ordinary_omitted_block_l2_norm >= 0.0
 
     def test__result__round_trips_canonical_typed_json(
         self,

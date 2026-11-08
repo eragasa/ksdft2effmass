@@ -7,6 +7,8 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
+
 from ksdft2effmass.band_equivalence_hopping_locality import (
     definitions,
 )
@@ -23,7 +25,6 @@ from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
 )
-from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 

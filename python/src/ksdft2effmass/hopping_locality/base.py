@@ -54,6 +54,17 @@ class PeriodicHoppingLocality(HoppingLocality, ABC):  # noqa: B024
     __slots__ = ()
 
 
+class PeriodicRankNHoppingLocalityCapability(PeriodicHoppingLocality, ABC):
+    """Identify unchanged finite-rank hopping coefficients on a periodic domain."""
+
+    __slots__ = ()
+
+    @property
+    @abstractmethod
+    def band_subspace_rank(self) -> int:
+        """Return the finite hopping-block rank."""
+
+
 class PeriodicHoppingLocalityAnalysisRequest(
     HoppingLocalityAnalysisRequest,
     PeriodicHoppingLocality,
@@ -96,4 +107,5 @@ __all__ = [
     "PeriodicHoppingLocalityAnalysis",
     "PeriodicHoppingLocalityAnalysisRequest",
     "PeriodicHoppingLocalityAnalyzer",
+    "PeriodicRankNHoppingLocalityCapability",
 ]

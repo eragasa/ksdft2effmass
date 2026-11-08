@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Literal, final
+from typing import final
 
 from projectkoios.physkit.periodic.lattice import DirectLattice1D
 from projectkoios.physkit.periodic.lattice.finite_domain import LatticeDimension
@@ -14,15 +14,18 @@ from projectkoios.physkit.periodic.lattice.hopping import (
 )
 
 from ksdft2effmass.periodic.models.base import PeriodicModelRole
-from ksdft2effmass.periodic.models.block_hopping import (
-    PeriodicRank2BlockHoppingModel,
-)
+from ksdft2effmass.periodic.models.block_hopping import PeriodicBlockHoppingModel
+from ksdft2effmass.periodic.periodic1d.operators import Periodic1DBasisIdentity
+from ksdft2effmass.periodic.periodic1d.rank2.models.base import Periodic1DRank2Model
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 
 
 @final
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRank2BlockHoppingModel(PeriodicRank2BlockHoppingModel):
+class Periodic1DRank2BlockHoppingModel(
+    Periodic1DRank2Model,
+    PeriodicBlockHoppingModel,
+):
     """Represent one complete periodic-1D rank-two block-hopping model.
 
     Parameters
@@ -34,6 +37,9 @@ class Periodic1DRank2BlockHoppingModel(PeriodicRank2BlockHoppingModel):
     geometry
         Immutable physical primitive-period convention for the one-dimensional
         lattice.
+    basis
+        Exact ordered one-dimensional periodic basis identity with two coordinates.
+        Coordinate order is the row and column order of every hopping block.
     representation
         Immutable PhysKit ordinary-lattice model with one-dimensional displacements
         and exact ``2 x 2`` coefficient blocks.
@@ -47,15 +53,19 @@ class Periodic1DRank2BlockHoppingModel(PeriodicRank2BlockHoppingModel):
 
     Notes
     -----
-    PhysKit owns the reconstructed :class:`DirectLattice1D` primitive. KSD retains
-    :class:`Periodic1DLatticeGeometry` because the scientific model must also bind the
-    caller-declared physical length unit, which is not part of the provider lattice.
+    The first inheritance branch refines the one-dimensional finite-rank scientific
+    model to rank two. The second branch contributes dimension-neutral block-hopping
+    representation behavior. PhysKit owns the reconstructed :class:`DirectLattice1D`
+    primitive. KSD retains :class:`Periodic1DLatticeGeometry` because the scientific
+    model must also bind the caller-declared physical length unit, which is not part of
+    the provider lattice.
 
     """
 
     identifier: str
     role: PeriodicModelRole
     geometry: Periodic1DLatticeGeometry
+    basis: Periodic1DBasisIdentity
     representation: DenseBlockHoppingModel | SparseBlockHoppingModel
 
     def __post_init__(self) -> None:
@@ -73,11 +83,13 @@ class Periodic1DRank2BlockHoppingModel(PeriodicRank2BlockHoppingModel):
         """
         if type(self.geometry) is not Periodic1DLatticeGeometry:
             raise TypeError("geometry must be Periodic1DLatticeGeometry")
-        # The shared parent owns rank and Hermiticity admission; this child supplies
-        # the exact one-dimensional lattice reconstructed from immutable geometry.
-        self._validate_rank2_block_hopping_model(
+        # The rank-two branch fixes the retained dimension. The block-hopping branch
+        # owns basis-shape and Hermiticity admission. This concrete child supplies the
+        # exact one-dimensional owner types required by that shared validation.
+        self._validate_block_hopping_model(
             expected_dimension=LatticeDimension.ONE,
             expected_lattice_type=DirectLattice1D,
+            expected_basis_type=Periodic1DBasisIdentity,
         )
 
     @property
@@ -129,6 +141,23 @@ class Periodic1DRank2BlockHoppingModel(PeriodicRank2BlockHoppingModel):
         return self.geometry
 
     @property
+    def basis_identity(self) -> Periodic1DBasisIdentity:
+        """Return the exact ordered basis of every hopping block.
+
+        Returns
+        -------
+        Periodic1DBasisIdentity
+            Two-coordinate basis value supplied explicitly at construction.
+
+        Notes
+        -----
+        The basis coordinates identify block rows and columns. Ordinary-lattice
+        displacements identify hopping support and remain separate values.
+
+        """
+        return self.basis
+
+    @property
     def block_hopping_model(self) -> BaseBlockHoppingModel:
         """Return the immutable PhysKit block-hopping representation.
 
@@ -139,18 +168,6 @@ class Periodic1DRank2BlockHoppingModel(PeriodicRank2BlockHoppingModel):
 
         """
         return self.representation
-
-    @property
-    def spatial_dimension(self) -> Literal[1]:
-        """Return the exact built-in periodic spatial dimension one.
-
-        Returns
-        -------
-        Literal[1]
-            Built-in integer one.
-
-        """
-        return 1
 
 
 __all__ = ["Periodic1DRank2BlockHoppingModel"]

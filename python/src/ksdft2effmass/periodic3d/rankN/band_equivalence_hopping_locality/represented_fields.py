@@ -245,9 +245,9 @@ class Periodic3DRankNAnalyticCaseFieldSampler:
         construction_coordinates: Float64Array,
         evaluation_coordinates: Float64Array,
     ) -> Periodic3DRankNBandEquivalenceFieldSamples:
-        """Sample reference fields and apply the independently owned attack."""
+        """Sample reference fields and apply the independently owned transformation."""
         model = self._model
-        attack = model.gauge_attack
+        transformation = model.gauge_transformation
         reference_construction_frames = model.reference_frames(construction_coordinates)
         reference_evaluation_frames = model.reference_frames(evaluation_coordinates)
         reference_construction_operators = model.exact_reduced_hamiltonians(
@@ -268,29 +268,29 @@ class Periodic3DRankNAnalyticCaseFieldSampler:
             evaluation_coordinates=evaluation_coordinates,
             reference_construction_frames=reference_construction_frames,
             reference_evaluation_frames=reference_evaluation_frames,
-            comparison_construction_frames=attack.apply_to_frames(
+            comparison_construction_frames=transformation.transform_frames(
                 construction_coordinates,
                 reference_construction_frames,
             ),
-            comparison_evaluation_frames=attack.apply_to_frames(
+            comparison_evaluation_frames=transformation.transform_frames(
                 evaluation_coordinates,
                 reference_evaluation_frames,
             ),
             reference_construction_operators=reference_construction_operators,
             reference_evaluation_operators=reference_evaluation_operators,
-            comparison_construction_operators=attack.apply_to_operators(
+            comparison_construction_operators=transformation.transform_operators(
                 construction_coordinates,
                 reference_construction_operators,
             ),
-            comparison_evaluation_operators=attack.apply_to_operators(
+            comparison_evaluation_operators=transformation.transform_operators(
                 evaluation_coordinates,
                 reference_evaluation_operators,
             ),
             comparison_inverse_construction_right_actions=(
-                attack.inverse_right_actions(construction_coordinates)
+                transformation.inverse_right_actions(construction_coordinates)
             ),
             comparison_inverse_evaluation_right_actions=(
-                attack.inverse_right_actions(evaluation_coordinates)
+                transformation.inverse_right_actions(evaluation_coordinates)
             ),
         )
 

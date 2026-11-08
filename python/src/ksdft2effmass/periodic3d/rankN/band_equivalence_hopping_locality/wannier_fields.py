@@ -9,8 +9,8 @@ import numpy as np
 from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array
 from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 
-from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
-    Periodic3DRankNGivensGaugeAttack,
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
+    Periodic3DRankNGivensGaugeTransformation,
 )
 
 from .represented_fields import Periodic3DRankNBandEquivalenceFieldSamples
@@ -154,7 +154,7 @@ class Periodic3DRankNWannierFieldProducer:
     """Adapt admitted in-memory Wannier fields to the generic analysis boundary."""
 
     __slots__ = (
-        "_attack",
+        "_transformation",
         "_frame_isometry_absolute_tolerance",
         "_operator_hermiticity_absolute_tolerance",
         "_source",
@@ -164,16 +164,26 @@ class Periodic3DRankNWannierFieldProducer:
         self,
         *,
         source: Periodic3DRankNWannierFieldSource,
-        attack: Periodic3DRankNGivensGaugeAttack | None,
+        transformation: Periodic3DRankNGivensGaugeTransformation | None,
         frame_isometry_absolute_tolerance: float,
         operator_hermiticity_absolute_tolerance: float,
     ) -> None:
         if type(source) is not Periodic3DRankNWannierFieldSource:
             raise TypeError("source must be the exact periodic-3D Wannier field source")
-        if attack is not None and type(attack) is not Periodic3DRankNGivensGaugeAttack:
-            raise TypeError("attack must be the exact periodic-3D attack or None")
-        if attack is not None and attack.retained_rank != source.retained_rank:
-            raise ValueError("attack retained rank must match the Wannier source")
+        if (
+            transformation is not None
+            and type(transformation) is not Periodic3DRankNGivensGaugeTransformation
+        ):
+            raise TypeError(
+                "transformation must be the exact periodic-3D transformation or None"
+            )
+        if (
+            transformation is not None
+            and transformation.retained_rank != source.retained_rank
+        ):
+            raise ValueError(
+                "transformation retained rank must match the Wannier source"
+            )
         for value, name in (
             (frame_isometry_absolute_tolerance, "frame_isometry_absolute_tolerance"),
             (
@@ -186,7 +196,7 @@ class Periodic3DRankNWannierFieldProducer:
             if not math.isfinite(value) or value < 0.0:
                 raise ValueError(f"{name} must be finite and nonnegative")
         self._source = source
-        self._attack = attack
+        self._transformation = transformation
         self._frame_isometry_absolute_tolerance = frame_isometry_absolute_tolerance
         self._operator_hermiticity_absolute_tolerance = (
             operator_hermiticity_absolute_tolerance
@@ -205,7 +215,7 @@ class Periodic3DRankNWannierFieldProducer:
         return float(np.max(np.linalg.norm(defects, axis=(-2, -1))))
 
     def execute(self) -> Periodic3DRankNBandEquivalenceFieldSamples:
-        """Validate reference fields, apply an optional attack, and freeze samples."""
+        """Validate fields, apply an optional transformation, and freeze samples."""
         source = self._source
         for frames in (source.construction_frames, source.evaluation_frames):
             if self._maximum_frame_isometry_defect(frames) > (
@@ -223,8 +233,8 @@ class Periodic3DRankNWannierFieldProducer:
                     "represented operators exceed the Hermiticity tolerance"
                 )
 
-        attack = self._attack
-        if attack is None:
+        transformation = self._transformation
+        if transformation is None:
             comparison_construction_frames = source.construction_frames
             comparison_evaluation_frames = source.evaluation_frames
             comparison_construction_operators = source.construction_operators
@@ -232,26 +242,26 @@ class Periodic3DRankNWannierFieldProducer:
             construction_inverse = None
             evaluation_inverse = None
         else:
-            comparison_construction_frames = attack.apply_to_frames(
+            comparison_construction_frames = transformation.transform_frames(
                 source.construction_coordinates,
                 source.construction_frames,
             )
-            comparison_evaluation_frames = attack.apply_to_frames(
+            comparison_evaluation_frames = transformation.transform_frames(
                 source.evaluation_coordinates,
                 source.evaluation_frames,
             )
-            comparison_construction_operators = attack.apply_to_operators(
+            comparison_construction_operators = transformation.transform_operators(
                 source.construction_coordinates,
                 source.construction_operators,
             )
-            comparison_evaluation_operators = attack.apply_to_operators(
+            comparison_evaluation_operators = transformation.transform_operators(
                 source.evaluation_coordinates,
                 source.evaluation_operators,
             )
-            construction_inverse = attack.inverse_right_actions(
+            construction_inverse = transformation.inverse_right_actions(
                 source.construction_coordinates
             )
-            evaluation_inverse = attack.inverse_right_actions(
+            evaluation_inverse = transformation.inverse_right_actions(
                 source.evaluation_coordinates
             )
 

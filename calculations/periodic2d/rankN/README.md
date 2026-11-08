@@ -28,6 +28,12 @@ than create calculation-local substitutes:
 `BaseTypedRecord` remains a serialization boundary only. SHA-256 establishes byte
 identity, not scientific validity.
 
+The source hierarchy is capability-first: dimension-neutral periodic finite-rank owners
+are refined by periodic-2D rank-N owners, and applicable periodic-2D rank-two operation
+owners refine those rank-N owners while fixing rank two. This does not admit rank two to
+the calculation-owned `3`, `4`, and `8` study inventory or transfer any rank-two
+calculation result, threshold, lifecycle, or evidence identity.
+
 ## Analysis order
 
 This prospective family follows the higher-rank admission order in the shared
@@ -45,7 +51,10 @@ This prospective family follows the higher-rank admission order in the shared
 9. request separate implementation, calculation, verification, and execution authority.
 
 The current root remains prospective; software loss values alone do not advance this
-scientific sequence.
+scientific sequence. `control_basis.py` composes the explicitly enumerated structured
+basis values for the selected ranks 3, 4, and 8. Importing that module performs no
+calculation and creates no evidence; reusable source owns only the generic immutable
+inventory contract and dimensional basis identities.
 
 ## Open protocol decisions
 

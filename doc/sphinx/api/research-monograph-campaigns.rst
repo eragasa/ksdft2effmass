@@ -117,7 +117,7 @@ Defect-2D Folding and Null-Alignment Controls
 The maintained Folding and Null-Alignment Controls lifecycle owns a bounded,
 dimensionless synthetic folding and null-recovery campaign.  ``FoldingNullStudyDefinition`` binds one explicitly Hermitian scalar
 hopping parent, ordered two-dimensional finite shapes and unreduced twist lifts, a
-known translation/site-phase/energy-reference attack, and prospective algebraic
+known translation/site-phase/energy-reference transformation, and prospective algebraic
 criteria.  ``FoldingNullCalculator`` uses the public quotient-seam constructor and an
 explicit dense finite Bloch folding boundary.  The result retains every metric even
 when a prospective criterion fails.

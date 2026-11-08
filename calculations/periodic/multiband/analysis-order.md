@@ -43,6 +43,12 @@ The hopping-support hierarchy is a separate dependency branch. Its selected orde
 isotropic 2-D, isotropic 3-D, anisotropic 2-D, then anisotropic 3-D. It must not be
 interleaved with the rank ladder as if the studies had one family identity.
 
+The program order is not a source inheritance order. Reusable rank-two operations refine
+finite-rank dimensional capabilities even when rank-two studies are analyzed before
+study inventories restricted to ranks greater than two. Calculation-owned admission
+inventories, thresholds, and evidence identities remain exact and do not widen through
+capability inheritance.
+
 ## Fixed-geometry family order
 
 Within a fixed-geometry periodic family, analyze in this order:

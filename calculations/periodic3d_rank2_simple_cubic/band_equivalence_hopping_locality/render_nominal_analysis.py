@@ -3,6 +3,8 @@
 from dataclasses import replace
 from pathlib import Path
 
+from run_nominal_calculation import DEFINITION, ENDPOINT_SEWING
+
 from ksdft2effmass.band_equivalence_hopping_locality.plotting import (
     BandEquivalenceHoppingLocalityPlotRequest,
     BandEquivalenceHoppingLocalityPlotWriter,
@@ -10,7 +12,6 @@ from ksdft2effmass.band_equivalence_hopping_locality.plotting import (
 from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.analysis import (
     Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer,
 )
-from run_nominal_calculation import DEFINITION, ENDPOINT_SEWING
 
 
 def main() -> int:

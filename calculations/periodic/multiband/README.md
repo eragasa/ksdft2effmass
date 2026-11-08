@@ -26,6 +26,20 @@ It is not a second implementation owner. Reusable algorithms remain under `pytho
 
 The current cross-family rank-two comparison is owned by [`band-equivalence-dimensional-comparison/`](../../band-equivalence-dimensional-comparison/). This planning layer may summarize that output but does not replace it.
 
+## Capability hierarchy and calculation identity
+
+Reusable periodic finite-rank capabilities are dimension neutral at their algebraic
+root, then specialize by spatial dimension. Rank-two gauge alignment, frame transport,
+band equivalence, hopping locality, and support truncation refine the corresponding
+dimensional finite-rank capability and fix the represented rank to two. Rank one remains
+a separate specialization.
+
+This source hierarchy does not merge calculation identities. A rank-two calculation
+continues to use its exact rank-two request, result, verification, lifecycle, and evidence
+owners. Rank-N study inventories may deliberately admit only ranks `3`, `4`, `8`, or
+`16`; that study policy does not redefine the reusable finite-rank capability or exclude
+rank two from the mathematical capability boundary.
+
 The retained [`Mathieu1D`](../../mathieu1d/) calculation remains a related scalar periodic-potential benchmark. It is not the model-family-compatible rank-one control and is not relabeled or replaced by this plan.
 
 ## Computational-experiment difficulty ladder

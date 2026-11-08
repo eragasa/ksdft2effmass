@@ -1,4 +1,4 @@
-"""Request-bound producer for the analytic higher-rank periodic-1D calculation."""
+"""Request-bound producer for higher-rank periodic-1D parent models."""
 
 from __future__ import annotations
 
@@ -16,11 +16,14 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 )
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
-from ksdft2effmass.periodic1d.rankN.band_alignment.mesh_sample import (
-    Periodic1DRankNAnalyticMeshSample,
+from ksdft2effmass.periodic.periodic1d.rankN.models import (
+    Periodic1DRankNParentModel,
 )
-from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
-    Periodic1DRankNAnalyticCaseConstructor,
+from ksdft2effmass.periodic1d.gauge_transformation import (
+    Periodic1DFourierGivensGaugeTransformation,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.mesh_sample import (
+    Periodic1DRankNConstructionMeshSample,
 )
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.base import (
     Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzerRole,
@@ -64,6 +67,8 @@ class Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(
 
     __slots__ = (
         "_request",
+        "_parent_model",
+        "_gauge_transformation",
         "_procrustes_solver",
         "_transporter",
         "_scalar_refinement_analyzer",
@@ -73,6 +78,8 @@ class Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(
         self,
         *,
         request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
+        parent_model: Periodic1DRankNParentModel,
+        gauge_transformation: Periodic1DFourierGivensGaugeTransformation,
         procrustes_solver: NumpyBatchedComplexUnitaryProcrustesSolver,
         transporter: ClosedLoopPolarFrameTransporter,
         scalar_refinement_analyzer: ScalarRefinementAnalyzer,
@@ -82,6 +89,20 @@ class Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(
             raise TypeError(
                 "request must be Periodic1DRankNBandEquivalenceHoppingLocalityRequest"
             )
+        if not isinstance(parent_model, Periodic1DRankNParentModel):
+            raise TypeError("parent_model must be Periodic1DRankNParentModel")
+        if parent_model.band_subspace_rank != request.retained_rank:
+            raise ValueError("parent_model rank must equal the requested rank")
+        if type(gauge_transformation) is not Periodic1DFourierGivensGaugeTransformation:
+            raise TypeError(
+                "gauge_transformation must be "
+                "Periodic1DFourierGivensGaugeTransformation"
+            )
+        if (
+            gauge_transformation.retained_rank != request.retained_rank
+            or gauge_transformation.circuit_depth != request.circuit_depth
+        ):
+            raise ValueError("gauge_transformation must match request rank and depth")
         if type(procrustes_solver) is not NumpyBatchedComplexUnitaryProcrustesSolver:
             raise TypeError(
                 "procrustes_solver must be the canonical NumPy batched solver"
@@ -93,6 +114,8 @@ class Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(
                 "scalar_refinement_analyzer must be the KSD refinement owner"
             )
         self._request = request
+        self._parent_model = parent_model
+        self._gauge_transformation = gauge_transformation
         self._procrustes_solver = procrustes_solver
         self._transporter = transporter
         self._scalar_refinement_analyzer = scalar_refinement_analyzer
@@ -105,13 +128,10 @@ class Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(
     def execute(self) -> Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis:
         """Produce the complete typed calculation for the bound rank/depth case."""
         request = self._request
-        model = Periodic1DRankNAnalyticCaseConstructor(
-            retained_rank=request.retained_rank,
-            circuit_depth=request.circuit_depth,
-        ).execute()
         samples = tuple(
-            Periodic1DRankNAnalyticMeshSample(
-                model,
+            Periodic1DRankNConstructionMeshSample(
+                self._parent_model,
+                self._gauge_transformation,
                 request.configuration,
                 mesh_size,
             )
@@ -157,17 +177,17 @@ class Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(
 
     def _global_selection(
         self,
-        sample: Periodic1DRankNAnalyticMeshSample,
+        sample: Periodic1DRankNConstructionMeshSample,
     ) -> Periodic1DRankNProcrustesDiagnostics:
-        model = sample.model
+        model = sample.parent_model
         mesh_size = sample.construction_mesh_size
         scale = math.sqrt(mesh_size)
         source = NumpyImmutableArrayConstructor(
             np.asarray(
-                sample.attacked_frames.reshape(
+                sample.gauge_transformed_frames.reshape(
                     1,
                     mesh_size * model.ambient_dimension,
-                    model.retained_rank,
+                    model.band_subspace_rank,
                 )
                 / scale,
                 dtype=np.complex128,
@@ -180,7 +200,7 @@ class Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(
                 sample.reference_frames.reshape(
                     1,
                     mesh_size * model.ambient_dimension,
-                    model.retained_rank,
+                    model.band_subspace_rank,
                 )
                 / scale,
                 dtype=np.complex128,

@@ -169,8 +169,10 @@ scientific evidence. These controls are not established rank-N convergence toler
 A separately frozen refinement tranche must qualify them before any retained scientific
 claim.
 
-Public ownership should mirror the periodic-2D rank-two role inventory with
-`Periodic2DRankN...` class names, explicit retained-rank fields, and no inheritance from
-rank-two classes. No direct execution should be created until aggregate verification is
-installed and reviewed, an exact clean revision is frozen, and execution receives
-separate explicit authorization.
+Public ownership uses `Periodic2DRankN...` classes with explicit retained-rank fields
+for the study family. These owners refine dimension-neutral periodic finite-rank
+capabilities; applicable `Periodic2DRank2...` operation owners refine them and fix rank
+two. This inheritance direction does not transfer rank-two calculation policy or widen
+the selected rank-N study inventory. No direct execution should be created until
+aggregate verification is installed and reviewed, an exact clean revision is frozen,
+and execution receives separate explicit authorization.

@@ -73,7 +73,7 @@ from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.base impor
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction,
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue,
 )
-from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.model import (
+from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.case import (
     Periodic2DRankNAnalyticCase,
 )
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.request import (

@@ -16,7 +16,7 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.represente
     Periodic3DRankNAnalyticCaseFieldSampler,
     Periodic3DRankNBandEquivalenceFieldSamples,
 )
-from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
     Periodic3DRankNGaugeNormalizationEnum,
 )
 
@@ -43,7 +43,7 @@ class TestPeriodic3DRankNBandEquivalenceFieldSamples:
             positive_bonds=((1, 0, 0), (0, 1, 0), (0, 0, 1)),
             gauge_normalization=Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM,
             parent_scale=1.0,
-            attack_coefficient=math.pi / 4.0,
+            transformation_coefficient=math.pi / 4.0,
         )
 
     @staticmethod
@@ -94,11 +94,11 @@ class TestPeriodic3DRankNBandEquivalenceFieldSamples:
         )
         assert np.array_equal(
             fields.comparison_construction_frames,
-            model.attacked_frames(construction),
+            model.gauge_transformed_frames(construction),
         )
         assert np.array_equal(
             fields.comparison_evaluation_frames,
-            model.attacked_frames(evaluation),
+            model.gauge_transformed_frames(evaluation),
         )
         assert np.array_equal(
             fields.reference_construction_operators,
@@ -110,11 +110,11 @@ class TestPeriodic3DRankNBandEquivalenceFieldSamples:
         )
         assert np.array_equal(
             fields.comparison_construction_operators,
-            model.attacked_reduced_hamiltonians(construction),
+            model.gauge_transformed_reduced_hamiltonians(construction),
         )
         assert np.array_equal(
             fields.comparison_evaluation_operators,
-            model.attacked_reduced_hamiltonians(evaluation),
+            model.gauge_transformed_reduced_hamiltonians(evaluation),
         )
         construction_inverse = fields.comparison_inverse_construction_right_actions
         evaluation_inverse = fields.comparison_inverse_evaluation_right_actions

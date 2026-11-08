@@ -17,7 +17,7 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model impo
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.parent import (
     Periodic3DRankNBlockHoppingParentBuilder,
 )
-from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
     Periodic3DRankNGaugeNormalizationEnum,
 )
 
@@ -25,7 +25,7 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestPeriodic3DRankNBlockHoppingParentBuilder:
-    """Qualify parent ownership independently of the synthetic gauge attack."""
+    """Qualify parent ownership independently of the synthetic gauge transformation."""
 
     @staticmethod
     def _builder(
@@ -39,7 +39,7 @@ class TestPeriodic3DRankNBlockHoppingParentBuilder:
 
     @staticmethod
     def _case(
-        attack_coefficient: float,
+        transformation_coefficient: float,
         *,
         retained_rank: int = 4,
         positive_bonds: tuple[tuple[int, int, int], ...] = (
@@ -57,7 +57,7 @@ class TestPeriodic3DRankNBlockHoppingParentBuilder:
             positive_bonds=positive_bonds,
             gauge_normalization=Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM,
             parent_scale=parent_scale,
-            attack_coefficient=attack_coefficient,
+            transformation_coefficient=transformation_coefficient,
         )
 
     def test__Periodic3DRankNBlockHoppingParentBuilder__constructs_exact_physkit_parent_metadata_and_support(  # noqa: E501
@@ -121,7 +121,7 @@ class TestPeriodic3DRankNBlockHoppingParentBuilder:
     ) -> None:
         """Verify physkit bloch evaluation matches independent parent formula."""
         case = self._case(
-            attack_coefficient=0.0,
+            transformation_coefficient=0.0,
             retained_rank=retained_rank,
             positive_bonds=positive_bonds,
             parent_scale=parent_scale,
@@ -144,14 +144,14 @@ class TestPeriodic3DRankNBlockHoppingParentBuilder:
             case.parent_hamiltonians(coordinates), abs=3.0e-15
         )
 
-    def test__Periodic3DRankNBlockHoppingParentBuilder__parent_identity_excludes_attack_and_study_case_identity(  # noqa: E501
+    def test__Periodic3DRankNBlockHoppingParentBuilder__parent_identity_excludes_transformation_and_study_case_identity(  # noqa: E501
         self,
     ) -> None:
-        """Verify parent identity excludes attack and study case identity."""
-        first = self._case(attack_coefficient=0.0)
-        second = self._case(attack_coefficient=math.pi / 4.0)
+        """Verify parent identity excludes transformation and study case identity."""
+        first = self._case(transformation_coefficient=0.0)
+        second = self._case(transformation_coefficient=math.pi / 4.0)
         other_case = self._case(
-            attack_coefficient=0.0,
+            transformation_coefficient=0.0,
             case_identifier="other-study-case",
         )
 

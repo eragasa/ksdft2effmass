@@ -30,12 +30,12 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.wannier_fi
     Periodic3DRankNWannierFieldProducer,
     Periodic3DRankNWannierFieldSource,
 )
-from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
-    Periodic3DRankNGaugeNormalizationEnum,
-    Periodic3DRankNGivensGaugeAttack,
-)
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
+)
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
+    Periodic3DRankNGaugeNormalizationEnum,
+    Periodic3DRankNGivensGaugeTransformation,
 )
 from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
@@ -94,8 +94,8 @@ class TestPeriodic3DRankNWannierFieldProducer:
         )
 
     @staticmethod
-    def _attack(rank: int = 5) -> Periodic3DRankNGivensGaugeAttack:
-        return Periodic3DRankNGivensGaugeAttack(
+    def _transformation(rank: int = 5) -> Periodic3DRankNGivensGaugeTransformation:
+        return Periodic3DRankNGivensGaugeTransformation(
             retained_rank=rank,
             circuit_depth=2,
             harmonic_bonds=((1, 0, 0), (0, 1, 0), (0, 0, 1)),
@@ -103,13 +103,13 @@ class TestPeriodic3DRankNWannierFieldProducer:
             coefficient=math.pi / 8.0,
         )
 
-    def test_applies_attack_to_admitted_wannier_fields(self) -> None:
+    def test_applies_transformation_to_admitted_wannier_fields(self) -> None:
         source = self._source()
-        attack = self._attack()
+        transformation = self._transformation()
 
         fields = Periodic3DRankNWannierFieldProducer(
             source=source,
-            attack=attack,
+            transformation=transformation,
             frame_isometry_absolute_tolerance=1.0e-12,
             operator_hermiticity_absolute_tolerance=1.0e-12,
         ).execute()
@@ -125,14 +125,14 @@ class TestPeriodic3DRankNWannierFieldProducer:
         )
         assert np.array_equal(
             fields.comparison_construction_frames,
-            attack.apply_to_frames(
+            transformation.transform_frames(
                 source.construction_coordinates,
                 source.construction_frames,
             ),
         )
         assert np.array_equal(
             fields.comparison_evaluation_operators,
-            attack.apply_to_operators(
+            transformation.transform_operators(
                 source.evaluation_coordinates,
                 source.evaluation_operators,
             ),
@@ -141,12 +141,14 @@ class TestPeriodic3DRankNWannierFieldProducer:
         assert not source.construction_frames.flags.writeable
         assert not source.evaluation_operators.flags.writeable
 
-    def test_without_attack_preserves_one_channel_without_an_oracle(self) -> None:
+    def test_without_transformation_preserves_one_channel_without_an_oracle(
+        self,
+    ) -> None:
         source = self._source()
 
         fields = Periodic3DRankNWannierFieldProducer(
             source=source,
-            attack=None,
+            transformation=None,
             frame_isometry_absolute_tolerance=1.0e-12,
             operator_hermiticity_absolute_tolerance=1.0e-12,
         ).execute()
@@ -165,7 +167,7 @@ class TestPeriodic3DRankNWannierFieldProducer:
         source = self._source()
         fields = Periodic3DRankNWannierFieldProducer(
             source=source,
-            attack=self._attack(),
+            transformation=self._transformation(),
             frame_isometry_absolute_tolerance=1.0e-12,
             operator_hermiticity_absolute_tolerance=1.0e-12,
         ).execute()
@@ -242,7 +244,7 @@ class TestPeriodic3DRankNWannierFieldProducer:
         )
         flat_fields = Periodic3DRankNWannierFieldProducer(
             source=flat_source,
-            attack=self._attack(),
+            transformation=self._transformation(),
             frame_isometry_absolute_tolerance=1.0e-12,
             operator_hermiticity_absolute_tolerance=1.0e-12,
         ).execute()
@@ -292,7 +294,7 @@ class TestPeriodic3DRankNWannierFieldProducer:
         )
         shifted_fields = Periodic3DRankNWannierFieldProducer(
             source=shifted_source,
-            attack=self._attack(),
+            transformation=self._transformation(),
             frame_isometry_absolute_tolerance=1.0e-12,
             operator_hermiticity_absolute_tolerance=1.0e-12,
         ).execute()
@@ -316,7 +318,7 @@ class TestPeriodic3DRankNWannierFieldProducer:
             )
             assert alignment.tolerance_decisions == ()
 
-    def test_rejects_unqualified_frames_operators_and_attack_rank(self) -> None:
+    def test_rejects_unqualified_frames_operators_and_transformation_rank(self) -> None:
         source = self._source()
         nonisometric_frames = np.array(source.construction_frames, copy=True)
         nonisometric_frames[..., 0, 0] = 2.0
@@ -326,21 +328,21 @@ class TestPeriodic3DRankNWannierFieldProducer:
         with pytest.raises(ValueError, match="isometry"):
             Periodic3DRankNWannierFieldProducer(
                 source=replace(source, construction_frames=nonisometric_frames),
-                attack=None,
+                transformation=None,
                 frame_isometry_absolute_tolerance=1.0e-12,
                 operator_hermiticity_absolute_tolerance=1.0e-12,
             ).execute()
         with pytest.raises(ValueError, match="Hermiticity"):
             Periodic3DRankNWannierFieldProducer(
                 source=replace(source, evaluation_operators=nonhermitian_operators),
-                attack=None,
+                transformation=None,
                 frame_isometry_absolute_tolerance=1.0e-12,
                 operator_hermiticity_absolute_tolerance=1.0e-12,
             ).execute()
         with pytest.raises(ValueError, match="retained rank"):
             Periodic3DRankNWannierFieldProducer(
                 source=source,
-                attack=self._attack(rank=4),
+                transformation=self._transformation(rank=4),
                 frame_isometry_absolute_tolerance=1.0e-12,
                 operator_hermiticity_absolute_tolerance=1.0e-12,
             )

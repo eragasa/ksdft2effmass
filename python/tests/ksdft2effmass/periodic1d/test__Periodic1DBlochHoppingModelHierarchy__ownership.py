@@ -66,20 +66,18 @@ class TestPeriodic1DBlochHoppingModelHierarchy:
             issubclass(Periodic1DRankNBlochHoppingModel, Periodic1DRankNModel),
         ) == (True, True, True, True, True, True, True)
 
-    def test__Periodic1DBlochHoppingModelHierarchy__keeps_rank_siblings(
+    def test__Periodic1DBlochHoppingModelHierarchy__refines_finite_rank(
         self,
     ) -> None:
-        """Keep rank-two and rank-N as siblings rather than parent and child."""
-        assert (
-            issubclass(
-                Periodic1DRank2BlochHoppingModel,
-                Periodic1DRankNBlochHoppingModel,
-            ),
-            issubclass(
-                Periodic1DRankNBlochHoppingModel,
-                Periodic1DRank2BlochHoppingModel,
-            ),
-        ) == (False, False)
+        """Make rank two a strict refinement of the finite-rank capability."""
+        assert issubclass(
+            Periodic1DRank2BlochHoppingModel,
+            Periodic1DRankNBlochHoppingModel,
+        )
+        assert not issubclass(
+            Periodic1DRankNBlochHoppingModel,
+            Periodic1DRank2BlochHoppingModel,
+        )
 
     def test__Periodic1DBlochHoppingModelHierarchy__retains_package_layers(
         self,

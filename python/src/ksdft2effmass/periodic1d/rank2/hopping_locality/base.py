@@ -5,11 +5,12 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import final
 
-from ksdft2effmass.periodic1d.hopping_locality.base import (
-    Periodic1DHoppingLocality,
-    Periodic1DHoppingLocalityAnalysis,
-    Periodic1DHoppingLocalityAnalysisRequest,
-    Periodic1DHoppingLocalityAnalyzer,
+from ksdft2effmass.periodic1d.rankN.hopping_locality.base import (
+    Periodic1DRankNHoppingLocalityAnalysisRequestRole,
+    Periodic1DRankNHoppingLocalityAnalysisRole,
+    Periodic1DRankNHoppingLocalityAnalyzerRole,
+    Periodic1DRankNHoppingLocalityCapability,
+    Periodic1DRankNHoppingLocalityValue,
 )
 
 
@@ -23,7 +24,10 @@ class _Periodic1DRank2BandSubspace:
         return 2
 
 
-class Periodic1DRank2HoppingLocalityCapability(Periodic1DHoppingLocality, ABC):
+class Periodic1DRank2HoppingLocalityCapability(
+    Periodic1DRankNHoppingLocalityCapability,
+    ABC,
+):
     """Identify unchanged periodic-1D rank-two hopping coefficients."""
 
     __slots__ = ()
@@ -36,7 +40,7 @@ class Periodic1DRank2HoppingLocalityCapability(Periodic1DHoppingLocality, ABC):
 
 class Periodic1DRank2HoppingLocalityAnalysisRequestRole(
     _Periodic1DRank2BandSubspace,
-    Periodic1DHoppingLocalityAnalysisRequest,
+    Periodic1DRankNHoppingLocalityAnalysisRequestRole,
     Periodic1DRank2HoppingLocalityCapability,
     ABC,
 ):
@@ -47,7 +51,7 @@ class Periodic1DRank2HoppingLocalityAnalysisRequestRole(
 
 class Periodic1DRank2HoppingLocalityAnalysisRole(
     _Periodic1DRank2BandSubspace,
-    Periodic1DHoppingLocalityAnalysis,
+    Periodic1DRankNHoppingLocalityAnalysisRole,
     Periodic1DRank2HoppingLocalityCapability,
     ABC,
 ):
@@ -61,7 +65,7 @@ class Periodic1DRank2HoppingLocalityAnalyzerRole[
     AnalysisT: Periodic1DRank2HoppingLocalityAnalysisRole,
 ](
     _Periodic1DRank2BandSubspace,
-    Periodic1DHoppingLocalityAnalyzer[RequestT, AnalysisT],
+    Periodic1DRankNHoppingLocalityAnalyzerRole[RequestT, AnalysisT],
     Periodic1DRank2HoppingLocalityCapability,
     ABC,
 ):
@@ -72,6 +76,7 @@ class Periodic1DRank2HoppingLocalityAnalyzerRole[
 
 class Periodic1DRank2HoppingLocalityValue(
     _Periodic1DRank2BandSubspace,
+    Periodic1DRankNHoppingLocalityValue,
     Periodic1DRank2HoppingLocalityCapability,
     ABC,
 ):

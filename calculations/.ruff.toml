@@ -1,0 +1,13 @@
+extend = "../python/pyproject.toml"
+extend-exclude = [
+    "**/executions/**",
+    "**/simulations/evidence/**",
+    "**/workflow/**",
+]
+
+[lint]
+ignore = [
+    # Calculation entrypoints retain long scientific identities, paths, and exact
+    # formulas where forced wrapping reduces traceability.
+    "E501",
+]

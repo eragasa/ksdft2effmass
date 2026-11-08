@@ -17,9 +17,9 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.base impor
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.parent import (
     Periodic3DRankNBlockHoppingParentBuilder,
 )
-from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
     Periodic3DRankNGaugeNormalizationEnum,
-    Periodic3DRankNGivensGaugeAttack,
+    Periodic3DRankNGivensGaugeTransformation,
 )
 
 
@@ -27,7 +27,7 @@ from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
 class Periodic3DRankNAnalyticCase(
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
 ):
-    """Compose one block-hopping parent with a separate gauge attack."""
+    """Compose one block-hopping parent with a separate gauge transformation."""
 
     MODEL_FAMILY_IDENTITY: ClassVar[str] = (
         "ksdft2effmass.periodic3d-rankN-analytic-givens-family.v1"
@@ -44,7 +44,7 @@ class Periodic3DRankNAnalyticCase(
     positive_bonds: tuple[tuple[int, int, int], ...]
     gauge_normalization: Periodic3DRankNGaugeNormalizationEnum
     parent_scale: float
-    attack_coefficient: float
+    transformation_coefficient: float
 
     @property
     def band_subspace_rank(self) -> int:
@@ -80,12 +80,19 @@ class Periodic3DRankNAnalyticCase(
             raise TypeError("parent_scale must be a built-in float")
         if self.parent_scale not in self.PARENT_SCALES:
             raise ValueError("parent_scale is not in the selected inventory")
-        if type(self.attack_coefficient) is not float:
-            raise TypeError("attack_coefficient must be a built-in float")
-        if not math.isfinite(self.attack_coefficient) or self.attack_coefficient < 0.0:
-            raise ValueError("attack_coefficient must be finite and nonnegative")
-        if self.attack_angle_upper_bound > math.pi / 4.0 + 1.0e-15:
-            raise ValueError("attack coefficient exceeds the selected pi/4 angle bound")
+        if type(self.transformation_coefficient) is not float:
+            raise TypeError("transformation_coefficient must be a built-in float")
+        if (
+            not math.isfinite(self.transformation_coefficient)
+            or self.transformation_coefficient < 0.0
+        ):
+            raise ValueError(
+                "transformation_coefficient must be finite and nonnegative"
+            )
+        if self.transformation_angle_upper_bound > math.pi / 4.0 + 1.0e-15:
+            raise ValueError(
+                "transformation coefficient exceeds the selected pi/4 angle bound"
+            )
 
     @property
     def ambient_dimension(self) -> int:
@@ -94,16 +101,16 @@ class Periodic3DRankNAnalyticCase(
 
     @property
     def model_identity(self) -> str:
-        """Return the stable case, rank, depth, scale, and attack identity."""
+        """Return the stable case, rank, depth, scale, and transformation identity."""
         return (
             f"{self.MODEL_FAMILY_IDENTITY}:{self.case_identifier}:"
             f"r{self.retained_rank:02d}-L{self.circuit_depth:02d}:"
-            f"lambda-{self.parent_scale.hex()}:attack-{self.attack_coefficient.hex()}"
+            f"lambda-{self.parent_scale.hex()}:transformation-{self.transformation_coefficient.hex()}"
         )
 
     @property
     def parent_model(self) -> DenseBlockHoppingModel:
-        """Return the PhysKit block-hopping parent independent of the attack."""
+        """Return the PhysKit block-hopping parent independent of the transformation."""
         return Periodic3DRankNBlockHoppingParentBuilder(
             retained_rank=self.retained_rank,
             positive_bonds=self.positive_bonds,
@@ -111,20 +118,20 @@ class Periodic3DRankNAnalyticCase(
         ).execute()
 
     @property
-    def gauge_attack(self) -> Periodic3DRankNGivensGaugeAttack:
-        """Return the independently applicable synthetic gauge attack."""
-        return Periodic3DRankNGivensGaugeAttack(
+    def gauge_transformation(self) -> Periodic3DRankNGivensGaugeTransformation:
+        """Return the independently applicable synthetic gauge transformation."""
+        return Periodic3DRankNGivensGaugeTransformation(
             retained_rank=self.retained_rank,
             circuit_depth=self.circuit_depth,
             harmonic_bonds=self.positive_bonds,
             normalization=self.gauge_normalization,
-            coefficient=self.attack_coefficient,
+            coefficient=self.transformation_coefficient,
         )
 
     @property
-    def attack_angle_upper_bound(self) -> float:
+    def transformation_angle_upper_bound(self) -> float:
         """Return a conservative continuum bound for every Givens angle."""
-        return self.gauge_attack.angle_upper_bound
+        return self.gauge_transformation.angle_upper_bound
 
     def _coordinates(self, value: Float64Array) -> Float64Array:
         coordinates = NumpyImmutableArrayConstructor(
@@ -219,21 +226,23 @@ class Periodic3DRankNAnalyticCase(
         return self._immutable_complex(np.asarray(values, dtype=np.complex128))
 
     def gauge_unitaries(self, reduced_coordinates: Float64Array) -> Complex128Array:
-        """Return the unitary field generated by the composed gauge attack."""
-        return self.gauge_attack.unitaries(reduced_coordinates)
+        """Return the unitary field generated by the composed gauge transformation."""
+        return self.gauge_transformation.unitaries(reduced_coordinates)
 
-    def attacked_frames(self, reduced_coordinates: Float64Array) -> Complex128Array:
-        """Return reference frames after the right-acting gauge attack."""
-        return self.gauge_attack.apply_to_frames(
+    def gauge_transformed_frames(
+        self, reduced_coordinates: Float64Array
+    ) -> Complex128Array:
+        """Return reference frames after the right-acting gauge transformation."""
+        return self.gauge_transformation.transform_frames(
             reduced_coordinates,
             self.reference_frames(reduced_coordinates),
         )
 
-    def attacked_reduced_hamiltonians(
+    def gauge_transformed_reduced_hamiltonians(
         self, reduced_coordinates: Float64Array
     ) -> Complex128Array:
-        """Return retained operators represented in the attacked frame."""
-        return self.gauge_attack.apply_to_operators(
+        """Return retained operators represented in the gauge-transformed frame."""
+        return self.gauge_transformation.transform_operators(
             reduced_coordinates,
             self.exact_reduced_hamiltonians(reduced_coordinates),
         )
@@ -242,7 +251,7 @@ class Periodic3DRankNAnalyticCase(
         self, reduced_coordinates: Float64Array
     ) -> Complex128Array:
         """Return the exact construction-oracle inverse right actions."""
-        return self.gauge_attack.inverse_right_actions(reduced_coordinates)
+        return self.gauge_transformation.inverse_right_actions(reduced_coordinates)
 
 
 __all__ = [

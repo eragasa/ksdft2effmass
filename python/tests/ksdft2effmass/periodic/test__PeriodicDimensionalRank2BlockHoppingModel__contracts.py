@@ -28,19 +28,26 @@ from projectkoios.physkit.units import (
 )
 
 from ksdft2effmass.periodic.catalog import PeriodicControlModelCatalog
-from ksdft2effmass.periodic.models import (
-    PeriodicModelRole,
-    PeriodicRank2BlockHoppingModel,
-)
+from ksdft2effmass.periodic.models import PeriodicBlockHoppingModel, PeriodicModelRole
+from ksdft2effmass.periodic.operators import LabeledComponentBasisCoordinate
+from ksdft2effmass.periodic.periodic1d.operators import Periodic1DBasisIdentity
 from ksdft2effmass.periodic.periodic1d.rank2.models import (
     Periodic1DRank2BlockHoppingModel,
+    Periodic1DRank2Model,
 )
+from ksdft2effmass.periodic.periodic1d.rankN.models import Periodic1DRankNModel
+from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 from ksdft2effmass.periodic.periodic2d.rank2.models import (
     Periodic2DRank2BlockHoppingModel,
+    Periodic2DRank2Model,
 )
+from ksdft2effmass.periodic.periodic2d.rankN.models import Periodic2DRankNModel
+from ksdft2effmass.periodic.periodic3d.operators import Periodic3DBasisIdentity
 from ksdft2effmass.periodic.periodic3d.rank2.models import (
     Periodic3DRank2BlockHoppingModel,
+    Periodic3DRank2Model,
 )
+from ksdft2effmass.periodic.periodic3d.rankN.models import Periodic3DRankNModel
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic2d.geometry import Periodic2DLatticeGeometry
 from ksdft2effmass.periodic3d.geometry import Periodic3DLatticeGeometry
@@ -49,8 +56,37 @@ from ksdft2effmass.solidstate.hopping_transforms import BlockHoppingModel1D
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
-class TestPeriodicRank2BlockHoppingModel:
-    """Establish inheritance, dimensional, rank, and Hermiticity contracts."""
+class TestPeriodicDimensionalRank2BlockHoppingModel:
+    """Establish inheritance, basis, dimension, rank, and Hermiticity contracts."""
+
+    _BASIS_COORDINATES = (
+        LabeledComponentBasisCoordinate(label="retained-component-0"),
+        LabeledComponentBasisCoordinate(label="retained-component-1"),
+    )
+
+    @classmethod
+    def _basis_1d(cls) -> Periodic1DBasisIdentity:
+        """Return the exact ordered one-dimensional rank-two basis fixture."""
+        return Periodic1DBasisIdentity(
+            display_identifier="retained-rank2-basis-v1",
+            coordinates=cls._BASIS_COORDINATES,
+        )
+
+    @classmethod
+    def _basis_2d(cls) -> Periodic2DBasisIdentity:
+        """Return the exact ordered two-dimensional rank-two basis fixture."""
+        return Periodic2DBasisIdentity(
+            display_identifier="retained-rank2-basis-v1",
+            coordinates=cls._BASIS_COORDINATES,
+        )
+
+    @classmethod
+    def _basis_3d(cls) -> Periodic3DBasisIdentity:
+        """Return the exact ordered three-dimensional rank-two basis fixture."""
+        return Periodic3DBasisIdentity(
+            display_identifier="retained-rank2-basis-v1",
+            coordinates=cls._BASIS_COORDINATES,
+        )
 
     @staticmethod
     def _representation(dimension: LatticeDimension) -> DenseBlockHoppingModel:
@@ -149,7 +185,8 @@ class TestPeriodicRank2BlockHoppingModel:
                 lattice_period=1.0,
                 lattice_unit=PhysicalUnit("bohr"),
             ),
-            representation=TestPeriodicRank2BlockHoppingModel._representation(
+            basis=TestPeriodicDimensionalRank2BlockHoppingModel._basis_1d(),
+            representation=TestPeriodicDimensionalRank2BlockHoppingModel._representation(
                 LatticeDimension.ONE
             ),
         )
@@ -174,7 +211,8 @@ class TestPeriodicRank2BlockHoppingModel:
                 ),
                 PhysicalUnit("bohr"),
             ),
-            representation=TestPeriodicRank2BlockHoppingModel._representation(
+            basis=TestPeriodicDimensionalRank2BlockHoppingModel._basis_2d(),
+            representation=TestPeriodicDimensionalRank2BlockHoppingModel._representation(
                 LatticeDimension.TWO
             ),
         )
@@ -200,39 +238,45 @@ class TestPeriodicRank2BlockHoppingModel:
                 ),
                 PhysicalUnit("bohr"),
             ),
-            representation=TestPeriodicRank2BlockHoppingModel._representation(
+            basis=TestPeriodicDimensionalRank2BlockHoppingModel._basis_3d(),
+            representation=TestPeriodicDimensionalRank2BlockHoppingModel._representation(
                 LatticeDimension.THREE
             ),
         )
 
-    def test__dimensional_models__inherit_the_shared_rank_two_parent(self) -> None:
-        """Keep rank identity shared while geometry remains dimension specific.
+    def test__dimensional_models__refine_rank_n_and_block_hopping_owners(self) -> None:
+        """Use inheritance refinement while geometry remains dimension specific.
 
         Notes
         -----
-        This test distinguishes retained state-space rank from spatial dimension. All
-        three models have ``2 x 2`` coefficient blocks, but their integer displacement
-        tuples and primitive-basis matrices have one, two, and three components.
+        Each rank-two owner refines its dimensional finite-rank model and separately
+        composes the dimension-neutral block-hopping behavior. Retained rank, spatial
+        dimension, basis coordinates, and lattice displacement dimension remain
+        distinct contracts.
 
         """
         model_1d = self._model_1d()
         model_2d = self._model_2d()
         model_3d = self._model_3d()
 
-        # Rank two is enforced by one inherited scientific-model contract rather than
-        # repeated as three unrelated dimensional conventions.
         assert Periodic1DRank2BlockHoppingModel.__bases__ == (
-            PeriodicRank2BlockHoppingModel,
+            Periodic1DRank2Model,
+            PeriodicBlockHoppingModel,
         )
         assert Periodic2DRank2BlockHoppingModel.__bases__ == (
-            PeriodicRank2BlockHoppingModel,
+            Periodic2DRank2Model,
+            PeriodicBlockHoppingModel,
         )
         assert Periodic3DRank2BlockHoppingModel.__bases__ == (
-            PeriodicRank2BlockHoppingModel,
+            Periodic3DRank2Model,
+            PeriodicBlockHoppingModel,
         )
-        assert isinstance(model_1d, PeriodicRank2BlockHoppingModel)
-        assert isinstance(model_2d, PeriodicRank2BlockHoppingModel)
-        assert isinstance(model_3d, PeriodicRank2BlockHoppingModel)
+        assert isinstance(model_1d, Periodic1DRankNModel)
+        assert isinstance(model_2d, Periodic2DRankNModel)
+        assert isinstance(model_3d, Periodic3DRankNModel)
+        assert isinstance(model_1d, PeriodicBlockHoppingModel)
+        assert isinstance(model_2d, PeriodicBlockHoppingModel)
+        assert isinstance(model_3d, PeriodicBlockHoppingModel)
         # Each model reconstructs the exact provider lattice from immutable geometry;
         # the physical length unit remains owned by the KSD geometry value.
         assert type(model_1d.direct_lattice) is DirectLattice1D
@@ -244,6 +288,9 @@ class TestPeriodicRank2BlockHoppingModel:
         assert model_1d.band_subspace_rank == 2
         assert model_2d.band_subspace_rank == 2
         assert model_3d.band_subspace_rank == 2
+        assert model_1d.basis_identity == self._basis_1d()
+        assert model_2d.basis_identity == self._basis_2d()
+        assert model_3d.basis_identity == self._basis_3d()
         assert model_1d.spatial_dimension == 1
         assert model_2d.spatial_dimension == 2
         assert model_3d.spatial_dimension == 3
@@ -329,6 +376,7 @@ class TestPeriodicRank2BlockHoppingModel:
                 lattice_period=2.0,
                 lattice_unit=PhysicalUnit("bohr"),
             ),
+            basis=self._basis_1d(),
             representation=representation,
         )
 
@@ -408,6 +456,28 @@ class TestPeriodicRank2BlockHoppingModel:
                 model_3d,
                 geometry=model_3d.direct_metric,  # type: ignore[arg-type]
             )
+
+    def test__dimensional_model__requires_the_exact_dimensional_basis_type(
+        self,
+    ) -> None:
+        """Reject a structured basis owned by a different spatial dimension."""
+        model = self._model_1d()
+
+        with pytest.raises(TypeError, match="exact Periodic1DBasisIdentity"):
+            replace(model, basis=self._basis_2d())  # type: ignore[arg-type]
+
+    def test__dimensional_model__requires_basis_dimension_equal_to_rank(self) -> None:
+        """Reject an exact dimensional basis with the wrong coordinate count."""
+        model = self._model_1d()
+        rank_one_basis = Periodic1DBasisIdentity(
+            display_identifier="rank-one-counterexample",
+            coordinates=(
+                LabeledComponentBasisCoordinate(label="retained-component-0"),
+            ),
+        )
+
+        with pytest.raises(ValueError, match="basis dimension"):
+            replace(model, basis=rank_one_basis)
 
     def test__dimensional_model__rejects_a_provider_dimension_mismatch(self) -> None:
         """Reject a kernel whose integer-index dimension differs from its geometry."""

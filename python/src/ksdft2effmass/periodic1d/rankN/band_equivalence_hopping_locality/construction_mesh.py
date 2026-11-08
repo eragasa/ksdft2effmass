@@ -15,6 +15,12 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
     ClosedLoopPolarFrameTransporter,
 )
 
+from ksdft2effmass.periodic.periodic1d.rankN.models import (
+    Periodic1DRankNParentModel,
+)
+from ksdft2effmass.periodic1d.gauge_transformation import (
+    Periodic1DFourierGivensGaugeTransformation,
+)
 from ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.analysis import (
     Periodic1DRankNFailedTransportAnalysis,
     Periodic1DRankNResolvedTransportAnalysis,
@@ -22,10 +28,7 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.analysis impo
     Periodic1DRankNTransportAnalyzer,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.mesh_sample import (
-    Periodic1DRankNAnalyticMeshSample,
-)
-from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
-    Periodic1DRankNAnalyticCase,
+    Periodic1DRankNConstructionMeshSample,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.model_diagnostics import (
     Periodic1DRankNModelDiagnostics,
@@ -41,11 +44,6 @@ from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request im
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.fields import (
-    Periodic1DRankNGaugeAlignedFields,
-    Periodic1DRankNGaugeAlignmentConstructionRequest,
-    Periodic1DRankNGaugeAlignmentConstructor,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.procrustes.result import (
     Periodic1DRankNProcrustesDiagnostics,
@@ -64,6 +62,11 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
     Periodic1DRankNAlignmentStatus,
     Periodic1DRankNAlignmentStatusResult,
 )
+from ksdft2effmass.periodic1d.rankN.represented_fields import (
+    Periodic1DRankNRepresentedFieldConstructionRequest,
+    Periodic1DRankNRepresentedFieldConstructor,
+    Periodic1DRankNRepresentedFields,
+)
 
 from ..band_alignment.construction_mesh_result import (
     Periodic1DRankNMeshCalculationResult,
@@ -81,7 +84,7 @@ class Periodic1DRankNConstructionMeshAnalysisRequest(
     """Bind one mesh sample to case-wide global-selection evidence."""
 
     calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
-    sample: Periodic1DRankNAnalyticMeshSample
+    sample: Periodic1DRankNConstructionMeshSample
     global_selection: Periodic1DRankNProcrustesDiagnostics
 
     @property
@@ -95,15 +98,16 @@ class Periodic1DRankNConstructionMeshAnalysisRequest(
             is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest
         ):
             raise TypeError("calculation_request must be the exact rank-N request")
-        if type(self.sample) is not Periodic1DRankNAnalyticMeshSample:
-            raise TypeError("sample must be the exact analytic mesh sample")
+        if type(self.sample) is not Periodic1DRankNConstructionMeshSample:
+            raise TypeError("sample must be the exact construction-mesh sample")
         if type(self.global_selection) is not Periodic1DRankNProcrustesDiagnostics:
             raise TypeError("global_selection must be the exact Procrustes record")
         calculation_request = self.calculation_request
-        model = self.sample.model
+        sample = self.sample
         if (
-            model.retained_rank != calculation_request.retained_rank
-            or model.circuit_depth != calculation_request.circuit_depth
+            sample.parent_model.band_subspace_rank != calculation_request.retained_rank
+            or sample.gauge_transformation.circuit_depth
+            != calculation_request.circuit_depth
             or self.sample.construction_mesh_size
             not in calculation_request.configuration.construction_mesh_sizes
         ):
@@ -161,7 +165,6 @@ class Periodic1DRankNConstructionMeshAnalyzer(
         analysis_request = self._request
         calculation_request = analysis_request.calculation_request
         sample = analysis_request.sample
-        model = sample.model
         mesh_size = sample.construction_mesh_size
         coordinates = sample.coordinates
         mesh = sample.mesh
@@ -221,7 +224,8 @@ class Periodic1DRankNConstructionMeshAnalyzer(
         aligned = self._aligned_construction_fields(pointwise_outcome)
         gauge_alignment_results = tuple(
             self._gauge_alignment_result(
-                model=model,
+                parent_model=sample.parent_model,
+                gauge_transformation=sample.gauge_transformation,
                 mesh=mesh,
                 coordinates=coordinates,
                 gauge_alignment=gauge_alignment,
@@ -252,7 +256,7 @@ class Periodic1DRankNConstructionMeshAnalyzer(
                 circuit_depth=calculation_request.circuit_depth,
                 gauge_alignment=Periodic1DRankNGaugeAlignment.POINTWISE_UNITARY,
                 selection_mesh_size=sample.construction_mesh_size,
-                source=sample.attacked_frames,
+                source=sample.gauge_transformed_frames,
                 target=sample.reference_frames,
                 tolerance=(
                     calculation_request.configuration.owner_transport_tolerance()
@@ -277,14 +281,14 @@ class Periodic1DRankNConstructionMeshAnalyzer(
         pointwise_selection: Periodic1DRankNProcrustesSelection,
     ) -> dict[
         Periodic1DRankNGaugeAlignment,
-        Periodic1DRankNGaugeAlignedFields,
+        Periodic1DRankNRepresentedFields,
     ]:
         analysis_request = self._request
         calculation_request = analysis_request.calculation_request
         sample = analysis_request.sample
         alignments: dict[
             Periodic1DRankNGaugeAlignment,
-            Periodic1DRankNGaugeAlignedFields,
+            Periodic1DRankNRepresentedFields,
         ] = {}
         for gauge_alignment in calculation_request.configuration.gauge_alignments:
             if (
@@ -297,10 +301,11 @@ class Periodic1DRankNConstructionMeshAnalyzer(
                 is not Periodic1DRankNAlignmentStatus.QUALIFIED
             ):
                 continue
-            alignments[gauge_alignment] = Periodic1DRankNGaugeAlignmentConstructor(
-                Periodic1DRankNGaugeAlignmentConstructionRequest(
+            alignments[gauge_alignment] = Periodic1DRankNRepresentedFieldConstructor(
+                Periodic1DRankNRepresentedFieldConstructionRequest(
                     calculation_request=calculation_request,
-                    model=sample.model,
+                    parent_model=sample.parent_model,
+                    gauge_transformation=sample.gauge_transformation,
                     gauge_alignment=gauge_alignment,
                     coordinates=sample.coordinates,
                     global_selection=analysis_request.global_selection,
@@ -348,11 +353,12 @@ class Periodic1DRankNConstructionMeshAnalyzer(
     def _gauge_alignment_result(
         self,
         *,
-        model: Periodic1DRankNAnalyticCase,
+        parent_model: Periodic1DRankNParentModel,
+        gauge_transformation: Periodic1DFourierGivensGaugeTransformation,
         mesh: CenteredUniformMesh,
         coordinates: RealArray,
         gauge_alignment: Periodic1DRankNGaugeAlignment,
-        aligned_fields: Periodic1DRankNGaugeAlignedFields | None,
+        aligned_fields: Periodic1DRankNRepresentedFields | None,
         pointwise_selection: Periodic1DRankNResolvedProcrustesSelection | None,
         pointwise_diagnostics: Periodic1DRankNProcrustesDiagnostics,
     ) -> Periodic1DRankNGaugeAlignmentMeshResult:
@@ -372,7 +378,8 @@ class Periodic1DRankNConstructionMeshAnalyzer(
         return Periodic1DRankNCompositeGaugeCaseAnalyzer(
             request=Periodic1DRankNGaugeAlignmentAnalysisRequest(
                 calculation_request=calculation_request,
-                model=model,
+                parent_model=parent_model,
+                gauge_transformation=gauge_transformation,
                 mesh=mesh,
                 status=status,
                 aligned_fields=aligned_fields,

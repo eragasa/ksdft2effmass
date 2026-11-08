@@ -10,6 +10,8 @@ from importlib.metadata import version
 from pathlib import Path
 
 import numpy as np
+from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
+
 from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
     FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
     BandEquivalenceHoppingLocalityCase,
@@ -34,7 +36,6 @@ from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
 )
-from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
 
 EXECUTION_ID = "direct-square-rank2-n16"
 CALCULATION_FAMILY = "periodic2d-rank2-orthogonal-band-equivalence-locality"

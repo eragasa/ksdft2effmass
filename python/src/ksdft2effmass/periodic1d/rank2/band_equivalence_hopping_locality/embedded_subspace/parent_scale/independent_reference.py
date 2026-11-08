@@ -335,7 +335,7 @@ def _unitarity_defect(matrix: Complex128Array) -> float:
     return float(np.max(np.abs(matrix.conj().T @ matrix - np.eye(2))))
 
 
-def _independent_gauge_attack(
+def _independent_gauge_transformation(
     coordinates: Float64Array,
     matrices: Complex128Array,
     amplitude: float,
@@ -362,13 +362,13 @@ def _point(
     reference_parseval: float,
     amplitude: float,
 ) -> Periodic1DRank2PointAnalysis:
-    comparison = _independent_gauge_attack(coordinates, retained, amplitude)
+    comparison = _independent_gauge_transformation(coordinates, retained, amplitude)
     comparison_traceless = comparison - means[:, None, None] * np.eye(2)
     harmonic = _correlation_harmonic(traceless, comparison_traceless)
     maximum = _harmonic_maximum(harmonic, request)
     correlation = maximum.maximum_value / splitting_scale
     if amplitude == 0.0:
-        # The declared gauge attack is exactly the identity at zero amplitude.
+        # The declared gauge transformation is exactly the identity at zero amplitude.
         correlation = 1.0
     roundoff_bound = 32.0 * math.ulp(1.0)
     if correlation > 1.0:

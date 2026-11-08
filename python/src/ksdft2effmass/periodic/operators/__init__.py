@@ -10,12 +10,15 @@ from .basis import (
     SlaterKosterOrbitalBasisCoordinate,
     WannierOrbitalBasisCoordinate,
 )
+from .basis_inventory import PeriodicBasisInventory, PeriodicBasisInventoryEntry
 
 __all__ = [
     "LabeledComponentBasisCoordinate",
     "PeriodicBasisCoordinate",
     "PeriodicBasisFamily",
     "PeriodicBasisIdentity",
+    "PeriodicBasisInventory",
+    "PeriodicBasisInventoryEntry",
     "PlaneWaveBasisCoordinate",
     "SlaterKosterOrbital",
     "SlaterKosterOrbitalBasisCoordinate",

@@ -378,7 +378,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis(
     retained_rank: int
     circuit_depth: int
     parent_scale: float
-    attack_coefficient: float
+    transformation_coefficient: float
     minimum_sampled_external_gap: float
     alignments: tuple[
         Periodic2DRankNBandEquivalenceHoppingLocalityAlignmentAnalysis, ...
@@ -400,7 +400,9 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis(
             if integer_value <= 0:
                 raise ValueError(f"{name} must be positive")
         _nonnegative_float(self.parent_scale, "parent_scale")
-        _nonnegative_float(self.attack_coefficient, "attack_coefficient")
+        _nonnegative_float(
+            self.transformation_coefficient, "transformation_coefficient"
+        )
         _nonnegative_float(
             self.minimum_sampled_external_gap, "minimum_sampled_external_gap"
         )
@@ -1140,7 +1142,7 @@ def _case_mapping(
         "retained_rank": value.retained_rank,
         "circuit_depth": value.circuit_depth,
         "parent_scale": value.parent_scale,
-        "attack_coefficient": value.attack_coefficient,
+        "transformation_coefficient": value.transformation_coefficient,
         "minimum_sampled_external_gap": value.minimum_sampled_external_gap,
         "alignments": tuple(_alignment_mapping(item) for item in value.alignments),
     }
@@ -1155,7 +1157,7 @@ def _case_from_mapping(
         "retained_rank",
         "circuit_depth",
         "parent_scale",
-        "attack_coefficient",
+        "transformation_coefficient",
         "minimum_sampled_external_gap",
         "alignments",
     }
@@ -1172,12 +1174,12 @@ def _case_from_mapping(
     ):
         raise TypeError("case rank and depth must decode to built-in integers")
     parent_scale = values["parent_scale"]
-    attack_coefficient = values["attack_coefficient"]
+    transformation_coefficient = values["transformation_coefficient"]
     minimum_sampled_external_gap = values["minimum_sampled_external_gap"]
     if type(parent_scale) is not float:
         raise TypeError("parent_scale must decode to a built-in float")
-    if type(attack_coefficient) is not float:
-        raise TypeError("attack_coefficient must decode to a built-in float")
+    if type(transformation_coefficient) is not float:
+        raise TypeError("transformation_coefficient must decode to a built-in float")
     if type(minimum_sampled_external_gap) is not float:
         raise TypeError("minimum_sampled_external_gap must decode to a built-in float")
     alignments = values["alignments"]
@@ -1191,7 +1193,7 @@ def _case_from_mapping(
         retained_rank=values["retained_rank"],
         circuit_depth=values["circuit_depth"],
         parent_scale=parent_scale,
-        attack_coefficient=attack_coefficient,
+        transformation_coefficient=transformation_coefficient,
         minimum_sampled_external_gap=minimum_sampled_external_gap,
         alignments=tuple(_alignment_from_mapping(value) for value in alignments),
     )

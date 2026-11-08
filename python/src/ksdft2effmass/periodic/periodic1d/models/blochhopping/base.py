@@ -15,8 +15,9 @@ class Periodic1DBlochHoppingModel(BlochHoppingModel, Periodic1DModel, ABC):
     Notes
     -----
     This owner fixes the spatial dimension and requires an explicit physical lattice
-    geometry. Rank-specific siblings retain responsibility for their basis-size and
-    coefficient admissibility rules.
+    geometry. Finite-rank descendants retain responsibility for structured basis,
+    retained-rank, and coefficient-admissibility rules; fixed-rank descendants may
+    refine those finite-rank contracts further.
     """
 
     __slots__ = ()

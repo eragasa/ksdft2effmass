@@ -8,6 +8,10 @@ from datetime import UTC, datetime
 from importlib.metadata import version
 from pathlib import Path
 
+from projectkoios.optimization.alignment.numpy.batched_procrustes import (
+    NumpyBatchedComplexUnitaryProcrustesSolver,
+)
+
 from ksdft2effmass.periodic1d.gauge_alignment.factory import (
     Periodic1DAlignmentStudyFactory,
     Periodic1DRank2AlignmentStudySpecification,
@@ -20,9 +24,6 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
 from ksdft2effmass.sewing import IdentityReciprocalSewing
-from projectkoios.optimization.alignment.numpy.batched_procrustes import (
-    NumpyBatchedComplexUnitaryProcrustesSolver,
-)
 
 EXECUTION_ID = "direct-controlled-rank2-n64-v2"
 CALCULATION_FAMILY = (

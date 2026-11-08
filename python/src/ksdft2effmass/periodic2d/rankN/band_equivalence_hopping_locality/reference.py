@@ -28,9 +28,11 @@ from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.base impor
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.definition import (
     Periodic2DRankNGaugeAlignment,
 )
+from ksdft2effmass.periodic2d.rankN.gauge_alignment.transformation import (
+    Periodic2DRankNGaugeNormalizationEnum,
+)
 from ksdft2effmass.verification import MaximumAbsoluteErrorComparison
 
-from .model import Periodic2DRankNGaugeNormalizationEnum
 from .request import (
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
     Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
@@ -76,7 +78,8 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityReferenceRequest(
             or case.retained_rank not in self.study_request.retained_ranks
             or case.circuit_depth not in self.study_request.circuit_depths
             or case.parent_scale not in self.study_request.parent_scales
-            or case.attack_coefficient not in self.study_request.attack_coefficients
+            or case.transformation_coefficient
+            not in self.study_request.transformation_coefficients
         ):
             raise ValueError("case_analysis must identify one exact request expansion")
 
@@ -135,7 +138,7 @@ class _IndependentPeriodic2DRankNCase(_IndependentPeriodicRankNCase):
         retained_rank: int,
         circuit_depth: int,
         parent_scale: float,
-        attack_coefficient: float,
+        transformation_coefficient: float,
     ) -> None:
         super().__init__(
             spatial_dimension=2,
@@ -147,7 +150,7 @@ class _IndependentPeriodic2DRankNCase(_IndependentPeriodicRankNCase):
             retained_rank=retained_rank,
             circuit_depth=circuit_depth,
             parent_scale=parent_scale,
-            attack_coefficient=attack_coefficient,
+            transformation_coefficient=transformation_coefficient,
         )
 
     def dimension_alignments(
@@ -231,7 +234,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityReferenceAnalyzer(
             retained_rank=observed_case.retained_rank,
             circuit_depth=observed_case.circuit_depth,
             parent_scale=observed_case.parent_scale,
-            attack_coefficient=observed_case.attack_coefficient,
+            transformation_coefficient=observed_case.transformation_coefficient,
         )
         construction = independent.coordinates(study.construction_size, 0.5)
         evaluation = independent.coordinates(

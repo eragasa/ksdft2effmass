@@ -5,10 +5,6 @@ import importlib
 import json
 from pathlib import Path
 
-from ksdft2effmass.integration.quantum_espresso.qexsd import (
-    QexsdSource,
-    QuantumEspressoXsdDocumentParser,
-)
 from projectkoios.integrations.quantumespresso.saved_state import (
     QeSavedStateManifestJsonCodec,
     QeSavedStateManifestVerifier,
@@ -23,6 +19,11 @@ from projectkoios.physkit.units import (
     Unitless,
 )
 from projectkoios.simulations.calculator_input import CalculatorInputSourceReference
+
+from ksdft2effmass.integration.quantum_espresso.qexsd import (
+    QexsdSource,
+    QuantumEspressoXsdDocumentParser,
+)
 
 # The retained ProjectKoios tranche imports the converter's former class name, while
 # the installed PhysKit surface exports the operational singleton. Bind that public

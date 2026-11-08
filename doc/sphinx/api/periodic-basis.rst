@@ -5,7 +5,9 @@ The structured basis identity records exact matrix-coordinate order. They do not
 state-space identity, frame, gauge, embedding, geometry, energy reference, sewing, or
 artifact provenance. Compatibility is exact, order-sensitive equality of the
 dimensional concrete type and coordinate inventory; ``display_identifier`` is
-descriptive only.
+descriptive only. ``PeriodicBasisInventory`` is a transient immutable composition
+object: it maps explicitly declared retained ranks to structured identities but never
+generates coordinates from rank.
 
 .. currentmodule:: ksdft2effmass.periodic.operators.basis
 
@@ -13,6 +15,14 @@ descriptive only.
    :members:
 
 .. autoclass:: PeriodicBasisIdentity
+   :members:
+
+.. currentmodule:: ksdft2effmass.periodic.operators.basis_inventory
+
+.. autoclass:: PeriodicBasisInventoryEntry
+   :members:
+
+.. autoclass:: PeriodicBasisInventory
    :members:
 
 .. currentmodule:: ksdft2effmass.periodic.periodic1d.operators.basis

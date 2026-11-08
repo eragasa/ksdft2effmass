@@ -78,7 +78,8 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceRequest(
             or case.retained_rank not in self.study_request.retained_ranks
             or case.circuit_depth not in self.study_request.circuit_depths
             or case.parent_scale not in self.study_request.parent_scales
-            or case.attack_coefficient not in self.study_request.attack_coefficients
+            or case.transformation_coefficient
+            not in self.study_request.transformation_coefficients
         ):
             raise ValueError("case_analysis must identify one exact request expansion")
 
@@ -264,7 +265,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer(
             retained_rank=observed_case.retained_rank,
             circuit_depth=observed_case.circuit_depth,
             parent_scale=observed_case.parent_scale,
-            attack_coefficient=observed_case.attack_coefficient,
+            transformation_coefficient=observed_case.transformation_coefficient,
         )
         construction = independent.coordinates(study.construction_size, 0.5)
         evaluation = independent.coordinates(
@@ -275,13 +276,13 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer(
         exact_evaluation = independent.exact_operators(evaluation)
         construction_gauge = independent.gauges(construction)
         evaluation_gauge = independent.gauges(evaluation)
-        attacked_construction = np.asarray(
+        gauge_transformed_construction = np.asarray(
             np.swapaxes(construction_gauge.conjugate(), -1, -2)
             @ exact_construction
             @ construction_gauge,
             dtype=np.complex128,
         )
-        attacked_evaluation = np.asarray(
+        gauge_transformed_evaluation = np.asarray(
             np.swapaxes(evaluation_gauge.conjugate(), -1, -2)
             @ exact_evaluation
             @ evaluation_gauge,
@@ -293,18 +294,18 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer(
         )
         global_right = independent._right_polar_factor(global_cross)
         global_construction = np.asarray(
-            global_right.conjugate().T @ attacked_construction @ global_right,
+            global_right.conjugate().T @ gauge_transformed_construction @ global_right,
             dtype=np.complex128,
         )
         global_evaluation = np.asarray(
-            global_right.conjugate().T @ attacked_evaluation @ global_right,
+            global_right.conjugate().T @ gauge_transformed_evaluation @ global_right,
             dtype=np.complex128,
         )
         fields = MappingProxyType(
             {
                 Periodic2DRankNGaugeAlignment.IDENTITY: (
-                    attacked_construction,
-                    attacked_evaluation,
+                    gauge_transformed_construction,
+                    gauge_transformed_evaluation,
                 ),
                 Periodic2DRankNGaugeAlignment.GLOBAL_UNITARY: (
                     global_construction,

@@ -36,7 +36,7 @@ from ksdft2effmass.solidstate import (
     CenteredEvenMeshCyclicToOrdinaryConverter1D,
     CenteredEvenMeshCyclicToOrdinaryRequest1D,
     CenteredUniformReciprocalMesh1D,
-    GaugeAttack,
+    GaugeTransformation,
     ReciprocalOperatorFourierTransformer1D,
     ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorSamples1D,
@@ -171,11 +171,11 @@ class Periodic1DRank2SupportTruncationAnalyzer(
         reference_ranges: tuple[_ReferenceRange, ...],
         amplitude: float,
     ) -> Periodic1DRank2TruncationPoint:
-        gauge_attack = GaugeAttack(
+        gauge_transformation = GaugeTransformation(
             Periodic1DRank2SinusoidalGaugeRotation(amplitude),
             self.request.template_request.frame_absolute_tolerance,
         )
-        construction_comparison = gauge_attack.apply(
+        construction_comparison = gauge_transformation.transform_operators(
             coordinates=construction_coordinates,
             represented_matrices=construction_reference,
         )
@@ -184,7 +184,7 @@ class Periodic1DRank2SupportTruncationAnalyzer(
         )
         comparison_full = self._interpolate(comparison.model, evaluation_coordinates)
         comparison_eigenvalues = self._eigenvalues(comparison_full)
-        direct = gauge_attack.apply(
+        direct = gauge_transformation.transform_operators(
             coordinates=evaluation_coordinates,
             represented_matrices=reference_full,
         )

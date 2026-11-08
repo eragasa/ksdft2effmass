@@ -21,26 +21,38 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.base import (
     Periodic1DRankNFrameTransportAnalyzer,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.mesh_sample import (
-    Periodic1DRankNAnalyticMeshSample,
-)
-from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
-    Periodic1DRankNAnalyticCaseConstructor,
+    Periodic1DRankNConstructionMeshSample,
 )
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
+from periodic1d_rankn_analytic_case_support import (
+    SyntheticPeriodic1DRankNAnalyticCaseConstructor,
+)
+from periodic1d_rankn_analytic_oracle import analytic_fourier_givens_transformation
+from periodic1d_rankn_control_basis_support import synthetic_basis_identity
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 def _sample(
     request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
-) -> Periodic1DRankNAnalyticMeshSample:
-    model = Periodic1DRankNAnalyticCaseConstructor(
+) -> Periodic1DRankNConstructionMeshSample:
+    model = SyntheticPeriodic1DRankNAnalyticCaseConstructor(
         retained_rank=request.retained_rank,
         circuit_depth=request.circuit_depth,
+        basis_identity=synthetic_basis_identity(request.retained_rank),
+        gauge_transformation=analytic_fourier_givens_transformation(
+            retained_rank=request.retained_rank,
+            circuit_depth=request.circuit_depth,
+        ),
     ).execute()
-    return Periodic1DRankNAnalyticMeshSample(model, request.configuration, 513)
+    return Periodic1DRankNConstructionMeshSample(
+        model.parent_model,
+        model.gauge_transformation,
+        request.configuration,
+        513,
+    )
 
 
 class TestPeriodic1DRankNTransportAnalyzer:

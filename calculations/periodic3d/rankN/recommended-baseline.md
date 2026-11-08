@@ -162,8 +162,10 @@ circuit. M2, rank/depth/attack inventories, meshes, tolerances, and the remainin
 protocol are still open there. Every numerical control in this fixed-geometry file
 remains a candidate—not automatic parameter authority—for the continuous path.
 
-Public ownership should mirror the periodic-3D rank-two role inventory with
-`Periodic3DRankN...` class names, explicit retained-rank fields, and no inheritance from
-rank-two classes. No direct execution should be created until aggregate verification is
-installed and reviewed, an exact clean revision is frozen, and execution receives
-separate explicit authorization.
+Public ownership uses `Periodic3DRankN...` classes with explicit retained-rank fields
+for the study family. These owners refine dimension-neutral periodic finite-rank
+capabilities; applicable `Periodic3DRank2...` operation owners refine them and fix rank
+two. This inheritance direction does not transfer rank-two calculation policy or widen
+the selected rank-N study inventory. No direct execution should be created until
+aggregate verification is installed and reviewed, an exact clean revision is frozen,
+and execution receives separate explicit authorization.

@@ -3,11 +3,17 @@
 from abc import ABC
 from typing import Literal, final
 
-from ksdft2effmass.periodic.periodic3d.models import Periodic3DModel
+from ksdft2effmass.periodic.periodic3d.rankN.models import Periodic3DRankNModel
 
 
-class Periodic3DRank2Model(Periodic3DModel, ABC):
-    """Identify periodic-3D models with retained band-subspace rank two."""
+class Periodic3DRank2Model(Periodic3DRankNModel, ABC):
+    """Refine periodic-3D finite-rank models to retained rank two.
+
+    Notes
+    -----
+    The inherited basis contract remains abstract. A concrete rank-two family must
+    supply an exact ``Periodic3DBasisIdentity`` containing two ordered coordinates.
+    """
 
     __slots__ = ()
 
@@ -21,6 +27,11 @@ class Periodic3DRank2Model(Periodic3DModel, ABC):
         Literal[2]
             Built-in integer two.
 
+        Notes
+        -----
+        The final property prevents descendants from weakening the rank-two identity.
+        Constructor validation remains responsible for correlating the inherited basis
+        coordinate count and any represented operator shape with this value.
         """
         return 2
 

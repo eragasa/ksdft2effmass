@@ -20,9 +20,7 @@ ROOT = Path(__file__).resolve().parent
 REPOSITORY = ROOT.parents[4]
 REQUEST = ROOT / "request.json"
 OUTPUT = ROOT / "result.json"
-STATUS = (
-    "post-hoc-producer-checked-development-exploration-not-independently-verified"
-)
+STATUS = "post-hoc-producer-checked-development-exploration-not-independently-verified"
 
 
 def sha256(path: Path) -> str:
@@ -80,7 +78,10 @@ def authenticate_sources(request: JsonObject) -> JsonObject:
         observed = identity(path)
         expected_size = int(numeric(declaration["byte_size"], f"{label} size"))
         expected_digest = string(declaration["sha256"], f"{label} digest")
-        if observed["byte_size"] != expected_size or observed["sha256"] != expected_digest:
+        if (
+            observed["byte_size"] != expected_size
+            or observed["sha256"] != expected_digest
+        ):
             raise RuntimeError(f"source identity mismatch: {path}")
         authenticated[label] = observed
     return authenticated
@@ -186,7 +187,9 @@ def main() -> None:
     if len(shells) != 18:
         raise RuntimeError("frozen native shell family must contain 18 candidates")
     coordinates = point_inventory(
-        source_path(mapping(sources["point_manifest"], "point manifest"), "point manifest")
+        source_path(
+            mapping(sources["point_manifest"], "point manifest"), "point manifest"
+        )
     )
     full_matrices = operator.matrices(coordinates)
     full_spectrum = np.linalg.eigvalsh(full_matrices)
@@ -235,8 +238,7 @@ def main() -> None:
             "maximum_matrix_hermiticity_defect_ev": float(
                 np.max(
                     np.linalg.norm(
-                        candidate_matrices
-                        - candidate_matrices.conj().swapaxes(-1, -2),
+                        candidate_matrices - candidate_matrices.conj().swapaxes(-1, -2),
                         axis=(-2, -1),
                     )
                 )

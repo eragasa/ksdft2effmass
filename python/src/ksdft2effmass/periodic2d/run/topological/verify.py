@@ -148,13 +148,15 @@ class Periodic2DTopologicalReconstructor:
                     f"{model_name} {case_name} projector periodicity",
                 )
                 if self._real(final["gauge_attack_chern_defect"]) > invariant_tolerance:
-                    raise AssertionError(f"{model_name} gauge-attacked Chern changed")
+                    raise AssertionError(
+                        f"{model_name} gauge-transformed Chern changed"
+                    )
                 if (
                     self._real(final["gauge_attack_wilson_phase_defect"])
                     > invariant_tolerance
                 ):
                     raise AssertionError(
-                        f"{model_name} gauge-attacked Wilson loop changed"
+                        f"{model_name} gauge-transformed Wilson loop changed"
                     )
                 topological = case_name == "topological"
                 chern_integer = int(round(cast(float, rebuilt["retained_chern"])))

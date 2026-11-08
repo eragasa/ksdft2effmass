@@ -10,9 +10,10 @@ or acceptance behavior.
 A concrete model implements a stable nonempty ``model_id`` and, for periodic models, an
 exact ``PeriodicModelRole``. The role is an explicitly wire-mapped enum value, not a
 role-specific package or model subclass. Dimension-specific bases provide exact built-in integer
-dimensions and reject subclass attempts to override them. Fixed-rank bases provide exact
-ranks one or two; rank-N bases require the concrete family to report its finite retained
-rank. Rank-two and rank-N owners are siblings.
+dimensions and reject subclass attempts to override them. Finite-rank dimensional bases
+require a positive retained rank and an exact dimensional structured basis identity.
+Fixed-rank bases refine those contracts; the rank-two bases fix the inherited rank to
+two while retaining the explicit two-coordinate basis requirement.
 
 The hierarchy identifies scientific models, not retained subspaces, retained operators,
 or finite matrix representations. Those are separate scientific objects connected to a
@@ -45,9 +46,6 @@ Block-hopping hierarchy
 -----------------------
 
 .. autoclass:: PeriodicBlockHoppingModel
-   :members:
-
-.. autoclass:: PeriodicRank2BlockHoppingModel
    :members:
 
 .. currentmodule:: ksdft2effmass.periodic.periodic1d.rank2.models
@@ -100,14 +98,14 @@ Rank owners
 .. autoclass:: Periodic1DRank1Model
    :members:
 
-.. currentmodule:: ksdft2effmass.periodic.periodic1d.rank2.models
-
-.. autoclass:: Periodic1DRank2Model
-   :members:
-
 .. currentmodule:: ksdft2effmass.periodic.periodic1d.rankN.models
 
 .. autoclass:: Periodic1DRankNModel
+   :members:
+
+.. currentmodule:: ksdft2effmass.periodic.periodic1d.rank2.models
+
+.. autoclass:: Periodic1DRank2Model
    :members:
 
 .. currentmodule:: ksdft2effmass.periodic2d.rank1.models
@@ -115,14 +113,17 @@ Rank owners
 .. autoclass:: Periodic2DRank1Model
    :members:
 
-.. currentmodule:: ksdft2effmass.periodic.periodic2d.rank2.models
-
-.. autoclass:: Periodic2DRank2Model
-   :members:
-
 .. currentmodule:: ksdft2effmass.periodic.periodic2d.rankN.models
 
 .. autoclass:: Periodic2DRankNModel
+   :members:
+
+.. autoclass:: Periodic2DRankNAnalyticParentModel
+   :members:
+
+.. currentmodule:: ksdft2effmass.periodic.periodic2d.rank2.models
+
+.. autoclass:: Periodic2DRank2Model
    :members:
 
 .. currentmodule:: ksdft2effmass.periodic3d.rank1.models
@@ -130,12 +131,12 @@ Rank owners
 .. autoclass:: Periodic3DRank1Model
    :members:
 
-.. currentmodule:: ksdft2effmass.periodic.periodic3d.rank2.models
-
-.. autoclass:: Periodic3DRank2Model
-   :members:
-
 .. currentmodule:: ksdft2effmass.periodic.periodic3d.rankN.models
 
 .. autoclass:: Periodic3DRankNModel
+   :members:
+
+.. currentmodule:: ksdft2effmass.periodic.periodic3d.rank2.models
+
+.. autoclass:: Periodic3DRank2Model
    :members:

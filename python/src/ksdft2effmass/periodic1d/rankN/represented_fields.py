@@ -1,4 +1,4 @@
-"""Gauge-aligned represented-operator and frame fields."""
+"""Represented-operator and frame fields for periodic-1D finite-rank cases."""
 
 from __future__ import annotations
 
@@ -13,19 +13,26 @@ from projectkoios.numerics.numpy.validation import (
 from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import MatrixFieldIsometryAnalyzer
+from ksdft2effmass.periodic.periodic1d.rankN.models import (
+    Periodic1DRankNParentModel,
+)
+from ksdft2effmass.periodic1d.gauge_transformation import (
+    Periodic1DFourierGivensGaugeTransformation,
+)
 
-from ..band_alignment.model import Periodic1DRankNAnalyticCase
-from ..band_equivalence_hopping_locality.request import (
+from .band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
-from .definition import Periodic1DRankNGaugeAlignment
-from .procrustes.result import Periodic1DRankNProcrustesDiagnostics
-from .procrustes.selection import Periodic1DRankNResolvedProcrustesSelection
-from .status import Periodic1DRankNAlignmentStatus
+from .gauge_alignment.definition import Periodic1DRankNGaugeAlignment
+from .gauge_alignment.procrustes.result import Periodic1DRankNProcrustesDiagnostics
+from .gauge_alignment.procrustes.selection import (
+    Periodic1DRankNResolvedProcrustesSelection,
+)
+from .gauge_alignment.status import Periodic1DRankNAlignmentStatus
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNGaugeAlignedFields:
+class Periodic1DRankNRepresentedFields:
     """Store immutable represented operators and frames for one gauge alignment."""
 
     case_identity: str
@@ -72,11 +79,12 @@ class Periodic1DRankNGaugeAlignedFields:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNGaugeAlignmentConstructionRequest:
+class Periodic1DRankNRepresentedFieldConstructionRequest:
     """Bind the scientific inputs for constructing one gauge-aligned field pair."""
 
     calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
-    model: Periodic1DRankNAnalyticCase
+    parent_model: Periodic1DRankNParentModel
+    gauge_transformation: Periodic1DFourierGivensGaugeTransformation
     gauge_alignment: Periodic1DRankNGaugeAlignment
     coordinates: RealArray
     global_selection: Periodic1DRankNProcrustesDiagnostics
@@ -88,8 +96,16 @@ class Periodic1DRankNGaugeAlignmentConstructionRequest:
             is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest
         ):
             raise TypeError("calculation_request must be the exact request record")
-        if type(self.model) is not Periodic1DRankNAnalyticCase:
-            raise TypeError("model must be Periodic1DRankNAnalyticCase")
+        if not isinstance(self.parent_model, Periodic1DRankNParentModel):
+            raise TypeError("parent_model must be Periodic1DRankNParentModel")
+        if (
+            type(self.gauge_transformation)
+            is not Periodic1DFourierGivensGaugeTransformation
+        ):
+            raise TypeError(
+                "gauge_transformation must be "
+                "Periodic1DFourierGivensGaugeTransformation"
+            )
         if type(self.gauge_alignment) is not Periodic1DRankNGaugeAlignment:
             raise TypeError("gauge_alignment must be the exact gauge-alignment enum")
         if type(self.global_selection) is not Periodic1DRankNProcrustesDiagnostics:
@@ -103,10 +119,13 @@ class Periodic1DRankNGaugeAlignmentConstructionRequest:
             raise ValueError("coordinates must be one-dimensional")
         request = self.calculation_request
         if (
-            self.model.retained_rank != request.retained_rank
-            or self.model.circuit_depth != request.circuit_depth
+            self.parent_model.band_subspace_rank != request.retained_rank
+            or self.gauge_transformation.retained_rank != request.retained_rank
+            or self.gauge_transformation.circuit_depth != request.circuit_depth
         ):
-            raise ValueError("model rank and depth must match the calculation request")
+            raise ValueError(
+                "parent and transformation must match the calculation request"
+            )
         if self.gauge_alignment not in request.configuration.gauge_alignments:
             raise ValueError("gauge alignment must belong to the calculation request")
         selection_status = self.global_selection.status
@@ -151,34 +170,41 @@ class Periodic1DRankNGaugeAlignmentConstructionRequest:
 
 
 @final
-class Periodic1DRankNGaugeAlignmentConstructor:
+class Periodic1DRankNRepresentedFieldConstructor:
     """Construct represented operators and frames in one prescribed gauge alignment."""
 
     __slots__ = ("_request",)
 
     def __init__(
         self,
-        request: Periodic1DRankNGaugeAlignmentConstructionRequest,
+        request: Periodic1DRankNRepresentedFieldConstructionRequest,
     ) -> None:
-        if type(request) is not Periodic1DRankNGaugeAlignmentConstructionRequest:
+        if type(request) is not Periodic1DRankNRepresentedFieldConstructionRequest:
             raise TypeError(
-                "request must be Periodic1DRankNGaugeAlignmentConstructionRequest"
+                "request must be Periodic1DRankNRepresentedFieldConstructionRequest"
             )
         self._request = request
 
     @property
-    def request(self) -> Periodic1DRankNGaugeAlignmentConstructionRequest:
+    def request(self) -> Periodic1DRankNRepresentedFieldConstructionRequest:
         """Return the exact request bound to this constructor."""
         return self._request
 
-    def execute(self) -> Periodic1DRankNGaugeAlignedFields:
+    def execute(self) -> Periodic1DRankNRepresentedFields:
         """Return immutable represented operators and frames in the selected gauge."""
         request = self._request
-        model = request.model
+        parent_model = request.parent_model
+        gauge_transformation = request.gauge_transformation
         coordinates = request.coordinates
-        rank = model.retained_rank
-        attacked = model.attacked_reduced_hamiltonians(coordinates)
-        attacked_frames = model.attacked_frames(coordinates)
+        rank = parent_model.band_subspace_rank
+        gauge_transformed_operators = gauge_transformation.transform_operators(
+            coordinates,
+            parent_model.exact_reduced_hamiltonians(coordinates),
+        )
+        gauge_transformed_frames = gauge_transformation.transform_frames(
+            coordinates,
+            parent_model.reference_frames(coordinates),
+        )
         gauge_alignment = request.gauge_alignment
         if gauge_alignment is Periodic1DRankNGaugeAlignment.IDENTITY:
             right_action = np.broadcast_to(
@@ -201,7 +227,7 @@ class Periodic1DRankNGaugeAlignmentConstructor:
                 raise ValueError("pointwise alignment requires a resolved selection")
             right_action = pointwise_selection.right_unitaries
         else:
-            gauge = model.gauge_unitaries(coordinates)
+            gauge = gauge_transformation.unitaries(coordinates)
             right_action = np.swapaxes(gauge.conjugate(), -1, -2)
         if right_action.shape != (coordinates.size, rank, rank):
             raise ValueError("gauge right action must match the case and coordinates")
@@ -213,11 +239,14 @@ class Periodic1DRankNGaugeAlignmentConstructor:
             raise ValueError("gauge right action must remain unitary")
         right_adjoint = np.swapaxes(right_action.conjugate(), -1, -2)
         represented_operators = np.asarray(
-            right_adjoint @ attacked @ right_action,
+            right_adjoint @ gauge_transformed_operators @ right_action,
             dtype=np.complex128,
         )
-        frames = np.asarray(attacked_frames @ right_action, dtype=np.complex128)
-        return Periodic1DRankNGaugeAlignedFields(
+        frames = np.asarray(
+            gauge_transformed_frames @ right_action,
+            dtype=np.complex128,
+        )
+        return Periodic1DRankNRepresentedFields(
             case_identity=request.calculation_request.case_identity,
             gauge_alignment=gauge_alignment,
             coordinates=coordinates,
@@ -235,11 +264,12 @@ class Periodic1DRankNGaugeAlignmentConstructor:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNGaugeAlignmentEvaluationRequest:
+class Periodic1DRankNRepresentedFieldEvaluationRequest:
     """Bind one direct represented-operator evaluation in a prescribed gauge."""
 
     calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
-    model: Periodic1DRankNAnalyticCase
+    parent_model: Periodic1DRankNParentModel
+    gauge_transformation: Periodic1DFourierGivensGaugeTransformation
     gauge_alignment: Periodic1DRankNGaugeAlignment
     coordinates: RealArray
     global_selection: Periodic1DRankNProcrustesDiagnostics
@@ -250,8 +280,16 @@ class Periodic1DRankNGaugeAlignmentEvaluationRequest:
             is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest
         ):
             raise TypeError("calculation_request must be the exact request record")
-        if type(self.model) is not Periodic1DRankNAnalyticCase:
-            raise TypeError("model must be Periodic1DRankNAnalyticCase")
+        if not isinstance(self.parent_model, Periodic1DRankNParentModel):
+            raise TypeError("parent_model must be Periodic1DRankNParentModel")
+        if (
+            type(self.gauge_transformation)
+            is not Periodic1DFourierGivensGaugeTransformation
+        ):
+            raise TypeError(
+                "gauge_transformation must be "
+                "Periodic1DFourierGivensGaugeTransformation"
+            )
         if type(self.gauge_alignment) is not Periodic1DRankNGaugeAlignment:
             raise TypeError("gauge_alignment must be the exact gauge-alignment enum")
         if type(self.global_selection) is not Periodic1DRankNProcrustesDiagnostics:
@@ -265,10 +303,15 @@ class Periodic1DRankNGaugeAlignmentEvaluationRequest:
             raise ValueError("coordinates must be one-dimensional")
         calculation_request = self.calculation_request
         if (
-            self.model.retained_rank != calculation_request.retained_rank
-            or self.model.circuit_depth != calculation_request.circuit_depth
+            self.parent_model.band_subspace_rank != calculation_request.retained_rank
+            or self.gauge_transformation.retained_rank
+            != calculation_request.retained_rank
+            or self.gauge_transformation.circuit_depth
+            != calculation_request.circuit_depth
         ):
-            raise ValueError("model rank and depth must match the calculation request")
+            raise ValueError(
+                "parent and transformation must match the calculation request"
+            )
         if (
             self.gauge_alignment
             not in calculation_request.configuration.gauge_alignments
@@ -290,49 +333,60 @@ class Periodic1DRankNGaugeAlignmentEvaluationRequest:
 
 
 @final
-class Periodic1DRankNGaugeAlignmentEvaluator:
-    """Evaluate the analytic represented operator in one prescribed gauge."""
+class Periodic1DRankNRepresentedFieldEvaluator:
+    """Evaluate the parent represented operator in one prescribed gauge."""
 
     __slots__ = ("_request",)
 
     def __init__(
         self,
-        request: Periodic1DRankNGaugeAlignmentEvaluationRequest,
+        request: Periodic1DRankNRepresentedFieldEvaluationRequest,
     ) -> None:
-        if type(request) is not Periodic1DRankNGaugeAlignmentEvaluationRequest:
+        if type(request) is not Periodic1DRankNRepresentedFieldEvaluationRequest:
             raise TypeError(
-                "request must be Periodic1DRankNGaugeAlignmentEvaluationRequest"
+                "request must be Periodic1DRankNRepresentedFieldEvaluationRequest"
             )
         self._request = request
 
     @property
-    def request(self) -> Periodic1DRankNGaugeAlignmentEvaluationRequest:
+    def request(self) -> Periodic1DRankNRepresentedFieldEvaluationRequest:
         """Return the exact direct-evaluation request bound to this action."""
         return self._request
 
     def execute(self) -> ComplexArray:
         """Return the immutable direct represented-operator field."""
         request = self._request
-        model = request.model
+        parent_model = request.parent_model
+        gauge_transformation = request.gauge_transformation
         coordinates = request.coordinates
         gauge_alignment = request.gauge_alignment
+        gauge_transformed = gauge_transformation.transform_operators(
+            coordinates,
+            parent_model.exact_reduced_hamiltonians(coordinates),
+        )
         if gauge_alignment is Periodic1DRankNGaugeAlignment.IDENTITY:
-            values = model.attacked_reduced_hamiltonians(coordinates)
+            values = gauge_transformed
         elif gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY:
             selected = request.global_selection.selected_global_right_unitary
             if selected is None:
                 raise ValueError(
                     "global-unitary direct evaluation requires a selected unitary"
                 )
-            attacked = model.attacked_reduced_hamiltonians(coordinates)
             right = np.broadcast_to(
                 selected.magnitude,
-                (coordinates.size, model.retained_rank, model.retained_rank),
+                (
+                    coordinates.size,
+                    parent_model.band_subspace_rank,
+                    parent_model.band_subspace_rank,
+                ),
             )
             adjoint = np.swapaxes(right.conjugate(), -1, -2)
-            values = np.asarray(adjoint @ attacked @ right, dtype=np.complex128)
+            values = np.asarray(
+                adjoint @ gauge_transformed @ right,
+                dtype=np.complex128,
+            )
         else:
-            values = model.exact_reduced_hamiltonians(coordinates)
+            values = parent_model.exact_reduced_hamiltonians(coordinates)
         return NumpyImmutableArrayConstructor(
             values,
             "direct_represented_operators",
@@ -341,9 +395,9 @@ class Periodic1DRankNGaugeAlignmentEvaluator:
 
 
 __all__ = [
-    "Periodic1DRankNGaugeAlignedFields",
-    "Periodic1DRankNGaugeAlignmentConstructionRequest",
-    "Periodic1DRankNGaugeAlignmentConstructor",
-    "Periodic1DRankNGaugeAlignmentEvaluationRequest",
-    "Periodic1DRankNGaugeAlignmentEvaluator",
+    "Periodic1DRankNRepresentedFields",
+    "Periodic1DRankNRepresentedFieldConstructionRequest",
+    "Periodic1DRankNRepresentedFieldConstructor",
+    "Periodic1DRankNRepresentedFieldEvaluationRequest",
+    "Periodic1DRankNRepresentedFieldEvaluator",
 ]

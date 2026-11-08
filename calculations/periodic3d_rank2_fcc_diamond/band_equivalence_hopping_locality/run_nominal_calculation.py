@@ -5,6 +5,12 @@ from __future__ import annotations
 import math
 from pathlib import Path
 
+from projectkoios.physkit.periodic.lattice import (
+    BravaisLattice,
+    DirectLattice3D,
+    DirectLatticeMetric,
+)
+
 from ksdft2effmass.band_equivalence_hopping_locality.calculation import (
     BandEquivalenceHoppingLocalityVerifier,
 )
@@ -32,11 +38,6 @@ from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.result imp
 from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
-)
-from projectkoios.physkit.periodic.lattice import (
-    BravaisLattice,
-    DirectLattice3D,
-    DirectLatticeMetric,
 )
 
 SIMPLE_CUBIC_METRIC = DirectLatticeMetric(

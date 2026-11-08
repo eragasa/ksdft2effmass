@@ -22,6 +22,27 @@ class GaugeAlignment(ABC):  # noqa: B024 - intentionally nominal marker
     __slots__ = ()
 
 
+class PeriodicGaugeAlignment(GaugeAlignment, ABC):  # noqa: B024
+    """Identify retained-space gauge alignment on a periodic domain.
+
+    This owner fixes periodicity without selecting a spatial dimension, lattice,
+    reciprocal-coordinate inventory, mesh, sewing map, solver, or tolerance.
+    """
+
+    __slots__ = ()
+
+
+class PeriodicRankNGaugeAlignmentCapability(PeriodicGaugeAlignment, ABC):
+    """Identify gauge alignment on a finite-rank periodic band subspace."""
+
+    __slots__ = ()
+
+    @property
+    @abstractmethod
+    def band_subspace_rank(self) -> int:
+        """Return the finite represented band-subspace rank."""
+
+
 class GaugeAlignmentActionConvention(StrWireEnum):
     """Identify which side of a represented frame receives the gauge action."""
 
@@ -209,4 +230,6 @@ __all__ = [
     "GaugeAlignmentGroupFamily",
     "GaugeAlignmentGroupIdentity",
     "GaugeAlignmentInnerProductConvention",
+    "PeriodicGaugeAlignment",
+    "PeriodicRankNGaugeAlignmentCapability",
 ]

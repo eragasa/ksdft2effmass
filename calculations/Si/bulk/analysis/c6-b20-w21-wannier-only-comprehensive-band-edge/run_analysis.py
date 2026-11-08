@@ -91,7 +91,10 @@ def authenticate_sources(request: JsonObject) -> JsonObject:
         observed = identity(path)
         expected_size = int(numeric(declaration["byte_size"], f"{label} size"))
         expected_digest = string(declaration["sha256"], f"{label} digest")
-        if observed["byte_size"] != expected_size or observed["sha256"] != expected_digest:
+        if (
+            observed["byte_size"] != expected_size
+            or observed["sha256"] != expected_digest
+        ):
             raise RuntimeError(f"source identity mismatch: {path}")
         authenticated[label] = observed
     return authenticated
@@ -109,9 +112,7 @@ def load_module(path: Path) -> ModuleType:
     return module
 
 
-def eigenvalues_at(
-    evaluator: object, model_index: int, points: RealArray
-) -> RealArray:
+def eigenvalues_at(evaluator: object, model_index: int, points: RealArray) -> RealArray:
     result = evaluator.one_model_eigenvalues(model_index, points)
     return np.asarray(result, dtype=np.float64)
 
@@ -244,7 +245,9 @@ def electron_analysis(
                 conductivity_mass = float(3.0 / np.sum(1.0 / masses))
                 if step == 0.002:
                     primary_masses = np.asarray(masses, dtype=np.float64)
-                    primary_inverse_tensor = np.asarray(inverse_tensor, dtype=np.float64)
+                    primary_inverse_tensor = np.asarray(
+                        inverse_tensor, dtype=np.float64
+                    )
                     primary_mass_tensor = np.asarray(mass_tensor, dtype=np.float64)
                     density_terms.append(float(np.sqrt(np.prod(masses))))
                     inverse_tensors.append(primary_inverse_tensor)
@@ -269,7 +272,10 @@ def electron_analysis(
             ):
                 raise RuntimeError("primary electron-mass stencil was not evaluated")
             all_masses = np.asarray(
-                [mapping(item, "stencil")["principal_masses_electron"] for item in stencil_records],
+                [
+                    mapping(item, "stencil")["principal_masses_electron"]
+                    for item in stencil_records
+                ],
                 dtype=np.float64,
             )
             relative_spread = np.max(all_masses, axis=0) - np.min(all_masses, axis=0)
@@ -385,9 +391,9 @@ def valence_directional_analysis(
     gamma = np.zeros(3, dtype=np.float64)
     records: JsonObject = {}
     for model_index, model_name in enumerate(MODEL_NAMES):
-        gamma_values = eigenvalues_at(
-            evaluator, model_index, gamma.reshape(1, 3)
-        )[0, 1:4]
+        gamma_values = eigenvalues_at(evaluator, model_index, gamma.reshape(1, 3))[
+            0, 1:4
+        ]
         direction_records: JsonObject = {}
         for direction_name, direction in DIRECTIONS.items():
             window_records: list[JsonValue] = []
@@ -416,7 +422,9 @@ def valence_directional_analysis(
                 design = np.column_stack((np.ones_like(q), q**2, q**4))
                 branch_records: list[JsonValue] = []
                 branch_masses = np.full(3, np.nan, dtype=np.float64)
-                for branch_index, branch_name in enumerate(("lower", "middle", "upper")):
+                for branch_index, branch_name in enumerate(
+                    ("lower", "middle", "upper")
+                ):
                     energy = np.concatenate(
                         ([gamma_values[branch_index]], even[:, branch_index])
                     )
@@ -471,7 +479,10 @@ def valence_directional_analysis(
                             float(np.max(finite)) if len(finite) else None
                         ),
                         "relative_range_about_0.01_window": (
-                            float((np.max(finite) - np.min(finite)) / abs(branch_values[1]))
+                            float(
+                                (np.max(finite) - np.min(finite))
+                                / abs(branch_values[1])
+                            )
                             if len(finite) == len(VALENCE_WINDOWS)
                             and branch_values[1] != 0.0
                             else None

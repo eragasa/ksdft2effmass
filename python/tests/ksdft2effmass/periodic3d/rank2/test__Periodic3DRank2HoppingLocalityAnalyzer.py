@@ -17,9 +17,12 @@ from ksdft2effmass.band_equivalence_hopping_locality.block_hopping import (
     FourierSeriesBlockHoppingRepresentationRequest,
 )
 from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.operators import LabeledComponentBasisCoordinate
+from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 from ksdft2effmass.periodic.periodic2d.rank2.models import (
     Periodic2DRank2BlockHoppingModel,
 )
+from ksdft2effmass.periodic.periodic3d.operators import Periodic3DBasisIdentity
 from ksdft2effmass.periodic.periodic3d.rank2.models import (
     Periodic3DRank2BlockHoppingModel,
 )
@@ -40,6 +43,11 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 class TestPeriodic3DRank2HoppingLocalityAnalyzer:
     """Bind one model and preserve its three-dimensional metric-shell identity."""
+
+    _BASIS_COORDINATES = (
+        LabeledComponentBasisCoordinate(label="retained-component-0"),
+        LabeledComponentBasisCoordinate(label="retained-component-1"),
+    )
 
     @staticmethod
     def _series(dimension: int) -> NumpyFiniteFourierMatrixSeries:
@@ -111,6 +119,10 @@ class TestPeriodic3DRank2HoppingLocalityAnalyzer:
                 identifier="ordinary-hopping",
                 role=PeriodicModelRole.CONTROL_MODEL,
                 geometry=geometry_2d,
+                basis=Periodic2DBasisIdentity(
+                    display_identifier="retained-rank-two",
+                    coordinates=cls._BASIS_COORDINATES,
+                ),
                 representation=representation,
             )
         # The columns of this direct-lattice matrix are the ordered primitive vectors.
@@ -128,6 +140,10 @@ class TestPeriodic3DRank2HoppingLocalityAnalyzer:
             identifier="ordinary-hopping",
             role=PeriodicModelRole.CONTROL_MODEL,
             geometry=geometry_3d,
+            basis=Periodic3DBasisIdentity(
+                display_identifier="retained-rank-two",
+                coordinates=cls._BASIS_COORDINATES,
+            ),
             representation=representation,
         )
 

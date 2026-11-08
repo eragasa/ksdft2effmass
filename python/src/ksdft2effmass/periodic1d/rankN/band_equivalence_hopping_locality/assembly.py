@@ -9,11 +9,8 @@ from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.base impor
     Periodic1DRankNBandEquivalenceHoppingLocalityAction,
     Periodic1DRankNBandEquivalenceHoppingLocalityValue,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (
+from ksdft2effmass.periodic1d.rankN.fourier_analysis import (
     Periodic1DRankNFourierAnalysis,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.interpolation import (
-    Periodic1DRankNInterpolationAnalysis,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.recovery import (
     Periodic1DRankNRecoveryAnalysis,
@@ -23,6 +20,9 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
 )
 from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
     Periodic1DRankNHoppingLocalityAnalysis,
+)
+from ksdft2effmass.periodic1d.rankN.interpolation import (
+    Periodic1DRankNInterpolationAnalysis,
 )
 from ksdft2effmass.periodic1d.rankN.support_truncation.analysis import (
     Periodic1DRankNSupportTruncationAnalysis,

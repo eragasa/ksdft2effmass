@@ -9,7 +9,6 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-
 from numpy.typing import NDArray
 
 RealArray = NDArray[np.float64]
@@ -20,8 +19,7 @@ type JsonObject = dict[str, JsonValue]
 ROOT = Path(__file__).resolve().parent
 RESULT = ROOT / "result-v2.json"
 SURFACE = (
-    ROOT.parent
-    / "c6-b20-w21-refitted-ws-shell-witness-posthoc/witness-surface-v2.json"
+    ROOT.parent / "c6-b20-w21-refitted-ws-shell-witness-posthoc/witness-surface-v2.json"
 )
 FIGURES = ROOT / "figures"
 LADDER_PDF = FIGURES / "wannier-fidelity-ladder.pdf"
@@ -78,7 +76,9 @@ def main() -> None:
     FIGURES.mkdir(parents=True, exist_ok=True)
     for path in (LADDER_PDF, LADDER_PNG, FEATURE_PDF, FEATURE_PNG, MANIFEST):
         if path.exists():
-            raise FileExistsError(f"refusing to overwrite retained figure artifact: {path}")
+            raise FileExistsError(
+                f"refusing to overwrite retained figure artifact: {path}"
+            )
     result_value: JsonValue = json.loads(RESULT.read_text(encoding="utf-8"))
     result = mapping(result_value, "result")
     if result.get("status") != STATUS:
@@ -86,7 +86,9 @@ def main() -> None:
     surface_value: JsonValue = json.loads(SURFACE.read_text(encoding="utf-8"))
     surface = mapping(surface_value, "surface")
     retained = {
-        string(mapping(item, "example")["shell_id"], "shell id"): mapping(item, "example")
+        string(mapping(item, "example")["shell_id"], "shell id"): mapping(
+            item, "example"
+        )
         for item in values(
             surface["illustrative_threshold_witnesses"], "surface examples"
         )
@@ -178,9 +180,7 @@ def main() -> None:
         [
             abs(
                 numeric(
-                    mapping(features[model], "feature model")[
-                        "indirect_gap_change_ev"
-                    ],
+                    mapping(features[model], "feature model")["indirect_gap_change_ev"],
                     "gap change",
                 )
             )

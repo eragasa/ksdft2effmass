@@ -7,6 +7,14 @@ from typing import ClassVar
 
 import numpy as np
 import pytest
+from numpy.typing import NDArray
+from projectkoios.optimization.alignment.numpy.batched_procrustes import (
+    NumpyBatchedComplexUnitaryProcrustesDefinition,
+    NumpyBatchedComplexUnitaryProcrustesResult,
+    NumpyBatchedComplexUnitaryProcrustesSolver,
+)
+from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
+
 from ksdft2effmass.band_equivalence_hopping_locality import (
     alignment,
     definitions,
@@ -22,13 +30,6 @@ from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
 )
-from numpy.typing import NDArray
-from projectkoios.optimization.alignment.numpy.batched_procrustes import (
-    NumpyBatchedComplexUnitaryProcrustesDefinition,
-    NumpyBatchedComplexUnitaryProcrustesResult,
-    NumpyBatchedComplexUnitaryProcrustesSolver,
-)
-from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
 
 type ComplexArray = NDArray[np.complex128]
 

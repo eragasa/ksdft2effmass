@@ -19,12 +19,16 @@ from projectkoios.physkit.periodic.lattice.hopping import (
 from projectkoios.physkit.units import ComplexMatrixQuantity, PhysicalUnit, Unitless
 
 from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.operators import LabeledComponentBasisCoordinate
+from ksdft2effmass.periodic.periodic1d.operators import Periodic1DBasisIdentity
 from ksdft2effmass.periodic.periodic1d.rank2.models import (
     Periodic1DRank2BlockHoppingModel,
 )
+from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 from ksdft2effmass.periodic.periodic2d.rank2.models import (
     Periodic2DRank2BlockHoppingModel,
 )
+from ksdft2effmass.periodic.periodic3d.operators import Periodic3DBasisIdentity
 from ksdft2effmass.periodic.periodic3d.rank2.models import (
     Periodic3DRank2BlockHoppingModel,
 )
@@ -66,6 +70,11 @@ pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 class TestPeriodicRank2StudyHierarchy:
     """Establish study inheritance, identity, model, dimension, and rank contracts."""
+
+    _BASIS_COORDINATES = (
+        LabeledComponentBasisCoordinate(label="retained-component-0"),
+        LabeledComponentBasisCoordinate(label="retained-component-1"),
+    )
 
     @staticmethod
     def _representation(dimension: LatticeDimension) -> DenseBlockHoppingModel:
@@ -118,6 +127,10 @@ class TestPeriodicRank2StudyHierarchy:
             identifier="study-model-1d-v1",
             role=PeriodicModelRole.CONTROL_MODEL,
             geometry=Periodic1DLatticeGeometry(1.0, PhysicalUnit("bohr")),
+            basis=Periodic1DBasisIdentity(
+                display_identifier="ordered-rank2-basis-v1",
+                coordinates=cls._BASIS_COORDINATES,
+            ),
             representation=cls._representation(LatticeDimension.ONE),
         )
 
@@ -130,6 +143,10 @@ class TestPeriodicRank2StudyHierarchy:
             geometry=Periodic2DLatticeGeometry(
                 primitive_basis_rows=((1.0, 0.0), (0.0, 1.0)),
                 lattice_unit=PhysicalUnit("bohr"),
+            ),
+            basis=Periodic2DBasisIdentity(
+                display_identifier="ordered-rank2-basis-v1",
+                coordinates=cls._BASIS_COORDINATES,
             ),
             representation=cls._representation(LatticeDimension.TWO),
         )
@@ -166,6 +183,10 @@ class TestPeriodicRank2StudyHierarchy:
             geometry=Periodic3DLatticeGeometry(
                 primitive_basis_rows=primitive_basis_rows,
                 lattice_unit=PhysicalUnit("bohr"),
+            ),
+            basis=Periodic3DBasisIdentity(
+                display_identifier="ordered-rank2-basis-v1",
+                coordinates=cls._BASIS_COORDINATES,
             ),
             representation=cls._representation(LatticeDimension.THREE),
         )

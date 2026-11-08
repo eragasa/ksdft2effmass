@@ -110,9 +110,7 @@ def fit_model(
     )
     gamma_values, gamma_vectors = np.linalg.eigh(gamma_matrix)
     gamma_basis = np.asarray(gamma_vectors[:, 1:4], dtype=np.complex128)
-    gamma_hamiltonian = np.asarray(
-        np.diag(gamma_values[1:4]), dtype=np.complex128
-    )
+    gamma_hamiltonian = np.asarray(np.diag(gamma_values[1:4]), dtype=np.complex128)
     designs: list[list[float]] = []
     responses: list[ComplexArray] = []
     maximum_angle = 0.0
@@ -143,11 +141,7 @@ def fit_model(
     )
     coefficients = tuple(
         np.asarray(
-            0.5
-            * (
-                coefficient.reshape(3, 3)
-                + coefficient.reshape(3, 3).conj().T
-            ),
+            0.5 * (coefficient.reshape(3, 3) + coefficient.reshape(3, 3).conj().T),
             dtype=np.complex128,
         )
         for coefficient in coefficients_flat
@@ -206,7 +200,9 @@ def main() -> None:
         overlap = source_primary.gamma_basis.conj().T @ primary.gamma_basis
         alignment = polar_unitary(overlap)
         aligned = tuple(
-            np.asarray(alignment @ coefficient @ alignment.conj().T, dtype=np.complex128)
+            np.asarray(
+                alignment @ coefficient @ alignment.conj().T, dtype=np.complex128
+            )
             for coefficient in primary.coefficients_ev_angstrom_squared
         )
         coefficient_error = float(
@@ -232,8 +228,7 @@ def main() -> None:
                 masses: list[JsonValue] = [
                     (
                         float(
-                            -analysis.ELECTRON_MASS_CURVATURE_EV_ANGSTROM2
-                            / curvature
+                            -analysis.ELECTRON_MASS_CURVATURE_EV_ANGSTROM2 / curvature
                         )
                         if curvature < 0.0
                         else None
@@ -322,7 +317,7 @@ def main() -> None:
             "Curvature-channel eigenvalues describe the fitted three-band quadratic operator; when truncation splits H_eff(0), they are not Hessians of independently nondegenerate branches.",
             "The source itself is scalar-relativistic and non-SOC, so standard physical HH, LH, and split-off labels are not assigned.",
             "Polar transport controls basis freedom but does not make the candidate and source cluster subspaces identical; principal-angle evidence remains separate.",
-            "No DFT, Wannier90, refitting, independent reconstruction, or experimental validation was performed."
+            "No DFT, Wannier90, refitting, independent reconstruction, or experimental validation was performed.",
         ],
     }
     OUTPUT.write_text(

@@ -10,7 +10,7 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
     SymmetricRangeTailMonotonicityAnalyzer1D,
     SymmetricRangeTailMonotonicityDiagnostics1D,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E501
+from ksdft2effmass.periodic1d.rankN.fourier_analysis import (  # noqa: E501
     Periodic1DRankNFourierAnalysis,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (  # noqa: E501

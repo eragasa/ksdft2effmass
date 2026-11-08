@@ -54,6 +54,17 @@ class PeriodicFrameTransport(FrameTransport, ABC):  # noqa: B024
     __slots__ = ()
 
 
+class PeriodicRankNFrameTransportCapability(PeriodicFrameTransport, ABC):
+    """Identify periodic frame transport on a finite-rank band subspace."""
+
+    __slots__ = ()
+
+    @property
+    @abstractmethod
+    def band_subspace_rank(self) -> int:
+        """Return the finite transported band-subspace rank."""
+
+
 class PeriodicFrameTransportAnalysisRequest(
     FrameTransportAnalysisRequest,
     PeriodicFrameTransport,
@@ -96,4 +107,5 @@ __all__ = [
     "PeriodicFrameTransportAnalysis",
     "PeriodicFrameTransportAnalysisRequest",
     "PeriodicFrameTransportAnalyzer",
+    "PeriodicRankNFrameTransportCapability",
 ]

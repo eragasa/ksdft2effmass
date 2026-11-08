@@ -83,7 +83,8 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerificationRequest(
             or case.retained_rank not in self.study_request.retained_ranks
             or case.circuit_depth not in self.study_request.circuit_depths
             or case.parent_scale not in self.study_request.parent_scales
-            or case.attack_coefficient not in self.study_request.attack_coefficients
+            or case.transformation_coefficient
+            not in self.study_request.transformation_coefficients
         ):
             raise ValueError("case_analysis must identify one exact request expansion")
 

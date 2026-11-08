@@ -1,9 +1,8 @@
-"""Dimension-neutral periodic rank-two block-hopping model contracts."""
+"""Dimension-neutral periodic finite-rank block-hopping model contracts."""
 
 from __future__ import annotations
 
 from abc import abstractmethod
-from typing import Literal, final
 
 import numpy as np
 from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexMatrix
@@ -21,6 +20,8 @@ from projectkoios.physkit.periodic.lattice.hopping import (
     SparseBlockHoppingTerm,
 )
 
+from ksdft2effmass.periodic.operators import PeriodicBasisIdentity
+
 from .base import PeriodicModel, PeriodicModelRole
 
 
@@ -29,7 +30,15 @@ class PeriodicBlockHoppingModel(PeriodicModel):
 
     This owner fixes the representation family without selecting retained rank or
     spatial dimension. PhysKit owns immutable dense and sparse coefficient storage;
-    KSD owns scientific-model identity, dimensional geometry, role, and admissibility.
+    KSD owns scientific-model identity, dimensional geometry, exact ordered basis,
+    role, and admissibility.
+
+    Notes
+    -----
+    Concrete dimensional families provide the basis identity and retained rank through
+    their scientific-model inheritance branch. The shared validator correlates those
+    values with provider block shape without inferring basis coordinates from the
+    provider's descriptive ``basis_identifier`` string.
     """
 
     __slots__ = ()
@@ -67,6 +76,23 @@ class PeriodicBlockHoppingModel(PeriodicModel):
 
     @property
     @abstractmethod
+    def basis_identity(self) -> PeriodicBasisIdentity:
+        """Return the exact ordered basis used by every hopping block.
+
+        Returns
+        -------
+        PeriodicBasisIdentity
+            Dimensional structured basis whose coordinate order defines the row and
+            column order of each coefficient block.
+
+        Notes
+        -----
+        Concrete dimensional descendants narrow this return type to their exact
+        one-, two-, or three-dimensional basis-identity class.
+        """
+
+    @property
+    @abstractmethod
     def band_subspace_rank(self) -> int:
         """Return the retained primitive-cell state-space dimension.
 
@@ -77,55 +103,16 @@ class PeriodicBlockHoppingModel(PeriodicModel):
 
         """
 
-
-class PeriodicRank2BlockHoppingModel(PeriodicBlockHoppingModel):
-    """Fix retained rank two for periodic block-hopping scientific models.
-
-    The class remains abstract in effect because it does not choose a spatial
-    dimension, concrete lattice geometry, scientific role, identity, or provider
-    representation. Dimensional children complete those contracts.
-    """
-
-    __slots__ = ()
-
-    def __init_subclass__(cls) -> None:
-        """Reject attempts to replace the inherited rank-two identity.
-
-        Raises
-        ------
-        TypeError
-            If a child declares its own ``band_subspace_rank`` property.
-
-        """
-        super().__init_subclass__()
-        if "band_subspace_rank" in cls.__dict__:
-            raise TypeError(
-                "PeriodicRank2BlockHoppingModel subclasses cannot override "
-                "band_subspace_rank"
-            )
-
-    @property
-    @final
-    def band_subspace_rank(self) -> Literal[2]:
-        """Return the exact retained band-subspace rank two.
-
-        Returns
-        -------
-        Literal[2]
-            Built-in integer two fixed by the inherited model family.
-
-        """
-        return 2
-
-    def _validate_rank2_block_hopping_model(
+    def _validate_block_hopping_model(
         self,
         *,
         expected_dimension: LatticeDimension,
         expected_lattice_type: (
             type[DirectLattice1D] | type[DirectLattice2D] | type[DirectLattice3D]
         ),
+        expected_basis_type: type[PeriodicBasisIdentity],
     ) -> None:
-        """Validate shared rank, dimension, geometry, and Hermiticity invariants.
+        """Validate shared rank, basis, dimension, and Hermiticity invariants.
 
         Parameters
         ----------
@@ -134,6 +121,8 @@ class PeriodicRank2BlockHoppingModel(PeriodicBlockHoppingModel):
             scientific-model child.
         expected_lattice_type
             Exact PhysKit direct-lattice class required by the child.
+        expected_basis_type
+            Exact dimensional periodic basis-identity class required by the child.
 
         Raises
         ------
@@ -141,8 +130,8 @@ class PeriodicRank2BlockHoppingModel(PeriodicBlockHoppingModel):
             If identity, role, lattice, or provider representation lacks its exact
             nominal owner.
         ValueError
-            If identity is empty, dimensions disagree, coefficient blocks are not
-            ``2 x 2``, or ordinary support is not exactly Hermitian.
+            If identity is empty, dimensions or basis ranks disagree, or ordinary
+            support is not exactly Hermitian.
 
         """
         if type(self.model_id) is not str:
@@ -155,6 +144,18 @@ class PeriodicRank2BlockHoppingModel(PeriodicBlockHoppingModel):
             raise TypeError(
                 f"direct_lattice must be the exact {expected_lattice_type.__name__}"
             )
+        rank = self.band_subspace_rank
+        if type(rank) is not int:
+            raise TypeError("band_subspace_rank must be a built-in integer")
+        if rank <= 0:
+            raise ValueError("band_subspace_rank must be positive")
+        basis = self.basis_identity
+        if type(basis) is not expected_basis_type:
+            raise TypeError(
+                f"basis_identity must be the exact {expected_basis_type.__name__}"
+            )
+        if basis.dimension != rank:
+            raise ValueError("basis dimension must equal band_subspace_rank")
 
         representation = self.block_hopping_model
         if type(representation) not in (
@@ -169,8 +170,10 @@ class PeriodicRank2BlockHoppingModel(PeriodicBlockHoppingModel):
             raise ValueError(
                 "block_hopping_model dimension must match the dimensional model"
             )
-        if representation.basis_size != 2:
-            raise ValueError("block_hopping_model must have retained basis size two")
+        if representation.basis_size != rank:
+            raise ValueError(
+                "block_hopping_model basis size must equal band_subspace_rank"
+            )
 
         # Index coefficients by ordinary-lattice displacement so admissibility is
         # independent of provider term order and dense versus sparse storage.
@@ -207,4 +210,4 @@ class PeriodicRank2BlockHoppingModel(PeriodicBlockHoppingModel):
                 )
 
 
-__all__ = ["PeriodicBlockHoppingModel", "PeriodicRank2BlockHoppingModel"]
+__all__ = ["PeriodicBlockHoppingModel"]

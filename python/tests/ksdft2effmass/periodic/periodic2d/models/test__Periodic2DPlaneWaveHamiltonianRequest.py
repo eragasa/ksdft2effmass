@@ -44,7 +44,9 @@ class TestPeriodic2DPlaneWaveHamiltonianRequest:
             (1, 1),
         )
 
-    def test_basis_identity_preserves_exact_reciprocal_coordinate_order(self) -> None:
+    def test_basis_identity_preserves_exact_reciprocal_coordinate_order(
+        self,
+    ) -> None:
         """The request exposes structured coordinates in represented matrix order."""
         request = Periodic2DPlaneWaveHamiltonianRequest(self.model(), 0.13, -0.21, 1)
 

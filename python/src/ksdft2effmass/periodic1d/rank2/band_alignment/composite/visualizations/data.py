@@ -62,7 +62,7 @@ class Periodic1DCompositeBandAlignmentVisualizationData(BaseVisualizationData):
             self.maximum_ranges
         )
         Periodic1DSymmetricSupportInventory.from_maximum_ranges(self.maximum_ranges)
-        if self.channel_names != ("reference", "attacked", "pointwise"):
+        if self.channel_names != ("reference", "gauge_transformed", "pointwise"):
             raise ValueError("channel_names must match the closed channel inventory")
         channel_shape = (len(self.channel_names),)
         for vector, name in (

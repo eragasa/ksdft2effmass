@@ -29,6 +29,21 @@ For an unsealed script, callers move directly to the canonical library owner wit
 compatibility facade. For retained evidence, the original bytes and their provenance
 remain intact even when the current library has a cleaner implementation.
 
+## Maintained Python checks
+
+From the repository root, run:
+
+```console
+python/.venv/bin/ruff check calculations
+python/.venv/bin/ruff format --check calculations
+```
+
+[`calculations/.ruff.toml`](.ruff.toml) extends the maintained Python configuration while
+excluding retained execution, simulation-evidence, and historical workflow trees from
+automatic cleanup. Long scientific identities, paths, and formulas are exempt from the
+line-length rule. Passing these checks establishes source consistency only; it does not
+replay a calculation or establish scientific validation.
+
 ## Context-first periodic organization
 
 New periodic calculation roots identify one scientific context in the directory name,
@@ -244,7 +259,7 @@ requires its own crosswalk row before its parent can be considered integrated.
 |---|---|
 | Mathieu1D single-band reduction | The direct `ksdft2effmass.model_systems.mathieu1d` lifecycle; the retained unsealed direct execution with typed result, byte-owning verification, two authenticated figures, and technical report; and compact Git recovery records for removed donor, calculation-local, installed `study/`, run, and schema-v1 predecessors. No predecessor run wire, input, or JSON schema remains in the live tree. |
 | Periodic-1D rank-two band equivalence/locality | Flat-parent baseline, nonflat four-state realization, parent-family robustness, truncation consequences, momentum refinement, amplitude resolution, hopping-tail/power diagnostics, scientific-story rendering, and their separate result and verification definitions. |
-| Periodic-1D higher-rank alignment/locality | D1 P0/G0 parent construction, rank ladder, rotation-depth ladder, identity/global-unitary/pointwise-unitary/known-inverse-oracle gauge alignments, endpoint sewing, transport, case ledger, failure dispositions, numerical backend, and analytic-control verification. Future P1, G1, restricted-circuit, complex-unitary, moving-subspace, 2-D, and 3-D branches remain separate absent surfaces. |
+| Periodic-1D higher-rank alignment/locality | periodic-1D constant-subspace real-Givens validation study parent construction, rank ladder, rotation-depth ladder, identity/global-unitary/pointwise-unitary/known-inverse-oracle gauge alignments, endpoint sewing, transport, case ledger, failure dispositions, numerical backend, and analytic-control verification. Future P1, G1, restricted-circuit, complex-unitary, moving-subspace, 2-D, and 3-D branches remain separate absent surfaces. |
 | Each 2-D/3-D band-equivalence family | Nominal development calculation, first refinement, second refinement, independent family verification, development plotting, and the replaceable result/refinement directories. The four orthogonal/nonorthogonal dimensional families have parallel mechanics but separate scientific identities and thresholds. |
 | Each rank-two 2-D/3-D strain family | M0 geometry/frozen-response channel, M1 four-state response channel, M2 prescribed radial-response channel, witness/qualification data, parameter scan, response rendering, scan rendering, and each channel's verification record. The prospective periodic-3D rank-N context instead selects the distinct M1N frozen `2r`-state semantic control. |
 | Cross-dimensional comparison | Four family-specific request/result/refinement/verification schema sets; frame-transport diagnostics; tolerance comparison; shell--scale decision landscape request/result/verification; M0/M1/M2/witness strain documents; strain-scan request/result/verification; and the corresponding plot inventories. |

@@ -37,12 +37,12 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.wannier_fi
     Periodic3DRankNWannierFieldProducer,
     Periodic3DRankNWannierFieldSource,
 )
-from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
-    Periodic3DRankNGaugeNormalizationEnum,
-    Periodic3DRankNGivensGaugeAttack,
-)
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
+)
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
+    Periodic3DRankNGaugeNormalizationEnum,
+    Periodic3DRankNGivensGaugeTransformation,
 )
 from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
@@ -119,7 +119,10 @@ def authenticate_request_sources(request: JsonObject) -> JsonObject:
         if not path.is_file() or path.is_symlink():
             raise RuntimeError(f"source is absent or is a symlink: {path}")
         observed = identity(path)
-        if observed["byte_size"] != expected_size or observed["sha256"] != expected_digest:
+        if (
+            observed["byte_size"] != expected_size
+            or observed["sha256"] != expected_digest
+        ):
             raise RuntimeError(f"source identity mismatch: {path}")
         authenticated[label] = observed
     return authenticated
@@ -144,7 +147,10 @@ def load_lattice(path: Path) -> SiliconLattice:
     for label in ("a1", "a2", "a3"):
         columns.append(
             np.asarray(
-                [numeric(item, f"{label} component") for item in values(normalized[label], label)],
+                [
+                    numeric(item, f"{label} component")
+                    for item in values(normalized[label], label)
+                ],
                 dtype=np.float64,
             )
             * parameter
@@ -173,7 +179,9 @@ def parse_hr(path: Path) -> NativeHamiltonian:
         for line in lines[3 : 3 + degeneracy_line_count]
         for value in line.split()
     )
-    if len(degeneracies) != representative_count or any(value <= 0 for value in degeneracies):
+    if len(degeneracies) != representative_count or any(
+        value <= 0 for value in degeneracies
+    ):
         raise RuntimeError("invalid HR degeneracy inventory")
     data = lines[3 + degeneracy_line_count :]
     expected_count = representative_count * wannier_count * wannier_count
@@ -254,7 +262,9 @@ class FiniteWannierOperator:
     native_representative_count: int
 
     @classmethod
-    def from_native(cls, native: NativeHamiltonian, ws_path: Path) -> FiniteWannierOperator:
+    def from_native(
+        cls, native: NativeHamiltonian, ws_path: Path
+    ) -> FiniteWannierOperator:
         shifts = parse_ws_vectors(ws_path, native.representatives, native.wannier_count)
         effective: dict[tuple[int, int, int], ComplexArray] = {}
         for representative_index, representative in enumerate(native.representatives):
@@ -273,14 +283,15 @@ class FiniteWannierOperator:
                                 (native.wannier_count, native.wannier_count),
                                 dtype=np.complex128,
                             )
-                        effective[actual][row, column] += (
-                            native.blocks_ev[representative_index, row, column]
-                            / (block_degeneracy * len(element_shifts))
-                        )
+                        effective[actual][row, column] += native.blocks_ev[
+                            representative_index, row, column
+                        ] / (block_degeneracy * len(element_shifts))
         ordered = tuple(sorted(effective))
         return cls(
             representatives=np.asarray(ordered, dtype=np.int64),
-            blocks_ev=np.asarray([effective[item] for item in ordered], dtype=np.complex128),
+            blocks_ev=np.asarray(
+                [effective[item] for item in ordered], dtype=np.complex128
+            ),
             native_representative_count=len(native.representatives),
         )
 
@@ -301,7 +312,9 @@ def centered_coordinates(size: int) -> RealArray:
     )
 
 
-def load_parent_field(qexsd_path: Path, manifest_path: Path) -> tuple[RealArray, RealArray]:
+def load_parent_field(
+    qexsd_path: Path, manifest_path: Path
+) -> tuple[RealArray, RealArray]:
     manifest_value: JsonValue = json.loads(manifest_path.read_text(encoding="utf-8"))
     manifest = mapping(manifest_value, "point manifest")
     points = values(manifest["points"], "point manifest points")
@@ -502,9 +515,7 @@ def main() -> None:
     authenticated_sources = authenticate_request_sources(request)
     sources = mapping(request["sources"], "sources")
 
-    native = parse_hr(
-        source_path(mapping(sources["hamiltonian"], "hamiltonian"), "HR")
-    )
+    native = parse_hr(source_path(mapping(sources["hamiltonian"], "hamiltonian"), "HR"))
     if native.wannier_count != 10:
         raise RuntimeError("authenticated HR artifact must have rank 10")
     operator = FiniteWannierOperator.from_native(
@@ -530,17 +541,17 @@ def main() -> None:
         mapping(sources["revealed_point_manifest"], "point manifest"),
         "point manifest",
     )
-    evaluation_coordinates, parent_spectrum = load_parent_field(qexsd_path, manifest_path)
+    evaluation_coordinates, parent_spectrum = load_parent_field(
+        qexsd_path, manifest_path
+    )
     evaluation_operators = np.asarray(
         operator.matrices(evaluation_coordinates), dtype=np.complex128
     )
     identity_frame = np.eye(10, dtype=np.complex128)
-    construction_frames = np.broadcast_to(
-        identity_frame, (6, 6, 6, 10, 10)
-    ).copy()
+    construction_frames = np.broadcast_to(identity_frame, (6, 6, 6, 10, 10)).copy()
     evaluation_frames = np.broadcast_to(identity_frame, (408, 10, 10)).copy()
 
-    attack = Periodic3DRankNGivensGaugeAttack(
+    transformation = Periodic3DRankNGivensGaugeTransformation(
         retained_rank=10,
         circuit_depth=2,
         harmonic_bonds=((1, 0, 0), (0, 1, 0), (0, 0, 1)),
@@ -562,7 +573,7 @@ def main() -> None:
     )
     fields = Periodic3DRankNWannierFieldProducer(
         source=source,
-        attack=attack,
+        transformation=transformation,
         frame_isometry_absolute_tolerance=1.0e-12,
         operator_hermiticity_absolute_tolerance=1.0e-12,
     ).execute()
@@ -611,8 +622,13 @@ def main() -> None:
     analysis = analyzer.execute()
     alignments: list[JsonValue] = []
     for alignment in analysis.alignments:
-        if type(alignment) is not Periodic3DRankNBandEquivalenceHoppingLocalityQualifiedAlignmentAnalysis:
-            raise RuntimeError(f"alignment route is inapplicable: {alignment.alignment}")
+        if (
+            type(alignment)
+            is not Periodic3DRankNBandEquivalenceHoppingLocalityQualifiedAlignmentAnalysis
+        ):
+            raise RuntimeError(
+                f"alignment route is inapplicable: {alignment.alignment}"
+            )
         alignments.append(
             qualified_alignment_record(alignment, 10, 1.0, shell_metric_scale)
         )
@@ -630,7 +646,9 @@ def main() -> None:
         ),
     )
     reference_series = reference_data.ordinary_series
-    if not np.array_equal(reference_series.integer_modes, comparison_series.integer_modes):
+    if not np.array_equal(
+        reference_series.integer_modes, comparison_series.integer_modes
+    ):
         raise RuntimeError("reference and attacked displacement inventories differ")
     modes = np.asarray(reference_series.integer_modes, dtype=np.int64)
     q_values = 2 * (
@@ -641,12 +659,12 @@ def main() -> None:
         + modes[:, 0] * modes[:, 2]
         + modes[:, 1] * modes[:, 2]
     )
-    reference_block_power = np.sum(
-        np.abs(reference_series.matrix_coefficients) ** 2, axis=(1, 2)
-    ) / 10.0
-    comparison_block_power = np.sum(
-        np.abs(comparison_series.matrix_coefficients) ** 2, axis=(1, 2)
-    ) / 10.0
+    reference_block_power = (
+        np.sum(np.abs(reference_series.matrix_coefficients) ** 2, axis=(1, 2)) / 10.0
+    )
+    comparison_block_power = (
+        np.sum(np.abs(comparison_series.matrix_coefficients) ** 2, axis=(1, 2)) / 10.0
+    )
 
     reference_spectrum = np.linalg.eigvalsh(evaluation_operators)
     attacked_spectrum = np.linalg.eigvalsh(fields.comparison_evaluation_operators)
@@ -681,8 +699,8 @@ def main() -> None:
             "effective_ws_representative_count": len(operator.representatives),
         },
         "attack": {
-            "identity": attack.attack_identity,
-            "angle_upper_bound": attack.angle_upper_bound,
+            "identity": transformation.attack_identity,
+            "angle_upper_bound": transformation.angle_upper_bound,
         },
         "geometry": {
             "identifier": analysis.geometry_identifier,
@@ -751,7 +769,9 @@ def main() -> None:
             "The direct-parent overlay preserves the previously reported parent-fidelity failure.",
         ],
     }
-    OUTPUT.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    OUTPUT.write_text(
+        json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
 
 
 if __name__ == "__main__":

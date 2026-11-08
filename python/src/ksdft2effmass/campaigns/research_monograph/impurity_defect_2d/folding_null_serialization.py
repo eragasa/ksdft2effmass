@@ -267,7 +267,8 @@ class FoldingNullResultJsonSerializer(JsonCodec[FoldingNullResult, bytes]):
                 "site_phase_steps_radians",
             ),
             energy_reference_shift=self._require_float(
-                attack_payload["energy_reference_shift"], "energy_reference_shift"
+                attack_payload["energy_reference_shift"],
+                "energy_reference_shift",
             ),
         )
         tolerances_payload = self._require_object(payload["tolerances"], "tolerances")

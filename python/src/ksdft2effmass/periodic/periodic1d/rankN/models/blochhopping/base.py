@@ -19,9 +19,10 @@ class Periodic1DRankNBlochHoppingModel(
 
     Notes
     -----
-    Rank-N and rank-two remain sibling scientific owners. Concrete rank-N families
-    must enforce their own reviewed retained-dimension inventories; ``N`` denotes the
-    retained state-space dimension rather than algebraic matrix rank.
+    This owner is the finite-rank Bloch-hopping contract refined by fixed-rank
+    descendants such as the rank-two owner. Concrete finite-rank families must enforce
+    their reviewed retained-dimension inventories; ``N`` denotes the retained
+    state-space dimension rather than algebraic matrix rank.
     """
 
     __slots__ = ()

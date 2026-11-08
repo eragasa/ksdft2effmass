@@ -10,10 +10,7 @@ from ksdft2effmass.periodic1d.rankN.band_alignment import (
     model_diagnostics as diagnostics_module,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.mesh_sample import (
-    Periodic1DRankNAnalyticMeshSample,
-)
-from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
-    Periodic1DRankNAnalyticCaseConstructor,
+    Periodic1DRankNConstructionMeshSample,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.model_diagnostics import (
     Periodic1DRankNModelDiagnostics,
@@ -23,6 +20,11 @@ from ksdft2effmass.periodic1d.rankN.band_alignment.model_diagnostics import (
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest as RankNRequest,
 )
+from periodic1d_rankn_analytic_case_support import (
+    SyntheticPeriodic1DRankNAnalyticCaseConstructor,
+)
+from periodic1d_rankn_analytic_oracle import analytic_fourier_givens_transformation
+from periodic1d_rankn_control_basis_support import synthetic_basis_identity
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -34,12 +36,20 @@ class TestPeriodic1DRankNModelDiagnosticsAnalyzer:
         self,
         higher_rank_calculation_request: RankNRequest,
     ) -> None:
-        model = Periodic1DRankNAnalyticCaseConstructor(
+        model = SyntheticPeriodic1DRankNAnalyticCaseConstructor(
             retained_rank=higher_rank_calculation_request.retained_rank,
             circuit_depth=higher_rank_calculation_request.circuit_depth,
+            basis_identity=synthetic_basis_identity(
+                higher_rank_calculation_request.retained_rank
+            ),
+            gauge_transformation=analytic_fourier_givens_transformation(
+                retained_rank=higher_rank_calculation_request.retained_rank,
+                circuit_depth=higher_rank_calculation_request.circuit_depth,
+            ),
         ).execute()
-        sample = Periodic1DRankNAnalyticMeshSample(
-            model,
+        sample = Periodic1DRankNConstructionMeshSample(
+            model.parent_model,
+            model.gauge_transformation,
             higher_rank_calculation_request.configuration,
             513,
         )
@@ -71,12 +81,20 @@ class TestPeriodic1DRankNModelDiagnosticsAnalyzer:
         higher_rank_calculation_request: RankNRequest,
         field: str,
     ) -> None:
-        model = Periodic1DRankNAnalyticCaseConstructor(
+        model = SyntheticPeriodic1DRankNAnalyticCaseConstructor(
             retained_rank=higher_rank_calculation_request.retained_rank,
             circuit_depth=higher_rank_calculation_request.circuit_depth,
+            basis_identity=synthetic_basis_identity(
+                higher_rank_calculation_request.retained_rank
+            ),
+            gauge_transformation=analytic_fourier_givens_transformation(
+                retained_rank=higher_rank_calculation_request.retained_rank,
+                circuit_depth=higher_rank_calculation_request.circuit_depth,
+            ),
         ).execute()
-        sample = Periodic1DRankNAnalyticMeshSample(
-            model,
+        sample = Periodic1DRankNConstructionMeshSample(
+            model.parent_model,
+            model.gauge_transformation,
             higher_rank_calculation_request.configuration,
             513,
         )

@@ -1,9 +1,9 @@
 """Producer-independent reference analysis for analytic model core invariants.
 
-This bounded slice reconstructs the protocol's analytic parent, constant retained frame,
-real Givens attack, and model-structure diagnostics with direct NumPy formulas. It does
-not call the calculation producer, its model owner, diagnostic actions, transport,
-Procrustes, Fourier, interpolation, locality, or refinement actions.
+This bounded slice reconstructs the protocol's analytic parent, constant retained
+frame, real Givens transformation, and model-structure diagnostics with direct NumPy
+formulas. It does not call the calculation producer, its model owner, diagnostic
+actions, transport, Procrustes, Fourier, interpolation, locality, or refinement actions.
 """
 
 from __future__ import annotations
@@ -29,7 +29,8 @@ class Periodic1DRankNCoreInvariantReference:
     """Retain independently reconstructed core-invariant comparisons.
 
     This record is intentionally narrower than the complete direct-formula verifier
-    selected by the protocol. It covers the analytic model and attack invariants only.
+    selected by the protocol. It covers only the analytic model and transformation
+    invariants.
     """
 
     comparisons: Mapping[str, MaximumAbsoluteErrorComparison]
@@ -73,19 +74,19 @@ class Periodic1DRankNCoreInvariantReferenceRequest:
 class _ModelCoreInvariantValues:
     exact_analytic_isolation_gap: float
     sampled_isolation_gaps: np.ndarray
-    exact_analytic_attack_angle_maximum: float
-    sampled_attack_angle_maxima: np.ndarray
+    exact_analytic_transformation_angle_maximum: float
+    sampled_transformation_angle_maxima: np.ndarray
     parent_hermiticity_defect: float
     reference_frame_isometry_defect: float
     gauge_unitarity_defect: float
-    attacked_frame_isometry_defect: float
-    attacked_projector_equality_defect: float
+    gauge_transformed_frame_isometry_defect: float
+    gauge_transformed_projector_equality_defect: float
     reference_projector_hermiticity_defect: float
     reference_projector_idempotency_defect: float
     reference_operator_recovery_defect: float
     reference_spectrum_recovery_defect: float
-    attacked_operator_recovery_defect: float
-    attacked_spectrum_recovery_defect: float
+    gauge_transformed_operator_recovery_defect: float
+    gauge_transformed_spectrum_recovery_defect: float
     oracle_frame_recovery_defect: float
     oracle_operator_recovery_defect: float
 
@@ -125,7 +126,7 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer(
         result = self.request.result
         request = result.request
         common_sampled_gaps = self._sampled_isolation_gaps()
-        common_sampled_angles = self._sampled_attack_angle_maxima()
+        common_sampled_angles = self._sampled_transformation_angle_maxima()
         comparisons: dict[str, MaximumAbsoluteErrorComparison] = {}
         for mesh in result.meshes:
             expected = self._mesh_reference(
@@ -149,15 +150,15 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer(
             )
             self._add_scalar(
                 comparisons,
-                f"{prefix}_exact_analytic_attack_angle_maximum",
-                observed.exact_analytic_attack_angle_maximum,
-                expected.exact_analytic_attack_angle_maximum,
+                f"{prefix}_exact_analytic_transformation_angle_maximum",
+                observed.exact_analytic_transformation_angle_maximum,
+                expected.exact_analytic_transformation_angle_maximum,
             )
             self._add_vector(
                 comparisons,
-                f"{prefix}_sampled_attack_angle_maxima",
-                observed.sampled_attack_angle_maxima,
-                expected.sampled_attack_angle_maxima,
+                f"{prefix}_sampled_transformation_angle_maxima",
+                observed.sampled_transformation_angle_maxima,
+                expected.sampled_transformation_angle_maxima,
             )
             scalar_values = (
                 (
@@ -176,14 +177,14 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer(
                     expected.gauge_unitarity_defect,
                 ),
                 (
-                    "attacked_frame_isometry_defect",
-                    observed.attacked_frame_isometry_defect,
-                    expected.attacked_frame_isometry_defect,
+                    "gauge_transformed_frame_isometry_defect",
+                    observed.gauge_transformed_frame_isometry_defect,
+                    expected.gauge_transformed_frame_isometry_defect,
                 ),
                 (
-                    "attacked_projector_equality_defect",
-                    observed.attacked_projector_equality_defect,
-                    expected.attacked_projector_equality_defect,
+                    "gauge_transformed_projector_equality_defect",
+                    observed.gauge_transformed_projector_equality_defect,
+                    expected.gauge_transformed_projector_equality_defect,
                 ),
                 (
                     "reference_projector_hermiticity_defect",
@@ -206,14 +207,14 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer(
                     expected.reference_spectrum_recovery_defect,
                 ),
                 (
-                    "attacked_operator_recovery_defect",
-                    observed.attacked_operator_recovery_defect,
-                    expected.attacked_operator_recovery_defect,
+                    "gauge_transformed_operator_recovery_defect",
+                    observed.gauge_transformed_operator_recovery_defect,
+                    expected.gauge_transformed_operator_recovery_defect,
                 ),
                 (
-                    "attacked_spectrum_recovery_defect",
-                    observed.attacked_spectrum_recovery_defect,
-                    expected.attacked_spectrum_recovery_defect,
+                    "gauge_transformed_spectrum_recovery_defect",
+                    observed.gauge_transformed_spectrum_recovery_defect,
+                    expected.gauge_transformed_spectrum_recovery_defect,
                 ),
                 (
                     "oracle_frame_recovery_defect",
@@ -250,7 +251,7 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer(
             )
         return np.asarray(values, dtype=np.float64)
 
-    def _sampled_attack_angle_maxima(self) -> np.ndarray:
+    def _sampled_transformation_angle_maxima(self) -> np.ndarray:
         request = self.request.result.request
         values = []
         for mesh_size in request.configuration.construction_mesh_sizes:
@@ -279,7 +280,7 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer(
         self,
         mesh_size: int,
         sampled_isolation_gaps: np.ndarray,
-        sampled_attack_angle_maxima: np.ndarray,
+        sampled_transformation_angle_maxima: np.ndarray,
     ) -> _ModelCoreInvariantValues:
         request = self.request.result.request
         rank = request.retained_rank
@@ -303,8 +304,10 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer(
             (mesh_size, ambient, rank),
         ).copy()
         gauge = self._gauge_unitaries(coordinates)
-        attacked_frames = np.asarray(reference_frames @ gauge, dtype=np.complex128)
-        attacked = np.asarray(
+        gauge_transformed_frames = np.asarray(
+            reference_frames @ gauge, dtype=np.complex128
+        )
+        gauge_transformed = np.asarray(
             self._adjoint(gauge) @ exact @ gauge,
             dtype=np.complex128,
         )
@@ -312,25 +315,25 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer(
             self._adjoint(reference_frames) @ parent @ reference_frames,
             dtype=np.complex128,
         )
-        attacked_recovered = np.asarray(
-            self._adjoint(attacked_frames) @ parent @ attacked_frames,
+        gauge_transformed_recovered = np.asarray(
+            self._adjoint(gauge_transformed_frames) @ parent @ gauge_transformed_frames,
             dtype=np.complex128,
         )
         reference_projectors = np.asarray(
             reference_frames @ self._adjoint(reference_frames),
             dtype=np.complex128,
         )
-        attacked_projectors = np.asarray(
-            attacked_frames @ self._adjoint(attacked_frames),
+        gauge_transformed_projectors = np.asarray(
+            gauge_transformed_frames @ self._adjoint(gauge_transformed_frames),
             dtype=np.complex128,
         )
         inverse_gauge = self._adjoint(gauge)
         oracle_frames = np.asarray(
-            attacked_frames @ inverse_gauge,
+            gauge_transformed_frames @ inverse_gauge,
             dtype=np.complex128,
         )
         oracle_operator = np.asarray(
-            gauge @ attacked @ inverse_gauge,
+            gauge @ gauge_transformed @ inverse_gauge,
             dtype=np.complex128,
         )
         q = (math.sqrt(41.0) - 3.0) / 8.0
@@ -341,8 +344,8 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer(
         return _ModelCoreInvariantValues(
             exact_analytic_isolation_gap=2.1,
             sampled_isolation_gaps=sampled_isolation_gaps,
-            exact_analytic_attack_angle_maximum=float(exact_angle),
-            sampled_attack_angle_maxima=sampled_attack_angle_maxima,
+            exact_analytic_transformation_angle_maximum=float(exact_angle),
+            sampled_transformation_angle_maxima=sampled_transformation_angle_maxima,
             parent_hermiticity_defect=self._normalized_hermiticity_defect(
                 parent,
                 ambient,
@@ -353,12 +356,12 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer(
                 rank,
             ),
             gauge_unitarity_defect=self._normalized_isometry_defect(gauge, rank),
-            attacked_frame_isometry_defect=self._normalized_isometry_defect(
-                attacked_frames,
+            gauge_transformed_frame_isometry_defect=self._normalized_isometry_defect(
+                gauge_transformed_frames,
                 rank,
             ),
-            attacked_projector_equality_defect=self._maximum_frobenius_defect(
-                attacked_projectors,
+            gauge_transformed_projector_equality_defect=self._maximum_frobenius_defect(
+                gauge_transformed_projectors,
                 reference_projectors,
             ),
             reference_projector_hermiticity_defect=(
@@ -386,14 +389,14 @@ class Periodic1DRankNCoreInvariantReferenceAnalyzer(
                 exact,
                 energy_reference,
             ),
-            attacked_operator_recovery_defect=self._normalized_matrix_defect(
-                attacked_recovered,
-                attacked,
+            gauge_transformed_operator_recovery_defect=self._normalized_matrix_defect(
+                gauge_transformed_recovered,
+                gauge_transformed,
                 rank,
                 energy_reference,
             ),
-            attacked_spectrum_recovery_defect=self._normalized_spectrum_defect(
-                attacked,
+            gauge_transformed_spectrum_recovery_defect=self._normalized_spectrum_defect(
+                gauge_transformed,
                 exact,
                 energy_reference,
             ),

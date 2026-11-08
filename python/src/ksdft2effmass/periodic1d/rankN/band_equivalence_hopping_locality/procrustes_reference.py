@@ -1,8 +1,9 @@
 """Producer-independent Procrustes reference for higher-rank gauge alignment.
 
-This bounded reference reconstructs the analytic attack matrices directly and uses an
-Hermitian eigendecomposition of the cross Gram matrix for the global polar factor.  It
-does not invoke the maintained model, Procrustes solver, or producer analysis actions.
+This bounded reference reconstructs the analytic transformation matrices directly and
+uses a Hermitian eigendecomposition of the cross Gram matrix for the global polar
+factor. It does not invoke the maintained model, Procrustes solver, or producer
+analysis actions.
 The slice covers the one global-unitary selection and all three pointwise-unitary
 selections; it is not complete protocol verification.
 """

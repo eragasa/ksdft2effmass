@@ -1,4 +1,4 @@
-"""Sample the selected D1 P0/G0 control formulas.
+"""Sample the selected constant-subspace real-Givens control formulas.
 
 This development utility checks the analytic formulas on a finite grid. Its output is a
 sanity check, not a proof of the exterior-isolation energy, a convergence result, or
@@ -68,7 +68,7 @@ def _givens_angle(
 
 
 def sample_control(rank: int, sample_intervals: int) -> SampledControlSummary:
-    """Sample the isolation energy and attack-angle magnitude for one declared rank.
+    """Sample the isolation energy and transformation-angle magnitude for one declared rank.
 
     Energies are returned in units of ``E_ref`` and angles in radians. The grid contains
     ``sample_intervals + 1`` points including both endpoints of ``[-pi, pi]``.

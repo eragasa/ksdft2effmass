@@ -30,6 +30,8 @@ from ksdft2effmass.band_equivalence_hopping_locality.shell_power import (
     MetricShellHoppingPowerResult,
 )
 from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalysisIdentity
+from ksdft2effmass.periodic.operators import PeriodicBasisInventory
+from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 from ksdft2effmass.periodic2d.rankN.band_alignment.frame_transport.analysis import (
     Periodic2DRankNTransportAnalyzer,
 )
@@ -87,8 +89,8 @@ from ksdft2effmass.sewing import (
     ReciprocalEndpointSewingInventory,
 )
 
+from .case import Periodic2DRankNAnalyticCase
 from .case_expansion import Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander
-from .model import Periodic2DRankNAnalyticCase
 from .request import (
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
     Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
@@ -169,7 +171,8 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             or model.retained_rank not in request.retained_ranks
             or model.circuit_depth not in request.circuit_depths
             or model.parent_scale not in request.parent_scales
-            or model.attack_coefficient not in request.attack_coefficients
+            or model.transformation_coefficient
+            not in request.transformation_coefficients
         ):
             raise ValueError("model must be one exact expansion of the request")
         if type(endpoint_sewing) is not ReciprocalEndpointSewingInventory:
@@ -245,9 +248,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                 retained_rank=model.retained_rank,
                 channel=channel,
                 energy_reference="dimensionless-zero-v1",
-                basis_identifier=(
-                    f"{model.MODEL_FAMILY_IDENTITY}:retained-coordinate-basis"
-                ),
+                basis_identifier=model.basis_identity.display_identifier,
                 series=series,
                 shell_indices=tuple(int(value) for value in metric_indices),
             ),
@@ -631,9 +632,13 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
         reference_construction = model.exact_reduced_hamiltonians(construction)
         reference_evaluation = model.exact_reduced_hamiltonians(evaluation)
         reference_frame = model.reference_frames(construction)
-        attacked_frame = model.attacked_frames(construction)
-        attacked_construction = model.attacked_reduced_hamiltonians(construction)
-        attacked_evaluation = model.attacked_reduced_hamiltonians(evaluation)
+        gauge_transformed_frame = model.gauge_transformed_frames(construction)
+        gauge_transformed_construction = model.gauge_transformed_reduced_hamiltonians(
+            construction
+        )
+        gauge_transformed_evaluation = model.gauge_transformed_reduced_hamiltonians(
+            evaluation
+        )
         reference = self._reference_fourier(
             model=model,
             geometry=geometry,
@@ -651,9 +656,9 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                         geometry=geometry,
                         alignment=alignment,
                         evidence=Periodic2DRankNPrescribedAlignmentEvidence("identity"),
-                        aligned_frame=attacked_frame,
-                        comparison_construction=attacked_construction,
-                        comparison_evaluation=attacked_evaluation,
+                        aligned_frame=gauge_transformed_frame,
+                        comparison_construction=gauge_transformed_construction,
+                        comparison_evaluation=gauge_transformed_evaluation,
                         reference_construction=reference_construction,
                         reference_evaluation=reference_evaluation,
                         reference_frame=reference_frame,
@@ -672,13 +677,13 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                         evidence=Periodic2DRankNPrescribedAlignmentEvidence(
                             "known-inverse-oracle"
                         ),
-                        aligned_frame=attacked_frame @ construction_action,
+                        aligned_frame=gauge_transformed_frame @ construction_action,
                         comparison_construction=self._apply_right_action(
-                            attacked_construction,
+                            gauge_transformed_construction,
                             construction_action,
                         ),
                         comparison_evaluation=self._apply_right_action(
-                            attacked_evaluation,
+                            gauge_transformed_evaluation,
                             evaluation_action,
                         ),
                         reference_construction=reference_construction,
@@ -692,7 +697,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                 global_analysis = Periodic2DRankNGlobalGaugeAlignmentAnalyzer(
                     request=Periodic2DRankNGlobalGaugeAlignmentAnalysisRequest(
                         retained_rank=model.retained_rank,
-                        source=attacked_frame,
+                        source=gauge_transformed_frame,
                         target=reference_frame,
                         tolerance=self._request.procrustes_tolerance,
                     )
@@ -720,13 +725,13 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                         geometry=geometry,
                         alignment=alignment,
                         evidence=self._fitted_evidence(global_analysis),
-                        aligned_frame=attacked_frame @ action,
+                        aligned_frame=gauge_transformed_frame @ action,
                         comparison_construction=self._apply_right_action(
-                            attacked_construction,
+                            gauge_transformed_construction,
                             action,
                         ),
                         comparison_evaluation=self._apply_right_action(
-                            attacked_evaluation,
+                            gauge_transformed_evaluation,
                             action,
                         ),
                         reference_construction=reference_construction,
@@ -739,7 +744,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             construction_analysis = Periodic2DRankNProcrustesAnalyzer(
                 request=Periodic2DRankNProcrustesAnalysisRequest(
                     retained_rank=model.retained_rank,
-                    source=attacked_frame,
+                    source=gauge_transformed_frame,
                     target=reference_frame,
                     tolerance=self._request.procrustes_tolerance,
                 )
@@ -761,12 +766,14 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                     )
                 )
                 continue
-            attacked_eval_frame = model.attacked_frames(evaluation)
+            gauge_transformed_evaluation_frame = model.gauge_transformed_frames(
+                evaluation
+            )
             reference_eval_frame = model.reference_frames(evaluation)
             evaluation_analysis = Periodic2DRankNProcrustesAnalyzer(
                 request=Periodic2DRankNProcrustesAnalysisRequest(
                     retained_rank=model.retained_rank,
-                    source=attacked_eval_frame,
+                    source=gauge_transformed_evaluation_frame,
                     target=reference_eval_frame,
                     tolerance=self._request.procrustes_tolerance,
                 )
@@ -803,13 +810,13 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                         construction_analysis,
                         evaluation_analysis,
                     ),
-                    aligned_frame=attacked_frame @ construction_action,
+                    aligned_frame=gauge_transformed_frame @ construction_action,
                     comparison_construction=self._apply_right_action(
-                        attacked_construction,
+                        gauge_transformed_construction,
                         construction_action,
                     ),
                     comparison_evaluation=self._apply_right_action(
-                        attacked_evaluation,
+                        gauge_transformed_evaluation,
                         evaluation_action,
                     ),
                     reference_construction=reference_construction,
@@ -829,7 +836,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             retained_rank=model.retained_rank,
             circuit_depth=model.circuit_depth,
             parent_scale=model.parent_scale,
-            attack_coefficient=model.attack_coefficient,
+            transformation_coefficient=model.transformation_coefficient,
             minimum_sampled_external_gap=minimum_gap,
             alignments=tuple(alignments),
         )
@@ -857,16 +864,20 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer(
 ):
     """Thinly expand and sequence one exact aggregate software request."""
 
-    __slots__ = ("_request",)
+    __slots__ = ("_request", "_basis_inventory")
 
     def __init__(
         self,
         *,
         request: Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
+        basis_inventory: PeriodicBasisInventory[Periodic2DBasisIdentity],
     ) -> None:
         if type(request) is not Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
             raise TypeError("request must be the exact periodic-2D rank-N request")
+        if type(basis_inventory) is not PeriodicBasisInventory:
+            raise TypeError("basis_inventory must be the exact PeriodicBasisInventory")
         self._request = request
+        self._basis_inventory = basis_inventory
 
     @property
     def request(self) -> Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
@@ -877,7 +888,8 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer(
         """Execute all analytic cases without creating retained evidence."""
         geometry_by_identifier = {case.identifier: case for case in self._request.cases}
         models = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=self._request
+            request=self._request,
+            basis_inventory=self._basis_inventory,
         ).execute()
         cases = tuple(
             Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(

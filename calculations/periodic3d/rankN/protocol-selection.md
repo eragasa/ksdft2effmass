@@ -37,8 +37,11 @@ lifecycle records.
 Every rank-bound request and result must carry an explicit retained rank. Study-level
 requests admit exactly `3`, `4`, and `8`; reusable pointwise Procrustes, transport,
 locality, and support actions may admit another finite rank only through a separately
-reviewed caller. Rank-N classes mirror applicable `Periodic3DRank2...` role names using
-`Periodic3DRankN...`; they do not inherit rank-two classes.
+reviewed caller. Dimensional rank-N owners refine dimension-neutral periodic finite-rank
+capabilities. Applicable `Periodic3DRank2...` operation owners then refine the
+corresponding `Periodic3DRankN...` owner and fix the rank to two. The rank-N study family
+does not inherit rank-two calculation policy, and its `3`, `4`, and `8` inventory remains
+calculation-owned.
 
 The recommended alignment inventory is identity, complete global-unitary Procrustes,
 pointwise-unitary Procrustes, and a separately labelled known-inverse oracle when the

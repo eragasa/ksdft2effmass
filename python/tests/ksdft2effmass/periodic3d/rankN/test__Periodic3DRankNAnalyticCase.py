@@ -11,9 +11,9 @@ from projectkoios.numerics.numpy.typing import Float64Array
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model import (
     Periodic3DRankNAnalyticCase,
 )
-from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
     Periodic3DRankNGaugeNormalizationEnum,
-    Periodic3DRankNGivensGaugeAttack,
+    Periodic3DRankNGivensGaugeTransformation,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -39,7 +39,7 @@ class TestPeriodic3DRankNAnalyticCase:
             positive_bonds=((1, 0, 0), (0, 1, 0), (0, 0, 1)),
             gauge_normalization=(Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM),
             parent_scale=1.0,
-            attack_coefficient=math.pi / 4.0,
+            transformation_coefficient=math.pi / 4.0,
         )
 
     def test_parent_has_selected_shape_ordering_and_gap_bound(self) -> None:
@@ -68,35 +68,39 @@ class TestPeriodic3DRankNAnalyticCase:
         case = self._case()
         coordinates = self._coordinates()
 
-        attack = case.gauge_attack
+        transformation = case.gauge_transformation
         gauge = case.gauge_unitaries(coordinates)
         inverse = case.known_inverse_right_actions(coordinates)
-        attacked_frame = case.attacked_frames(coordinates)
-        attacked_operator = case.attacked_reduced_hamiltonians(coordinates)
+        gauge_transformed_frame = case.gauge_transformed_frames(coordinates)
+        gauge_transformed_operator = case.gauge_transformed_reduced_hamiltonians(
+            coordinates
+        )
         identity = np.eye(case.retained_rank, dtype=np.complex128)
 
-        assert type(attack) is Periodic3DRankNGivensGaugeAttack
-        assert attack.retained_rank == case.retained_rank
-        assert attack.circuit_depth == case.circuit_depth
-        assert attack.harmonic_bonds == case.positive_bonds
-        assert attack.normalization is case.gauge_normalization
-        assert attack.coefficient == case.attack_coefficient
-        assert gauge == pytest.approx(attack.unitaries(coordinates), abs=0.0)
+        assert type(transformation) is Periodic3DRankNGivensGaugeTransformation
+        assert transformation.retained_rank == case.retained_rank
+        assert transformation.circuit_depth == case.circuit_depth
+        assert transformation.harmonic_bonds == case.positive_bonds
+        assert transformation.normalization is case.gauge_normalization
+        assert transformation.coefficient == case.transformation_coefficient
+        assert gauge == pytest.approx(transformation.unitaries(coordinates), abs=0.0)
         assert np.swapaxes(gauge.conjugate(), -1, -2) @ gauge == pytest.approx(
             np.broadcast_to(identity, gauge.shape), abs=2.0e-15
         )
         assert np.linalg.det(gauge) == pytest.approx(
             np.ones(coordinates.shape[:-1]), abs=2.0e-15
         )
-        assert attacked_frame @ inverse == pytest.approx(
+        assert gauge_transformed_frame @ inverse == pytest.approx(
             case.reference_frames(coordinates), abs=2.0e-15
         )
         assert (
-            np.swapaxes(inverse.conjugate(), -1, -2) @ attacked_operator @ inverse
+            np.swapaxes(inverse.conjugate(), -1, -2)
+            @ gauge_transformed_operator
+            @ inverse
         ) == pytest.approx(case.exact_reduced_hamiltonians(coordinates), abs=2.0e-15)
         assert not gauge.flags.writeable
 
-    def test_rejects_unselected_rank_dimension_and_attack_bound(self) -> None:
+    def test_rejects_unselected_rank_dimension_and_transformation_bound(self) -> None:
         with pytest.raises(ValueError, match="retained_rank"):
             self._case(retained_rank=5)
         with pytest.raises(ValueError, match=r"shape \(\.\.\., 3\)"):
@@ -116,5 +120,5 @@ class TestPeriodic3DRankNAnalyticCase:
                 ),
                 gauge_normalization=(Periodic3DRankNGaugeNormalizationEnum.BOND_RMS),
                 parent_scale=0.0,
-                attack_coefficient=math.pi / 4.0,
+                transformation_coefficient=math.pi / 4.0,
             )

@@ -166,7 +166,6 @@ class TestPeriodicContracts:
             "PeriodicBlockHoppingModel",
             "PeriodicModel",
             "PeriodicModelRole",
-            "PeriodicRank2BlockHoppingModel",
             "SpatialDimension",
         }
         periodic1d_model_names = {"Periodic1DDefectModel", "Periodic1DModel"}

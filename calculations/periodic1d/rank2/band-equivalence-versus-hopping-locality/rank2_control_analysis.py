@@ -8,6 +8,10 @@ does not define a competing scientific implementation or a retained execution id
 
 from __future__ import annotations
 
+from projectkoios.physkit.solidstate.electronic.frame_transport import (
+    ClosedLoopPolarFrameTransporter,
+)
+
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.amplitude_refinement.analysis import (
     Periodic1DRank2AdaptiveAmplitudeAnalysis,
     Periodic1DRank2AdaptiveAmplitudeAnalyzer,
@@ -65,9 +69,6 @@ from ksdft2effmass.periodic1d.rank2.support_truncation.verification import (
     Periodic1DRank2TruncationIndependentVerifier,
 )
 from ksdft2effmass.verification import CompositeVerification
-from projectkoios.physkit.solidstate.electronic.frame_transport import (
-    ClosedLoopPolarFrameTransporter,
-)
 
 
 def embedded_rank2_request(

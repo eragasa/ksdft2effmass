@@ -123,7 +123,7 @@ class Periodic1DCompositeGroupVerificationResult:
     rough_vs_smooth_hopping_l2_defect
         Independently recomputed complete unaligned coefficient-space defect.
     rough_vs_smooth_reported_absolute_defect
-        Defect between that value and the retained gauge-attack diagnostic.
+        Defect between that value and the retained gauge-transformation diagnostic.
     direct_coefficient_frobenius_defect
         Independent direct-fit versus transformed-coefficient Frobenius defect.
     direct_coefficient_reported_absolute_defect

@@ -114,7 +114,7 @@ class _ErrorChannelFigure(BaseFigure):
     def draw(self) -> Figure:
         figure, axes = plt.subplots(1, 3, figsize=(15.0, 4.6), constrained_layout=True)
         ranges = np.asarray(self.data.maximum_ranges, dtype=np.int64)
-        attacked_index = self.data.channel_names.index("attacked")
+        gauge_transformed_index = self.data.channel_names.index("gauge_transformed")
         positions = np.arange(len(self.data.channel_names), dtype=np.float64)
         axes[0].bar(positions, self.data.cyclic_conversion_powers.magnitude)
         axes[0].set_xticks(positions, self.data.channel_names, rotation=20, ha="right")
@@ -123,7 +123,7 @@ class _ErrorChannelFigure(BaseFigure):
         axes[0].set_title("Cyclic Nyquist conversion")
         interpolation_hamiltonian = (
             self.data.evaluation_interpolation_hamiltonian_maximum_errors.magnitude[
-                attacked_index
+                gauge_transformed_index
             ]
         )
         axes[1].semilogy(
@@ -135,7 +135,7 @@ class _ErrorChannelFigure(BaseFigure):
         axes[1].semilogy(
             ranges,
             self.data.evaluation_truncation_hamiltonian_maximum_errors.magnitude[
-                :, attacked_index
+                :, gauge_transformed_index
             ],
             marker="o",
             label="truncation",
@@ -143,18 +143,18 @@ class _ErrorChannelFigure(BaseFigure):
         axes[1].semilogy(
             ranges,
             self.data.evaluation_total_hamiltonian_maximum_errors.magnitude[
-                :, attacked_index
+                :, gauge_transformed_index
             ],
             marker="o",
             label="total",
         )
         axes[1].set_xlabel("retained support radius S")
         axes[1].set_ylabel("normalized maximum Frobenius error")
-        axes[1].set_title("Attacked Hamiltonian channels")
+        axes[1].set_title("Transformationed Hamiltonian channels")
         axes[1].legend()
         interpolation_spectral = (
             self.data.evaluation_interpolation_spectral_maximum_errors.magnitude[
-                attacked_index
+                gauge_transformed_index
             ]
         )
         axes[2].semilogy(
@@ -166,7 +166,7 @@ class _ErrorChannelFigure(BaseFigure):
         axes[2].semilogy(
             ranges,
             self.data.evaluation_truncation_spectral_maximum_errors.magnitude[
-                :, attacked_index
+                :, gauge_transformed_index
             ],
             marker="o",
             label="truncation",
@@ -174,14 +174,14 @@ class _ErrorChannelFigure(BaseFigure):
         axes[2].semilogy(
             ranges,
             self.data.evaluation_total_spectral_maximum_errors.magnitude[
-                :, attacked_index
+                :, gauge_transformed_index
             ],
             marker="o",
             label="total",
         )
         axes[2].set_xlabel("retained support radius S")
         axes[2].set_ylabel("maximum ordered-spectrum error / $E_{\\mathrm{ref}}$")
-        axes[2].set_title("Attacked spectral channels")
+        axes[2].set_title("Transformationed spectral channels")
         axes[2].legend()
         figure.suptitle("Rank-two composite-band error-channel decomposition")
         return figure
@@ -292,10 +292,10 @@ class _RecoveryControlFigure(BaseFigure):
 
     def draw(self) -> Figure:
         figure, axis = plt.subplots(figsize=(8.0, 5.2), constrained_layout=True)
-        labels = ("attacked", "pointwise", "global unitary")
-        frame_names = ("attack frame", "pointwise frame", "global frame")
+        labels = ("gauge_transformed", "pointwise", "global unitary")
+        frame_names = ("transformation frame", "pointwise frame", "global frame")
         operator_names = (
-            "attack operator",
+            "transformation operator",
             "pointwise operator",
             "global operator",
         )

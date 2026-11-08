@@ -35,11 +35,11 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.verificati
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerification,
     Periodic3DRankNBandEquivalenceHoppingLocalityVerification,
 )
-from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
-    Periodic3DRankNGaugeNormalizationEnum,
-)
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
+)
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
+    Periodic3DRankNGaugeNormalizationEnum,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -78,7 +78,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
                     shell_metric_scale=1.0,
                 ),
             )
-            attacks = (0.0, math.pi / 8.0, math.pi / 4.0)
+            transformations = (0.0, math.pi / 8.0, math.pi / 4.0)
             shell_cap = 9
         else:
             fcc_bonds = (
@@ -128,7 +128,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
                     basis_offsets=((0.0, 0.0, 0.0), (0.25, 0.25, 0.25)),
                 ),
             )
-            attacks = (
+            transformations = (
                 0.0,
                 math.pi / (8.0 * math.sqrt(12.0)),
                 math.pi / (4.0 * math.sqrt(12.0)),
@@ -143,7 +143,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
             evaluation_size=17,
             evaluation_shift=1.0 / 3.0,
             parent_scales=(0.0, 1.0),
-            attack_coefficients=attacks,
+            transformation_coefficients=transformations,
             band_tolerances=(1.0e-3, 1.0e-5),
             gauge_alignments=(
                 Periodic3DRankNGaugeAlignment.IDENTITY,
@@ -280,7 +280,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
                 evaluation_size=request.evaluation_size,
                 evaluation_shift=request.evaluation_shift,
                 parent_scales=request.parent_scales,
-                attack_coefficients=request.attack_coefficients,
+                transformation_coefficients=request.transformation_coefficients,
                 band_tolerances=request.band_tolerances,
                 gauge_alignments=request.gauge_alignments,
                 shell_cap=request.shell_cap,
@@ -305,7 +305,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
                 evaluation_size=request.evaluation_size,
                 evaluation_shift=request.evaluation_shift,
                 parent_scales=request.parent_scales,
-                attack_coefficients=(
+                transformation_coefficients=(
                     0.0,
                     math.pi / (8.0 * math.sqrt(12.0)),
                     math.pi / (4.0 * math.sqrt(12.0)),

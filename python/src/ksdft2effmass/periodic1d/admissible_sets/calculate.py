@@ -89,13 +89,13 @@ class Periodic1DConstrainedAdmissibleSetAnalyzer:
             raise ValueError("upstream composite-band result failed verification")
         baseline = self.request.upstream_result
         reference = self._matrices(baseline.reference_operators)
-        attacked = self._matrices(baseline.attacked_operators)
+        gauge_transformed = self._matrices(baseline.gauge_transformed_operators)
         scale = configuration.loss_energy_scale.magnitude
         spectral = self._spectral_quadratic(
             reference, baseline.construction_parent_spectrum.magnitude[:, :2], scale
         )
         operator = tuple(
-            self._operator_quadratic(reference, attacked, scale, angle)
+            self._operator_quadratic(reference, gauge_transformed, scale, angle)
             for angle in configuration.alignment_angles
         )
         return Periodic1DConstrainedAdmissibleSetCalculationResult(
@@ -228,22 +228,24 @@ class Periodic1DConstrainedAdmissibleSetAnalyzer:
         reference_samples = ReciprocalOperatorSamples1D(
             construction_coordinates, period, baseline.reference_operators
         )
-        attacked_samples = ReciprocalOperatorSamples1D(
-            construction_coordinates, period, baseline.attacked_operators
+        gauge_transformed_samples = ReciprocalOperatorSamples1D(
+            construction_coordinates, period, baseline.gauge_transformed_operators
         )
         transforms = {transform.channel: transform for transform in baseline.transforms}
         reference_conversion = self._ordinary_conversion(
             transforms["reference"], period
         )
-        attacked_conversion = self._ordinary_conversion(transforms["attacked"], period)
+        gauge_transformed_conversion = self._ordinary_conversion(
+            transforms["gauge_transformed"], period
+        )
         evaluation_reference = BlockHoppingInterpolator1D(
             BlockHoppingInterpolationRequest1D(
                 reference_conversion.ordinary, evaluation_coordinates
             )
         ).execute()
-        evaluation_attacked = BlockHoppingInterpolator1D(
+        evaluation_gauge_transformed = BlockHoppingInterpolator1D(
             BlockHoppingInterpolationRequest1D(
-                attacked_conversion.ordinary, evaluation_coordinates
+                gauge_transformed_conversion.ordinary, evaluation_coordinates
             )
         ).execute()
         scale = configuration.loss_energy_scale.magnitude
@@ -280,10 +282,12 @@ class Periodic1DConstrainedAdmissibleSetAnalyzer:
             Periodic1DAdmissibleSetLocalityResult(
                 maximum_range,
                 reference_conversion.conversion_power_per_matrix_dimension,
-                attacked_conversion.conversion_power_per_matrix_dimension,
+                gauge_transformed_conversion.conversion_power_per_matrix_dimension,
                 candidate_conversion.conversion_power_per_matrix_dimension,
                 self._omitted_norm(reference_conversion.ordinary, maximum_range),
-                self._omitted_norm(attacked_conversion.ordinary, maximum_range),
+                self._omitted_norm(
+                    gauge_transformed_conversion.ordinary, maximum_range
+                ),
                 self._omitted_norm(candidate_conversion.ordinary, maximum_range),
             )
             for maximum_range in configuration.locality_ranges
@@ -298,7 +302,9 @@ class Periodic1DConstrainedAdmissibleSetAnalyzer:
                 scale,
             ),
             self._operator_rms(
-                construction_rotated, self._sample_matrices(attacked_samples), scale
+                construction_rotated,
+                self._sample_matrices(gauge_transformed_samples),
+                scale,
             ),
             self._spectral_rms(
                 evaluation_candidate,
@@ -306,7 +312,9 @@ class Periodic1DConstrainedAdmissibleSetAnalyzer:
                 scale,
             ),
             self._operator_rms(
-                evaluation_rotated, self._sample_matrices(evaluation_attacked), scale
+                evaluation_rotated,
+                self._sample_matrices(evaluation_gauge_transformed),
+                scale,
             ),
             locality,
         )

@@ -16,7 +16,7 @@ class GaugeRotation(ABC):
 
     A concrete rotation must bind every parameter needed to define its matrix field.
     The sample coordinates are supplied only when the field is evaluated by a
-    :class:`GaugeAttack`.
+    :class:`GaugeTransformation`.
     """
 
     rank: int
@@ -33,7 +33,7 @@ class GaugeRotation(ABC):
 
 
 @dataclass(frozen=True, slots=True)
-class GaugeAttack:
+class GaugeTransformation:
     """Evaluate and apply a gauge rotation to represented operators."""
 
     rotation: GaugeRotation
@@ -50,7 +50,7 @@ class GaugeAttack:
         ):
             raise ValueError("unitarity_absolute_tolerance must be finite and positive")
 
-    def apply(
+    def transform_operators(
         self,
         *,
         coordinates: Float64Array,
@@ -137,4 +137,4 @@ class GaugeAttack:
             )
 
 
-__all__ = ["GaugeAttack", "GaugeRotation"]
+__all__ = ["GaugeTransformation", "GaugeRotation"]

@@ -61,11 +61,11 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.verificati
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerifier,
     Periodic3DRankNBandEquivalenceHoppingLocalityVerification,
 )
-from ksdft2effmass.periodic3d.rankN.gauge_alignment.attack import (
-    Periodic3DRankNGaugeNormalizationEnum,
-)
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
+)
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
+    Periodic3DRankNGaugeNormalizationEnum,
 )
 from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
@@ -104,7 +104,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
             evaluation_size=17,
             evaluation_shift=1.0 / 3.0,
             parent_scales=(0.0, 1.0),
-            attack_coefficients=(0.0, math.pi / 8.0, math.pi / 4.0),
+            transformation_coefficients=(0.0, math.pi / 8.0, math.pi / 4.0),
             band_tolerances=(1.0e-3, 1.0e-5),
             gauge_alignments=(
                 Periodic3DRankNGaugeAlignment.IDENTITY,
@@ -271,7 +271,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
         assert field_analysis.basis_identifier == fields.basis_identifier
         assert field_analysis.alignments == case_analysis.alignments
         assert not hasattr(field_analysis, "parent_scale")
-        assert not hasattr(field_analysis, "attack_coefficient")
+        assert not hasattr(field_analysis, "transformation_coefficient")
         assert not hasattr(field_analysis, "minimum_sampled_external_gap")
 
     def test_field_analyzer_allows_analysis_without_an_inverse_oracle(self) -> None:

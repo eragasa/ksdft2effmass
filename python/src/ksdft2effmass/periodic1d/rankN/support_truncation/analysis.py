@@ -17,17 +17,17 @@ from ksdft2effmass.analysis.matrix_field.diagnostics import (
 from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
     Periodic1DRankNMatrixComparisonResult,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (  # noqa: E501
+from ksdft2effmass.periodic1d.rankN.fourier_analysis import (  # noqa: E501
     Periodic1DRankNFourierAnalysis,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.interpolation import (  # noqa: E501
-    Periodic1DRankNInterpolationAnalysis,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (  # noqa: E501
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
 )
 from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
     Periodic1DRankNHoppingLocalityAnalysis,
+)
+from ksdft2effmass.periodic1d.rankN.interpolation import (  # noqa: E501
+    Periodic1DRankNInterpolationAnalysis,
 )
 
 from .base import (
@@ -181,7 +181,7 @@ class Periodic1DRankNSupportTruncationAnalyzer(
         request = self._request
         analysis_request = request.analysis_request
         controls = analysis_request.calculation_request.controls
-        model = analysis_request.model
+        parent_model = analysis_request.parent_model
         coordinates = analysis_request.aligned_fields.coordinates
         transform = request.fourier_analysis.transform
         interpolation = request.interpolation_analysis
@@ -246,12 +246,12 @@ class Periodic1DRankNSupportTruncationAnalyzer(
             parseval_denominator = max(
                 construction_weight,
                 tail.omitted_squared_frobenius_weight,
-                model.retained_rank * controls.saturation_denominator_floor,
+                parent_model.band_subspace_rank * controls.saturation_denominator_floor,
             )
             support_results.append(
                 Periodic1DRankNSupportResult(
                     maximum_range=tail.maximum_range,
-                    rank=model.retained_rank,
+                    rank=parent_model.band_subspace_rank,
                     energy_reference=controls.energy_reference,
                     retained_translations=tail.retained_translations,
                     omitted_squared_frobenius_weight=(

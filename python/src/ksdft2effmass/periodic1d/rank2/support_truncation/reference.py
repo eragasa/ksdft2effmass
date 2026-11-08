@@ -14,7 +14,7 @@ from projectkoios.optimization.alignment.closed_loop_polar_transport import (
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_subspace.parent_scale.independent_reference import (  # noqa: E501
     _closed_loop_transport,
     _direct_fourier_blocks,
-    _independent_gauge_attack,
+    _independent_gauge_transformation,
     _IndependentTransport,
     _IndependentTransportFailure,
     _parent_matrices,
@@ -215,7 +215,7 @@ class Periodic1DRank2TruncationIndependentReferenceAnalyzer:
         reference_ranges: tuple[_IndependentReferenceRange, ...],
         amplitude: float,
     ) -> Periodic1DRank2TruncationPoint:
-        construction_comparison = _independent_gauge_attack(
+        construction_comparison = _independent_gauge_transformation(
             construction_coordinates, construction_reference, amplitude
         )
         comparison = self._ordinary_field(
@@ -223,7 +223,7 @@ class Periodic1DRank2TruncationIndependentReferenceAnalyzer:
         )
         comparison_full = self._evaluate(comparison, evaluation_coordinates)
         comparison_eigenvalues = self._eigenvalues(comparison_full)
-        direct = _independent_gauge_attack(
+        direct = _independent_gauge_transformation(
             evaluation_coordinates, reference_full, amplitude
         )
         direct_eigenvalues = self._eigenvalues(direct)

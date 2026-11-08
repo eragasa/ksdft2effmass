@@ -24,7 +24,7 @@ class Periodic3DRankNBlockHoppingParentBuilder:
 
     The parent has an ordered retained sector followed by an equally sized exterior
     sector. ``hopping_scale`` multiplies the first- and second-harmonic hopping
-    blocks but does not alter the onsite block. Gauge attacks and retained-frame
+    blocks but does not alter the onsite block. Gauge transformations and retained-frame
     transformations are deliberately outside this construction.
     """
 

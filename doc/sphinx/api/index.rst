@@ -20,6 +20,8 @@ public compatibility contract.
    band-equivalence-hopping-locality
    gauge-alignment
    frame-transport
+   fourier-analysis
+   interpolation
    hopping-locality
    support-truncation
    research-monograph-campaigns

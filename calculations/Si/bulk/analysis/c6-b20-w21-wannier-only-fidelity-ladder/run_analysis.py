@@ -12,7 +12,10 @@ from types import ModuleType
 import numpy as np
 from numpy.typing import NDArray
 from scipy import constants  # type: ignore[import-untyped]
-from scipy.optimize import linear_sum_assignment, minimize  # type: ignore[import-untyped]
+from scipy.optimize import (  # type: ignore[import-untyped]
+    linear_sum_assignment,
+    minimize,
+)
 
 RealArray = NDArray[np.float64]
 ComplexArray = NDArray[np.complex128]
@@ -86,7 +89,10 @@ def authenticate_sources(request: JsonObject) -> JsonObject:
         observed = identity(path)
         expected_size = int(numeric(declaration["byte_size"], f"{label} size"))
         expected_digest = string(declaration["sha256"], f"{label} digest")
-        if observed["byte_size"] != expected_size or observed["sha256"] != expected_digest:
+        if (
+            observed["byte_size"] != expected_size
+            or observed["sha256"] != expected_digest
+        ):
             raise RuntimeError(f"source identity mismatch: {path}")
         authenticated[label] = observed
     return authenticated
@@ -217,7 +223,9 @@ class CoefficientEvaluator:
 class DenseMeshAnalyzer:
     __slots__ = ("_evaluator", "_model_names")
 
-    def __init__(self, evaluator: CoefficientEvaluator, model_names: tuple[str, ...]) -> None:
+    def __init__(
+        self, evaluator: CoefficientEvaluator, model_names: tuple[str, ...]
+    ) -> None:
         self._evaluator = evaluator
         self._model_names = model_names
 
@@ -243,11 +251,7 @@ class DenseMeshAnalyzer:
                 operator_power[local_index] += float(np.sum(frobenius_squared))
                 operator_maximum[local_index] = max(
                     operator_maximum[local_index],
-                    float(
-                        np.max(
-                            np.sqrt(frobenius_squared / self._evaluator.rank)
-                        )
-                    ),
+                    float(np.max(np.sqrt(frobenius_squared / self._evaluator.rank))),
                 )
                 spectral_difference = eigenvalues[:, model_index] - source_spectrum
                 spectral_values[local_index].append(spectral_difference.reshape(-1))
@@ -500,9 +504,7 @@ class FeatureAnalyzer:
         successful = [outcome for outcome in outcomes if bool(outcome.success)]
         selected = min(successful or outcomes, key=lambda outcome: float(outcome.fun))
         displacement = np.asarray(selected.x, dtype=np.float64)
-        fractional = (
-            start_fractional + self._inverse_reciprocal @ displacement
-        ) % 1.0
+        fractional = (start_fractional + self._inverse_reciprocal @ displacement) % 1.0
         cartesian = closest_gamma_cartesian(fractional, self._reciprocal)
         observed_label = expected_label(cartesian)
         if observed_label != label:
@@ -535,9 +537,9 @@ class FeatureAnalyzer:
                 fractional + self._inverse_reciprocal @ cartesian_displacement
             ) % 1.0
             return float(
-                self._evaluator.one_model_eigenvalues(
-                    model_index, point.reshape(1, 3)
-                )[0, 4]
+                self._evaluator.one_model_eigenvalues(model_index, point.reshape(1, 3))[
+                    0, 4
+                ]
             )
 
         origin = np.zeros(3, dtype=np.float64)
@@ -645,11 +647,16 @@ def build_models(
             raise RuntimeError(f"alpha dimension mismatch for {shell_id}")
         surface = surface_examples[shell_id]
         surface_alpha = np.asarray(
-            [numeric(item, "surface alpha") for item in values(surface["alpha"], "alpha")],
+            [
+                numeric(item, "surface alpha")
+                for item in values(surface["alpha"], "alpha")
+            ],
             dtype=np.float64,
         )
         if not np.array_equal(alpha, surface_alpha):
-            raise RuntimeError(f"frozen alpha differs from retained surface for {shell_id}")
+            raise RuntimeError(
+                f"frozen alpha differs from retained surface for {shell_id}"
+            )
         coefficients = np.zeros_like(blocks_ev)
         previous_radius = -1.0
         for shell_index in range(support_index + 1):
@@ -773,18 +780,16 @@ def main() -> None:
     source_starts = {
         string(mapping(item, "source valley")["label"], "valley label"): np.asarray(
             values(
-                mapping(item, "source valley")[
-                    "fractional_reciprocal_coordinates"
-                ],
+                mapping(item, "source valley")["fractional_reciprocal_coordinates"],
                 "valley coordinates",
             ),
             dtype=np.float64,
         )
         for item in valleys
     }
-    feature_results = FeatureAnalyzer(
-        evaluator, reciprocal, source_starts
-    ).execute(model_names)
+    feature_results = FeatureAnalyzer(evaluator, reciprocal, source_starts).execute(
+        model_names
+    )
 
     exact_operator = exact_operator_records(blocks_ev, models)
     mesh_consistency: JsonObject = {}

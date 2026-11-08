@@ -30,20 +30,35 @@ from ksdft2effmass.numerical_consistency import NumericalConsistency
 from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
     Periodic1DRankNMatrixErrorResult,
 )
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.nyquist import (
+    NyquistModeDispositionEnum,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
+    Periodic1DRankNGaugeAlignmentAnalysisRequest,
+)
 from ksdft2effmass.periodic1d.translations import (
     Periodic1DCyclicRepresentativeInventory,
     Periodic1DOrdinaryTranslationInventory,
 )
 
-from .nyquist import NyquistModeDispositionEnum
-from .request import Periodic1DRankNGaugeAlignmentAnalysisRequest
+from .base import (
+    Periodic1DRankNFourierAnalysisRequestRole,
+    Periodic1DRankNFourierAnalysisRole,
+    Periodic1DRankNFourierAnalyzerRole,
+)
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNFourierAnalysisRequest:
-    """Bind one complete gauge-alignment request for Fourier analysis."""
+class Periodic1DRankNFourierAnalysisRequest(Periodic1DRankNFourierAnalysisRequestRole):
+    """Bind one represented field and periodic mesh for Fourier analysis."""
 
     analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented matrix rank."""
+        return self.analysis_request.band_subspace_rank
 
     def __post_init__(self) -> None:
         if (
@@ -56,7 +71,10 @@ class Periodic1DRankNFourierAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNFourierAnalysis(NumericalConsistency):
+class Periodic1DRankNFourierAnalysis(
+    Periodic1DRankNFourierAnalysisRole,
+    NumericalConsistency,
+):
     """Store Fourier coefficients and their structural diagnostics."""
 
     analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
@@ -77,6 +95,12 @@ class Periodic1DRankNFourierAnalysis(NumericalConsistency):
     ordinary_hermiticity_pass: bool
     twisted_cyclic_hermiticity_defect: float
     twisted_cyclic_hermiticity_pass: bool
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented matrix rank."""
+        return self.analysis_request.band_subspace_rank
 
     def __post_init__(self) -> None:
         if (
@@ -161,7 +185,12 @@ class Periodic1DRankNFourierAnalysis(NumericalConsistency):
 
 
 @final
-class Periodic1DRankNFourierAnalyzer:
+class Periodic1DRankNFourierAnalyzer(
+    Periodic1DRankNFourierAnalyzerRole[
+        Periodic1DRankNFourierAnalysisRequest,
+        Periodic1DRankNFourierAnalysis,
+    ]
+):
     """Transform one represented-operator field and test Fourier identities."""
 
     __slots__ = ("_request",)
@@ -185,7 +214,7 @@ class Periodic1DRankNFourierAnalyzer:
         analysis_request = self._request.analysis_request
         calculation_request = analysis_request.calculation_request
         controls = calculation_request.controls
-        model = analysis_request.model
+        parent_model = analysis_request.parent_model
         coordinates = analysis_request.aligned_fields.coordinates
         represented_operators = analysis_request.aligned_fields.represented_operators
         source = FinitePeriodicMatrixSamples.from_array(
@@ -237,7 +266,9 @@ class Periodic1DRankNFourierAnalyzer:
         hermiticity = FinitePeriodicMatrixHermiticityAnalyzer(
             transform=transform
         ).result()
-        normalization = math.sqrt(model.retained_rank) * controls.energy_reference
+        normalization = (
+            math.sqrt(parent_model.band_subspace_rank) * controls.energy_reference
+        )
         ordinary_hermiticity_defect = (
             hermiticity.ordinary_maximum_frobenius_defect.magnitude / normalization
         )

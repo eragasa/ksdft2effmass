@@ -5,11 +5,12 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import final
 
-from ksdft2effmass.periodic1d.support_truncation.base import (
-    Periodic1DSupportTruncation,
-    Periodic1DSupportTruncationAnalysis,
-    Periodic1DSupportTruncationAnalysisRequest,
-    Periodic1DSupportTruncationAnalyzer,
+from ksdft2effmass.periodic1d.rankN.support_truncation.base import (
+    Periodic1DRankNSupportTruncationAnalysisRequestRole,
+    Periodic1DRankNSupportTruncationAnalysisRole,
+    Periodic1DRankNSupportTruncationAnalyzerRole,
+    Periodic1DRankNSupportTruncationCapability,
+    Periodic1DRankNSupportTruncationValue,
 )
 
 
@@ -24,7 +25,7 @@ class _Periodic1DRank2BandSubspace:
 
 
 class Periodic1DRank2SupportTruncationCapability(
-    Periodic1DSupportTruncation,
+    Periodic1DRankNSupportTruncationCapability,
     ABC,
 ):
     """Identify periodic-1D rank-two support truncation."""
@@ -39,7 +40,7 @@ class Periodic1DRank2SupportTruncationCapability(
 
 class Periodic1DRank2SupportTruncationAnalysisRequestRole(
     _Periodic1DRank2BandSubspace,
-    Periodic1DSupportTruncationAnalysisRequest,
+    Periodic1DRankNSupportTruncationAnalysisRequestRole,
     Periodic1DRank2SupportTruncationCapability,
     ABC,
 ):
@@ -50,7 +51,7 @@ class Periodic1DRank2SupportTruncationAnalysisRequestRole(
 
 class Periodic1DRank2SupportTruncationAnalysisRole(
     _Periodic1DRank2BandSubspace,
-    Periodic1DSupportTruncationAnalysis,
+    Periodic1DRankNSupportTruncationAnalysisRole,
     Periodic1DRank2SupportTruncationCapability,
     ABC,
 ):
@@ -64,7 +65,7 @@ class Periodic1DRank2SupportTruncationAnalyzerRole[
     AnalysisT: Periodic1DRank2SupportTruncationAnalysisRole,
 ](
     _Periodic1DRank2BandSubspace,
-    Periodic1DSupportTruncationAnalyzer[RequestT, AnalysisT],
+    Periodic1DRankNSupportTruncationAnalyzerRole[RequestT, AnalysisT],
     Periodic1DRank2SupportTruncationCapability,
     ABC,
 ):
@@ -85,6 +86,7 @@ class Periodic1DRank2SupportTruncationAction(
 
 class Periodic1DRank2SupportTruncationValue(
     _Periodic1DRank2BandSubspace,
+    Periodic1DRankNSupportTruncationValue,
     Periodic1DRank2SupportTruncationCapability,
     ABC,
 ):

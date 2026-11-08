@@ -14,21 +14,26 @@ from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentGroupIdentity,
     GaugeAlignmentInnerProductConvention,
 )
+from ksdft2effmass.periodic.periodic1d.rankN.models import (
+    Periodic1DRankNParentModel,
+)
 from ksdft2effmass.periodic1d.gauge_alignment import (
     Periodic1DGaugeAlignmentAnalysisRequest,
 )
+from ksdft2effmass.periodic1d.gauge_transformation import (
+    Periodic1DFourierGivensGaugeTransformation,
+)
 
-from ..band_alignment.model import Periodic1DRankNAnalyticCase
 from ..band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
+from ..represented_fields import (
+    Periodic1DRankNRepresentedFieldConstructionRequest,
+    Periodic1DRankNRepresentedFieldConstructor,
+    Periodic1DRankNRepresentedFields,
+)
 from .base import Periodic1DRankNGaugeAlignmentCapability
 from .definition import Periodic1DRankNGaugeAlignment
-from .fields import (
-    Periodic1DRankNGaugeAlignedFields,
-    Periodic1DRankNGaugeAlignmentConstructionRequest,
-    Periodic1DRankNGaugeAlignmentConstructor,
-)
 from .procrustes.result import Periodic1DRankNProcrustesDiagnostics
 from .procrustes.selection import Periodic1DRankNResolvedProcrustesSelection
 from .status import (
@@ -45,10 +50,11 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
     """Bind one qualified gauge alignment and its immutable scientific inputs."""
 
     calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
-    model: Periodic1DRankNAnalyticCase
+    parent_model: Periodic1DRankNParentModel
+    gauge_transformation: Periodic1DFourierGivensGaugeTransformation
     mesh: CenteredUniformMesh
     status: Periodic1DRankNAlignmentStatusResult
-    aligned_fields: Periodic1DRankNGaugeAlignedFields
+    aligned_fields: Periodic1DRankNRepresentedFields
     global_selection: Periodic1DRankNProcrustesDiagnostics
     pointwise_selection: Periodic1DRankNResolvedProcrustesSelection | None = None
 
@@ -58,25 +64,37 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
             is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest
         ):
             raise TypeError("calculation_request must be the exact request record")
-        if type(self.model) is not Periodic1DRankNAnalyticCase:
-            raise TypeError("model must be Periodic1DRankNAnalyticCase")
+        if not isinstance(self.parent_model, Periodic1DRankNParentModel):
+            raise TypeError("parent_model must be Periodic1DRankNParentModel")
+        if (
+            type(self.gauge_transformation)
+            is not Periodic1DFourierGivensGaugeTransformation
+        ):
+            raise TypeError(
+                "gauge_transformation must be "
+                "Periodic1DFourierGivensGaugeTransformation"
+            )
         if type(self.mesh) is not CenteredUniformMesh:
             raise TypeError("mesh must be CenteredUniformMesh")
         if type(self.status) is not Periodic1DRankNAlignmentStatusResult:
             raise TypeError("status must be the exact alignment status record")
-        if type(self.aligned_fields) is not Periodic1DRankNGaugeAlignedFields:
+        if type(self.aligned_fields) is not Periodic1DRankNRepresentedFields:
             raise TypeError(
                 "aligned_fields must be the exact gauge-aligned field record"
             )
         if type(self.global_selection) is not Periodic1DRankNProcrustesDiagnostics:
             raise TypeError("global_selection must be the exact Procrustes record")
         calculation_request = self.calculation_request
-        rank = self.model.retained_rank
+        rank = self.parent_model.band_subspace_rank
         if (
             rank != calculation_request.retained_rank
-            or self.model.circuit_depth != calculation_request.circuit_depth
+            or self.gauge_transformation.retained_rank != rank
+            or self.gauge_transformation.circuit_depth
+            != calculation_request.circuit_depth
         ):
-            raise ValueError("model rank and depth must match the calculation request")
+            raise ValueError(
+                "parent and transformation must match the calculation request"
+            )
         if self.mesh.dimension != 1 or self.mesh.offsets != (0.0,):
             raise ValueError("analysis requires the unshifted periodic-1D mesh")
         coordinates = self.aligned_fields.coordinates
@@ -94,7 +112,7 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
             raise ValueError("represented operators must have shape (M, r, r)")
         if self.aligned_fields.frames.shape != (
             self.mesh.size,
-            self.model.ambient_dimension,
+            self.parent_model.ambient_dimension,
             rank,
         ):
             raise ValueError("aligned frames must have shape (M, 2r, r)")
@@ -134,10 +152,11 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
             raise ValueError(
                 "pointwise_selection is reserved for pointwise-unitary alignment"
             )
-        expected_fields = Periodic1DRankNGaugeAlignmentConstructor(
-            Periodic1DRankNGaugeAlignmentConstructionRequest(
+        expected_fields = Periodic1DRankNRepresentedFieldConstructor(
+            Periodic1DRankNRepresentedFieldConstructionRequest(
                 calculation_request=calculation_request,
-                model=self.model,
+                parent_model=self.parent_model,
+                gauge_transformation=self.gauge_transformation,
                 gauge_alignment=self.status.gauge_alignment,
                 coordinates=coordinates,
                 global_selection=self.global_selection,
@@ -176,7 +195,7 @@ class Periodic1DRankNGaugeAlignmentAnalysisRequest(
     @property
     def analysis_identity(self) -> GaugeAlignmentAnalysisIdentity:
         """Return the finite higher-rank alignment identity."""
-        rank = self.model.retained_rank
+        rank = self.parent_model.band_subspace_rank
         return GaugeAlignmentAnalysisIdentity(
             gauge_group_identity=GaugeAlignmentGroupIdentity.unitary(
                 represented_dimension=rank

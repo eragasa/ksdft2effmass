@@ -10,7 +10,9 @@ import pytest
 
 from ksdft2effmass.models import Model
 from ksdft2effmass.periodic.models import PeriodicModel, PeriodicModelRole
+from ksdft2effmass.periodic.operators import LabeledComponentBasisCoordinate
 from ksdft2effmass.periodic.periodic1d.models import Periodic1DModel
+from ksdft2effmass.periodic.periodic1d.operators import Periodic1DBasisIdentity
 from ksdft2effmass.periodic.periodic1d.rank2.models import Periodic1DRank2Model
 from ksdft2effmass.periodic.periodic1d.rankN.models import Periodic1DRankNModel
 from ksdft2effmass.periodic.periodic2d.models import Periodic2DModel
@@ -48,6 +50,17 @@ class TestPeriodicRankModel:
         """Represent one synthetic rank-two control model."""
 
         @property
+        def basis_identity(self) -> Periodic1DBasisIdentity:
+            """Return the explicit two-coordinate test basis."""
+            return Periodic1DBasisIdentity(
+                display_identifier="rank2-control-basis",
+                coordinates=tuple(
+                    LabeledComponentBasisCoordinate(label=f"component-{index}")
+                    for index in range(2)
+                ),
+            )
+
+        @property
         def model_id(self) -> str:
             """Return the test-owned model identity."""
             return "test.periodic1d.rank2.control"
@@ -62,6 +75,17 @@ class TestPeriodicRankModel:
         """Represent one synthetic arbitrary-rank control model."""
 
         retained_rank: int
+
+        @property
+        def basis_identity(self) -> Periodic1DBasisIdentity:
+            """Return the explicit runtime-rank test basis."""
+            return Periodic1DBasisIdentity(
+                display_identifier=f"rank{self.retained_rank}-control-basis",
+                coordinates=tuple(
+                    LabeledComponentBasisCoordinate(label=f"component-{index}")
+                    for index in range(self.retained_rank)
+                ),
+            )
 
         @property
         def model_id(self) -> str:
@@ -81,7 +105,7 @@ class TestPeriodicRankModel:
     def test__PeriodicRankModel__inheritance__orders_domain_dimension_and_rank(
         self,
     ) -> None:
-        """Every rank owner inherits only through its matching dimension owner."""
+        """Order each owner through its dimension and finite-rank refinements."""
         rank_owners = (
             (Periodic1DRank1Model, Periodic1DModel),
             (Periodic1DRank2Model, Periodic1DModel),
@@ -97,6 +121,9 @@ class TestPeriodicRankModel:
         assert all(issubclass(owner, dimension) for owner, dimension in rank_owners)
         assert all(issubclass(owner, PeriodicModel) for owner, _ in rank_owners)
         assert all(issubclass(owner, Model) for owner, _ in rank_owners)
+        assert issubclass(Periodic1DRank2Model, Periodic1DRankNModel)
+        assert issubclass(Periodic2DRank2Model, Periodic2DRankNModel)
+        assert issubclass(Periodic3DRank2Model, Periodic3DRankNModel)
 
     def test__PeriodicRankModel__class__nominal_owners_remain_abstract(self) -> None:
         """Nominal rank owners cannot instantiate without model identity and role."""
@@ -117,7 +144,7 @@ class TestPeriodicRankModel:
     def test__PeriodicRankModel__property__fixed_and_arbitrary_ranks_are_distinct(
         self,
     ) -> None:
-        """Fixed-rank siblings and a runtime rank-N case report exact ranks."""
+        """Fixed-rank refinements and a runtime finite-rank case report exact ranks."""
         rank1 = self.Rank1Control()
         rank2 = self.Rank2Control()
         rank_n = self.RankNControl(retained_rank=5)
@@ -129,8 +156,10 @@ class TestPeriodicRankModel:
             int,
             int,
         )
-        assert not isinstance(rank2, Periodic1DRankNModel)
+        assert isinstance(rank2, Periodic1DRankNModel)
         assert not isinstance(rank_n, Periodic1DRank2Model)
+        assert rank2.basis_identity.dimension == 2
+        assert rank_n.basis_identity.dimension == 5
 
     def test__PeriodicRankModel__module__each_owner_resides_with_its_rank(self) -> None:
         """Module identities expose the complete dimension and rank ownership path."""

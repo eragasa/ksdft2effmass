@@ -117,7 +117,7 @@ The current development surfaces include:
 
 - `Periodic3DRankNWannierFieldSource`;
 - `Periodic3DRankNWannierFieldProducer`;
-- `Periodic3DRankNGivensGaugeAttack`; and
+- `Periodic3DRankNGivensGaugeTransformation`; and
 - `Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer`.
 
 Their names and contracts are not frozen by this README. A retained calculation request

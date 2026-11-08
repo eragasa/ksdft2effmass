@@ -14,6 +14,9 @@ Shared scientific identities
 .. currentmodule:: ksdft2effmass.gauge_alignment
 
 .. autoclass:: GaugeAlignment
+.. autoclass:: PeriodicGaugeAlignment
+.. autoclass:: PeriodicRankNGaugeAlignmentCapability
+   :members:
 .. autoclass:: GaugeAlignmentGroupFamily
    :members:
 .. autoclass:: GaugeAlignmentGroupIdentity
@@ -25,8 +28,35 @@ Shared scientific identities
 .. autoclass:: GaugeAlignmentAnalysisIdentity
    :members:
 
+Finite-rank gauge transformations
+---------------------------------
+
+Generic Givens-circuit mechanics own only the ordered rotation structure, supplied
+angle samples, and explicit right actions. Periodic one-dimensional Fourier angle
+fields supply coefficients independently of any validation-study inventory.
+
+.. currentmodule:: ksdft2effmass.gauge_transformation
+
+.. autoclass:: FiniteRankGivensRotation
+   :members:
+.. autoclass:: FiniteRankGivensLayer
+   :members:
+.. autoclass:: FiniteRankGivensCircuit
+   :members:
+.. autoclass:: FiniteRankGivensCircuitTransformationConstructor
+   :members:
+.. autoclass:: SampledFiniteRankGaugeTransformation
+   :members:
+
+.. currentmodule:: ksdft2effmass.periodic1d.gauge_transformation
+
+.. autoclass:: Periodic1DFourierGivensGaugeTransformation
+   :members:
+
 Analysis roles
 --------------
+
+.. currentmodule:: ksdft2effmass.gauge_alignment
 
 .. autoclass:: GaugeAlignmentAnalysisRequest
    :members:
@@ -66,18 +96,18 @@ Rank-first Periodic1D study dispatch
 .. autoclass:: Periodic1DRankNAlignmentStudyAnalyzer
    :members:
 
-Periodic three-dimensional rank-N synthetic attack
----------------------------------------------------
+Periodic three-dimensional rank-N synthetic transformation
+-----------------------------------------------------------
 
-The synthetic attack is independent of the parent Hamiltonian. It can act on any
-admitted periodic-3D frame and represented-operator fields with matching reciprocal
-sample shape and retained rank.
+The synthetic gauge transformation is independent of the parent Hamiltonian. It can
+act on any admitted periodic-3D frame and represented-operator fields with matching
+reciprocal sample shape and retained rank.
 
 .. currentmodule:: ksdft2effmass.periodic3d.rankN.gauge_alignment
 
 .. autoclass:: Periodic3DRankNGaugeNormalizationEnum
    :members:
-.. autoclass:: Periodic3DRankNGivensGaugeAttack
+.. autoclass:: Periodic3DRankNGivensGaugeTransformation
    :members:
 
 Rank-one applicability

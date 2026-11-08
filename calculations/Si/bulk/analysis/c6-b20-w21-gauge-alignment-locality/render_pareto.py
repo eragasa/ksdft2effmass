@@ -72,7 +72,9 @@ def pareto_mask(cost: RealArray, error: RealArray) -> NDArray[np.bool_]:
 def main() -> None:
     for path in (PDF, PNG, MANIFEST):
         if path.exists():
-            raise FileExistsError(f"refusing to overwrite retained Pareto artifact: {path}")
+            raise FileExistsError(
+                f"refusing to overwrite retained Pareto artifact: {path}"
+            )
     result_value: JsonValue = json.loads(RESULT.read_text(encoding="utf-8"))
     result = mapping(result_value, "result")
     if result.get("status") != STATUS:
@@ -96,11 +98,13 @@ def main() -> None:
     figure, axes = plt.subplots(2, 2, figsize=(11.5, 8.2), sharex=True)
     for axis, (key, title) in zip(axes.flat, channels, strict=True):
         first_shells = [
-            mapping(item, "shell")
-            for item in values(alignments[0]["shells"], "shells")
+            mapping(item, "shell") for item in values(alignments[0]["shells"], "shells")
         ]
         cost = np.asarray(
-            [numeric(shell["retained_block_count"], "block count") for shell in first_shells],
+            [
+                numeric(shell["retained_block_count"], "block count")
+                for shell in first_shells
+            ],
             dtype=np.float64,
         )
         reference = np.asarray(
@@ -137,8 +141,7 @@ def main() -> None:
             name = string(alignment["alignment"], "alignment")
             label, linestyle, marker = styles[name]
             shells = [
-                mapping(item, "shell")
-                for item in values(alignment["shells"], "shells")
+                mapping(item, "shell") for item in values(alignment["shells"], "shells")
             ]
             comparison = np.asarray(
                 [

@@ -953,7 +953,8 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             or model.retained_rank not in request.retained_ranks
             or model.circuit_depth not in request.circuit_depths
             or model.parent_scale not in request.parent_scales
-            or model.attack_coefficient not in request.attack_coefficients
+            or model.transformation_coefficient
+            not in request.transformation_coefficients
         ):
             raise ValueError("model must be one exact expansion of the request")
         self._request = request
@@ -1015,7 +1016,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             retained_rank=self._model.retained_rank,
             circuit_depth=self._model.circuit_depth,
             parent_scale=self._model.parent_scale,
-            attack_coefficient=self._model.attack_coefficient,
+            transformation_coefficient=self._model.transformation_coefficient,
             minimum_sampled_external_gap=minimum_gap,
             alignments=field_analysis.alignments,
         )

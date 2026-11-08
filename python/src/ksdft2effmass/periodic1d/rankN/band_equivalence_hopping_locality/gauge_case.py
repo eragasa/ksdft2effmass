@@ -7,13 +7,9 @@ from typing import final
 from ksdft2effmass.periodic1d.gauge_alignment import (
     Periodic1DGaugeAlignmentAnalyzer,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (
+from ksdft2effmass.periodic1d.rankN.fourier_analysis import (
     Periodic1DRankNFourierAnalysisRequest,
     Periodic1DRankNFourierAnalyzer,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.interpolation import (
-    Periodic1DRankNInterpolationAnalysisRequest,
-    Periodic1DRankNInterpolationAnalyzer,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.recovery import (
     Periodic1DRankNRecoveryAnalysisRequest,
@@ -25,6 +21,10 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
 from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
     Periodic1DRankNHoppingLocalityAnalysisRequest,
     Periodic1DRankNHoppingLocalityAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.interpolation import (
+    Periodic1DRankNInterpolationAnalysisRequest,
+    Periodic1DRankNInterpolationAnalyzer,
 )
 from ksdft2effmass.periodic1d.rankN.support_truncation.analysis import (
     Periodic1DRankNSupportTruncationAnalysisRequest,

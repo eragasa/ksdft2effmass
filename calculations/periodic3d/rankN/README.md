@@ -14,6 +14,12 @@ Fourier convention, locality, support, and bounded aggregate software verificati
 Visualization, resources for an execution-scale study, lifecycle/authentication, and
 retained execution remain unselected.
 
+The source hierarchy is capability-first: dimension-neutral periodic finite-rank owners
+are refined by periodic-3D rank-N owners, and applicable periodic-3D rank-two operation
+owners refine those rank-N owners while fixing rank two. This does not admit rank two to
+the calculation-owned `3`, `4`, and `8` study inventory or transfer any rank-two
+calculation result, threshold, lifecycle, or evidence identity.
+
 ## Analysis order
 
 This fixed-geometry family follows the multidimensional higher-rank stage of the shared

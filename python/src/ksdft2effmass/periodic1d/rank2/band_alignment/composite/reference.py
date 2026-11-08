@@ -62,7 +62,7 @@ class _CompositeReferenceValues:
     construction_spectrum: Float64Array
     evaluation_spectrum: Float64Array
     reference_frames: Complex128Array
-    attacked_frames: Complex128Array
+    gauge_transformed_frames: Complex128Array
     pointwise_frames: Complex128Array
     global_frames: Complex128Array
     pointwise_rotations: Complex128Array
@@ -70,7 +70,7 @@ class _CompositeReferenceValues:
     pointwise_procrustes: _ProcrustesReferenceValues
     global_procrustes: _ProcrustesReferenceValues
     reference_operators: Complex128Array
-    attacked_operators: Complex128Array
+    gauge_transformed_operators: Complex128Array
     pointwise_operators: Complex128Array
     global_operators: Complex128Array
     representatives: tuple[int, ...]
@@ -131,12 +131,12 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
     DIAGNOSTIC_NAMES = (
         "minimum_sampled_gap",
         "minimum_overlap_singular_value",
-        "attack_frame_maximum_frobenius_defect",
+        "transformation_frame_maximum_frobenius_defect",
         "pointwise_frame_maximum_frobenius_defect",
         "pointwise_projector_maximum_frobenius_defect",
         "pointwise_rotation_recovery_maximum_frobenius_defect",
         "global_frame_maximum_frobenius_defect",
-        "attacked_operator_maximum_frobenius_defect",
+        "gauge_transformed_operator_maximum_frobenius_defect",
         "pointwise_operator_maximum_frobenius_defect",
         "global_operator_maximum_frobenius_defect",
     )
@@ -212,7 +212,11 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
         )
         frame_fields = (
             ("reference_frames", result.reference_frames, expected.reference_frames),
-            ("attacked_frames", result.attacked_frames, expected.attacked_frames),
+            (
+                "gauge_transformed_frames",
+                result.gauge_transformed_frames,
+                expected.gauge_transformed_frames,
+            ),
             (
                 "pointwise_aligned_frames",
                 result.pointwise_aligned_frames,
@@ -263,9 +267,9 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
                 expected.reference_operators,
             ),
             (
-                "attacked_operators",
-                result.attacked_operators,
-                expected.attacked_operators,
+                "gauge_transformed_operators",
+                result.gauge_transformed_operators,
+                expected.gauge_transformed_operators,
             ),
             (
                 "pointwise_aligned_operators",
@@ -407,12 +411,12 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
             [
                 result.diagnostics.minimum_sampled_gap.magnitude,
                 result.diagnostics.minimum_overlap_singular_value,
-                result.diagnostics.attack_frame_maximum_frobenius_defect,
+                result.diagnostics.transformation_frame_maximum_frobenius_defect,
                 result.diagnostics.pointwise_frame_maximum_frobenius_defect,
                 result.diagnostics.pointwise_projector_maximum_frobenius_defect,
                 result.diagnostics.pointwise_rotation_recovery_maximum_frobenius_defect,
                 result.diagnostics.global_frame_maximum_frobenius_defect,
-                result.diagnostics.attacked_operator_maximum_frobenius_defect.magnitude,
+                result.diagnostics.gauge_transformed_operator_maximum_frobenius_defect.magnitude,
                 result.diagnostics.pointwise_operator_maximum_frobenius_defect.magnitude,
                 result.diagnostics.global_operator_maximum_frobenius_defect.magnitude,
             ],
@@ -643,31 +647,39 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
         )
         evaluation_spectrum, _, _ = self._parent_values(evaluation_coordinates)
         reference, minimum_overlap, closure_phases = self._transport(raw_frames)
-        attacks = self._attack_rotations(construction_coordinates)
-        attacked = np.einsum("kai,kij->kaj", reference, attacks, optimize=True)
-        cross = np.einsum("kai,kaj->kij", attacked.conj(), reference, optimize=True)
+        transformations = self._transformation_rotations(construction_coordinates)
+        gauge_transformed = np.einsum(
+            "kai,kij->kaj", reference, transformations, optimize=True
+        )
+        cross = np.einsum(
+            "kai,kaj->kij", gauge_transformed.conj(), reference, optimize=True
+        )
         pointwise_rotations = np.asarray(cross, dtype=np.complex128)
         pointwise_procrustes = self._procrustes_values(
-            source=attacked,
+            source=gauge_transformed,
             target=reference,
             crosses=cross,
             right_unitaries=pointwise_rotations,
         )
         pointwise = np.einsum(
-            "kai,kij->kaj", attacked, pointwise_rotations, optimize=True
+            "kai,kij->kaj", gauge_transformed, pointwise_rotations, optimize=True
         )
-        stacked_attacked = attacked.reshape(-1, configuration.retained_rank)
+        stacked_gauge_transformed = gauge_transformed.reshape(
+            -1, configuration.retained_rank
+        )
         stacked_reference = reference.reshape(-1, configuration.retained_rank)
-        global_cross = (stacked_attacked.conj().T @ stacked_reference)[None, ...]
+        global_cross = (stacked_gauge_transformed.conj().T @ stacked_reference)[
+            None, ...
+        ]
         global_rotation = self._polar_factors(global_cross)[0]
         global_procrustes = self._procrustes_values(
-            source=stacked_attacked[None, ...],
+            source=stacked_gauge_transformed[None, ...],
             target=stacked_reference[None, ...],
             crosses=global_cross,
             right_unitaries=global_rotation[None, ...],
         )
         global_frames = np.einsum(
-            "kai,ij->kaj", attacked, global_rotation, optimize=True
+            "kai,ij->kaj", gauge_transformed, global_rotation, optimize=True
         )
         operators = np.asarray(
             [
@@ -678,7 +690,7 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
                     frames,
                     optimize=True,
                 )
-                for frames in (reference, attacked, pointwise, global_frames)
+                for frames in (reference, gauge_transformed, pointwise, global_frames)
             ],
             dtype=np.complex128,
         )
@@ -736,20 +748,20 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
             ],
             dtype=np.complex128,
         )
-        evaluation_attacks = self._attack_rotations(
+        evaluation_transformations = self._transformation_rotations(
             evaluation_coordinates,
         )
-        direct_attacked = np.einsum(
+        direct_gauge_transformed = np.einsum(
             "kai,kab,kbj->kij",
-            evaluation_attacks.conj(),
+            evaluation_transformations.conj(),
             complete_evaluation[0],
-            evaluation_attacks,
+            evaluation_transformations,
             optimize=True,
         )
         direct_evaluation = np.asarray(
             (
                 complete_evaluation[0],
-                direct_attacked,
+                direct_gauge_transformed,
                 complete_evaluation[0],
             ),
             dtype=np.complex128,
@@ -831,15 +843,20 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
                     truncation_errors[1],
                     total_errors[1],
                 )
-        attack_frame_defect = self._maximum_defect(reference, attacked)
+        transformation_frame_defect = self._maximum_defect(reference, gauge_transformed)
         pointwise_frame_defect = self._maximum_defect(reference, pointwise)
         pointwise_projector_defect = self._maximum_defect(
             np.einsum("kai,kbi->kab", reference, reference.conj(), optimize=True),
-            np.einsum("kai,kbi->kab", attacked, attacked.conj(), optimize=True),
+            np.einsum(
+                "kai,kbi->kab",
+                gauge_transformed,
+                gauge_transformed.conj(),
+                optimize=True,
+            ),
         )
         recovery_defect = self._maximum_defect(
             pointwise_rotations,
-            attacks.conj().transpose(0, 2, 1),
+            transformations.conj().transpose(0, 2, 1),
         )
         global_frame_defect = self._maximum_defect(reference, global_frames)
         gaps = np.concatenate(
@@ -852,7 +869,7 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
             [
                 float(np.min(gaps)),
                 minimum_overlap,
-                attack_frame_defect,
+                transformation_frame_defect,
                 pointwise_frame_defect,
                 pointwise_projector_defect,
                 recovery_defect,
@@ -867,7 +884,7 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
             construction_spectrum=construction_spectrum,
             evaluation_spectrum=evaluation_spectrum,
             reference_frames=reference,
-            attacked_frames=attacked,
+            gauge_transformed_frames=gauge_transformed,
             pointwise_frames=pointwise,
             global_frames=global_frames,
             pointwise_rotations=pointwise_rotations,
@@ -875,7 +892,7 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
             pointwise_procrustes=pointwise_procrustes,
             global_procrustes=global_procrustes,
             reference_operators=operators[0],
-            attacked_operators=operators[1],
+            gauge_transformed_operators=operators[1],
             pointwise_operators=operators[2],
             global_operators=operators[3],
             representatives=representatives,
@@ -968,18 +985,18 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
             phases,
         )
 
-    def _attack_rotations(
+    def _transformation_rotations(
         self,
         coordinates: Float64Array,
     ) -> Complex128Array:
         configuration = self.request.result.configuration
         angle = np.full(
             coordinates.shape,
-            configuration.attack_constant_angle,
+            configuration.transformation_constant_angle,
             dtype=np.float64,
         )
         for harmonic, coefficient in enumerate(
-            configuration.attack_sine_coefficients, start=1
+            configuration.transformation_sine_coefficients, start=1
         ):
             angle += coefficient * np.sin(2.0 * np.pi * harmonic * coordinates)
         rotations = np.empty((coordinates.size, 2, 2), dtype=np.complex128)
@@ -1138,10 +1155,10 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
                 VectorQuantity(
                     np.asarray(
                         [
-                            result.diagnostics.attack_frame_maximum_frobenius_defect,
+                            result.diagnostics.transformation_frame_maximum_frobenius_defect,
                             result.diagnostics.pointwise_frame_maximum_frobenius_defect,
                             result.diagnostics.global_frame_maximum_frobenius_defect,
-                            result.diagnostics.attacked_operator_maximum_frobenius_defect.magnitude,
+                            result.diagnostics.gauge_transformed_operator_maximum_frobenius_defect.magnitude,
                             result.diagnostics.pointwise_operator_maximum_frobenius_defect.magnitude,
                             result.diagnostics.global_operator_maximum_frobenius_defect.magnitude,
                         ],
@@ -1233,10 +1250,10 @@ class Periodic1DCompositeBandAlignmentIndependentReferenceAnalyzer:
             and data.transform_representatives == result.transforms[0].representatives
             and data.diagnostic_names
             == (
-                "attack frame",
+                "transformation frame",
                 "pointwise frame",
                 "global frame",
-                "attack operator",
+                "transformation operator",
                 "pointwise operator",
                 "global operator",
             )

@@ -23,9 +23,7 @@ ROOT = Path(__file__).resolve().parent
 REPOSITORY = ROOT.parents[4]
 REQUEST = ROOT / "request.json"
 OUTPUT = ROOT / "result.json"
-STATUS = (
-    "post-hoc-refitted-ws-producer-checked-development-not-independently-verified"
-)
+STATUS = "post-hoc-refitted-ws-producer-checked-development-not-independently-verified"
 WEIGHTS = (
     0.0,
     0.001,
@@ -102,7 +100,10 @@ def authenticate_sources(request: JsonObject) -> JsonObject:
         observed = identity(path)
         expected_size = int(numeric(declaration["byte_size"], f"{label} size"))
         expected_digest = string(declaration["sha256"], f"{label} digest")
-        if observed["byte_size"] != expected_size or observed["sha256"] != expected_digest:
+        if (
+            observed["byte_size"] != expected_size
+            or observed["sha256"] != expected_digest
+        ):
             raise RuntimeError(f"source identity mismatch: {path}")
         authenticated[label] = observed
     return authenticated
@@ -170,9 +171,7 @@ class ShellScaleLoss:
         self._rank = int(full_matrices.shape[-1])
 
     def evaluate(self, alpha: RealArray) -> LossEvaluation:
-        candidate = np.einsum(
-            "s,skij->kij", alpha, self._shell_matrices, optimize=True
-        )
+        candidate = np.einsum("s,skij->kij", alpha, self._shell_matrices, optimize=True)
         difference = candidate - self._full_matrices
         frobenius = np.linalg.norm(difference, axis=(-2, -1))
         operator_squared = float(np.mean(np.square(frobenius)) / self._rank)
@@ -204,9 +203,7 @@ class ShellScaleLoss:
         )
         spectral_gradient = np.asarray(
             2.0
-            * np.einsum(
-                "kn,skn->s", spectral_difference, derivatives, optimize=True
-            )
+            * np.einsum("kn,skn->s", spectral_difference, derivatives, optimize=True)
             / spectral_difference.size,
             dtype=np.float64,
         )
@@ -313,9 +310,7 @@ def finite_difference_gradient_check(
         "objective": value,
         "weight": weight,
         "maximum_absolute_gradient_difference": float(np.max(np.abs(difference))),
-        "maximum_scaled_gradient_difference": float(
-            np.max(np.abs(difference)) / scale
-        ),
+        "maximum_scaled_gradient_difference": float(np.max(np.abs(difference)) / scale),
     }
 
 
@@ -448,8 +443,10 @@ def main() -> None:
             best_alpha = previous_best
             for start_id, initial in starts:
                 result = minimize(
-                    fun=lambda alpha, bound_weight=weight: loss.objective(
-                        np.asarray(alpha, dtype=np.float64), bound_weight
+                    fun=lambda alpha, bound_weight=weight, bound_loss=loss: (
+                        bound_loss.objective(
+                            np.asarray(alpha, dtype=np.float64), bound_weight
+                        )
                     ),
                     x0=initial,
                     method="L-BFGS-B",

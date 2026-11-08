@@ -168,14 +168,14 @@ class _BandAndAlignmentFigure(BaseFigure):
         figure, axes = plt.subplots(1, 3, figsize=(14.0, 4.2), constrained_layout=True)
         axes[0].plot(self.data.amplitudes, self.data.band_defects, "o-")
         axes[0].set(
-            xlabel="gauge-attack amplitude / rad",
+            xlabel="gauge-transformation amplitude / rad",
             ylabel="maximum sorted-band defect / E_ref",
             yscale="symlog",
             title="Retained-band equivalence",
         )
         axes[1].plot(self.data.amplitudes, self.data.correlations, "o-")
         axes[1].set(
-            xlabel="gauge-attack amplitude / rad",
+            xlabel="gauge-transformation amplitude / rad",
             ylabel="maximum correlation",
             title="Restricted global alignment",
         )
@@ -192,7 +192,7 @@ class _BandAndAlignmentFigure(BaseFigure):
             label="exact-spectrum joint threshold",
         )
         axes[2].set(
-            xlabel="gauge-attack amplitude / rad",
+            xlabel="gauge-transformation amplitude / rad",
             ylabel="normalized squared loss",
             title="Separated decision thresholds",
         )
@@ -208,7 +208,7 @@ class _LocalityFigure(BaseFigure):
     data: Periodic1DRank2VisualizationData
 
     def draw(self) -> Figure:
-        """Plot reference and attacked ordinary-lattice hopping power."""
+        """Plot reference and gauge_transformed ordinary-lattice hopping power."""
         figure, axes = plt.subplots(1, 2, figsize=(11.0, 4.2), constrained_layout=True)
         for amplitude, reference, comparison in zip(
             self.data.amplitudes,
@@ -229,7 +229,7 @@ class _LocalityFigure(BaseFigure):
                 label=f"a={amplitude:.3f}",
             )
         axes[0].set(title="Reference represented operator")
-        axes[1].set(title="Gauge-attacked represented operator")
+        axes[1].set(title="Gauge-gauge_transformed represented operator")
         for axis in axes:
             axis.set(
                 xlabel="ordinary displacement",
@@ -270,7 +270,7 @@ class _NumericalResidualFigure(BaseFigure):
         axes[1].set(title="Parseval defects")
         for axis in axes:
             axis.set(
-                xlabel="gauge-attack amplitude / rad",
+                xlabel="gauge-transformation amplitude / rad",
                 ylabel="absolute numerical defect",
                 yscale="symlog",
             )
@@ -300,7 +300,7 @@ def _landscape(
         ),
     )
     axis.set(
-        xlabel="gauge-attack amplitude / rad",
+        xlabel="gauge-transformation amplitude / rad",
         ylabel="parent hopping scale",
         title=title,
     )
@@ -327,7 +327,7 @@ class _FamilyLocalityLandscapeFigure(BaseFigure):
     data: Periodic1DRank2ParentFamilyVisualizationData
 
     def draw(self) -> Figure:
-        """Plot attacked nonzero hopping weight over the bounded family."""
+        """Plot gauge_transformed nonzero hopping weight over the bounded family."""
         return _landscape(
             self.data,
             self.data.comparison_nonzero_weights,

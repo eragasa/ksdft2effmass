@@ -30,7 +30,9 @@ pytestmark = pytest.mark.software_verification
 class TestDiamondSp3sStarModel:
     """Own Slater--Koster signs, phases, Hermiticity, and cubic symmetry."""
 
-    def test_basis_identity__model_order__uses_slater_koster_coordinates(self) -> None:
+    def test_basis_identity__model_order__uses_slater_koster_coordinates(
+        self,
+    ) -> None:
         basis = self._model().basis_identity
 
         assert basis.family is PeriodicBasisFamily.SLATER_KOSTER_ORBITAL

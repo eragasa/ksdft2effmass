@@ -4,24 +4,25 @@ from __future__ import annotations
 
 from abc import ABC
 
-from ksdft2effmass.periodic.periodic1d.models.blochhopping import (
-    Periodic1DBlochHoppingModel,
-)
 from ksdft2effmass.periodic.periodic1d.rank2.models.base import Periodic1DRank2Model
+from ksdft2effmass.periodic.periodic1d.rankN.models.blochhopping import (
+    Periodic1DRankNBlochHoppingModel,
+)
 
 
 class Periodic1DRank2BlochHoppingModel(
     Periodic1DRank2Model,
-    Periodic1DBlochHoppingModel,
+    Periodic1DRankNBlochHoppingModel,
     ABC,
 ):
     """Identify periodic-1D models with retained dimension two.
 
     Notes
     -----
-    Rank two remains a sibling of the arbitrary finite-rank owner. Concrete rank-two
-    models retain responsibility for coefficient, basis, and scientific admissibility
-    rules beyond this exact retained-space dimension.
+    This owner refines the arbitrary finite-rank Bloch-hopping contract rather than
+    duplicating it as a sibling. Concrete rank-two models retain responsibility for
+    coefficient, structured-basis, and scientific admissibility rules beyond this exact
+    retained-space dimension.
 
     """
 

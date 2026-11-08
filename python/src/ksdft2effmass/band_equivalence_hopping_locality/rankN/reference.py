@@ -37,7 +37,7 @@ class _IndependentPeriodicRankNCase:
     """Reconstruct selected formulas without invoking maintained model owners."""
 
     __slots__ = (
-        "_attack_coefficient",
+        "_transformation_coefficient",
         "_axis_maximum_normalization",
         "_circuit_depth",
         "_parent_scale",
@@ -55,7 +55,7 @@ class _IndependentPeriodicRankNCase:
         retained_rank: int,
         circuit_depth: int,
         parent_scale: float,
-        attack_coefficient: float,
+        transformation_coefficient: float,
     ) -> None:
         self._spatial_dimension = spatial_dimension
         self._positive_bonds = positive_bonds
@@ -63,7 +63,7 @@ class _IndependentPeriodicRankNCase:
         self._rank = retained_rank
         self._circuit_depth = circuit_depth
         self._parent_scale = parent_scale
-        self._attack_coefficient = attack_coefficient
+        self._transformation_coefficient = transformation_coefficient
 
     def coordinates(self, size: int, offset: float) -> Float64Array:
         axis = -0.5 + (np.arange(size, dtype=np.float64) + offset) / float(size)
@@ -148,7 +148,7 @@ class _IndependentPeriodicRankNCase:
                 pair_coordinate = (2.0 * pair_index - self._rank) / (self._rank - 1.0)
                 weight = (1.0 + 0.15 * pair_coordinate) / 1.15
                 angle = (
-                    self._attack_coefficient
+                    self._transformation_coefficient
                     * (-1.0) ** (layer_index + pair_index)
                     * weight
                     * scalar
@@ -199,7 +199,7 @@ class _IndependentPeriodicRankNCase:
         construction_gauge = self.gauges(construction_coordinates)
         evaluation_gauge = self.gauges(evaluation_coordinates)
         exact_evaluation = self.exact_operators(evaluation_coordinates)
-        attacked_evaluation = np.asarray(
+        gauge_transformed_evaluation = np.asarray(
             np.swapaxes(evaluation_gauge.conjugate(), -1, -2)
             @ exact_evaluation
             @ evaluation_gauge,
@@ -240,7 +240,7 @@ class _IndependentPeriodicRankNCase:
             maximum_applied_rank_cutoff=pointwise_cutoff,
         )
         global_evaluation = np.asarray(
-            global_right.conjugate().T @ attacked_evaluation @ global_right,
+            global_right.conjugate().T @ gauge_transformed_evaluation @ global_right,
             dtype=np.complex128,
         )
         return _ExpectedAlignmentInventory(
@@ -250,7 +250,7 @@ class _IndependentPeriodicRankNCase:
                     identity,
                 ),
                 maximum_direct_matrix_difference=self._maximum_frobenius(
-                    attacked_evaluation,
+                    gauge_transformed_evaluation,
                     exact_evaluation,
                 ),
                 fitted_evidence=None,

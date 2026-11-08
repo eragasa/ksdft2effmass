@@ -205,7 +205,7 @@ class Periodic2DCompositeResultDocument:
 
 
 class Periodic2DCompositeCalculator:
-    """Construct smooth and attacked composite frames and their reductions."""
+    """Construct smooth and gauge-transformed composite frames and their reductions."""
 
     __slots__ = ()
 
@@ -255,39 +255,51 @@ class Periodic2DCompositeCalculator:
         if projection_minimum < source.minimum_projection_singular_value:
             raise RuntimeError("PERIODIC_2D.COMPOSITE_PROJECTION_RANK_LOSS")
 
-        attacked_frames = np.empty_like(smooth_frames)
-        attacked_hamiltonians = np.empty_like(smooth_hamiltonians)
+        gauge_transformed_frames = np.empty_like(smooth_frames)
+        gauge_transformed_hamiltonians = np.empty_like(smooth_hamiltonians)
         for ix in range(source.mesh_size):
             for iy in range(source.mesh_size):
-                attack = self._attack(ix, iy, source.mesh_size)
-                attacked_frames[ix, iy] = smooth_frames[ix, iy] @ attack
-                attacked_hamiltonians[ix, iy] = (
-                    attack.conj().T @ smooth_hamiltonians[ix, iy] @ attack
+                transformation = self._transformation(ix, iy, source.mesh_size)
+                gauge_transformed_frames[ix, iy] = (
+                    smooth_frames[ix, iy] @ transformation
+                )
+                gauge_transformed_hamiltonians[ix, iy] = (
+                    transformation.conj().T
+                    @ smooth_hamiltonians[ix, iy]
+                    @ transformation
                 )
 
         smooth_topology = self._topology(smooth_frames, source.cutoff)
-        attacked_topology = self._topology(attacked_frames, source.cutoff)
+        gauge_transformed_topology = self._topology(
+            gauge_transformed_frames, source.cutoff
+        )
         smooth_minimum = cast(float, smooth_topology["minimum_neighbor_singular_value"])
         smooth_chern = cast(float, smooth_topology["chern_number"])
-        attacked_chern = cast(float, attacked_topology["chern_number"])
+        gauge_transformed_chern = cast(
+            float, gauge_transformed_topology["chern_number"]
+        )
         if smooth_minimum < source.minimum_neighbor_singular_value:
             raise RuntimeError("PERIODIC_2D.COMPOSITE_NEIGHBOR_RANK_LOSS")
         if abs(smooth_chern - round(smooth_chern)) > source.chern_integer_defect:
             raise RuntimeError("PERIODIC_2D.COMPOSITE_CHERN_NOT_QUANTIZED")
 
         smooth_reduction = self._reduction(source, mesh, smooth_hamiltonians)
-        attacked_reduction = self._reduction(source, mesh, attacked_hamiltonians)
+        gauge_transformed_reduction = self._reduction(
+            source, mesh, gauge_transformed_hamiltonians
+        )
         smooth_localization = self._localization(source, mesh, smooth_frames)
-        attacked_localization = self._localization(source, mesh, attacked_frames)
+        gauge_transformed_localization = self._localization(
+            source, mesh, gauge_transformed_frames
+        )
         maximum_wilson_defect = self._wilson_defect(
             cast(list[list[float]], smooth_topology["wilson_x_phases"]),
-            cast(list[list[float]], attacked_topology["wilson_x_phases"]),
+            cast(list[list[float]], gauge_transformed_topology["wilson_x_phases"]),
         )
         maximum_wilson_defect = max(
             maximum_wilson_defect,
             self._wilson_defect(
                 cast(list[list[float]], smooth_topology["wilson_y_phases"]),
-                cast(list[list[float]], attacked_topology["wilson_y_phases"]),
+                cast(list[list[float]], gauge_transformed_topology["wilson_y_phases"]),
             ),
         )
         result: dict[str, JsonValue] = {
@@ -321,15 +333,15 @@ class Periodic2DCompositeCalculator:
                     "deterministic momentum-dependent real orthogonal rotations "
                     "within the retained rank-three subspace"
                 ),
-                "topology": self._topology_json(attacked_topology),
-                "localization": cast(list[JsonValue], attacked_localization),
-                "reduction": attacked_reduction,
+                "topology": self._topology_json(gauge_transformed_topology),
+                "localization": cast(list[JsonValue], gauge_transformed_localization),
+                "reduction": gauge_transformed_reduction,
             },
             "gauge_invariant_comparison": {
-                "chern_difference": abs(smooth_chern - attacked_chern),
+                "chern_difference": abs(smooth_chern - gauge_transformed_chern),
                 "maximum_wilson_eigenphase_set_defect": maximum_wilson_defect,
                 "maximum_mesh_spectrum_defect": self._spectrum_defect(
-                    smooth_hamiltonians, attacked_hamiltonians
+                    smooth_hamiltonians, gauge_transformed_hamiltonians
                 ),
                 "smooth_to_rough_total_spread_ratio": (
                     sum(
@@ -338,7 +350,7 @@ class Periodic2DCompositeCalculator:
                     )
                     / sum(
                         cast(float, item["spread_cell_squared"])
-                        for item in attacked_localization
+                        for item in gauge_transformed_localization
                     )
                 ),
             },
@@ -642,7 +654,7 @@ class Periodic2DCompositeCalculator:
         return float((np.angle(phase) % (2.0 * np.pi)) * period / (2.0 * np.pi))
 
     @staticmethod
-    def _attack(ix: int, iy: int, size: int) -> ComplexMatrix:
+    def _transformation(ix: int, iy: int, size: int) -> ComplexMatrix:
         x_angle = 1.7 * np.sin(2.0 * np.pi * (3 * ix + iy) / size)
         y_angle = 1.3 * np.cos(2.0 * np.pi * (ix + 4 * iy) / size)
         first = np.asarray(

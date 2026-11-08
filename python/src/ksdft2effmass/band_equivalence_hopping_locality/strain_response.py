@@ -684,7 +684,7 @@ def _global_alignment_residual(moving: ComplexArray, reference: ComplexArray) ->
     return float(np.sqrt(np.mean(np.sum(np.abs(difference) ** 2, axis=(-2, -1))) / 2.0))
 
 
-def _aligned_attacked_field(
+def _aligned_gauge_transformed_field(
     retained: ComplexArray, alignment: ComplexArray, rotations: ComplexArray
 ) -> ComplexArray:
     aligned = np.swapaxes(alignment.conjugate(), -1, -2) @ retained @ alignment
@@ -830,7 +830,7 @@ def calculate_synthetic_strain_response(
     reference_parent = _parent_field(path, construction, reference_responses)
     reference_frame, _, _ = _retained_frame(reference_parent)
     reference_retained = _retained_field(reference_frame, reference_parent)
-    reference_attacked = (
+    reference_gauge_transformed = (
         np.swapaxes(rotations.conjugate(), -1, -2) @ reference_retained @ rotations
     )
     reference_parent_eval = _parent_field(path, evaluation, reference_responses)
@@ -838,7 +838,7 @@ def calculate_synthetic_strain_response(
     reference_retained_eval = _retained_field(
         reference_frame_eval, reference_parent_eval
     )
-    reference_attacked_eval = (
+    reference_gauge_transformed_eval = (
         np.swapaxes(rotations_eval.conjugate(), -1, -2)
         @ reference_retained_eval
         @ rotations_eval
@@ -854,22 +854,24 @@ def calculate_synthetic_strain_response(
         alignment, minimum_singular, pointwise_residual = _pointwise_alignment(
             frame, reference_frame
         )
-        attacked = _aligned_attacked_field(retained, alignment, rotations)
+        gauge_transformed = _aligned_gauge_transformed_field(
+            retained, alignment, rotations
+        )
 
         parent_eval = _parent_field(path, evaluation, responses)
         frame_eval, _, _ = _retained_frame(parent_eval)
         retained_eval = _retained_field(frame_eval, parent_eval)
         alignment_eval, _, _ = _pointwise_alignment(frame_eval, reference_frame_eval)
-        attacked_eval = _aligned_attacked_field(
+        gauge_transformed_eval = _aligned_gauge_transformed_field(
             retained_eval, alignment_eval, rotations_eval
         )
-        delta = attacked - reference_attacked
-        delta_eval = attacked_eval - reference_attacked_eval
+        delta = gauge_transformed - reference_gauge_transformed
+        delta_eval = gauge_transformed_eval - reference_gauge_transformed_eval
 
-        attacked_transform = NumpyCenteredUniformMeshMatrixFourierTransformer(
+        gauge_transformed_transform = NumpyCenteredUniformMeshMatrixFourierTransformer(
             definition=NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
                 source_mesh,
-                attacked,
+                gauge_transformed,
             )
         ).result()
         delta_transform = NumpyCenteredUniformMeshMatrixFourierTransformer(
@@ -878,8 +880,8 @@ def calculate_synthetic_strain_response(
                 delta,
             )
         ).result()
-        displacements = attacked_transform.series.integer_modes
-        blocks = attacked_transform.series.matrix_coefficients
+        displacements = gauge_transformed_transform.series.integer_modes
+        blocks = gauge_transformed_transform.series.matrix_coefficients
         delta_displacements = delta_transform.series.integer_modes
         delta_blocks = delta_transform.series.matrix_coefficients
         if not np.array_equal(displacements, delta_displacements):
@@ -925,7 +927,7 @@ def calculate_synthetic_strain_response(
             .result()
             .matrix_values
         )
-        interpolation = _errors(full_eval, attacked_eval)
+        interpolation = _errors(full_eval, gauge_transformed_eval)
         delta_interpolation = _errors(full_delta_eval, delta_eval)
         squared_radii = np.einsum(
             "ri,ij,rj->r", ordinary_displacements, metric, ordinary_displacements
@@ -992,7 +994,7 @@ def calculate_synthetic_strain_response(
                     retained_blocks=count,
                     omitted_power=omitted,
                     truncation=_errors(truncated_eval, full_eval),
-                    total=_errors(truncated_eval, attacked_eval),
+                    total=_errors(truncated_eval, gauge_transformed_eval),
                     delta_omitted_power=delta_omitted,
                     delta_truncation=_errors(truncated_delta_eval, full_delta_eval),
                     delta_total=_errors(truncated_delta_eval, delta_eval),
@@ -1023,7 +1025,7 @@ def calculate_synthetic_strain_response(
                     frame, reference_frame
                 ),
                 aligned_strain_perturbation=_errors(
-                    attacked_eval, reference_attacked_eval
+                    gauge_transformed_eval, reference_gauge_transformed_eval
                 ),
                 maximum_scalar_strain_component=float(np.max(scalar_magnitude)),
                 rms_scalar_strain_component=float(

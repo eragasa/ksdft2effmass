@@ -25,9 +25,7 @@ PDF = FIGURES / "single-refitted-witness-surface.pdf"
 PNG = FIGURES / "single-refitted-witness-surface.png"
 SURFACE = ROOT / "witness-surface.json"
 MANIFEST = FIGURES / "figure-manifest.json"
-STATUS = (
-    "post-hoc-refitted-ws-producer-checked-development-not-independently-verified"
-)
+STATUS = "post-hoc-refitted-ws-producer-checked-development-not-independently-verified"
 EXAMPLE_THRESHOLDS = (
     (1.0, 1.0),
     (0.5, 0.5),
@@ -122,8 +120,7 @@ def select_example(
         key=lambda witness: (
             max(
                 numeric(witness["tau_1_spectral_rms"], "tau_1") / tau_1,
-                numeric(witness["tau_2_operator_rms_per_state"], "tau_2")
-                / tau_2,
+                numeric(witness["tau_2_operator_rms_per_state"], "tau_2") / tau_2,
             ),
             numeric(witness["tau_1_spectral_rms"], "tau_1"),
             numeric(witness["tau_2_operator_rms_per_state"], "tau_2"),
@@ -145,14 +142,15 @@ def main() -> None:
     FIGURES.mkdir(parents=True, exist_ok=True)
     for path in (PDF, PNG, SURFACE, MANIFEST):
         if path.exists():
-            raise FileExistsError(f"refusing to overwrite retained surface artifact: {path}")
+            raise FileExistsError(
+                f"refusing to overwrite retained surface artifact: {path}"
+            )
     result_value: JsonValue = json.loads(RESULT.read_text(encoding="utf-8"))
     result = mapping(result_value, "result")
     if result.get("status") != STATUS:
         raise RuntimeError("result has the wrong assurance status")
     all_witnesses = [
-        mapping(item, "witness")
-        for item in values(result["witnesses"], "witnesses")
+        mapping(item, "witness") for item in values(result["witnesses"], "witnesses")
     ]
     witnesses = [
         witness for witness in all_witnesses if witness["optimizer_success"] is True
@@ -181,25 +179,29 @@ def main() -> None:
     )
     x_edges = np.unique(
         np.concatenate(
-            ([float(np.min(spectral)) * 0.65], spectral, [float(np.max(spectral)) * 1.25])
+            (
+                [float(np.min(spectral)) * 0.65],
+                spectral,
+                [float(np.max(spectral)) * 1.25],
+            )
         )
     )
     y_edges = np.unique(
         np.concatenate(
-            ([float(np.min(operator)) * 0.65], operator, [float(np.max(operator)) * 1.25])
+            (
+                [float(np.min(operator)) * 0.65],
+                operator,
+                [float(np.max(operator)) * 1.25],
+            )
         )
     )
     x_centers = np.sqrt(x_edges[:-1] * x_edges[1:])
     y_centers = np.sqrt(y_edges[:-1] * y_edges[1:])
-    selected_index = np.full(
-        (len(y_centers), len(x_centers)), -1, dtype=np.int64
-    )
+    selected_index = np.full((len(y_centers), len(x_centers)), -1, dtype=np.int64)
     selected_cost = np.full(
         (len(y_centers), len(x_centers)), np.iinfo(np.int64).max, dtype=np.int64
     )
-    selected_score = np.full(
-        (len(y_centers), len(x_centers)), np.inf, dtype=np.float64
-    )
+    selected_score = np.full((len(y_centers), len(x_centers)), np.inf, dtype=np.float64)
     for witness_index, (tau_1, tau_2, support_cost) in enumerate(
         zip(spectral, operator, cost, strict=True)
     ):
@@ -264,7 +266,10 @@ def main() -> None:
         zorder=5,
     )
     axis.scatter(
-        [numeric(witness["tau_1_spectral_rms"], "literal tau_1") for witness in literal],
+        [
+            numeric(witness["tau_1_spectral_rms"], "literal tau_1")
+            for witness in literal
+        ],
         [
             numeric(witness["tau_2_operator_rms_per_state"], "literal tau_2")
             for witness in literal
@@ -332,9 +337,7 @@ def main() -> None:
                     "included_representative_count"
                 ],
                 "tau_1_spectral_rms": witness["tau_1_spectral_rms"],
-                "tau_2_operator_rms_per_state": witness[
-                    "tau_2_operator_rms_per_state"
-                ],
+                "tau_2_operator_rms_per_state": witness["tau_2_operator_rms_per_state"],
                 "alpha": witness["alpha"],
             }
             for index, witness in enumerate(witnesses)

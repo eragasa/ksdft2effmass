@@ -22,21 +22,38 @@ from ksdft2effmass.numerical_consistency import NumericalConsistency
 from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
     Periodic1DRankNMatrixComparisonResult,
 )
-
-from .fields import (
-    Periodic1DRankNGaugeAlignmentEvaluationRequest,
-    Periodic1DRankNGaugeAlignmentEvaluator,
+from ksdft2effmass.periodic1d.rankN.fourier_analysis import (
+    Periodic1DRankNFourierAnalysis,
 )
-from .fourier import Periodic1DRankNFourierAnalysis
-from .request import Periodic1DRankNGaugeAlignmentAnalysisRequest
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
+    Periodic1DRankNGaugeAlignmentAnalysisRequest,
+)
+from ksdft2effmass.periodic1d.rankN.represented_fields import (
+    Periodic1DRankNRepresentedFieldEvaluationRequest,
+    Periodic1DRankNRepresentedFieldEvaluator,
+)
+
+from .base import (
+    Periodic1DRankNInterpolationAnalysisRequestRole,
+    Periodic1DRankNInterpolationAnalysisRole,
+    Periodic1DRankNInterpolationAnalyzerRole,
+)
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNInterpolationAnalysisRequest:
+class Periodic1DRankNInterpolationAnalysisRequest(
+    Periodic1DRankNInterpolationAnalysisRequestRole
+):
     """Bind Fourier evidence and the scientific request for shifted evaluation."""
 
     analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
     fourier_analysis: Periodic1DRankNFourierAnalysis
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented matrix rank."""
+        return self.analysis_request.band_subspace_rank
 
     def __post_init__(self) -> None:
         if (
@@ -58,7 +75,10 @@ class Periodic1DRankNInterpolationAnalysisRequest:
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic1DRankNInterpolationAnalysis(NumericalConsistency):
+class Periodic1DRankNInterpolationAnalysis(
+    Periodic1DRankNInterpolationAnalysisRole,
+    NumericalConsistency,
+):
     """Store shifted coordinates, evaluated fields, and interpolation diagnostics."""
 
     analysis_request: Periodic1DRankNGaugeAlignmentAnalysisRequest
@@ -68,6 +88,12 @@ class Periodic1DRankNInterpolationAnalysis(NumericalConsistency):
     interpolation: Periodic1DRankNMatrixComparisonResult
     final_interpolation_operator_pass: bool
     final_interpolation_spectrum_pass: bool
+
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the represented matrix rank."""
+        return self.analysis_request.band_subspace_rank
 
     def __post_init__(self) -> None:
         if (
@@ -90,7 +116,7 @@ class Periodic1DRankNInterpolationAnalysis(NumericalConsistency):
             "direct_evaluation",
             np.dtype(np.complex128),
         ).execute()
-        rank = self.analysis_request.model.retained_rank
+        rank = self.analysis_request.parent_model.band_subspace_rank
         expected_shape = (coordinates.size, rank, rank)
         if coordinates.ndim != 1:
             raise ValueError("evaluation_coordinates must be one-dimensional")
@@ -112,7 +138,12 @@ class Periodic1DRankNInterpolationAnalysis(NumericalConsistency):
 
 
 @final
-class Periodic1DRankNInterpolationAnalyzer:
+class Periodic1DRankNInterpolationAnalyzer(
+    Periodic1DRankNInterpolationAnalyzerRole[
+        Periodic1DRankNInterpolationAnalysisRequest,
+        Periodic1DRankNInterpolationAnalysis,
+    ]
+):
     """Evaluate a Fourier series on the disjoint shifted mesh."""
 
     __slots__ = ("_request",)
@@ -168,10 +199,11 @@ class Periodic1DRankNInterpolationAnalyzer:
             "full_evaluation",
             np.dtype(np.complex128),
         ).execute()
-        direct_evaluation = Periodic1DRankNGaugeAlignmentEvaluator(
-            Periodic1DRankNGaugeAlignmentEvaluationRequest(
+        direct_evaluation = Periodic1DRankNRepresentedFieldEvaluator(
+            Periodic1DRankNRepresentedFieldEvaluationRequest(
                 calculation_request=calculation_request,
-                model=analysis_request.model,
+                parent_model=analysis_request.parent_model,
+                gauge_transformation=analysis_request.gauge_transformation,
                 gauge_alignment=analysis_request.status.gauge_alignment,
                 coordinates=evaluation_coordinates,
                 global_selection=analysis_request.global_selection,

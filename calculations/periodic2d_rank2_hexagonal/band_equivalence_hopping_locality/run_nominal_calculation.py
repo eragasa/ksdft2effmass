@@ -6,6 +6,11 @@ import math
 from pathlib import Path
 
 import numpy as np
+from projectkoios.physkit.periodic.lattice import (
+    DirectLattice2D,
+    DirectLatticeMetric,
+)
+
 from ksdft2effmass.band_equivalence_hopping_locality.calculation import (
     BandEquivalenceHoppingLocalityVerifier,
 )
@@ -33,10 +38,6 @@ from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.result imp
 from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
-)
-from projectkoios.physkit.periodic.lattice import (
-    DirectLattice2D,
-    DirectLatticeMetric,
 )
 
 SQUARE_METRIC = DirectLatticeMetric(

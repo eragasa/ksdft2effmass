@@ -11,27 +11,8 @@ from analysis.development.cache import (
     HigherRankDevelopmentCacheWriter,
     HigherRankDevelopmentCacheWriteRequest,
 )
-from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
-from ksdft2effmass.periodic1d.gauge_alignment.factory import (
-    Periodic1DAlignmentStudyFactory,
-    Periodic1DRankNAlignmentStudyAnalyzer,
-    Periodic1DRankNAlignmentStudySpecification,
-)
-from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
-    Periodic1DRankNBandEquivalenceHoppingLocalityControls,
-    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
-)
-from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
-    Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
-)
-from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.analysis import (
-    Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer,
-)
-from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
-    Periodic1DRankNAlignmentConfiguration,
-)
-from ksdft2effmass.serialization import TypedJsonValueCodec
+from control_basis import control_parent_model
+from gauge_transformation import AnalyticGaugeTransformationConstructor
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
     NumpyBatchedComplexUnitaryProcrustesSolver,
 )
@@ -42,6 +23,28 @@ from projectkoios.physkit.solidstate.tb import (
     FinitePeriodicMatrixFourierTensorEvaluator,
     FinitePeriodicMatrixFourierTransformer,
 )
+
+from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
+from ksdft2effmass.periodic1d.gauge_alignment.factory import (
+    Periodic1DAlignmentStudyFactory,
+    Periodic1DRankNAlignmentStudyAnalyzer,
+    Periodic1DRankNAlignmentStudySpecification,
+)
+from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
+    Periodic1DRankNAlignmentConfiguration,
+)
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.analysis import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer,
+)
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityControls,
+    Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
+)
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
+)
+from ksdft2effmass.serialization import TypedJsonValueCodec
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -81,6 +84,11 @@ def _calculate(
         Periodic1DRankNAlignmentStudySpecification(
             lattice_geometry=lattice_geometry,
             request=request,
+            parent_model=control_parent_model(request.retained_rank),
+            gauge_transformation=AnalyticGaugeTransformationConstructor(
+                retained_rank=request.retained_rank,
+                circuit_depth=request.circuit_depth,
+            ).execute(),
             procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
             transporter=ClosedLoopPolarFrameTransporter(),
             scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
@@ -173,6 +181,7 @@ def main() -> int:
     configuration = _configuration()
     lattice_geometry = configuration.reduced_lattice_geometry
     source_types = (
+        AnalyticGaugeTransformationConstructor,
         Periodic1DAlignmentStudyFactory,
         Periodic1DRankNAlignmentStudyAnalyzer,
         Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer,

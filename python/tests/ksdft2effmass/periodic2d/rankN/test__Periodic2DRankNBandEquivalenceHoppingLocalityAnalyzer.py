@@ -14,6 +14,12 @@ from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLattice
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
 from ksdft2effmass.gauge_alignment import GaugeAlignmentActionConvention
+from ksdft2effmass.periodic.operators import (
+    LabeledComponentBasisCoordinate,
+    PeriodicBasisInventory,
+    PeriodicBasisInventoryEntry,
+)
+from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 from ksdft2effmass.periodic2d.gauge_alignment.base import (
     Periodic2DGaugeAlignmentAnalysis,
 )
@@ -26,9 +32,6 @@ from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.case_expan
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.fourier_reference import (  # noqa: E501
     Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer,
     Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceRequest,
-)
-from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.model import (
-    Periodic2DRankNGaugeNormalizationEnum,
 )
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.reference import (
     Periodic2DRankNBandEquivalenceHoppingLocalityReferenceAnalyzer,
@@ -55,6 +58,9 @@ from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.verificati
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.definition import (
     Periodic2DRankNGaugeAlignment,
 )
+from ksdft2effmass.periodic2d.rankN.gauge_alignment.transformation import (
+    Periodic2DRankNGaugeNormalizationEnum,
+)
 from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
@@ -62,6 +68,24 @@ from ksdft2effmass.sewing import (
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
+
+PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY = PeriodicBasisInventory(
+    entries=tuple(
+        PeriodicBasisInventoryEntry(
+            retained_rank=rank,
+            basis_identity=Periodic2DBasisIdentity(
+                display_identifier=f"periodic2d-rankN-test-basis-r{rank}",
+                coordinates=tuple(
+                    LabeledComponentBasisCoordinate(
+                        label=f"test-retained-orbital-{index:02d}"
+                    )
+                    for index in range(rank)
+                ),
+            ),
+        )
+        for rank in (3, 4, 8)
+    )
+)
 
 
 class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
@@ -99,7 +123,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
             evaluation_size=33,
             evaluation_shift=1.0 / 3.0,
             parent_scales=(0.0, 1.0),
-            attack_coefficients=(0.0, math.pi / 8.0, math.pi / 4.0),
+            transformation_coefficients=(0.0, math.pi / 8.0, math.pi / 4.0),
             band_tolerances=(1.0e-3, 1.0e-5),
             gauge_alignments=(
                 Periodic2DRankNGaugeAlignment.IDENTITY,
@@ -123,7 +147,8 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
     def test_case_analysis_uses_dimension_and_gauge_analysis_bases(self) -> None:
         request = self._request()
         expander = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
+            request=request,
+            basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
         )
         model = expander.execute()[1]
         analyzer = Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
@@ -184,7 +209,8 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
     def test_v1_case_analysis_rejects_nonidentity_endpoint_sewing(self) -> None:
         request = self._request()
         model = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
+            request=request,
+            basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
         ).execute()[1]
         phase_matrix = np.eye(model.ambient_dimension, dtype=np.complex128)
         phase_matrix[0, 0] = np.exp(0.25j)
@@ -214,7 +240,8 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
     def test_parent_alignment_and_transport_reference_is_independent(self) -> None:
         request = self._request()
         model = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
+            request=request,
+            basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
         ).execute()[1]
         case = Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
@@ -241,7 +268,8 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
     def test_fourier_shell_and_support_reference_uses_direct_sums(self) -> None:
         request = self._request()
         model = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
+            request=request,
+            basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
         ).execute()[1]
         case = Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
@@ -268,7 +296,8 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
     def test_case_verification_composes_both_independent_routes(self) -> None:
         request = self._request()
         model = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
+            request=request,
+            basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
         ).execute()[1]
         case = Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
@@ -308,7 +337,8 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
     def test_aggregate_analysis_round_trips_canonical_json(self) -> None:
         request = self._request()
         model = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
+            request=request,
+            basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
         ).execute()[0]
         case = Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,

@@ -38,7 +38,7 @@ class TestPeriodic2DRank2BandEquivalence:
             Periodic2DRank2BandEquivalenceHoppingLocalityRequest,
             Periodic2DRank2BandEquivalenceRequest,
         )
-        assert not issubclass(
+        assert issubclass(
             Periodic2DRank2BandEquivalenceHoppingLocalityRequest,
             Periodic2DRankNBandEquivalenceRequest,
         )

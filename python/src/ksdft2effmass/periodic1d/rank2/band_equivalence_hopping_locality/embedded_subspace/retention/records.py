@@ -215,7 +215,7 @@ def _request_mapping(
         "endpoint_sewing_identifier": request.endpoint_sewing_identifier,
         "energy_reference_identifier": request.energy_reference_identifier,
         "reciprocal_coordinate_convention": request.reciprocal_coordinate_convention,
-        "gauge_attack_identifier": request.gauge_attack_identifier,
+        "gauge_attack_identifier": request.gauge_transformation_identifier,
         "ambient_rank": request.ambient_rank,
         "retained_rank": request.retained_rank,
         "reciprocal_mesh_size": request.reciprocal_mesh_size,
@@ -313,7 +313,7 @@ def _request_from_mapping(
         "endpoint_sewing_identifier": request.endpoint_sewing_identifier,
         "energy_reference_identifier": request.energy_reference_identifier,
         "reciprocal_coordinate_convention": request.reciprocal_coordinate_convention,
-        "gauge_attack_identifier": request.gauge_attack_identifier,
+        "gauge_attack_identifier": request.gauge_transformation_identifier,
     }
     for name, expected in expected_identity.items():
         observed = (
@@ -547,7 +547,7 @@ class Periodic1DRank2QualificationRecord(BaseTypedRecord):
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DRank2HoppingPowerRecord(BaseTypedRecord):
-    """Retain paired reference and attacked power at one displacement."""
+    """Retain paired reference and gauge_transformed power at one displacement."""
 
     value: Periodic1DRank2HoppingPower
 

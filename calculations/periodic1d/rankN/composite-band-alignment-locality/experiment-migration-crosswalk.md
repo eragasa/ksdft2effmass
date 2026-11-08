@@ -62,7 +62,7 @@ as provenance for the already completed source removal.
 
 The maintained package evaluates `3`, `4`, `8`, and `16` retained states; circuit depths
 `1`, `2`, `4`, and `8`; and identity, global-unitary, pointwise-unitary, and
-known-inverse-oracle gauge alignments. It constructs the analytic parent and attacked
+known-inverse-oracle gauge alignments. It constructs the analytic parent and gauge-transformed
 fields, applies common closed-loop transport, calculates finite-periodic hopping blocks,
 separates interpolation and truncation errors, evaluates refinement, and records bounded
 failures explicitly. The direct development script composes maintained KSD, PhysKit, and
@@ -70,7 +70,7 @@ Optimization owners and writes only a replaceable non-evidence summary. The
 formula-check script is not an independent check of the full result.
 
 Strict typed calculation requests and results, canonical record bytes, and bounded
-producer-independent references for analytic-model and attack core invariants,
+producer-independent references for analytic-model and transformation core invariants,
 all four direct-sum Fourier controls, global/pointwise Procrustes selection, and
 constant-frame closed-loop transport now exist. The Fourier slice also compares shifted
 interpolation and support tails for every alignment and exact support for the oracle. The selection slice

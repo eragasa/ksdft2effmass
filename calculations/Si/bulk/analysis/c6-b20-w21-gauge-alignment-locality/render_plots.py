@@ -139,7 +139,10 @@ def shell_arrays(
 ) -> tuple[RealArray, RealArray]:
     shells = [mapping(item, "shell") for item in values(alignment["shells"], "shells")]
     radius = np.asarray(
-        [numeric(shell["physical_radius_angstrom"], "shell radius") for shell in shells],
+        [
+            numeric(shell["physical_radius_angstrom"], "shell radius")
+            for shell in shells
+        ],
         dtype=np.float64,
     )
     error = np.asarray(
@@ -163,12 +166,30 @@ def make_schematic(result: JsonObject, directory: Path) -> None:
     axis.set_ylim(0.0, 4.0)
     axis.axis("off")
     boxes = (
-        (0.3, 2.35, 2.1, 1.05, "Authenticated rank-10\nWannier Hamiltonian\nC6 construction field"),
-        (2.9, 2.35, 2.1, 1.05, "Frozen depth-2\nGivens attack\n$\\pi/8$, axis harmonics"),
+        (
+            0.3,
+            2.35,
+            2.1,
+            1.05,
+            "Authenticated rank-10\nWannier Hamiltonian\nC6 construction field",
+        ),
+        (
+            2.9,
+            2.35,
+            2.1,
+            1.05,
+            "Frozen depth-2\nGivens attack\n$\\pi/8$, axis harmonics",
+        ),
         (5.5, 2.35, 1.8, 1.05, "Four alignment\nchannels"),
         (7.8, 2.35, 1.9, 1.05, "Finite-cyclic\nFourier blocks\n125 displacements"),
         (3.0, 0.45, 2.0, 1.05, "408 ordered\ndevelopment points\ncomplete spectra"),
-        (5.7, 0.45, 2.0, 1.05, "Shell support curves\n$q \\leq 48$\nno target threshold"),
+        (
+            5.7,
+            0.45,
+            2.0,
+            1.05,
+            "Shell support curves\n$q \\leq 48$\nno target threshold",
+        ),
     )
     for x, y, width, height, text in boxes:
         axis.add_patch(
@@ -184,7 +205,9 @@ def make_schematic(result: JsonObject, directory: Path) -> None:
         ((1.35, 2.35), (3.0, 1.5)),
         ((6.4, 2.35), (6.7, 1.5)),
     ):
-        axis.annotate("", xy=end, xytext=start, arrowprops={"arrowstyle": "->", "color": "black"})
+        axis.annotate(
+            "", xy=end, xytext=start, arrowprops={"arrowstyle": "->", "color": "black"}
+        )
     axis.text(
         0.3,
         0.12,
@@ -200,7 +223,9 @@ def make_schematic(result: JsonObject, directory: Path) -> None:
 
 def make_alignment_invariance(result: JsonObject, directory: Path) -> None:
     records = alignment_records(result)
-    labels = [ALIGNMENT_LABELS[string(item["alignment"], "alignment")] for item in records]
+    labels = [
+        ALIGNMENT_LABELS[string(item["alignment"], "alignment")] for item in records
+    ]
     metrics = (
         ("maximum_aligned_frame_defect", "aligned-frame defect"),
         ("maximum_direct_matrix_difference_ev", "direct matrix difference (eV)"),
@@ -217,7 +242,13 @@ def make_alignment_invariance(result: JsonObject, directory: Path) -> None:
         axis.bar(positions, plotted, color="white", edgecolor="black", hatch="//")
         below = y < FLOOR
         if np.any(below):
-            axis.scatter(positions[below], np.full(np.count_nonzero(below), FLOOR), marker="v", facecolors="none", edgecolors="black")
+            axis.scatter(
+                positions[below],
+                np.full(np.count_nonzero(below), FLOOR),
+                marker="v",
+                facecolors="none",
+                edgecolors="black",
+            )
         axis.set_yscale("log")
         axis.set_xticks(positions, labels, rotation=28, ha="right")
         axis.set_title(title)
@@ -231,19 +262,55 @@ def make_fourier_power(result: JsonObject, directory: Path) -> None:
     records = alignment_records(result)
     first = records[0]
     shells = [mapping(item, "shell") for item in values(first["shells"], "shells")]
-    radius = np.asarray([numeric(item["physical_radius_angstrom"], "radius") for item in shells])
-    reference = np.asarray([numeric(item["reference_shell_power_per_state_ev2"], "power") for item in shells])
-    reference_omitted = np.asarray([numeric(item["reference_omitted_power_per_state_ev2"], "power") for item in shells])
+    radius = np.asarray(
+        [numeric(item["physical_radius_angstrom"], "radius") for item in shells]
+    )
+    reference = np.asarray(
+        [
+            numeric(item["reference_shell_power_per_state_ev2"], "power")
+            for item in shells
+        ]
+    )
+    reference_omitted = np.asarray(
+        [
+            numeric(item["reference_omitted_power_per_state_ev2"], "power")
+            for item in shells
+        ]
+    )
     figure, axes = plt.subplots(1, 2, figsize=(11.5, 4.4))
     log_line(axes[0], radius, reference, label="reference", marker="o")
     log_line(axes[1], radius, reference_omitted, label="reference", marker="o")
     for record in records:
         name = string(record["alignment"], "alignment")
-        record_shells = [mapping(item, "shell") for item in values(record["shells"], "shells")]
-        shell_power = np.asarray([numeric(item["comparison_shell_power_per_state_ev2"], "power") for item in record_shells])
-        omitted = np.asarray([numeric(item["comparison_omitted_power_per_state_ev2"], "power") for item in record_shells])
-        log_line(axes[0], radius, shell_power, label=ALIGNMENT_LABELS[name], linestyle=LINE_STYLES[name])
-        log_line(axes[1], radius, omitted, label=ALIGNMENT_LABELS[name], linestyle=LINE_STYLES[name])
+        record_shells = [
+            mapping(item, "shell") for item in values(record["shells"], "shells")
+        ]
+        shell_power = np.asarray(
+            [
+                numeric(item["comparison_shell_power_per_state_ev2"], "power")
+                for item in record_shells
+            ]
+        )
+        omitted = np.asarray(
+            [
+                numeric(item["comparison_omitted_power_per_state_ev2"], "power")
+                for item in record_shells
+            ]
+        )
+        log_line(
+            axes[0],
+            radius,
+            shell_power,
+            label=ALIGNMENT_LABELS[name],
+            linestyle=LINE_STYLES[name],
+        )
+        log_line(
+            axes[1],
+            radius,
+            omitted,
+            label=ALIGNMENT_LABELS[name],
+            linestyle=LINE_STYLES[name],
+        )
     axes[0].set_title("power assigned to each complete shell")
     axes[1].set_title("power beyond retained shell")
     for axis in axes:
@@ -271,7 +338,13 @@ def make_support_frontiers(result: JsonObject, directory: Path) -> None:
         for record in records:
             name = string(record["alignment"], "alignment")
             _, comparison = shell_arrays(record, "comparison", key)
-            log_line(axis, radius, comparison, label=ALIGNMENT_LABELS[name], linestyle=LINE_STYLES[name])
+            log_line(
+                axis,
+                radius,
+                comparison,
+                label=ALIGNMENT_LABELS[name],
+                linestyle=LINE_STYLES[name],
+            )
         axis.set_title(title)
         axis.set_ylabel("error normalized by 1 eV")
         axis.grid(which="both", alpha=0.25)
@@ -311,7 +384,9 @@ def make_equal_error_support(result: JsonObject, directory: Path) -> None:
         for record in records:
             name = string(record["alignment"], "alignment")
             _, comparison_error = shell_arrays(record, "comparison", key)
-            attained = minimum_attained_radius(reference_error, comparison_error, radius)
+            attained = minimum_attained_radius(
+                reference_error, comparison_error, radius
+            )
             finite = np.isfinite(attained)
             axis.step(
                 radius[finite],
@@ -322,7 +397,12 @@ def make_equal_error_support(result: JsonObject, directory: Path) -> None:
                 label=ALIGNMENT_LABELS[name],
             )
             if np.any(~finite):
-                axis.scatter(radius[~finite], np.full(np.count_nonzero(~finite), radius[-1]), marker="x", color="black")
+                axis.scatter(
+                    radius[~finite],
+                    np.full(np.count_nonzero(~finite), radius[-1]),
+                    marker="x",
+                    color="black",
+                )
         axis.set_title(title)
         axis.grid(alpha=0.25)
     for axis in axes[1, :]:
@@ -330,7 +410,9 @@ def make_equal_error_support(result: JsonObject, directory: Path) -> None:
     for axis in axes[:, 0]:
         axis.set_ylabel("minimum comparison radius\nat equal attained error (Å)")
     axes[0, 1].legend(fontsize=8)
-    figure.suptitle("Equal-attained-error support projection (no interpolated crossings)")
+    figure.suptitle(
+        "Equal-attained-error support projection (no interpolated crossings)"
+    )
     figure.tight_layout(rect=(0, 0.04, 1, 0.95))
     save(figure, directory, "equal-attained-error-support")
 
@@ -347,8 +429,21 @@ def make_spectrum_equivalence(result: JsonObject, directory: Path) -> None:
     for band in range(reference.shape[1]):
         label_reference = "reference" if band == 0 else None
         label_attacked = "attacked" if band == 0 else None
-        axes[0].plot(points, reference[:, band], color="black", linewidth=0.75, label=label_reference)
-        axes[0].plot(points, attacked[:, band], color="0.55", linestyle="--", linewidth=0.65, label=label_attacked)
+        axes[0].plot(
+            points,
+            reference[:, band],
+            color="black",
+            linewidth=0.75,
+            label=label_reference,
+        )
+        axes[0].plot(
+            points,
+            attacked[:, band],
+            color="0.55",
+            linestyle="--",
+            linewidth=0.65,
+            label=label_attacked,
+        )
     log_line(axes[1], points, residual, label="pointwise maximum", marker=None)
     axes[0].set_xlabel("ordered revealed-development point index")
     axes[0].set_ylabel("energy (eV)")
@@ -365,11 +460,21 @@ def make_spectrum_equivalence(result: JsonObject, directory: Path) -> None:
 
 def make_transport(result: JsonObject, directory: Path) -> None:
     records = alignment_records(result)
-    labels = [ALIGNMENT_LABELS[string(item["alignment"], "alignment")] for item in records]
+    labels = [
+        ALIGNMENT_LABELS[string(item["alignment"], "alignment")] for item in records
+    ]
     metrics = (
         ("minimum_transport_singular_value", "minimum link singular value", False),
-        ("maximum_transport_procrustes_residual", "maximum link Procrustes residual", True),
-        ("maximum_transport_unitarity_defect", "maximum transport unitarity defect", True),
+        (
+            "maximum_transport_procrustes_residual",
+            "maximum link Procrustes residual",
+            True,
+        ),
+        (
+            "maximum_transport_unitarity_defect",
+            "maximum transport unitarity defect",
+            True,
+        ),
         ("maximum_transport_rank_cutoff", "maximum applied rank cutoff", True),
         ("maximum_plaquette_phase", "maximum plaquette phase", True),
     )
@@ -383,17 +488,35 @@ def make_transport(result: JsonObject, directory: Path) -> None:
             axis.set_yscale("log")
             below = y < FLOOR
             if np.any(below):
-                axis.scatter(positions[below], np.full(np.count_nonzero(below), FLOOR), marker="v", facecolors="none", edgecolors="black")
+                axis.scatter(
+                    positions[below],
+                    np.full(np.count_nonzero(below), FLOOR),
+                    marker="v",
+                    facecolors="none",
+                    edgecolors="black",
+                )
         axis.set_xticks(positions, labels, rotation=28, ha="right")
         axis.set_title(title)
         axis.grid(axis="y", which="both", alpha=0.25)
     closure_axis = axes.flat[5]
     for index, record in enumerate(records):
         closure = array(record["maximum_absolute_closure_phases"], "closure phases")
-        closure_axis.plot(np.arange(len(closure)), np.maximum(closure, FLOOR), color="black", linestyle=list(LINE_STYLES.values())[index], label=labels[index])
+        closure_axis.plot(
+            np.arange(len(closure)),
+            np.maximum(closure, FLOOR),
+            color="black",
+            linestyle=list(LINE_STYLES.values())[index],
+            label=labels[index],
+        )
         below = closure < FLOOR
         if np.any(below):
-            closure_axis.scatter(np.arange(len(closure))[below], np.full(np.count_nonzero(below), FLOOR), marker="v", facecolors="none", edgecolors="black")
+            closure_axis.scatter(
+                np.arange(len(closure))[below],
+                np.full(np.count_nonzero(below), FLOOR),
+                marker="v",
+                facecolors="none",
+                edgecolors="black",
+            )
     closure_axis.set_yscale("log")
     closure_axis.set_title("maximum absolute closure phase by axis")
     closure_axis.set_xlabel("periodic axis")
@@ -413,15 +536,45 @@ def make_displacement_power(result: JsonObject, directory: Path) -> None:
     modes = np.asarray(values(power["integer_modes"], "integer modes"), dtype=np.int64)
     order = np.lexsort((modes[:, 2], modes[:, 1], modes[:, 0], radius))
     figure, axes = plt.subplots(1, 2, figsize=(12.0, 4.5))
-    axes[0].scatter(radius, np.maximum(reference, FLOOR), facecolors="none", edgecolors="black", marker="o", label="reference")
-    axes[0].scatter(radius, np.maximum(attacked, FLOOR), color="black", marker="x", label="attacked / identity")
+    axes[0].scatter(
+        radius,
+        np.maximum(reference, FLOOR),
+        facecolors="none",
+        edgecolors="black",
+        marker="o",
+        label="reference",
+    )
+    axes[0].scatter(
+        radius,
+        np.maximum(attacked, FLOOR),
+        color="black",
+        marker="x",
+        label="attacked / identity",
+    )
     axes[0].set_yscale("log")
     axes[0].set_xlabel("physical block radius (Å)")
     axes[0].set_ylabel("block power / retained state (eV$^2$)")
     axes[0].set_title("power by physical displacement radius")
     axes[0].legend()
-    axes[1].plot(np.arange(len(order)), np.maximum(reference[order], FLOOR), color="black", marker="o", markersize=2.5, linewidth=0.6, label="reference")
-    axes[1].plot(np.arange(len(order)), np.maximum(attacked[order], FLOOR), color="0.45", linestyle="--", marker="x", markersize=2.5, linewidth=0.6, label="attacked / identity")
+    axes[1].plot(
+        np.arange(len(order)),
+        np.maximum(reference[order], FLOOR),
+        color="black",
+        marker="o",
+        markersize=2.5,
+        linewidth=0.6,
+        label="reference",
+    )
+    axes[1].plot(
+        np.arange(len(order)),
+        np.maximum(attacked[order], FLOOR),
+        color="0.45",
+        linestyle="--",
+        marker="x",
+        markersize=2.5,
+        linewidth=0.6,
+        label="attacked / identity",
+    )
     axes[1].set_yscale("log")
     axes[1].set_xlabel("canonical displacement order (radius then integer mode)")
     axes[1].set_ylabel("block power / retained state (eV$^2$)")
@@ -443,8 +596,21 @@ def make_direct_parent(result: JsonObject, directory: Path) -> None:
     point_maximum = np.max(np.abs(residual), axis=1)
     figure, axes = plt.subplots(1, 2, figsize=(12.2, 4.6))
     for band in range(represented.shape[1]):
-        axes[0].plot(points, parent[:, band], color="0.6", linestyle="--", linewidth=0.65, label="matched parent" if band == 0 else None)
-        axes[0].plot(points, represented[:, band], color="black", linewidth=0.75, label="represented rank 10" if band == 0 else None)
+        axes[0].plot(
+            points,
+            parent[:, band],
+            color="0.6",
+            linestyle="--",
+            linewidth=0.65,
+            label="matched parent" if band == 0 else None,
+        )
+        axes[0].plot(
+            points,
+            represented[:, band],
+            color="black",
+            linewidth=0.75,
+            label="represented rank 10" if band == 0 else None,
+        )
     axes[0].set_xlabel("ordered revealed-development point index")
     axes[0].set_ylabel("energy (eV; no fitted shift)")
     axes[0].set_title("injectively matched spectra")
@@ -465,7 +631,9 @@ def main() -> None:
     result_value: JsonValue = json.loads(RESULT.read_text(encoding="utf-8"))
     result = mapping(result_value, "result")
     if result.get("status") != STATUS:
-        raise RuntimeError("result assurance label is not the authorized producer-only status")
+        raise RuntimeError(
+            "result assurance label is not the authorized producer-only status"
+        )
     with tempfile.TemporaryDirectory(prefix="ksd-gauge-locality-plots-") as temporary:
         temporary_path = Path(temporary)
         make_schematic(result, temporary_path)

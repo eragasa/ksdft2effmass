@@ -58,7 +58,7 @@ class Periodic2DShellGaugeLocalityCalculationScaffold:
     """Compose the represented-parent baseline for shell/gauge locality (M5).
 
     The exact nonorthogonal primitive lattice, rank-three retention, shell inventories,
-    constrained gauge attacks, hopping transforms, and withheld interpolation
+    constrained gauge transformations, hopping transforms, and withheld interpolation
     diagnostics remain future explicit inputs.
     """
 

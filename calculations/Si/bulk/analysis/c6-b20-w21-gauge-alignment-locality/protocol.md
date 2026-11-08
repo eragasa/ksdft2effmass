@@ -88,7 +88,7 @@ the admitted represented Hamiltonian.
 ## 4. Frozen attack
 
 The authorized prospective attack is one immutable
-`Periodic3DRankNGivensGaugeAttack` with:
+`Periodic3DRankNGivensGaugeTransformation` with:
 
 - retained rank `10`;
 - circuit depth `2`;
@@ -271,7 +271,7 @@ without changing the identity of this development result.
 A successful development result may support statements of the form:
 
 > Within the authenticated finite `C6-B20-W21` represented Hamiltonian and declared
-> rank-10 internal gauge attack, complete spectra agree while restricted alignment,
+> rank-10 internal gauge transformation, complete spectra agree while restricted alignment,
 > finite Fourier-block distributions, and equal-accuracy support requirements differ.
 
 It may not support:

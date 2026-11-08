@@ -36,13 +36,13 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
         return self.request.band_subspace_ranks
 
     def execute(self) -> tuple[Periodic3DRankNAnalyticCase, ...]:
-        """Return the ordered geometry/rank/depth/scale/attack cross product."""
+        """Return the ordered geometry/rank/depth/scale/transformation cross product."""
         inventory = product(
             self._request.cases,
             self._request.retained_ranks,
             self._request.circuit_depths,
             self._request.parent_scales,
-            self._request.attack_coefficients,
+            self._request.transformation_coefficients,
         )
         return tuple(
             Periodic3DRankNAnalyticCase(
@@ -52,7 +52,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
                 positive_bonds=values[0].positive_bonds,
                 gauge_normalization=values[0].gauge_normalization,
                 parent_scale=values[3],
-                attack_coefficient=values[4],
+                transformation_coefficient=values[4],
             )
             for values in inventory
         )

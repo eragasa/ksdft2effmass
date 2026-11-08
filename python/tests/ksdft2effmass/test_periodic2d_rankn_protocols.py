@@ -35,7 +35,8 @@ class TestPeriodic2DRankNProtocols:
             "Rank four remains a value of rank-N",
             "2 * retained_rank",
             "complete global-unitary Procrustes",
-            "they do not inherit rank-two classes",
+            "`Periodic2DRank2...` operation owners then refine",
+            "does not inherit rank-two calculation policy",
             "INSTALLED WITH TYPED AGGREGATE VERIFICATION",
             "Visualization projection",
             "VISUALIZATION-BOUND SCHEMAS PENDING",
@@ -64,7 +65,8 @@ class TestPeriodic2DRankNProtocols:
             "global-unitary",
             "pointwise-unitary",
             "known-inverse-oracle",
-            "no inheritance from\nrank-two classes",
+            "`Periodic2DRank2...` operation owners refine them",
+            "does not transfer rank-two calculation policy",
             "does not authorize execution or retained evidence",
             "construction size `16`",
             "evaluation size `33`",
@@ -96,9 +98,22 @@ class TestPeriodic2DRankNProtocols:
         ).is_file()
         assert (rank_root / "hopping_locality" / "analysis.py").is_file()
         assert (rank_root / "support_truncation" / "analysis.py").is_file()
+        assert (rank_root / "gauge_alignment" / "attack.py").is_file()
+        parent_model = (
+            repository_root
+            / "python"
+            / "src"
+            / "ksdft2effmass"
+            / "periodic"
+            / "periodic2d"
+            / "rankN"
+            / "models"
+            / "analytic.py"
+        )
+        assert parent_model.is_file()
         aggregate_root = rank_root / "band_equivalence_hopping_locality"
         for filename in (
-            "model.py",
+            "case.py",
             "request.py",
             "case_expansion.py",
             "analysis.py",
@@ -117,6 +132,7 @@ class TestPeriodic2DRankNProtocols:
         calculation_root = repository_root / "calculations" / "periodic2d" / "rankN"
 
         assert calculation_root.is_dir()
+        assert (calculation_root / "control_basis.py").is_file()
         assert not list(calculation_root.rglob("run_01_calculation.py"))
         assert not list(calculation_root.rglob("run_02_verification.py"))
         assert not list(calculation_root.rglob("run_03_render.py"))

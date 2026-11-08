@@ -14,8 +14,14 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 )
 
 from ksdft2effmass.analysis.matrix_field.diagnostics import ScalarRefinementAnalyzer
+from ksdft2effmass.periodic.periodic1d.rankN.models import (
+    Periodic1DRankNParentModel,
+)
 from ksdft2effmass.periodic1d.fourier_locality import (
     Periodic1DFourierLocalityConfiguration,
+)
+from ksdft2effmass.periodic1d.gauge_transformation import (
+    Periodic1DFourierGivensGaugeTransformation,
 )
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.rank1.alignment import (
@@ -94,10 +100,12 @@ class Periodic1DRank2AlignmentStudySpecification:
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DRankNAlignmentStudySpecification:
-    """Bind one D1-v1 higher-rank case and every numerical collaborator."""
+    """Bind one finite-rank parent, transformation, and numerical collaborators."""
 
     lattice_geometry: Periodic1DLatticeGeometry
     request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
+    parent_model: Periodic1DRankNParentModel
+    gauge_transformation: Periodic1DFourierGivensGaugeTransformation
     procrustes_solver: NumpyBatchedComplexUnitaryProcrustesSolver
     transporter: ClosedLoopPolarFrameTransporter
     scalar_refinement_analyzer: ScalarRefinementAnalyzer
@@ -112,6 +120,23 @@ class Periodic1DRankNAlignmentStudySpecification:
             raise TypeError(
                 "request must be Periodic1DRankNBandEquivalenceHoppingLocalityRequest"
             )
+        if not isinstance(self.parent_model, Periodic1DRankNParentModel):
+            raise TypeError("parent_model must be Periodic1DRankNParentModel")
+        if self.parent_model.band_subspace_rank != self.request.retained_rank:
+            raise ValueError("parent_model rank must equal the requested rank")
+        if (
+            type(self.gauge_transformation)
+            is not Periodic1DFourierGivensGaugeTransformation
+        ):
+            raise TypeError(
+                "gauge_transformation must be "
+                "Periodic1DFourierGivensGaugeTransformation"
+            )
+        if (
+            self.gauge_transformation.retained_rank != self.request.retained_rank
+            or self.gauge_transformation.circuit_depth != self.request.circuit_depth
+        ):
+            raise ValueError("gauge_transformation must match request rank and depth")
         if type(self.procrustes_solver) is not (
             NumpyBatchedComplexUnitaryProcrustesSolver
         ):
@@ -181,7 +206,7 @@ class Periodic1DRank2AlignmentStudyAnalyzer(Periodic1DGaugeAlignment):
 
 @final
 class Periodic1DRankNAlignmentStudyAnalyzer(Periodic1DGaugeAlignment):
-    """Bind explicit lattice geometry to one maintained D1-v1 action."""
+    """Bind explicit lattice geometry to one maintained higher-rank action."""
 
     __slots__ = ("_delegate", "_specification")
 
@@ -196,6 +221,8 @@ class Periodic1DRankNAlignmentStudyAnalyzer(Periodic1DGaugeAlignment):
         self._specification = specification
         self._delegate = Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(
             request=specification.request,
+            parent_model=specification.parent_model,
+            gauge_transformation=specification.gauge_transformation,
             procrustes_solver=specification.procrustes_solver,
             transporter=specification.transporter,
             scalar_refinement_analyzer=specification.scalar_refinement_analyzer,

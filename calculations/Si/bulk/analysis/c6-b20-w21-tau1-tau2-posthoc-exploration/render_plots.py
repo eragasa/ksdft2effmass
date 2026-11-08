@@ -21,9 +21,7 @@ ROOT = Path(__file__).resolve().parent
 RESULT = ROOT / "result.json"
 FIGURES = ROOT / "figures"
 MANIFEST = FIGURES / "figure-manifest.json"
-STATUS = (
-    "post-hoc-producer-checked-development-exploration-not-independently-verified"
-)
+STATUS = "post-hoc-producer-checked-development-exploration-not-independently-verified"
 
 
 def mapping(value: JsonValue, name: str) -> JsonObject:
@@ -92,9 +90,7 @@ def render_map(
     title: str,
     output_stem: str,
 ) -> None:
-    reduced = [
-        item for item in candidates if item["proper_reduced_candidate"] is True
-    ]
+    reduced = [item for item in candidates if item["proper_reduced_candidate"] is True]
     spectral = np.asarray(
         [numeric(item[spectral_key], spectral_key) for item in reduced],
         dtype=np.float64,
@@ -125,7 +121,7 @@ def render_map(
     )
     norm = BoundaryNorm(boundaries, colormap.N)
     figure, axes = plt.subplots(1, 2, figsize=(12.5, 5.2))
-    scatter = axes[0].scatter(
+    axes[0].scatter(
         spectral,
         operator,
         c=cost,

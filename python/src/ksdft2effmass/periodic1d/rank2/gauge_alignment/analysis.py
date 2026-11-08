@@ -46,7 +46,7 @@ class Periodic1DRank2GaugeAlignmentAnalysisRequest(
     """Bind two rank-two frame paths and the declared Procrustes tolerances."""
 
     reference: ReciprocalBandFramePath1D
-    attacked: ReciprocalBandFramePath1D
+    gauge_transformed: ReciprocalBandFramePath1D
     rank_absolute_tolerance: float
     rank_relative_tolerance: float
     validation_absolute_tolerance: float
@@ -54,19 +54,23 @@ class Periodic1DRank2GaugeAlignmentAnalysisRequest(
     def __post_init__(self) -> None:
         if type(self.reference) is not ReciprocalBandFramePath1D:
             raise TypeError("reference must be ReciprocalBandFramePath1D")
-        if type(self.attacked) is not ReciprocalBandFramePath1D:
-            raise TypeError("attacked must be ReciprocalBandFramePath1D")
-        if self.reference.rank != 2 or self.attacked.rank != 2:
-            raise ValueError("reference and attacked paths must both have rank two")
-        if self.attacked.mesh != self.reference.mesh:
-            raise ValueError("reference and attacked meshes must agree")
-        if self.attacked.ambient_dimension != self.reference.ambient_dimension:
-            raise ValueError("reference and attacked ambient dimensions must agree")
+        if type(self.gauge_transformed) is not ReciprocalBandFramePath1D:
+            raise TypeError("gauge_transformed must be ReciprocalBandFramePath1D")
+        if self.reference.rank != 2 or self.gauge_transformed.rank != 2:
+            raise ValueError(
+                "reference and gauge_transformed paths must both have rank two"
+            )
+        if self.gauge_transformed.mesh != self.reference.mesh:
+            raise ValueError("reference and gauge_transformed meshes must agree")
+        if self.gauge_transformed.ambient_dimension != self.reference.ambient_dimension:
+            raise ValueError(
+                "reference and gauge_transformed ambient dimensions must agree"
+            )
         if not np.array_equal(
-            self.attacked.sewing_map.magnitude,
+            self.gauge_transformed.sewing_map.magnitude,
             self.reference.sewing_map.magnitude,
         ):
-            raise ValueError("reference and attacked sewing maps must agree")
+            raise ValueError("reference and gauge_transformed sewing maps must agree")
         for value, name in (
             (self.rank_absolute_tolerance, "rank_absolute_tolerance"),
             (self.rank_relative_tolerance, "rank_relative_tolerance"),
@@ -148,7 +152,7 @@ class Periodic1DRank2GaugeAlignmentAnalyzer(
             rank_cutoff_rule=ComplexUnitaryProcrustesRankCutoffRule.MAXIMUM,
         )
         source = np.asarray(
-            [frame.magnitude for frame in request.attacked.frames],
+            [frame.magnitude for frame in request.gauge_transformed.frames],
             dtype=np.complex128,
         )
         target = np.asarray(
@@ -166,7 +170,7 @@ class Periodic1DRank2GaugeAlignmentAnalyzer(
             pointwise_selection.require_unique_right_unitary_transformations()
         )
         pointwise_aligned = self._rotate_path(
-            request.attacked,
+            request.gauge_transformed,
             tuple(pointwise_values[index] for index in range(source.shape[0])),
         )
         global_selection = self.solver.solve(
@@ -180,8 +184,10 @@ class Periodic1DRank2GaugeAlignmentAnalyzer(
             0
         ]
         globally_aligned = self._rotate_path(
-            request.attacked,
-            tuple(global_value for _ in range(request.attacked.mesh.point_count)),
+            request.gauge_transformed,
+            tuple(
+                global_value for _ in range(request.gauge_transformed.mesh.point_count)
+            ),
         )
         unit = Unitless()
         return Periodic1DRank2GaugeAlignmentAnalysis(

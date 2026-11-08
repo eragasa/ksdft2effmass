@@ -33,7 +33,7 @@ class _AlignmentFigure(BaseFigure):
             label=r"analytic $|J_0(2a)|$ comparator",
         )
         axes[0].set(
-            xlabel="gauge-attack amplitude / rad",
+            xlabel="gauge-transformation amplitude / rad",
             ylabel="maximum correlation",
             title="Restricted global alignment",
         )
@@ -50,7 +50,7 @@ class _AlignmentFigure(BaseFigure):
             label="exact-spectrum joint threshold",
         )
         axes[1].set(
-            xlabel="gauge-attack amplitude / rad",
+            xlabel="gauge-transformation amplitude / rad",
             ylabel="normalized squared loss",
             title="Separated decision thresholds",
         )
@@ -88,7 +88,7 @@ class _LocalityFigure(BaseFigure):
         axes[0].legend(frameon=False, fontsize=8)
         axes[1].plot(self.data.amplitudes, self.data.nyquist_powers, "o-")
         axes[1].set(
-            xlabel="gauge-attack amplitude / rad",
+            xlabel="gauge-transformation amplitude / rad",
             ylabel="normalized cyclic Nyquist power",
             yscale="symlog",
             title="Discarded self-inverse cyclic class",

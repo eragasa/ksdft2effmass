@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import final
 
 from ksdft2effmass.periodic2d.support_truncation.base import (
     Periodic2DSupportTruncation,
@@ -11,10 +10,14 @@ from ksdft2effmass.periodic2d.support_truncation.base import (
     Periodic2DSupportTruncationAnalysisRequest,
     Periodic2DSupportTruncationAnalyzer,
 )
+from ksdft2effmass.real_space_support_truncation.base import (
+    PeriodicRankNSupportTruncationCapability,
+)
 
 
 class Periodic2DRankNSupportTruncationCapability(
     Periodic2DSupportTruncation,
+    PeriodicRankNSupportTruncationCapability,
     ABC,
 ):
     """Identify periodic-2D finite-rank support truncation."""
@@ -60,7 +63,6 @@ class Periodic2DRankNSupportTruncationAnalyzerRole[
     __slots__ = ()
 
     @property
-    @final
     def band_subspace_rank(self) -> int:
         """Return the rank of the support-truncated operator blocks."""
         return self.request.band_subspace_rank

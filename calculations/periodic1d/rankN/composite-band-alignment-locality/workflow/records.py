@@ -477,7 +477,7 @@ class HigherRankD1MeshDiagnostics:
 
     mesh_size: int
     sampled_isolation: float
-    sampled_attack_angle: float
+    sampled_transformation_angle: float
     coordinate_maximum_defect: float
     parent_hermiticity: MatrixFieldHermiticityDiagnostics
     reference_isometry: MatrixFieldIsometryDiagnostics
@@ -500,7 +500,7 @@ class HigherRankD1MeshDiagnostics:
             raise ValueError("mesh_size must belong to the D1 inventory")
         for name in (
             "sampled_isolation",
-            "sampled_attack_angle",
+            "sampled_transformation_angle",
             "coordinate_maximum_defect",
             "parent_retained_spectrum_maximum",
             "parent_retained_spectrum_rms",
@@ -602,7 +602,7 @@ class HigherRankD1CaseResult:
     rank: int
     depth: int
     exact_isolation: float
-    exact_attack_angle_bound: float
+    exact_transformation_angle_bound: float
     basis_identifier: str
     energy_unit: str
     energy_reference: str
@@ -633,7 +633,7 @@ class HigherRankD1CaseResult:
         if self.exact_isolation != EXACT_ISOLATION:
             raise ValueError("exact_isolation must equal the D1 certificate")
         require_nonnegative_float(
-            self.exact_attack_angle_bound, "exact_attack_angle_bound"
+            self.exact_transformation_angle_bound, "exact_transformation_angle_bound"
         )
         if type(self.basis_identifier) is not str or not self.basis_identifier:
             raise ValueError("basis_identifier must be a nonempty string")
