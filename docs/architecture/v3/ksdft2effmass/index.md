@@ -30,6 +30,9 @@ or supported import already exists.
   records or evidence identities.
 - [`serialization`](serialization/index.md): typed scientific JSON normalization and
   final record boundaries.
+- [`certifications`](certifications/index.md): proposition-specific exact certification
+  wires, conservative interval dispositions, and producer/verifier artifact correlation
+  without conflating certification with verification or scientific validation.
 - [`visualizations`](visualizations/index.md): domain-neutral authenticated projection,
   figure composition, PNG admission, and closed-inventory mechanics.
 - [`models`](models/index.md): the nominal KSD scientific-model root and maintained

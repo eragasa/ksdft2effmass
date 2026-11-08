@@ -26,6 +26,7 @@ explicitly labeled and do not claim implemented or supported source.
 | `workflows` | Calculator-independent task, workflow, gate, run-state, and execution-authority contracts | Scientific algorithms and native external-tool behavior |
 | `provenance` | Portable artifact, execution, lineage, and external-tool provenance records | Scientific validity or campaign-specific result meaning |
 | `serialization` | Shared typed JSON contracts, scientific-value normalization, mapping byte actions, and final typed-record boundaries | Domain schemas, filesystem persistence, provenance policy, or scientific interpretation |
+| `certifications` | Proposition-specific typed certification records, exact endpoint decisions, and producer/verifier artifact correlation | Scientific analyses, numerical engines in general, parallel JSON schemas, scientific validation, or human acceptance |
 | `visualizations` | Domain-neutral visualization projection serialization, figure composition contracts, PNG admission, authentication mechanics, and closed-inventory enforcement | Family scientific projections, plot inventories, calculation paths, scientific interpretation, or publication policy |
 | `structures` | Atomic periodic-structure records | Finite represented matrices or lattice-model calculations |
 | `electronic_structure` | General electronic-structure sampling records | Calculator execution or campaign composition |
@@ -89,10 +90,12 @@ existing owner:
    `model_systems`.
 4. Put lattice-, Bloch-, frame-, gauge-, or hopping-specific behavior in `solidstate`.
 5. Put reusable scientific interpretation in `analysis`.
-6. Put experiment or retained-result composition in the existing campaign/capability
+6. Put an exact claim-bearing proposition and its enclosure-evidence contract in
+   `certifications`; keep the scientific quantity with its analysis owner.
+7. Put experiment or retained-result composition in the existing campaign/capability
    owner.
-7. Put external syntax and tool adaptation in `integration`.
-8. Put task/run state in `workflows` and evidence lineage in `provenance`.
+8. Put external syntax and tool adaptation in `integration`.
+9. Put task/run state in `workflows` and evidence lineage in `provenance`.
 
 Do not create a parallel `representation`, `representations`, `transformation`, or
 `transformations` hierarchy merely to rename existing concepts. Introduce a new owner

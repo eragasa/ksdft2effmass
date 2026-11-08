@@ -305,7 +305,23 @@ existing Fourier-locality wire predates the operation-first wrappers and is pres
 retained historical evidence; this protocol does not silently add fields to or relabel
 that wire.
 
-## 12. Acceptance and disposition
+## 12. Certification boundary
+
+The reusable exact certification contract is owned by
+`ksdft2effmass.certifications.periodic1d.rank1.first_passing_support`, not by this
+calculation directory or the Fourier-locality analyzer. It may bind a future exact
+execution and its independent numerical verification to the finite proposition that one
+selected support is the first support jointly passing the mediated and direct
+maximum-total-error threshold.
+
+The implemented certification wire classifies supplied exact rational intervals only.
+It does not currently produce or independently verify outward enclosures, does not alter
+the retained predecessor bytes, and does not admit a runtime certificate as evidence.
+Any interval engine, producer trace, independent containment verifier, or retained
+certification execution requires separate review. A dependency addition also requires
+explicit human authorization.
+
+## 13. Acceptance and disposition
 
 A finite execution may be reported as **software-pass** only when:
 
@@ -323,7 +339,7 @@ The following remain separate human dispositions:
 - whether a result may support a publication claim; and
 - whether a fitted reduced model is adequate for a material application.
 
-## 13. Claim boundary
+## 14. Claim boundary
 
 This protocol does not establish:
 

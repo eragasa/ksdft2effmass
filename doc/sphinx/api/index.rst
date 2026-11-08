@@ -21,6 +21,7 @@ public compatibility contract.
    support-truncation
    research-monograph-campaigns
    serialization
+   certifications
    application
    units
    plane-wave-calculators
