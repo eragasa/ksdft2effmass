@@ -14,15 +14,16 @@ from projectkoios.simulations.calculator.input import (
     CalculatorInputArtifact,
     CalculatorInputRecord,
 )
-from tests.ksdft2effmass.integration.quantum_espresso.resources import (
-    CalculatorInputAdmissionScenario,
-    calculator_input_admission_scenario,
-)
 
 import ksdft2effmass.integration.quantum_espresso as qe
 from ksdft2effmass.workflows import (
     ArtifactContentIdentity,
     ArtifactManifestEntryIdentity,
+)
+
+from .resources.calculator_input_scenarios import (
+    CalculatorInputAdmissionScenario,
+    calculator_input_admission_scenario,
 )
 
 pytestmark = pytest.mark.software_verification

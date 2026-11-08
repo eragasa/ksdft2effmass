@@ -58,4 +58,4 @@ compatibility, numerical convergence, scientific validity, or execution authorit
 Source-mirrored software verification is in
 `python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QeCalculatorInputAdmission__admission.py`.
 Typed synthetic composition is isolated in
-`python/tests/ksdft2effmass/integration/quantum_espresso/resources/calculator_input_scenarios.py`.
+`python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/resources/calculator_input_scenarios.py`.

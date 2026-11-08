@@ -50,6 +50,7 @@ from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.result imp
     Periodic3DRank2BandEquivalenceHoppingLocalityCalculationResult,
 )
 from ksdft2effmass.serialization import BaseTypedRecord
+from ksdft2effmass.sewing import ReciprocalEndpointSewingInventory
 
 _LOCALITY_DEFINITION_SCRIPTS = (
     "periodic2d/rank2/orthogonal/band-equivalence-locality/run_development.py",
@@ -249,8 +250,14 @@ def assert_calculation_writer_serialization(
                 script_globals["MAXIMUM_TRANSITION_REFINEMENT_DEPTH"] = 1
         if relative_path.startswith("band-equivalence-dimensional-comparison/"):
             original_loader = cast(
-                Callable[[Path, int], BandEquivalenceHoppingLocalityRequest],
-                script_globals["_load_definition"],
+                Callable[
+                    [Path, int],
+                    tuple[
+                        BandEquivalenceHoppingLocalityRequest,
+                        ReciprocalEndpointSewingInventory,
+                    ],
+                ],
+                script_globals["_load_composition"],
             )
             request_type = cast(
                 type[ShellScaleDecisionLandscapeRequest],
@@ -258,14 +265,21 @@ def assert_calculation_writer_serialization(
             )
 
             def reduced_loader(
-                path: Path, index: int
-            ) -> BandEquivalenceHoppingLocalityRequest:
-                request = original_loader(path, index)
+                path: Path,
+                index: int,
+            ) -> tuple[
+                BandEquivalenceHoppingLocalityRequest,
+                ReciprocalEndpointSewingInventory,
+            ]:
+                request, endpoint_sewing = original_loader(path, index)
                 construction_size = max(4, request.construction_size // 2)
-                return replace(
-                    request,
-                    construction_size=construction_size,
-                    evaluation_size=2 * construction_size + 1,
+                return (
+                    replace(
+                        request,
+                        construction_size=construction_size,
+                        evaluation_size=2 * construction_size + 1,
+                    ),
+                    endpoint_sewing,
                 )
 
             def reduced_request(
@@ -279,7 +293,7 @@ def assert_calculation_writer_serialization(
                     scale_sample_count=3,
                 )
 
-            script_globals["_load_definition"] = reduced_loader
+            script_globals["_load_composition"] = reduced_loader
             script_globals["ShellScaleDecisionLandscapeRequest"] = reduced_request
 
         assert main() == 0
