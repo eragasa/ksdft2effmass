@@ -12,7 +12,7 @@ this parent construction, not a generic analysis parameter. The retained v1 fiel
 sampler evaluates the equivalent closed-form Bloch law so that this internal ownership
 correction does not change established binary64 result bytes. The parent supplies the
 reference frame and represented Hamiltonian. The
-`Periodic3DRankNGivensGaugeAttack` supplies a right-acting unitary field, its application
+`Periodic3DRankNGivensGaugeTransformation` supplies a right-acting unitary field, its application
 to any admitted frame or represented operator of matching rank, and the construction
 inverse. Circuit depth, normalization, harmonic bonds, and attack coefficient therefore
 identify the attack rather than the parent Hamiltonian.

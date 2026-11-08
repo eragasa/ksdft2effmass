@@ -46,6 +46,14 @@ dimensional prefix:
 | `Periodic1DGaugeAlignmentAnalysisRequest` | `Periodic2DGaugeAlignmentAnalysisRequest` | `Periodic3DGaugeAlignmentAnalysisRequest` |
 | `Periodic1DGaugeAlignmentAnalysis` | `Periodic2DGaugeAlignmentAnalysis` | `Periodic3DGaugeAlignmentAnalysis` |
 | `Periodic1DGaugeAlignmentAnalyzer` | `Periodic2DGaugeAlignmentAnalyzer` | `Periodic3DGaugeAlignmentAnalyzer` |
+| `Periodic1DFourierAnalysis` | `Periodic2DFourierAnalysis` | `Periodic3DFourierAnalysis` |
+| `Periodic1DFourierAnalysisRequest` | `Periodic2DFourierAnalysisRequest` | `Periodic3DFourierAnalysisRequest` |
+| `Periodic1DFourierAnalysisResult` | `Periodic2DFourierAnalysisResult` | `Periodic3DFourierAnalysisResult` |
+| `Periodic1DFourierAnalyzer` | `Periodic2DFourierAnalyzer` | `Periodic3DFourierAnalyzer` |
+| `Periodic1DInterpolation` | `Periodic2DInterpolation` | `Periodic3DInterpolation` |
+| `Periodic1DInterpolationAnalysisRequest` | `Periodic2DInterpolationAnalysisRequest` | `Periodic3DInterpolationAnalysisRequest` |
+| `Periodic1DInterpolationAnalysis` | `Periodic2DInterpolationAnalysis` | `Periodic3DInterpolationAnalysis` |
+| `Periodic1DInterpolationAnalyzer` | `Periodic2DInterpolationAnalyzer` | `Periodic3DInterpolationAnalyzer` |
 | `Periodic1DHoppingLocality` | `Periodic2DHoppingLocality` | `Periodic3DHoppingLocality` |
 | `Periodic1DHoppingLocalityAnalysisRequest` | `Periodic2DHoppingLocalityAnalysisRequest` | `Periodic3DHoppingLocalityAnalysisRequest` |
 | `Periodic1DHoppingLocalityAnalysis` | `Periodic2DHoppingLocalityAnalysis` | `Periodic3DHoppingLocalityAnalysis` |
@@ -94,9 +102,13 @@ the nominal capability owners abstract without introducing role identifiers or e
 marker constructors. Concrete model-reduction studies retain their separate
 `retained_rank` fields where that provenance is scientifically applicable.
 
-Rank-two classes do not inherit from rank-N classes merely because two is a finite rank.
-Both specializations are sibling branches beneath the applicable dimensional
-band-equivalence owner and then support their existing concrete aggregate studies.
+Rank-two gauge-alignment, frame-transport, band-equivalence, hopping-locality, and
+support-truncation owners refine the applicable dimensional finite-rank owner and add
+the fixed-rank-two contract. The dimensional finite-rank owners in turn refine shared
+dimension-neutral periodic capabilities; no spatial dimension inherits from another.
+Rank-one remains a separate specialization. Aggregate rank-N study-family ownership and
+single-case ownership remain distinct where the installed aggregate API explicitly
+separates a rank inventory from one finite-rank case.
 
 A retained rank such as four is a value admitted by an applicable rank-N request; it
 does not create a `rank4` source namespace. The `periodic2d/rankN` and
@@ -159,8 +171,12 @@ formula or numerical result.
 The shared `band_equivalence_hopping_locality` implementation is therefore
 migration input rather than the final owner for dimension- and rank-bound public types.
 The migration must keep representation equivalence, gauge alignment, frame transport,
-hopping-locality diagnostics, and irreversible support truncation scientifically
-distinct.
+Fourier analysis, interpolation, hopping-locality diagnostics, and irreversible support
+truncation scientifically distinct. Fourier analysis and interpolation now have shared
+periodic finite-rank capability roots with sibling periodic-1D, periodic-2D, and
+periodic-3D refinements. Dimensional meshes, sewing, Fourier tensors, coordinate
+selection, and interpolation policy remain with the dimensional implementation rather
+than the dimension-neutral capability.
 
 The periodic-2D and periodic-3D rank-two restricted gauge-alignment owners bind two
 immutable represented rank-two matrix fields on one tensor-product mesh. They declare a

@@ -31,7 +31,7 @@ The immediate decisions are:
 - the current local NumPy frame and SVD selection mechanisms remain explicit
   `TECH_DEBT` until the maintained rank-two successor is migrated; the reviewed
   maximum-rule batched Procrustes owner is now dependency-bound and exercised directly
-  by higher-rank D1 software verification.
+  by higher-rank periodic-1D analytic validation software verification.
 
 This page now records the bound invariant Hermitian slice, the selected successor
 contracts, and deferred extraction candidates. The temporary mechanisms and exit

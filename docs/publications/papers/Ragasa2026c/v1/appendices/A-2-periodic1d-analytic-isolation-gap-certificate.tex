@@ -1,10 +1,10 @@
-\section{Analytic certificates for the D1 P0/G0 tranche}
-\label{app:d1-gap-certificate}
+\section{Analytic certificates for the periodic-1D constant-subspace real-Givens validation study tranche}
+\label{app:periodic1d-analytic-gap-certificate}
 For a fixed momentum $k$, the retained dispersion can be written as
 \begin{equation}
  \frac{\epsilon_a(k)}{E_{\mathrm{ref}}}
  =0.25c(k)+x_{r,a}\bigl(0.40+0.05c(k)\bigr).
- \label{eq:d1-retained-gap-certificate}
+ \label{eq:periodic1d-analytic-retained-gap-certificate}
 \end{equation}
 Because $c(k)\in[-1,1]$, the coefficient of $x_{r,a}$ lies in
 $[0.35,0.45]$ and is strictly positive. The maximum over the retained index therefore
@@ -12,7 +12,7 @@ occurs at $x_{r,a}=1$ for every selected finite rank:
 \begin{equation}
  \frac{\max_a\epsilon_a(k)}{E_{\mathrm{ref}}}
  =0.40+0.30c(k).
- \label{eq:d1-retained-maximum}
+ \label{eq:periodic1d-analytic-retained-maximum}
 \end{equation}
 The exterior dispersion is
 \begin{equation}
@@ -23,13 +23,13 @@ Its minimum occurs at $x_{r,a}=-1$, so
 \begin{equation}
  \frac{\min_a\epsilon_a^{\mathrm{ext}}(k)}{E_{\mathrm{ref}}}
  =2.70+0.10c(k).
- \label{eq:d1-exterior-minimum}
+ \label{eq:periodic1d-analytic-exterior-minimum}
 \end{equation}
-Subtracting Eq.~\eqref{eq:d1-retained-maximum} from
-Eq.~\eqref{eq:d1-exterior-minimum} gives the pointwise retained--exterior separation
+Subtracting Eq.~\eqref{eq:periodic1d-analytic-retained-maximum} from
+Eq.~\eqref{eq:periodic1d-analytic-exterior-minimum} gives the pointwise retained--exterior separation
 \begin{equation}
  \frac{\Delta_{\mathrm{iso}}(k)}{E_{\mathrm{ref}}}=2.30-0.20c(k).
- \label{eq:d1-pointwise-gap}
+ \label{eq:periodic1d-analytic-pointwise-gap}
 \end{equation}
 The harmonic $c(k)=\tfrac34\cos k+\tfrac14\cos(2k)$ satisfies $c(k)\leq1$, and
 $c(0)=1$. Hence
@@ -37,7 +37,7 @@ $c(0)=1$. Hence
  \Delta_{\mathrm{iso}}
  =\inf_{k\in[-\pi,\pi)}\Delta_{\mathrm{iso}}(k)
  =2.10E_{\mathrm{ref}}.
- \label{eq:d1-exact-gap}
+ \label{eq:periodic1d-analytic-exact-gap}
 \end{equation}
 The endpoints $x_{r,1}=-1$ and $x_{r,r}=1$ occur for every declared rank $r\geq2$.
 The certificate is therefore exact for the entire selected rank ladder and does not
@@ -83,7 +83,7 @@ For each $r\in\{3,4,8,16\}$ it evaluates
  =\min_{k\in\mathcal K_M}
  \left[\min_{1\leq a\leq r}\epsilon_a^{\mathrm{ext}}(k)
  -\max_{1\leq a\leq r}\epsilon_a(k)\right]
- \label{eq:d1-sampled-gap}
+ \label{eq:periodic1d-analytic-sampled-gap}
 \end{equation}
 and
 \begin{equation}
@@ -92,7 +92,7 @@ and
  \left|0.35(-1)^{\ell+j}
  \left(1+0.15\frac{2j-r}{r-1}\right)
  \left[\frac34\sin k+\frac14(-1)^\ell\sin(2k)\right]\right|.
- \label{eq:d1-sampled-angle}
+ \label{eq:periodic1d-analytic-sampled-angle}
 \end{equation}
 The deterministic output is
 \begin{center}\small
@@ -107,7 +107,7 @@ $r$ & $\widehat\Delta_{\mathrm{iso},r}/E_{\mathrm{ref}}$ & $\widehat\theta_r$ (r
 \bottomrule
 \end{tabular}
 \end{center}
-The sampled isolation energy agrees with Eq.~\eqref{eq:d1-exact-gap} because the grid
+The sampled isolation energy agrees with Eq.~\eqref{eq:periodic1d-analytic-exact-gap} because the grid
 contains $k=0$. The sampled angle maxima lie slightly below the exact continuum values
 because the maximizing momenta need not lie on the grid. The sampled values remain
 finite-grid diagnostics; the formulas above are the certificates. The source is

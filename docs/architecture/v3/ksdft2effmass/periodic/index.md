@@ -12,8 +12,10 @@ Dimension-specific model ownership belongs to:
 - [`periodic.periodic2d.models`](periodic2d/models/index.md), and
 - [`periodic.periodic3d.models`](periodic3d/models/index.md).
 
-Rank-two and rank-N specializations remain nested below each dimensional package. The
-package root does not re-export model classes. Import the dimension-neutral contracts
+Finite-rank and rank-two specializations remain nested below each dimensional package.
+Each dimensional rank-two model refines its finite-rank owner rather than duplicating a
+sibling rank contract. The package root does not re-export model classes. Import the
+dimension-neutral contracts
 from `ksdft2effmass.periodic.models` and dimensional contracts from their exact nested
 owners. The control-model catalog remains explicit at
 `ksdft2effmass.periodic.catalog`.

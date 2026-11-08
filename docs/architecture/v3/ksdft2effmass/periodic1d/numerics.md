@@ -65,7 +65,7 @@ complete equal-weight case agrees numerically.
 
 A composite result declares parent and retained ranks, ordered frames, sewing maps,
 neighbor overlaps, conditioning thresholds, and the exact pointwise or global alignment
-objective. Projection, transport, Procrustes alignment, gauge attack, and Fourier
+objective. Projection, transport, Procrustes alignment, gauge transformation, and Fourier
 transformation remain separate result sections.
 
 Exact pointwise spectral equivalence does not imply equal hopping locality. A finite-

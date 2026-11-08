@@ -6,7 +6,7 @@ flowchart LR
     S[bound Procrustes solver] --> P[pointwise alignment]
     S --> G[global alignment diagnostic]
     E --> T[transported reference frame]
-    T --> A[declared attack]
+    T --> A[declared transformation]
     A --> P[pointwise alignment]
     A --> G[global alignment diagnostic]
     T --> O[reference represented operators]

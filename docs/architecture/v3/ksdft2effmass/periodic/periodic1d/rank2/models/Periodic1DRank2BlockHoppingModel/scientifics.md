@@ -4,11 +4,12 @@ The model identifies an infinite ordinary one-dimensional periodic Hamiltonian w
 retained primitive-cell states. Rank two refers to the retained coefficient-block size,
 not the algebraic rank of an individual coefficient matrix.
 
-The primitive period and its physical unit are part of the scientific geometry. The
-provider hopping representation separately owns energy units, energy reference, basis
-identity, integer lattice displacements, and coefficient storage. Physical direct-
-lattice displacements are geometry-derived values and are not independent coefficient
-indices.
+The primitive period and its physical unit are part of the scientific geometry. KSD
+owns the exact ordered `Periodic1DBasisIdentity` for coefficient rows and columns. The
+provider hopping representation separately owns energy units, energy reference, its
+descriptive basis string, integer lattice displacements, and coefficient storage. The
+provider string does not establish compatibility. Physical direct-lattice displacements
+are geometry-derived values and are not independent coefficient indices.
 
 Exact conjugate-displacement support is a model-admission condition. Approximate
 Hermiticity from a floating-point Fourier transform remains representation-level evidence

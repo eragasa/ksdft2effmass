@@ -2,11 +2,15 @@
 
 Implemented periodic-2D rank-two model ownership.
 
-`Periodic2DRank2Model` inherits `Periodic2DModel` and fixes
-`band_subspace_rank == 2`. `Periodic2DRank2BlockHoppingModel` directly inherits the
-shared `PeriodicRank2BlockHoppingModel`, binds an exact two-dimensional lattice metric,
-and composes a PhysKit dense or sparse block-hopping representation with exact `2 x 2`
-blocks and conjugate displacement support.
+`Periodic2DRank2Model` refines `Periodic2DRankNModel` and fixes
+`band_subspace_rank == 2`. It retains the inherited requirement for an explicit
+`Periodic2DBasisIdentity` containing exactly two ordered coordinates.
+
+`Periodic2DRank2BlockHoppingModel` combines `Periodic2DRank2Model` with
+`PeriodicBlockHoppingModel`. It binds exact ordered unit-bearing two-dimensional lattice
+geometry, the structured rank-two basis, and a PhysKit dense or sparse block-hopping
+representation with exact `2 x 2` blocks and conjugate-displacement support. The direct
+metric is derived from complete geometry rather than substituted for it.
 
 Source owners:
 
@@ -16,4 +20,4 @@ Source owners:
 Detailed architecture:
 
 - [`Periodic2DRank2BlockHoppingModel`](Periodic2DRank2BlockHoppingModel/index.md)
-- [Shared rank-two block-hopping parent](../../../models/PeriodicRank2BlockHoppingModel/index.md)
+- [Dimension-neutral block-hopping capability](../../../models/PeriodicBlockHoppingModel/index.md)

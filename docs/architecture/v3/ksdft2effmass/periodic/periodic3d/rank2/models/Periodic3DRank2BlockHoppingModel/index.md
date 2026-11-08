@@ -5,9 +5,12 @@
 Implemented frozen, slotted scientific-model value in
 `python/src/ksdft2effmass/periodic/periodic3d/rank2/models/block_hopping.py`.
 
-The class directly inherits `PeriodicRank2BlockHoppingModel`. It completes the shared
-contract with exact three-dimensional geometry, identity, role, and one composed PhysKit
-dense or sparse block-hopping representation.
+The class combines `Periodic3DRank2Model` and `PeriodicBlockHoppingModel`.
+`Periodic3DRank2Model` refines the three-dimensional finite-rank owner to exact retained
+rank two; `PeriodicBlockHoppingModel` contributes dimension-neutral represented-operator
+behavior and admissibility. The concrete class correlates those contracts with exact
+three-dimensional geometry, structured basis identity, model identity, role, and one
+composed PhysKit dense or sparse representation.
 
 ## Construction boundary
 
@@ -17,6 +20,7 @@ Construction requires:
 - one exact `PeriodicModelRole`;
 - an immutable `Periodic3DLatticeGeometry` containing the ordered primitive-basis
   matrix and an explicit physical length unit;
+- one exact `Periodic3DBasisIdentity` with two ordered coordinates;
 - provider dimension three;
 - exact `2 x 2` coefficient blocks; and
 - complete exactly Hermitian ordinary-lattice support.

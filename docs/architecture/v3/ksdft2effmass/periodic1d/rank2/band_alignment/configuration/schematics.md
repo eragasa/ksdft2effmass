@@ -4,7 +4,7 @@
 flowchart TD
     P[exact coefficient numerators and rank] --> C[immutable typed configuration]
     M[mesh roles and ranges] --> C
-    A[attack controls] --> C
+    A[transformation controls] --> C
     Q[qualification thresholds] --> C
     S[software tolerances] --> C
     C --> D[derived exact-rational coordinate inventories]

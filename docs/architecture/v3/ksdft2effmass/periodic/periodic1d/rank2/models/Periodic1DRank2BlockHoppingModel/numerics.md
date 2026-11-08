@@ -46,6 +46,7 @@ unconverted cyclic inventory.
 
 A study-owned migration composition calls that method only after any required
 cyclic-to-ordinary result exists, then supplies the existing scientific-model constructor
-with explicit identity, role, and geometry. The resulting model constructor remains the
-sole rank-two and exact-Hermiticity admission boundary. No additional inheritance layer
-or admission class is approved.
+with explicit identity, role, geometry, and `Periodic1DBasisIdentity`. The resulting
+model constructor correlates two basis coordinates with `2 x 2` provider blocks and
+remains the exact-Hermiticity admission boundary. No additional admission class is
+approved.

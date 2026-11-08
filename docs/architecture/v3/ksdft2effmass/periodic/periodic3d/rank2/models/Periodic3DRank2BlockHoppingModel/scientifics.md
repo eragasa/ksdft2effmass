@@ -1,8 +1,10 @@
 # `Periodic3DRank2BlockHoppingModel` scientific interpretation
 
-The value identifies one three-dimensional periodic rank-two scientific model in an
-explicit retained basis and energy reference owned by the composed provider value. The
-unit-bearing ordered direct-lattice basis supplies physical geometry; coefficient
+The value identifies one three-dimensional periodic rank-two scientific model. KSD owns
+its exact ordered `Periodic3DBasisIdentity`; the composed provider value separately owns
+its descriptive basis string, coefficient energy unit, and energy reference. The
+provider string does not establish compatibility. The unit-bearing ordered direct-
+lattice basis supplies physical geometry; coefficient
 indices remain dimensionless integer lattice displacements. Their physical
 direct-lattice displacements are derived through \(\mathbf R_{\mathbf n}=A\mathbf n\)
 only when required. A bare Gram metric is insufficient because it does not retain the

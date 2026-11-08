@@ -2,12 +2,16 @@
 
 ```mermaid
 flowchart LR
-    I[model identity] --> M[Periodic1DRank2BlockHoppingModel]
+    N[Periodic1DRankNModel] --> Q[Periodic1DRank2Model]
+    Q --> M[Periodic1DRank2BlockHoppingModel]
+    H0[PeriodicBlockHoppingModel] --> M
+    I[model identity] --> M
     R[PeriodicModelRole] --> M
+    B[Periodic1DBasisIdentity: two ordered coordinates] --> M
     G[Periodic1DLatticeGeometry] --> M
     G --> L[PhysKit DirectLattice1D]
     H[PhysKit dense or sparse rank-two hopping model] --> M
-    M --> A[exact dimension and Hermiticity admission]
+    M --> A[exact dimension, basis-rank, shape, support, and Hermiticity admission]
 ```
 
 The KSD value retains physical period and unit ownership. PhysKit owns the reconstructed

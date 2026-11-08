@@ -1,6 +1,6 @@
 # Scientific contract
 
-`execute()` compares reference, attacked, pointwise-aligned, and one-global-unitary descriptions of the same retained parent space. Only the first three enter locality truncation. The global action is diagnostic, and closure phases are transport diagnostics rather than Wilson-loop claims.
+`execute()` compares reference, gauge-transformed, pointwise-aligned, and one-global-unitary descriptions of the same retained parent space. Only the first three enter locality truncation. The global action is diagnostic, and closure phases are transport diagnostics rather than Wilson-loop claims.
 
 The frame has shape
 $F(k)\in\mathbb{C}^{\mathtt{ambient\_dimension}\times r}$. The current embedded

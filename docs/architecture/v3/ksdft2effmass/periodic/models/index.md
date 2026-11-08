@@ -2,32 +2,46 @@
 
 ## Status
 
-Implemented owner of periodic scientific-model identity and rank-two block-hopping
-models.
+Implemented owner of periodic scientific-model identity and dimension-neutral
+block-hopping representation behavior.
 
-## Hierarchy
+## Inheritance refinement
+
+The hierarchy separates dimensional finite-rank identity from represented-operator
+capability:
 
 ```text
-Model
-└── PeriodicModel
-    └── PeriodicBlockHoppingModel
-        └── PeriodicRank2BlockHoppingModel
-            ├── Periodic1DRank2BlockHoppingModel
-            ├── Periodic2DRank2BlockHoppingModel
-            └── Periodic3DRank2BlockHoppingModel
+PeriodicModel
+├── PeriodicBlockHoppingModel
+├── Periodic1DRankNModel
+│   └── Periodic1DRank2Model
+├── Periodic2DRankNModel
+│   └── Periodic2DRank2Model
+└── Periodic3DRankNModel
+    └── Periodic3DRank2Model
 ```
 
-`PeriodicRank2BlockHoppingModel` is the required shared parent of all three complete
-dimensional models. It fixes retained band-subspace rank two while leaving dimension,
-geometry, scientific role, model identity, and provider representation to the concrete
-child.
+Each complete rank-two block-hopping model combines its dimensional rank-two owner with
+`PeriodicBlockHoppingModel`:
 
-The dimensional children are frozen, slotted values. They expose an exact PhysKit direct
-lattice from immutable dimensional geometry and compose an immutable dense or sparse
-PhysKit block-hopping model. The 1D child retains physical period and length unit. The 2D
-and 3D children retain the ordered primitive-basis matrix and length unit through their
-existing dimensional geometry values and derive `DirectLatticeMetric`. All validate
-exact spatial dimension, retained basis size two, and complete
+```text
+Periodic1DRank2Model + PeriodicBlockHoppingModel
+    -> Periodic1DRank2BlockHoppingModel
+Periodic2DRank2Model + PeriodicBlockHoppingModel
+    -> Periodic2DRank2BlockHoppingModel
+Periodic3DRank2Model + PeriodicBlockHoppingModel
+    -> Periodic3DRank2BlockHoppingModel
+```
+
+There is no separate public dimension-neutral fixed-rank block-hopping owner. Rank two
+refines each dimensional finite-rank model; block hopping remains dimension-neutral
+reusable behavior. This structure preserves dimensional nominal types without
+duplicating rank and validation logic.
+
+The dimensional children are frozen, slotted values. Each retains an exact dimensional
+structured basis identity, explicit unit-bearing lattice geometry, and an immutable
+dense or sparse PhysKit block-hopping representation. Construction verifies exact owner
+types, basis coordinate count, provider block size, spatial dimension, and complete
 conjugate-displacement Hermiticity.
 
 ## Ownership
@@ -35,45 +49,37 @@ conjugate-displacement Hermiticity.
 The KSD hierarchy owns:
 
 - scientific-model identity;
-- scientific role through the closed `PeriodicModelRole(StrWireEnum)` vocabulary;
+- scientific role through `PeriodicModelRole(StrWireEnum)`;
 - periodic spatial dimension;
 - retained band-subspace rank;
+- exact ordered structured basis identity;
 - physical direct-lattice geometry correlation; and
 - admissibility of the composed ordinary-lattice representation.
 
-PhysKit owns dense and sparse coefficient storage, displacement records, units,
-provider basis-identifier storage, and energy-reference representation. KSD owns
-structured periodic basis identity and composes provider values without subclassing or
-duplicating them. `PeriodicModelRole` supplies explicit `to_wire()` and `from_wire()`
-mapping; it does not create role-specific package or class hierarchies.
+PhysKit owns dense and sparse coefficient storage, lattice-displacement records, units,
+provider basis-identifier storage, energy-reference representation, and raw
+block-hopping mechanics. Provider basis strings remain descriptive and do not establish
+structured basis compatibility.
 
 Calculators, sampled Hamiltonian fields, Fourier transforms, gauge operations,
 equivalence analyses, locality analyses, support decisions, campaign policy,
 serialization, provenance, and scientific acceptance remain outside these model types.
-The approved hierarchy contains no legacy-admission superclass, adapter subclass, or
-parallel rank-two model. Any proposed new public class requires separate human approval
-before architecture or implementation changes.
 
 ## Source mapping
 
 - `python/src/ksdft2effmass/periodic/models/base.py` owns `PeriodicModel`,
   `PeriodicModelRole`, and `SpatialDimension`.
 - `python/src/ksdft2effmass/periodic/models/block_hopping.py` owns
-  `PeriodicBlockHoppingModel` and the shared
-  `PeriodicRank2BlockHoppingModel` parent.
-- `python/src/ksdft2effmass/periodic/periodic1d/rank2/models/block_hopping.py` owns the
-  complete periodic-1D child.
-- `python/src/ksdft2effmass/periodic/periodic2d/rank2/models/block_hopping.py` owns the
-  complete periodic-2D child.
-- `python/src/ksdft2effmass/periodic/periodic3d/rank2/models/block_hopping.py` owns the
-  complete periodic-3D child.
-
-The model hierarchy is nested beneath `ksdft2effmass.periodic`; calculators and
-analyzers remain in their operation-owning packages and import these model types.
+  `PeriodicBlockHoppingModel`.
+- Dimensional `rankN/models/base.py` modules own finite-rank contracts and exact
+  dimensional basis requirements.
+- Dimensional `rank2/models/base.py` modules refine finite-rank contracts to rank two.
+- Dimensional `rank2/models/block_hopping.py` modules own the three complete composed
+  models.
 
 ## Detailed architecture
 
-- [`PeriodicRank2BlockHoppingModel`](PeriodicRank2BlockHoppingModel/index.md)
-- [Periodic-1D concrete model](../periodic1d/rank2/models/Periodic1DRank2BlockHoppingModel/index.md)
-- [Periodic-2D concrete model](../periodic2d/rank2/models/Periodic2DRank2BlockHoppingModel/index.md)
-- [Periodic-3D concrete model](../periodic3d/rank2/models/Periodic3DRank2BlockHoppingModel/index.md)
+- [`PeriodicBlockHoppingModel`](PeriodicBlockHoppingModel/index.md)
+- [Periodic-1D rank-two models](../periodic1d/rank2/models/index.md)
+- [Periodic-2D rank-two models](../periodic2d/rank2/models/index.md)
+- [Periodic-3D rank-two models](../periodic3d/rank2/models/index.md)

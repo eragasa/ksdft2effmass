@@ -25,7 +25,8 @@ infer a physical metric, or assign KSD scientific-model identity.
 ## Ownership exclusions
 
 The result is provider representation data, not a complete
-`PeriodicRank2BlockHoppingModel`. Scientific-model admission remains a separate explicit
+a dimensional rank-two model that combines `PeriodicBlockHoppingModel` with its
+rank-two dimensional owner. Scientific-model admission remains a separate explicit
 operation with exact geometry, role, rank, and Hermiticity requirements.
 
 ## Detailed documents

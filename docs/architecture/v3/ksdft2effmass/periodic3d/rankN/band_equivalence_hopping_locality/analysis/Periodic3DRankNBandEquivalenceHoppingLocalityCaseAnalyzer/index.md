@@ -5,7 +5,7 @@
 Implemented request-bound action object in
 `ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.analysis`.
 It composes one exact periodic-3D PhysKit `DenseBlockHoppingModel` parent with the
-independently applicable `Periodic3DRankNGivensGaugeAttack`, gauge-alignment routes, frame transport, Fourier
+independently applicable `Periodic3DRankNGivensGaugeTransformation`, gauge-alignment routes, frame transport, Fourier
 reconstruction, physical-metric shell powers, support decisions, and immutable case
 analysis without filesystem effects. The attack owner accepts arbitrary admitted
 periodic-3D finite-rank frame and represented-operator fields; it is not a parent-model
@@ -54,7 +54,7 @@ This limitation is tracked as
 - Wannier adapter source: `python/src/ksdft2effmass/periodic3d/rankN/band_equivalence_hopping_locality/wannier_fields.py`
 - Analyzer test: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer.py`
 - Parent test: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNBlockHoppingParentBuilder__contracts.py`
-- Attack test: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNGivensGaugeAttack.py`
+- Transformation test: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNGivensGaugeTransformation.py`
 - Sampled-field test: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNBandEquivalenceFieldSamples.py`
 - Generic analyzer tests: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer.py`
 - Wannier adapter test: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNWannierFieldProducer.py`

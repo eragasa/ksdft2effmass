@@ -1,4 +1,4 @@
-# Appendix B. Analytic Certificates for the D1 P0/G0 Tranche
+# Appendix B. Analytic Certificates for the periodic-1D constant-subspace real-Givens validation study Tranche
 
 For fixed momentum $k$, the retained dispersion can be written as
 

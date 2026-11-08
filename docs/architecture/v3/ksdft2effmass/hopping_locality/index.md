@@ -156,4 +156,4 @@ inputs, not inferred model properties.
 - [Schematics](schematics.md)
 - [Installed band-equivalence locality owner](../band_equivalence_hopping_locality/index.md)
 - [Prospective periodic geometry](../geometry/periodic/index.md)
-- [Rank-two block-hopping model](../periodic/models/PeriodicRank2BlockHoppingModel/index.md)
+- [Finite-rank block-hopping model capability](../periodic/models/PeriodicBlockHoppingModel/index.md)

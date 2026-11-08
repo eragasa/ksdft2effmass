@@ -114,6 +114,17 @@ closure $F_{\mathrm{end}}^\dagger Q_GF_{\mathrm{start}}$ remains a $2\times2$ va
 may be nonidentity. An admissible-set analyzer consumes typed upstream values and declared threshold policy; it
 does not recompute a hidden alternative upstream calculation or subclass its analyzer.
 
+The periodic-1D finite-rank analytic study composes separate reusable owners for the
+analytic parent model, right-acting gauge transformation, represented fields, gauge
+alignment, Fourier analysis, interpolation, hopping-locality diagnosis, and support
+truncation. The study case correlates those values but is not itself a periodic model.
+The parent model owns the exact structured basis identity; the concrete rank-three,
+rank-four, rank-eight, and rank-sixteen basis inventory belongs to the maintained
+calculation under
+`calculations/periodic1d/rankN/composite-band-alignment-locality/control_basis.py`.
+Reusable source requires the structured basis value explicitly and neither derives
+coordinates from rank nor parses them from descriptive identifiers.
+
 One expensive solve or eigensystem per declared finite case supplies every downstream
 channel that refers to that case. Different representations or refinement axes remain
 separate cases rather than being pooled as repeated estimates of one value.

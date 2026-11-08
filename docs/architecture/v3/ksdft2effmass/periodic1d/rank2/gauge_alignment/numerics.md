@@ -1,6 +1,6 @@
 # Rank-two gauge-alignment numerical contract
 
-For attacked frames $A_j$ and reference frames $B_j$, the pointwise capability solves
+For gauge-transformed frames $A_j$ and reference frames $B_j$, the pointwise capability solves
 
 $$
 \min_{U_j\in U(2)} \lVert A_j U_j-B_j\rVert_F

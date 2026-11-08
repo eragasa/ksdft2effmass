@@ -202,22 +202,22 @@ Current software case:
 - the exact four-by-four onsite and positive-neighbor block matrices in
   `test__Periodic1DMultibandAlignmentCalculator.py`;
 - retained rank `2`, training mesh `16`, withheld mesh `33`, ranges `(0, 1, 2, 3)`;
-- attack constant angle `0.30` and sine coefficients `(0.65, 0.30)`;
+- transformation constant angle `0.30` and sine coefficients `(0.65, 0.30)`;
 - external-gap lower bound `0.5`, overlap threshold `0.8`;
 - orthonormality and reconstruction tolerances `1e-12`, coordinate tolerance `1e-14`,
   Hermiticity tolerance `1e-12`, and verification tolerance `1e-11`.
 
-Parity requires external gap above `0.5`, attacked-frame defect above `0.5`, pointwise
+Parity requires external gap above `0.5`, gauge-transformed-frame defect above `0.5`, pointwise
 frame and inverse-rotation defects below `1e-12`, one-global-unitary frame defect above
-`0.5`, the declared attacked/reference omitted-block ordering, and independent energy and
+`0.5`, the declared gauge-transformed/reference omitted-block ordering, and independent energy and
 dimensionless defects below `1e-11`. Rank-deficient global alignment must fail closed.
 A `1e-3` changed frame or Hermiticity diagnostic must produce a defect above `9e-4`.
 
 The retained publication values used for data parity include minimum external gap
 approximately `1.056646`, minimum neighboring/closure singular value `0.9999829`,
-projector defect `3.24e-16`, attacked frame defect `1.506`, attacked operator defect
+projector defect `3.24e-16`, gauge-transformed frame defect `1.506`, gauge-transformed operator defect
 `0.9972`, pointwise recovery defects `6.77e-16` and `9.83e-16`, one-global-unitary
-frame/operator defects `1.131` and `0.744`, range-8 attacked omitted norm `5.65e-5`,
+frame/operator defects `1.131` and `0.744`, range-8 gauge-transformed omitted norm `5.65e-5`,
 withheld maximum error `7.04e-5`, and independent reconstruction defect `7.43e-15`.
 The successor comparison uses the exact recovered JSON values rather than these rounded
 publication values.

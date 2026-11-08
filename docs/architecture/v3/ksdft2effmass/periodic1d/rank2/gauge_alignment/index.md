@@ -2,7 +2,7 @@
 
 `ksdft2effmass.periodic1d.rank2.gauge_alignment` owns the reusable periodic-1D
 rank-two right-unitary alignment capability. It receives already identified reference
-and attacked orthonormal frame paths, selects pointwise and one aggregate Procrustes
+and gauge-transformed orthonormal frame paths, selects pointwise and one aggregate Procrustes
 right actions, and returns the aligned paths, selected matrices, singular-value evidence,
 and applied rank cutoffs.
 
@@ -22,7 +22,7 @@ the concrete reciprocal-frame path type rather than part of the inner-product la
   one pointwise transformation per reciprocal sample, the global transformation, and
   selection diagnostics.
 
-The capability does not own the four-state parent, attack construction, hopping
+The capability does not own the four-state parent, transformation construction, hopping
 transforms, support truncation, aggregate result wire, verification, or rendering. The
 rank-two composite band-alignment study consumes it from
 `rank2.band_alignment.composite`; the gauge-alignment capability does not import the

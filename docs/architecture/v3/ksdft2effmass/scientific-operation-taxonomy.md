@@ -99,7 +99,7 @@ specifications. Every specification binds explicit `Periodic1DLatticeGeometry`:
   unitary-group identity at represented dimension one and emits no duplicate numerical
   alignment channels;
 - rank two delegates to the bounded composite-band $U(2)$ implementation; and
-- rank $N$ delegates to the D1-v1 four-alignment implementation with all numerical
+- rank $N$ delegates to the periodic-1D higher-rank analytic validation v1 four-alignment implementation with all numerical
   collaborators supplied explicitly.
 
 The rank-two and rank-$N$ adapters preserve their historical calculation-result bytes.

@@ -26,6 +26,7 @@ The module depends only on repository-native serialization records and enums.
 analytic definition or qualified provider inventory
   -> family-specific coordinate records
   -> Periodic1DBasisIdentity, Periodic2DBasisIdentity, or Periodic3DBasisIdentity
+  -> optional calculation-owned PeriodicBasisInventory composition
   -> model/operator/frame correlation in later reviewed adapters
 ```
 
@@ -39,6 +40,11 @@ concrete type and rejects a mismatched `spatial_dimension`.
 
 ## Scientific boundary
 
+`PeriodicBasisInventoryEntry` and `PeriodicBasisInventory` are generic immutable domain
+objects in `periodic.operators.basis_inventory`; they have no dimensional subclasses.
+The contained identity supplies the exact spatial dimension. Concrete calculation rank
+inventories belong to their calculation composition rather than reusable source.
+
 Basis identity is separate from state-space identity, retained-frame identity, gauge,
 embedding, geometry, energy reference, sewing, and artifact provenance. Exact basis
 equality alone does not prove physical equivalence, validate provider semantics, or
@@ -49,6 +55,7 @@ establish a Wilson-loop claim.
 | Source | Tests | Sphinx |
 |---|---|---|
 | `python/src/ksdft2effmass/periodic/operators/basis.py` | `python/tests/ksdft2effmass/periodic/operators/test__PeriodicBasisIdentity.py` | `doc/sphinx/api/periodic-basis.rst` |
+| `python/src/ksdft2effmass/periodic/operators/basis_inventory.py` | `python/tests/ksdft2effmass/periodic/operators/test__PeriodicBasisInventory.py` | `doc/sphinx/api/periodic-basis.rst` |
 
 ## Provenance and evidence
 

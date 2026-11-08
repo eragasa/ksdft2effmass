@@ -7,8 +7,10 @@ and the lattice kinetic-energy convention
 
 PhysKit owns coherent length, mass, action, and energy units plus Pint conversion
 mechanics. KSD owns the lattice-specific selection of `a`, the omission of `1/2`, and
-composition into its reduced-model parameterization. Rank-one, rank-two, and rank-N
-models remain sibling specializations beneath this owner.
+composition into its reduced-model parameterization. The finite-rank Bloch-hopping
+owner refines this dimensional contract, and the rank-two owner in turn refines that
+finite-rank capability. The maintained rank-one family remains a separate fixed-rank
+specialization.
 
 ## Navigation
 
