@@ -16,11 +16,8 @@ from projectkoios.physkit.periodic.lattice import (
     DirectLatticeMetric,
 )
 
-from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.case_expansion import (  # noqa: E501
-    Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander,
-)
-from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model import (
-    Periodic3DRankNAnalyticCase,
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.case import (
+    Periodic3DRankNParentGaugeCase,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.request import (
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition,
@@ -40,6 +37,9 @@ from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
 )
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
     Periodic3DRankNGaugeNormalizationEnum,
+)
+from periodic3d_rankn_analytic_case_support import (
+    SyntheticPeriodic3DRankNCaseExpander,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -185,15 +185,13 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
         decoded = Periodic3DRankNBandEquivalenceHoppingLocalityRequest.from_json(
             encoded
         )  # noqa: E501
-        expanded = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=decoded
-        ).execute()
+        expanded = SyntheticPeriodic3DRankNCaseExpander(request=decoded).execute()
 
         assert decoded.to_json() == encoded
         assert decoded.case_count == expected_count
         assert decoded.band_subspace_ranks == decoded.retained_ranks
         assert len(expanded) == expected_count
-        assert all(type(case) is Periodic3DRankNAnalyticCase for case in expanded)
+        assert all(type(case) is Periodic3DRankNParentGaugeCase for case in expanded)
         assert len({case.model_identity for case in expanded}) == expected_count
         assert {case.retained_rank for case in expanded} == {3, 4, 8}
         assert {case.circuit_depth for case in expanded} == {1, 2, 4}

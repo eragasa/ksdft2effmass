@@ -8,7 +8,7 @@ import numpy as np
 from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array
 from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 
-from .model import Periodic3DRankNAnalyticCase
+from .case import Periodic3DRankNParentGaugeCase
 
 
 def _immutable_float(value: Float64Array, name: str) -> Float64Array:
@@ -225,19 +225,19 @@ class Periodic3DRankNBandEquivalenceFieldSamples:
         return admitted.shape
 
 
-class Periodic3DRankNAnalyticCaseFieldSampler:
-    """Adapt one synthetic case to parent-independent sampled comparison fields."""
+class Periodic3DRankNParentGaugeCaseFieldSampler:
+    """Adapt one parent/gauge case to independent sampled comparison fields."""
 
     __slots__ = ("_model",)
 
-    def __init__(self, model: Periodic3DRankNAnalyticCase) -> None:
-        if type(model) is not Periodic3DRankNAnalyticCase:
-            raise TypeError("model must be the exact periodic-3D synthetic case")
+    def __init__(self, model: Periodic3DRankNParentGaugeCase) -> None:
+        if type(model) is not Periodic3DRankNParentGaugeCase:
+            raise TypeError("model must be the exact periodic-3D parent/gauge case")
         self._model = model
 
     @property
-    def model(self) -> Periodic3DRankNAnalyticCase:
-        """Return the analytic source bound to this adapter."""
+    def model(self) -> Periodic3DRankNParentGaugeCase:
+        """Return the parent/gauge case bound to this adapter."""
         return self._model
 
     def execute(
@@ -261,9 +261,7 @@ class Periodic3DRankNAnalyticCaseFieldSampler:
             operator_identifier="retained-hamiltonian",
             energy_reference="dimensionless-zero-v1",
             energy_unit="dimensionless",
-            basis_identifier=(
-                f"{model.MODEL_FAMILY_IDENTITY}:retained-coordinate-basis"
-            ),
+            basis_identifier=model.basis_identity.display_identifier,
             construction_coordinates=construction_coordinates,
             evaluation_coordinates=evaluation_coordinates,
             reference_construction_frames=reference_construction_frames,
@@ -296,6 +294,6 @@ class Periodic3DRankNAnalyticCaseFieldSampler:
 
 
 __all__ = [
-    "Periodic3DRankNAnalyticCaseFieldSampler",
+    "Periodic3DRankNParentGaugeCaseFieldSampler",
     "Periodic3DRankNBandEquivalenceFieldSamples",
 ]

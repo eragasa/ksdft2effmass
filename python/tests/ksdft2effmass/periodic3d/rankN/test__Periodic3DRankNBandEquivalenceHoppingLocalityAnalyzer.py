@@ -18,11 +18,9 @@ from ksdft2effmass.periodic3d.gauge_alignment.base import (
     Periodic3DGaugeAlignmentAnalysis,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.analysis import (
+    Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer,
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer,
     Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer,
-)
-from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.case_expansion import (  # noqa: E501
-    Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.field_geometry import (  # noqa: E501
     Periodic3DRankNBandEquivalenceHoppingLocalityFieldGeometry,
@@ -39,7 +37,7 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.reference 
     Periodic3DRankNBandEquivalenceHoppingLocalityReferenceRequest,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.represented_fields import (  # noqa: E501
-    Periodic3DRankNAnalyticCaseFieldSampler,
+    Periodic3DRankNParentGaugeCaseFieldSampler,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.request import (
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition,
@@ -70,6 +68,9 @@ from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
 from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
+)
+from periodic3d_rankn_analytic_case_support import (
+    SyntheticPeriodic3DRankNCaseExpander,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -171,11 +172,27 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
             dtype=np.float64,
         )
 
+    def test_aggregate_analyzer_requires_explicit_complete_model_inventory(
+        self,
+    ) -> None:
+        request = self._request()
+        models = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()
+
+        analyzer = Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer(
+            request=request,
+            models=models,
+        )
+
+        assert analyzer.request is request
+        with pytest.raises(ValueError, match="every exact request expansion"):
+            Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer(
+                request=request,
+                models=models[:-1],
+            )
+
     def test_case_analysis_uses_dimension_and_gauge_analysis_bases(self) -> None:
         request = self._request()
-        expander = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
-        )
+        expander = SyntheticPeriodic3DRankNCaseExpander(request=request)
         model = expander.execute()[1]
         analyzer = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
@@ -233,10 +250,8 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_field_analyzer_reproduces_the_synthetic_adapter_analysis(self) -> None:
         request = self._request()
-        model = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
-        ).execute()[1]
-        fields = Periodic3DRankNAnalyticCaseFieldSampler(model).execute(
+        model = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()[1]
+        fields = Periodic3DRankNParentGaugeCaseFieldSampler(model).execute(
             self._coordinates(request.construction_size, 0.5),
             self._coordinates(
                 request.evaluation_size,
@@ -276,10 +291,8 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_field_analyzer_allows_analysis_without_an_inverse_oracle(self) -> None:
         request = self._request()
-        model = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
-        ).execute()[1]
-        fields = Periodic3DRankNAnalyticCaseFieldSampler(model).execute(
+        model = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()[1]
+        fields = Periodic3DRankNParentGaugeCaseFieldSampler(model).execute(
             self._coordinates(request.construction_size, 0.5),
             self._coordinates(
                 request.evaluation_size,
@@ -317,9 +330,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_parent_alignment_and_transport_reference_is_independent(self) -> None:
         request = self._request()
-        model = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
-        ).execute()[1]
+        model = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()[1]
         case = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
             model=model,
@@ -343,9 +354,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_fourier_shell_and_support_reference_uses_direct_sums(self) -> None:
         request = self._request()
-        model = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
-        ).execute()[1]
+        model = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()[1]
         case = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
             model=model,
@@ -369,9 +378,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_case_verification_composes_both_independent_routes(self) -> None:
         request = self._request()
-        model = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
-        ).execute()[1]
+        model = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()[1]
         case = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
             model=model,
@@ -408,9 +415,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_aggregate_analysis_round_trips_canonical_json(self) -> None:
         request = self._request()
-        model = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
-        ).execute()[0]
+        model = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()[0]
         case = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
             model=model,

@@ -1,14 +1,14 @@
 """Periodic three-dimensional arbitrary-rank band-equivalence/locality capabilities."""
 
 from .analysis import Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer
+from .case import Periodic3DRankNParentGaugeCase
 from .field_geometry import (
     Periodic3DRankNBandEquivalenceHoppingLocalityFieldGeometry,
 )
-from .parent import Periodic3DRankNBlockHoppingParentBuilder
 from .policy import Periodic3DRankNBandEquivalenceHoppingLocalityPolicy
 from .represented_fields import (
-    Periodic3DRankNAnalyticCaseFieldSampler,
     Periodic3DRankNBandEquivalenceFieldSamples,
+    Periodic3DRankNParentGaugeCaseFieldSampler,
 )
 from .request import (
     Periodic3DRankNLatticeControlEnum,
@@ -20,8 +20,8 @@ from .wannier_fields import (
 )
 
 __all__ = [
-    "Periodic3DRankNAnalyticCaseFieldSampler",
-    "Periodic3DRankNBlockHoppingParentBuilder",
+    "Periodic3DRankNParentGaugeCase",
+    "Periodic3DRankNParentGaugeCaseFieldSampler",
     "Periodic3DRankNWannierFieldProducer",
     "Periodic3DRankNWannierFieldSource",
     "Periodic3DRankNBandEquivalenceFieldSamples",

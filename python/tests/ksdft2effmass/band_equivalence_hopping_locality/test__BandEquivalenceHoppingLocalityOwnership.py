@@ -98,8 +98,8 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.base impor
     Periodic3DRankNBandEquivalenceHoppingLocalityCapability,
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
 )
-from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model import (
-    Periodic3DRankNAnalyticCase,
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.case import (
+    Periodic3DRankNParentGaugeCase,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.request import (
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition,
@@ -194,17 +194,17 @@ class TestBandEquivalenceHoppingLocalityOwnership:
             Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue,
         )
         assert issubclass(
-            Periodic3DRankNAnalyticCase,
+            Periodic3DRankNParentGaugeCase,
             Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
         )
 
-    def test_periodic2d_analytic_parent_is_not_reusable_source(self) -> None:
-        assert (
-            importlib.util.find_spec(
-                "ksdft2effmass.periodic.periodic2d.rankN.models.analytic"
-            )
-            is None
-        )
+    def test_dimensional_analytic_parents_are_not_reusable_source(self) -> None:
+        for module_name in (
+            "ksdft2effmass.periodic.periodic2d.rankN.models.analytic",
+            "ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model",
+            "ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.parent",
+        ):
+            assert importlib.util.find_spec(module_name) is None
 
     def test_periodic1d_rank_n_supporting_stages_retain_case_rank_ownership(
         self,

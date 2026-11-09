@@ -136,6 +136,9 @@ Rank owners
 .. autoclass:: Periodic3DRankNModel
    :members:
 
+.. autoclass:: Periodic3DRankNParentModel
+   :members:
+
 .. currentmodule:: ksdft2effmass.periodic.periodic3d.rank2.models
 
 .. autoclass:: Periodic3DRank2Model

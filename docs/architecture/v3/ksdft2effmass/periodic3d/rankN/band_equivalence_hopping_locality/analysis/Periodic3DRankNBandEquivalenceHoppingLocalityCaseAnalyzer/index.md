@@ -4,12 +4,14 @@
 
 Implemented request-bound action object in
 `ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.analysis`.
-It composes one exact periodic-3D PhysKit `DenseBlockHoppingModel` parent with the
-independently applicable `Periodic3DRankNGivensGaugeTransformation`, gauge-alignment routes, frame transport, Fourier
-reconstruction, physical-metric shell powers, support decisions, and immutable case
-analysis without filesystem effects. The attack owner accepts arbitrary admitted
-periodic-3D finite-rank frame and represented-operator fields; it is not a parent-model
-operation. `Periodic3DRankNBandEquivalenceFieldSamples` is the parent-independent
+It consumes one explicit `Periodic3DRankNParentGaugeCase`, composing a supplied
+`Periodic3DRankNParentModel` with an independently applicable
+`Periodic3DRankNGivensGaugeTransformation`, gauge-alignment routes, frame transport,
+Fourier reconstruction, physical-metric shell powers, support decisions, and immutable
+case analysis without filesystem effects. The transformation owner accepts arbitrary
+admitted periodic-3D finite-rank frame and represented-operator fields; it is not a
+parent-model operation. `Periodic3DRankNBandEquivalenceFieldSamples` is the
+parent-independent
 analysis boundary. `Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer`
 consumes that boundary together with parent-independent numerical policy and geometry.
 The construction field remains a regular centered tensor mesh for the finite transform;
@@ -17,20 +19,18 @@ the evaluation field may instead be any ordered reciprocal-point inventory. The
 parent-independent policy also carries an explicit axis-ordered
 `ReciprocalEndpointSewingInventory`. Frame transport validates three axis maps and the
 ambient field dimension, then consumes the supplied sewing without constructing
-identity internally. The analyzer does not admit a synthetic case or parent model. Its
-field result excludes parent scale, attack coefficient, external-gap evidence, and
-synthetic case identity.
-`Periodic3DRankNAnalyticCaseFieldSampler` retains its v1 public name while adapting the
-synthetic study case to the field boundary. `Periodic3DRankNWannierFieldProducer`
-adapts immutable in-memory Wannier frames and represented operators, with explicit
-frame-isometry and operator-Hermiticity tolerances and an optional independent Givens
-attack. It makes no provenance, convergence, or material-validation claim. The existing
-case analyzer is now a thin
-adapter that restores the unchanged v1 synthetic result envelope.
-`Periodic3DRankNBlockHoppingParentBuilder` constructs the parent onsite and finite-range
-hopping blocks; the attack is not an input to that construction. Synthetic lattice and
-metric controls are selected through
-`Periodic3DRankNLatticeControlEnum`, not tuple position.
+identity internally. The field result excludes parent scale, transformation coefficient,
+external-gap evidence, and study-case identity.
+`Periodic3DRankNParentGaugeCaseFieldSampler` adapts the supplied correlated case to the
+field boundary and carries the parent-owned structured basis display identity.
+`Periodic3DRankNWannierFieldProducer` adapts immutable in-memory Wannier frames and
+represented operators, with explicit frame-isometry and operator-Hermiticity tolerances
+and an optional independent Givens transformation. It makes no provenance, convergence,
+or material-validation claim. The case analyzer is a thin adapter that restores the
+study-specific result envelope. Concrete analytic formulas, basis inventories, PhysKit
+block-hopping construction, and request cross-product expansion are not reusable-source
+owners; they remain calculation or verification support. Synthetic lattice and metric
+controls are selected through `Periodic3DRankNLatticeControlEnum`, not tuple position.
 
 ## Deferred numerical limitation
 
@@ -46,14 +46,17 @@ This limitation is tracked as
 ## Mapping and evidence
 
 - Analyzer source: `python/src/ksdft2effmass/periodic3d/rankN/band_equivalence_hopping_locality/analysis.py`
-- Parent source: `python/src/ksdft2effmass/periodic3d/rankN/band_equivalence_hopping_locality/parent.py`
-- Attack source: `python/src/ksdft2effmass/periodic3d/rankN/gauge_alignment/attack.py`
+- Parent contract: `python/src/ksdft2effmass/periodic/periodic3d/rankN/models/base.py`
+- Correlated case source: `python/src/ksdft2effmass/periodic3d/rankN/band_equivalence_hopping_locality/case.py`
+- Transformation source: `python/src/ksdft2effmass/periodic3d/rankN/gauge_alignment/transformation.py`
 - Sampled-field source: `python/src/ksdft2effmass/periodic3d/rankN/band_equivalence_hopping_locality/represented_fields.py`
 - Field-geometry source: `python/src/ksdft2effmass/periodic3d/rankN/band_equivalence_hopping_locality/field_geometry.py`
 - Generic policy source: `python/src/ksdft2effmass/periodic3d/rankN/band_equivalence_hopping_locality/policy.py`
 - Wannier adapter source: `python/src/ksdft2effmass/periodic3d/rankN/band_equivalence_hopping_locality/wannier_fields.py`
 - Analyzer test: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer.py`
-- Parent test: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNBlockHoppingParentBuilder__contracts.py`
+- Test-owned analytic support: `python/tests/periodic3d_rankn_analytic_case_support.py`
+- Test-owned block-hopping support: `python/tests/periodic3d_rankn_block_hopping_parent_support.py`
+- Case test: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNParentGaugeCase.py`
 - Transformation test: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNGivensGaugeTransformation.py`
 - Sampled-field test: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNBandEquivalenceFieldSamples.py`
 - Generic analyzer tests: `python/tests/ksdft2effmass/periodic3d/rankN/test__Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer.py`

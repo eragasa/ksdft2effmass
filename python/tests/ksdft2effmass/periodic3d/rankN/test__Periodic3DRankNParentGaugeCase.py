@@ -8,18 +8,23 @@ import numpy as np
 import pytest
 from projectkoios.numerics.numpy.typing import Float64Array
 
-from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model import (
-    Periodic3DRankNAnalyticCase,
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.case import (
+    Periodic3DRankNParentGaugeCase,
 )
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
     Periodic3DRankNGaugeNormalizationEnum,
     Periodic3DRankNGivensGaugeTransformation,
 )
+from periodic3d_rankn_analytic_case_support import (
+    PERIODIC3D_RANK_N_TEST_BASIS_INVENTORY,
+    SyntheticPeriodic3DRankNParentModel,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
-class TestPeriodic3DRankNAnalyticCase:
+class TestPeriodic3DRankNParentGaugeCase:
     """Qualify exact model structure without presenting a calculated study result."""
 
     @staticmethod
@@ -31,15 +36,26 @@ class TestPeriodic3DRankNAnalyticCase:
         return np.asarray(mesh, dtype=np.float64)
 
     @staticmethod
-    def _case(retained_rank: int = 3) -> Periodic3DRankNAnalyticCase:
-        return Periodic3DRankNAnalyticCase(
+    def _case(retained_rank: int = 3) -> Periodic3DRankNParentGaugeCase:
+        bonds = ((1, 0, 0), (0, 1, 0), (0, 0, 1))
+        return Periodic3DRankNParentGaugeCase(
             case_identifier="simple-cubic-axis-control",
-            retained_rank=retained_rank,
-            circuit_depth=2,
-            positive_bonds=((1, 0, 0), (0, 1, 0), (0, 0, 1)),
-            gauge_normalization=(Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM),
-            parent_scale=1.0,
-            transformation_coefficient=math.pi / 4.0,
+            parent_model=SyntheticPeriodic3DRankNParentModel(
+                retained_rank=retained_rank,
+                bond_inventory=bonds,
+                coupling_scale=1.0,
+                basis=PERIODIC3D_RANK_N_TEST_BASIS_INVENTORY.basis_identity_for_rank(
+                    retained_rank
+                ),
+                role=PeriodicModelRole.CONTROL_MODEL,
+            ),
+            gauge_transformation=Periodic3DRankNGivensGaugeTransformation(
+                retained_rank=retained_rank,
+                circuit_depth=2,
+                harmonic_bonds=bonds,
+                normalization=Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM,
+                coefficient=math.pi / 4.0,
+            ),
         )
 
     def test_parent_has_selected_shape_ordering_and_gap_bound(self) -> None:
@@ -52,13 +68,15 @@ class TestPeriodic3DRankNAnalyticCase:
         frame = case.reference_frames(coordinates)
 
         assert case.ambient_dimension == 8
+        assert case.basis_identity is case.parent_model.basis_identity
+        assert case.basis_identity.dimension == case.band_subspace_rank
         assert retained.shape == (2, 2, 3, 4)
         assert exterior.shape == (2, 2, 3, 4)
         assert parent.shape == (2, 2, 3, 8, 8)
         assert frame.shape == (2, 2, 3, 8, 4)
         assert float(np.min(np.diff(retained, axis=-1))) > 0.0
         sampled_gap = float(np.min(exterior[..., 0] - retained[..., -1]))
-        assert sampled_gap >= case.EXTERNAL_GAP_LOWER_BOUND - 1.0e-15
+        assert sampled_gap >= case.isolation_gap_lower_bound - 1.0e-15
         projected = np.swapaxes(frame.conjugate(), -1, -2) @ parent @ frame
         assert projected == pytest.approx(case.exact_reduced_hamiltonians(coordinates))
         assert not parent.flags.writeable
@@ -100,17 +118,41 @@ class TestPeriodic3DRankNAnalyticCase:
         ) == pytest.approx(case.exact_reduced_hamiltonians(coordinates), abs=2.0e-15)
         assert not gauge.flags.writeable
 
-    def test_rejects_unselected_rank_dimension_and_transformation_bound(self) -> None:
-        with pytest.raises(ValueError, match="retained_rank"):
-            self._case(retained_rank=5)
+    def test_rejects_mismatched_parent_and_transformation_correlation(self) -> None:
+        parent = self._case().parent_model
+        with pytest.raises(ValueError, match="retained ranks must match"):
+            Periodic3DRankNParentGaugeCase(
+                case_identifier="simple-cubic-axis-control",
+                parent_model=parent,
+                gauge_transformation=Periodic3DRankNGivensGaugeTransformation(
+                    retained_rank=4,
+                    circuit_depth=2,
+                    harmonic_bonds=parent.positive_bonds,
+                    normalization=(Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM),
+                    coefficient=math.pi / 4.0,
+                ),
+            )
+        with pytest.raises(ValueError, match="harmonic bonds must match"):
+            Periodic3DRankNParentGaugeCase(
+                case_identifier="simple-cubic-axis-control",
+                parent_model=parent,
+                gauge_transformation=Periodic3DRankNGivensGaugeTransformation(
+                    retained_rank=parent.band_subspace_rank,
+                    circuit_depth=2,
+                    harmonic_bonds=((1, 0, 0),),
+                    normalization=(Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM),
+                    coefficient=math.pi / 4.0,
+                ),
+            )
+
+    def test_rejects_dimension_mismatch_and_transformation_bound(self) -> None:
         with pytest.raises(ValueError, match=r"shape \(\.\.\., 3\)"):
             self._case().parent_hamiltonians(np.zeros((2, 2, 2), dtype=np.float64))
         with pytest.raises(ValueError, match="pi/4"):
-            Periodic3DRankNAnalyticCase(
-                case_identifier="fcc-control",
+            Periodic3DRankNGivensGaugeTransformation(
                 retained_rank=3,
                 circuit_depth=1,
-                positive_bonds=(
+                harmonic_bonds=(
                     (1, 0, 0),
                     (0, 1, 0),
                     (0, 0, 1),
@@ -118,7 +160,6 @@ class TestPeriodic3DRankNAnalyticCase:
                     (-1, 0, 1),
                     (0, -1, 1),
                 ),
-                gauge_normalization=(Periodic3DRankNGaugeNormalizationEnum.BOND_RMS),
-                parent_scale=0.0,
-                transformation_coefficient=math.pi / 4.0,
+                normalization=Periodic3DRankNGaugeNormalizationEnum.BOND_RMS,
+                coefficient=math.pi / 4.0,
             )

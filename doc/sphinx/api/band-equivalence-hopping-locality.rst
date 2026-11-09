@@ -50,18 +50,17 @@ Periodic-3D rank-N represented-field boundary
 ----------------------------------------------
 
 The sampled-field value separates analysis operands from the producer that supplied
-them. The synthetic-case sampler and the in-memory Wannier-field producer are separate
-adapters to the same immutable boundary; neither becomes a block-hopping model. The
-construction inventory is the regular transform mesh, while evaluation coordinates may
-be either a tensor product or an arbitrary ordered reciprocal-point inventory.
-The selected synthetic parent is constructed as the existing PhysKit
-``DenseBlockHoppingModel`` rather than as a competing KSD model hierarchy.
+them. The parent/gauge sampler and the in-memory Wannier-field producer are separate
+adapters to the same immutable boundary. The construction inventory is the regular
+transform mesh, while evaluation coordinates may be either a tensor product or an
+arbitrary ordered reciprocal-point inventory. Concrete analytic parents and any PhysKit
+block-hopping representations remain calculation or verification-support composition.
 
 .. currentmodule:: ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality
 
 .. autoclass:: Periodic3DRankNLatticeControlEnum
    :members:
-.. autoclass:: Periodic3DRankNBlockHoppingParentBuilder
+.. autoclass:: Periodic3DRankNParentGaugeCase
    :members:
 .. autoclass:: Periodic3DRankNBandEquivalenceFieldSamples
    :members:
@@ -77,7 +76,7 @@ The selected synthetic parent is constructed as the existing PhysKit
    :members:
 .. autoclass:: Periodic3DRankNWannierFieldProducer
    :members:
-.. autoclass:: Periodic3DRankNAnalyticCaseFieldSampler
+.. autoclass:: Periodic3DRankNParentGaugeCaseFieldSampler
    :members:
 
 Rank ownership
@@ -85,7 +84,7 @@ Rank ownership
 
 Top-level rank-two studies and the concrete Periodic1D rank-N rank/depth calculation
 expose ``band_subspace_rank``. Periodic2D/3D rank-N family requests, analyses,
-analyzers, case expanders, and family actions expose ``band_subspace_ranks``. Their
+analyzers and family actions expose ``band_subspace_ranks``. Their
 concrete case analyses, independent references, and case actions instead expose singular
 ``band_subspace_rank``. Rank-two and rank-N remain sibling specializations.
 

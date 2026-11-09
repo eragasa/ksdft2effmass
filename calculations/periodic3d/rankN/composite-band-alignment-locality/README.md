@@ -12,16 +12,17 @@ transport, Fourier, locality, support, and aggregate-verification contracts are 
 
 This owner follows the fixed-geometry rank-N sequence in the shared
 [periodic analysis order](../../../periodic/multiband/analysis-order.md): qualify parent
-and geometry cases; construct the gauge; assess alignment and transport; establish
+and geometry cases; construct the gauge transformation; assess alignment and transport; establish
 Fourier/interpolation identities; diagnose locality; apply complete-shell support
 selection; retain separate error operands; run bounded independent references and typed
 aggregate verification; then close resources, visualization, authentication, lifecycle,
 and execution identity. The current boundary stops before those final admission stages
 and owns no calculation result.
 
-The installed reusable software foundations remain under
-`python/src/ksdft2effmass/periodic3d/rankN/`; this calculation directory does not duplicate
-them. Visualization, execution-scale resource bounds, lifecycle/authentication, and a
+Reusable parent, transformation, operation, analysis, and verification contracts remain
+under `python/src/ksdft2effmass/`; this calculation directory must own the concrete
+analytic formulas, basis inventory, and case composition rather than moving them into
+reusable source. Visualization, execution-scale resource bounds, lifecycle/authentication, and a
 retained study remain unselected. There are intentionally no direct execution
 entrypoints or generated outputs.
 

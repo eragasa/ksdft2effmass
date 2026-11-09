@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from itertools import product
 from typing import ClassVar, final
 
 import numpy as np
@@ -92,15 +93,14 @@ from ksdft2effmass.sewing import (
     ReciprocalEndpointSewingInventory,
 )
 
-from .case_expansion import Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander
+from .case import Periodic3DRankNParentGaugeCase
 from .field_geometry import (
     Periodic3DRankNBandEquivalenceHoppingLocalityFieldGeometry,
 )
-from .model import Periodic3DRankNAnalyticCase
 from .policy import Periodic3DRankNBandEquivalenceHoppingLocalityPolicy
 from .represented_fields import (
-    Periodic3DRankNAnalyticCaseFieldSampler,
     Periodic3DRankNBandEquivalenceFieldSamples,
+    Periodic3DRankNParentGaugeCaseFieldSampler,
 )
 from .request import (
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition,
@@ -910,7 +910,7 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     _PeriodicRankNBandEquivalenceHoppingLocalityProductionArithmetic,
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseAction,
 ):
-    """Adapt one synthetic v1 case to the represented-field analyzer."""
+    """Adapt one supplied parent/gauge case to the represented-field analyzer."""
 
     __slots__ = ("_geometry", "_model", "_request")
 
@@ -925,13 +925,13 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
         self,
         *,
         request: Periodic3DRankNBandEquivalenceHoppingLocalityRequest,
-        model: Periodic3DRankNAnalyticCase,
+        model: Periodic3DRankNParentGaugeCase,
         geometry: Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition,
     ) -> None:
         if type(request) is not Periodic3DRankNBandEquivalenceHoppingLocalityRequest:
             raise TypeError("request must be the exact periodic-3D rank-N request")
-        if type(model) is not Periodic3DRankNAnalyticCase:
-            raise TypeError("model must be the exact periodic-3D synthetic case")
+        if type(model) is not Periodic3DRankNParentGaugeCase:
+            raise TypeError("model must be the exact periodic-3D parent/gauge case")
         if (
             type(geometry)
             is not Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition
@@ -967,13 +967,13 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
         return self._request
 
     def execute(self) -> Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalysis:
-        """Execute one synthetic case without changing its v1 result schema."""
+        """Execute one supplied case without changing its v1 result schema."""
         construction = self._coordinates(self._request.construction_size, 0.5)
         evaluation = self._coordinates(
             self._request.evaluation_size,
             0.5 + self._request.evaluation_shift,
         )
-        fields = Periodic3DRankNAnalyticCaseFieldSampler(self._model).execute(
+        fields = Periodic3DRankNParentGaugeCaseFieldSampler(self._model).execute(
             construction,
             evaluation,
         )
@@ -1028,18 +1028,62 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer(
         Periodic3DRankNBandEquivalenceHoppingLocalityRequest
     ]
 ):
-    """Thinly expand and sequence one exact aggregate software request."""
+    """Validate and sequence a supplied complete aggregate model inventory."""
 
-    __slots__ = ("_request",)
+    __slots__ = ("_request", "_models")
 
     def __init__(
         self,
         *,
         request: Periodic3DRankNBandEquivalenceHoppingLocalityRequest,
+        models: tuple[Periodic3DRankNParentGaugeCase, ...],
     ) -> None:
         if type(request) is not Periodic3DRankNBandEquivalenceHoppingLocalityRequest:
             raise TypeError("request must be the exact periodic-3D rank-N request")
+        if type(models) is not tuple or not models:
+            raise TypeError("models must be a nonempty tuple")
+        if any(type(model) is not Periodic3DRankNParentGaugeCase for model in models):
+            raise TypeError("models must contain exact periodic-3D parent/gauge cases")
+        expected_inventory = {
+            (
+                geometry.lattice_control.to_wire(),
+                retained_rank,
+                circuit_depth,
+                parent_scale,
+                transformation_coefficient,
+            )
+            for (
+                geometry,
+                retained_rank,
+                circuit_depth,
+                parent_scale,
+                transformation_coefficient,
+            ) in product(
+                request.cases,
+                request.retained_ranks,
+                request.circuit_depths,
+                request.parent_scales,
+                request.transformation_coefficients,
+            )
+        }
+        actual_inventory = {
+            (
+                model.case_identifier,
+                model.retained_rank,
+                model.circuit_depth,
+                model.parent_scale,
+                model.transformation_coefficient,
+            )
+            for model in models
+        }
+        if actual_inventory != expected_inventory or len(models) != len(
+            expected_inventory
+        ):
+            raise ValueError("models must contain every exact request expansion")
+        if len({model.model_identity for model in models}) != len(models):
+            raise ValueError("models must have unique correlation identities")
         self._request = request
+        self._models = models
 
     @property
     def request(self) -> Periodic3DRankNBandEquivalenceHoppingLocalityRequest:
@@ -1047,20 +1091,17 @@ class Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer(
         return self._request
 
     def execute(self) -> Periodic3DRankNBandEquivalenceHoppingLocalityAnalysis:
-        """Execute all synthetic cases without creating retained evidence."""
+        """Execute all supplied parent/gauge cases without retained evidence."""
         geometry_by_identifier = {
             case.lattice_control.to_wire(): case for case in self._request.cases
         }
-        models = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=self._request
-        ).execute()
         cases = tuple(
             Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                 request=self._request,
                 model=model,
                 geometry=geometry_by_identifier[model.case_identifier],
             ).execute()
-            for model in models
+            for model in self._models
         )
         return Periodic3DRankNBandEquivalenceHoppingLocalityAnalysis(
             request=self._request,

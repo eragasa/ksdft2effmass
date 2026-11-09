@@ -101,9 +101,8 @@ class TestPeriodic3DRankNProtocols:
         assert (rank_root / "bain_quotient_admission.py").is_file()
         aggregate_root = rank_root / "band_equivalence_hopping_locality"
         for filename in (
-            "model.py",
+            "case.py",
             "request.py",
-            "case_expansion.py",
             "analysis.py",
             "result.py",
             "reference.py",
@@ -111,7 +110,16 @@ class TestPeriodic3DRankNProtocols:
             "verification.py",
         ):
             assert (aggregate_root / filename).is_file()
+        assert not (aggregate_root / "case_expansion.py").exists()
+        assert not (aggregate_root / "model.py").exists()
+        assert not (aggregate_root / "parent.py").exists()
         assert not (aggregate_root / "lifecycle.py").exists()
+        assert (
+            repository_root
+            / "python"
+            / "tests"
+            / "periodic3d_rankn_analytic_case_support.py"
+        ).is_file()
 
     def test_bain_context_records_geometry_and_blockers_without_execution(
         self,

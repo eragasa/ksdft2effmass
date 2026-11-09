@@ -2,8 +2,8 @@
 
 ```mermaid
 flowchart LR
-    B[PhysKit block-hopping parent] --> C[synthetic-case field sampler]
-    G[independent Givens attack] --> C
+    B[explicit parent model] --> C[parent/gauge case field sampler]
+    G[independent Givens transformation] --> C
     C --> X[immutable reference/comparison field samples]
     W[in-memory Wannier field producer] --> X
     N[parent-independent numerical policy] --> A[represented-field analyzer]
@@ -17,10 +17,10 @@ flowchart LR
     L --> R[total minus onsite, clipped at zero]
     Q --> Y[generic field analysis]
     R --> Y
-    Y --> V[v1 synthetic case adapter]
+    Y --> V[study-case adapter]
     B --> V
     G --> V
-    V --> O[v1 synthetic case analysis]
+    V --> O[study-case analysis]
 ```
 
 The `R` branch is the deferred `TD-BEL-003` limitation. It is a reporting branch and

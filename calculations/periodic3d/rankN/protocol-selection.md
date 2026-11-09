@@ -54,8 +54,10 @@ scientific overlap thresholds or convergence evidence.
 
 The selected parent has ambient dimension `2 * retained_rank`, a rank-dimensional
 retained seed, and separated retained/exterior sectors. The exact rank-dependent energy,
-gap, generator, harmonic, and attack formulas are frozen in `recommended-baseline.md`
-and implemented by the dimension-owned analytic model.
+gap, generator, harmonic, and transformation formulas are frozen in
+`recommended-baseline.md`. Concrete implementation belongs to this calculation or
+independent verification support; reusable source owns only the parent and transformation
+contracts.
 
 ## Open periodic-3D decisions
 
@@ -85,7 +87,7 @@ admission work; no entry authorizes execution.
 ## Recommended review sequence
 
 1. Select and certify the parent family and retained state space before choosing a gauge
-   attack.
+   transformation.
 2. Select the lattice and physical metric before defining locality or support.
 3. Select the gauge group, generators, depth semantics, and oracle boundary before
    specifying alignment actions.
@@ -122,11 +124,14 @@ this fixed-geometry record transfers no outcomes or evidence.
 
 ## Implementation gate
 
-The package currently installs the analytic parent/gauge model, global and pointwise
+The package currently installs abstract parent ownership, generic gauge-transformation
+mechanics, explicit parent/transformation case correlation, global and pointwise
 Procrustes, frame transport, hopping locality, support truncation, typed aggregate
-requests, case expansion, thin aggregate analysis, immutable per-case/per-alignment
-results, and bounded producer-independent parent, alignment, transport, Fourier,
-shell-power, and support-selection references plus typed aggregate verification.
+requests, thin aggregate analysis over an explicitly supplied complete case inventory,
+immutable per-case/per-alignment results, and bounded producer-independent parent,
+alignment, transport, Fourier, shell-power, and support-selection references plus typed
+aggregate verification. This calculation owns the concrete parent formulas, basis
+inventory, transformation schedule, and case expansion when it is implemented.
 Visualization and lifecycle owners remain pending. Until the remaining implementation
 and admission work is reviewed, it must not
 install an aggregate lifecycle and this calculation root must contain no

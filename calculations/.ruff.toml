@@ -1,4 +1,5 @@
 extend = "../python/pyproject.toml"
+src = ["../python/src", "."]
 extend-exclude = [
     "**/executions/**",
     "**/simulations/evidence/**",

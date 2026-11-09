@@ -9,15 +9,21 @@ import numpy as np
 import pytest
 from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array
 
-from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model import (
-    Periodic3DRankNAnalyticCase,
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.case import (
+    Periodic3DRankNParentGaugeCase,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.represented_fields import (  # noqa: E501
-    Periodic3DRankNAnalyticCaseFieldSampler,
     Periodic3DRankNBandEquivalenceFieldSamples,
+    Periodic3DRankNParentGaugeCaseFieldSampler,
 )
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
     Periodic3DRankNGaugeNormalizationEnum,
+    Periodic3DRankNGivensGaugeTransformation,
+)
+from periodic3d_rankn_analytic_case_support import (
+    PERIODIC3D_RANK_N_TEST_BASIS_INVENTORY,
+    SyntheticPeriodic3DRankNParentModel,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -35,15 +41,24 @@ class TestPeriodic3DRankNBandEquivalenceFieldSamples:
         )
 
     @staticmethod
-    def _model() -> Periodic3DRankNAnalyticCase:
-        return Periodic3DRankNAnalyticCase(
+    def _model() -> Periodic3DRankNParentGaugeCase:
+        bonds = ((1, 0, 0), (0, 1, 0), (0, 0, 1))
+        return Periodic3DRankNParentGaugeCase(
             case_identifier="simple-cubic-axis-control",
-            retained_rank=3,
-            circuit_depth=2,
-            positive_bonds=((1, 0, 0), (0, 1, 0), (0, 0, 1)),
-            gauge_normalization=Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM,
-            parent_scale=1.0,
-            transformation_coefficient=math.pi / 4.0,
+            parent_model=SyntheticPeriodic3DRankNParentModel(
+                retained_rank=3,
+                bond_inventory=bonds,
+                coupling_scale=1.0,
+                basis=PERIODIC3D_RANK_N_TEST_BASIS_INVENTORY.basis_identity_for_rank(3),
+                role=PeriodicModelRole.CONTROL_MODEL,
+            ),
+            gauge_transformation=Periodic3DRankNGivensGaugeTransformation(
+                retained_rank=3,
+                circuit_depth=2,
+                harmonic_bonds=bonds,
+                normalization=Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM,
+                coefficient=math.pi / 4.0,
+            ),
         )
 
     @staticmethod
@@ -73,17 +88,18 @@ class TestPeriodic3DRankNBandEquivalenceFieldSamples:
         ).copy()
         return np.asarray(values, dtype=np.complex128)
 
-    def test_analytic_sampler_preserves_every_existing_field_exactly(self) -> None:
+    def test_parent_gauge_sampler_preserves_every_existing_field_exactly(self) -> None:
         model = self._model()
         construction = self._coordinates(2)
         evaluation = self._coordinates(3, 0.25)
 
-        fields = Periodic3DRankNAnalyticCaseFieldSampler(model).execute(
+        fields = Periodic3DRankNParentGaugeCaseFieldSampler(model).execute(
             construction,
             evaluation,
         )
 
         assert fields.retained_rank == model.retained_rank
+        assert fields.basis_identifier == model.basis_identity.display_identifier
         assert np.array_equal(
             fields.reference_construction_frames,
             model.reference_frames(construction),
@@ -182,7 +198,7 @@ class TestPeriodic3DRankNBandEquivalenceFieldSamples:
 
     def test_prescribed_inverse_actions_are_optional_but_must_be_paired(self) -> None:
         model = self._model()
-        fields = Periodic3DRankNAnalyticCaseFieldSampler(model).execute(
+        fields = Periodic3DRankNParentGaugeCaseFieldSampler(model).execute(
             self._coordinates(2),
             self._coordinates(3, 0.25),
         )

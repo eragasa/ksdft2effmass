@@ -112,11 +112,14 @@ separates a rank inventory from one finite-rank case.
 
 A retained rank such as four is a value admitted by an applicable rank-N request; it
 does not create a `rank4` source namespace. The `periodic2d/rankN` and
-`periodic3d/rankN` namespaces currently install the reviewed analytic parent/gauge,
-global/pointwise-Procrustes, frame-transport, hopping-locality, support-truncation,
-typed-request, case-expansion, aggregate-analysis, immutable aggregate-result, and
-bounded independent parent/alignment/transport/Fourier/shell-power/support-selection
-reference foundations and typed aggregate verification. Visualization and lifecycle
+`periodic3d/rankN` namespaces currently install reviewed abstract parent contracts,
+explicit parent/gauge case correlation, global/pointwise-Procrustes, frame-transport,
+hopping-locality, support-truncation, typed requests, aggregate analysis over supplied
+complete case inventories, immutable aggregate results, bounded independent
+parent/alignment/transport/Fourier/shell-power/support-selection references, and typed
+aggregate verification. Concrete analytic formulas, basis inventories, block-hopping
+construction, and request cross-product expansion remain calculation or verification
+support rather than reusable source. Visualization and lifecycle
 owners remain absent because the exact rank/depth/case/alignment visualization operands,
 invariant reductions, authenticated plot inventory, and bounded rendering resource
 envelope have not been selected.
