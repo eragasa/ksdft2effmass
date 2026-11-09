@@ -118,7 +118,7 @@ Rank owners
 .. autoclass:: Periodic2DRankNModel
    :members:
 
-.. autoclass:: Periodic2DRankNAnalyticParentModel
+.. autoclass:: Periodic2DRankNParentModel
    :members:
 
 .. currentmodule:: ksdft2effmass.periodic.periodic2d.rank2.models

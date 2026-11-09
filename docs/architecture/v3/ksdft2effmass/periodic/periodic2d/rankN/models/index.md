@@ -11,15 +11,17 @@ The contract does not infer basis identity from provider labels, model names, la
 geometry, or support inventories. Fixed-rank owners refine this contract;
 `Periodic2DRank2Model` fixes the inherited rank to two.
 
-`Periodic2DRankNAnalyticParentModel` is the reusable dimensionless parent selected by the
-synthetic software baseline. It owns the separated retained/exterior spectrum, exact
-retained embedding, explicit `Periodic2DBasisIdentity`, and contextual
-`PeriodicModelRole`. It owns no gauge transformation, geometry case, mesh, or calculation rank
-inventory.
+`Periodic2DRankNParentModel` is the reusable parent-field contract. Concrete analytic,
+provider-backed, and calculation-owned families supply their own separated spectra,
+ambient embedding, harmonic support, declared isolation-gap lower bound, stable model identity, and
+explicit `Periodic2DBasisIdentity`. Reusable alignment and locality source consumes those
+values without owning a concrete formula.
 
-The independent `Periodic2DRankNGivensGaugeTransformation` remains with periodic-2D rank-N gauge
-alignment. `Periodic2DRankNAnalyticCase` is only the band-equivalence/locality case
-composition correlating one parent and one compatible attack. The concrete ranks 3, 4,
-and 8 and their explicitly enumerated basis values are composed by
-`calculations/periodic2d/rankN/control_basis.py`; reusable source does not import that
-calculation-owned instance or synthesize coordinates from rank.
+The independent `Periodic2DRankNGivensGaugeTransformation` remains with periodic-2D rank-N
+gauge transformation. `Periodic2DRankNParentGaugeCase` is a transient study input that
+correlates one supplied parent with one compatible transformation; it is not itself a
+scientific model. Historical analytic formulas and request cross-product construction now
+live only in test verification support. The concrete ranks 3, 4, and 8 and their explicitly
+enumerated basis values remain calculation-owned in
+`calculations/periodic2d/rankN/control_basis.py`; reusable source neither imports that
+inventory nor synthesizes coordinates from rank.

@@ -366,7 +366,7 @@ type Periodic2DRankNBandEquivalenceHoppingLocalityAlignmentAnalysis = (
 class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis(
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue
 ):
-    """Retain all alignment routes for one analytic model case."""
+    """Retain all alignment routes for one parent/gauge model case."""
 
     @property
     def band_subspace_rank(self) -> int:

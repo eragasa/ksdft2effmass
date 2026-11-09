@@ -1,7 +1,7 @@
 """Bounded independent periodic-2D rank-N parent, alignment, and transport references.
 
 The reference reconstructs the selected analytic formulas directly from the typed study
-request. It does not call the maintained analytic model, aggregate analyzer, Procrustes
+request. It does not call the supplied parent model, aggregate analyzer, Procrustes
 solver, gauge-alignment actions, or transport owner. Independent direct-sum Fourier,
 shell-power, and support-selection comparisons live in ``fourier_reference``.
 """

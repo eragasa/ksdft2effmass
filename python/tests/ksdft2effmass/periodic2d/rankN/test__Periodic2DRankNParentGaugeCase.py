@@ -15,15 +15,16 @@ from ksdft2effmass.periodic.operators import (
     PeriodicBasisInventoryEntry,
 )
 from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
-from ksdft2effmass.periodic.periodic2d.rankN.models import (
-    Periodic2DRankNAnalyticParentModel,
-)
+from ksdft2effmass.periodic.periodic2d.rankN.models import Periodic2DRankNParentModel
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.case import (
-    Periodic2DRankNAnalyticCase,
+    Periodic2DRankNParentGaugeCase,
 )
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.transformation import (
     Periodic2DRankNGaugeNormalizationEnum,
     Periodic2DRankNGivensGaugeTransformation,
+)
+from periodic2d_rankn_analytic_case_support import (
+    SyntheticPeriodic2DRankNParentModel,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -47,7 +48,7 @@ _TEST_BASIS_INVENTORY = PeriodicBasisInventory(
 )
 
 
-class TestPeriodic2DRankNAnalyticCase:
+class TestPeriodic2DRankNParentGaugeCase:
     """Qualify separated parent, gauge transformation, and study-case composition."""
 
     @staticmethod
@@ -58,14 +59,14 @@ class TestPeriodic2DRankNAnalyticCase:
         return np.asarray(mesh, dtype=np.float64)
 
     @staticmethod
-    def _case(retained_rank: int = 3) -> Periodic2DRankNAnalyticCase:
+    def _case(retained_rank: int = 3) -> Periodic2DRankNParentGaugeCase:
         bonds = ((1, 0), (0, 1))
-        return Periodic2DRankNAnalyticCase(
+        return Periodic2DRankNParentGaugeCase(
             case_identifier="square-axis-control",
-            parent_model=Periodic2DRankNAnalyticParentModel(
+            parent_model=SyntheticPeriodic2DRankNParentModel(
                 retained_rank=retained_rank,
-                positive_bonds=bonds,
-                parent_scale=1.0,
+                bond_inventory=bonds,
+                coupling_scale=1.0,
                 basis=(_TEST_BASIS_INVENTORY.basis_identity_for_rank(retained_rank)),
                 role=PeriodicModelRole.CONTROL_MODEL,
             ),
@@ -88,6 +89,7 @@ class TestPeriodic2DRankNAnalyticCase:
         frame = case.reference_frames(coordinates)
 
         assert case.ambient_dimension == 8
+        assert isinstance(case.parent_model, Periodic2DRankNParentModel)
         assert case.parent_model.model_role is PeriodicModelRole.CONTROL_MODEL
         assert case.basis_identity.dimension == 4
         assert retained.shape == (3, 4, 4)
@@ -96,7 +98,7 @@ class TestPeriodic2DRankNAnalyticCase:
         assert frame.shape == (3, 4, 8, 4)
         assert float(np.min(np.diff(retained, axis=-1))) > 0.0
         sampled_gap = float(np.min(exterior[..., 0] - retained[..., -1]))
-        assert sampled_gap >= case.EXTERNAL_GAP_LOWER_BOUND - 1.0e-15
+        assert sampled_gap >= case.isolation_gap_lower_bound - 1.0e-15
         projected = np.swapaxes(frame.conjugate(), -1, -2) @ parent @ frame
         assert projected == pytest.approx(case.exact_reduced_hamiltonians(coordinates))
         assert not parent.flags.writeable
@@ -157,7 +159,7 @@ class TestPeriodic2DRankNAnalyticCase:
             case.parent_hamiltonians(np.zeros((2, 2, 3), dtype=np.float64))
 
         with pytest.raises(ValueError, match="retained ranks"):
-            Periodic2DRankNAnalyticCase(
+            Periodic2DRankNParentGaugeCase(
                 case_identifier="mismatched-rank",
                 parent_model=case.parent_model,
                 gauge_transformation=Periodic2DRankNGivensGaugeTransformation(

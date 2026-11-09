@@ -53,8 +53,9 @@ scientific overlap thresholds or convergence evidence.
 
 The selected parent has ambient dimension `2 * retained_rank`, a rank-dimensional
 retained seed, and separated retained/exterior sectors. The exact rank-dependent energy,
-gap, generator, harmonic, and attack formulas are frozen in `recommended-baseline.md`
-and implemented by the dimension-owned analytic model.
+gap, generator, harmonic, and gauge-transformation formulas are frozen in
+`recommended-baseline.md`. Their concrete implementation belongs to calculation or
+verification support behind the reusable dimension-owned parent contract.
 
 ## Open periodic-2D decisions
 
@@ -84,7 +85,7 @@ admission work; no entry authorizes execution.
 ## Recommended review sequence
 
 1. Select and certify the parent family and retained state space before choosing a gauge
-   attack.
+   transformation.
 2. Select the lattice and physical metric before defining locality or support.
 3. Select the gauge group, generators, depth semantics, and oracle boundary before
    specifying alignment actions.
@@ -109,12 +110,14 @@ synthetic analytic protocol.
 
 ## Implementation gate
 
-The package currently installs the reusable analytic parent model, independent gauge
-attack, calculation-owned structured basis inventory, explicit case composition, global
-and pointwise Procrustes, frame transport, hopping locality, support truncation, typed aggregate
-requests, case expansion, thin aggregate analysis, immutable per-case/per-alignment
-results, and bounded producer-independent parent, alignment, transport, Fourier,
-shell-power, and support-selection references plus typed aggregate verification.
+The package currently installs the reusable parent-model contract, independent gauge
+transformation mechanics, calculation-owned structured basis inventory, explicit
+parent/transformation case correlation, global and pointwise Procrustes, frame transport,
+hopping locality, support truncation, typed aggregate requests, thin aggregate analysis,
+immutable per-case/per-alignment results, and bounded producer-independent parent,
+alignment, transport, Fourier, shell-power, and support-selection references plus typed
+aggregate verification. Concrete analytic formulas and request cross-product expansion
+remain calculation or verification-support responsibilities rather than reusable source.
 Visualization and lifecycle owners remain pending. Until the remaining implementation
 and admission work is reviewed, it must not
 install an aggregate lifecycle and this calculation root must contain no

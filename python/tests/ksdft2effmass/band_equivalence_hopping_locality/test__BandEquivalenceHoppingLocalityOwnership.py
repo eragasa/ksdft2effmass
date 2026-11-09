@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import importlib.util
+
 import pytest
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence.base import BandEquivalence
@@ -74,7 +76,7 @@ from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.base impor
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue,
 )
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.case import (
-    Periodic2DRankNAnalyticCase,
+    Periodic2DRankNParentGaugeCase,
 )
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.request import (
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
@@ -188,12 +190,20 @@ class TestBandEquivalenceHoppingLocalityOwnership:
             Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction,
         )
         assert issubclass(
-            Periodic2DRankNAnalyticCase,
+            Periodic2DRankNParentGaugeCase,
             Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue,
         )
         assert issubclass(
             Periodic3DRankNAnalyticCase,
             Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
+        )
+
+    def test_periodic2d_analytic_parent_is_not_reusable_source(self) -> None:
+        assert (
+            importlib.util.find_spec(
+                "ksdft2effmass.periodic.periodic2d.rankN.models.analytic"
+            )
+            is None
         )
 
     def test_periodic1d_rank_n_supporting_stages_retain_case_rank_ownership(

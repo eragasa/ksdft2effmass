@@ -1,9 +1,10 @@
-"""Dimensionless analytic periodic-2D finite-rank parent models."""
+"""Test-owned analytic periodic-2D finite-rank composition support."""
 
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+from itertools import product
 from typing import ClassVar
 
 import numpy as np
@@ -11,22 +12,31 @@ from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array
 from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 
 from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.operators import PeriodicBasisInventory
 from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
-
-from .base import Periodic2DRankNModel
+from ksdft2effmass.periodic.periodic2d.rankN.models import Periodic2DRankNParentModel
+from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.case import (
+    Periodic2DRankNParentGaugeCase,
+)
+from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.request import (
+    Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
+)
+from ksdft2effmass.periodic2d.rankN.gauge_alignment.transformation import (
+    Periodic2DRankNGivensGaugeTransformation,
+)
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic2DRankNAnalyticParentModel(Periodic2DRankNModel):
+class SyntheticPeriodic2DRankNParentModel(Periodic2DRankNParentModel):
     """Define one separated-sector synthetic parent on the reduced reciprocal torus.
 
     Parameters
     ----------
     retained_rank
         Finite retained-sector dimension, at least two.
-    positive_bonds
+    bond_inventory
         Unique nonzero integer harmonic vectors in reduced reciprocal coordinates.
-    parent_scale
+    coupling_scale
         Finite dimensionless coupling in the closed interval ``[0, 1]``.
     basis
         Exact ordered retained-sector basis identity.
@@ -35,8 +45,8 @@ class Periodic2DRankNAnalyticParentModel(Periodic2DRankNModel):
 
     Notes
     -----
-    This model owns only the parent and retained embedding. Gauge transformations,
-    study case identities, geometry, meshes, and calculation inventories are separate.
+    This test value supplies only the parent and retained embedding. Reusable source
+    owns the contract, while gauge transformations and study composition stay separate.
     """
 
     MODEL_FAMILY_IDENTITY: ClassVar[str] = (
@@ -46,10 +56,10 @@ class Periodic2DRankNAnalyticParentModel(Periodic2DRankNModel):
     EXTERNAL_GAP_LOWER_BOUND: ClassVar[float] = 1.9
 
     retained_rank: int
-    positive_bonds: tuple[tuple[int, int], ...]
-    parent_scale: float
+    bond_inventory: tuple[tuple[int, int], ...]
+    coupling_scale: float
     basis: Periodic2DBasisIdentity
-    role: PeriodicModelRole = field(kw_only=True)
+    role: PeriodicModelRole
 
     def __post_init__(self) -> None:
         """Validate the finite-rank parent and its exact basis correlation."""
@@ -57,24 +67,24 @@ class Periodic2DRankNAnalyticParentModel(Periodic2DRankNModel):
             raise TypeError("retained_rank must be a built-in integer")
         if self.retained_rank < 2:
             raise ValueError("retained_rank must be at least two")
-        if type(self.positive_bonds) is not tuple or not self.positive_bonds:
-            raise TypeError("positive_bonds must be a nonempty tuple")
+        if type(self.bond_inventory) is not tuple or not self.bond_inventory:
+            raise TypeError("bond_inventory must be a nonempty tuple")
         if any(
             type(bond) is not tuple
             or len(bond) != 2
             or any(type(component) is not int for component in bond)
             or bond == (0, 0)
-            for bond in self.positive_bonds
+            for bond in self.bond_inventory
         ):
-            raise TypeError("positive_bonds must contain nonzero integer pairs")
-        if len(set(self.positive_bonds)) != len(self.positive_bonds):
-            raise ValueError("positive_bonds must be unique")
-        if type(self.parent_scale) is not float:
-            raise TypeError("parent_scale must be a built-in float")
-        if not math.isfinite(self.parent_scale):
-            raise ValueError("parent_scale must be finite")
-        if not 0.0 <= self.parent_scale <= 1.0:
-            raise ValueError("parent_scale must be in the closed interval [0, 1]")
+            raise TypeError("bond_inventory must contain nonzero integer pairs")
+        if len(set(self.bond_inventory)) != len(self.bond_inventory):
+            raise ValueError("bond_inventory must be unique")
+        if type(self.coupling_scale) is not float:
+            raise TypeError("coupling_scale must be a built-in float")
+        if not math.isfinite(self.coupling_scale):
+            raise ValueError("coupling_scale must be finite")
+        if not 0.0 <= self.coupling_scale <= 1.0:
+            raise ValueError("coupling_scale must be in the closed interval [0, 1]")
         if type(self.basis) is not Periodic2DBasisIdentity:
             raise TypeError("basis must be the exact Periodic2DBasisIdentity type")
         if self.basis.dimension != self.retained_rank:
@@ -87,13 +97,28 @@ class Periodic2DRankNAnalyticParentModel(Periodic2DRankNModel):
         """Return the stable parent identity independently of any transformation."""
         bonds = ";".join(
             ",".join(str(component) for component in bond)
-            for bond in self.positive_bonds
+            for bond in self.bond_inventory
         )
         return (
             f"{self.MODEL_FAMILY_IDENTITY}:"
             f"role-{self.model_role.to_wire()}:r{self.retained_rank:02d}:"
-            f"bonds-{bonds}:lambda-{self.parent_scale.hex()}"
+            f"bonds-{bonds}:lambda-{self.coupling_scale.hex()}"
         )
+
+    @property
+    def positive_bonds(self) -> tuple[tuple[int, int], ...]:
+        """Return the test-owned harmonic support."""
+        return self.bond_inventory
+
+    @property
+    def parent_scale(self) -> float:
+        """Return the test-owned parent coupling scale."""
+        return self.coupling_scale
+
+    @property
+    def isolation_gap_lower_bound(self) -> float:
+        """Return the conservative gap lower bound for this synthetic family."""
+        return self.EXTERNAL_GAP_LOWER_BOUND
 
     @property
     def model_role(self) -> PeriodicModelRole:
@@ -142,7 +167,7 @@ class Periodic2DRankNAnalyticParentModel(Periodic2DRankNModel):
     def structure_factor(self, reduced_coordinates: Float64Array) -> Float64Array:
         """Return the normalized first/second-harmonic structure factor."""
         coordinates = self._coordinates(reduced_coordinates)
-        bonds = np.asarray(self.positive_bonds, dtype=np.float64)
+        bonds = np.asarray(self.bond_inventory, dtype=np.float64)
         arguments = 2.0 * np.pi * np.einsum("...d,bd->...b", coordinates, bonds)
         values = np.mean(
             0.75 * np.cos(arguments) + 0.25 * np.cos(2.0 * arguments),
@@ -163,7 +188,7 @@ class Periodic2DRankNAnalyticParentModel(Periodic2DRankNModel):
         structure = self.structure_factor(reduced_coordinates)
         orbital = self._orbital_coordinates()
         values = 0.4 * orbital + (
-            0.25 * self.parent_scale * (1.0 + 0.2 * orbital) * structure[..., None]
+            0.25 * self.coupling_scale * (1.0 + 0.2 * orbital) * structure[..., None]
         )
         return self._immutable_float(
             np.asarray(values, dtype=np.float64),
@@ -174,7 +199,7 @@ class Periodic2DRankNAnalyticParentModel(Periodic2DRankNModel):
         """Return the separated exterior-sector energies."""
         structure = self.structure_factor(reduced_coordinates)
         orbital = self._orbital_coordinates()
-        values = 3.0 + 0.3 * orbital + 0.1 * self.parent_scale * structure[..., None]
+        values = 3.0 + 0.3 * orbital + 0.1 * self.coupling_scale * structure[..., None]
         return self._immutable_float(
             np.asarray(values, dtype=np.float64),
             "exterior_energies",
@@ -220,4 +245,61 @@ class Periodic2DRankNAnalyticParentModel(Periodic2DRankNModel):
         )
 
 
-__all__ = ["Periodic2DRankNAnalyticParentModel"]
+
+
+class SyntheticPeriodic2DRankNCaseExpander:
+    """Construct the historical analytic cross product only for tests."""
+
+    def __init__(
+        self,
+        *,
+        request: Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
+        basis_inventory: PeriodicBasisInventory[Periodic2DBasisIdentity],
+    ) -> None:
+        if type(request) is not Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
+            raise TypeError("request must be the exact periodic-2D rank-N request")
+        if type(basis_inventory) is not PeriodicBasisInventory:
+            raise TypeError("basis_inventory must be the exact PeriodicBasisInventory")
+        if basis_inventory.retained_ranks != request.retained_ranks:
+            raise ValueError("basis inventory ranks must match the requested ranks")
+        self._request = request
+        self._basis_inventory = basis_inventory
+
+    @property
+    def band_subspace_ranks(self) -> tuple[int, ...]:
+        return self._request.band_subspace_ranks
+
+    def execute(self) -> tuple[Periodic2DRankNParentGaugeCase, ...]:
+        inventory = product(
+            self._request.cases,
+            self._request.retained_ranks,
+            self._request.circuit_depths,
+            self._request.parent_scales,
+            self._request.transformation_coefficients,
+        )
+        return tuple(
+            Periodic2DRankNParentGaugeCase(
+                case_identifier=values[0].identifier,
+                parent_model=SyntheticPeriodic2DRankNParentModel(
+                    retained_rank=values[1],
+                    bond_inventory=values[0].positive_bonds,
+                    coupling_scale=values[3],
+                    basis=self._basis_inventory.basis_identity_for_rank(values[1]),
+                    role=PeriodicModelRole.CONTROL_MODEL,
+                ),
+                gauge_transformation=Periodic2DRankNGivensGaugeTransformation(
+                    retained_rank=values[1],
+                    circuit_depth=values[2],
+                    harmonic_bonds=values[0].positive_bonds,
+                    normalization=values[0].gauge_normalization,
+                    coefficient=values[4],
+                ),
+            )
+            for values in inventory
+        )
+
+
+__all__ = [
+    "SyntheticPeriodic2DRankNCaseExpander",
+    "SyntheticPeriodic2DRankNParentModel",
+]

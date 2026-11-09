@@ -98,7 +98,8 @@ class TestPeriodic2DRankNProtocols:
         ).is_file()
         assert (rank_root / "hopping_locality" / "analysis.py").is_file()
         assert (rank_root / "support_truncation" / "analysis.py").is_file()
-        assert (rank_root / "gauge_alignment" / "attack.py").is_file()
+        assert (rank_root / "gauge_alignment" / "transformation.py").is_file()
+        assert not (rank_root / "gauge_alignment" / "attack.py").exists()
         parent_model = (
             repository_root
             / "python"
@@ -110,12 +111,17 @@ class TestPeriodic2DRankNProtocols:
             / "models"
             / "analytic.py"
         )
-        assert parent_model.is_file()
+        assert not parent_model.exists()
+        assert (
+            repository_root
+            / "python"
+            / "tests"
+            / "periodic2d_rankn_analytic_case_support.py"
+        ).is_file()
         aggregate_root = rank_root / "band_equivalence_hopping_locality"
         for filename in (
             "case.py",
             "request.py",
-            "case_expansion.py",
             "analysis.py",
             "result.py",
             "reference.py",
@@ -123,6 +129,7 @@ class TestPeriodic2DRankNProtocols:
             "verification.py",
         ):
             assert (aggregate_root / filename).is_file()
+        assert not (aggregate_root / "case_expansion.py").exists()
         assert not (aggregate_root / "lifecycle.py").exists()
 
     def test_calculation_root_has_no_direct_entrypoints_or_rank4_namespace(

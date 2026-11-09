@@ -1,4 +1,4 @@
-"""Periodic-2D finite-rank analytic study-case composition."""
+"""Periodic-2D finite-rank parent/transformation case composition."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array
 
 from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 from ksdft2effmass.periodic.periodic2d.rankN.models import (
-    Periodic2DRankNAnalyticParentModel,
+    Periodic2DRankNParentModel,
 )
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.transformation import (
     Periodic2DRankNGaugeNormalizationEnum,
@@ -20,10 +20,10 @@ from .base import Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue
 
 
 @dataclass(frozen=True, slots=True, eq=False)
-class Periodic2DRankNAnalyticCase(
+class Periodic2DRankNParentGaugeCase(
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue,
 ):
-    """Compose one analytic parent and one independent right gauge transformation.
+    """Correlate one explicit parent and one right gauge transformation.
 
     Parameters
     ----------
@@ -36,24 +36,19 @@ class Periodic2DRankNAnalyticCase(
     """
 
     CASE_FAMILY_IDENTITY: ClassVar[str] = (
-        "ksdft2effmass.periodic2d-rankN-analytic-case.v1"
-    )
-    EXTERNAL_GAP_LOWER_BOUND: ClassVar[float] = (
-        Periodic2DRankNAnalyticParentModel.EXTERNAL_GAP_LOWER_BOUND
+        "ksdft2effmass.periodic2d-rankN-parent-gauge-case.v1"
     )
 
     case_identifier: str
-    parent_model: Periodic2DRankNAnalyticParentModel
+    parent_model: Periodic2DRankNParentModel
     gauge_transformation: Periodic2DRankNGivensGaugeTransformation
 
     def __post_init__(self) -> None:
         """Validate exact parent/transformation correlation without inference."""
         if type(self.case_identifier) is not str or not self.case_identifier:
             raise TypeError("case_identifier must be a nonempty built-in string")
-        if type(self.parent_model) is not Periodic2DRankNAnalyticParentModel:
-            raise TypeError(
-                "parent_model must be the exact Periodic2DRankNAnalyticParentModel"
-            )
+        if not isinstance(self.parent_model, Periodic2DRankNParentModel):
+            raise TypeError("parent_model must be Periodic2DRankNParentModel")
         if (
             type(self.gauge_transformation)
             is not Periodic2DRankNGivensGaugeTransformation
@@ -62,7 +57,10 @@ class Periodic2DRankNAnalyticCase(
                 "gauge_transformation must be the exact periodic-2D "
                 "Givens gauge transformation"
             )
-        if self.parent_model.retained_rank != self.gauge_transformation.retained_rank:
+        if (
+            self.parent_model.band_subspace_rank
+            != self.gauge_transformation.retained_rank
+        ):
             raise ValueError(
                 "parent and gauge-transformation retained ranks must match"
             )
@@ -74,7 +72,7 @@ class Periodic2DRankNAnalyticCase(
     @property
     def retained_rank(self) -> int:
         """Return the correlated retained rank."""
-        return self.parent_model.retained_rank
+        return self.parent_model.band_subspace_rank
 
     @property
     def band_subspace_rank(self) -> int:
@@ -115,6 +113,11 @@ class Periodic2DRankNAnalyticCase(
     def ambient_dimension(self) -> int:
         """Return the ordered retained-plus-exterior parent dimension."""
         return self.parent_model.ambient_dimension
+
+    @property
+    def isolation_gap_lower_bound(self) -> float:
+        """Return the parent family's declared isolation-gap lower bound."""
+        return self.parent_model.isolation_gap_lower_bound
 
     @property
     def model_identity(self) -> str:
@@ -188,4 +191,4 @@ class Periodic2DRankNAnalyticCase(
         return self.gauge_transformation.inverse_right_actions(reduced_coordinates)
 
 
-__all__ = ["Periodic2DRankNAnalyticCase"]
+__all__ = ["Periodic2DRankNParentGaugeCase"]

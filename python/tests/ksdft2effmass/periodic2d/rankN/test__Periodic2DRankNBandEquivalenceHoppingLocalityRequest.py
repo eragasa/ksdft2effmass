@@ -19,10 +19,7 @@ from ksdft2effmass.periodic.operators import (
 )
 from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.case import (
-    Periodic2DRankNAnalyticCase,
-)
-from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.case_expansion import (  # noqa: E501
-    Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander,
+    Periodic2DRankNParentGaugeCase,
 )
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.request import (
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
@@ -41,6 +38,9 @@ from ksdft2effmass.periodic2d.rankN.gauge_alignment.definition import (
 )
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.transformation import (
     Periodic2DRankNGaugeNormalizationEnum,
+)
+from periodic2d_rankn_analytic_case_support import (
+    SyntheticPeriodic2DRankNCaseExpander,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -193,7 +193,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityRequest:
         decoded = Periodic2DRankNBandEquivalenceHoppingLocalityRequest.from_json(
             encoded
         )  # noqa: E501
-        expanded = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
+        expanded = SyntheticPeriodic2DRankNCaseExpander(
             request=decoded,
             basis_inventory=_TEST_BASIS_INVENTORY,
         ).execute()
@@ -202,7 +202,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityRequest:
         assert decoded.case_count == expected_count
         assert decoded.band_subspace_ranks == decoded.retained_ranks
         assert len(expanded) == expected_count
-        assert all(type(case) is Periodic2DRankNAnalyticCase for case in expanded)
+        assert all(type(case) is Periodic2DRankNParentGaugeCase for case in expanded)
         assert len({case.model_identity for case in expanded}) == expected_count
         assert {case.retained_rank for case in expanded} == {3, 4, 8}
         assert {case.circuit_depth for case in expanded} == {1, 2, 4}

@@ -24,10 +24,8 @@ from ksdft2effmass.periodic2d.gauge_alignment.base import (
     Periodic2DGaugeAlignmentAnalysis,
 )
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.analysis import (
+    Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer,
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer,
-)
-from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.case_expansion import (  # noqa: E501
-    Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander,
 )
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.fourier_reference import (  # noqa: E501
     Periodic2DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer,
@@ -65,6 +63,9 @@ from ksdft2effmass.sewing import (
     IdentityReciprocalSewing,
     ReciprocalEndpointSewingInventory,
     ReciprocalEndpointSewingMap,
+)
+from periodic2d_rankn_analytic_case_support import (
+    SyntheticPeriodic2DRankNCaseExpander,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -144,9 +145,30 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
             norm_energy_scale=1.0,
         )
 
+    def test_aggregate_analyzer_requires_explicit_complete_model_inventory(
+        self,
+    ) -> None:
+        request = self._request()
+        models = SyntheticPeriodic2DRankNCaseExpander(
+            request=request,
+            basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
+        ).execute()
+
+        analyzer = Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer(
+            request=request,
+            models=models,
+        )
+
+        assert analyzer.request is request
+        with pytest.raises(ValueError, match="every exact request expansion"):
+            Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer(
+                request=request,
+                models=models[:-1],
+            )
+
     def test_case_analysis_uses_dimension_and_gauge_analysis_bases(self) -> None:
         request = self._request()
-        expander = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
+        expander = SyntheticPeriodic2DRankNCaseExpander(
             request=request,
             basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
         )
@@ -208,7 +230,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_v1_case_analysis_rejects_nonidentity_endpoint_sewing(self) -> None:
         request = self._request()
-        model = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
+        model = SyntheticPeriodic2DRankNCaseExpander(
             request=request,
             basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
         ).execute()[1]
@@ -239,7 +261,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_parent_alignment_and_transport_reference_is_independent(self) -> None:
         request = self._request()
-        model = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
+        model = SyntheticPeriodic2DRankNCaseExpander(
             request=request,
             basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
         ).execute()[1]
@@ -267,7 +289,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_fourier_shell_and_support_reference_uses_direct_sums(self) -> None:
         request = self._request()
-        model = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
+        model = SyntheticPeriodic2DRankNCaseExpander(
             request=request,
             basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
         ).execute()[1]
@@ -295,7 +317,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_case_verification_composes_both_independent_routes(self) -> None:
         request = self._request()
-        model = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
+        model = SyntheticPeriodic2DRankNCaseExpander(
             request=request,
             basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
         ).execute()[1]
@@ -336,7 +358,7 @@ class TestPeriodic2DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_aggregate_analysis_round_trips_canonical_json(self) -> None:
         request = self._request()
-        model = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
+        model = SyntheticPeriodic2DRankNCaseExpander(
             request=request,
             basis_inventory=PERIODIC2D_RANK_N_CONTROL_BASIS_INVENTORY,
         ).execute()[0]

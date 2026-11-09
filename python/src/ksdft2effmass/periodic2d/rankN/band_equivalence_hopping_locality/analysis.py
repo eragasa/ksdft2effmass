@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from itertools import product
 from typing import ClassVar, final
 
 import numpy as np
@@ -30,8 +31,6 @@ from ksdft2effmass.band_equivalence_hopping_locality.shell_power import (
     MetricShellHoppingPowerResult,
 )
 from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalysisIdentity
-from ksdft2effmass.periodic.operators import PeriodicBasisInventory
-from ksdft2effmass.periodic.periodic2d.operators import Periodic2DBasisIdentity
 from ksdft2effmass.periodic2d.rankN.band_alignment.frame_transport.analysis import (
     Periodic2DRankNTransportAnalyzer,
 )
@@ -89,8 +88,7 @@ from ksdft2effmass.sewing import (
     ReciprocalEndpointSewingInventory,
 )
 
-from .case import Periodic2DRankNAnalyticCase
-from .case_expansion import Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander
+from .case import Periodic2DRankNParentGaugeCase
 from .request import (
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
     Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
@@ -119,7 +117,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     _PeriodicRankNBandEquivalenceHoppingLocalityProductionArithmetic,
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction,
 ):
-    """Compose installed capability owners for one exact analytic case.
+    """Compose installed capability owners for one explicit parent/gauge case.
 
     The retained locality summary currently derives non-onsite power by subtracting
     the separately rounded onsite power from total power and clipping at zero.  For
@@ -142,14 +140,14 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
         self,
         *,
         request: Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
-        model: Periodic2DRankNAnalyticCase,
+        model: Periodic2DRankNParentGaugeCase,
         geometry: Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
         endpoint_sewing: ReciprocalEndpointSewingInventory,
     ) -> None:
         if type(request) is not Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
             raise TypeError("request must be the exact periodic-2D rank-N request")
-        if type(model) is not Periodic2DRankNAnalyticCase:
-            raise TypeError("model must be the exact periodic-2D analytic case")
+        if type(model) is not Periodic2DRankNParentGaugeCase:
+            raise TypeError("model must be the exact periodic-2D parent/gauge case")
         if (
             type(geometry)
             is not Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition
@@ -238,7 +236,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     def _hopping_locality(
         self,
         *,
-        model: Periodic2DRankNAnalyticCase,
+        model: Periodic2DRankNParentGaugeCase,
         channel: Periodic2DRankNHoppingLocalityChannelEnum,
         series: NumpyFiniteFourierMatrixSeries,
         metric_indices: Int64Array,
@@ -258,7 +256,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     def _reference_fourier(
         self,
         *,
-        model: Periodic2DRankNAnalyticCase,
+        model: Periodic2DRankNParentGaugeCase,
         geometry: Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
         construction_values: Complex128Array,
     ) -> _ReferenceFourierData:
@@ -364,7 +362,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     def _decisions(
         self,
         *,
-        model: Periodic2DRankNAnalyticCase,
+        model: Periodic2DRankNParentGaugeCase,
         reference_errors: tuple[BandEquivalenceHoppingLocalityErrorChannels, ...],
         comparison_errors: tuple[BandEquivalenceHoppingLocalityErrorChannels, ...],
         reference: _ReferenceFourierData,
@@ -417,7 +415,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     def _qualified_alignment(
         self,
         *,
-        model: Periodic2DRankNAnalyticCase,
+        model: Periodic2DRankNParentGaugeCase,
         geometry: Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
         alignment: Periodic2DRankNGaugeAlignment,
         evidence: Periodic2DRankNFittedAlignmentEvidence
@@ -624,7 +622,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
 
     def _case(
         self,
-        model: Periodic2DRankNAnalyticCase,
+        model: Periodic2DRankNParentGaugeCase,
         geometry: Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
         construction: Float64Array,
         evaluation: Float64Array,
@@ -842,7 +840,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
         )
 
     def execute(self) -> Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis:
-        """Execute one analytic case without creating retained evidence."""
+        """Execute one supplied parent/gauge case without retained evidence."""
         construction = self._coordinates(self._request.construction_size, 0.5)
         evaluation = self._coordinates(
             self._request.evaluation_size,
@@ -864,20 +862,60 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer(
 ):
     """Thinly expand and sequence one exact aggregate software request."""
 
-    __slots__ = ("_request", "_basis_inventory")
+    __slots__ = ("_request", "_models")
 
     def __init__(
         self,
         *,
         request: Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
-        basis_inventory: PeriodicBasisInventory[Periodic2DBasisIdentity],
+        models: tuple[Periodic2DRankNParentGaugeCase, ...],
     ) -> None:
         if type(request) is not Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
             raise TypeError("request must be the exact periodic-2D rank-N request")
-        if type(basis_inventory) is not PeriodicBasisInventory:
-            raise TypeError("basis_inventory must be the exact PeriodicBasisInventory")
+        if type(models) is not tuple or not models:
+            raise TypeError("models must be a nonempty tuple")
+        if any(type(model) is not Periodic2DRankNParentGaugeCase for model in models):
+            raise TypeError("models must contain exact periodic-2D parent/gauge cases")
+        expected_inventory = {
+            (
+                geometry.identifier,
+                retained_rank,
+                circuit_depth,
+                parent_scale,
+                transformation_coefficient,
+            )
+            for (
+                geometry,
+                retained_rank,
+                circuit_depth,
+                parent_scale,
+                transformation_coefficient,
+            ) in product(
+                request.cases,
+                request.retained_ranks,
+                request.circuit_depths,
+                request.parent_scales,
+                request.transformation_coefficients,
+            )
+        }
+        actual_inventory = {
+            (
+                model.case_identifier,
+                model.retained_rank,
+                model.circuit_depth,
+                model.parent_scale,
+                model.transformation_coefficient,
+            )
+            for model in models
+        }
+        if actual_inventory != expected_inventory or len(models) != len(
+            expected_inventory
+        ):
+            raise ValueError("models must contain every exact request expansion")
+        if len({model.model_identity for model in models}) != len(models):
+            raise ValueError("models must have unique correlation identities")
         self._request = request
-        self._basis_inventory = basis_inventory
+        self._models = models
 
     @property
     def request(self) -> Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
@@ -885,12 +923,8 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer(
         return self._request
 
     def execute(self) -> Periodic2DRankNBandEquivalenceHoppingLocalityAnalysis:
-        """Execute all analytic cases without creating retained evidence."""
+        """Execute all supplied parent/gauge cases without retained evidence."""
         geometry_by_identifier = {case.identifier: case for case in self._request.cases}
-        models = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=self._request,
-            basis_inventory=self._basis_inventory,
-        ).execute()
         cases = tuple(
             Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                 request=self._request,
@@ -905,7 +939,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer(
                     * 2
                 ),
             ).execute()
-            for model in models
+            for model in self._models
         )
         return Periodic2DRankNBandEquivalenceHoppingLocalityAnalysis(
             request=self._request,
