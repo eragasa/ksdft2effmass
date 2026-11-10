@@ -1,4 +1,4 @@
-"""Real energy parameters for the homopolar diamond ``sp3s*`` model."""
+"""Concrete silicon-program parameter composition over PhysKit integrals."""
 
 from __future__ import annotations
 
@@ -6,7 +6,10 @@ from dataclasses import dataclass
 
 import numpy as np
 from projectkoios.numerics.numpy.typing import Float64Array
-from projectkoios.physkit.units import PhysicalUnit, ScalarQuantity
+from projectkoios.physkit.solidstate.tb.slater_koster import (
+    HomopolarSp3sStarTwoCenterIntegrals,
+)
+from projectkoios.physkit.units import PhysicalUnit, ScalarQuantity, UnitSystem
 
 ELECTRON_VOLT = PhysicalUnit("electron_volt")
 
@@ -36,9 +39,9 @@ def _require_energy(value: ScalarQuantity, name: str) -> None:
         raise ValueError(f"{name} must be in electron_volt")
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, kw_only=True)
 class DiamondSp3sStarOnsite:
-    """Homopolar onsite energies in eV for ``(s, px, py, pz, s*)``."""
+    """Homopolar onsite energies in eV for ``(s, p_x, p_y, p_z, s*)``."""
 
     s: ScalarQuantity
     p: ScalarQuantity
@@ -49,12 +52,12 @@ class DiamondSp3sStarOnsite:
             _require_energy(getattr(self, name), name)
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, kw_only=True)
 class DiamondSp3sStarFirstNeighbor:
     """First-neighbor two-center integrals in eV.
 
-    The ``s-s*`` and ``s*-s*`` first-neighbor channels are absent by contract and
-    therefore cannot be assigned accidentally.
+    The first-neighbor ``s-s*`` and ``s*-s*`` channels are explicit zeros when
+    composed into the seven-channel PhysKit integral record.
     """
 
     ss_sigma: ScalarQuantity
@@ -73,8 +76,23 @@ class DiamondSp3sStarFirstNeighbor:
         ):
             _require_energy(getattr(self, name), name)
 
+    @property
+    def two_center_integrals(self) -> HomopolarSp3sStarTwoCenterIntegrals:
+        """Return the complete PhysKit seven-channel first-neighbor vector."""
+        zero = ScalarQuantity(0.0, ELECTRON_VOLT)
+        return HomopolarSp3sStarTwoCenterIntegrals(
+            ss_sigma=self.ss_sigma,
+            sp_sigma=self.sp_sigma,
+            pp_sigma=self.pp_sigma,
+            pp_pi=self.pp_pi,
+            s_star_p_sigma=self.s_star_p_sigma,
+            s_s_star_sigma=zero,
+            s_star_s_star_sigma=zero,
+            unit_system=UnitSystem.METAL,
+        )
 
-@dataclass(frozen=True, slots=True)
+
+@dataclass(frozen=True, slots=True, kw_only=True)
 class DiamondSp3sStarSecondNeighbor:
     """Symmetry-shared second-neighbor two-center integrals in eV."""
 
@@ -98,13 +116,28 @@ class DiamondSp3sStarSecondNeighbor:
         ):
             _require_energy(getattr(self, name), name)
 
+    @property
+    def two_center_integrals(self) -> HomopolarSp3sStarTwoCenterIntegrals:
+        """Return the complete PhysKit seven-channel second-neighbor vector."""
+        return HomopolarSp3sStarTwoCenterIntegrals(
+            ss_sigma=self.ss_sigma,
+            sp_sigma=self.sp_sigma,
+            pp_sigma=self.pp_sigma,
+            pp_pi=self.pp_pi,
+            s_star_p_sigma=self.s_star_p_sigma,
+            s_s_star_sigma=self.s_s_star_sigma,
+            s_star_s_star_sigma=self.s_star_s_star_sigma,
+            unit_system=UnitSystem.METAL,
+        )
 
-@dataclass(frozen=True, slots=True)
+
+@dataclass(frozen=True, slots=True, kw_only=True)
 class DiamondSp3sStarParameters:
     """The ordered 15-parameter real homopolar ``sp3s*`` inventory.
 
-    All values are finite binary64 scalars with the exact PhysKit unit
-    ``electron_volt``. The stable vector order matches the S110 M2 declaration.
+    KSD owns the concrete onsite, first-neighbor, and second-neighbor grouping used
+    by the silicon program. PhysKit owns the reusable seven-channel integral and
+    hopping mechanics consumed by the composed model.
     """
 
     onsite: DiamondSp3sStarOnsite
@@ -121,7 +154,7 @@ class DiamondSp3sStarParameters:
 
     @property
     def parameter_names(self) -> tuple[str, ...]:
-        """Return the stable parameter-vector field order."""
+        """Return the stable S110 M2 parameter-vector field order."""
         return _PARAMETER_NAMES
 
     def ordered_quantities(self) -> tuple[ScalarQuantity, ...]:
@@ -156,13 +189,8 @@ class DiamondSp3sStarParameters:
         return np.frombuffer(values.tobytes(), dtype="<f8")
 
     @classmethod
-    def from_vector_ev(cls, values: Float64Array) -> DiamondSp3sStarParameters:
-        """Construct the stable parameter map from a length-15 array in eV.
-
-        Boolean arrays, numeric strings, nonfinite values, and non-arrays are
-        rejected rather than coerced. Integer and floating inputs are converted to
-        binary64; values that overflow that representation are rejected as nonfinite.
-        """
+    def from_vector_ev(cls, *, values: Float64Array) -> DiamondSp3sStarParameters:
+        """Construct the stable parameter map from a length-15 NumPy array in eV."""
         if not isinstance(values, np.ndarray):
             raise TypeError("values must be a numpy.ndarray")
         if values.dtype.kind not in "iuf":
@@ -177,7 +205,25 @@ class DiamondSp3sStarParameters:
             ScalarQuantity(float(value), ELECTRON_VOLT) for value in vector
         )
         return cls(
-            onsite=DiamondSp3sStarOnsite(*quantities[0:3]),
-            first_neighbor=DiamondSp3sStarFirstNeighbor(*quantities[3:8]),
-            second_neighbor=DiamondSp3sStarSecondNeighbor(*quantities[8:15]),
+            onsite=DiamondSp3sStarOnsite(
+                s=quantities[0],
+                p=quantities[1],
+                s_star=quantities[2],
+            ),
+            first_neighbor=DiamondSp3sStarFirstNeighbor(
+                ss_sigma=quantities[3],
+                sp_sigma=quantities[4],
+                pp_sigma=quantities[5],
+                pp_pi=quantities[6],
+                s_star_p_sigma=quantities[7],
+            ),
+            second_neighbor=DiamondSp3sStarSecondNeighbor(
+                ss_sigma=quantities[8],
+                sp_sigma=quantities[9],
+                pp_sigma=quantities[10],
+                pp_pi=quantities[11],
+                s_star_p_sigma=quantities[12],
+                s_s_star_sigma=quantities[13],
+                s_star_s_star_sigma=quantities[14],
+            ),
         )

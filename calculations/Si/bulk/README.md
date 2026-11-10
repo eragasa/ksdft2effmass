@@ -78,6 +78,12 @@ library owners. Workflow integration is intentionally outside this extraction.
 - [`technical-report/`](technical-report/) — calculation-facing synthesis and links to
   the detailed design and retained audits.
 
+The former calculation-owned tight-binding/Slater--Koster incubation has been retired.
+Reusable mechanics are consumed from the pinned Project Koios PhysKit revision, while
+KSD's concrete diamond composition is maintained under
+[`python/src/ksdft2effmass/model_systems/slater_koster/`](../../../python/src/ksdft2effmass/model_systems/slater_koster/).
+No calculation compatibility namespace or fallback remains.
+
 ## Nonclaims
 
 This root does not establish production convergence, an infinite-basis result,

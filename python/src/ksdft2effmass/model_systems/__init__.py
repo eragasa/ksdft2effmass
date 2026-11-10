@@ -72,7 +72,6 @@ from .slater_koster import (
     DiamondSp3sStarParameters,
     DiamondSp3sStarSecondNeighbor,
     DiamondSublattice,
-    Sp3sStarOrbitalIndex,
 )
 from .verification import (
     BaseModelAnalysisVerification,
@@ -134,7 +133,6 @@ __all__ = [
     "PlaneWaveFiberHamiltonian1DConstructor",
     "PlaneWaveFiberHamiltonian1DRequest",
     "PlaneWaveFiberHamiltonian1DResult",
-    "Sp3sStarOrbitalIndex",
     "SpectralReductionResultSection",
     "VisualizationProjectionVerification",
     "UniformCartesianGrid1D",

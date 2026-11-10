@@ -30,8 +30,8 @@ class TestDiamondSp3sStarModelJsonSerializer:
         serializer = DiamondSp3sStarModelJsonSerializer()
         model = self._model()
 
-        first = serializer.serialize(model)
-        second = serializer.serialize(model)
+        first = serializer.serialize(model=model)
+        second = serializer.serialize(model=model)
         document = TypedJsonMappingDeserializer().deserialize(first)
         basis_mapping = document["basis"]
         geometry = document["geometry"]
@@ -44,15 +44,18 @@ class TestDiamondSp3sStarModelJsonSerializer:
 
         assert first == second
         assert first.endswith(b"\n")
-        assert document["schema_version"] == 2
+        assert document["schema_version"] == 3
         assert document["model"] == "homopolar-diamond-spinless-sp3s-star"
+        assert document["mechanics_owner"] == (
+            "projectkoios.physkit.solidstate.tb.slater_koster"
+        )
         assert Periodic3DBasisIdentity.from_dict(basis_mapping) == model.basis_identity
         assert document["parameter_order"] == model.parameters.parameter_names
         assert first_neighbor["fixed_V1_s_s_star_sigma"] == ScalarQuantity(
             0.0,
             PhysicalUnit("electron_volt"),
         )
-        first_cells = geometry["first_neighbor_A_to_B_target_cells"]
+        first_cells = geometry["first_neighbor_origin_to_quarter_target_cells"]
         phase_convention = document["phase_convention"]
         assert isinstance(first_cells, tuple)
         assert isinstance(phase_convention, str)
@@ -66,15 +69,15 @@ class TestDiamondSp3sStarModelJsonSerializer:
         wrong = cast(DiamondSp3sStarModel, self._model().parameters)
 
         with pytest.raises(TypeError, match="must be DiamondSp3sStarModel"):
-            serializer.serialize(wrong)
+            serializer.serialize(model=wrong)
 
     @staticmethod
     def _model() -> DiamondSp3sStarModel:
         return DiamondSp3sStarModel(
             geometry=DiamondSp3sStarGeometry(
-                ScalarQuantity(5.4, PhysicalUnit("angstrom"))
+                lattice_parameter=ScalarQuantity(5.4, PhysicalUnit("angstrom"))
             ),
             parameters=DiamondSp3sStarParameters.from_vector_ev(
-                np.linspace(-1.0, 1.0, 15)
+                values=np.linspace(-1.0, 1.0, 15)
             ),
         )

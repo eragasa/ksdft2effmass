@@ -1,18 +1,41 @@
-"""Spinless ten-orbital diamond ``sp3s*`` Bloch Hamiltonian."""
+"""Concrete diamond ``sp3s*`` composition over reusable PhysKit mechanics."""
 
 from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from enum import IntEnum
 
 import numpy as np
-from projectkoios.numerics.numpy.typing import (
-    Complex128Matrix,
-    Float64Array,
-    Float64Matrix,
+from projectkoios.numerics.numpy.typing import Float64Array, Float64Matrix
+from projectkoios.physkit.periodic.lattice.finite_domain import (
+    LatticeDimension,
+    LatticeDisplacement,
 )
-from projectkoios.physkit.units import ComplexMatrixQuantity
+from projectkoios.physkit.periodic.lattice.hopping import (
+    DenseBlockHoppingModel,
+    DenseBlockHoppingTerm,
+)
+from projectkoios.physkit.solidstate.tb.bloch import DenseBlockHoppingBlochEvaluator
+from projectkoios.physkit.solidstate.tb.orbital_center_gauge import (
+    CellToFullCenterGaugeTransformationConstructor,
+    CellToFullCenterGaugeTransformationDefinition,
+)
+from projectkoios.physkit.solidstate.tb.slater_koster import (
+    SP3S_STAR_ORBITAL_ORDER,
+    HomopolarSp3sStarCellGaugeModelAssembler,
+    HomopolarSp3sStarCellGaugeModelDefinition,
+    HomopolarSp3sStarParameterGroup,
+    HomopolarSp3sStarParameterizedBond,
+    HomopolarSp3sStarTwoCenterHoppingConstructor,
+    HomopolarSp3sStarTwoCenterHoppingDefinition,
+    SlaterKosterBondDirection,
+)
+from projectkoios.physkit.units import (
+    ComplexMatrixQuantity,
+    MatrixQuantity,
+    UnitSystem,
+    VectorQuantity,
+)
 
 from ksdft2effmass.hamiltonian import HermitianHamiltonian
 from ksdft2effmass.periodic.operators.basis import (
@@ -21,37 +44,38 @@ from ksdft2effmass.periodic.operators.basis import (
 )
 from ksdft2effmass.periodic.periodic3d.operators.basis import Periodic3DBasisIdentity
 
-from .geometry import DiamondNeighborBond, DiamondSp3sStarGeometry
-from .parameters import (
-    ELECTRON_VOLT,
-    DiamondSp3sStarFirstNeighbor,
-    DiamondSp3sStarParameters,
-    DiamondSp3sStarSecondNeighbor,
+from .geometry import (
+    ORIGIN_CENTER_IDENTIFIER,
+    QUARTER_CENTER_IDENTIFIER,
+    DiamondSp3sStarGeometry,
 )
+from .parameters import ELECTRON_VOLT, DiamondSp3sStarParameters
 
+_MODEL_IDENTIFIER = "homopolar-diamond-spinless-sp3s-star"
+_ENERGY_REFERENCE = "onsite-parameter-defined"
+_FIRST_NEIGHBOR_GROUP = "diamond-first-neighbor"
+_SECOND_NEIGHBOR_GROUP = "diamond-second-neighbor"
 
-class Sp3sStarOrbitalIndex(IntEnum):
-    """Orbital order within either diamond sublattice."""
-
-    S = 0
-    P_X = 1
-    P_Y = 2
-    P_Z = 3
-    S_STAR = 4
-
+_ORBITAL_BY_PHYSKIT_NAME = {
+    "s": SlaterKosterOrbital.S,
+    "p_x": SlaterKosterOrbital.P_X,
+    "p_y": SlaterKosterOrbital.P_Y,
+    "p_z": SlaterKosterOrbital.P_Z,
+    "s_star": SlaterKosterOrbital.S_STAR,
+}
 
 _DIAMOND_SP3S_STAR_BASIS = Periodic3DBasisIdentity(
     display_identifier="diamond-spinless-sp3s-star",
     coordinates=tuple(
-        SlaterKosterOrbitalBasisCoordinate(site_label=site, orbital=orbital)
-        for site in ("A", "B")
-        for orbital in (
-            SlaterKosterOrbital.S,
-            SlaterKosterOrbital.P_X,
-            SlaterKosterOrbital.P_Y,
-            SlaterKosterOrbital.P_Z,
-            SlaterKosterOrbital.S_STAR,
+        SlaterKosterOrbitalBasisCoordinate(
+            site_label=center_identifier,
+            orbital=_ORBITAL_BY_PHYSKIT_NAME[orbital_name],
         )
+        for center_identifier in (
+            ORIGIN_CENTER_IDENTIFIER,
+            QUARTER_CENTER_IDENTIFIER,
+        )
+        for orbital_name in SP3S_STAR_ORBITAL_ORDER
     ),
 )
 
@@ -73,14 +97,13 @@ def _immutable_fractional_k(value: Float64Array) -> Float64Array:
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class DiamondSp3sStarBlochHamiltonianEvaluation:
-    """Retain one Bloch matrix with its model, fiber, and ordered basis identity."""
+    """Retain one full-center matrix with model, fiber, and ordered KSD basis."""
 
     model: DiamondSp3sStarModel
     fractional_k: Float64Array
     hamiltonian: HermitianHamiltonian
 
     def __post_init__(self) -> None:
-        """Validate exact owners and retain immutable reciprocal coordinates."""
         if type(self.model) is not DiamondSp3sStarModel:
             raise TypeError("model must be DiamondSp3sStarModel")
         object.__setattr__(
@@ -99,30 +122,19 @@ class DiamondSp3sStarBlochHamiltonianEvaluation:
 
     @property
     def basis_identity(self) -> Periodic3DBasisIdentity:
-        """Return the model-owned Slater--Koster basis of the represented matrix."""
+        """Return the exact KSD basis correlated with the represented matrix."""
         return self.model.basis_identity
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, kw_only=True)
 class DiamondSp3sStarModel:
-    r"""Orthogonal homopolar first/second-neighbor ``sp3s*`` model.
+    r"""KSD-owned diamond composition using PhysKit Slater--Koster mechanics.
 
-    The ten-orbital basis is ``(A:s,px,py,pz,s*, B:s,px,py,pz,s*)`` with real
-    Slater--Koster parameters and conventional Cartesian orbital axes. Input k points
-    are fractional coordinates in the reciprocal basis dual to
-    ``geometry.normalized_direct_lattice``.
-
-    Bloch sums include each orbital center ``R + tau``. Consequently a hopping from
-    source site ``s`` to target site ``t`` uses
-
-    .. math::
-
-       \exp\left[2\pi i\,k_{\rm frac}\cdot
-       (R_{t}-R_s+\tau_t-\tau_s)_{\rm frac}\right].
-
-    The represented matrix is therefore reciprocal-lattice covariant rather than
-    elementwise periodic; its spectrum is periodic. The energy reference is exactly
-    the reference encoded by the onsite parameters.
+    KSD selects the two diamond centers, first- and second-neighbor inventories,
+    onsite policy, parameter sharing, energy reference, and represented KSD basis.
+    PhysKit owns structured spatial basis admission, directed bond geometry, the
+    seven-channel two-center matrix, generated Hermitian reverses, ordinary-cell
+    assembly, finite Fourier evaluation, and orbital-center gauge construction.
     """
 
     geometry: DiamondSp3sStarGeometry
@@ -136,105 +148,162 @@ class DiamondSp3sStarModel:
 
     @property
     def basis_identity(self) -> Periodic3DBasisIdentity:
-        """Return the ordered spinless Slater--Koster coordinate identity.
-
-        Returns
-        -------
-        Periodic3DBasisIdentity
-            The immutable order ``A:s,p_x,p_y,p_z,s*`` followed by the same order
-            on sublattice ``B``. The display identifier is descriptive; exact
-            compatibility is determined by the ordered coordinate values.
-        """
+        """Return the descriptive ordered ten-coordinate KSD basis identity."""
         return _DIAMOND_SP3S_STAR_BASIS
+
+    @property
+    def cell_gauge_model(self) -> DenseBlockHoppingModel:
+        """Return the complete PhysKit ordinary-cell model including onsite terms."""
+        basis = self.geometry.spatial_basis
+        parameter_groups = (
+            HomopolarSp3sStarParameterGroup(
+                identifier=_FIRST_NEIGHBOR_GROUP,
+                integrals=self.parameters.first_neighbor.two_center_integrals,
+            ),
+            HomopolarSp3sStarParameterGroup(
+                identifier=_SECOND_NEIGHBOR_GROUP,
+                integrals=self.parameters.second_neighbor.two_center_integrals,
+            ),
+        )
+        bonds = tuple(
+            HomopolarSp3sStarParameterizedBond(
+                geometry=self.geometry.bond_geometry(bond=bond),
+                parameter_group_identifier=_FIRST_NEIGHBOR_GROUP,
+            )
+            for bond in self.geometry.first_neighbor_bonds
+        ) + tuple(
+            HomopolarSp3sStarParameterizedBond(
+                geometry=self.geometry.bond_geometry(bond=bond),
+                parameter_group_identifier=_SECOND_NEIGHBOR_GROUP,
+            )
+            for bond in self.geometry.second_neighbor_positive_bonds_by_sublattice
+        )
+        assembly = HomopolarSp3sStarCellGaugeModelAssembler().execute(
+            definition=HomopolarSp3sStarCellGaugeModelDefinition(
+                identifier=_MODEL_IDENTIFIER,
+                basis=basis,
+                parameter_groups=parameter_groups,
+                bonds=bonds,
+                energy_reference=_ENERGY_REFERENCE,
+            )
+        )
+        return self._with_onsite(assembly.model)
 
     def hamiltonian_at(
         self,
+        *,
         fractional_k: Float64Array,
     ) -> DiamondSp3sStarBlochHamiltonianEvaluation:
-        """Evaluate the exact-Hermitian ten-by-ten Bloch Hamiltonian in eV.
+        """Evaluate the full-center exact-Hermitian ten-by-ten matrix in eV."""
+        k_point = _immutable_fractional_k(fractional_k)
+        cell_model = self.cell_gauge_model
+        self._validate_phase_arguments(model=cell_model, fractional_k=k_point)
+        fractional_wave_vectors = MatrixQuantity(
+            magnitude=k_point.reshape((1, 3)),
+            unit=UnitSystem.NONDIMENSIONAL.length_unit,
+        )
+        try:
+            cell_matrix = (
+                DenseBlockHoppingBlochEvaluator()
+                .evaluate(
+                    cell_model,
+                    fractional_wave_vectors,
+                )
+                .bloch_matrices[0]
+                .magnitude
+            )
+        except FloatingPointError as error:
+            raise OverflowError("Bloch evaluation arithmetic overflowed") from error
 
-        Boolean arrays, numeric strings, nonfinite values, and non-arrays are
-        rejected rather than coerced. Arithmetic uses binary64/complex128 without
-        clipping; phase or matrix overflow raises :class:`OverflowError`. The returned
-        evaluation retains this exact model, immutable fractional reciprocal
-        coordinates, and the model-owned ordered Slater--Koster basis identity.
-        """
-        k_point = self._fractional_k(fractional_k)
+        gauge = (
+            CellToFullCenterGaugeTransformationConstructor()
+            .execute(
+                definition=CellToFullCenterGaugeTransformationDefinition(
+                    orbital_centers_fractional=(
+                        self.geometry.spatial_basis.definition.orbital_centers_fractional
+                    ),
+                    fractional_wave_vector=VectorQuantity(
+                        magnitude=k_point,
+                        unit=UnitSystem.NONDIMENSIONAL.length_unit,
+                    ),
+                )
+            )
+            .matrix.magnitude
+        )
         with np.errstate(over="ignore", invalid="ignore"):
-            onsite = self._onsite_block()
-            same_sublattice = self._second_neighbor_block(k_point)
-            cross_sublattice = self._first_neighbor_block(k_point)
-
-            matrix = np.zeros((10, 10), dtype=np.complex128)
-            matrix[0:5, 0:5] = onsite + same_sublattice
-            matrix[5:10, 5:10] = onsite + same_sublattice
-            matrix[0:5, 5:10] = cross_sublattice
-            matrix[5:10, 0:5] = cross_sublattice.conjugate().T
-        if not np.all(np.isfinite(matrix)):
+            full_center = gauge.conjugate().T @ cell_matrix @ gauge
+        if not np.all(np.isfinite(full_center)):
             raise OverflowError("Slater-Koster matrix arithmetic overflowed")
-        if not np.array_equal(matrix, matrix.conjugate().T):
+
+        # The KSD model class requires a Hermitian represented Hamiltonian. PhysKit
+        # owns paired coefficients and Fourier evaluation; this final projection only
+        # removes binary64 anti-Hermitian roundoff introduced by matrix products.
+        antihermitian = full_center - full_center.conjugate().T
+        scale = max(1.0, float(np.linalg.norm(full_center, ord=np.inf)))
+        tolerance = 128.0 * np.finfo(np.float64).eps * scale
+        if float(np.linalg.norm(antihermitian, ord=np.inf)) > tolerance:
             raise ArithmeticError("constructed Slater-Koster matrix is not Hermitian")
+        full_center = 0.5 * (full_center + full_center.conjugate().T)
+
         return DiamondSp3sStarBlochHamiltonianEvaluation(
             model=self,
             fractional_k=k_point,
             hamiltonian=HermitianHamiltonian(
-                matrix=ComplexMatrixQuantity(matrix, ELECTRON_VOLT)
+                matrix=ComplexMatrixQuantity(full_center, ELECTRON_VOLT)
             ),
         )
 
     def two_center_hopping(
         self,
+        *,
         shell: int,
         direction_cosines: Float64Array,
     ) -> Float64Matrix:
-        r"""Return the real five-by-five two-center hopping map in eV.
-
-        Rows are source orbitals and columns are target orbitals. For direction
-        ``(l,m,n)`` from source to target, the sign convention is
-        ``<s|H|p_i> = l_i V_sp`` and ``<p_i|H|s> = -l_i V_sp``. It follows that
-        ``T(-d) = T(d).T``. Arithmetic uses binary64 without clipping and raises
-        :class:`OverflowError` if a finite input produces a nonfinite matrix.
-        """
+        """Return the PhysKit-owned real five-by-five two-center matrix in eV."""
         if type(shell) is not int:
-            raise TypeError("shell must be an int")
+            raise TypeError("shell must be a built-in int")
         if shell not in (1, 2):
             raise ValueError("shell must be 1 or 2")
         direction = self._direction_cosines(direction_cosines)
-        integrals: DiamondSp3sStarFirstNeighbor | DiamondSp3sStarSecondNeighbor
-        if shell == 1:
-            integrals = self.parameters.first_neighbor
-            s_s_star = 0.0
-            s_star_s_star = 0.0
-        else:
-            integrals = self.parameters.second_neighbor
-            s_s_star = integrals.s_s_star_sigma.magnitude
-            s_star_s_star = integrals.s_star_s_star_sigma.magnitude
-
-        matrix = np.zeros((5, 5), dtype=np.float64)
-        matrix[0, 0] = integrals.ss_sigma.magnitude
-        matrix[0, 1:4] = direction * integrals.sp_sigma.magnitude
-        matrix[1:4, 0] = -direction * integrals.sp_sigma.magnitude
-        matrix[4, 1:4] = direction * integrals.s_star_p_sigma.magnitude
-        matrix[1:4, 4] = -direction * integrals.s_star_p_sigma.magnitude
-        matrix[0, 4] = s_s_star
-        matrix[4, 0] = s_s_star
-        matrix[4, 4] = s_star_s_star
-
-        with np.errstate(over="ignore", invalid="ignore"):
-            outer = np.outer(direction, direction)
-            p_block = (
-                outer * integrals.pp_sigma.magnitude
-                + (np.eye(3) - outer) * integrals.pp_pi.magnitude
+        integrals = (
+            self.parameters.first_neighbor.two_center_integrals
+            if shell == 1
+            else self.parameters.second_neighbor.two_center_integrals
+        )
+        return (
+            HomopolarSp3sStarTwoCenterHoppingConstructor()
+            .execute(
+                definition=HomopolarSp3sStarTwoCenterHoppingDefinition(
+                    bond_direction=SlaterKosterBondDirection(
+                        components=VectorQuantity(
+                            magnitude=direction,
+                            unit=UnitSystem.NONDIMENSIONAL.length_unit,
+                        )
+                    ),
+                    integrals=integrals,
+                )
             )
-            matrix[1:4, 1:4] = p_block
-        if not np.all(np.isfinite(matrix)):
-            raise OverflowError("two-center hopping arithmetic overflowed")
-        immutable = np.frombuffer(matrix.astype("<f8").tobytes(), dtype="<f8")
-        return immutable.reshape((5, 5))
+            .matrix.magnitude
+        )
 
-    def _onsite_block(self) -> Float64Matrix:
+    def _with_onsite(
+        self,
+        hopping_model: DenseBlockHoppingModel,
+    ) -> DenseBlockHoppingModel:
+        coefficients = {
+            term.displacement.components: np.asarray(
+                term.coefficient.magnitude,
+                dtype=np.complex128,
+            ).copy()
+            for term in hopping_model.terms
+        }
+        zero = (0, 0, 0)
+        coefficient = coefficients.setdefault(
+            zero,
+            np.zeros((10, 10), dtype=np.complex128),
+        )
         onsite = self.parameters.onsite
-        return np.diag(
+        onsite_block = np.diag(
             np.asarray(
                 (
                     onsite.s.magnitude,
@@ -246,41 +315,55 @@ class DiamondSp3sStarModel:
                 dtype=np.float64,
             )
         )
-
-    def _first_neighbor_block(self, k_point: Float64Array) -> Complex128Matrix:
-        block = np.zeros((5, 5), dtype=np.complex128)
-        for bond in self.geometry.first_neighbor_bonds:
-            direction = self.geometry.direction_cosines(bond)
-            hopping = self.two_center_hopping(1, direction)
-            block += hopping * self._phase(k_point, bond)
-        if not np.all(np.isfinite(block)):
-            raise OverflowError("first-neighbor block arithmetic overflowed")
-        return block
-
-    def _second_neighbor_block(self, k_point: Float64Array) -> Complex128Matrix:
-        block = np.zeros((5, 5), dtype=np.complex128)
-        for bond in self.geometry.second_neighbor_positive_bonds:
-            direction = self.geometry.direction_cosines(bond)
-            hopping = self.two_center_hopping(2, direction)
-            term = hopping * self._phase(k_point, bond)
-            block += term + term.conjugate().T
-        if not np.all(np.isfinite(block)):
-            raise OverflowError("second-neighbor block arithmetic overflowed")
-        if not np.array_equal(block, block.conjugate().T):
-            raise ArithmeticError("second-neighbor block is not Hermitian")
-        return block
-
-    def _phase(self, k_point: Float64Array, bond: DiamondNeighborBond) -> complex:
-        displacement = self.geometry.primitive_displacement(bond)
         with np.errstate(over="ignore", invalid="ignore"):
-            angle = 2.0 * math.pi * float(k_point @ displacement)
-        if not math.isfinite(angle):
-            raise OverflowError("Bloch phase argument overflowed")
-        return complex(math.cos(angle), math.sin(angle))
+            coefficient[0:5, 0:5] += onsite_block
+            coefficient[5:10, 5:10] += onsite_block
+        if any(not np.all(np.isfinite(value)) for value in coefficients.values()):
+            raise OverflowError("cell-gauge composition arithmetic overflowed")
+
+        terms = tuple(
+            DenseBlockHoppingTerm(
+                displacement=LatticeDisplacement(
+                    dimension=LatticeDimension.THREE,
+                    components=displacement,
+                ),
+                coefficient=ComplexMatrixQuantity(matrix, ELECTRON_VOLT),
+            )
+            for displacement, matrix in sorted(coefficients.items())
+        )
+        return DenseBlockHoppingModel(
+            identifier=hopping_model.identifier,
+            dimension=LatticeDimension.THREE,
+            terms=terms,
+            energy_unit=ELECTRON_VOLT,
+            energy_reference=hopping_model.energy_reference,
+            basis_identifier=hopping_model.basis_identifier,
+        )
 
     @staticmethod
-    def _fractional_k(value: Float64Array) -> Float64Array:
-        return _immutable_fractional_k(value)
+    def _validate_phase_arguments(
+        *,
+        model: DenseBlockHoppingModel,
+        fractional_k: Float64Array,
+    ) -> None:
+        displacements = np.asarray(
+            tuple(term.displacement.components for term in model.terms),
+            dtype=np.float64,
+        )
+        centers = np.asarray(
+            (
+                (0.0, 0.0, 0.0),
+                (0.25, 0.25, 0.25),
+            ),
+            dtype=np.float64,
+        )
+        with np.errstate(over="ignore", invalid="ignore"):
+            cell_arguments = 2.0 * math.pi * (displacements @ fractional_k)
+            center_arguments = 2.0 * math.pi * (centers @ fractional_k)
+        if not np.all(np.isfinite(cell_arguments)) or not np.all(
+            np.isfinite(center_arguments)
+        ):
+            raise OverflowError("Bloch phase argument overflowed")
 
     @staticmethod
     def _direction_cosines(value: Float64Array) -> Float64Array:
@@ -299,7 +382,8 @@ class DiamondSp3sStarModel:
             float(np.linalg.norm(result)),
             1.0,
             rel_tol=0.0,
-            abs_tol=1.0e-12,
+            abs_tol=128.0 * np.finfo(np.float64).eps,
         ):
             raise ValueError("direction_cosines must be a unit vector")
-        return result
+        immutable = np.frombuffer(result.astype("<f8").tobytes(), dtype="<f8")
+        return immutable.reshape((3,))

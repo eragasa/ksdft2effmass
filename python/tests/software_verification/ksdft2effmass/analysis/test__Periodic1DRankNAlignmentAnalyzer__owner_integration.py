@@ -35,7 +35,7 @@ from ksdft2effmass.analysis.matrix_field import (
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 _OPTIMIZATION_REVISION = "f0fa13693543c89b2c40f11583a1140df0cf7b0b"
-_PHYSKIT_REVISION = "fd814d05a6c06440024a51aa4eeb6f27cbe8b46f"
+_PHYSKIT_REVISION = "173ba998a0cf9ce2731182893d0e2118da9b35d8"
 
 
 class TestPeriodic1DRankNAlignmentAnalyzer:

@@ -416,3 +416,46 @@ belong to :doc:`solid-state`.
 
 .. autoclass:: PeriodicFiniteDifferenceFiberHamiltonian1DConstructor
    :members:
+
+Diamond Slater--Koster composition
+----------------------------------
+
+``model_systems.slater_koster`` owns one concrete spinless, orthogonal, homopolar
+diamond ``sp3s*`` composition. Project Koios PhysKit owns the reusable structured
+basis, directed-bond, seven-channel hopping, ordinary-cell assembly, Bloch, and
+orbital-center gauge mechanics. KSD retains the diamond geometry and shell inventory,
+onsite terms, stable fifteen-parameter order, represented-basis correlation, and
+model-definition wire. This surface performs no fitting, common-space admission,
+evidence promotion, or scientific acceptance.
+
+.. currentmodule:: ksdft2effmass.model_systems.slater_koster
+
+.. autoclass:: DiamondSublattice
+   :members:
+
+.. autoclass:: DiamondNeighborBond
+   :members:
+
+.. autoclass:: DiamondSp3sStarGeometry
+   :members:
+
+.. autoclass:: DiamondSp3sStarOnsite
+   :members:
+
+.. autoclass:: DiamondSp3sStarFirstNeighbor
+   :members:
+
+.. autoclass:: DiamondSp3sStarSecondNeighbor
+   :members:
+
+.. autoclass:: DiamondSp3sStarParameters
+   :members:
+
+.. autoclass:: DiamondSp3sStarModel
+   :members:
+
+.. autoclass:: DiamondSp3sStarBlochHamiltonianEvaluation
+   :members:
+
+.. autoclass:: DiamondSp3sStarModelJsonSerializer
+   :members:

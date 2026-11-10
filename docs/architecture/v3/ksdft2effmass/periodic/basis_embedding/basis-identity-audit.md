@@ -278,9 +278,11 @@ The first wire supports four coordinate families:
 | Slater--Koster orbital | primitive-cell site, orbital, and optional explicit spin component | `site_label`; closed `SlaterKosterOrbital`; exact `spin_component` or explicit spinless `None` |
 
 The supported Slater--Koster orbital vocabulary is the current spinless `sp3s*` set
-`s`, `p_x`, `p_y`, `p_z`, and `s_star` in conventional Cartesian axes. The existing
-diamond model binds the exact order
-`(A:s,p_x,p_y,p_z,s*, B:s,p_x,p_y,p_z,s*)` to this structured value.
+`s`, `p_x`, `p_y`, `p_z`, and `s_star` in conventional Cartesian axes. The diamond
+model binds the exact order
+`(diamond_origin_center:s,p_x,p_y,p_z,s*, diamond_body_diagonal_quarter_center:s,p_x,p_y,p_z,s*)`
+to this structured value. These descriptive center identifiers are model-owned exact
+fields, not aliases for opaque sublattice letters.
 
 The dimensional `PeriodicBasisIdentity` wire uses schema version 2 and the
 repository-native `BaseTypedRecord` mapping fields `schema_version`,

@@ -6,7 +6,10 @@ from dataclasses import FrozenInstanceError
 
 import numpy as np
 import pytest
-from projectkoios.physkit.units import PhysicalUnit, ScalarQuantity
+from projectkoios.physkit.solidstate.tb.slater_koster import (
+    HomopolarSp3sStarTwoCenterIntegrals,
+)
+from projectkoios.physkit.units import PhysicalUnit, ScalarQuantity, UnitSystem
 
 from ksdft2effmass.model_systems.slater_koster import DiamondSp3sStarParameters
 
@@ -14,12 +17,12 @@ pytestmark = pytest.mark.software_verification
 
 
 class TestDiamondSp3sStarParameters:
-    """Own unit, ordering, immutability, and public numeric-boundary checks."""
+    """Own concrete grouping, units, ordering, and numeric-boundary checks."""
 
     def test_from_vector_ev__valid_values__round_trips_stable_order(self) -> None:
         values = np.linspace(-7.0, 7.0, 15, dtype=np.float64)
 
-        parameters = DiamondSp3sStarParameters.from_vector_ev(values)
+        parameters = DiamondSp3sStarParameters.from_vector_ev(values=values)
 
         assert parameters.parameter_names == (
             "E_s",
@@ -45,32 +48,54 @@ class TestDiamondSp3sStarParameters:
             for value in parameters.ordered_quantities()
         )
 
+    def test_parameter_groups__compose_physkit_integrals_with_explicit_zeros(
+        self,
+    ) -> None:
+        parameters = DiamondSp3sStarParameters.from_vector_ev(
+            values=np.linspace(-7.0, 7.0, 15, dtype=np.float64)
+        )
+
+        first = parameters.first_neighbor.two_center_integrals
+        second = parameters.second_neighbor.two_center_integrals
+
+        assert type(first) is HomopolarSp3sStarTwoCenterIntegrals
+        assert type(second) is HomopolarSp3sStarTwoCenterIntegrals
+        assert first.unit_system is UnitSystem.METAL
+        assert first.s_s_star_sigma.magnitude == 0.0
+        assert first.s_star_s_star_sigma.magnitude == 0.0
+        assert second.s_s_star_sigma == parameters.second_neighbor.s_s_star_sigma
+        assert second.s_star_s_star_sigma == (
+            parameters.second_neighbor.s_star_s_star_sigma
+        )
+
     def test_from_vector_ev__boolean_or_numeric_string__rejects(self) -> None:
         with pytest.raises(TypeError, match="real numbers excluding booleans"):
-            DiamondSp3sStarParameters.from_vector_ev(np.ones(15, dtype=np.bool_))
+            DiamondSp3sStarParameters.from_vector_ev(values=np.ones(15, dtype=np.bool_))
         with pytest.raises(TypeError, match="real numbers excluding booleans"):
-            DiamondSp3sStarParameters.from_vector_ev(np.full(15, "1.0", dtype=np.str_))
+            DiamondSp3sStarParameters.from_vector_ev(
+                values=np.full(15, "1.0", dtype=np.str_)
+            )
 
     def test_from_vector_ev__wrong_shape_or_nonfinite__rejects(self) -> None:
         with pytest.raises(ValueError, match=r"shape \(15,\)"):
-            DiamondSp3sStarParameters.from_vector_ev(np.ones(14))
+            DiamondSp3sStarParameters.from_vector_ev(values=np.ones(14))
         invalid = np.ones(15)
         invalid[7] = np.inf
         with pytest.raises(ValueError, match="finite"):
-            DiamondSp3sStarParameters.from_vector_ev(invalid)
+            DiamondSp3sStarParameters.from_vector_ev(values=invalid)
 
     def test_energy_fields__wrong_unit__reject(self) -> None:
-        parameters = DiamondSp3sStarParameters.from_vector_ev(np.zeros(15))
+        parameters = DiamondSp3sStarParameters.from_vector_ev(values=np.zeros(15))
 
         with pytest.raises(ValueError, match="electron_volt"):
             type(parameters.onsite)(
-                ScalarQuantity(0.0, PhysicalUnit("joule")),
-                parameters.onsite.p,
-                parameters.onsite.s_star,
+                s=ScalarQuantity(0.0, PhysicalUnit("joule")),
+                p=parameters.onsite.p,
+                s_star=parameters.onsite.s_star,
             )
 
     def test_parameter_record__mutation__is_forbidden(self) -> None:
-        parameters = DiamondSp3sStarParameters.from_vector_ev(np.zeros(15))
+        parameters = DiamondSp3sStarParameters.from_vector_ev(values=np.zeros(15))
 
         with pytest.raises(FrozenInstanceError):
             parameters.onsite = parameters.onsite  # type: ignore[misc]

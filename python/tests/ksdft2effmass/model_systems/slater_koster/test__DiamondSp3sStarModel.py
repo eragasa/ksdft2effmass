@@ -1,16 +1,19 @@
-"""Synthetic verification of the diamond ``sp3s*`` Hamiltonian map."""
+"""Synthetic verification of the KSD diamond ``sp3s*`` composition."""
 
 from __future__ import annotations
 
 import numpy as np
 import pytest
 from projectkoios.numerics.numpy.typing import Complex128Matrix, Float64Array
+from projectkoios.physkit.periodic.lattice.hopping import DenseBlockHoppingModel
 from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     PhysicalUnit,
     ScalarQuantity,
 )
 
+import ksdft2effmass.model_systems as model_systems_package
+import ksdft2effmass.model_systems.slater_koster as slater_koster_package
 from ksdft2effmass.hamiltonian import HermitianHamiltonian
 from ksdft2effmass.model_systems.slater_koster import (
     DiamondSp3sStarBlochHamiltonianEvaluation,
@@ -28,9 +31,17 @@ pytestmark = pytest.mark.software_verification
 
 
 class TestDiamondSp3sStarModel:
-    """Own Slater--Koster signs, phases, Hermiticity, and cubic symmetry."""
+    """Own concrete composition, owner delegation, and represented symmetries."""
 
-    def test_basis_identity__model_order__uses_slater_koster_coordinates(
+    def test_public_surface__retired_orbital_index__has_no_compatibility_alias(
+        self,
+    ) -> None:
+        assert "Sp3sStarOrbitalIndex" not in slater_koster_package.__all__
+        assert not hasattr(slater_koster_package, "Sp3sStarOrbitalIndex")
+        assert "Sp3sStarOrbitalIndex" not in model_systems_package.__all__
+        assert not hasattr(model_systems_package, "Sp3sStarOrbitalIndex")
+
+    def test_basis_identity__model_order__uses_descriptive_center_coordinates(
         self,
     ) -> None:
         basis = self._model().basis_identity
@@ -38,28 +49,51 @@ class TestDiamondSp3sStarModel:
         assert basis.family is PeriodicBasisFamily.SLATER_KOSTER_ORBITAL
         assert basis.dimension == 10
         assert basis.coordinates[0] == SlaterKosterOrbitalBasisCoordinate(
-            site_label="A",
+            site_label="diamond_origin_center",
             orbital=SlaterKosterOrbital.S,
         )
         assert basis.coordinates[4] == SlaterKosterOrbitalBasisCoordinate(
-            site_label="A",
+            site_label="diamond_origin_center",
             orbital=SlaterKosterOrbital.S_STAR,
         )
         assert basis.coordinates[5] == SlaterKosterOrbitalBasisCoordinate(
-            site_label="B",
+            site_label="diamond_body_diagonal_quarter_center",
             orbital=SlaterKosterOrbital.S,
         )
         assert basis.coordinates[-1] == SlaterKosterOrbitalBasisCoordinate(
-            site_label="B",
+            site_label="diamond_body_diagonal_quarter_center",
             orbital=SlaterKosterOrbital.S_STAR,
+        )
+
+    def test_cell_gauge_model__composition__uses_physkit_model_owner(self) -> None:
+        model = self._model().cell_gauge_model
+
+        assert type(model) is DenseBlockHoppingModel
+        assert model.basis_size == 10
+        assert model.basis_identifier == "diamond-spinless-sp3s-star"
+        assert model.energy_unit == PhysicalUnit("electron_volt")
+        assert tuple(term.displacement.components for term in model.terms) == (
+            (-1, 0, 0),
+            (-1, 0, 1),
+            (-1, 1, 0),
+            (0, -1, 0),
+            (0, -1, 1),
+            (0, 0, -1),
+            (0, 0, 0),
+            (0, 0, 1),
+            (0, 1, -1),
+            (0, 1, 0),
+            (1, -1, 0),
+            (1, 0, -1),
+            (1, 0, 0),
         )
 
     def test_two_center_hopping__direction_reversal__transposes_map(self) -> None:
         model = self._model()
         direction = np.asarray((1.0, -2.0, 3.0)) / np.sqrt(14.0)
 
-        forward = model.two_center_hopping(2, direction)
-        reverse = model.two_center_hopping(2, -direction)
+        forward = model.two_center_hopping(shell=2, direction_cosines=direction)
+        reverse = model.two_center_hopping(shell=2, direction_cosines=-direction)
 
         np.testing.assert_array_equal(reverse, forward.T)
         assert forward.flags.writeable is False
@@ -67,8 +101,9 @@ class TestDiamondSp3sStarModel:
         assert forward[1, 0] == pytest.approx(-direction[0] * 0.2)
         assert forward[0, 4] == pytest.approx(0.6)
         assert forward[4, 4] == pytest.approx(0.7)
-        assert model.two_center_hopping(1, direction)[0, 4] == 0.0
-        assert model.two_center_hopping(1, direction)[4, 4] == 0.0
+        first = model.two_center_hopping(shell=1, direction_cosines=direction)
+        assert first[0, 4] == 0.0
+        assert first[4, 4] == 0.0
 
     def test_hamiltonian_at__gamma__matches_complete_shell_sums(self) -> None:
         matrix = self._matrix(self._model(), np.zeros(3))
@@ -90,7 +125,7 @@ class TestDiamondSp3sStarModel:
         model = self._model()
         k_point = np.asarray((0.137, -0.281, 0.419))
 
-        evaluation = model.hamiltonian_at(k_point)
+        evaluation = model.hamiltonian_at(fractional_k=k_point)
         matrix = self._matrix(model, k_point)
         reverse = self._matrix(model, -k_point)
 
@@ -107,26 +142,25 @@ class TestDiamondSp3sStarModel:
     def test_hamiltonian_at__evaluation__correlates_model_fiber_and_basis(
         self,
     ) -> None:
-        """The evaluation retains immutable fiber coordinates and the model basis."""
         model = self._model()
         fractional_k = np.asarray((0.137, -0.281, 0.419))
         expected_k = fractional_k.copy()
 
-        evaluation = model.hamiltonian_at(fractional_k)
+        evaluation = model.hamiltonian_at(fractional_k=fractional_k)
         fractional_k[:] = 0.0
 
         assert evaluation.model is model
         assert evaluation.basis_identity is model.basis_identity
         np.testing.assert_array_equal(evaluation.fractional_k, expected_k)
         assert evaluation.fractional_k.flags.writeable is False
+        assert type(evaluation.hamiltonian.matrix) is ComplexMatrixQuantity
         assert evaluation.hamiltonian.matrix.magnitude.shape == (10, 10)
 
     def test_evaluation_construction__wrong_matrix_dimension__raises_value_error(
         self,
     ) -> None:
-        """An evaluation matrix must match its model-owned ten-orbital basis."""
         model = self._model()
-        source = model.hamiltonian_at(np.zeros(3))
+        source = model.hamiltonian_at(fractional_k=np.zeros(3))
 
         with pytest.raises(ValueError, match="ten-orbital basis"):
             DiamondSp3sStarBlochHamiltonianEvaluation(
@@ -181,28 +215,30 @@ class TestDiamondSp3sStarModel:
         model = self._model()
 
         with pytest.raises(TypeError, match="real numbers excluding booleans"):
-            model.hamiltonian_at(np.zeros(3, dtype=np.bool_))
+            model.hamiltonian_at(fractional_k=np.zeros(3, dtype=np.bool_))
         with pytest.raises(TypeError, match="real numbers excluding booleans"):
-            model.hamiltonian_at(np.full(3, "0.0", dtype=np.str_))
+            model.hamiltonian_at(fractional_k=np.full(3, "0.0", dtype=np.str_))
 
     def test_hamiltonian_at__binary64_overflow__rejects_without_clipping(self) -> None:
         maximum = np.finfo(np.float64).max
         model = DiamondSp3sStarModel(
             geometry=self._model().geometry,
-            parameters=DiamondSp3sStarParameters.from_vector_ev(np.full(15, maximum)),
+            parameters=DiamondSp3sStarParameters.from_vector_ev(
+                values=np.full(15, maximum)
+            ),
         )
 
         with pytest.raises(OverflowError, match="overflowed"):
-            model.hamiltonian_at(np.zeros(3))
+            model.hamiltonian_at(fractional_k=np.zeros(3))
         with pytest.raises(OverflowError, match="phase argument overflowed"):
-            self._model().hamiltonian_at(np.full(3, maximum))
+            self._model().hamiltonian_at(fractional_k=np.full(3, maximum))
 
     @staticmethod
     def _matrix(
         model: DiamondSp3sStarModel,
         fractional_k: Float64Array,
     ) -> Complex128Matrix:
-        matrix = model.hamiltonian_at(fractional_k).hamiltonian.matrix
+        matrix = model.hamiltonian_at(fractional_k=fractional_k).hamiltonian.matrix
         assert isinstance(matrix, ComplexMatrixQuantity)
         return matrix.magnitude
 
@@ -210,10 +246,10 @@ class TestDiamondSp3sStarModel:
     def _model() -> DiamondSp3sStarModel:
         return DiamondSp3sStarModel(
             geometry=DiamondSp3sStarGeometry(
-                ScalarQuantity(5.4, PhysicalUnit("angstrom"))
+                lattice_parameter=ScalarQuantity(5.4, PhysicalUnit("angstrom"))
             ),
             parameters=DiamondSp3sStarParameters.from_vector_ev(
-                np.asarray(
+                values=np.asarray(
                     (
                         -5.0,
                         1.0,
