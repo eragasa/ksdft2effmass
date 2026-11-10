@@ -1,16 +1,17 @@
-\chapter{Preliminary Silicon Work: Executions, Finite-Setting Evidence, and an Exploratory Wannier Decomposition}
+\chapter{Preliminary Silicon Work: Parent Settings, Wannier Representations, and a Blocked Tight-Binding Alignment}
 \index{silicon!preliminary evidence|textbf}
 
 \label{app:preliminary-silicon-work}
 
-\chapterstatus{bounded synthesis of preliminary silicon work. The tutorial and
-finite-setting records cited here are retained repository evidence with their
-own statuses. The same-frame Wannier kinetic decomposition is a separately
-identified external, read-only prototype whose analysis package is not part of
-this manuscript branch. Nothing in this appendix establishes an accepted
-production silicon parent, converged Wannier representation, effective mass,
-scientific validation, uncertainty quantification, or authorization for new
-calculator execution.}
+\chapterstatus{bounded synthesis of preliminary silicon work. The tutorial,
+finite-setting, and blocked common-space records cited here retain their own
+evidence statuses. The same-frame Wannier kinetic decomposition is a separately
+identified external, read-only prototype. The Slater--Koster attempt is a
+no-calculator diagnosis of one retained source and produced no fit. Nothing in
+this appendix establishes an accepted production silicon parent, converged
+Wannier representation, fitted tight-binding model, effective mass, scientific
+validation, uncertainty quantification, or authorization for new calculator
+execution.}
 
 \section{Purpose and evidence boundary}
 
@@ -21,7 +22,7 @@ work in one place so that successful execution observations, finite-setting
 numerical evidence, and exploratory represented-operator analysis are not
 mistaken for one homogeneous result.
 
-The evidence is divided into four layers:
+The evidence is divided into five layers:
 
 \begin{enumerate}
   \item a legacy Quantum ESPRESSO 7.2 silicon tutorial reproduction and its
@@ -34,7 +35,11 @@ The evidence is divided into four layers:
   \item a read-only analysis of a separate QE~7.5--Wannier90~3.1.0 silicon run,
         used to prototype a same-frame decomposition
         $H^W=T^W+R^W$, interpolation, local multiband expansion, and
-        finite-mesh block truncation.
+        finite-mesh block truncation; and
+  \item a no-calculator rank test of a two-site atomic $sp^3s^{\ast}$ trial
+        frame against a retained rank-10 Wannier source, which stopped before
+        fitting because the common-space overlap was rank deficient at two
+        construction points.
 \end{enumerate}
 
 These layers do not share one physical parent. In particular, the tutorial
@@ -69,6 +74,11 @@ must not be combined as though they were refinements of one calculation.
     obey the same-frame decomposition and bounded numerical checks for the
     identified external source bytes. & An accepted production Wannier operator,
     short-range tight-binding model, converged curvature, or silicon validation. \\
+    Slater--Koster common-space gate & The declared ten-coordinate atomic trial
+    frame had resolved rank nine at two retained construction points, so the
+    projection-anchored unitary map was not admitted. & A fitted parameter
+    vector, an aligned operator residual, spectral inadequacy, a symmetry cause,
+    or rejection of tight binding in general. \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -112,6 +122,11 @@ payloads remain external.
     \path{846564b1d716044c9ed0ac4ddc94a1d6b7e81019ae2235979fcadab5033cfcf0};
     copied output-manifest SHA-256
     \path{5f509ab1cd4fa998f4c4002eba364982e94ee239237dd1adc6e1e29f1094dfb5} \\
+    Slater--Koster alignment gate &
+    \path{calculations/Si/bulk/analysis/}\\
+    \path{c6-b20-w21-slater-koster-definition-fit/README.md};
+    retained blocked-result SHA-256
+    \path{b9b8403dfc8b24df01e1671f582697440e1a211d60e0e70c9b0f621dfa086e98} \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -432,6 +447,78 @@ reconstruction can coexist with componentwise truncation errors. This is a
 negative result about compression on one small periodic mesh, not an
 infinite-lattice localization conclusion and not proof that a separately
 fitted short-range model is impossible.
+
+\section{Blocked \texorpdfstring{$sp^3s^{\ast}$}{sp3s*} common-space admission}
+\index{silicon!Slater--Koster alignment}
+\index{rank deficiency!atomic trial frame}
+
+A separately authorized no-calculator attempt used the full-support retained
+Wannier source selected by the preceding hopping analysis and tested the
+projection-anchored overlap
+\begin{equation}
+  B(\mathbf q)
+  =
+  [U_{\mathrm{dis}}(\mathbf q)U(\mathbf q)]^{\dagger}
+  A(\mathbf q)T^{\dagger}.
+  \label{eq:appendix-m-sk-overlap}
+\end{equation}
+Here $A$ is the authenticated $20\times10$ trial-projection matrix and $T$ is
+the exact unitary transformation from the source projection order---eight
+$sp^3$ hybrids and two radial $s$ projections---to the two-site atomic order
+$(s,p_x,p_y,p_z,s^{\ast})$. The construction is an instance of the general
+common-space gate in Eq.~\eqref{eq:sk-full-rank-gate}.
+
+The uncertainty bound derived from the retained decimal precision and matrix
+dimensions was
+\begin{equation}
+  \eta_{\mathrm{native}}
+  =5.890206739032098\times10^{-7}.
+\end{equation}
+All ten singular values of $B(\mathbf q)$ had to be resolved above this bound at
+every one of the 216 construction points. Two points failed:
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Retained deficient points in the projection-anchored
+  $sp^3s^{\ast}$ common-space gate.}
+  \label{tab:preliminary-si-sk-rank}
+  \begin{tabular}{lrrr}
+    \toprule
+    Fractional coordinate & Resolved rank & $\sigma_{\min}$ & Next singular value \\
+    \midrule
+    $(0,0,0)$ & 9 & $5.3620003861\times10^{-13}$ & $4.0122852018\times10^{-4}$ \\
+    $(0,1/3,0)$ & 9 & $2.0186562354\times10^{-7}$ & $8.5345626755\times10^{-4}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+At $\Gamma$, the unresolved right-singular direction had approximately
+$80.5\%$ combined $s^{\ast}$ weight and $19.5\%$ combined $s$ weight, shared
+nearly equally between the two sites. This identifies an unresolved atomic
+trial direction under the declared projection contract. It does not establish
+that an energy degeneracy caused the failure. Under a unitary change of basis
+inside the retained Wannier space,
+\begin{equation}
+  B(\mathbf q)\longmapsto V(\mathbf q)^{\dagger}B(\mathbf q),
+\end{equation}
+so the singular values and principal angles are unchanged.
+
+The scientific disposition is
+\begin{center}
+  \path{blocked-orbital-alignment-rank-deficient-no-fit}.
+\end{center}
+No singular-value floor or pseudoinverse was used. No least-squares solve ran,
+no Slater--Koster parameter vector or aligned operator residual exists, and the
+reserved fit/validation split was not activated. A spectral-only fit was not
+substituted for the failed operator-alignment contract.
+
+The retained diagnosis does not yet identify a symmetry-sector cause. A
+producer independent of the original fit implementation can reconstruct the
+complete singular-value field and invariant controls, but the separately
+implemented verifier remains absent. A future global-unitary rank-10 study, a
+rank-nine model, and a newly designed Wannier source are distinct successor
+questions. None is authorized or scientifically selected by this result.
 
 \section{What has not yet been established}
 

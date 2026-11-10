@@ -1,0 +1,498 @@
+\chapter{Tight-Binding and Slater--Koster Representations}
+\index{tight-binding model|textbf}
+\index{Slater--Koster representation|textbf}
+
+\label{ch:tight-binding-slater-koster}
+
+\chapterstatus{mathematical and scientific definition of the orthogonal,
+spinless, homopolar $sp^3s^{\ast}$ representation used by the bulk-silicon
+reduction program. This chapter defines a model class; it does not report a
+fit, accepted parameter set, or validated silicon Hamiltonian.}
+
+A tight-binding Hamiltonian is a represented operator on a declared localized
+coordinate space. A Slater--Koster model further restricts its two-center
+matrix elements by orbital character, bond direction, parameter sharing, and
+interaction range~\cite{slater1954,vogl1983}. These restrictions are physical
+model assumptions, not merely an efficient storage scheme. They must therefore
+be fixed before a fit is interpreted.
+
+This chapter separates four objects that are often conflated:
+
+\begin{enumerate}
+  \item the ordered localized basis and its orbital centers;
+  \item the ordinary-cell hopping coefficients and Bloch convention;
+  \item the two-center Slater--Koster angular construction; and
+  \item the material-specific bond inventory, onsite terms, and parameter
+        sharing that compose a candidate Hamiltonian.
+\end{enumerate}
+
+Parameter estimation, residual analysis, admissible sets, withheld validation,
+and scientific acceptance remain the subjects of
+Chapter~\ref{ch:model-reduction}.
+
+\section{Localized coordinates and represented state space}
+\index{basis!tight-binding}
+\index{orbital center}
+
+Let $\mathcal L\cong\mathbb Z^3$ be the ordinary-cell translation lattice and
+let
+\begin{equation}
+  \mathcal C=(c_0,c_1,\ldots,c_{N_c-1})
+\end{equation}
+be an ordered inventory of centers in one primitive cell. Center $c$ has a
+fractional coordinate
+\begin{equation}
+  \boldsymbol\tau_c\in\mathbb R^3.
+\end{equation}
+If $A\in\mathbb R^{3\times3}$ contains the direct-lattice vectors as columns,
+then $A(\mathbf R+\boldsymbol\tau_c)$ is the Cartesian position of center $c$
+in ordinary cell $\mathbf R\in\mathbb Z^3$.
+
+A localized spatial basis coordinate is the triple
+\begin{equation}
+  b_a=(c_a,\lambda_a,r_a),
+\end{equation}
+where $c_a$ is a center, $\lambda_a$ is a real-cubic orbital component, and
+$r_a\in\mathbb N_0$ is a radial-channel label. The represented spatial state
+space is
+\begin{equation}
+  \mathcal H_{\mathrm{TB}}
+  \cong
+  \ell^2(\mathcal L)\otimes\mathbb C^{N_b}.
+\end{equation}
+The coordinate labels define a finite representation. They do not by
+themselves construct continuum atomic orbitals, prove completeness, or validate
+a material parameterization.
+
+\subsection{The homopolar \texorpdfstring{$sp^3s^{\ast}$}{sp3s*} frame}
+\index{tight-binding model!sp3s-star}
+
+For the admitted homopolar $sp^3s^{\ast}$ class, each center contributes the
+ordered five-coordinate block
+\begin{equation}
+  \mathcal B_c
+  =
+  \bigl(
+    (c,s,0),
+    (c,p_x,0),
+    (c,p_y,0),
+    (c,p_z,0),
+    (c,s,1)
+  \bigr).
+\end{equation}
+The complete primitive-cell basis is the exact concatenation
+\begin{equation}
+  \mathcal B
+  =
+  \mathcal B_{c_0}\mathbin\Vert
+  \mathcal B_{c_1}\mathbin\Vert\cdots\mathbin\Vert
+  \mathcal B_{c_{N_c-1}},
+  \qquad N_b=5N_c.
+\end{equation}
+For diamond-structure silicon, $N_c=2$ and $N_b=10$.
+
+The symbol $s^{\ast}$ denotes the second radial channel of the $s$ component:
+\begin{equation}
+  s\equiv(s,0),
+  \qquad
+  s^{\ast}\equiv(s,1).
+\end{equation}
+The star is not a principal quantum number, an excited eigenstate label, or a
+claim that one continuum atomic orbital has been constructed uniquely.
+
+Basis compatibility is exact and order sensitive. Equal dimensions or equal
+orbital counts are insufficient. Two represented matrices may be subtracted
+only after the center definitions, component labels, radial channels, ordering,
+spin convention, geometry, units, gauge, and energy reference have been
+identified.
+
+The present class is orthogonal and spinless. Its overlap matrix is therefore
+represented as the identity, and spin--orbit coupling is absent. A
+nonorthogonal basis, generalized eigenproblem, explicit spin, or spinor model
+is a different model class rather than an optional formatting of this one.
+
+\section{Ordinary-cell hopping representation}
+\index{cell gauge}
+\index{hopping coefficient}
+
+Let $H_{\mathbf R}\in\mathbb C^{N_b\times N_b}$ denote the coefficient attached
+to ordinary-cell displacement $\mathbf R\in\mathbb Z^3$. The cell-gauge Bloch
+matrix is defined by the positive-exponent convention
+\begin{equation}
+  H_{\mathrm{cell}}(\mathbf q)
+  =
+  \sum_{\mathbf R\in\mathbb Z^3}
+  H_{\mathbf R}
+  \exp\!\left(+2\pi i\,\mathbf q\cdot\mathbf R\right),
+  \label{eq:sk-cell-bloch}
+\end{equation}
+where $\mathbf q$ is a fractional reciprocal coordinate. Hermiticity of the
+Bloch matrix follows from
+\begin{equation}
+  H_{-\mathbf R}=H_{\mathbf R}^{\dagger}.
+  \label{eq:sk-hermitian-support}
+\end{equation}
+
+Equation~\eqref{eq:sk-cell-bloch} is a representation convention. Reversing the
+Fourier sign changes the definitions of the coefficient matrices and every
+subsequent gauge relation. The sign must therefore be retained as part of the
+model identity.
+
+The coefficient $H_{\mathbf0}$ may contain both onsite blocks and hopping
+between distinct centers inside the same ordinary cell. These are different
+scientific roles. In particular, a two-center bond construction does not by
+itself define onsite orbital energies.
+
+\section{Orbital-center embedding and reciprocal sewing}
+\index{gauge!orbital-center}
+\index{reciprocal sewing!tight-binding}
+
+Ordinary-cell displacement and fractional orbital-center embedding are kept
+separate. Let $\boldsymbol\tau_a$ be the center coordinate associated with
+basis coordinate $a$, and define
+\begin{equation}
+  D(\mathbf q)
+  =
+  \operatorname{diag}\!
+  \left(
+    \exp(+2\pi i\,\mathbf q\cdot\boldsymbol\tau_0),
+    \ldots,
+    \exp(+2\pi i\,\mathbf q\cdot\boldsymbol\tau_{N_b-1})
+  \right).
+  \label{eq:sk-center-gauge}
+\end{equation}
+The full-center representation is
+\begin{equation}
+  H_{\mathrm{full}}(\mathbf q)
+  =
+  D(\mathbf q)^{\dagger}
+  H_{\mathrm{cell}}(\mathbf q)
+  D(\mathbf q).
+  \label{eq:sk-full-center}
+\end{equation}
+Thus a matrix element associated with coefficient displacement $\mathbf R$ and
+basis centers $a,b$ carries the total phase
+\begin{equation}
+  \exp\!\left[
+    +2\pi i\,\mathbf q\cdot
+    (\mathbf R+\boldsymbol\tau_b-\boldsymbol\tau_a)
+  \right].
+\end{equation}
+Folding $\boldsymbol\tau_b-\boldsymbol\tau_a$ into the integer displacement
+would erase the distinction between ordinary-cell translation and intracell
+embedding.
+
+The transformation in Eq.~\eqref{eq:sk-full-center} is unitary, so the cell and
+full-center matrices have the same spectrum at each $\mathbf q$. Their entries
+are not generally equal. For an integer reciprocal shift
+$\mathbf G\in\mathbb Z^3$,
+\begin{equation}
+  D(\mathbf q+\mathbf G)=D(\mathbf q)S_{\mathbf G},
+  \qquad
+  (S_{\mathbf G})_{aa}
+  =\exp(+2\pi i\,\mathbf G\cdot\boldsymbol\tau_a).
+\end{equation}
+If $H_{\mathrm{cell}}$ is reciprocal periodic, then
+\begin{equation}
+  H_{\mathrm{full}}(\mathbf q+\mathbf G)
+  =
+  S_{\mathbf G}^{\dagger}
+  H_{\mathrm{full}}(\mathbf q)
+  S_{\mathbf G}.
+\end{equation}
+The full-center matrix is therefore reciprocal covariant rather than
+entrywise periodic. Its spectrum remains periodic. This sewing relation must
+not be confused with a change in the physical operator.
+
+\section{Directed bonds and physical geometry}
+\index{bond!directed}
+\index{direction cosine}
+
+A directed bond representative is
+\begin{equation}
+  b=(\mathbf R,s,t),
+  \qquad
+  \mathbf R\in\mathbb Z^3,
+\end{equation}
+with explicit source center $s$ and target center $t$. Its Hermitian reverse is
+\begin{equation}
+  b^{\mathrm{rev}}=(-\mathbf R,t,s).
+\end{equation}
+At fixed geometry, the Cartesian displacement from the source center in cell
+$\mathbf0$ to the target center in cell $\mathbf R$ is
+\begin{equation}
+  \Delta\mathbf r_b
+  =
+  A(\mathbf R+\boldsymbol\tau_t-\boldsymbol\tau_s).
+  \label{eq:sk-bond-displacement}
+\end{equation}
+A two-center hopping bond requires
+$\lVert\Delta\mathbf r_b\rVert_2>0$. Its normalized direction
+\begin{equation}
+  \mathbf d_b=(l_b,m_b,n_b)^{\mathsf T}
+  =
+  \frac{\Delta\mathbf r_b}
+       {\lVert\Delta\mathbf r_b\rVert_2}
+  \label{eq:sk-bond-direction}
+\end{equation}
+provides the direction cosines entering the Slater--Koster angular factors.
+
+The integer displacement $\mathbf R$, the physical displacement
+$\Delta\mathbf r_b$, and the normalized direction $\mathbf d_b$ have different
+roles. The first controls the cell-gauge Bloch phase, the second carries length
+and geometry, and the third is nondimensional. None should be inferred from a
+filename, shell label, or matrix index.
+
+A bond inventory must be crystallographically complete for the model class and
+must not contain both a representative and the reverse that will already be
+generated by Hermiticity. Uniqueness prevents double counting; it does not prove
+that all physically relevant interactions have been retained.
+
+\section{Homopolar two-center \texorpdfstring{$sp^3s^{\ast}$}{sp3s*} matrix}
+\index{Slater--Koster integral}
+\index{two-center approximation}
+
+For one homopolar directed bond with normalized direction
+$\mathbf d=(l,m,n)^{\mathsf T}$, define the integral vector
+\begin{equation}
+  \mathbf V
+  =
+  \bigl(
+  V_{ss\sigma},
+  V_{sp\sigma},
+  V_{pp\sigma},
+  V_{pp\pi},
+  V_{s^{\ast}p\sigma},
+  V_{ss^{\ast}\sigma},
+  V_{s^{\ast}s^{\ast}\sigma}
+  \bigr).
+\end{equation}
+In the ordered basis $(s,p_x,p_y,p_z,s^{\ast})$, the represented two-center
+matrix is
+\begin{equation}
+  T(\mathbf d;\mathbf V)
+  =
+  \begin{pmatrix}
+    V_{ss\sigma}
+      & V_{sp\sigma}\mathbf d^{\mathsf T}
+      & V_{ss^{\ast}\sigma} \\
+    -V_{sp\sigma}\mathbf d
+      & V_{pp\pi}I_3
+        +(V_{pp\sigma}-V_{pp\pi})
+          \mathbf d\mathbf d^{\mathsf T}
+      & -V_{s^{\ast}p\sigma}\mathbf d \\
+    V_{ss^{\ast}\sigma}
+      & V_{s^{\ast}p\sigma}\mathbf d^{\mathsf T}
+      & V_{s^{\ast}s^{\ast}\sigma}
+  \end{pmatrix}.
+  \label{eq:sk-sp3sstar-matrix}
+\end{equation}
+The signs of the $s$--$p$ and $s^{\ast}$--$p$ blocks are part of the directed
+bond convention. They are not removable typographical choices.
+
+Equivalently,
+\begin{equation}
+  T(\mathbf d;\mathbf V)
+  =
+  \sum_{\alpha=1}^{7}V_{\alpha}B_{\alpha}(\mathbf d),
+  \label{eq:sk-channel-expansion}
+\end{equation}
+where the seven channel matrices contain only the angular factors. At fixed
+geometry and bond inventory, Eq.~\eqref{eq:sk-channel-expansion} is linear in
+the two-center integrals. This linearity defines a parameterization; it does
+not choose a fitting objective, regularizer, sample weighting, or acceptance
+threshold.
+
+For real homopolar integrals,
+\begin{equation}
+  T(-\mathbf d;\mathbf V)
+  =
+  T(\mathbf d;\mathbf V)^{\mathsf T}.
+  \label{eq:sk-reversal}
+\end{equation}
+This reversal identity underlies Hermitian cell assembly. It does not extend
+without modification to every heteropolar, magnetic, spinorial, or
+complex-phase model.
+
+\section{Assembly of ordinary-cell coefficients}
+\index{assembly!tight-binding}
+
+Let $E_c\in\{0,1\}^{N_b\times5}$ embed the ordered five-orbital block of center
+$c$ into the complete basis, with
+\begin{equation}
+  E_c^{\mathsf T}E_c=I_5.
+\end{equation}
+Let each directed representative
+\begin{equation}
+  b=(\mathbf R_b,s_b,t_b,\mathbf d_b,g_b)
+\end{equation}
+carry a parameter-group label $g_b$. The label states explicit parameter
+sharing only; it does not infer a material, neighbor shell, or chemical meaning.
+If $\mathbf V_{g_b}$ is the corresponding integral vector, then assembly adds
+\begin{equation}
+  H_{\mathbf R_b}
+  \mathrel{+}=
+  E_{s_b}
+  T(\mathbf d_b;\mathbf V_{g_b})
+  E_{t_b}^{\mathsf T}
+  \label{eq:sk-forward-assembly}
+\end{equation}
+and generates the reverse contribution
+\begin{equation}
+  H_{-\mathbf R_b}
+  \mathrel{+}=
+  E_{t_b}
+  T(\mathbf d_b;\mathbf V_{g_b})^{\mathsf T}
+  E_{s_b}^{\mathsf T}.
+  \label{eq:sk-reverse-assembly}
+\end{equation}
+When $\mathbf R_b=\mathbf0$ and $s_b\neq t_b$, both directed blocks enter the
+same coefficient $H_{\mathbf0}$. A zero-displacement self bond is not a
+replacement for an onsite operator.
+
+For a homopolar crystal with cubic onsite symmetry, one common onsite block is
+\begin{equation}
+  O_c
+  =
+  \operatorname{diag}
+  (\varepsilon_s,\varepsilon_p,\varepsilon_p,\varepsilon_p,
+   \varepsilon_{s^{\ast}}),
+  \label{eq:sk-onsite}
+\end{equation}
+embedded as $E_cO_cE_c^{\mathsf T}$ in $H_{\mathbf0}$. The exact onsite class,
+energy reference, and sharing across centers remain independently declared
+model choices.
+
+Equations~\eqref{eq:sk-forward-assembly} and
+\eqref{eq:sk-reverse-assembly} produce an ordinary-cell representation. The
+fractional center phases are applied only afterward through
+Eq.~\eqref{eq:sk-full-center}. Neighbor generation, distance scaling, onsite
+selection, fitting, and material admission are not hidden inside assembly.
+
+\section{Diamond-silicon model classes}
+\index{silicon!Slater--Koster model}
+\index{model hierarchy!tight-binding}
+
+For diamond silicon, the primitive cell contains two equivalent centers. The
+spinless orthogonal spatial basis therefore has ten coordinates. In conventional
+cubic Cartesian axes with lattice constant $a$, the four nearest-neighbor unit
+directions from one sublattice may be written
+\begin{equation}
+  \frac{1}{\sqrt3}
+  \bigl
+  \{
+    (1,1,1),
+    (1,-1,-1),
+    (-1,1,-1),
+    (-1,-1,1)
+  \bigr\},
+  \label{eq:diamond-nearest-directions}
+\end{equation}
+with bond length $a\sqrt3/4$. They connect opposite sublattices. The twelve
+second-neighbor directions lie in the $\langle110\rangle$ family, have length
+$a/\sqrt2$, and connect sites on the same fcc sublattice. These Cartesian shell
+descriptions do not replace the exact ordinary-cell displacement and center
+labels required by Eq.~\eqref{eq:sk-bond-displacement}.
+
+A concrete candidate class must additionally freeze
+
+\begin{itemize}
+  \item the primitive lattice and two center positions;
+  \item the exact ten-coordinate order;
+  \item the onsite parameter inventory;
+  \item the first-, second-, and any later-neighbor bond inventories;
+  \item which bonds share each two-center integral vector;
+  \item the cell/full-center gauge convention and reciprocal sewing;
+  \item the energy unit and scalar energy reference; and
+  \item the parameter domain and any sign or symmetry restrictions.
+\end{itemize}
+
+A nearest-neighbor class and a second-neighbor class are different model
+classes even when both use the same ten-coordinate basis. Adding a shell changes
+support and parameter sharing; it is not merely refining a numerical solver.
+Likewise, changing the basis, allowing overlap, adding spin--orbit coupling, or
+introducing a momentum-dependent alignment changes the scientific model class.
+
+The two-center construction does not assert that a nearest-neighbor
+$sp^3s^{\ast}$ class is adequate for silicon. Adequacy requires the spectral,
+aligned-operator, withheld-observable, and error-accounting tests defined in
+later chapters.
+
+\section{Common-space admission before operator comparison}
+\index{common space!tight-binding and Wannier}
+\index{principal angles!trial and retained spaces}
+
+A Wannier Hamiltonian and a Slater--Koster Hamiltonian are initially represented
+on different coordinate spaces. Equal rank does not identify those spaces. Let
+$W(\mathbf q)$ be a retained parent-to-Wannier frame, let $A(\mathbf q)$ contain
+trial-orbital projections in the parent space, and let $T$ map the declared
+trial order to the canonical tight-binding order. A projection-anchored overlap
+has the form
+\begin{equation}
+  B(\mathbf q)
+  =
+  W(\mathbf q)^{\dagger}A(\mathbf q)T^{\dagger}.
+  \label{eq:sk-common-space-overlap}
+\end{equation}
+A rank-$N_b$ unitary identification obtained by L\"owdin
+orthonormalization requires
+\begin{equation}
+  \operatorname{rank}B(\mathbf q)=N_b
+  \quad\text{for every admitted }\mathbf q,
+  \label{eq:sk-full-rank-gate}
+\end{equation}
+or, numerically, a smallest singular value resolved above the declared source
+and arithmetic uncertainty. If this gate fails, no unitary common-space map is
+defined under the stated projection contract, and an aligned operator residual
+must not be formed by singular-value flooring or an undeclared pseudoinverse.
+
+The singular values of $B$ are invariant under unitary changes of frame inside
+the retained subspace. If
+\begin{equation}
+  W(\mathbf q)\longmapsto W(\mathbf q)V(\mathbf q),
+  \qquad V(\mathbf q)\in U(N_b),
+\end{equation}
+then
+\begin{equation}
+  B(\mathbf q)\longmapsto V(\mathbf q)^{\dagger}B(\mathbf q),
+\end{equation}
+which leaves all principal angles unchanged. Energy degeneracy alone therefore
+does not repair a deficient trial-to-retained overlap. A rank failure is a
+state-space admission result; it is not yet a fit result or proof that the
+Slater--Koster model class is spectrally inadequate.
+
+A different successor may instead posit one momentum-independent global unitary
+$Q\in U(N_b)$ and compare
+\begin{equation}
+  H_{\mathrm W}(\mathbf q)
+  \quad\text{with}\quad
+  QH_{\mathrm{TB}}(\mathbf q;\boldsymbol\theta)Q^{\dagger}.
+\end{equation}
+That defines a different alignment family. Allowing an arbitrary
+$Q(\mathbf q)$ would generally absorb momentum-dependent gauge structure and
+could alter real-space locality, so it is not equivalent to one global orbital
+identification.
+
+\section{Scientific scope and exclusions}
+\index{model boundary!Slater--Koster}
+
+The model defined here supports statements about a finite orthogonal,
+spinless, homopolar two-center representation with explicit centers and a
+specified bond inventory. It does not by itself support claims about
+
+\begin{itemize}
+  \item heteropolar bond rules or element-dependent directed integrals;
+  \item overlap matrices or generalized eigenproblems;
+  \item explicit spin, magnetism, or spin--orbit coupling;
+  \item $d$ or $f$ orbitals;
+  \item environment-dependent, many-center, or self-consistent interactions;
+  \item strain scaling without a separately defined geometric law;
+  \item optical, velocity, or other response matrix elements;
+  \item parameter transferability between geometries or materials; or
+  \item scientific adequacy for silicon.
+\end{itemize}
+
+Those extensions may be scientifically important, but each changes the model
+class or its validation requirements. The role of the present chapter is to
+make the admitted operator, basis, gauge, and two-center assumptions explicit
+before reduction and model selection begin.
