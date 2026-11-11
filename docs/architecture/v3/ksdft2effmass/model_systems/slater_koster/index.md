@@ -30,17 +30,20 @@ KSD retains:
 - onsite composition and the declared onsite-parameter-defined energy reference;
 - correlation from the PhysKit spatial basis to KSD's three-dimensional structured
   periodic basis;
+- composition of the concrete hopping definition supplied to PhysKit's reusable linear
+  parameterization and reciprocal-sample owners;
 - the full-center Bloch evaluation wrapper and its KSD Hamiltonian value; and
 - deterministic typed-JSON serialization of this concrete model definition.
 
 ## PhysKit ownership
 
 The pinned PhysKit dependency at revision
-`173ba998a0cf9ce2731182893d0e2118da9b35d8` owns the reusable structured
-Slater--Koster basis,
-directed bonds and normalized bond directions, seven two-center channel records,
-$sp^3s^*$ hopping construction, Hermitian reverse generation, ordinary-cell assembly,
-block-hopping Bloch evaluation, and cell-to-full-center orbital gauge transformation.
+`de47fb7b895cdd5b4d9ab6ef1ed4f418029bace4` owns the reusable structured
+Slater--Koster basis, directed bonds and normalized bond directions, seven two-center
+channel records, $sp^3s^*$ hopping construction, Hermitian reverse generation,
+ordinary-cell assembly, nondimensional group/channel linear parameterization, ordered
+reciprocal-sample evaluation, block-hopping Bloch evaluation, and cell-to-full-center
+orbital gauge transformation.
 KSD neither copies those implementations nor exposes compatibility aliases for the
 retired calculation incubation.
 

@@ -6,10 +6,17 @@ import numpy as np
 import pytest
 from projectkoios.numerics.numpy.typing import Complex128Matrix, Float64Array
 from projectkoios.physkit.periodic.lattice.hopping import DenseBlockHoppingModel
+from projectkoios.physkit.solidstate.tb.bloch import DenseBlockHoppingBlochEvaluator
+from projectkoios.physkit.solidstate.tb.slater_koster import (
+    HOMOPOLAR_SP3S_STAR_CHANNEL_ORDER,
+    HomopolarSp3sStarCellGaugeModelAssembler,
+)
 from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
+    MatrixQuantity,
     PhysicalUnit,
     ScalarQuantity,
+    UnitSystem,
 )
 
 import ksdft2effmass.model_systems as model_systems_package
@@ -87,6 +94,63 @@ class TestDiamondSp3sStarModel:
             (1, 0, -1),
             (1, 0, 0),
         )
+
+    def test_linear_hopping_bloch__reconstructs_direct_hopping_model(self) -> None:
+        model = self._model()
+        points = MatrixQuantity(
+            magnitude=np.asarray(
+                (
+                    (0.0, 0.0, 0.0),
+                    (0.137, -0.281, 0.419),
+                )
+            ),
+            unit=UnitSystem.NONDIMENSIONAL.length_unit,
+        )
+
+        evaluation = model.linear_hopping_bloch(fractional_wave_vectors=points)
+        parameterization = evaluation.parameterization
+        direct = DenseBlockHoppingBlochEvaluator().evaluate(
+            HomopolarSp3sStarCellGaugeModelAssembler()
+            .execute(definition=parameterization.definition)
+            .model,
+            points,
+        )
+
+        assert parameterization.parameter_group_identifiers == (
+            "diamond-first-neighbor",
+            "diamond-second-neighbor",
+        )
+        assert parameterization.channel_order == HOMOPOLAR_SP3S_STAR_CHANNEL_ORDER
+        assert tuple(len(models) for models in parameterization.channel_models) == (
+            7,
+            7,
+        )
+        first_integrals = parameterization.definition.parameter_groups[
+            0
+        ].integrals.ordered_quantities
+        assert first_integrals[5].magnitude == 0.0
+        assert first_integrals[6].magnitude == 0.0
+        for sample_index, expected in enumerate(direct.bloch_matrices):
+            reconstructed = np.zeros((10, 10), dtype=np.complex128)
+            for group, channel_matrices in zip(
+                parameterization.definition.parameter_groups,
+                evaluation.bloch_matrices,
+                strict=True,
+            ):
+                for scalar, sample_matrices in zip(
+                    group.integrals.ordered_quantities,
+                    channel_matrices,
+                    strict=True,
+                ):
+                    reconstructed += (
+                        scalar.magnitude * sample_matrices[sample_index].magnitude
+                    )
+            np.testing.assert_allclose(
+                reconstructed,
+                expected.magnitude,
+                rtol=0.0,
+                atol=2.0e-14,
+            )
 
     def test_two_center_hopping__direction_reversal__transposes_map(self) -> None:
         model = self._model()

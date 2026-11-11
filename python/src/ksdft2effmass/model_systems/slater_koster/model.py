@@ -24,6 +24,10 @@ from projectkoios.physkit.solidstate.tb.slater_koster import (
     SP3S_STAR_ORBITAL_ORDER,
     HomopolarSp3sStarCellGaugeModelAssembler,
     HomopolarSp3sStarCellGaugeModelDefinition,
+    HomopolarSp3sStarLinearBlochEvaluation,
+    HomopolarSp3sStarLinearBlochEvaluator,
+    HomopolarSp3sStarLinearParameterization,
+    HomopolarSp3sStarLinearParameterizationAssembler,
     HomopolarSp3sStarParameterGroup,
     HomopolarSp3sStarParameterizedBond,
     HomopolarSp3sStarTwoCenterHoppingConstructor,
@@ -134,7 +138,8 @@ class DiamondSp3sStarModel:
     onsite policy, parameter sharing, energy reference, and represented KSD basis.
     PhysKit owns structured spatial basis admission, directed bond geometry, the
     seven-channel two-center matrix, generated Hermitian reverses, ordinary-cell
-    assembly, finite Fourier evaluation, and orbital-center gauge construction.
+    assembly, linear channel parameterization, reciprocal-sample evaluation, finite
+    Fourier evaluation, and orbital-center gauge construction.
     """
 
     geometry: DiamondSp3sStarGeometry
@@ -152,8 +157,10 @@ class DiamondSp3sStarModel:
         return _DIAMOND_SP3S_STAR_BASIS
 
     @property
-    def cell_gauge_model(self) -> DenseBlockHoppingModel:
-        """Return the complete PhysKit ordinary-cell model including onsite terms."""
+    def cell_gauge_hopping_definition(
+        self,
+    ) -> HomopolarSp3sStarCellGaugeModelDefinition:
+        """Return the exact KSD-composed hopping definition without onsite terms."""
         basis = self.geometry.spatial_basis
         parameter_groups = (
             HomopolarSp3sStarParameterGroup(
@@ -178,14 +185,39 @@ class DiamondSp3sStarModel:
             )
             for bond in self.geometry.second_neighbor_positive_bonds_by_sublattice
         )
+        return HomopolarSp3sStarCellGaugeModelDefinition(
+            identifier=_MODEL_IDENTIFIER,
+            basis=basis,
+            parameter_groups=parameter_groups,
+            bonds=bonds,
+            energy_reference=_ENERGY_REFERENCE,
+        )
+
+    @property
+    def linear_hopping_parameterization(
+        self,
+    ) -> HomopolarSp3sStarLinearParameterization:
+        """Return all seven nondimensional channel models for both shell groups."""
+        return HomopolarSp3sStarLinearParameterizationAssembler().execute(
+            definition=self.cell_gauge_hopping_definition
+        )
+
+    def linear_hopping_bloch(
+        self,
+        *,
+        fractional_wave_vectors: MatrixQuantity,
+    ) -> HomopolarSp3sStarLinearBlochEvaluation:
+        """Evaluate hopping-only channel models in ordinary-cell Bloch gauge."""
+        return HomopolarSp3sStarLinearBlochEvaluator().execute(
+            parameterization=self.linear_hopping_parameterization,
+            fractional_wave_vectors=fractional_wave_vectors,
+        )
+
+    @property
+    def cell_gauge_model(self) -> DenseBlockHoppingModel:
+        """Return the complete PhysKit ordinary-cell model including onsite terms."""
         assembly = HomopolarSp3sStarCellGaugeModelAssembler().execute(
-            definition=HomopolarSp3sStarCellGaugeModelDefinition(
-                identifier=_MODEL_IDENTIFIER,
-                basis=basis,
-                parameter_groups=parameter_groups,
-                bonds=bonds,
-                energy_reference=_ENERGY_REFERENCE,
-            )
+            definition=self.cell_gauge_hopping_definition
         )
         return self._with_onsite(assembly.model)
 

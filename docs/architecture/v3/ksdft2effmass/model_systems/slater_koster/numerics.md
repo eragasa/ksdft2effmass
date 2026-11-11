@@ -69,6 +69,27 @@ $T(-d)=T(d)^\mathsf{T}$. KSD's first-neighbor record has only five variable chan
 its composition passes explicit electron-volt zeros for first-neighbor $ss^*$ and
 $s^*s^*$.
 
+## Linear hopping representation
+
+For each explicit shell-sharing group $g$ and all seven channels $\alpha$, PhysKit
+constructs a nondimensional ordinary-cell model $B_{g,\alpha}(R)$. KSD supplies the
+concrete diamond group and bond inventory, giving
+
+$$
+H_R^{\mathrm{hop}}(V)=\sum_{g,\alpha}V_{g,\alpha}B_{g,\alpha}(R),
+$$
+
+and at an ordered reciprocal sample
+
+$$
+H_{\mathrm{cell}}^{\mathrm{hop}}(q_j;V)=
+\sum_{g,\alpha}V_{g,\alpha}B_{g,\alpha}(q_j).
+$$
+
+The retained order is parameter-group major, channel minor, then reciprocal-sample
+major. Both first-neighbor fixed-zero channels remain explicit models. This layer does
+not flatten matrix entries, add onsite terms, define a fit, or construct a residual.
+
 ## Parameter inventory
 
 The stable eV vector order is

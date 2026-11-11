@@ -2,8 +2,9 @@
 
 This package retains the concrete diamond geometry, onsite and shell parameter
 inventory, KSD represented-basis correlation, wire contract, and silicon-program
-meaning. Reusable basis, bond, seven-channel hopping, cell assembly, Bloch, and
-orbital-center gauge mechanics are consumed from PhysKit.
+meaning. Reusable basis, bond, seven-channel hopping, cell assembly, linear channel
+parameterization, reciprocal evaluation, Bloch, and orbital-center gauge mechanics are
+consumed from PhysKit.
 
 No fit, material adequacy, evidence promotion, or scientific acceptance is performed.
 """

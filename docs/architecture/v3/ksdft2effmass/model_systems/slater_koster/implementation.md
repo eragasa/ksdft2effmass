@@ -10,9 +10,10 @@
   seven-channel integral records. The omitted first-neighbor channels are supplied as
   explicit zeros rather than inferred.
 - `model.py` owns the KSD model definition, onsite block, shell inventory, represented
-  basis correlation, and evaluation wrapper. It delegates two-center construction,
-  generated Hermitian reverses, ordinary-cell assembly, cell-gauge Bloch evaluation,
-  and orbital-center gauge construction directly to PhysKit.
+  basis correlation, and evaluation wrapper. It composes the exact hopping definition
+  and delegates two-center construction, generated Hermitian reverses, ordinary-cell
+  assembly, seven-channel linear parameterization, ordered reciprocal-sample evaluation,
+  cell-gauge Bloch evaluation, and orbital-center gauge construction directly to PhysKit.
 - `serialization.py` owns the concrete model-definition wire and records the PhysKit
   mechanics owner without serializing a fit or scientific disposition.
 
@@ -28,6 +29,7 @@ KSD represented-basis and wire correlation
                     |
                     v
 Project Koios PhysKit Slater--Koster mechanics
+Project Koios PhysKit linear channel models and reciprocal evaluation
 Project Koios PhysKit block-hopping Bloch evaluation
 Project Koios PhysKit orbital-center gauge construction
 ```
