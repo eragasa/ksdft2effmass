@@ -69,7 +69,13 @@ The current protocol requires:
   Level-1 Slater--Koster foundation remains synthetic software evidence only.
 
 Stopping the Slater--Koster reduction branch remains the default under the failed
-TB-anchored alignment contract. Level 1 reusable foundations have been
+TB-anchored alignment contract. The rank loss is documented as an orbital-subspace
+overlap failure rather than an established consequence of energy degeneracy. The
+fail-closed diagnostic sequence, projector/symmetry approach, global-unitary rank-10
+branch, and new-source branch are specified in the
+[common-space rank-deficiency diagnosis and successor proposal](../analysis/c6-b20-w21-slater-koster-definition-fit/common-space-rank-deficiency-diagnosis-and-successor.md).
+That proposal does not activate a continuation stage or authorize an external
+calculation. Level 1 reusable foundations have been
 [implemented with synthetic software verification only](../analysis/c6-b20-w21-slater-koster-definition-fit/level-1-foundation-disposition.md);
 this does not close the HF0--HF4 hopping gates, activate Level 2, or produce a reduction.
 The ladder is not an automatic workflow. Spectral-only work cannot claim an operator
