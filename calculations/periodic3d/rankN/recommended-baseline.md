@@ -158,7 +158,7 @@ This baseline selects fixed lattice cases only. It does not itself select a cont
 unit-volume Bain path, path-dependent metric/common-cell map, or M0/M1N/M2 response
 family, path samples, strain-direction transport, transition refinement, or cross-path
 evidence. The separate
-[`calculations/periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/README.md)
+[`calculations/periodic3d_rankN_strain/`](../../periodic3d_rankN_strain/README.md)
 context now selects its exact geometry/common-state-space, M0's shared-`2r` flat
 `lambda=0` specialization, and M1N's frozen use of this analytic parent and gauge
 circuit. M2, rank/depth/transformation inventories, meshes, tolerances, and the remaining

@@ -1,11 +1,11 @@
-# Periodic-3D rank-N Bain-path protocol-selection record
+# Periodic-3D rank-N synthetic-strain protocol-selection record
 
 **Status: GEOMETRY, M0, AND M1N SELECTED — FULL SCIENTIFIC PROTOCOL UNSELECTED; EXECUTION AND RETAINED OUTPUT PROHIBITED**
 
 ## Determination
 
-The repository does not contain one closed scientific protocol for a periodic-3D
-rank-N synthetic-strain calculation along the Bain path.
+The repository does not contain one closed scientific protocol for this dedicated
+periodic-3D rank-N synthetic-strain package's selected Bain path.
 
 Three authoritative surfaces cover different, noncomposable scopes:
 

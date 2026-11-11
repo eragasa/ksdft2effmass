@@ -152,3 +152,23 @@ class TestPeriodic2DRankNProtocols:
             / "periodic2d"
             / "rank4"
         ).exists()
+
+    def test_strain_context_is_separate_and_fail_closed(
+        self,
+        repository_root: Path,
+    ) -> None:
+        """Keep continuous strain outside the fixed-geometry calculation root."""
+        context = repository_root / "calculations" / "periodic2d_rankN_strain"
+        readme = (context / "README.md").read_text(encoding="utf-8")
+        protocol = (context / "protocol-selection.md").read_text(encoding="utf-8")
+
+        assert "dedicated owner" in readme
+        assert "fixed-geometry periodic-2D rank-N" in readme
+        assert "SCIENTIFIC PROTOCOL UNSELECTED" in protocol
+        assert "Neither owner authorizes a rank-N strain calculation" in protocol
+        assert not list(context.rglob("*.py"))
+        assert not list(context.rglob("*.json"))
+        assert not list(context.rglob("*.pdf"))
+        assert not list(context.rglob("*.png"))
+        for forbidden_directory in ("analysis", "simulations", "executions"):
+            assert not (context / forbidden_directory).exists()

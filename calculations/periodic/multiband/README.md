@@ -20,9 +20,10 @@ It is not a second implementation owner. Reusable algorithms remain under `pytho
 | 3-D | 1 | [`periodic3d/rank1/anisotropic-hopping-support-hierarchy/`](../../periodic3d/rank1/anisotropic-hopping-support-hierarchy/) | Three-file proposal migrated; sequence-gated and unimplemented |
 | 3-D | 2 | [`periodic3d_rank2_bain_path/`](../../periodic3d_rank2_bain_path/) | Separate bounded M0, M1, M2, and Bain-path scan controls |
 | 1-D | 3, 4, 8, 16 | [`periodic1d/rankN/composite-band-alignment-locality/`](../../periodic1d/rankN/composite-band-alignment-locality/) | Schema-free development calculation; no retained run |
-| 2-D | greater than 2 | None | Prospective |
+| 2-D | 3, 4, 8 | [`periodic2d/rankN/`](../../periodic2d/rankN/) | Fixed-geometry analytic software baseline and aggregate verification installed; no visualization, lifecycle, execution, or evidence |
+| 2-D | prospective finite rank | [`periodic2d_rankN_strain/`](../../periodic2d_rankN_strain/) | Dedicated continuous-deformation context; scientific protocol, implementation, execution, and evidence remain unselected |
 | 3-D | 3, 4, 8 | [`periodic3d/rankN/`](../../periodic3d/rankN/) | Fixed-geometry analytic software baseline and aggregate verification installed; no visualization, lifecycle, execution, or evidence |
-| 3-D | candidate 3, 4, 8 | [`periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/) | Exact Bain geometry/common-state-space, M0 shared-`2r` flat geometry control, and M1N frozen `2r` semantics selected; M2 and the remaining contracts stay open |
+| 3-D | candidate 3, 4, 8 | [`periodic3d_rankN_strain/`](../../periodic3d_rankN_strain/) | Dedicated continuous-deformation context with exact Bain geometry/common-state-space, M0 shared-`2r` flat geometry control, and M1N frozen `2r` semantics selected; M2 and the remaining contracts stay open |
 
 The current cross-family rank-two comparison is owned by [`band-equivalence-dimensional-comparison/`](../../band-equivalence-dimensional-comparison/). This planning layer may summarize that output but does not replace it.
 
@@ -80,9 +81,10 @@ The levels below describe increasing model, geometry, alignment, verification, a
 
 ### Level 6 --- higher-rank multidimensional controls
 
-- **Periodic 2-D higher rank** --- prospective; no calculation root, implementation, or result.
+- [`periodic2d/rankN/`](../../periodic2d/rankN/) --- selected fixed-geometry analytic software baseline with aggregate verification; no visualization, lifecycle, execution, or result evidence.
+- [`periodic2d_rankN_strain/`](../../periodic2d_rankN_strain/) --- documentation-only continuous-deformation context; its scientific path and response protocol remain unselected.
 - [`periodic3d/rankN/`](../../periodic3d/rankN/) --- selected fixed-geometry analytic software baseline with aggregate verification; no visualization, lifecycle, execution, or result evidence.
-- [`periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/) --- documentation-only continuous Bain-path context with selected exact geometry/common-state-space, M0 shared-`2r` flat geometry control, and M1N frozen `2r` semantics; M2, admitted inventories, resources, visualization, and authentication remain open.
+- [`periodic3d_rankN_strain/`](../../periodic3d_rankN_strain/) --- documentation-only continuous-deformation context with selected exact Bain geometry/common-state-space, M0 shared-`2r` flat geometry control, and M1N frozen `2r` semantics; M2, admitted inventories, resources, visualization, and authentication remain open.
 
 ### Level 7 --- external-code and material-facing reductions
 

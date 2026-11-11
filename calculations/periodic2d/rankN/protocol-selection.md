@@ -106,7 +106,10 @@ coefficients, transport closure, and support endpoints are not donors. The perio
 rank-two square, triangular, and honeycomb controls may inform vocabulary and software
 composition, but they do not select a rank-N parent, gauge circuit, tolerance, or claim.
 Historical rank-three two-dimensional Wannier90 evidence is not a donor for this
-synthetic analytic protocol.
+synthetic analytic protocol. A continuous deformation or strain study remains separately
+owned by
+[`calculations/periodic2d_rankN_strain/`](../../periodic2d_rankN_strain/README.md);
+none of this fixed-geometry protocol's inventories transfer automatically to it.
 
 ## Implementation gate
 

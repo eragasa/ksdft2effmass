@@ -1,9 +1,10 @@
-# Prospective periodic-3D rank-N Bain path
+# Prospective periodic-3D rank-N synthetic strain
 
 **Status: GEOMETRY, M0, AND M1N SELECTED — FULL SCIENTIFIC PROTOCOL, CALCULATION, AND EVIDENCE UNSELECTED**
 
-This calculation-owned context records the decisions required for a continuous,
-unit-primitive-volume synthetic Bain-path study at arbitrary finite band-subspace rank.
+This dedicated strain calculation package records the decisions required for a
+continuous, unit-primitive-volume synthetic Bain-path study at arbitrary finite
+band-subspace rank. It is separate from the fixed-geometry periodic-3D rank-N package.
 It is not an elastic, phase-stability, martensitic-transition, silicon, or other material
 calculation.
 

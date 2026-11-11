@@ -319,7 +319,7 @@ cell/state identification and after their retained bases, gauges, energy units, 
 energy references are also declared common.
 
 Lattice dimension `3`, ambient dimension `2r`, band-subspace rank `r`, numerical overlap
-rank, and any future model-reduction retained rank remain distinct quantities. This
+rank, and any future model-reduction retained rank remain distinct quantities. These
 synthetic M0/M1N representations do not by themselves introduce a genuine
 model-reduction rank.
 

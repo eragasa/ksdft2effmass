@@ -48,7 +48,7 @@ replay a calculation or establish scientific validation.
 
 New periodic calculation roots identify one scientific context in the directory name,
 for example `periodic1d_rank1`, `periodic2d_rank2_orthogonal`, or
-`periodic2d_rank2_rhombic_path`. Their child directories identify distinct scientific
+`periodic2d_rankN_strain`. Their child directories identify distinct scientific
 operations rather than geometry or rank levels:
 
 - `gauge_alignment/`;
@@ -70,9 +70,11 @@ does not transfer parameters, thresholds, results, or evidence between families.
 
 `orthogonal` describes perpendicular lattice vectors and must not be replaced by
 `orthonormal`, because direct-lattice vectors retain physical units and need not have
-unit norm. Continuous geometry paths receive their own context identity. In particular,
-`periodic2d_rank2_rhombic_path` owns the unit-area triangular-to-square path and is not a
-static endpoint calculation or material-strain claim.
+unit norm. Continuous geometry paths receive their own context identity. Rank-two rhombic and Bain
+controls retain their existing calculation identities; prospective arbitrary-rank
+continuous studies are separated from fixed-geometry baselines under
+`periodic2d_rankN_strain` and `periodic3d_rankN_strain`. None is a static endpoint,
+elasticity, phase-stability, or material-strain claim.
 
 Historical and retained packages are not moved merely to satisfy this layout. Their
 paths remain provenance until an explicit migration preserves every bound identity and
@@ -159,14 +161,15 @@ evidence identities are not renamed by filesystem consolidation.
 | [`periodic1d/rankN/composite-band-alignment-locality/`](periodic1d/rankN/composite-band-alignment-locality/README.md) | Schema-free development calculation | Finite retained-rank ladder `3, 4, 8, 16`, rotation-depth ladder, alignment controls, analytic qualification, and replaceable summary; no strict full-result verifier or retained run. |
 | [`periodic2d/rank2/orthogonal/band-equivalence-locality/`](periodic2d/rank2/orthogonal/band-equivalence-locality/README.md) | Direct unsealed execution | Square-lattice rank-two typed calculation, exact-byte independent verification, and authenticated rendering; refinement remains separate. |
 | [`periodic2d_rank2_hexagonal/`](periodic2d_rank2_hexagonal/README.md) | Implemented calculation context | Triangular-Bravais/two-basis-metric rank-two context with separate capability channels and nominal, refinement, and replaceable-analysis actions; no execution is retained and this is not graphene validation. |
-| [`periodic2d/rankN/composite-band-alignment-locality/`](periodic2d/rankN/composite-band-alignment-locality/README.md) | Reserved owner boundary | Prospective Ragasa2026c periodic-2D finite-rank specialization with a calculation-owned protocol register and exact analytic baseline recommendation. Protocol adoption, implementation, execution, and evidence remain unselected. |
+| [`periodic2d/rankN/composite-band-alignment-locality/`](periodic2d/rankN/composite-band-alignment-locality/README.md) | Reserved owner boundary | Prospective Ragasa2026c periodic-2D finite-rank fixed-geometry specialization with a calculation-owned protocol register and exact analytic baseline recommendation. Protocol adoption, implementation, execution, and evidence remain unselected. |
+| [`periodic2d_rankN_strain/`](periodic2d_rankN_strain/README.md) | Prospective strain context | Dedicated periodic-2D finite-rank continuous-deformation owner. Its path, response channels, inventories, meshes, tolerances, resources, visualization, and lifecycle remain unselected; no scripts or outputs exist. |
 | [`periodic3d_rank2_simple_cubic/`](periodic3d_rank2_simple_cubic/README.md) | Implemented calculation context | Simple-cubic rank-two context with separate capability channels, nominal calculation, two bounded refinements, and replaceable analysis; no execution is retained. |
 | [`periodic3d_rank2_fcc_diamond/`](periodic3d_rank2_fcc_diamond/README.md) | Implemented calculation context | FCC-Bravais/diamond-basis rank-two context with separate capability channels, nominal calculation, two bounded refinements, and replaceable analysis; no execution is retained and this is not silicon validation. |
 | [`periodic3d/rankN/composite-band-alignment-locality/`](periodic3d/rankN/composite-band-alignment-locality/README.md) | Fixed-geometry software baseline | Selected analytic periodic-3D rank-N parent/gauge and aggregate software-verification foundation for ranks `3`, `4`, and `8`; visualization, lifecycle, execution-scale resources, execution, and evidence remain unselected. |
 | [`periodic2d_rank2_rhombic_path/`](periodic2d_rank2_rhombic_path/README.md) | Development calculation context | Unit-area continuous rhombic path with separate gauge-alignment, band-equivalence, hopping-locality, support-truncation, and aggregate M0/M1/M2/scan channels. |
 | [`periodic2d/rank1/hopping-shell-hierarchy/`](periodic2d/rank1/hopping-shell-hierarchy/README.md) | Prospective calculation design | Complete seven-file experiment design migrated to the calculation owner; no implementation, execution, or result. |
 | [`periodic3d_rank2_bain_path/`](periodic3d_rank2_bain_path/README.md) | Development calculation context | Unit-volume Bain path with separate capability channels, M0 geometry, M1/M2 response, and sampled scan actions; not material or phase-transition evidence. |
-| [`periodic3d_rankN_bain_path/`](periodic3d_rankN_bain_path/README.md) | Partial protocol-selection context | Exact Bain geometry/common-state-space, M0 shared-`2r` flat `lambda=0` geometry control, and M1N frozen `2r` semantics are selected. M2, admitted inventories, meshes, tolerances, resources, visualization, and lifecycle remain unselected; no scripts or outputs exist. |
+| [`periodic3d_rankN_strain/`](periodic3d_rankN_strain/README.md) | Partial strain protocol-selection context | Dedicated periodic-3D finite-rank continuous-deformation owner. Exact Bain geometry/common-state-space, M0 shared-`2r` flat `lambda=0` geometry control, and M1N frozen `2r` semantics are selected. M2, admitted inventories, meshes, tolerances, resources, visualization, and lifecycle remain unselected; no scripts or outputs exist. |
 | [`periodic3d/rank1/anisotropic-hopping-support-hierarchy/`](periodic3d/rank1/anisotropic-hopping-support-hierarchy/README.md) | Preserved proposal design | Complete three-file proposal migrated to the calculation owner; implementation remains sequence-gated and absent. |
 | [`band-equivalence-dimensional-comparison/`](band-equivalence-dimensional-comparison/README.md) | Development analysis | Cross-family tolerance and shell--scale comparison without transferring family identity. |
 
@@ -261,7 +264,7 @@ requires its own crosswalk row before its parent can be considered integrated.
 | Periodic-1D rank-two band equivalence/locality | Flat-parent baseline, nonflat four-state realization, parent-family robustness, truncation consequences, momentum refinement, amplitude resolution, hopping-tail/power diagnostics, scientific-story rendering, and their separate result and verification definitions. |
 | Periodic-1D higher-rank alignment/locality | periodic-1D constant-subspace real-Givens validation study parent construction, rank ladder, rotation-depth ladder, identity/global-unitary/pointwise-unitary/known-inverse-oracle gauge alignments, endpoint sewing, transport, case ledger, failure dispositions, numerical backend, and analytic-control verification. Future P1, G1, restricted-circuit, complex-unitary, moving-subspace, 2-D, and 3-D branches remain separate absent surfaces. |
 | Each 2-D/3-D band-equivalence family | Nominal development calculation, first refinement, second refinement, independent family verification, development plotting, and the replaceable result/refinement directories. The four orthogonal/nonorthogonal dimensional families have parallel mechanics but separate scientific identities and thresholds. |
-| Each rank-two 2-D/3-D strain family | M0 geometry/frozen-response channel, M1 four-state response channel, M2 prescribed radial-response channel, witness/qualification data, parameter scan, response rendering, scan rendering, and each channel's verification record. The prospective periodic-3D rank-N context instead selects the distinct M1N frozen `2r`-state semantic control. |
+| Each 2-D/3-D strain study | The rank-two rhombic and Bain studies retain separate M0 geometry/frozen-response, M1 four-state response, and M2 prescribed radial-response channels, witness/qualification data, parameter scans, rendering, and verification records. The periodic-2D rank-N study remains protocol-unselected. The periodic-3D rank-N study separately selects Bain geometry plus M0 and the distinct M1N frozen `2r`-state semantic control; it does not inherit rank-two M1/M2 formulas or outcomes. |
 | Cross-dimensional comparison | Four family-specific request/result/refinement/verification schema sets; frame-transport diagnostics; tolerance comparison; shell--scale decision landscape request/result/verification; M0/M1/M2/witness strain documents; strain-scan request/result/verification; and the corresponding plot inventories. |
 | Periodic-2D hopping-shell hierarchy | Orbit/support inventory, construction and evaluation sample roles, projection-and-loss definition, threshold design, conservative exclusion/support certificates, execution structure, and future result and verifier schemas. These design documents are not one frozen protocol. |
 | Periodic-3D anisotropic hopping-support hierarchy | The preserved parent protocol and its disclosed exploratory threshold design. The threshold surface must not silently become a prospective acceptance rule. |

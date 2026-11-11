@@ -125,7 +125,7 @@ class TestPeriodic3DRankNProtocols:
         self,
         repository_root: Path,
     ) -> None:
-        context = repository_root / "calculations" / "periodic3d_rankN_bain_path"
+        context = repository_root / "calculations" / "periodic3d_rankN_strain"
         required_directories = (
             "gauge_alignment",
             "frame_transport",
@@ -225,7 +225,7 @@ class TestPeriodic3DRankNProtocols:
         rankn_index = (
             repository_root / "calculations" / "periodic3d" / "rankN" / "README.md"
         ).read_text(encoding="utf-8")
-        assert "periodic3d_rankN_bain_path" in rankn_index
+        assert "periodic3d_rankN_strain" in rankn_index
         assert "does **not** select a continuous synthetic-strain" in rankn_index
         assert "proof obligation also remains fail-closed" not in (
             context / "README.md"

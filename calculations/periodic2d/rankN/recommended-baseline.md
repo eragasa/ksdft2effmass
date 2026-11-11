@@ -178,3 +178,8 @@ two. This inheritance direction does not transfer rank-two calculation policy or
 the selected rank-N study inventory. No direct execution should be created until
 aggregate verification is installed and reviewed, an exact clean revision is frozen,
 and execution receives separate explicit authorization.
+
+This recommendation is fixed-geometry only. The separate
+[`periodic2d_rankN_strain`](../../periodic2d_rankN_strain/README.md) calculation package
+must select its own continuous path, response channels, inventories, numerical controls,
+and evidence identity rather than inheriting them from this baseline.

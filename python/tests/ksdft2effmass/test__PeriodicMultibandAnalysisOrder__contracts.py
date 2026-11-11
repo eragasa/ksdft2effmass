@@ -23,13 +23,14 @@ class TestPeriodicMultibandAnalysisOrder:
         "periodic2d_rank2_rhombic_path/README.md",
         "periodic2d/rankN/README.md",
         "periodic2d/rankN/composite-band-alignment-locality/README.md",
+        "periodic2d_rankN_strain/README.md",
         "periodic3d/rank1/anisotropic-hopping-support-hierarchy/README.md",
         "periodic3d_rank2_simple_cubic/README.md",
         "periodic3d_rank2_fcc_diamond/README.md",
         "periodic3d_rank2_bain_path/README.md",
         "periodic3d/rankN/README.md",
         "periodic3d/rankN/composite-band-alignment-locality/README.md",
-        "periodic3d_rankN_bain_path/README.md",
+        "periodic3d_rankN_strain/README.md",
         "band-equivalence-dimensional-comparison/README.md",
     )
 
@@ -62,6 +63,8 @@ class TestPeriodicMultibandAnalysisOrder:
         assert "Withheld interpolation must be measured before truncation" in record
         assert "Rendering never recalculates science" in record
         assert "isotropic 2-D, isotropic 3-D, anisotropic 2-D" in record
+        assert "fixed-geometry periodic-2D or periodic-3D rank-N" in record
+        assert "2-D strain protocol is prospective" in record
         assert "`mathieu1d/` remains outside this multiband" in record
 
     def test__PeriodicMultibandAnalysisOrder__live_calculation_owners_record_local_analysis_order(  # noqa: E501
@@ -85,9 +88,9 @@ class TestPeriodicMultibandAnalysisOrder:
         rank_two = (
             calculation_root / "periodic3d_rank2_bain_path" / "README.md"
         ).read_text(encoding="utf-8")
-        rank_n = (
-            calculation_root / "periodic3d_rankN_bain_path" / "README.md"
-        ).read_text(encoding="utf-8")
+        rank_n = (calculation_root / "periodic3d_rankN_strain" / "README.md").read_text(
+            encoding="utf-8"
+        )
 
         assert rank_two.index("qualify the unit-volume path") < rank_two.index(
             "analyze M0"
@@ -98,6 +101,35 @@ class TestPeriodicMultibandAnalysisOrder:
         assert rank_n.index("selected M0") < rank_n.index("selected M1N")
         assert rank_n.index("selected M1N") < rank_n.index("exact M2")
         assert "The current protocol stops after step 3" in rank_n
+
+    def test__PeriodicMultibandAnalysisOrder__strain_program_separates_studies_and_controls(  # noqa: E501
+        self,
+        repository_root: Path,
+    ) -> None:
+        """Verify rank and dimension identify studies, not response channels."""
+        record = (
+            repository_root
+            / "calculations"
+            / "periodic"
+            / "multiband"
+            / "gauge-locality-under-synthetic-strain.md"
+        ).read_text(encoding="utf-8")
+
+        for calculation in (
+            "periodic2d_rank2_rhombic_path/",
+            "periodic2d_rankN_strain/",
+            "periodic3d_rank2_bain_path/",
+            "periodic3d_rankN_strain/",
+        ):
+            assert calculation in record
+        assert "four distinct calculation-study identities" in record
+        assert (
+            "three scientific controls below are rank-two response channels" in record
+        )
+        assert "does not\ninherit rank-two M1/M2 formulas or outcomes" in record
+        assert "N_2=N_3" in record
+        assert "N_1\\mid N_2" in record
+        assert "on every finite periodic mesh" not in record
 
     def test__PeriodicMultibandAnalysisOrder__cross_family_comparison_requires_admitted_sources(  # noqa: E501
         self,

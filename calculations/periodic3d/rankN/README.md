@@ -47,7 +47,7 @@ entrypoints in this calculation root.
 
 The fixed-geometry protocol does **not** select a continuous synthetic-strain or Bain-path
 study. The separate partial-protocol context is
-[`calculations/periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/README.md).
+[`calculations/periodic3d_rankN_strain/`](../../periodic3d_rankN_strain/README.md).
 It now selects the exact Bain geometry/common-state-space, M0 shared-`2r` flat
 `lambda=0` geometry control, and M1N frozen `2r`-state analytic-parent semantics. Its
 candidate rank/depth inventories still require explicit path-specific adoption, while

@@ -60,8 +60,11 @@ inventory contract and dimensional basis identities.
 
 The calculation-owned decision register is
 [`protocol-selection.md`](protocol-selection.md), with an exact analytic recommendation
-in [`recommended-baseline.md`](recommended-baseline.md). The prospective family boundary is
+in [`recommended-baseline.md`](recommended-baseline.md). The prospective fixed-geometry family boundary is
 [`composite-band-alignment-locality/`](composite-band-alignment-locality/README.md).
+A continuous deformation study is a separate calculation identity under
+[`calculations/periodic2d_rankN_strain/`](../../periodic2d_rankN_strain/README.md);
+this fixed-geometry root does not select that package's path or response laws.
 
 Ragasa2026c selects a later cross-dimensional rank/depth subset but explicitly does not
 select the periodic-2D harmonic coefficients, tensor meshes, support inventory, family

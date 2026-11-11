@@ -32,9 +32,11 @@ The principal periodic analysis spine is:
    independently admitted operands. Never transfer a family's tolerances, shell index,
    support decision, or evidence status into another family.
 7. **Higher-rank controls.** Analyze the one-dimensional non-Abelian rank/depth ladder
-   before interpreting multidimensional higher-rank controls. Fixed-geometry periodic-3D
-   rank-N precedes the continuous rank-N Bain composition. A prospective or partial
-   protocol contributes no numerical result.
+   before interpreting multidimensional higher-rank controls. In each dimension, the
+   fixed-geometry periodic-2D or periodic-3D rank-N baseline precedes its separate
+   continuous rank-N strain composition. The 2-D strain protocol is prospective; the
+   3-D strain protocol selects a Bain path only partially. Neither contributes a
+   numerical result.
 8. **Material-facing or external-code work.** Synthetic periodic controls can inform
    method design but cannot validate silicon or another material. Material calculations
    retain separate parent, provenance, execution, and evidence authority.
