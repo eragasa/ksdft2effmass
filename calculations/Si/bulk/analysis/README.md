@@ -154,8 +154,10 @@ qualify the production parent, a Wannier bridge, or the planned local-model hier
   stopped at its mandatory common-space gate. The projected ten-orbital `sp3s*` frame
   has resolved rank 9 at Gamma and one additional C6 point under the native-format
   singular-value bound. No fit ran and no parameter vector or Slater--Koster model was
-  produced. S50 remains blocked pending a separate scientific decision. Stopping is the
-  default; the current
+  produced. The unretained CSD0/CSD1 producer is now incubated under
+  [`../common_space/diagnostics/`](../common_space/diagnostics/); it is not an independent
+  verification result. S50 remains blocked pending a separate scientific decision.
+  Stopping is the default; the current
   [hopping-first post-S110 protocol](../research-protocol/controlled-reduction-protocol-hopping-first.tex)
   preserves the blocked result and requires the characterization-only Pareto synthesis
   before any separately authorized continuation fit.

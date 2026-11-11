@@ -75,6 +75,9 @@ library owners. Workflow integration is intentionally outside this extraction.
 - [`analysis/`](analysis/) — verified-input analysis boundary, current supportable
   conclusions, and the calculation-local
   [Vogl 1983 LCAO `sp3s*` control](analysis/controls/vogl-sp3s-star/).
+- [`common_space/`](common_space/) — calculation-owned incubation root for explicit
+  bulk-silicon common-space diagnostics; currently contains the unretained CSD0/CSD1
+  producer, not an independent verifier or a supported library package.
 - [`technical-report/`](technical-report/) — calculation-facing synthesis and links to
   the detailed design and retained audits.
 
