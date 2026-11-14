@@ -439,7 +439,7 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
         )
         assert (
             analysis_request.gauge_group_identity.represented_dimension
-            == analysis_request.case.retained_rank
+            == analysis_request.parent_model.band_subspace_rank
         )
         assert (
             analysis_request.action_convention is GaugeAlignmentActionConvention.RIGHT

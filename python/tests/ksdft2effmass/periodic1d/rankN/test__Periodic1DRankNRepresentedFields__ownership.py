@@ -39,8 +39,7 @@ class TestPeriodic1DRankNRepresentedFieldsOwnership:
         """Keep analytic study composition in calculation or verification support."""
         assert (
             find_spec(
-                "ksdft2effmass.periodic1d.rankN."
-                "band_equivalence_hopping_locality.case"
+                "ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.case"
             )
             is None
         )

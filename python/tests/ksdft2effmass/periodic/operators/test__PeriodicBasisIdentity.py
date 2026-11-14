@@ -76,10 +76,11 @@ class TestPeriodicBasisIdentity:
         assert first.family is PeriodicBasisFamily.LABELED_COMPONENT
         assert first.spatial_dimension == 2
         assert first.dimension == 2
-        assert first != Periodic3DBasisIdentity(
+        other_dimension: PeriodicBasisIdentity = Periodic3DBasisIdentity(
             display_identifier="first display name",
             coordinates=first.coordinates,
         )
+        assert first != other_dimension
 
     def test_coordinate_families__exact_keys__remain_distinct(self) -> None:
         plane_wave = PlaneWaveBasisCoordinate((1, -2, 3), component_label="up")

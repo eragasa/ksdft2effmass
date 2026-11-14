@@ -245,8 +245,6 @@ class SyntheticPeriodic2DRankNParentModel(Periodic2DRankNParentModel):
         )
 
 
-
-
 class SyntheticPeriodic2DRankNCaseExpander:
     """Construct the historical analytic cross product only for tests."""
 

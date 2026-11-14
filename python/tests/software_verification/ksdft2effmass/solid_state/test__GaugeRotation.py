@@ -14,6 +14,7 @@ class TestGaugeRotation:
 
     class _FixedGaugeRotation(GaugeRotation):
         __slots__ = ("_values",)
+        _values: Complex128Array
 
         def __init__(self, values: Complex128Array) -> None:
             if values.ndim != 3 or values.shape[1] != values.shape[2]:
@@ -116,7 +117,7 @@ class TestGaugeRotation:
     def test_transformation_rejects_boolean_tolerance(self) -> None:
         rotation = self._FixedGaugeRotation(self._rotation_values())
         with pytest.raises(TypeError, match="built-in float"):
-            GaugeTransformation(rotation, True)  # type: ignore[arg-type]
+            GaugeTransformation(rotation, True)
 
     def test_transformation_rejects_a_misaligned_sample_or_rank_inventory(self) -> None:
         coordinates = np.asarray((0.0, 0.5), dtype=np.float64)

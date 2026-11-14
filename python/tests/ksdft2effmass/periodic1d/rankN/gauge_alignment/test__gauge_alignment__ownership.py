@@ -53,11 +53,11 @@ class TestGaugeAlignmentOwnership:
         ):
             assert ".rankN.gauge_alignment" in value.__module__
 
-        for value in (
+        for represented_owner in (
             Periodic1DRankNRepresentedFields,
             Periodic1DRankNRepresentedFieldConstructionRequest,
         ):
-            assert value.__module__.endswith(".rankN.represented_fields")
+            assert represented_owner.__module__.endswith(".rankN.represented_fields")
 
     def test__rankN_values__inherit_the_gauge_alignment_capability(self) -> None:
         assert issubclass(

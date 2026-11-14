@@ -1,5 +1,5 @@
 Sewing
-=======
+======
 
 .. currentmodule:: ksdft2effmass.sewing
 
