@@ -20,7 +20,7 @@ from ksdft2effmass.model_systems.qho1d import (
 
 
 class TestQho1dCrossGridAnalyzer:
-    """Verify typed adjacent-grid analysis without legacy study dependencies."""
+    """Verify typed adjacent-grid analysis and verification."""
 
     @staticmethod
     def configuration(

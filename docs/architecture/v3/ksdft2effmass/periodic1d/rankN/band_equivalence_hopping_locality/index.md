@@ -1,7 +1,7 @@
 # Rank-N band equivalence and hopping locality in periodic one-dimensional models
 
 This package supports the rank-$r$ band-equivalence/hopping-locality study for periodic
-one-dimensional Hamiltonians. The frozen D1 specialization compares four prescribed
+one-dimensional Hamiltonians. The frozen periodic-1D analytic validation specialization compares four prescribed
 retained-space gauge alignments for $r\in\{3,4,8,16\}$ and circuit depths
 $L\in\{1,2,4,8\}$:
 
@@ -36,7 +36,7 @@ control, not an admissible fitted solution.
 The maintained package provides:
 
 - immutable configuration, calculation, transport, provenance, and result records;
-- strict domain enums implemented through `StringWireEnum`;
+- strict domain enums implemented through `StrWireEnum`;
 - an analytic parent Hamiltonian and depth-dependent nearest-neighbor gauge circuit;
 - Project Koios Optimization Procrustes selection, PhysKit closed-loop transport, and
   PhysKit odd-mesh finite-periodic transforms;
@@ -54,7 +54,7 @@ The maintained package provides:
   block-refinement diagnostics; and
 - canonical typed record bytes whose SHA-256 digest establishes identity and provenance,
   not scientific validity; and
-- a bounded producer-independent direct-formula reference for analytic-model and attack
+- a bounded producer-independent direct-formula reference for analytic-model and transformation
   core invariants; and
 - a bounded direct-sum Fourier reference for all four gauge controls, including shifted
   interpolation and support-tail measures for every alignment and exact support for the
@@ -99,9 +99,9 @@ while concrete frame and request contracts own orthonormality. The underlying
 orthonormal matrix mechanisms are meaningful at rank two, but the maintained
 rank-two study has its own model, controls, verification, and evidence identity and is not
 implicitly admitted here. Rank one is a distinct scalar specialization: its represented
-Hamiltonian is invariant under $U(1)$ phase changes, and the D1 analytic formulas that
+Hamiltonian is invariant under $U(1)$ phase changes, and the periodic-1D higher-rank analytic formulas that
 normalize by $r-1$ are undefined. The frozen tuple `(3, 4, 8, 16)` is therefore an
-intentional D1-v1 protocol boundary rather than a claim about the capabilities of the
+intentional periodic-1D higher-rank analytic validation v1 protocol boundary rather than a claim about the capabilities of the
 shared numerical kernels.
 
 A future nonorthonormal study requires an explicit positive-definite fiber metric,

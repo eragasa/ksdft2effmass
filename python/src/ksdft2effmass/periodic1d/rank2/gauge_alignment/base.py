@@ -4,11 +4,16 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from ksdft2effmass.periodic1d.gauge_alignment.base import Periodic1DGaugeAlignment
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.base import (
+    Periodic1DRankNGaugeAlignmentCapability,
+)
 
 
-class Periodic1DRank2GaugeAlignment(Periodic1DGaugeAlignment, ABC):
-    """Identify gauge alignment on a periodic-1D rank-two band subspace."""
+class Periodic1DRank2GaugeAlignment(
+    Periodic1DRankNGaugeAlignmentCapability,
+    ABC,
+):
+    """Refine finite-rank periodic-1D gauge alignment to rank two."""
 
     __slots__ = ()
 

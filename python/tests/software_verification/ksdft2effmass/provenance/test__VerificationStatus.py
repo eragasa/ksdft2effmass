@@ -7,7 +7,7 @@ Bounded artifact scope: the module's declared evidence owner.
 Facet and represented meaning
 
 -----------------------------
-This class-owned evidence verifies the exact ``StrEnum`` vocabulary and its
+This class-owned evidence verifies the exact ``StrWireEnum`` vocabulary and its
 public value-construction and name-lookup surfaces.
 
 Intrinsic and cross-object scope
@@ -25,12 +25,12 @@ It does not establish tool execution, numerical verification, physical
 correctness, scientific validation, UQ, portability, or cross-language agreement.
 """
 
-from enum import StrEnum
 from typing import Any, cast
 
 import pytest
 
 from ksdft2effmass.provenance import VerificationStatus
+from ksdft2effmass.serialization import StrWireEnum
 
 SUT = VerificationStatus
 pytestmark = pytest.mark.software_verification
@@ -39,7 +39,7 @@ pytestmark = pytest.mark.software_verification
 def test_field__wire_vocabulary__has_exact_order_names_values_and_count() -> None:
     """Evidence ID: SV-PROV-036
 
-    Requirement: The wire vocabulary is an alias-free StrEnum with three ordered
+    Requirement: The wire vocabulary is an alias-free StrWireEnum with three ordered
     members.
 
     Method: Inspect public iteration, member mapping, values, type, and counts.
@@ -61,7 +61,7 @@ def test_field__wire_vocabulary__has_exact_order_names_values_and_count() -> Non
         ("REJECTED", "rejected"),
         ("UNAVAILABLE", "unavailable"),
     )
-    assert SUT.__bases__ == (StrEnum,)
+    assert SUT.__bases__ == (StrWireEnum,)
     assert tuple((member.name, member.value) for member in SUT) == expected
     assert tuple(SUT.__members__) == tuple(name for name, _ in expected)
     assert len(SUT.__members__) == 3

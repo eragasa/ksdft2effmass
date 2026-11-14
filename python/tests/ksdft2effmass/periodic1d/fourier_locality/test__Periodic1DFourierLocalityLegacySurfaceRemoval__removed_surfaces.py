@@ -6,8 +6,8 @@ import importlib.util
 
 import pytest
 
+import ksdft2effmass.periodic.periodic1d.models as periodic1d_models
 import ksdft2effmass.periodic1d.fourier_locality as fourier_locality
-import ksdft2effmass.periodic1d.model as periodic1d_model
 from ksdft2effmass import periodic1d
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -47,14 +47,17 @@ class TestPeriodic1DFourierLocalityLegacySurfaceRemoval:
         self,
     ) -> None:
         """Do not expose the superseded toy parent from the new model namespace."""
-        assert not hasattr(periodic1d_model, "Periodic1DFourierHamiltonianToyModel")
+        assert not hasattr(periodic1d_models, "Periodic1DFourierHamiltonianToyModel")
 
     def test__Periodic1DFourierLocalityLegacySurfaceRemoval__removes_toy_model_module(
         self,
     ) -> None:
         """Do not restore a toy-model compatibility module below the new owner."""
+        assert importlib.util.find_spec("ksdft2effmass.periodic1d.model") is None
         assert (
-            importlib.util.find_spec("ksdft2effmass.periodic1d.model.toy_models")
+            importlib.util.find_spec(
+                "ksdft2effmass.periodic.periodic1d.models.toy_models"
+            )
             is None
         )
 

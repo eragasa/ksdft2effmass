@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from ksdft2effmass.periodic2d.model.retained.optimizer_basin import (
+from ksdft2effmass.periodic.periodic2d.models.retained.optimizer_basin import (
     Periodic2DOptimizerBasinCampaignModel,
 )
 from ksdft2effmass.periodic2d.run import wannier90

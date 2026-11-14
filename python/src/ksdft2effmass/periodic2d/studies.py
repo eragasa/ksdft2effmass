@@ -11,7 +11,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from ksdft2effmass.periodic import Periodic2DModel, PeriodicModelRole
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic2d.models import Periodic2DModel
 
 
 def _validate_definition_id(value: str) -> None:
@@ -57,7 +58,7 @@ class Periodic2DShellGaugeLocalityCalculationScaffold:
     """Compose the represented-parent baseline for shell/gauge locality (M5).
 
     The exact nonorthogonal primitive lattice, rank-three retention, shell inventories,
-    constrained gauge attacks, hopping transforms, and withheld interpolation
+    constrained gauge transformations, hopping transforms, and withheld interpolation
     diagnostics remain future explicit inputs.
     """
 

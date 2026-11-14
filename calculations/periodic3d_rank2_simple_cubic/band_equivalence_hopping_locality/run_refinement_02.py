@@ -5,14 +5,15 @@ from __future__ import annotations
 from dataclasses import replace
 from pathlib import Path
 
+from run_nominal_calculation import DEFINITION, construct_artifacts, write_artifacts
+from run_refinement_01 import REFINEMENT as FIRST_REFINEMENT
+
 from ksdft2effmass.band_equivalence_hopping_locality.refinement import (
     BandEquivalenceHoppingLocalityRefinementAnalyzer,
 )
 from ksdft2effmass.band_equivalence_hopping_locality.refinement_recording import (
     BandEquivalenceHoppingLocalityRefinementAssessmentRecorder,
 )
-from run_nominal_calculation import DEFINITION, construct_artifacts, write_artifacts
-from run_refinement_01 import REFINEMENT as FIRST_REFINEMENT
 
 REFINEMENT = replace(DEFINITION, construction_size=32, evaluation_size=65)
 

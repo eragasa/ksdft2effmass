@@ -21,17 +21,18 @@ from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.base impor
 from ksdft2effmass.periodic2d.rankN.gauge_alignment.definition import (
     Periodic2DRankNGaugeAlignment,
 )
+from ksdft2effmass.periodic2d.rankN.gauge_alignment.transformation import (
+    Periodic2DRankNGaugeNormalizationEnum,
+)
 from ksdft2effmass.real_space_support_truncation import BasisResolvedMetricGeometry
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
-    StringWireEnum,
+    StrWireEnum,
 )
 
-from .model import Periodic2DRankNGaugeNormalizationEnum
 
-
-class Periodic2DRankNBandEquivalenceHoppingLocalityFamilyEnum(StringWireEnum):
+class Periodic2DRankNBandEquivalenceHoppingLocalityFamilyEnum(StrWireEnum):
     """Identify one independently interpreted periodic-2D rank-N family."""
 
     ORTHOGONAL = (
@@ -195,7 +196,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityRequest(
     evaluation_size: int
     evaluation_shift: float
     parent_scales: tuple[float, ...]
-    attack_coefficients: tuple[float, ...]
+    transformation_coefficients: tuple[float, ...]
     band_tolerances: tuple[float, ...]
     gauge_alignments: tuple[Periodic2DRankNGaugeAlignment, ...]
     shell_cap: int
@@ -286,25 +287,27 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityRequest(
             raise ValueError("periodic-2D meshes must be the selected 16/33 pair")
         if self.evaluation_shift != 1.0 / 3.0:
             raise ValueError("evaluation_shift must be the selected one-third shift")
-        expected_attacks: tuple[float, ...]
+        expected_transformations: tuple[float, ...]
         expected_shell_cap: int
         if (
             self.family
             is Periodic2DRankNBandEquivalenceHoppingLocalityFamilyEnum.ORTHOGONAL
         ):
-            expected_attacks = (0.0, math.pi / 8.0, math.pi / 4.0)
+            expected_transformations = (0.0, math.pi / 8.0, math.pi / 4.0)
             expected_shell_cap = 25
             expected_case_signatures = _orthogonal_case_signatures()
         else:
-            expected_attacks = (
+            expected_transformations = (
                 0.0,
                 math.pi / (8.0 * math.sqrt(6.0)),
                 math.pi / (4.0 * math.sqrt(6.0)),
             )
             expected_shell_cap = 21
             expected_case_signatures = _nonorthogonal_case_signatures()
-        if self.attack_coefficients != expected_attacks:
-            raise ValueError("attack_coefficients must match the selected family")
+        if self.transformation_coefficients != expected_transformations:
+            raise ValueError(
+                "transformation_coefficients must match the selected family"
+            )
         if self.shell_cap != expected_shell_cap:
             raise ValueError("shell_cap must match the selected family")
         if tuple(_case_signature(case) for case in self.cases) != (
@@ -325,13 +328,13 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityRequest(
 
     @property
     def case_count(self) -> int:
-        """Return the complete analytic rank/depth/scale/attack case count."""
+        """Return the complete analytic rank/depth/scale/transformation case count."""
         return (
             len(self.cases)
             * len(self.retained_ranks)
             * len(self.circuit_depths)
             * len(self.parent_scales)
-            * len(self.attack_coefficients)
+            * len(self.transformation_coefficients)
         )
 
     def _mapping(self) -> Mapping[str, SerializableValue]:
@@ -344,7 +347,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityRequest(
             "evaluation_size": self.evaluation_size,
             "evaluation_shift": self.evaluation_shift,
             "parent_scales": self.parent_scales,
-            "attack_coefficients": self.attack_coefficients,
+            "transformation_coefficients": self.transformation_coefficients,
             "band_tolerances": self.band_tolerances,
             "gauge_alignments": tuple(
                 alignment.to_wire() for alignment in self.gauge_alignments
@@ -371,7 +374,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityRequest(
             "evaluation_size",
             "evaluation_shift",
             "parent_scales",
-            "attack_coefficients",
+            "transformation_coefficients",
             "band_tolerances",
             "gauge_alignments",
             "shell_cap",
@@ -436,7 +439,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityRequest(
             integer_tuples[name] = value
         float_tuple_names = (
             "parent_scales",
-            "attack_coefficients",
+            "transformation_coefficients",
             "band_tolerances",
         )
         float_tuples: dict[str, tuple[float, ...]] = {}
@@ -463,7 +466,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityRequest(
             evaluation_size=integers["evaluation_size"],
             evaluation_shift=floats["evaluation_shift"],
             parent_scales=float_tuples["parent_scales"],
-            attack_coefficients=float_tuples["attack_coefficients"],
+            transformation_coefficients=float_tuples["transformation_coefficients"],
             band_tolerances=float_tuples["band_tolerances"],
             gauge_alignments=tuple(
                 Periodic2DRankNGaugeAlignment.from_wire(alignment)

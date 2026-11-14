@@ -11,9 +11,9 @@ execution authority.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 from typing import Any, cast, final
 
+from ...serialization import StrWireEnum
 from .markings import (
     ColoredPetriNetBinding,
     ColoredPetriNetBindingVariableIdentity,
@@ -25,7 +25,7 @@ from .values import (
 )
 
 
-class ColoredPetriNetValueExpressionKind(StrEnum):
+class ColoredPetriNetValueExpressionKind(StrWireEnum):
     """Closed alternatives for obtaining one generic value.
 
     Attributes
@@ -40,7 +40,7 @@ class ColoredPetriNetValueExpressionKind(StrEnum):
     VARIABLE = "variable"
 
 
-class ColoredPetriNetGuardOperator(StrEnum):
+class ColoredPetriNetGuardOperator(StrWireEnum):
     """Closed Boolean and exact-comparison guard operators."""
 
     TRUE = "true"
@@ -56,7 +56,7 @@ class ColoredPetriNetGuardOperator(StrEnum):
     GREATER_THAN_OR_EQUAL = "greater_than_or_equal"
 
 
-class ColoredPetriNetInputMode(StrEnum):
+class ColoredPetriNetInputMode(StrWireEnum):
     """Generic input-inscription token behavior.
 
     Attributes

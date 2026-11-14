@@ -103,10 +103,11 @@ class TestPeriodic1DCompositeBandAlignmentPublicSurface:
     def test__Periodic1DCompositeBandAlignmentPublicSurface__legacy_model_absent(
         self,
     ) -> None:
-        """Do not place multiband compatibility APIs below the new model owner."""
+        """Keep the retired singular model namespace entirely non-importable."""
+        assert importlib.util.find_spec("ksdft2effmass.periodic1d.model") is None
         assert (
             importlib.util.find_spec(
-                "ksdft2effmass.periodic1d.model.multiband_alignment"
+                "ksdft2effmass.periodic.periodic1d.models.multiband_alignment"
             )
             is None
         )

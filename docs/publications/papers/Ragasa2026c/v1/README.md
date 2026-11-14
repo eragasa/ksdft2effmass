@@ -38,8 +38,8 @@ feasible-set or validated-search methodology, and paper-specific synthesis.
 [`Appendix A`](appendices/A-1-extracted-evidence-boundary.md) records the permitted role
 of those extracted values together with the post-hoc M3 threshold, Wannier90 sensitivity,
 and optimizer-reproducibility boundaries. [`Appendix
-B`](appendices/A-2-d1-p0-g0-isolation-gap-certificate.md)
-gives the exact D1 exterior-isolation and attack-angle certificates together with a
+B`](appendices/A-2-periodic1d-analytic-isolation-gap-certificate.md)
+gives the exact periodic-1D exterior-isolation and attack-angle certificates together with a
 finite-grid sanity check.
 
 The program-wide [allocation ledger](../../experiment-to-paper-allocation.md) assigns
@@ -82,6 +82,6 @@ latexmk -pdf -interaction=nonstopmode -halt-on-error manuscript.tex
 ## Status
 
 Pre-results publication package. Historical extracted controls are not a new Paper 3
-calculation. The complete D1 P0/G0 v1 protocol candidate is selected, but no reviewed
+calculation. The complete periodic-1D constant-subspace real-Givens validation study v1 protocol candidate is selected, but no reviewed
 implementation, immutable executed version, new numerical result, retained run, evidence
 package, submission, or publication is asserted or authorized.

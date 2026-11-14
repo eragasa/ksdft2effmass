@@ -9,11 +9,11 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
-from enum import StrEnum
 from hashlib import sha256
 from string import hexdigits
 from typing import final
 
+from ...serialization import StrWireEnum
 from .definitions import ColoredPetriNetDefinition, ColoredPetriNetSelectionPolicy
 from .enablement import (
     ColoredPetriNetEnablementResult,
@@ -148,7 +148,7 @@ class ColoredPetriNetSelectionDirective:
         object.__setattr__(self, "identity", identity)
 
 
-class ColoredPetriNetSelectionOutcomeKind(StrEnum):
+class ColoredPetriNetSelectionOutcomeKind(StrWireEnum):
     """Closed selection-result outcome variants."""
 
     SELECTED = "selected"
@@ -157,7 +157,7 @@ class ColoredPetriNetSelectionOutcomeKind(StrEnum):
     FAILURE = "failure"
 
 
-class ColoredPetriNetSelectionFailureCode(StrEnum):
+class ColoredPetriNetSelectionFailureCode(StrWireEnum):
     """Closed selection failure codes."""
 
     ENABLEMENT_FAILED = "enablement_failed"

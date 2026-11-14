@@ -24,6 +24,27 @@ labelled downstream development and exploratory analysis while retaining these l
 Production and publication-grade acceptance remain pending, and this directory
 authorizes no additional Quantum ESPRESSO or Wannier90 execution.
 
+## Local artifact storage
+
+The completed native Quantum ESPRESSO and Wannier90 occurrence directories are stored
+outside Git under:
+
+```text
+~/projects/ksdft2effmass/
+```
+
+In particular, the retained `C6-B20-W21` rank-10 Wannier Hamiltonian is:
+
+```text
+~/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_hr.dat
+```
+
+Its associated `silicon_wsvec.dat`, `silicon_u.mat`, `silicon_u_dis.mat`, checkpoint,
+interface, and localization outputs are in the same external occurrence directory.
+The repository retains compact evidence and authenticated external-artifact inventories;
+the absence of these larger native files from the Git worktree does not mean that the
+calculation must be repeated.
+
 ## Ownership boundary
 
 This root owns the forward-looking scientific plan, source crosswalk, verified-input
@@ -54,8 +75,17 @@ library owners. Workflow integration is intentionally outside this extraction.
 - [`analysis/`](analysis/) — verified-input analysis boundary, current supportable
   conclusions, and the calculation-local
   [Vogl 1983 LCAO `sp3s*` control](analysis/controls/vogl-sp3s-star/).
+- [`common_space/`](common_space/) — calculation-owned incubation root for explicit
+  bulk-silicon common-space diagnostics; currently contains the unretained CSD0/CSD1
+  producer, not an independent verifier or a supported library package.
 - [`technical-report/`](technical-report/) — calculation-facing synthesis and links to
   the detailed design and retained audits.
+
+The former calculation-owned tight-binding/Slater--Koster incubation has been retired.
+Reusable mechanics are consumed from the pinned Project Koios PhysKit revision, while
+KSD's concrete diamond composition is maintained under
+[`python/src/ksdft2effmass/model_systems/slater_koster/`](../../../python/src/ksdft2effmass/model_systems/slater_koster/).
+No calculation compatibility namespace or fallback remains.
 
 ## Nonclaims
 

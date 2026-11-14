@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetBinding,
@@ -12,6 +11,7 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetFiringResult,
     ColoredPetriNetTransitionIdentity,
 )
+from ksdft2effmass.serialization import StrWireEnum
 
 from ..artifacts import (
     ArtifactManifestEntryIdentity,
@@ -89,7 +89,7 @@ from .identities import (
 )
 
 
-class TaskAttemptStatus(StrEnum):
+class TaskAttemptStatus(StrWireEnum):
     """Closed represented states of one bounded Task attempt."""
 
     STARTED = "started"
@@ -648,52 +648,6 @@ class HumanAuthoredResultProducer:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class UnknownLegacyResultProducer:
-    """Retain bounded legacy provenance with actual evidence and limitations.
-
-    Parameters
-    ----------
-    identity, source_identity
-        Exact provenance-record and retained legacy-source identities.
-    evidence_identities
-        Nonempty unique evidence identities in lexical order.
-    limitations
-        Nonempty statements explaining the unknown historical provenance.
-    """
-
-    identity: ResultProducerProvenanceIdentity
-    source_identity: RetainedResultSourceIdentity
-    evidence_identities: tuple[ResultProducerEvidenceIdentity, ...]
-    limitations: tuple[str, ...]
-
-    def __post_init__(self) -> None:
-        """Validate exact bounded legacy evidence without fabricating a producer."""
-        if type(self.identity) is not ResultProducerProvenanceIdentity:
-            raise TypeError("identity must be ResultProducerProvenanceIdentity")
-        if type(self.source_identity) is not RetainedResultSourceIdentity:
-            raise TypeError("source_identity must be RetainedResultSourceIdentity")
-        evidence = self.evidence_identities
-        if type(evidence) is not tuple or any(
-            type(value) is not ResultProducerEvidenceIdentity for value in evidence
-        ):
-            raise TypeError(
-                "evidence_identities must be a tuple of ResultProducerEvidenceIdentity"
-            )
-        if (
-            not evidence
-            or evidence != tuple(sorted(evidence, key=lambda value: value.value))
-            or len(set(evidence)) != len(evidence)
-        ):
-            raise ValueError("evidence identities must be nonempty, unique, and sorted")
-        if type(self.limitations) is not tuple or any(
-            type(value) is not str for value in self.limitations
-        ):
-            raise TypeError("limitations must be a tuple of strings")
-        if not self.limitations or any(not value for value in self.limitations):
-            raise ValueError("limitations must contain nonempty strings")
-
-
-@dataclass(frozen=True, slots=True, kw_only=True)
 class ResultObjectReference:
     """Correlate one concrete immutable ResultObject and its exact producer.
 
@@ -708,8 +662,8 @@ class ResultObjectReference:
     content_identity
         Exact immutable represented-content identity supplied by the owning domain.
     producer_provenance
-        Exactly one represented-Task, represented-decision, external, imported,
-        human-authored, or unknown-legacy producer record.
+        Exactly one represented-Task, represented-decision, external, imported, or
+        human-authored producer record.
     """
 
     identity: ResultObjectReferenceIdentity
@@ -723,7 +677,6 @@ class ResultObjectReference:
         | ExternalResultProducer
         | ImportedRetainedResultProducer
         | HumanAuthoredResultProducer
-        | UnknownLegacyResultProducer
     )
 
     def __post_init__(self) -> None:
@@ -760,7 +713,6 @@ class ResultObjectReference:
             ExternalResultProducer,
             ImportedRetainedResultProducer,
             HumanAuthoredResultProducer,
-            UnknownLegacyResultProducer,
         }:
             raise TypeError("producer_provenance must be a closed producer variant")
 
@@ -1111,7 +1063,7 @@ class NestedWorkflowMembership:
             )
 
 
-class NestedWorkflowInvocationKind(StrEnum):
+class NestedWorkflowInvocationKind(StrWireEnum):
     """Closed represented observations of one nested Workflow invocation."""
 
     PENDING = "pending"
@@ -1474,7 +1426,7 @@ class NestedWorkflowInvocationIntent:
             raise ValueError("input references must be unique and lexically sorted")
 
 
-class NestedWorkflowTerminalObservationKind(StrEnum):
+class NestedWorkflowTerminalObservationKind(StrWireEnum):
     """Closed first-terminal observations, never a pending intent state.
 
     Attributes
@@ -1842,7 +1794,7 @@ class SimulationExecutionRequestCorrelation:
                 raise ValueError(f"{name} must be unique and lexically sorted")
 
 
-class AuthorityReservationOutcomeKind(StrEnum):
+class AuthorityReservationOutcomeKind(StrWireEnum):
     """Closed append-only authority reservation states."""
 
     RESERVED = "reserved"
@@ -2057,7 +2009,7 @@ class SimulationDispatchObligation:
             raise ValueError("resource scope identities must be unique and sorted")
 
 
-class DispatchOutcomeKind(StrEnum):
+class DispatchOutcomeKind(StrWireEnum):
     """Closed specialized dispatch observations retained by WorkflowRun."""
 
     CONFIRMED = "confirmed"
@@ -2308,7 +2260,7 @@ class SimulationDispatchEntry:
             )
 
 
-class DispatchObservationKind(StrEnum):
+class DispatchObservationKind(StrWireEnum):
     """Closed evidence classification for one dispatch reconciliation observation."""
 
     CONFIRMED = "confirmed"
@@ -2568,7 +2520,7 @@ class DispatchOutcomeRecord:
             raise ValueError("dispatch fields do not match the outcome variant")
 
 
-class ObligationDispositionKind(StrEnum):
+class ObligationDispositionKind(StrWireEnum):
     """Closed append-only states of one dispatch obligation."""
 
     CONFIRMED = "confirmed"
@@ -2914,7 +2866,7 @@ class ScientificDecisionResolution:
             )
 
 
-class TaskInvocationOutcomeKind(StrEnum):
+class TaskInvocationOutcomeKind(StrWireEnum):
     """Closed generic invocation outcomes owned by Workflow control."""
 
     CONFIRMED = "confirmed"

@@ -1,0 +1,410 @@
+{
+  "audit_script_sha256": "431b67434f36d41f44be0b65e6475674b461f8f5642711d01103acbe47b598df",
+  "claim_boundary": "Independent recomputation of retained mass formulas and exact integer conversion inventory only; not independent reconstruction of the Hamiltonian fields, Fourier coefficients, removed-mode power, support errors, optimization, valleys, or band-edge calculations.",
+  "cyclic_to_ordinary_conversion_audit": {
+    "coefficient_matrix_boundary": "The source result retains ordinary-mode powers but not all 216 cyclic coefficient matrices; removed-mode coefficient values and power are not independently reconstructed by this audit.",
+    "construction_size": 6,
+    "cyclic_axis": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ],
+    "cyclic_mode_count": 216,
+    "maximum_metric_shell_absolute_difference": 0.0,
+    "maximum_physical_radius_absolute_difference_angstrom": 3.552713678800501e-15,
+    "ordering": "first component outermost, third component innermost",
+    "ordinary_axis": [
+      -2,
+      -1,
+      0,
+      1,
+      2
+    ],
+    "ordinary_mode_count": 125,
+    "outcome": "passed",
+    "removed_negative_nyquist_mode_count": 91,
+    "selection_rule": "retain a cyclic mode iff no component equals -N/2; retained modes map identically"
+  },
+  "mass_convention_audit": {
+    "absolute_tolerance": 1e-12,
+    "conductivity_definition": "3 / trace[(1/6) sum_v M_v^(-1)]",
+    "dos_definition": "[sum_v sqrt(det(M_v))]^(2/3)",
+    "maximum_absolute_difference": 6.217248937900877e-15,
+    "models": [
+      {
+        "average_inverse_mass_tensor_eigenvalues": [
+          3.8197142214960005,
+          4.071885237354963,
+          4.078100601893313
+        ],
+        "average_inverse_mass_tensor_maximum_absolute_difference": 0.0,
+        "average_inverse_mass_tensor_recomputed": [
+          [
+            3.962125162158905,
+            -0.09940364045278634,
+            0.08143513931456177
+          ],
+          [
+            -0.09940364045278634,
+            3.990939031519215,
+            0.06690016977269374
+          ],
+          [
+            0.08143513931456177,
+            0.06690016977269374,
+            4.016635867066159
+          ]
+        ],
+        "equal_population_conductivity_mass_absolute_difference": 0.0,
+        "equal_population_conductivity_mass_recomputed_electron": 0.2506328466691302,
+        "maximum_absolute_difference": 6.217248937900877e-15,
+        "model": "full-source",
+        "six_valley_dos_mass_absolute_difference": 2.220446049250313e-16,
+        "six_valley_dos_mass_recomputed_electron": 1.4764153436170802,
+        "valley_count": 6,
+        "valley_population_convention": "equal population over six retained signed-axis valleys",
+        "valleys": [
+          {
+            "label": "+x",
+            "mass_inverse_identity_maximum_absolute": 1.1102230246251565e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 0.0,
+            "single_valley_conductivity_mass_absolute_difference": 0.0,
+            "single_valley_conductivity_mass_recomputed_electron": 0.24998670264379505,
+            "single_valley_dos_mass_absolute_difference": 0.0,
+            "single_valley_dos_mass_recomputed_electron": 0.44930034689633247
+          },
+          {
+            "label": "+y",
+            "mass_inverse_identity_maximum_absolute": 1.1102230246251565e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 6.217248937900877e-15,
+            "single_valley_conductivity_mass_absolute_difference": 0.0,
+            "single_valley_conductivity_mass_recomputed_electron": 0.250982662857159,
+            "single_valley_dos_mass_absolute_difference": 2.220446049250313e-16,
+            "single_valley_dos_mass_recomputed_electron": 0.44922597547385534
+          },
+          {
+            "label": "+z",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 8.881784197001252e-16,
+            "single_valley_conductivity_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_conductivity_mass_recomputed_electron": 0.2509300051779866,
+            "single_valley_dos_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_dos_mass_recomputed_electron": 0.4428311834167579
+          },
+          {
+            "label": "-x",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 4.440892098500626e-16,
+            "single_valley_conductivity_mass_absolute_difference": 2.7755575615628914e-17,
+            "single_valley_conductivity_mass_recomputed_electron": 0.24999279849229608,
+            "single_valley_dos_mass_absolute_difference": 0.0,
+            "single_valley_dos_mass_recomputed_electron": 0.44933148678788726
+          },
+          {
+            "label": "-y",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 2.220446049250313e-15,
+            "single_valley_conductivity_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_conductivity_mass_recomputed_electron": 0.2509847257515606,
+            "single_valley_dos_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_dos_mass_recomputed_electron": 0.4492773210726298
+          },
+          {
+            "label": "-z",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 1.3322676295501878e-15,
+            "single_valley_conductivity_mass_absolute_difference": 0.0,
+            "single_valley_conductivity_mass_recomputed_electron": 0.2509251672330978,
+            "single_valley_dos_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_dos_mass_recomputed_electron": 0.4428273246683215
+          }
+        ]
+      },
+      {
+        "average_inverse_mass_tensor_eigenvalues": [
+          3.170727104398545,
+          3.209260097706125,
+          3.557623021713506
+        ],
+        "average_inverse_mass_tensor_maximum_absolute_difference": 0.0,
+        "average_inverse_mass_tensor_recomputed": [
+          [
+            3.326682677344643,
+            0.15463629893852218,
+            -0.06454476522913148
+          ],
+          [
+            0.15463629893852218,
+            3.411526174479853,
+            -0.07709692784205421
+          ],
+          [
+            -0.06454476522913148,
+            -0.07709692784205421,
+            3.1994013719936802
+          ]
+        ],
+        "equal_population_conductivity_mass_absolute_difference": 0.0,
+        "equal_population_conductivity_mass_recomputed_electron": 0.30188344405073236,
+        "maximum_absolute_difference": 8.881784197001252e-16,
+        "model": "H-shell-05",
+        "six_valley_dos_mass_absolute_difference": 0.0,
+        "six_valley_dos_mass_recomputed_electron": 1.2271604482063385,
+        "valley_count": 6,
+        "valley_population_convention": "equal population over six retained signed-axis valleys",
+        "valleys": [
+          {
+            "label": "+x",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 3.3306690738754696e-16,
+            "single_valley_conductivity_mass_absolute_difference": 1.1102230246251565e-16,
+            "single_valley_conductivity_mass_recomputed_electron": 0.29183098134616026,
+            "single_valley_dos_mass_absolute_difference": 1.6653345369377348e-16,
+            "single_valley_dos_mass_recomputed_electron": 0.3594251789193441
+          },
+          {
+            "label": "+y",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 8.881784197001252e-16,
+            "single_valley_conductivity_mass_absolute_difference": 0.0,
+            "single_valley_conductivity_mass_recomputed_electron": 0.32120455877963544,
+            "single_valley_dos_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_dos_mass_recomputed_electron": 0.38861903842853796
+          },
+          {
+            "label": "+z",
+            "mass_inverse_identity_maximum_absolute": 1.1102230246251565e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 8.326672684688674e-17,
+            "single_valley_conductivity_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_conductivity_mass_recomputed_electron": 0.2943190555378601,
+            "single_valley_dos_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_dos_mass_recomputed_electron": 0.3665997033164896
+          },
+          {
+            "label": "-x",
+            "mass_inverse_identity_maximum_absolute": 1.1102230246251565e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 1.1102230246251565e-16,
+            "single_valley_conductivity_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_conductivity_mass_recomputed_electron": 0.2918331602709351,
+            "single_valley_dos_mass_absolute_difference": 1.1102230246251565e-16,
+            "single_valley_dos_mass_recomputed_electron": 0.3594268337424159
+          },
+          {
+            "label": "-y",
+            "mass_inverse_identity_maximum_absolute": 6.498049548535835e-18,
+            "principal_mass_eigenvalue_maximum_absolute": 6.661338147750939e-16,
+            "single_valley_conductivity_mass_absolute_difference": 1.6653345369377348e-16,
+            "single_valley_conductivity_mass_recomputed_electron": 0.32120024891460347,
+            "single_valley_dos_mass_absolute_difference": 1.1102230246251565e-16,
+            "single_valley_dos_mass_recomputed_electron": 0.38860919752747486
+          },
+          {
+            "label": "-z",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 4.440892098500626e-16,
+            "single_valley_conductivity_mass_absolute_difference": 0.0,
+            "single_valley_conductivity_mass_recomputed_electron": 0.29431784401942446,
+            "single_valley_dos_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_dos_mass_recomputed_electron": 0.36659774645948695
+          }
+        ]
+      },
+      {
+        "average_inverse_mass_tensor_eigenvalues": [
+          4.116669524434076,
+          4.270857006879975,
+          4.468858171594321
+        ],
+        "average_inverse_mass_tensor_maximum_absolute_difference": 0.0,
+        "average_inverse_mass_tensor_recomputed": [
+          [
+            4.3186143233288155,
+            -0.15308331686078283,
+            0.052210293330303324
+          ],
+          [
+            -0.15308331686078283,
+            4.31274050085104,
+            0.04755151781774577
+          ],
+          [
+            0.052210293330303324,
+            0.04755151781774577,
+            4.225029878728514
+          ]
+        ],
+        "equal_population_conductivity_mass_absolute_difference": 0.0,
+        "equal_population_conductivity_mass_recomputed_electron": 0.23334709324008798,
+        "maximum_absolute_difference": 3.3306690738754696e-15,
+        "model": "H-shell-10",
+        "six_valley_dos_mass_absolute_difference": 2.220446049250313e-16,
+        "six_valley_dos_mass_recomputed_electron": 1.1384044348280304,
+        "valley_count": 6,
+        "valley_population_convention": "equal population over six retained signed-axis valleys",
+        "valleys": [
+          {
+            "label": "+x",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 8.326672684688674e-17,
+            "single_valley_conductivity_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_conductivity_mass_recomputed_electron": 0.2373724610860267,
+            "single_valley_dos_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_dos_mass_recomputed_electron": 0.34961708153000914
+          },
+          {
+            "label": "+y",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 8.881784197001252e-16,
+            "single_valley_conductivity_mass_absolute_difference": 0.0,
+            "single_valley_conductivity_mass_recomputed_electron": 0.23819946937298406,
+            "single_valley_dos_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_dos_mass_recomputed_electron": 0.3583142032601529
+          },
+          {
+            "label": "+z",
+            "mass_inverse_identity_maximum_absolute": 1.1102230246251565e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 4.440892098500626e-16,
+            "single_valley_conductivity_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_conductivity_mass_recomputed_electron": 0.22494789708228385,
+            "single_valley_dos_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_dos_mass_recomputed_electron": 0.32597058111482613
+          },
+          {
+            "label": "-x",
+            "mass_inverse_identity_maximum_absolute": 2.1736182361138913e-17,
+            "principal_mass_eigenvalue_maximum_absolute": 2.220446049250313e-16,
+            "single_valley_conductivity_mass_absolute_difference": 2.7755575615628914e-17,
+            "single_valley_conductivity_mass_recomputed_electron": 0.237375246663754,
+            "single_valley_dos_mass_absolute_difference": 0.0,
+            "single_valley_dos_mass_recomputed_electron": 0.3496223572760029
+          },
+          {
+            "label": "-y",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 3.3306690738754696e-15,
+            "single_valley_conductivity_mass_absolute_difference": 0.0,
+            "single_valley_conductivity_mass_recomputed_electron": 0.2382038205136099,
+            "single_valley_dos_mass_absolute_difference": 2.220446049250313e-16,
+            "single_valley_dos_mass_recomputed_electron": 0.35831712568747587
+          },
+          {
+            "label": "-z",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 2.220446049250313e-16,
+            "single_valley_conductivity_mass_absolute_difference": 2.7755575615628914e-17,
+            "single_valley_conductivity_mass_recomputed_electron": 0.22494555783593057,
+            "single_valley_dos_mass_absolute_difference": 1.1102230246251565e-16,
+            "single_valley_dos_mass_recomputed_electron": 0.32596081448733843
+          }
+        ]
+      },
+      {
+        "average_inverse_mass_tensor_eigenvalues": [
+          3.816346291527114,
+          4.075138207400198,
+          4.080805573787645
+        ],
+        "average_inverse_mass_tensor_maximum_absolute_difference": 0.0,
+        "average_inverse_mass_tensor_recomputed": [
+          [
+            3.958340580684706,
+            -0.1009534042090701,
+            0.08473199215988354
+          ],
+          [
+            -0.1009534042090701,
+            3.993926029515158,
+            0.06703892743217398
+          ],
+          [
+            0.08473199215988354,
+            0.06703892743217398,
+            4.020023462515095
+          ]
+        ],
+        "equal_population_conductivity_mass_absolute_difference": 0.0,
+        "equal_population_conductivity_mass_recomputed_electron": 0.2505786262928133,
+        "maximum_absolute_difference": 5.773159728050814e-15,
+        "model": "H-shell-16",
+        "six_valley_dos_mass_absolute_difference": 2.220446049250313e-16,
+        "six_valley_dos_mass_recomputed_electron": 1.4715014823062327,
+        "valley_count": 6,
+        "valley_population_convention": "equal population over six retained signed-axis valleys",
+        "valleys": [
+          {
+            "label": "+x",
+            "mass_inverse_identity_maximum_absolute": 8.150726845312897e-18,
+            "principal_mass_eigenvalue_maximum_absolute": 4.440892098500626e-16,
+            "single_valley_conductivity_mass_absolute_difference": 0.0,
+            "single_valley_conductivity_mass_recomputed_electron": 0.249664554899893,
+            "single_valley_dos_mass_absolute_difference": 0.0,
+            "single_valley_dos_mass_recomputed_electron": 0.4477297218838739
+          },
+          {
+            "label": "+y",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 3.9968028886505635e-15,
+            "single_valley_conductivity_mass_absolute_difference": 0.0,
+            "single_valley_conductivity_mass_recomputed_electron": 0.2508070322844704,
+            "single_valley_dos_mass_absolute_difference": 1.6653345369377348e-16,
+            "single_valley_dos_mass_recomputed_electron": 0.4454243079486108
+          },
+          {
+            "label": "+z",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 4.440892098500626e-16,
+            "single_valley_conductivity_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_conductivity_mass_recomputed_electron": 0.25126844375950924,
+            "single_valley_dos_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_dos_mass_recomputed_electron": 0.44374867144337315
+          },
+          {
+            "label": "-x",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 4.440892098500626e-16,
+            "single_valley_conductivity_mass_absolute_difference": 0.0,
+            "single_valley_conductivity_mass_recomputed_electron": 0.24967057258591044,
+            "single_valley_dos_mass_absolute_difference": 1.1102230246251565e-16,
+            "single_valley_dos_mass_recomputed_electron": 0.447763569137041
+          },
+          {
+            "label": "-y",
+            "mass_inverse_identity_maximum_absolute": 4.440892098500626e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 5.773159728050814e-15,
+            "single_valley_conductivity_mass_absolute_difference": 0.0,
+            "single_valley_conductivity_mass_recomputed_electron": 0.2508082996492441,
+            "single_valley_dos_mass_absolute_difference": 2.7755575615628914e-16,
+            "single_valley_dos_mass_recomputed_electron": 0.445469198710354
+          },
+          {
+            "label": "-z",
+            "mass_inverse_identity_maximum_absolute": 2.220446049250313e-16,
+            "principal_mass_eigenvalue_maximum_absolute": 8.881784197001252e-16,
+            "single_valley_conductivity_mass_absolute_difference": 5.551115123125783e-17,
+            "single_valley_conductivity_mass_recomputed_electron": 0.25126368365458973,
+            "single_valley_dos_mass_absolute_difference": 1.1102230246251565e-16,
+            "single_valley_dos_mass_recomputed_electron": 0.44375114781578934
+          }
+        ]
+      }
+    ],
+    "outcome": "passed"
+  },
+  "outcome": "passed",
+  "record_type": "c6_b20_w21_independent_numerical_convention_audit",
+  "schema_version": 1,
+  "sources": {
+    "comprehensive_band_edge_result": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/result.json",
+      "sha256": "533dfcbed4883793bb84d1a13d1a8f62f7bb7f99b02d3ab07bb3ea99f78b0764"
+    },
+    "gauge_alignment_locality_result": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/result.json",
+      "sha256": "0b802463af64be191b3fdedc07f732120de735efce227d1ae94cd6225f1b3ea4"
+    }
+  },
+  "status": "independent-formula-and-inventory-audit-not-full-scientific-reconstruction"
+}

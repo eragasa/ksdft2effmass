@@ -1,4 +1,4 @@
-"""Calculated-result visualization data and figures for the higher-rank D1 study.
+"""Visualization data and figures for the higher-rank analytic study.
 
 The data constructor consumes complete in-memory producer results and does not itself
 authenticate their source bytes.  The report entrypoint supplies an integrity-admitted
@@ -16,17 +16,23 @@ from typing import Literal, final
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+from matplotlib.lines import Line2D
+from matplotlib.patches import Patch, Rectangle
+from numpy.typing import NDArray
+
 from ksdft2effmass.periodic1d.hopping_locality.inventory import (
     Periodic1DHoppingDiagnosticRangeInventory,
+)
+from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
+    Periodic1DRankNAlignmentConfiguration,
 )
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityControls,
 )
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
     Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
-)
-from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
-    Periodic1DRankNAlignmentConfiguration,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
@@ -40,11 +46,6 @@ from ksdft2effmass.periodic1d.support_truncation.inventory import (
 from ksdft2effmass.periodic1d.translations import (
     Periodic1DSymmetricTranslationRange,
 )
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
-from matplotlib.lines import Line2D
-from matplotlib.patches import Patch, Rectangle
-from numpy.typing import NDArray
 
 type FloatArray = NDArray[np.float64]
 type IntArray = NDArray[np.int64]
@@ -120,7 +121,9 @@ class HigherRankDevelopmentPlot(Enum):
 class HigherRankDevelopmentFigureDataRequest:
     """Bind the complete ordered producer-result inventory to visualization data."""
 
-    calculation_results: tuple[Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis, ...]
+    calculation_results: tuple[
+        Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis, ...
+    ]
 
     def __post_init__(self) -> None:
         if type(self.calculation_results) is not tuple or any(
@@ -207,7 +210,8 @@ class HigherRankDevelopmentFigureData:
         nm = 2
         npth = len(self.refinement_labels)
         recorded_block_count = (
-            2 * Periodic1DRankNBandEquivalenceHoppingLocalityControls.MAXIMUM_RECORDED_BLOCK_RANGE
+            2
+            * Periodic1DRankNBandEquivalenceHoppingLocalityControls.MAXIMUM_RECORDED_BLOCK_RANGE
             + 1
         )
         shapes = {

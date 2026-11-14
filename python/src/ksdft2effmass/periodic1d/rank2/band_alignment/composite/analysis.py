@@ -53,6 +53,7 @@ from ksdft2effmass.periodic1d.rank2.support_truncation.band_alignment.result imp
 from ksdft2effmass.periodic1d.translations import (
     Periodic1DSymmetricTranslationRange,
 )
+from ksdft2effmass.sewing import ReciprocalEndpointSewingMap
 from ksdft2effmass.solidstate import (
     BandProjectedOperatorPathConstructor1D,
     BandProjectedOperatorPathRequest1D,
@@ -81,12 +82,13 @@ from .result import (
 class Periodic1DCompositeBandAlignmentAnalyzer:
     """Calculate one complete rank-two alignment and block-locality result."""
 
-    __slots__ = ("_procrustes_solver", "_request")
+    __slots__ = ("_endpoint_sewing", "_procrustes_solver", "_request")
 
     def __init__(
         self,
         request: Periodic1DCompositeBandAlignmentConfiguration,
         procrustes_solver: NumpyBatchedComplexUnitaryProcrustesSolver,
+        endpoint_sewing: ReciprocalEndpointSewingMap,
     ) -> None:
         if type(request) is not Periodic1DCompositeBandAlignmentConfiguration:
             raise TypeError(
@@ -96,8 +98,13 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             raise TypeError(
                 "procrustes_solver must be NumpyBatchedComplexUnitaryProcrustesSolver"
             )
+        if type(endpoint_sewing) is not ReciprocalEndpointSewingMap:
+            raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingMap")
+        if endpoint_sewing.ambient_dimension != len(request.onsite_numerators):
+            raise ValueError("endpoint sewing must match the parent ambient dimension")
         self._request = request
         self._procrustes_solver = procrustes_solver
+        self._endpoint_sewing = endpoint_sewing
 
     @property
     def request(self) -> Periodic1DCompositeBandAlignmentConfiguration:
@@ -108,6 +115,11 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
     def procrustes_solver(self) -> NumpyBatchedComplexUnitaryProcrustesSolver:
         """Return the explicitly selected right-action Procrustes collaborator."""
         return self._procrustes_solver
+
+    @property
+    def endpoint_sewing(self) -> ReciprocalEndpointSewingMap:
+        """Return the explicit ambient-space reciprocal-endpoint map."""
+        return self._endpoint_sewing
 
     def execute(self) -> Periodic1DCompositeBandAlignmentCalculationResult:
         """Construct the exact parent, align frames, and evaluate finite ranges."""
@@ -140,7 +152,7 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
         raw_path = ReciprocalBandFramePath1D(
             mesh=mesh,
             frames=raw_frames,
-            sewing_map=ComplexMatrixQuantity(np.eye(4, dtype=np.complex128), unit),
+            sewing_map=self.endpoint_sewing.coefficient_map,
             orthonormality_absolute_tolerance=(
                 configuration.dimensionless_absolute_tolerance
             ),
@@ -152,12 +164,12 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             )
         ).execute()
         reference = transport.transported
-        attack_rotations = self._attack_rotations()
-        attacked = self._rotate_path(reference, attack_rotations)
+        transformation_rotations = self._transformation_rotations()
+        gauge_transformed = self._rotate_path(reference, transformation_rotations)
         alignment = Periodic1DRank2GaugeAlignmentAnalyzer(
             Periodic1DRank2GaugeAlignmentAnalysisRequest(
                 reference=reference,
-                attacked=attacked,
+                gauge_transformed=gauge_transformed,
                 rank_absolute_tolerance=(
                     configuration.procrustes_rank_absolute_tolerance
                 ),
@@ -184,10 +196,10 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                 configuration.dimensionless_absolute_tolerance,
             )
         ).execute()
-        attacked_operator = BandProjectedOperatorPathConstructor1D(
+        gauge_transformed_operator = BandProjectedOperatorPathConstructor1D(
             BandProjectedOperatorPathRequest1D(
                 construction_parent,
-                attacked,
+                gauge_transformed,
                 configuration.dimensionless_absolute_tolerance,
             )
         ).execute()
@@ -216,7 +228,7 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             ).execute()
             for samples in (
                 reference_operator,
-                attacked_operator,
+                gauge_transformed_operator,
                 pointwise_operator,
             )
         )
@@ -358,31 +370,33 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             minimum_sampled_gap=ScalarQuantity(minimum_gap, unit),
             minimum_overlap_singular_value=(transport.minimum_overlap_singular_value),
             closure_eigenphases=transport.closure_eigenphases,
-            attack_frame_maximum_frobenius_defect=self._maximum_matrix_defect(
+            transformation_frame_maximum_frobenius_defect=self._maximum_matrix_defect(
                 reference.frames,
-                attacked.frames,
+                gauge_transformed.frames,
             ),
             pointwise_frame_maximum_frobenius_defect=self._maximum_matrix_defect(
                 reference.frames,
                 pointwise.frames,
             ),
             pointwise_projector_maximum_frobenius_defect=(
-                self._maximum_projector_defect(reference.frames, attacked.frames)
+                self._maximum_projector_defect(
+                    reference.frames, gauge_transformed.frames
+                )
             ),
             pointwise_rotation_recovery_maximum_frobenius_defect=(
                 self._rotation_recovery_defect(
                     pointwise_rotation_values,
-                    attack_rotations,
+                    transformation_rotations,
                 )
             ),
             global_frame_maximum_frobenius_defect=self._maximum_matrix_defect(
                 reference.frames,
                 globally_aligned.frames,
             ),
-            attacked_operator_maximum_frobenius_defect=ScalarQuantity(
+            gauge_transformed_operator_maximum_frobenius_defect=ScalarQuantity(
                 self._maximum_matrix_defect(
                     reference_operator.matrices,
-                    attacked_operator.matrices,
+                    gauge_transformed_operator.matrices,
                 ),
                 unit,
             ),
@@ -416,13 +430,13 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             construction_parent_spectrum=construction_spectrum,
             evaluation_parent_spectrum=evaluation_spectrum,
             reference_frames=reference.frames,
-            attacked_frames=attacked.frames,
+            gauge_transformed_frames=gauge_transformed.frames,
             pointwise_aligned_frames=pointwise.frames,
             globally_aligned_frames=globally_aligned.frames,
             pointwise_rotations=pointwise_rotations,
             global_rotation=alignment.global_rotation,
             reference_operators=reference_operator.matrices,
-            attacked_operators=attacked_operator.matrices,
+            gauge_transformed_operators=gauge_transformed_operator.matrices,
             pointwise_aligned_operators=pointwise_operator.matrices,
             globally_aligned_operators=global_operator.matrices,
             diagnostics=diagnostics,
@@ -491,22 +505,22 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
             tuple(frames),
         )
 
-    def _attack_rotations(self) -> tuple[Complex128Array, ...]:
-        return self._attack_rotations_at(
+    def _transformation_rotations(self) -> tuple[Complex128Array, ...]:
+        return self._transformation_rotations_at(
             self.request.construction_reduced_momenta(),
         )
 
-    def _attack_rotations_at(
+    def _transformation_rotations_at(
         self,
         reduced_momenta: tuple[float, ...],
     ) -> tuple[Complex128Array, ...]:
         configuration = self.request
         rotations: list[Complex128Array] = []
         for momentum in reduced_momenta:
-            angle = configuration.attack_constant_angle + sum(
+            angle = configuration.transformation_constant_angle + sum(
                 coefficient * np.sin(2.0 * np.pi * harmonic * momentum)
                 for harmonic, coefficient in enumerate(
-                    configuration.attack_sine_coefficients,
+                    configuration.transformation_sine_coefficients,
                     start=1,
                 )
             )
@@ -549,21 +563,23 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
                 ordinary_models[0], evaluation_coordinates
             )
         ).execute()
-        attacks = self._attack_rotations_at(
+        transformations = self._transformation_rotations_at(
             self.request.evaluation_reduced_momenta(),
         )
-        attacked = ReciprocalOperatorSamples1D(
+        gauge_transformed = ReciprocalOperatorSamples1D(
             coordinates=reference.coordinates,
             reciprocal_period=reference.reciprocal_period,
             matrices=tuple(
                 ComplexMatrixQuantity(
-                    attack.conj().T @ matrix.magnitude @ attack,
+                    transformation.conj().T @ matrix.magnitude @ transformation,
                     matrix.unit,
                 )
-                for matrix, attack in zip(reference.matrices, attacks, strict=True)
+                for matrix, transformation in zip(
+                    reference.matrices, transformations, strict=True
+                )
             ),
         )
-        return (reference, attacked, reference)
+        return (reference, gauge_transformed, reference)
 
     def _maximum_error_channels(
         self,
@@ -683,12 +699,14 @@ class Periodic1DCompositeBandAlignmentAnalyzer:
     def _rotation_recovery_defect(
         self,
         recovered: Complex128Array,
-        attacks: tuple[Complex128Array, ...],
+        transformations: tuple[Complex128Array, ...],
     ) -> float:
         return float(
             max(
-                np.linalg.norm(rotation - attack.conj().T)
-                for rotation, attack in zip(recovered, attacks, strict=True)
+                np.linalg.norm(rotation - transformation.conj().T)
+                for rotation, transformation in zip(
+                    recovered, transformations, strict=True
+                )
             )
         )
 

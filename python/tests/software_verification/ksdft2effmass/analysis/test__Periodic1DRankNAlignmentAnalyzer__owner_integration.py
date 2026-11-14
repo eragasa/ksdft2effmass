@@ -1,4 +1,4 @@
-"""Verify the reviewed owner capabilities required by higher-rank D1."""
+"""Verify owner capabilities required by higher-rank periodic-1D analysis."""
 
 from __future__ import annotations
 
@@ -35,7 +35,7 @@ from ksdft2effmass.analysis.matrix_field import (
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 _OPTIMIZATION_REVISION = "f0fa13693543c89b2c40f11583a1140df0cf7b0b"
-_PHYSKIT_REVISION = "fd814d05a6c06440024a51aa4eeb6f27cbe8b46f"
+_PHYSKIT_REVISION = "de47fb7b895cdd5b4d9ab6ef1ed4f418029bace4"
 
 
 class TestPeriodic1DRankNAlignmentAnalyzer:
@@ -79,7 +79,7 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
         return field
 
     def test__Periodic1DRankNAlignmentAnalyzer__preserves_correlation(self) -> None:
-        """The D1 mesh and shifted evaluation retain units, basis, and identities."""
+        """The mesh and shifted evaluation retain units, basis, and identities."""
         construction_size = 513
         evaluation_size = 8191
         construction_axis = -0.5 + np.arange(
@@ -91,8 +91,8 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
             mesh=mesh,
             matrix_samples=construction,
             energy_unit=Unitless(),
-            energy_reference="D1-E-ref-zero",
-            basis_identifier="D1-rank-three-retained-basis",
+            energy_reference="analytic-dimensionless-zero",
+            basis_identifier="periodic1d-rank-three-retained-basis",
         )
 
         transform = FinitePeriodicMatrixFourierTransformer(source=samples).result()
@@ -100,8 +100,10 @@ class TestPeriodic1DRankNAlignmentAnalyzer:
             int(value) for value in transform.series.integer_modes[:, 0]
         ) == tuple(range(-256, 257))
         assert transform.series.energy_unit == Unitless()
-        assert transform.series.energy_reference == "D1-E-ref-zero"
-        assert transform.series.basis_identifier == "D1-rank-three-retained-basis"
+        assert transform.series.energy_reference == "analytic-dimensionless-zero"
+        assert (
+            transform.series.basis_identifier == "periodic1d-rank-three-retained-basis"
+        )
 
         parseval = FinitePeriodicMatrixParsevalAnalyzer(transform=transform).result()
         hermiticity = FinitePeriodicMatrixHermiticityAnalyzer(

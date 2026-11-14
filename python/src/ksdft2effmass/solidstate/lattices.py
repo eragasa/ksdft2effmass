@@ -11,10 +11,11 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from enum import StrEnum
 from typing import TYPE_CHECKING
 
 from projectkoios.physkit.units import ModelSystemUnitConverter, PhysicalUnit
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .bravais import (
     BravaisLattice1D,
@@ -37,7 +38,7 @@ type DirectLattice = DirectLattice1D | DirectLattice2D | DirectLattice3D
 type ReciprocalLattice = ReciprocalLattice1D | ReciprocalLattice2D | ReciprocalLattice3D
 
 
-class ReciprocalLatticeConvention(StrEnum):
+class ReciprocalLatticeConvention(StrWireEnum):
     """Supported direct--reciprocal scale conventions."""
 
     TWO_PI_DUAL = "two_pi_dual"

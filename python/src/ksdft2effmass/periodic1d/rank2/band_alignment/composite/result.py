@@ -35,12 +35,12 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
     minimum_sampled_gap: ScalarQuantity
     minimum_overlap_singular_value: float
     closure_eigenphases: tuple[float, ...]
-    attack_frame_maximum_frobenius_defect: float
+    transformation_frame_maximum_frobenius_defect: float
     pointwise_frame_maximum_frobenius_defect: float
     pointwise_projector_maximum_frobenius_defect: float
     pointwise_rotation_recovery_maximum_frobenius_defect: float
     global_frame_maximum_frobenius_defect: float
-    attacked_operator_maximum_frobenius_defect: ScalarQuantity
+    gauge_transformed_operator_maximum_frobenius_defect: ScalarQuantity
     pointwise_operator_maximum_frobenius_defect: ScalarQuantity
     global_operator_maximum_frobenius_defect: ScalarQuantity
     pointwise_procrustes: Periodic1DRank2ProcrustesDiagnostics
@@ -51,8 +51,8 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
         for value, name in (
             (self.minimum_sampled_gap, "minimum_sampled_gap"),
             (
-                self.attacked_operator_maximum_frobenius_defect,
-                "attacked_operator_maximum_frobenius_defect",
+                self.gauge_transformed_operator_maximum_frobenius_defect,
+                "gauge_transformed_operator_maximum_frobenius_defect",
             ),
             (
                 self.pointwise_operator_maximum_frobenius_defect,
@@ -77,8 +77,8 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
         numerical = (
             (self.minimum_overlap_singular_value, "minimum_overlap_singular_value"),
             (
-                self.attack_frame_maximum_frobenius_defect,
-                "attack_frame_maximum_frobenius_defect",
+                self.transformation_frame_maximum_frobenius_defect,
+                "transformation_frame_maximum_frobenius_defect",
             ),
             (
                 self.pointwise_frame_maximum_frobenius_defect,
@@ -127,8 +127,8 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
             "minimum_sampled_gap": self.minimum_sampled_gap,
             "minimum_overlap_singular_value": self.minimum_overlap_singular_value,
             "closure_eigenphases": self.closure_eigenphases,
-            "attack_frame_maximum_frobenius_defect": (
-                self.attack_frame_maximum_frobenius_defect
+            "transformation_frame_maximum_frobenius_defect": (
+                self.transformation_frame_maximum_frobenius_defect
             ),
             "pointwise_frame_maximum_frobenius_defect": (
                 self.pointwise_frame_maximum_frobenius_defect
@@ -142,8 +142,8 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
             "global_frame_maximum_frobenius_defect": (
                 self.global_frame_maximum_frobenius_defect
             ),
-            "attacked_operator_maximum_frobenius_defect": (
-                self.attacked_operator_maximum_frobenius_defect
+            "gauge_transformed_operator_maximum_frobenius_defect": (
+                self.gauge_transformed_operator_maximum_frobenius_defect
             ),
             "pointwise_operator_maximum_frobenius_defect": (
                 self.pointwise_operator_maximum_frobenius_defect
@@ -161,12 +161,12 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
             "minimum_sampled_gap",
             "minimum_overlap_singular_value",
             "closure_eigenphases",
-            "attack_frame_maximum_frobenius_defect",
+            "transformation_frame_maximum_frobenius_defect",
             "pointwise_frame_maximum_frobenius_defect",
             "pointwise_projector_maximum_frobenius_defect",
             "pointwise_rotation_recovery_maximum_frobenius_defect",
             "global_frame_maximum_frobenius_defect",
-            "attacked_operator_maximum_frobenius_defect",
+            "gauge_transformed_operator_maximum_frobenius_defect",
             "pointwise_operator_maximum_frobenius_defect",
             "global_operator_maximum_frobenius_defect",
             "pointwise_procrustes",
@@ -176,7 +176,7 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
             raise ValueError("composite-band diagnostic fields do not match")
         scalar_names = (
             "minimum_sampled_gap",
-            "attacked_operator_maximum_frobenius_defect",
+            "gauge_transformed_operator_maximum_frobenius_defect",
             "pointwise_operator_maximum_frobenius_defect",
             "global_operator_maximum_frobenius_defect",
         )
@@ -211,8 +211,8 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
             minimum_sampled_gap=scalars["minimum_sampled_gap"],
             minimum_overlap_singular_value=floats["minimum_overlap_singular_value"],
             closure_eigenphases=tuple(phases),
-            attack_frame_maximum_frobenius_defect=floats[
-                "attack_frame_maximum_frobenius_defect"
+            transformation_frame_maximum_frobenius_defect=floats[
+                "transformation_frame_maximum_frobenius_defect"
             ],
             pointwise_frame_maximum_frobenius_defect=floats[
                 "pointwise_frame_maximum_frobenius_defect"
@@ -226,8 +226,8 @@ class Periodic1DCompositeBandAlignmentDiagnostics(BaseTypedRecord):
             global_frame_maximum_frobenius_defect=floats[
                 "global_frame_maximum_frobenius_defect"
             ],
-            attacked_operator_maximum_frobenius_defect=scalars[
-                "attacked_operator_maximum_frobenius_defect"
+            gauge_transformed_operator_maximum_frobenius_defect=scalars[
+                "gauge_transformed_operator_maximum_frobenius_defect"
             ],
             pointwise_operator_maximum_frobenius_defect=scalars[
                 "pointwise_operator_maximum_frobenius_defect"
@@ -593,13 +593,13 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
     construction_parent_spectrum: MatrixQuantity
     evaluation_parent_spectrum: MatrixQuantity
     reference_frames: tuple[ComplexMatrixQuantity, ...]
-    attacked_frames: tuple[ComplexMatrixQuantity, ...]
+    gauge_transformed_frames: tuple[ComplexMatrixQuantity, ...]
     pointwise_aligned_frames: tuple[ComplexMatrixQuantity, ...]
     globally_aligned_frames: tuple[ComplexMatrixQuantity, ...]
     pointwise_rotations: tuple[ComplexMatrixQuantity, ...]
     global_rotation: ComplexMatrixQuantity
     reference_operators: tuple[ComplexMatrixQuantity, ...]
-    attacked_operators: tuple[ComplexMatrixQuantity, ...]
+    gauge_transformed_operators: tuple[ComplexMatrixQuantity, ...]
     pointwise_aligned_operators: tuple[ComplexMatrixQuantity, ...]
     globally_aligned_operators: tuple[ComplexMatrixQuantity, ...]
     diagnostics: Periodic1DCompositeBandAlignmentDiagnostics
@@ -669,7 +669,7 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
                 raise ValueError(f"{name} must be unitless")
         frame_fields = (
             self.reference_frames,
-            self.attacked_frames,
+            self.gauge_transformed_frames,
             self.pointwise_aligned_frames,
             self.globally_aligned_frames,
         )
@@ -687,7 +687,7 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
             raise TypeError("global_rotation must be a two-by-two complex quantity")
         operator_fields = (
             self.reference_operators,
-            self.attacked_operators,
+            self.gauge_transformed_operators,
             self.pointwise_aligned_operators,
             self.globally_aligned_operators,
         )
@@ -749,7 +749,7 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
             },
             "frames": {
                 "reference": self.reference_frames,
-                "attacked": self.attacked_frames,
+                "gauge_transformed": self.gauge_transformed_frames,
                 "pointwise_aligned": self.pointwise_aligned_frames,
                 "globally_aligned": self.globally_aligned_frames,
             },
@@ -759,7 +759,7 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
             },
             "represented_operators": {
                 "reference": self.reference_operators,
-                "attacked": self.attacked_operators,
+                "gauge_transformed": self.gauge_transformed_operators,
                 "pointwise_aligned": self.pointwise_aligned_operators,
                 "globally_aligned": self.globally_aligned_operators,
             },
@@ -865,13 +865,13 @@ class Periodic1DCompositeBandAlignmentCalculationResult(BaseTypedRecord):
             construction_parent_spectrum=construction_spectrum,
             evaluation_parent_spectrum=evaluation_spectrum,
             reference_frames=complex_tuple(frames, "reference"),
-            attacked_frames=complex_tuple(frames, "attacked"),
+            gauge_transformed_frames=complex_tuple(frames, "gauge_transformed"),
             pointwise_aligned_frames=complex_tuple(frames, "pointwise_aligned"),
             globally_aligned_frames=complex_tuple(frames, "globally_aligned"),
             pointwise_rotations=complex_tuple(transformations, "pointwise"),
             global_rotation=global_rotation,
             reference_operators=complex_tuple(operators, "reference"),
-            attacked_operators=complex_tuple(operators, "attacked"),
+            gauge_transformed_operators=complex_tuple(operators, "gauge_transformed"),
             pointwise_aligned_operators=complex_tuple(operators, "pointwise_aligned"),
             globally_aligned_operators=complex_tuple(operators, "globally_aligned"),
             diagnostics=Periodic1DCompositeBandAlignmentDiagnostics.from_dict(

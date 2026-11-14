@@ -35,18 +35,18 @@ import pytest
 import ksdft2effmass.workflows as workflows
 import ksdft2effmass.workflows.observations as workflow_observations
 from ksdft2effmass.integration.quantum_espresso import (
-    QuantumEspressoExtractedObservationResult,
-    QuantumEspressoObservationAdapter,
-    QuantumEspressoObservationExtractionRequest,
-    QuantumEspressoObservationNormalizationPolicy,
-    QuantumEspressoObservationNormalizationPolicyIdentity,
-    QuantumEspressoParsedDocumentIdentity,
-    QuantumEspressoParsedDocumentRecord,
-    QuantumEspressoXsdParserIdentity,
+    QeExtractedObservationResult,
+    QeObservationAdapter,
+    QeObservationExtractionRequest,
+    QeObservationNormalizationPolicy,
+    QeObservationNormalizationPolicyIdentity,
+    QeParsedDocumentIdentity,
+    QeParsedDocumentRecord,
+    QeXsdParserIdentity,
 )
 from ksdft2effmass.integration.quantum_espresso.qexsd import (
+    QeXsdDocumentParser,
     QexsdSource,
-    QuantumEspressoXsdDocumentParser,
 )
 from ksdft2effmass.ksdft.pw import KohnShamPlaneWaveCalculationRecord
 from ksdft2effmass.workflows import (
@@ -71,7 +71,7 @@ from ksdft2effmass.workflows.artifacts import (
     ArtifactManifestIdentity,
     ArtifactProducerKind,
     ArtifactProducerProvenanceIdentity,
-    UnknownLegacyProducer,
+    ImportedRetainedFixture,
 )
 from ksdft2effmass.workflows.model import WorkflowIdentity, WorkflowRunIdentity
 
@@ -93,8 +93,8 @@ class TestNormalizedObservationAssembler:
         source_artifact_identity: ArtifactIdentity
         source_content_identity: ArtifactContentIdentity
         source_producer_provenance_identity: ArtifactProducerProvenanceIdentity
-        parsed_document_identity: QuantumEspressoParsedDocumentIdentity
-        parser_identity: QuantumEspressoXsdParserIdentity
+        parsed_document_identity: QeParsedDocumentIdentity
+        parser_identity: QeXsdParserIdentity
         parser_version: str
         normalization_policy: ObservationNormalizationPolicySource
         limitation_values: tuple[str, ...]
@@ -107,7 +107,7 @@ class TestNormalizedObservationAssembler:
         version: str
 
     @staticmethod
-    def source(suffix: str = "one") -> QuantumEspressoExtractedObservationResult:
+    def source(suffix: str = "one") -> QeExtractedObservationResult:
         """Return one exact synthetic integration-owned extracted observation.
 
         Evidence ID: Helper owns no identifier.
@@ -130,7 +130,7 @@ class TestNormalizedObservationAssembler:
         )
         fixture_bytes = fixture_path.read_bytes()
         digest = hashlib.sha256(fixture_bytes).hexdigest()
-        document = QuantumEspressoXsdDocumentParser().execute(
+        document = QeXsdDocumentParser().execute(
             QexsdSource(
                 "/controlled/source.xml",
                 digest,
@@ -142,16 +142,24 @@ class TestNormalizedObservationAssembler:
             "sha256", document.source_sha256, document.source_byte_count
         )
         artifact = ArtifactIdentity(f"artifact.synthetic.qexsd.{suffix}")
-        producer = UnknownLegacyProducer(
+        producer = ImportedRetainedFixture(
             ArtifactProducerProvenanceIdentity(f"producer.synthetic.qexsd.{suffix}"),
             1,
-            ArtifactProducerKind.UNKNOWN_LEGACY,
+            ArtifactProducerKind.IMPORTED_RETAINED_FIXTURE,
             artifact,
             content,
             (f"evidence.synthetic.qexsd.{suffix}",),
             ("claim.synthetic-test-data-only",),
-            "synthetic source has no represented Workflow producer",
-            ("producer lineage intentionally unavailable",),
+            f"fixture.synthetic.qexsd.{suffix}",
+            "fixture.revision.1",
+            f"source.synthetic.qexsd.{suffix}",
+            f"synthetic/qexsd/{suffix}.xml",
+            f"import.synthetic.qexsd.{suffix}",
+            f"import.receipt.synthetic.qexsd.{suffix}",
+            f"retained.source.synthetic.qexsd.{suffix}",
+            content,
+            f"checksum.synthetic.qexsd.{suffix}",
+            f"provenance.synthetic.qexsd.{suffix}",
             "synthetic_test_data",
         )
         entry_identity = ArtifactManifestEntryIdentity(
@@ -170,8 +178,8 @@ class TestNormalizedObservationAssembler:
                     entry_identity,
                     artifact,
                     content,
-                    QuantumEspressoObservationAdapter.SUPPORTED_NATIVE_FORMAT,
-                    QuantumEspressoObservationAdapter.SUPPORTED_SEMANTIC_ROLE,
+                    QeObservationAdapter.SUPPORTED_NATIVE_FORMAT,
+                    QeObservationAdapter.SUPPORTED_SEMANTIC_ROLE,
                     "retained-software-verification-fixture",
                     (),
                     f"synthetic/qexsd/{suffix}.xml",
@@ -180,33 +188,33 @@ class TestNormalizedObservationAssembler:
                 ),
             ),
         )
-        parsed_document = QuantumEspressoParsedDocumentRecord(
-            identity=QuantumEspressoParsedDocumentIdentity(
+        parsed_document = QeParsedDocumentRecord(
+            identity=QeParsedDocumentIdentity(
                 f"parsed-document.synthetic.qexsd.{suffix}"
             ),
-            parser_identity=QuantumEspressoXsdParserIdentity(
-                QuantumEspressoObservationAdapter.SUPPORTED_PARSER_IDENTITY
+            parser_identity=QeXsdParserIdentity(
+                QeObservationAdapter.SUPPORTED_PARSER_IDENTITY
             ),
-            parser_version=QuantumEspressoObservationAdapter.SUPPORTED_PARSER_VERSION,
+            parser_version=QeObservationAdapter.SUPPORTED_PARSER_VERSION,
             source_content_identity=content,
             document=document,
         )
-        request = QuantumEspressoObservationExtractionRequest(
+        request = QeObservationExtractionRequest(
             result_identity=ResultObjectIdentity(
                 f"result.synthetic.qexsd-extraction.{suffix}"
             ),
             parsed_document=parsed_document,
             source_manifest=manifest,
             source_manifest_entry_identity=entry_identity,
-            normalization_policy=QuantumEspressoObservationNormalizationPolicy(
-                QuantumEspressoObservationNormalizationPolicyIdentity(
-                    QuantumEspressoObservationAdapter.SUPPORTED_POLICY_IDENTITY
+            normalization_policy=QeObservationNormalizationPolicy(
+                QeObservationNormalizationPolicyIdentity(
+                    QeObservationAdapter.SUPPORTED_POLICY_IDENTITY
                 ),
-                QuantumEspressoObservationAdapter.SUPPORTED_POLICY_VERSION,
+                QeObservationAdapter.SUPPORTED_POLICY_VERSION,
             ),
         )
-        result = QuantumEspressoObservationAdapter().execute(request)
-        if type(result) is not QuantumEspressoExtractedObservationResult:
+        result = QeObservationAdapter().execute(request)
+        if type(result) is not QeExtractedObservationResult:
             raise AssertionError("synthetic extraction source must succeed")
         return result
 

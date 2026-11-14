@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import warnings
 from dataclasses import dataclass
 
 import numpy as np
@@ -331,22 +330,6 @@ class Periodic1DStressResultJsonSerializer(
         if type(value) is not Periodic1DStressCampaignResult:
             raise TypeError("value must be Periodic1DStressCampaignResult")
         return self.retained.serialize(value.source_document)
-
-    def decode(self, payload: bytes) -> Periodic1DStressCampaignResult:
-        """Deprecated compatibility alias for :meth:`deserialize`."""
-        warnings.warn(
-            "decode() is deprecated; use deserialize()",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return self.deserialize(payload)
-
-    def encode(self, value: Periodic1DStressCampaignResult) -> bytes:
-        """Deprecated compatibility alias for :meth:`serialize`."""
-        warnings.warn(
-            "encode() is deprecated; use serialize()", DeprecationWarning, stacklevel=2
-        )
-        return self.serialize(value)
 
     def deserialize_amplitude(
         self, value: Periodic1DJsonObject

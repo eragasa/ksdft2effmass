@@ -14,6 +14,12 @@ Fourier convention, locality, support, and bounded aggregate software verificati
 Visualization, resources for an execution-scale study, lifecycle/authentication, and
 retained execution remain unselected.
 
+The source hierarchy is capability-first: dimension-neutral periodic finite-rank owners
+are refined by periodic-3D rank-N owners, and applicable periodic-3D rank-two operation
+owners refine those rank-N owners while fixing rank two. This does not admit rank two to
+the calculation-owned `3`, `4`, and `8` study inventory or transfer any rank-two
+calculation result, threshold, lifecycle, or evidence identity.
+
 ## Analysis order
 
 This fixed-geometry family follows the multidimensional higher-rank stage of the shared
@@ -41,7 +47,7 @@ entrypoints in this calculation root.
 
 The fixed-geometry protocol does **not** select a continuous synthetic-strain or Bain-path
 study. The separate partial-protocol context is
-[`calculations/periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/README.md).
+[`calculations/periodic3d_rankN_strain/`](../../periodic3d_rankN_strain/README.md).
 It now selects the exact Bain geometry/common-state-space, M0 shared-`2r` flat
 `lambda=0` geometry control, and M1N frozen `2r`-state analytic-parent semantics. Its
 candidate rank/depth inventories still require explicit path-specific adoption, while

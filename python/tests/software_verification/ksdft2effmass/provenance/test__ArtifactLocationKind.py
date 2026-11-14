@@ -18,7 +18,7 @@ Intrinsic and cross-object scope
 
 --------------------------------
 The sole primary SUT is ``ArtifactLocationKind``. Exact fixed names, wire values,
-declaration order, and Python ``StrEnum`` lookup behavior provide the oracles.
+declaration order, and Python ``StrWireEnum`` lookup behavior provide the oracles.
 The enum selects a representation form only. It does not validate an
 ``ArtifactLocation`` or path, resolve a root or external descriptor, prove
 artifact existence, retrieve artifact content, or establish byte identity.
@@ -32,11 +32,10 @@ evidence does not establish scientific validity, UQ, physical correctness,
 portability beyond the declared vocabulary, or cross-language agreement.
 """
 
-from enum import StrEnum
-
 import pytest
 
 from ksdft2effmass.provenance import ArtifactLocationKind
+from ksdft2effmass.serialization import StrWireEnum
 
 SUT = ArtifactLocationKind
 pytestmark = pytest.mark.software_verification
@@ -55,7 +54,7 @@ def test_field__wire_vocabulary__has_exact_order_names_values_and_count() -> Non
     Oracle: The accepted vocabulary is ROOT_RELATIVE/root_relative followed by
     EXTERNAL_DESCRIPTOR/external_descriptor.
 
-    Acceptance: The enum subclasses StrEnum; order, names, values, and count match
+    Acceptance: The enum subclasses StrWireEnum; order, names, values, and count match
     exactly;
     ``__members__`` has exactly those names and identities with no aliases.
 
@@ -71,7 +70,7 @@ def test_field__wire_vocabulary__has_exact_order_names_values_and_count() -> Non
         ArtifactLocationKind.ROOT_RELATIVE,
         ArtifactLocationKind.EXTERNAL_DESCRIPTOR,
     )
-    assert issubclass(ArtifactLocationKind, StrEnum)
+    assert issubclass(ArtifactLocationKind, StrWireEnum)
     assert tuple(ArtifactLocationKind) == expected_members
     assert tuple(member.name for member in ArtifactLocationKind) == (
         "ROOT_RELATIVE",

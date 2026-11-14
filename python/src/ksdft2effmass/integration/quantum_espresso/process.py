@@ -16,9 +16,15 @@ import stat
 import subprocess
 import time
 from dataclasses import dataclass, field
-from enum import StrEnum
 from pathlib import Path
 
+from projectkoios.simulations.calculator_input import (
+    CalculatorExternalInputRequirement,
+    CalculatorInputArtifact,
+)
+from projectkoios.simulations.execution import CalculatorExitCode
+
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.workflows import (
     ArtifactContentIdentity,
     ArtifactIdentity,
@@ -27,43 +33,43 @@ from ksdft2effmass.workflows import (
 )
 
 from .contracts import (
-    QuantumEspressoDiagnosticChannel,
-    QuantumEspressoFileArtifactContent,
-    QuantumEspressoNativeInputArtifact,
-    QuantumEspressoNormalProcessExit,
-    QuantumEspressoPredecessorNativeStateArtifact,
-    QuantumEspressoPreparationIdentity,
-    QuantumEspressoProcessObservation,
-    QuantumEspressoProcessObservationIdentity,
-    QuantumEspressoProcessSignalTermination,
-    QuantumEspressoProcessTermination,
-    QuantumEspressoProcessTimeout,
-    QuantumEspressoPseudopotentialArtifact,
-    QuantumEspressoStreamObservation,
-    QuantumEspressoTreeArtifactContent,
+    QeDiagnosticChannel,
+    QeExecutionInput,
+    QeFileArtifactContent,
+    QeNativeInputArtifact,
+    QeNormalProcessExit,
+    QePreparationIdentity,
+    QeProcessObservation,
+    QeProcessObservationIdentity,
+    QeProcessSignalTermination,
+    QeProcessTermination,
+    QeProcessTimeout,
+    QeStreamObservation,
+    QeTreeArtifactContent,
 )
 from .effects import (
-    QuantumEspressoStagedExecution,
-    QuantumEspressoStagingResultIdentity,
-    QuantumEspressoWorkspaceSnapshot,
-    QuantumEspressoWorkspaceSnapshotFailure,
-    QuantumEspressoWorkspaceSnapshotPhase,
-    QuantumEspressoWorkspaceSnapshotPublicationFailure,
-    QuantumEspressoWorkspaceSnapshotPublicationResult,
-    QuantumEspressoWorkspaceSnapshotPublisher,
-    QuantumEspressoWorkspaceSnapshotSerializer,
-    QuantumEspressoWorkspaceSnapshotter,
+    QeStagedExecution,
+    QeStagingResultIdentity,
+    QeWorkspaceSnapshot,
+    QeWorkspaceSnapshotEntry,
+    QeWorkspaceSnapshotFailure,
+    QeWorkspaceSnapshotPhase,
+    QeWorkspaceSnapshotPublicationFailure,
+    QeWorkspaceSnapshotPublicationResult,
+    QeWorkspaceSnapshotPublisher,
+    QeWorkspaceSnapshotSerializer,
+    QeWorkspaceSnapshotter,
 )
 from .execution import (
-    LocalQuantumEspressoPeakResidentBytesUnlimited,
-    LocalQuantumEspressoPreparedExecution,
-    LocalQuantumEspressoResolvedDestination,
-    LocalQuantumEspressoResolvedDestinationRole,
+    LocalQePeakResidentBytesUnlimited,
+    LocalQePreparedExecution,
+    LocalQeResolvedDestination,
+    LocalQeResolvedDestinationRole,
 )
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class LocalQuantumEspressoStreamArtifactBindings:
+class LocalQeStreamArtifactBindings:
     """Bind distinct stream artifact identities to prepared stream destinations.
 
     Attributes
@@ -86,14 +92,14 @@ class LocalQuantumEspressoStreamArtifactBindings:
             raise ValueError("stdout and stderr artifact identities must be distinct")
 
 
-class LocalQuantumEspressoProcessFailureDisposition(StrEnum):
+class LocalQeProcessFailureDisposition(StrWireEnum):
     """Distinguish known pre-entry rejection from post-entry uncertainty."""
 
     REJECTED = "rejected"
     INDETERMINATE = "indeterminate"
 
 
-class LocalQuantumEspressoProcessFailureCode(StrEnum):
+class LocalQeProcessFailureCode(StrWireEnum):
     """Closed local process-runner integration failure codes."""
 
     STAGING_MISMATCH = "staging_mismatch"
@@ -111,7 +117,7 @@ class LocalQuantumEspressoProcessFailureCode(StrEnum):
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class LocalQuantumEspressoProcessFailure:
+class LocalQeProcessFailure:
     """Represent one rejected or indeterminate local process result.
 
     Attributes
@@ -130,28 +136,22 @@ class LocalQuantumEspressoProcessFailure:
         Sanitized nonempty mechanical observation; no scientific interpretation.
     """
 
-    code: LocalQuantumEspressoProcessFailureCode
-    disposition: LocalQuantumEspressoProcessFailureDisposition
-    preparation_identity: QuantumEspressoPreparationIdentity
-    staging_identity: QuantumEspressoStagingResultIdentity
+    code: LocalQeProcessFailureCode
+    disposition: LocalQeProcessFailureDisposition
+    preparation_identity: QePreparationIdentity
+    staging_identity: QeStagingResultIdentity
     process_entered: bool
     observed_condition: str
 
     def __post_init__(self) -> None:
-        if type(self.code) is not LocalQuantumEspressoProcessFailureCode:
-            raise TypeError("code must be LocalQuantumEspressoProcessFailureCode")
-        if type(self.disposition) is not LocalQuantumEspressoProcessFailureDisposition:
-            raise TypeError(
-                "disposition must be LocalQuantumEspressoProcessFailureDisposition"
-            )
-        if type(self.preparation_identity) is not QuantumEspressoPreparationIdentity:
-            raise TypeError(
-                "preparation_identity must be QuantumEspressoPreparationIdentity"
-            )
-        if type(self.staging_identity) is not QuantumEspressoStagingResultIdentity:
-            raise TypeError(
-                "staging_identity must be QuantumEspressoStagingResultIdentity"
-            )
+        if type(self.code) is not LocalQeProcessFailureCode:
+            raise TypeError("code must be LocalQeProcessFailureCode")
+        if type(self.disposition) is not LocalQeProcessFailureDisposition:
+            raise TypeError("disposition must be LocalQeProcessFailureDisposition")
+        if type(self.preparation_identity) is not QePreparationIdentity:
+            raise TypeError("preparation_identity must be QePreparationIdentity")
+        if type(self.staging_identity) is not QeStagingResultIdentity:
+            raise TypeError("staging_identity must be QeStagingResultIdentity")
         if type(self.process_entered) is not bool:
             raise TypeError("process_entered must be a built-in bool")
         if type(self.observed_condition) is not str:
@@ -159,16 +159,16 @@ class LocalQuantumEspressoProcessFailure:
         if not self.observed_condition:
             raise ValueError("observed_condition must not be empty")
         expected = (
-            LocalQuantumEspressoProcessFailureDisposition.INDETERMINATE
+            LocalQeProcessFailureDisposition.INDETERMINATE
             if self.process_entered
-            else LocalQuantumEspressoProcessFailureDisposition.REJECTED
+            else LocalQeProcessFailureDisposition.REJECTED
         )
         if self.disposition is not expected:
             raise ValueError("failure disposition must agree with process entry")
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class LocalQuantumEspressoCapturedProcess:
+class LocalQeCapturedProcess:
     """Return one complete mechanical process observation and exact stream bytes.
 
     Attributes
@@ -185,27 +185,24 @@ class LocalQuantumEspressoCapturedProcess:
         Exact bounded bytes captured independently from standard error.
     """
 
-    observation: QuantumEspressoProcessObservation
-    before_snapshot: QuantumEspressoWorkspaceSnapshot
-    after_snapshot: QuantumEspressoWorkspaceSnapshot
+    observation: QeProcessObservation
+    before_snapshot: QeWorkspaceSnapshot
+    after_snapshot: QeWorkspaceSnapshot
     stdout_bytes: bytes
     stderr_bytes: bytes
 
     def __post_init__(self) -> None:
-        if type(self.observation) is not QuantumEspressoProcessObservation:
-            raise TypeError("observation must be QuantumEspressoProcessObservation")
+        if type(self.observation) is not QeProcessObservation:
+            raise TypeError("observation must be QeProcessObservation")
         for snapshot, name in (
             (self.before_snapshot, "before_snapshot"),
             (self.after_snapshot, "after_snapshot"),
         ):
-            if type(snapshot) is not QuantumEspressoWorkspaceSnapshot:
-                raise TypeError(f"{name} must be QuantumEspressoWorkspaceSnapshot")
-        if (
-            self.before_snapshot.phase
-            is not QuantumEspressoWorkspaceSnapshotPhase.BEFORE
-        ):
+            if type(snapshot) is not QeWorkspaceSnapshot:
+                raise TypeError(f"{name} must be QeWorkspaceSnapshot")
+        if self.before_snapshot.phase is not QeWorkspaceSnapshotPhase.BEFORE:
             raise ValueError("before_snapshot must use the before phase")
-        if self.after_snapshot.phase is not QuantumEspressoWorkspaceSnapshotPhase.AFTER:
+        if self.after_snapshot.phase is not QeWorkspaceSnapshotPhase.AFTER:
             raise ValueError("after_snapshot must use the after phase")
         for stream_bytes, name in (
             (self.stdout_bytes, "stdout_bytes"),
@@ -233,13 +230,11 @@ class LocalQuantumEspressoCapturedProcess:
         )
 
 
-type LocalQuantumEspressoProcessResult = (
-    LocalQuantumEspressoCapturedProcess | LocalQuantumEspressoProcessFailure
-)
+type LocalQeProcessResult = LocalQeCapturedProcess | LocalQeProcessFailure
 
 
 @dataclass(frozen=True, slots=True)
-class LocalQuantumEspressoProcessRunner:
+class LocalQeProcessRunner:
     """Run one prepared deterministic local process with exact separate capture.
 
     Parameters
@@ -264,14 +259,12 @@ class LocalQuantumEspressoProcessRunner:
     """
 
     observer_version: str
-    snapshotter: QuantumEspressoWorkspaceSnapshotter
-    snapshot_serializer: QuantumEspressoWorkspaceSnapshotSerializer = field(
-        default_factory=QuantumEspressoWorkspaceSnapshotSerializer
+    snapshotter: QeWorkspaceSnapshotter
+    snapshot_serializer: QeWorkspaceSnapshotSerializer = field(
+        default_factory=QeWorkspaceSnapshotSerializer
     )
-    snapshot_publisher: QuantumEspressoWorkspaceSnapshotPublisher = field(
-        default_factory=lambda: QuantumEspressoWorkspaceSnapshotPublisher(
-            "qe-snapshot-publisher:1"
-        )
+    snapshot_publisher: QeWorkspaceSnapshotPublisher = field(
+        default_factory=lambda: QeWorkspaceSnapshotPublisher("qe-snapshot-publisher:1")
     )
 
     def __post_init__(self) -> None:
@@ -279,36 +272,26 @@ class LocalQuantumEspressoProcessRunner:
             raise TypeError("observer_version must be a built-in str")
         if not self.observer_version:
             raise ValueError("observer_version must not be empty")
-        if type(self.snapshotter) is not QuantumEspressoWorkspaceSnapshotter:
-            raise TypeError("snapshotter must be QuantumEspressoWorkspaceSnapshotter")
-        if type(self.snapshot_serializer) is not (
-            QuantumEspressoWorkspaceSnapshotSerializer
-        ):
-            raise TypeError(
-                "snapshot_serializer must be QuantumEspressoWorkspaceSnapshotSerializer"
-            )
-        if type(self.snapshot_publisher) is not (
-            QuantumEspressoWorkspaceSnapshotPublisher
-        ):
-            raise TypeError(
-                "snapshot_publisher must be QuantumEspressoWorkspaceSnapshotPublisher"
-            )
+        if type(self.snapshotter) is not QeWorkspaceSnapshotter:
+            raise TypeError("snapshotter must be QeWorkspaceSnapshotter")
+        if type(self.snapshot_serializer) is not (QeWorkspaceSnapshotSerializer):
+            raise TypeError("snapshot_serializer must be QeWorkspaceSnapshotSerializer")
+        if type(self.snapshot_publisher) is not (QeWorkspaceSnapshotPublisher):
+            raise TypeError("snapshot_publisher must be QeWorkspaceSnapshotPublisher")
 
     def execute(
         self,
-        prepared: LocalQuantumEspressoPreparedExecution,
-        staged: QuantumEspressoStagedExecution,
-        streams: LocalQuantumEspressoStreamArtifactBindings,
-    ) -> LocalQuantumEspressoProcessResult:
+        prepared: LocalQePreparedExecution,
+        staged: QeStagedExecution,
+        streams: LocalQeStreamArtifactBindings,
+    ) -> LocalQeProcessResult:
         """Enter at most one process and return a closed observation or failure."""
-        if type(prepared) is not LocalQuantumEspressoPreparedExecution:
-            raise TypeError("prepared must be LocalQuantumEspressoPreparedExecution")
-        if type(staged) is not QuantumEspressoStagedExecution:
-            raise TypeError("staged must be QuantumEspressoStagedExecution")
-        if type(streams) is not LocalQuantumEspressoStreamArtifactBindings:
-            raise TypeError(
-                "streams must be LocalQuantumEspressoStreamArtifactBindings"
-            )
+        if type(prepared) is not LocalQePreparedExecution:
+            raise TypeError("prepared must be LocalQePreparedExecution")
+        if type(staged) is not QeStagedExecution:
+            raise TypeError("staged must be QeStagedExecution")
+        if type(streams) is not LocalQeStreamArtifactBindings:
+            raise TypeError("streams must be LocalQeStreamArtifactBindings")
         if (
             staged.preparation_identity != prepared.identity
             or staged.workspace != prepared.workspace
@@ -316,7 +299,7 @@ class LocalQuantumEspressoProcessRunner:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.STAGING_MISMATCH,
+                LocalQeProcessFailureCode.STAGING_MISMATCH,
                 False,
                 "staging identity or workspace does not match preparation",
             )
@@ -336,48 +319,44 @@ class LocalQuantumEspressoProcessRunner:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.EXECUTABLE_CHANGED,
+                LocalQeProcessFailureCode.EXECUTABLE_CHANGED,
                 False,
                 "executable identity or runnable state changed after preparation",
             )
         if type(prepared.request.limits.peak_resident_bytes) is not (
-            LocalQuantumEspressoPeakResidentBytesUnlimited
+            LocalQePeakResidentBytesUnlimited
         ):
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.MEMORY_LIMIT_UNSUPPORTED,
+                LocalQeProcessFailureCode.MEMORY_LIMIT_UNSUPPORTED,
                 False,
                 "peak resident-memory enforcement is unavailable",
             )
-        before = self.snapshotter.execute(
-            prepared, QuantumEspressoWorkspaceSnapshotPhase.BEFORE
-        )
-        if type(before) is QuantumEspressoWorkspaceSnapshotFailure:
+        before = self.snapshotter.execute(prepared, QeWorkspaceSnapshotPhase.BEFORE)
+        if type(before) is QeWorkspaceSnapshotFailure:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.BEFORE_SNAPSHOT_FAILED,
+                LocalQeProcessFailureCode.BEFORE_SNAPSHOT_FAILED,
                 False,
                 "before-workspace snapshot could not be closed",
             )
-        assert type(before) is QuantumEspressoWorkspaceSnapshot
+        assert type(before) is QeWorkspaceSnapshot
         if not self._prepared_inputs_match(prepared, before):
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.INPUT_IDENTITY_CHANGED,
+                LocalQeProcessFailureCode.INPUT_IDENTITY_CHANGED,
                 False,
                 "one or more staged input identities changed before process entry",
             )
         before_publication = self._publish_snapshot(prepared, before)
-        if type(before_publication) is (
-            QuantumEspressoWorkspaceSnapshotPublicationFailure
-        ):
+        if type(before_publication) is (QeWorkspaceSnapshotPublicationFailure):
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.BEFORE_SNAPSHOT_FAILED,
+                LocalQeProcessFailureCode.BEFORE_SNAPSHOT_FAILED,
                 False,
                 "before-workspace snapshot record could not be published",
             )
@@ -409,15 +388,15 @@ class LocalQuantumEspressoProcessRunner:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.EXECUTABLE_CHANGED,
+                LocalQeProcessFailureCode.EXECUTABLE_CHANGED,
                 False,
                 "staged executable could not be opened as the exact launch object",
             )
         stdout_path = self._destination(
-            prepared, LocalQuantumEspressoResolvedDestinationRole.STDOUT
+            prepared, LocalQeResolvedDestinationRole.STDOUT
         ).absolute_path
         stderr_path = self._destination(
-            prepared, LocalQuantumEspressoResolvedDestinationRole.STDERR
+            prepared, LocalQeResolvedDestinationRole.STDERR
         ).absolute_path
         input_path = self._input_destination(prepared).absolute_path
         if any(
@@ -427,7 +406,7 @@ class LocalQuantumEspressoProcessRunner:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.STREAM_DESTINATION_EXISTS,
+                LocalQeProcessFailureCode.STREAM_DESTINATION_EXISTS,
                 False,
                 "one or more stream destinations already exist",
             )
@@ -442,7 +421,7 @@ class LocalQuantumEspressoProcessRunner:
             if not stat.S_ISREG(input_metadata.st_mode):
                 raise OSError("native input is not a regular file")
             native_input_content = prepared.request.execution_input.native_input.content
-            if type(native_input_content) is not QuantumEspressoFileArtifactContent:
+            if type(native_input_content) is not QeFileArtifactContent:
                 raise OSError("native input content is not a file identity")
             if (
                 self._descriptor_content_identity(
@@ -458,7 +437,7 @@ class LocalQuantumEspressoProcessRunner:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.INPUT_UNAVAILABLE,
+                LocalQeProcessFailureCode.INPUT_UNAVAILABLE,
                 False,
                 "staged native input could not be opened exactly",
             )
@@ -496,7 +475,7 @@ class LocalQuantumEspressoProcessRunner:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.STREAM_DESTINATION_EXISTS,
+                LocalQeProcessFailureCode.STREAM_DESTINATION_EXISTS,
                 False,
                 "a no-replace stream destination already exists",
             )
@@ -510,7 +489,7 @@ class LocalQuantumEspressoProcessRunner:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.SPAWN_FAILED,
+                LocalQeProcessFailureCode.SPAWN_FAILED,
                 False,
                 "local process creation failed before process entry",
             )
@@ -534,7 +513,7 @@ class LocalQuantumEspressoProcessRunner:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.LIFECYCLE_UNRESOLVED,
+                LocalQeProcessFailureCode.LIFECYCLE_UNRESOLVED,
                 True,
                 "process lifecycle could not be closed after entry",
             )
@@ -542,31 +521,27 @@ class LocalQuantumEspressoProcessRunner:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.OUTPUT_LIMIT_EXCEEDED,
+                LocalQeProcessFailureCode.OUTPUT_LIMIT_EXCEEDED,
                 True,
                 "workspace output exceeded a declared operational ceiling",
             )
         duration = time.monotonic_ns() - start
-        after = self.snapshotter.execute(
-            prepared, QuantumEspressoWorkspaceSnapshotPhase.AFTER
-        )
-        if type(after) is QuantumEspressoWorkspaceSnapshotFailure:
+        after = self.snapshotter.execute(prepared, QeWorkspaceSnapshotPhase.AFTER)
+        if type(after) is QeWorkspaceSnapshotFailure:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.AFTER_SNAPSHOT_FAILED,
+                LocalQeProcessFailureCode.AFTER_SNAPSHOT_FAILED,
                 True,
                 "after-workspace snapshot could not be closed",
             )
-        assert type(after) is QuantumEspressoWorkspaceSnapshot
+        assert type(after) is QeWorkspaceSnapshot
         after_publication = self._publish_snapshot(prepared, after)
-        if type(after_publication) is (
-            QuantumEspressoWorkspaceSnapshotPublicationFailure
-        ):
+        if type(after_publication) is (QeWorkspaceSnapshotPublicationFailure):
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.AFTER_SNAPSHOT_FAILED,
+                LocalQeProcessFailureCode.AFTER_SNAPSHOT_FAILED,
                 True,
                 "after-workspace snapshot record could not be published",
             )
@@ -580,7 +555,7 @@ class LocalQuantumEspressoProcessRunner:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.CAPTURE_FAILED,
+                LocalQeProcessFailureCode.CAPTURE_FAILED,
                 True,
                 "stream identities are absent from the after snapshot",
             )
@@ -591,12 +566,12 @@ class LocalQuantumEspressoProcessRunner:
             return self._failure(
                 prepared,
                 staged,
-                LocalQuantumEspressoProcessFailureCode.CAPTURE_FAILED,
+                LocalQeProcessFailureCode.CAPTURE_FAILED,
                 True,
                 "one or more bounded stream captures could not be closed exactly",
             )
         argv_identity = self._content_identity(self._framed_bytes(prepared.argv))
-        identity = QuantumEspressoProcessObservationIdentity(
+        identity = QeProcessObservationIdentity(
             "qe-process-observation-v1:"
             + self._framed_digest(
                 (
@@ -613,7 +588,7 @@ class LocalQuantumEspressoProcessRunner:
                 )
             )
         )
-        observation = QuantumEspressoProcessObservation(
+        observation = QeProcessObservation(
             identity=identity,
             execution_input_identity=prepared.request.execution_input.identity,
             executable_configuration_identity=(
@@ -624,13 +599,13 @@ class LocalQuantumEspressoProcessRunner:
             argv_content_identity=argv_identity,
             termination=termination,
             wall_duration_nanoseconds=duration,
-            stdout=QuantumEspressoStreamObservation(
-                channel=QuantumEspressoDiagnosticChannel.STDOUT,
+            stdout=QeStreamObservation(
+                channel=QeDiagnosticChannel.STDOUT,
                 artifact_identity=streams.stdout_artifact_identity,
                 content_identity=stdout_content,
             ),
-            stderr=QuantumEspressoStreamObservation(
-                channel=QuantumEspressoDiagnosticChannel.STDERR,
+            stderr=QeStreamObservation(
+                channel=QeDiagnosticChannel.STDERR,
                 artifact_identity=streams.stderr_artifact_identity,
                 content_identity=stderr_content,
             ),
@@ -641,7 +616,7 @@ class LocalQuantumEspressoProcessRunner:
             peak_resident_bytes=None,
             observer_version=self.observer_version,
         )
-        return LocalQuantumEspressoCapturedProcess(
+        return LocalQeCapturedProcess(
             observation=observation,
             before_snapshot=before,
             after_snapshot=after,
@@ -651,9 +626,9 @@ class LocalQuantumEspressoProcessRunner:
 
     def _publish_snapshot(
         self,
-        prepared: LocalQuantumEspressoPreparedExecution,
-        snapshot: QuantumEspressoWorkspaceSnapshot,
-    ) -> QuantumEspressoWorkspaceSnapshotPublicationResult:
+        prepared: LocalQePreparedExecution,
+        snapshot: QeWorkspaceSnapshot,
+    ) -> QeWorkspaceSnapshotPublicationResult:
         serialized = self.snapshot_serializer.execute(snapshot)
         content_identity = self._content_identity(serialized)
         return self.snapshot_publisher.execute(
@@ -662,18 +637,18 @@ class LocalQuantumEspressoProcessRunner:
 
     @staticmethod
     def _failure(
-        prepared: LocalQuantumEspressoPreparedExecution,
-        staged: QuantumEspressoStagedExecution,
-        code: LocalQuantumEspressoProcessFailureCode,
+        prepared: LocalQePreparedExecution,
+        staged: QeStagedExecution,
+        code: LocalQeProcessFailureCode,
         entered: bool,
         condition: str,
-    ) -> LocalQuantumEspressoProcessFailure:
-        return LocalQuantumEspressoProcessFailure(
+    ) -> LocalQeProcessFailure:
+        return LocalQeProcessFailure(
             code=code,
             disposition=(
-                LocalQuantumEspressoProcessFailureDisposition.INDETERMINATE
+                LocalQeProcessFailureDisposition.INDETERMINATE
                 if entered
-                else LocalQuantumEspressoProcessFailureDisposition.REJECTED
+                else LocalQeProcessFailureDisposition.REJECTED
             ),
             preparation_identity=prepared.identity,
             staging_identity=staged.identity,
@@ -683,9 +658,9 @@ class LocalQuantumEspressoProcessRunner:
 
     @staticmethod
     def _destination(
-        prepared: LocalQuantumEspressoPreparedExecution,
-        role: LocalQuantumEspressoResolvedDestinationRole,
-    ) -> LocalQuantumEspressoResolvedDestination:
+        prepared: LocalQePreparedExecution,
+        role: LocalQeResolvedDestinationRole,
+    ) -> LocalQeResolvedDestination:
         values = tuple(
             value for value in prepared.resolved_destinations if value.role is role
         )
@@ -695,12 +670,12 @@ class LocalQuantumEspressoProcessRunner:
 
     @staticmethod
     def _executable_destination(
-        prepared: LocalQuantumEspressoPreparedExecution,
-    ) -> LocalQuantumEspressoResolvedDestination:
+        prepared: LocalQePreparedExecution,
+    ) -> LocalQeResolvedDestination:
         values = tuple(
             value
             for value in prepared.resolved_destinations
-            if value.role is LocalQuantumEspressoResolvedDestinationRole.EXECUTABLE
+            if value.role is LocalQeResolvedDestinationRole.EXECUTABLE
         )
         if len(values) != 1:
             raise RuntimeError("prepared executable destination is not unique")
@@ -708,13 +683,13 @@ class LocalQuantumEspressoProcessRunner:
 
     @staticmethod
     def _input_destination(
-        prepared: LocalQuantumEspressoPreparedExecution,
-    ) -> LocalQuantumEspressoResolvedDestination:
+        prepared: LocalQePreparedExecution,
+    ) -> LocalQeResolvedDestination:
         identity = prepared.request.execution_input.native_input.identity.value
         values = tuple(
             value
             for value in prepared.resolved_destinations
-            if value.role is LocalQuantumEspressoResolvedDestinationRole.INPUT_ARTIFACT
+            if value.role is LocalQeResolvedDestinationRole.INPUT_ARTIFACT
             and value.owner_identity == identity
         )
         if len(values) != 1:
@@ -724,30 +699,53 @@ class LocalQuantumEspressoProcessRunner:
     @classmethod
     def _prepared_inputs_match(
         cls,
-        prepared: LocalQuantumEspressoPreparedExecution,
-        snapshot: QuantumEspressoWorkspaceSnapshot,
+        prepared: LocalQePreparedExecution,
+        snapshot: QeWorkspaceSnapshot,
     ) -> bool:
-        entries = {entry.relative_path.value: entry for entry in snapshot.entries}
-        for source in prepared.request.artifact_sources:
-            artifact = source.artifact
-            destination = artifact.destination.value
-            root_entry = entries.get(destination)
+        entries: dict[str, QeWorkspaceSnapshotEntry] = {
+            entry.relative_path.value: entry for entry in snapshot.entries
+        }
+        execution_input: QeExecutionInput = prepared.request.execution_input
+        primary: CalculatorInputArtifact = (
+            prepared.calculator_input_binding.primary_input_artifact
+        )
+        native: QeNativeInputArtifact = execution_input.native_input
+        native_entry: QeWorkspaceSnapshotEntry | None = entries.get(
+            native.destination.value
+        )
+        if native_entry is None:
+            return False
+        native_content_identity: ArtifactContentIdentity = native_entry.content_identity
+        if (
+            native_content_identity.byte_count != primary.byte_size
+            or native_content_identity.digest != primary.sha256
+        ):
+            return False
+        for resource in prepared.calculator_input_binding.external_input_resources:
+            resource_entry: QeWorkspaceSnapshotEntry | None = entries.get(
+                resource.destination.value
+            )
+            if resource_entry is None:
+                return False
+            requirement: CalculatorExternalInputRequirement = (
+                resource.external_requirement
+            )
+            resource_content_identity: ArtifactContentIdentity = (
+                resource_entry.content_identity
+            )
+            if (
+                resource_content_identity.byte_count != requirement.byte_size
+                or resource_content_identity.digest != requirement.sha256
+            ):
+                return False
+        for artifact in execution_input.predecessor_native_state:
+            destination: str = artifact.destination.value
+            root_entry: QeWorkspaceSnapshotEntry | None = entries.get(destination)
             if root_entry is None:
                 return False
-            if type(artifact) in (
-                QuantumEspressoNativeInputArtifact,
-                QuantumEspressoPseudopotentialArtifact,
-            ):
-                if type(artifact.content) is not QuantumEspressoFileArtifactContent:
-                    return False
-                if root_entry.content_identity != artifact.content.content_identity:
-                    return False
-                continue
-            if type(artifact) is not QuantumEspressoPredecessorNativeStateArtifact:
+            if type(artifact.content) is not QeTreeArtifactContent:
                 return False
-            if type(artifact.content) is not QuantumEspressoTreeArtifactContent:
-                return False
-            prefix = destination + "/"
+            prefix: str = destination + "/"
             manifest_entries: list[ArtifactManifestEntryIdentity] = []
             for path, entry in entries.items():
                 if not path.startswith(prefix):
@@ -808,14 +806,14 @@ class LocalQuantumEspressoProcessRunner:
         grace_milliseconds: int,
         maximum_entry_count: int,
         maximum_total_bytes: int,
-    ) -> tuple[QuantumEspressoProcessTermination | None, bool]:
+    ) -> tuple[QeProcessTermination | None, bool]:
         try:
             while True:
                 remaining_nanoseconds = deadline_nanoseconds - time.monotonic_ns()
                 if remaining_nanoseconds <= 0:
                     if process.poll() is not None:
                         return (
-                            QuantumEspressoProcessTimeout(
+                            QeProcessTimeout(
                                 timeout_milliseconds=timeout_milliseconds,
                                 termination_sent=False,
                                 kill_sent=False,
@@ -828,7 +826,7 @@ class LocalQuantumEspressoProcessRunner:
                     if not termination_sent:
                         return None, False
                     return (
-                        QuantumEspressoProcessTimeout(
+                        QeProcessTimeout(
                             timeout_milliseconds=timeout_milliseconds,
                             termination_sent=True,
                             kill_sent=kill_sent,
@@ -887,7 +885,7 @@ class LocalQuantumEspressoProcessRunner:
     @classmethod
     def _terminate_process_group(
         cls, process: subprocess.Popen[bytes], grace_milliseconds: int
-    ) -> QuantumEspressoProcessTermination | None:
+    ) -> QeProcessTermination | None:
         termination_sent, _kill_sent = cls._stop_process_group(
             process, grace_milliseconds
         )
@@ -914,10 +912,10 @@ class LocalQuantumEspressoProcessRunner:
     @staticmethod
     def _termination_from_return_code(
         return_code: int,
-    ) -> QuantumEspressoProcessTermination:
+    ) -> QeProcessTermination:
         if return_code >= 0:
-            return QuantumEspressoNormalProcessExit(return_code)
-        return QuantumEspressoProcessSignalTermination(-return_code)
+            return QeNormalProcessExit(CalculatorExitCode(return_code))
+        return QeProcessSignalTermination(-return_code)
 
     @classmethod
     def _read_regular_file(cls, path: Path, expected: ArtifactContentIdentity) -> bytes:
@@ -948,7 +946,7 @@ class LocalQuantumEspressoProcessRunner:
 
     @staticmethod
     def _snapshot_content_identity(
-        snapshot: QuantumEspressoWorkspaceSnapshot,
+        snapshot: QeWorkspaceSnapshot,
         workspace: Path,
         absolute_path: Path,
     ) -> ArtifactContentIdentity | None:
@@ -1024,12 +1022,12 @@ class LocalQuantumEspressoProcessRunner:
         return hashlib.sha256(cls._framed_bytes(values)).hexdigest()
 
     @staticmethod
-    def _termination_key(termination: QuantumEspressoProcessTermination) -> str:
-        if type(termination) is QuantumEspressoNormalProcessExit:
-            return f"exit:{termination.exit_code}"
-        if type(termination) is QuantumEspressoProcessSignalTermination:
+    def _termination_key(termination: QeProcessTermination) -> str:
+        if type(termination) is QeNormalProcessExit:
+            return f"exit:{termination.exit_code.value}"
+        if type(termination) is QeProcessSignalTermination:
             return f"signal:{termination.signal_number}"
-        assert type(termination) is QuantumEspressoProcessTimeout
+        assert type(termination) is QeProcessTimeout
         return (
             f"timeout:{termination.timeout_milliseconds}:"
             f"{termination.termination_sent}:{termination.kill_sent}"

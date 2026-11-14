@@ -1,0 +1,87 @@
+{
+  "definition": {
+    "area_shapes": [
+      [
+        6,
+        6
+      ],
+      [
+        8,
+        8
+      ],
+      [
+        10,
+        10
+      ],
+      [
+        12,
+        12
+      ],
+      [
+        16,
+        16
+      ]
+    ],
+    "defect_identifiers": [
+      "directional_nearest_neighbor",
+      "finite_range_diagonal_nonlocal"
+    ],
+    "identifier": "research-monograph.impurity-defect-2d.finite-domain-effects.v1",
+    "isotropic_parent_identifier": "isotropic_lambda_0p5_0p5_0",
+    "ordering": "last_axis_fastest",
+    "orientation_shape_pairs": [
+      [
+        [
+          8,
+          18
+        ],
+        [
+          18,
+          8
+        ]
+      ],
+      [
+        [
+          9,
+          16
+        ],
+        [
+          16,
+          9
+        ]
+      ]
+    ],
+    "orientation_source_parent_identifier": "anisotropic_lambda_0p3_0p7_0",
+    "orientation_swapped_parent_identifier": "anisotropic_lambda_0p7_0p3_0",
+    "shape_shapes": [
+      [
+        8,
+        18
+      ],
+      [
+        9,
+        16
+      ],
+      [
+        12,
+        12
+      ],
+      [
+        16,
+        9
+      ],
+      [
+        18,
+        8
+      ]
+    ],
+    "spatial_dimension": 2,
+    "twist_mesh_counts": [
+      9,
+      9
+    ]
+  },
+  "execution_authorized_by_this_record": false,
+  "record_type": "finite_domain_effects_study_definition",
+  "schema_version": 1
+}

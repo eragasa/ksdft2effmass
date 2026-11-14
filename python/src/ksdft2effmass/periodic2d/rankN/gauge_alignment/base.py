@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Protocol, cast, final
+from typing import Protocol, cast
 
-from ksdft2effmass.gauge_alignment.base import GaugeAlignmentGroupIdentity
+from ksdft2effmass.gauge_alignment.base import (
+    GaugeAlignmentGroupIdentity,
+    PeriodicRankNGaugeAlignmentCapability,
+)
 from ksdft2effmass.periodic2d.gauge_alignment.base import (
     Periodic2DGaugeAlignment,
     Periodic2DGaugeAlignmentAnalysis,
@@ -24,14 +27,17 @@ class _Periodic2DRankNBandSubspace:
     __slots__ = ()
 
     @property
-    @final
     def band_subspace_rank(self) -> int:
         """Return the represented band-subspace rank for this alignment."""
         owner = cast(_GaugeGroupIdentityOwner, self)
         return owner.gauge_group_identity.represented_dimension
 
 
-class Periodic2DRankNGaugeAlignmentCapability(Periodic2DGaugeAlignment, ABC):
+class Periodic2DRankNGaugeAlignmentCapability(
+    Periodic2DGaugeAlignment,
+    PeriodicRankNGaugeAlignmentCapability,
+    ABC,
+):
     """Identify gauge alignment on a periodic-2D finite-rank band subspace."""
 
     __slots__ = ()

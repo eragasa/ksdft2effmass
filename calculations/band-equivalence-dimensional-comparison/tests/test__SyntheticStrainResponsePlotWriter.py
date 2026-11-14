@@ -5,6 +5,8 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pytest
+from matplotlib.axes import Axes
+
 from ksdft2effmass.band_equivalence_hopping_locality.strain import (
     SyntheticStrainPathEnum,
 )
@@ -17,7 +19,6 @@ from ksdft2effmass.band_equivalence_hopping_locality.strain_response_plotting im
     render_strain_response_axes,
     write_strain_response_plots,
 )
-from matplotlib.axes import Axes
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 

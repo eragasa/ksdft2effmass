@@ -231,8 +231,8 @@ criterion.
 Closed residual numerical-error enum
 ------------------------------------
 
-``OperatorRecordComparisonNumericalErrorCode`` is the closed Python 3.14
-``StrEnum`` for residual-analysis numerical failures. Despite its retained
+``OperatorRecordComparisonNumericalErrorCode`` is the closed KSD
+``StrWireEnum`` for residual-analysis numerical failures. Despite its retained
 historical ``Comparison`` name, ``OperatorRecordResidualAnalyzer`` owns
 production emission of these codes. ``OperatorRecordComparator`` may propagate
 the resulting lower-layer exception as a Workflow, but it neither calculates
@@ -308,8 +308,8 @@ message is a secondary human-readable summary that identifies an operator-record
 residual numerical failure and includes the stable code value; callers inspect
 ``error.code`` and must not parse message formatting. The exception exposes no
 independent JSON, dictionary, serializer, or deserializer API. In particular,
-``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord`` and the
-``StrEnum`` value does not independently approve a numerical-exception schema.
+``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord`` and
+``StrWireEnum`` conversion does not independently approve a numerical-exception schema.
 
 ``SV-ORCNE-001`` through ``SV-ORCNE-008`` verify direct construction and
 ``ValueError`` hierarchy, complete code admission and exact identity retention,
@@ -322,8 +322,8 @@ to ``SV-ORC``; metric accuracy and representable floating-point behavior belong
 to ``NV-ORA``.
 
 ``SV-ORCNEC-001`` through ``SV-ORCNEC-006`` separately verify the exact
-three-member sequence, stable names/values/order, alias absence, Python 3.14
-``StrEnum`` behavior, name/value lookup round trips, and exact invalid-lookup
+three-member sequence, stable names/values/order, alias absence, KSD
+``StrWireEnum`` conversion, name/value lookup round trips, and exact invalid-lookup
 taxonomy. Those are software-verification tests of vocabulary only. Enum tests
 perform no metric calculation, SVD, differencing, roundoff canonicalization, or
 Workflow execution.

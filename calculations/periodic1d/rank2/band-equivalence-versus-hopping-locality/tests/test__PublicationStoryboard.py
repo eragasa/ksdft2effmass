@@ -31,9 +31,7 @@ class TestPublicationStoryboard:
         )
 
         assert tuple(path.name for path in sorted(output.iterdir())) == tuple(
-            f"{stem}.{suffix}"
-            for stem in stems
-            for suffix in ("pdf", "png")
+            f"{stem}.{suffix}" for stem in stems for suffix in ("pdf", "png")
         )
         for stem in stems:
             pdf = (output / f"{stem}.pdf").read_bytes()

@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "status": "authorized-wannier-only-fidelity-ladder-development-study",
+  "authorization": {
+    "source": "explicit human instruction 'go' in the active pi session",
+    "scope": "freeze three fitted native-shell witnesses and evaluate them without refitting at increasing Wannier-only fidelity",
+    "calculator_execution_authorized": false,
+    "independent_reconstruction_required": false
+  },
+  "source_model": {
+    "identity": "C6-B20-W21 full untruncated authenticated rank-10 Wannier Hamiltonian",
+    "role": "fixed represented source, not a validated silicon parent",
+    "alignment": "identity in the same Wannier basis",
+    "energy_scale_ev": 1.0
+  },
+  "frozen_witnesses": [
+    {
+      "shell_id": "H-shell-05",
+      "included_representative_count": 79,
+      "selection_threshold": [0.1, 0.15],
+      "alpha": [0.9993946274537227, 1.0271789397488775, 1.1546460240829035, 0.9638947751255168, 0.8702547705611199, 0.8434078599171708]
+    },
+    {
+      "shell_id": "H-shell-10",
+      "included_representative_count": 201,
+      "selection_threshold": [0.02, 0.04],
+      "alpha": [0.999310678731298, 1.0010865437217387, 1.0198759475705625, 1.0450271952632515, 0.98170702565186, 0.9290257877919375, 0.7041967293026217, 1.0475072724534633, 0.5774439751170791, 0.9905586824204745, 1.153022123131018]
+    },
+    {
+      "shell_id": "H-shell-16",
+      "included_representative_count": 371,
+      "selection_threshold": [0.001, 0.002],
+      "alpha": [1.0000271813717718, 1.0000049004009173, 1.0019567118537513, 1.0001821820712191, 0.998430248202826, 0.9984040091068299, 0.9989649802263774, 0.9995081048101981, 0.9976826652179794, 1.0006553210820004, 0.9973896895099903, 0.9985475373607611, 1.0001381002562681, 1.000048645124701, 1.0169998252453953, 1.0433800618905034, 1.0087162533071483]
+    }
+  ],
+  "fidelity_ladder": {
+    "level_0": "retained 408-point fitted-witness observations; authentication only, no reevaluation claim",
+    "level_1": {
+      "name": "continuous normalized-Brillouin-zone operator RMS",
+      "method": "Parseval sum over unique effective integer representative coefficients",
+      "normalization": "square root of coefficient Frobenius-power sum divided by rank"
+    },
+    "level_2": {
+      "name": "independent dense spectral and sampled-operator meshes",
+      "meshes": [12, 20, 32],
+      "coordinates": "Gamma-origin fractional tensor products i/N on [0,1)^3",
+      "metrics": ["all-band RMS ordered-spectrum error", "maximum ordered-spectrum error", "95th percentile absolute error", "lowest-conduction-band errors", "sampled operator RMS per state"]
+    },
+    "level_3": {
+      "name": "source-relative gap, valley, and curvature diagnostics",
+      "conduction_band_index_zero_based": 4,
+      "valence_band_index_zero_based": 3,
+      "valley_labels": ["-x", "+x", "-y", "+y", "-z", "+z"],
+      "local_search_cartesian_bound_inverse_angstrom": 0.08,
+      "local_search_seed_displacement_inverse_angstrom": 0.02,
+      "curvature_step_inverse_angstrom": 0.002,
+      "comparison": "frozen reduced witnesses versus the full Wannier source using identical algorithms"
+    }
+  },
+  "sources": {
+    "witness_surface": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/witness-surface-v2.json",
+      "byte_size": 811108,
+      "sha256": "ec26ed3e2b7e84abb7c83d1644dcaddd3b4df603eb89e7e80cad3da679052dfc"
+    },
+    "fitted_result": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-refitted-ws-shell-witness-posthoc/result.json",
+      "byte_size": 604665,
+      "sha256": "8a65cf3fbe3b08e8f7b71a802b8400515e1a0a514efd031e14783d6973a65664"
+    },
+    "truncation_design": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-design/truncation-design.json",
+      "byte_size": 15981,
+      "sha256": "6b9863271ba8241881d62435a7c8307d3431ffe59bfdcce5d96525fe86fcb531"
+    },
+    "characterization_result": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/characterization-result.json",
+      "byte_size": 56310,
+      "sha256": "37f654ae31bc21e43b768bf2b9da5edabd88c195e3f6e1c87708eaa1c4773c18"
+    },
+    "hamiltonian": {
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_hr.dat",
+      "byte_size": 1396475,
+      "sha256": "24a411c875b3e66bba37e28cc6bf2d95c38ef521c39f81fde40cd0bfa294ea55"
+    },
+    "ws_vectors": {
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_wsvec.dat",
+      "byte_size": 1365185,
+      "sha256": "f40fa7f81afaa9bcf9614c6e3c53c14db0db6b0b429b84bfd10f2e40474de1a0"
+    },
+    "authenticated_adapter": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/run_analysis.py",
+      "byte_size": 31116,
+      "sha256": "9c887a80377de681c1be481156f6026767c04e3808b8728179f4c8857de6c979"
+    }
+  },
+  "nonclaims": [
+    "No refitting is performed at any fidelity level.",
+    "The dense meshes and feature diagnostics compare only with the full Wannier source, not directly with DFT.",
+    "The source remains inadequate for its declared DFT-parent gap and effective-mass targets.",
+    "No prospective acceptance threshold or global model-selection certificate is created.",
+    "No Quantum ESPRESSO or Wannier90 process is invoked."
+  ]
+}

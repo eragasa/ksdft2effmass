@@ -13,7 +13,7 @@ from typing import cast
 
 import numpy as np
 
-from .....model.retained.optimizer_reanalysis import (
+from ksdft2effmass.periodic.periodic2d.models.retained.optimizer_reanalysis import (
     Periodic2DOptimizerReanalysisCampaignModel,
 )
 

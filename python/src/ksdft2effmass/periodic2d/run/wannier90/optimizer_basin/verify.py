@@ -10,7 +10,9 @@ from typing import cast
 
 import numpy as np
 
-from ....model.retained.optimizer_basin import Periodic2DOptimizerBasinCampaignModel
+from ksdft2effmass.periodic.periodic2d.models.retained.optimizer_basin import (
+    Periodic2DOptimizerBasinCampaignModel,
+)
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]

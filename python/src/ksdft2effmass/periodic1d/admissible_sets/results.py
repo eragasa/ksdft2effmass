@@ -152,10 +152,10 @@ class Periodic1DAdmissibleSetLocalityResult(BaseTypedRecord):
 
     maximum_range: int
     reference_cyclic_conversion_power: float
-    attacked_cyclic_conversion_power: float
+    gauge_transformed_cyclic_conversion_power: float
     candidate_cyclic_conversion_power: float
     reference_ordinary_omitted_block_l2_norm: float
-    attacked_ordinary_omitted_block_l2_norm: float
+    gauge_transformed_ordinary_omitted_block_l2_norm: float
     candidate_ordinary_omitted_block_l2_norm: float
 
     def __post_init__(self) -> None:
@@ -166,8 +166,8 @@ class Periodic1DAdmissibleSetLocalityResult(BaseTypedRecord):
             self.reference_cyclic_conversion_power,
         )
         _finite_nonnegative(
-            "attacked_cyclic_conversion_power",
-            self.attacked_cyclic_conversion_power,
+            "gauge_transformed_cyclic_conversion_power",
+            self.gauge_transformed_cyclic_conversion_power,
         )
         _finite_nonnegative(
             "candidate_cyclic_conversion_power",
@@ -178,8 +178,8 @@ class Periodic1DAdmissibleSetLocalityResult(BaseTypedRecord):
             self.reference_ordinary_omitted_block_l2_norm,
         )
         _finite_nonnegative(
-            "attacked_ordinary_omitted_block_l2_norm",
-            self.attacked_ordinary_omitted_block_l2_norm,
+            "gauge_transformed_ordinary_omitted_block_l2_norm",
+            self.gauge_transformed_ordinary_omitted_block_l2_norm,
         )
         _finite_nonnegative(
             "candidate_ordinary_omitted_block_l2_norm",
@@ -192,15 +192,17 @@ class Periodic1DAdmissibleSetLocalityResult(BaseTypedRecord):
             "reference_cyclic_conversion_power": (
                 self.reference_cyclic_conversion_power
             ),
-            "attacked_cyclic_conversion_power": self.attacked_cyclic_conversion_power,
+            "gauge_transformed_cyclic_conversion_power": (
+                self.gauge_transformed_cyclic_conversion_power
+            ),
             "candidate_cyclic_conversion_power": (
                 self.candidate_cyclic_conversion_power
             ),
             "reference_ordinary_omitted_block_l2_norm": (
                 self.reference_ordinary_omitted_block_l2_norm
             ),
-            "attacked_ordinary_omitted_block_l2_norm": (
-                self.attacked_ordinary_omitted_block_l2_norm
+            "gauge_transformed_ordinary_omitted_block_l2_norm": (
+                self.gauge_transformed_ordinary_omitted_block_l2_norm
             ),
             "candidate_ordinary_omitted_block_l2_norm": (
                 self.candidate_ordinary_omitted_block_l2_norm
@@ -212,38 +214,42 @@ class Periodic1DAdmissibleSetLocalityResult(BaseTypedRecord):
         required = {
             "maximum_range",
             "reference_cyclic_conversion_power",
-            "attacked_cyclic_conversion_power",
+            "gauge_transformed_cyclic_conversion_power",
             "candidate_cyclic_conversion_power",
             "reference_ordinary_omitted_block_l2_norm",
-            "attacked_ordinary_omitted_block_l2_norm",
+            "gauge_transformed_ordinary_omitted_block_l2_norm",
             "candidate_ordinary_omitted_block_l2_norm",
         }
         if set(values) != required:
             raise ValueError("locality-result fields do not match")
         maximum_range = values["maximum_range"]
         reference_conversion = values["reference_cyclic_conversion_power"]
-        attacked_conversion = values["attacked_cyclic_conversion_power"]
+        gauge_transformed_conversion = values[
+            "gauge_transformed_cyclic_conversion_power"
+        ]
         candidate_conversion = values["candidate_cyclic_conversion_power"]
         reference_tail = values["reference_ordinary_omitted_block_l2_norm"]
-        attacked_tail = values["attacked_ordinary_omitted_block_l2_norm"]
+        gauge_transformed_tail = values[
+            "gauge_transformed_ordinary_omitted_block_l2_norm"
+        ]
         candidate_tail = values["candidate_ordinary_omitted_block_l2_norm"]
         if (
             type(maximum_range) is not int
             or type(reference_conversion) is not float
-            or type(attacked_conversion) is not float
+            or type(gauge_transformed_conversion) is not float
             or type(candidate_conversion) is not float
             or type(reference_tail) is not float
-            or type(attacked_tail) is not float
+            or type(gauge_transformed_tail) is not float
             or type(candidate_tail) is not float
         ):
             raise TypeError("locality-result fields decode to wrong types")
         return cls(
             maximum_range,
             reference_conversion,
-            attacked_conversion,
+            gauge_transformed_conversion,
             candidate_conversion,
             reference_tail,
-            attacked_tail,
+            gauge_transformed_tail,
             candidate_tail,
         )
 
@@ -293,7 +299,9 @@ class Periodic1DAdmissibleSetParameterEvaluation(BaseTypedRecord):
             raise ValueError("locality ranges must be unique and increasing")
         conversion_channels = (
             tuple(item.reference_cyclic_conversion_power for item in self.locality),
-            tuple(item.attacked_cyclic_conversion_power for item in self.locality),
+            tuple(
+                item.gauge_transformed_cyclic_conversion_power for item in self.locality
+            ),
             tuple(item.candidate_cyclic_conversion_power for item in self.locality),
         )
         if any(len(set(channel)) != 1 for channel in conversion_channels):
@@ -305,7 +313,8 @@ class Periodic1DAdmissibleSetParameterEvaluation(BaseTypedRecord):
                 item.reference_ordinary_omitted_block_l2_norm for item in self.locality
             ),
             tuple(
-                item.attacked_ordinary_omitted_block_l2_norm for item in self.locality
+                item.gauge_transformed_ordinary_omitted_block_l2_norm
+                for item in self.locality
             ),
             tuple(
                 item.candidate_ordinary_omitted_block_l2_norm for item in self.locality

@@ -114,7 +114,25 @@
     boxrule=0.6pt,
     before skip=11pt,
     after skip=11pt
+  },
+  monograph crosswalk/.style={
+    enhanced,
+    breakable,
+    sharp corners,
+    colback=white,
+    colframe=indigo!45,
+    coltitle=indigo,
+    boxrule=0.6pt,
+    fonttitle=\bfseries,
+    fontupper=\small,
+    before skip=11pt,
+    after skip=11pt
   }
+}
+
+\newtcolorbox{definitioncrosswalk}{
+  monograph crosswalk,
+  title={Definition ownership crosswalk}
 }
 
 \newtcblisting{pythonexample}[1]{
@@ -370,7 +388,11 @@ tutorial and bootstrap observations, and bounded synthetic numerical
 verification. Appendix~\ref{app:preliminary-silicon-work} inventories the
 preliminary silicon records and a separate external same-frame Wannier kinetic
 prototype without promoting either to an accepted production material result.
-The periodic benchmarks cover one- and two-dimensional scalar,
+One retained no-calculator silicon diagnosis additionally finds that the declared
+rank-10 atomic $sp^3s^{\ast}$ trial frame fails the full-rank common-space gate at
+two construction points; the associated fit is therefore blocked and no model
+adequacy conclusion follows. The periodic benchmarks cover one- and
+two-dimensional scalar,
 composite-band, topology, hopping, and localization diagnostics. A canonical
 one-dimensional rank-two calculation additionally retains a common
 spectral/operator witness and a finite-family separation certificate at two
@@ -408,6 +430,7 @@ uncertainty quantification.
 \include{chapters/periodic-geometry}
 \include{chapters/bloch-periodic-finite-differences}
 \include{chapters/projection-and-retained-spaces}
+\include{chapters/sewing-maps-and-periodic-fibers}
 \include{chapters/isolated-band-fourier-reduction}
 \include{chapters/composite-band-gauge-alignment}
 \include{chapters/verification-and-evidence-vocabulary}
@@ -422,6 +445,7 @@ uncertainty quantification.
 \include{chapters/bulk-silicon-program}
 \include{chapters/first-principles-bulk-parent}
 \include{chapters/bulk-representations}
+\include{chapters/tight-binding-slater-koster}
 \include{chapters/bulk-reduced-models}
 \include{chapters/selecting-bulk-representation}
 
@@ -432,7 +456,6 @@ uncertainty quantification.
 \include{chapters/continuum-effective-mass}
 \include{chapters/structured-learning}
 \include{chapters/dopant-transferability}
-\include{chapters/current-evidence-boundary}
 
 \part{Mathematical and Proof Program}
 \include{chapters/proof-architecture}
@@ -440,6 +463,8 @@ uncertainty quantification.
 \include{chapters/mathematics-of-reduction}
 \include{chapters/mechanization-status}
 
+\part{Evidence Boundary and Research Sequence}
+\include{chapters/current-evidence-boundary}
 \include{chapters/conclusions}
 
 \appendix

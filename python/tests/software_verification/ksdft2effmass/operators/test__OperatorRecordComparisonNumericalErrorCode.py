@@ -43,7 +43,7 @@ Evidence class, strategy, and oracle
 This cohesive module provides software-verification evidence ``SV-ORCNEC-001``
 through ``SV-ORCNEC-006``. An independently written literal tuple is the oracle
 for exact names, values, and order. Public ``Enum.__members__``, Python 3.14
-``StrEnum`` behavior, documented name/value lookups, and standard Enum exception
+``StrWireEnum`` behavior, documented name/value lookups, and standard Enum exception
 classes verify the remaining closed-vocabulary contract. Production error
 generation belongs to residual-analyzer software tests. Metric accuracy and
 floating-point behavior belong to residual-analyzer numerical-verification
@@ -56,7 +56,7 @@ indicate an enum regression, contract/documentation mismatch, or evidence defect
 requiring investigation. These tests do not establish production emission,
 residual-norm accuracy, roundoff-allowance correctness, backend-independent SVD
 reliability, scientific acceptability, scientific validation, uncertainty
-quantification, Rust implementation, or Rust conformance. ``StrEnum`` behavior
+quantification, Rust implementation, or Rust conformance. ``StrWireEnum`` behavior
 does not approve a serialized exception format.
 
 Intrinsic and cross-object scope
@@ -79,11 +79,11 @@ agreement.
 """
 
 import re
-from enum import StrEnum
 
 import pytest
 
 from ksdft2effmass.operators import OperatorRecordComparisonNumericalErrorCode
+from ksdft2effmass.serialization import StrWireEnum
 
 pytestmark = pytest.mark.software_verification
 
@@ -218,23 +218,18 @@ class TestOperatorRecordComparisonNumericalErrorCode:
         ],
     )
     @staticmethod
-    def test_field__represented_state__strenum_machine_value(
+    def test_field__represented_state__str_wire_enum_machine_value(
         code: OperatorRecordComparisonNumericalErrorCode,
     ) -> None:
         r"""Evidence ID: SV-ORCNEC-003
 
-        Requirement: The enum subclasses Python 3.14 ``StrEnum`` and each member behaves
-        as
-        its ASCII
-        lowercase snake-case machine-readable value.
+        Requirement: The enum subclasses ``StrWireEnum`` and each member explicitly
+        projects its ASCII lowercase snake-case wire value.
 
-        Method: Inspect public inheritance, string identity/equality, ``str()``,
-        explicit
-        lexical
-        full match, and ASCII encoding for every public member.
+        Method: Inspect public inheritance, ordinary-Enum separation from ``str``, exact
+        ``to_wire()`` projection, lexical form, and ASCII encoding for every member.
 
-        Oracle: Python 3.14 ``StrEnum`` semantics and the approved machine-value lexical
-        convention.
+        Oracle: The common ``StrWireEnum`` contract and approved wire-value convention.
 
         Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
         rule, fixture
@@ -250,12 +245,12 @@ class TestOperatorRecordComparisonNumericalErrorCode:
         validation, uncertainty quantification, or Rust conformance is tested.
         """
 
-        assert issubclass(OperatorRecordComparisonNumericalErrorCode, StrEnum)
-        assert isinstance(code, str)
-        assert code == code.value
-        assert str(code) == code.value
-        assert re.fullmatch(r"[a-z][a-z0-9]*(?:_[a-z0-9]+)*", code.value) is not None
-        code.value.encode("ascii")
+        assert issubclass(OperatorRecordComparisonNumericalErrorCode, StrWireEnum)
+        assert not isinstance(code, str)
+        assert type(code.to_wire()) is str
+        assert code.to_wire() == code.value
+        assert re.fullmatch(r"[a-z][a-z0-9]*(?:_[a-z0-9]+)*", code.to_wire())
+        code.to_wire().encode("ascii")
 
     @pytest.mark.parametrize(
         "code",

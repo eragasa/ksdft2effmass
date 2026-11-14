@@ -19,7 +19,6 @@ from __future__ import annotations
 
 import hashlib
 from dataclasses import dataclass
-from enum import StrEnum
 
 import numpy as np
 import numpy.typing as npt
@@ -27,6 +26,8 @@ from projectkoios.physkit.units import (
     ScalarQuantity,
     Unitless,
 )
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .composite import Periodic1DCompositeCampaignDefinition
 from .composite_results import Periodic1DCompositeBandGroupResult
@@ -37,7 +38,7 @@ type IntegerVector = npt.NDArray[np.int64]
 type RealVector = npt.NDArray[np.float64]
 
 
-class Periodic1DCompositeUnavailableVerificationChannel(StrEnum):
+class Periodic1DCompositeUnavailableVerificationChannel(StrWireEnum):
     """Identify retained channels lacking sufficient independent source values."""
 
     SAMPLED_GAPS = "sampled_gaps"
@@ -122,7 +123,7 @@ class Periodic1DCompositeGroupVerificationResult:
     rough_vs_smooth_hopping_l2_defect
         Independently recomputed complete unaligned coefficient-space defect.
     rough_vs_smooth_reported_absolute_defect
-        Defect between that value and the retained gauge-attack diagnostic.
+        Defect between that value and the retained gauge-transformation diagnostic.
     direct_coefficient_frobenius_defect
         Independent direct-fit versus transformed-coefficient Frobenius defect.
     direct_coefficient_reported_absolute_defect

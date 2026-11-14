@@ -60,4 +60,4 @@ uncertainty estimates. Exact formulas and exact mesh definitions do not make the
 runtime values mathematically exact.
 
 The complete frozen values are recorded in the calculation's
-[`numerical-control-decision.md`](../../../../../../calculations/periodic1d/rank1/fourier-locality/numerical-control-decision.md).
+[`numerical-control-decision.md`](../../../../../../calculations/periodic1d_rank1/band_equivalence_hopping_locality/numerical-control-decision.md).

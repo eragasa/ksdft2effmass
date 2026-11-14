@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "request_id": "CSD0-CSD1-c6-b20-w21-common-space-diagnosis-v1",
+  "status": "implementation-development-request-no-retained-execution-authority",
+  "stages": [
+    "CSD0",
+    "CSD1"
+  ],
+  "calculator_invocations_authorized": 0,
+  "fit_invocations_authorized": 0,
+  "sources": {
+    "S30_untruncated_characterization": {
+      "location": "repository",
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/characterization-result.json",
+      "byte_size": 56310,
+      "sha256": "37f654ae31bc21e43b768bf2b9da5edabd88c195e3f6e1c87708eaa1c4773c18"
+    },
+    "S105_full_support_disposition": {
+      "location": "repository",
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-disposition/spatial-truncation-disposition.json",
+      "byte_size": 6187,
+      "sha256": "519adfcf1101f7caa7916e04f3bf37879f4ad82b0f30e4ef38adc39770224f68"
+    },
+    "S110_blocked_result": {
+      "location": "repository",
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-slater-koster-definition-fit/slater-koster-definition-fit-result.json",
+      "byte_size": 119010,
+      "sha256": "b9b8403dfc8b24df01e1671f582697440e1a211d60e0e70c9b0f621dfa086e98"
+    },
+    "hopping_first_protocol": {
+      "location": "repository",
+      "path": "calculations/Si/bulk/research-protocol/controlled-reduction-protocol-hopping-first.tex",
+      "byte_size": 45973,
+      "sha256": "d28146dc2c481d4793b7e8294c4bc43196eba387bce3052b24d8bde269859f79"
+    },
+    "AMN": {
+      "location": "absolute",
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.amn",
+      "byte_size": 2894499,
+      "sha256": "9186cd5b8802bede18f81b96188f0a2035eb97565c2f811f5ca7769f2ebefece"
+    },
+    "gauge": {
+      "location": "absolute",
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u.mat",
+      "byte_size": 679824,
+      "sha256": "41758b721b79cae233689b4fb9fa359e750b82da8ed5bcd13b1d5faf3c5d8bf3"
+    },
+    "disentanglement": {
+      "location": "absolute",
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u_dis.mat",
+      "byte_size": 1349424,
+      "sha256": "3c1d3574f3bf783cf7b54d8e9fd00fa5811ef05a56240850d46f43a2c95b7ace"
+    }
+  },
+  "provider": {
+    "distribution": "projectkoios-simulations",
+    "version": "0.1.0.dev0",
+    "modules": {
+      "projectkoios.integrations.wannier90": "55743d319e496edd30a31c628289ed9ea013b225c480e283af901b776d0ddd12",
+      "projectkoios.integrations.wannier90._matrix_conventions": "95d7d19b520548cc860d6c56d53b0cec477b078a307c3e4bcb2feddbc8f2ee65",
+      "projectkoios.integrations.wannier90._parsing": "07de9ab225fbc7cfd5317f1592b5dcd0105d5eaec982d814980272cdd578439a",
+      "projectkoios.integrations.wannier90.interface_data": "5b4033f5b99373eca5bd7ce1b492f52f3d16cad43945e0e2ddf845121193b078",
+      "projectkoios.integrations.wannier90.unitary_matrices": "33ebad1a82f887f0dd59787c066bded1989b6dd9b7220c3e551b0c5cb798e75f",
+      "projectkoios.integrations.wannier90.disentanglement_matrices": "64ede7d0e45b9d1b200026322f48d832fe7587b5b99c7eb292bfae2d7390fdd7"
+    }
+  },
+  "state_space": {
+    "construction_grid_size_per_axis": 6,
+    "kpoint_count": 216,
+    "parent_band_count": 20,
+    "retained_rank": 10,
+    "basis_order": [
+      "diamond_origin_center:s",
+      "diamond_origin_center:px",
+      "diamond_origin_center:py",
+      "diamond_origin_center:pz",
+      "diamond_origin_center:s-star",
+      "diamond_body_diagonal_quarter_center:s",
+      "diamond_body_diagonal_quarter_center:px",
+      "diamond_body_diagonal_quarter_center:py",
+      "diamond_body_diagonal_quarter_center:pz",
+      "diamond_body_diagonal_quarter_center:s-star"
+    ],
+    "geometry": "two-site primitive bulk-silicon cell retained from S30",
+    "spin_convention": "spinless scalar-relativistic non-SOC",
+    "operator_units": "electronvolt",
+    "energy_reference": "unchanged native S30 Wannier reference"
+  },
+  "native_precision": {
+    "AMN_decimal_places": 12,
+    "gauge_decimal_places": 10,
+    "disentanglement_decimal_places": 10
+  },
+  "retained_diagnosis_comparison": {
+    "deficient_kpoint_indices_zero_based": [
+      0,
+      12
+    ],
+    "minimum_singular_values": [
+      5.362000386100462e-13,
+      2.0186562353866025e-7
+    ],
+    "native_uncertainty_bound": 5.890206739032098e-7,
+    "gamma_atomic_orbital_weights": {
+      "diamond_origin_center:s": 0.09746474789678251,
+      "diamond_origin_center:px": 2.0143708970374325e-21,
+      "diamond_origin_center:py": 2.0468705333994236e-21,
+      "diamond_origin_center:pz": 2.0419381945914518e-21,
+      "diamond_origin_center:s-star": 0.4025352606255531,
+      "diamond_body_diagonal_quarter_center:s": 0.09746471137394387,
+      "diamond_body_diagonal_quarter_center:px": 2.018930154162653e-21,
+      "diamond_body_diagonal_quarter_center:py": 2.0111951031640742e-21,
+      "diamond_body_diagonal_quarter_center:pz": 1.996097836796582e-21,
+      "diamond_body_diagonal_quarter_center:s-star": 0.40253528010371975
+    }
+  },
+  "claim_boundary": "Read-only no-calculator reconstruction of the S110 common-space rank gate. It authorizes no fit, QE or Wannier90 execution, target-space change, evidence promotion, symmetry attribution, or scientific acceptance."
+}

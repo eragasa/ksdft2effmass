@@ -117,7 +117,11 @@ class Periodic1DConstrainedAdmissibleSetVisualizationData(BaseVisualizationData)
             )
         if self.loss_channel_names != ("spectral", "operator"):
             raise ValueError("loss_channel_names must match the closed channel order")
-        if self.locality_channel_names != ("reference", "attacked", "candidate"):
+        if self.locality_channel_names != (
+            "reference",
+            "gauge_transformed",
+            "candidate",
+        ):
             raise ValueError(
                 "locality_channel_names must match the closed channel order"
             )

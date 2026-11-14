@@ -28,6 +28,9 @@ values and arithmetic consistency checking.
 The periodic-1D higher-rank protocol cannot be copied: Ragasa2026c explicitly leaves the
 periodic-2D coefficients, meshes, and evidence controls to a separate reviewed protocol.
 Likewise, the Ragasa2026b rank-two periodic-2D lifecycle cannot be relabeled rank-N.
+Continuous deformation is separately owned by
+[`calculations/periodic2d_rankN_strain/`](../../../periodic2d_rankN_strain/README.md)
+and is not a case inside this fixed-geometry aggregate.
 
 There are intentionally no `run_01_calculation.py`, `run_02_verification.py`, or
 `run_03_render.py` entrypoints. Adding them before the missing scientific controls are

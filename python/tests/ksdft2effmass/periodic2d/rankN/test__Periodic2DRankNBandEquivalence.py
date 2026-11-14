@@ -2,8 +2,14 @@
 
 import inspect
 
+from ksdft2effmass.periodic2d.rank2.band_equivalence.base import (
+    Periodic2DRank2BandEquivalenceRequest,
+)
 from ksdft2effmass.periodic2d.rankN.band_equivalence.base import (
     Periodic2DRankNBandEquivalence,
+    Periodic2DRankNBandEquivalenceAnalysis,
+    Periodic2DRankNBandEquivalenceAnalyzer,
+    Periodic2DRankNBandEquivalenceRequest,
 )
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.analysis import (
     Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer,
@@ -35,12 +41,28 @@ class TestPeriodic2DRankNBandEquivalence:
             Periodic2DRankNBandEquivalenceHoppingLocalityRequestRole,
         )
         assert issubclass(
+            Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
+            Periodic2DRankNBandEquivalenceRequest,
+        )
+        assert not issubclass(
+            Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
+            Periodic2DRank2BandEquivalenceRequest,
+        )
+        assert issubclass(
             Periodic2DRankNBandEquivalenceHoppingLocalityAnalysis,
             Periodic2DRankNBandEquivalenceHoppingLocalityAnalysisRole,
         )
         assert issubclass(
+            Periodic2DRankNBandEquivalenceHoppingLocalityAnalysis,
+            Periodic2DRankNBandEquivalenceAnalysis,
+        )
+        assert issubclass(
             Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer,
             Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzerRole,
+        )
+        assert issubclass(
+            Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer,
+            Periodic2DRankNBandEquivalenceAnalyzer,
         )
         assert not inspect.isabstract(
             Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer

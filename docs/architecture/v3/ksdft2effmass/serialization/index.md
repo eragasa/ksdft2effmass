@@ -43,8 +43,8 @@ from_json → TypedJsonMappingDeserializer.deserialize → from_dict
 ```
 
 Concrete records implement `_mapping` and `_from_mapping`. They do not override the
-final public conversion methods. `StringWireEnum` is a behavior-only ordinary `Enum`
-base, not a `StrEnum`: it rejects non-string members when a concrete enum is defined,
+final public conversion methods. `StrWireEnum` is a behavior-only ordinary `Enum`
+base, not a string subclass: it rejects non-string members when a concrete enum is defined,
 concrete domain enums inherit stable `to_wire()` and `from_wire()` conversion, and
 records explicitly project members to built-in strings in
 `_mapping`, and `_from_mapping` validates an exact string before reconstruction. This

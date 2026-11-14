@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-import json
+from collections.abc import Mapping
 from typing import cast
 
 import numpy as np
@@ -15,6 +15,8 @@ from ksdft2effmass.model_systems.slater_koster import (
     DiamondSp3sStarModelJsonSerializer,
     DiamondSp3sStarParameters,
 )
+from ksdft2effmass.periodic.periodic3d.operators.basis import Periodic3DBasisIdentity
+from ksdft2effmass.serialization import TypedJsonMappingDeserializer
 
 pytestmark = pytest.mark.software_verification
 
@@ -28,24 +30,37 @@ class TestDiamondSp3sStarModelJsonSerializer:
         serializer = DiamondSp3sStarModelJsonSerializer()
         model = self._model()
 
-        first = serializer.serialize(model)
-        second = serializer.serialize(model)
-        document = json.loads(first)
+        first = serializer.serialize(model=model)
+        second = serializer.serialize(model=model)
+        document = TypedJsonMappingDeserializer().deserialize(first)
+        basis_mapping = document["basis"]
+        geometry = document["geometry"]
+        parameters = document["parameters"]
+        assert isinstance(basis_mapping, Mapping)
+        assert isinstance(geometry, Mapping)
+        assert isinstance(parameters, Mapping)
+        first_neighbor = parameters["first_neighbor"]
+        assert isinstance(first_neighbor, Mapping)
 
         assert first == second
         assert first.endswith(b"\n")
-        assert document["schema_version"] == 1
+        assert document["schema_version"] == 3
         assert document["model"] == "homopolar-diamond-spinless-sp3s-star"
-        assert document["basis_order"]["__ksd_type__"] == "tuple"
-        assert document["parameter_order"]["items"] == list(
-            model.parameters.parameter_names
+        assert document["mechanics_owner"] == (
+            "projectkoios.physkit.solidstate.tb.slater_koster"
         )
-        fixed_zero = document["parameters"]["first_neighbor"]["fixed_V1_s_s_star_sigma"]
-        assert fixed_zero["magnitude"] == 0.0
-        assert fixed_zero["unit"]["expression"] == "electron_volt"
-        first_cells = document["geometry"]["first_neighbor_A_to_B_target_cells"]
-        assert len(first_cells["items"]) == 4
-        assert "R+tau" in document["phase_convention"]
+        assert Periodic3DBasisIdentity.from_dict(basis_mapping) == model.basis_identity
+        assert document["parameter_order"] == model.parameters.parameter_names
+        assert first_neighbor["fixed_V1_s_s_star_sigma"] == ScalarQuantity(
+            0.0,
+            PhysicalUnit("electron_volt"),
+        )
+        first_cells = geometry["first_neighbor_origin_to_quarter_target_cells"]
+        phase_convention = document["phase_convention"]
+        assert isinstance(first_cells, tuple)
+        assert isinstance(phase_convention, str)
+        assert len(first_cells) == 4
+        assert "R+tau" in phase_convention
         assert "fit" not in document
         assert "oracle" not in document
 
@@ -54,15 +69,15 @@ class TestDiamondSp3sStarModelJsonSerializer:
         wrong = cast(DiamondSp3sStarModel, self._model().parameters)
 
         with pytest.raises(TypeError, match="must be DiamondSp3sStarModel"):
-            serializer.serialize(wrong)
+            serializer.serialize(model=wrong)
 
     @staticmethod
     def _model() -> DiamondSp3sStarModel:
         return DiamondSp3sStarModel(
             geometry=DiamondSp3sStarGeometry(
-                ScalarQuantity(5.4, PhysicalUnit("angstrom"))
+                lattice_parameter=ScalarQuantity(5.4, PhysicalUnit("angstrom"))
             ),
             parameters=DiamondSp3sStarParameters.from_vector_ev(
-                np.linspace(-1.0, 1.0, 15)
+                values=np.linspace(-1.0, 1.0, 15)
             ),
         )

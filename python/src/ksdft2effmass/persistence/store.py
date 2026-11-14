@@ -14,8 +14,9 @@ uncertainty quantification.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 from typing import Protocol, runtime_checkable
+
+from ksdft2effmass.serialization import StrWireEnum
 
 IdentityObservation = tuple[tuple[str, str | None], ...]
 
@@ -57,12 +58,12 @@ def _require_observation(value: object, field: str) -> IdentityObservation:
     return value
 
 
-def _require_enum(value: object, expected: type[StrEnum], field: str) -> None:
+def _require_enum(value: object, expected: type[StrWireEnum], field: str) -> None:
     if type(value) is not expected:
         raise TypeError(f"{field} must be {expected.__name__}")
 
 
-class RevisionSelector(StrEnum):
+class RevisionSelector(StrWireEnum):
     """Select the latest or one explicit revision of a stream."""
 
     LATEST = "latest"
@@ -72,7 +73,7 @@ class RevisionSelector(StrEnum):
     """Observe one exact revision, optionally with complete expectations."""
 
 
-class RevisionReadStatus(StrEnum):
+class RevisionReadStatus(StrWireEnum):
     """Closed outcome vocabulary for a generic revision read."""
 
     FOUND = "found"
@@ -91,7 +92,7 @@ class RevisionReadStatus(StrEnum):
     """An operational failure establishes neither presence nor absence."""
 
 
-class CommitStatus(StrEnum):
+class CommitStatus(StrWireEnum):
     """Closed outcome vocabulary for an atomic commit."""
 
     COMMITTED = "committed"

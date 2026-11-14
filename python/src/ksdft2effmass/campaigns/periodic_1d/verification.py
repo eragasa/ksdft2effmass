@@ -29,9 +29,9 @@ from dataclasses import dataclass
 
 import numpy as np
 import numpy.typing as npt
+from projectkoios.integrations.wannier90 import Wannier90ParsedNativeArtifactSet
 from scipy.optimize import linear_sum_assignment  # type: ignore[import-untyped]
 
-from ksdft2effmass.integration.wannier90 import Wannier90ParsedNativeArtifactSet
 from ksdft2effmass.solidstate import WilsonLoopSpectrum1D
 
 from .native_artifact_workflows import (

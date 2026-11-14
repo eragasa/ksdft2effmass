@@ -1,0 +1,55 @@
+{
+  "added_artifacts": [
+    {
+      "bytes": 2584,
+      "path": "source-projection-audit.json",
+      "sha256": "d171b04a8de084fb1775ec05279e444a1208e615e7331294dd013fa986b0d973"
+    },
+    {
+      "bytes": 22483,
+      "path": "python/src/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/parent_qualification.py",
+      "sha256": "eff7074a0fb765da3763227c46e1027a2f40ec729527bc49d213fe3931316171"
+    },
+    {
+      "bytes": 20271,
+      "path": "python/src/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/parent_qualification_calculation.py",
+      "sha256": "991bc1208ae1882203079d07d0266484aebcd7ddc460657111b3a4f1f495ff3e"
+    },
+    {
+      "bytes": 38090,
+      "path": "python/src/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/parent_qualification_serialization.py",
+      "sha256": "78ca3131e0e153f88db2c1dccb66554afedcefa761ec2a40d86cc6da65766936"
+    },
+    {
+      "bytes": 28851,
+      "path": "python/src/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/parent_qualification_verification.py",
+      "sha256": "d1560207ff776dd069a4a91e15efded142a32bc87a1359fa311e2484c84c8523"
+    },
+    {
+      "bytes": 4715,
+      "path": "python/src/ksdft2effmass/campaigns/research_monograph/impurity_defect_2d/parent_qualification_workflows.py",
+      "sha256": "ddb4655795845ab70e0d4b8e3f4358d4f440d65c788b7fed3c7a9dd409a0d870"
+    },
+    {
+      "bytes": 6080,
+      "path": "calculations/periodic2d_rank_defect/run_07_qualify_parents.py",
+      "sha256": "8bb215c1611871b2b65af4ae864b656c12e43c969a956122a03e86eb17c8eda1"
+    },
+    {
+      "bytes": 9054,
+      "path": "calculations/periodic2d_rank_defect/run_08_verify_parent_qualification.py",
+      "sha256": "204b92e33247f64f285586ef696628729987105fe8f3c9eecc12d81f2abea3e9"
+    },
+    {
+      "bytes": 15011,
+      "path": "calculations/periodic2d_rank_defect/run_09_audit_parent_qualification_source.py",
+      "sha256": "605e72ceaf2655c124194b9f4a87c864a5648da672e529c178836501a66120dc"
+    }
+  ],
+  "additive_only": true,
+  "amendment_id": "source-projection-and-implementation-identities-v1",
+  "execution_id": "parent-qualification-v1",
+  "original_manifest_sha256": "5aef5524a2f7d1e4f11d50187619057a20069e18b7780bad0f9bbd941074f474",
+  "record_type": "periodic2d_rank_defect_parent_qualification_manifest_amendment",
+  "schema_version": 1
+}

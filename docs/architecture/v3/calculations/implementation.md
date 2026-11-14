@@ -201,9 +201,12 @@ verification, two authenticated figures, and an execution-bound report. Its pred
 code, runs, input, and schemas are absent from the live tree.
 
 The second study, compatible rank-one Fourier locality, is implemented at
-`calculations/periodic1d/rank1/fourier-locality/`. It has concrete typed records, a
-byte-owning independent verifier, two authenticated figures, and direct stage scripts,
-but no retained execution or seal. Its legacy M1 source and API surfaces were removed
+`calculations/periodic1d_rank1/`, whose separate operation owners are composed by
+`band_equivalence_hopping_locality/`. The scalar producer has concrete typed records, a
+byte-owning independent verifier, two authenticated figures, direct stage scripts, and
+one local unsealed execution; the newer rank-owned capability wrappers are not yet
+serialized as separate aggregate fields, and no sealing or evidence promotion has
+occurred. Its legacy M1 source and API surfaces were removed
 after separate authorization and remain recoverable through the calculation-owned
 retirement record.
 

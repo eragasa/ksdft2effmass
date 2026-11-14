@@ -36,7 +36,7 @@ class TestPeriodic1DCompositeBandAlignmentAnalyzer:
         assert composite_result.diagnostics.global_procrustes.selection_count == 1
         assert tuple(item.channel for item in composite_result.transforms) == (
             "reference",
-            "attacked",
+            "gauge_transformed",
             "pointwise",
         )
         assert tuple(item.maximum_range for item in composite_result.ranges) == (
@@ -79,12 +79,15 @@ class TestPeriodic1DCompositeBandAlignmentAnalyzer:
             1.0566461211497047,
             abs=2.0e-14,
         )
-        assert diagnostics.attack_frame_maximum_frobenius_defect == pytest.approx(
-            1.5056428951173264,
-            abs=2.0e-14,
+        assert (
+            diagnostics.transformation_frame_maximum_frobenius_defect
+            == pytest.approx(
+                1.5056428951173264,
+                abs=2.0e-14,
+            )
         )
         assert (
-            diagnostics.attacked_operator_maximum_frobenius_defect.magnitude
+            diagnostics.gauge_transformed_operator_maximum_frobenius_defect.magnitude
             == pytest.approx(0.9972076810972811, abs=3.0e-14)
         )
         assert range_four.channels[
@@ -102,29 +105,37 @@ class TestPeriodic1DCompositeBandAlignmentAnalyzer:
         self,
         composite_result: Periodic1DCompositeBandAlignmentCalculationResult,
     ) -> None:
-        attacked_transform = composite_result.transforms[1]
-        attacked_range = composite_result.ranges[4].channels[1]
+        gauge_transformed_transform = composite_result.transforms[1]
+        gauge_transformed_range = composite_result.ranges[4].channels[1]
 
-        assert attacked_transform.cyclic_conversion_representative == -32
-        assert attacked_transform.ordinary_representatives == tuple(range(-31, 32))
-        assert 0.0 <= attacked_transform.cyclic_conversion_power.magnitude < 1.0e-28
+        assert gauge_transformed_transform.cyclic_conversion_representative == -32
+        assert gauge_transformed_transform.ordinary_representatives == tuple(
+            range(-31, 32)
+        )
         assert (
-            attacked_transform.evaluation_interpolation_spectral_maximum_error.magnitude
+            0.0
+            <= gauge_transformed_transform.cyclic_conversion_power.magnitude
+            < 1.0e-28
+        )
+        assert (
+            gauge_transformed_transform.evaluation_interpolation_spectral_maximum_error.magnitude
             == pytest.approx(1.9984014443252818e-15, abs=1.0e-15)
         )
         assert (
-            attacked_range.evaluation_truncation_spectral_maximum_error.magnitude
+            gauge_transformed_range.evaluation_truncation_spectral_maximum_error.magnitude
             == pytest.approx(0.006429588433655875, abs=2.0e-14)
         )
-        assert attacked_range.evaluation_total_spectral_maximum_error.magnitude == (
-            pytest.approx(0.006429588433655653, abs=2.0e-14)
+        assert (
+            gauge_transformed_range.evaluation_total_spectral_maximum_error.magnitude
+            == (pytest.approx(0.006429588433655653, abs=2.0e-14))
         )
         assert (
-            attacked_range.evaluation_truncation_hamiltonian_maximum_error.magnitude
+            gauge_transformed_range.evaluation_truncation_hamiltonian_maximum_error.magnitude
             == pytest.approx(0.009142140906351088, abs=2.0e-14)
         )
-        assert attacked_range.evaluation_total_hamiltonian_maximum_error.magnitude == (
-            pytest.approx(0.0091421409063511, abs=2.0e-14)
+        assert (
+            gauge_transformed_range.evaluation_total_hamiltonian_maximum_error.magnitude
+            == (pytest.approx(0.0091421409063511, abs=2.0e-14))
         )
 
     def test__json__round_trips_identical_canonical_bytes(

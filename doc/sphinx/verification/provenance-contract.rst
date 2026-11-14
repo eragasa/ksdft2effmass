@@ -44,7 +44,7 @@ evidence checks:
   three-identity request/result-or-failure correlation, including derived
   non-wire statuses, all mismatch subsets, and exact request, correlation, then
   attempt issue order;
-* every public export, ``StrEnum`` vocabulary, and ``ProvenanceJsonError``
+* every public export, ``StrWireEnum`` vocabulary, and ``ProvenanceJsonError``
   taxonomy;
 * strict runtime/schema/fixture agreement, including duplicate/unknown-key, BOM,
   malformed Unicode/JSON, floating/non-finite number, Boolean/numeric-string u64,

@@ -35,7 +35,8 @@ class TestPeriodic2DRankNProtocols:
             "Rank four remains a value of rank-N",
             "2 * retained_rank",
             "complete global-unitary Procrustes",
-            "they do not inherit rank-two classes",
+            "`Periodic2DRank2...` operation owners then refine",
+            "does not inherit rank-two calculation policy",
             "INSTALLED WITH TYPED AGGREGATE VERIFICATION",
             "Visualization projection",
             "VISUALIZATION-BOUND SCHEMAS PENDING",
@@ -64,7 +65,8 @@ class TestPeriodic2DRankNProtocols:
             "global-unitary",
             "pointwise-unitary",
             "known-inverse-oracle",
-            "no inheritance from\nrank-two classes",
+            "`Periodic2DRank2...` operation owners refine them",
+            "does not transfer rank-two calculation policy",
             "does not authorize execution or retained evidence",
             "construction size `16`",
             "evaluation size `33`",
@@ -96,11 +98,30 @@ class TestPeriodic2DRankNProtocols:
         ).is_file()
         assert (rank_root / "hopping_locality" / "analysis.py").is_file()
         assert (rank_root / "support_truncation" / "analysis.py").is_file()
+        assert (rank_root / "gauge_alignment" / "transformation.py").is_file()
+        assert not (rank_root / "gauge_alignment" / "attack.py").exists()
+        parent_model = (
+            repository_root
+            / "python"
+            / "src"
+            / "ksdft2effmass"
+            / "periodic"
+            / "periodic2d"
+            / "rankN"
+            / "models"
+            / "analytic.py"
+        )
+        assert not parent_model.exists()
+        assert (
+            repository_root
+            / "python"
+            / "tests"
+            / "periodic2d_rankn_analytic_case_support.py"
+        ).is_file()
         aggregate_root = rank_root / "band_equivalence_hopping_locality"
         for filename in (
-            "model.py",
+            "case.py",
             "request.py",
-            "case_expansion.py",
             "analysis.py",
             "result.py",
             "reference.py",
@@ -108,6 +129,7 @@ class TestPeriodic2DRankNProtocols:
             "verification.py",
         ):
             assert (aggregate_root / filename).is_file()
+        assert not (aggregate_root / "case_expansion.py").exists()
         assert not (aggregate_root / "lifecycle.py").exists()
 
     def test_calculation_root_has_no_direct_entrypoints_or_rank4_namespace(
@@ -117,6 +139,7 @@ class TestPeriodic2DRankNProtocols:
         calculation_root = repository_root / "calculations" / "periodic2d" / "rankN"
 
         assert calculation_root.is_dir()
+        assert (calculation_root / "control_basis.py").is_file()
         assert not list(calculation_root.rglob("run_01_calculation.py"))
         assert not list(calculation_root.rglob("run_02_verification.py"))
         assert not list(calculation_root.rglob("run_03_render.py"))
@@ -129,3 +152,23 @@ class TestPeriodic2DRankNProtocols:
             / "periodic2d"
             / "rank4"
         ).exists()
+
+    def test_strain_context_is_separate_and_fail_closed(
+        self,
+        repository_root: Path,
+    ) -> None:
+        """Keep continuous strain outside the fixed-geometry calculation root."""
+        context = repository_root / "calculations" / "periodic2d_rankN_strain"
+        readme = (context / "README.md").read_text(encoding="utf-8")
+        protocol = (context / "protocol-selection.md").read_text(encoding="utf-8")
+
+        assert "dedicated owner" in readme
+        assert "fixed-geometry periodic-2D rank-N" in readme
+        assert "SCIENTIFIC PROTOCOL UNSELECTED" in protocol
+        assert "Neither owner authorizes a rank-N strain calculation" in protocol
+        assert not list(context.rglob("*.py"))
+        assert not list(context.rglob("*.json"))
+        assert not list(context.rglob("*.pdf"))
+        assert not list(context.rglob("*.png"))
+        for forbidden_directory in ("analysis", "simulations", "executions"):
+            assert not (context / forbidden_directory).exists()

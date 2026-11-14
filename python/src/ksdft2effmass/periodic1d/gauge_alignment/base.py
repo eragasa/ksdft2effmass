@@ -5,16 +5,16 @@ from __future__ import annotations
 from abc import ABC
 
 from ksdft2effmass.gauge_alignment.base import (
-    GaugeAlignment,
     GaugeAlignmentAnalysis,
     GaugeAlignmentAnalysisRequest,
     GaugeAlignmentAnalyzer,
+    PeriodicGaugeAlignment,
 )
 from ksdft2effmass.periodic1d.base import Periodic1DCapability
 
 
 class Periodic1DGaugeAlignment(
-    GaugeAlignment,
+    PeriodicGaugeAlignment,
     Periodic1DCapability,
 ):  # noqa: B024 - nominal owner
     """Identify a periodic-1D retained-space gauge-alignment capability.

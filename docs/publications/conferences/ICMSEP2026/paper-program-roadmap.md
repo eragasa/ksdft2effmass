@@ -56,7 +56,7 @@ conference path:
 
 | Retained calculation | Publication role |
 |---|---|
-| `calculations/research-monograph/periodic-1d/wannier90-*` | Paper 3 rank-two algorithm-selected precursor and future `periodic1d` child of a separate Wannier90 localization-reproducibility experiment; not part of the Paper 3 analytic D1 P0/G0 protocol |
+| `calculations/research-monograph/periodic-1d/wannier90-*` | Paper 3 rank-two algorithm-selected precursor and future `periodic1d` child of a separate Wannier90 localization-reproducibility experiment; not part of the Paper 3 analytic periodic-1D constant-subspace real-Givens protocol |
 | `calculations/research-monograph/periodic-2d/wannier90-balanced-*` | Paper 3 rank-three algorithm-selected frame/locality bridge |
 | `calculations/research-monograph/periodic-2d/wannier90-study-*` | Paper 3 finite sensitivity evidence; not a convergence sequence |
 | `calculations/research-monograph/periodic-2d-optimizer-basin/` | Paper 3 optimizer-reproducibility result and future `periodic2d` child of the separate reproducibility experiment |

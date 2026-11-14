@@ -88,28 +88,58 @@ A recurring discipline of these notes is therefore
 The arrow is not permission to collapse the objects on either side of it. Each
 step adds meaning and assumptions.
 
+\section{Coordinates are part of the lattice data}
+\index{coordinate system!metadata}
+
+The tuple \((1,0)\) can denote a Cartesian vector, fractional lattice
+coordinates, grid indices, or coefficients in an abstract basis. These are not
+interchangeable meanings. A lattice-coordinate record should identify at least
+
+\begin{itemize}
+  \item the space in which the coordinates live;
+  \item the ordered axes or basis vectors;
+  \item whether components are Cartesian, fractional, reciprocal, or abstract;
+  \item the component unit, if any;
+  \item the origin or reference point when relevant; and
+  \item the vector-axis and array-order convention.
+\end{itemize}
+
+A coordinate transformation changes numerical components while preserving the
+represented geometric object only when the transformation rule is applied
+consistently. In the direct-lattice setting,
+Definition~\ref{def:training-direct-lattice-basis} formalizes the relation
+\(\mathbf r=A\mathbf s\), where \(A\) stores the ordered basis vectors as
+columns and \(\mathbf s\) stores fractional coordinates. Transposing \(A\)
+without changing the convention is not a harmless formatting operation: it
+changes which axis enumerates ambient components and which axis enumerates basis
+vectors.
+
 \section{Primitive vectors as a coordinate map}
 \index{primitive vector}
 \index{fractional coordinate}
 
-Let a $d$-dimensional periodic cell have ordered primitive vectors
-$\mathbf a_1,\ldots,\mathbf a_d$. Store those vectors as the columns of a
-matrix
+\begin{definition}[Ordered direct-lattice basis and fractional coordinate]
+\label{def:training-direct-lattice-basis}
+Let a $d$-dimensional periodic cell have ordered, linearly independent primitive
+vectors $\mathbf a_1,\ldots,\mathbf a_d$ in an $m$-dimensional Cartesian ambient
+space, with $m\geq d$. The \emph{ordered direct-lattice basis matrix} is
 \begin{equation}
   A=
   \begin{bmatrix}
     \mathbf a_1 & \cdots & \mathbf a_d
-  \end{bmatrix}.
+  \end{bmatrix}
+  \in\mathbb R^{m\times d}.
   \label{eq:training-direct-basis}
 \end{equation}
-A fractional coordinate $\mathbf s\in\mathbb R^d$ maps to Cartesian position
-through
+A \emph{fractional coordinate} is a dimensionless vector
+$\mathbf s\in\mathbb R^d$. Its Cartesian position is
 \begin{equation}
   \mathbf r=A\mathbf s.
   \label{eq:training-fractional-to-cartesian}
 \end{equation}
-The entries of $\mathbf s$ are dimensionless. The columns of $A$ carry the
-length unit. Consequently, $\mathbf r$ carries that same length unit.
+The columns of $A$ carry the chosen length unit, so $\mathbf r$ carries that
+same unit.
+\end{definition}
 
 Two cases must be distinguished.
 
@@ -144,13 +174,27 @@ languages. It is worth naming them before doing any algebra.
     coordinates are periodic.
 \end{description}
 
-The same physical in-plane point can consequently be written in several ways:
+\begin{definition}[Intrinsic orthonormal frame and correlated coordinates]
+\label{def:training-intrinsic-frame}
+For the basis matrix $A$ of Definition~\ref{def:training-direct-lattice-basis},
+let $Q\in\mathbb R^{m\times d}$ contain an ordered orthonormal basis for
+$\operatorname{Ran}A$, so that
+\begin{equation}
+  Q^{\mathsf T}Q=I_d,
+  \qquad
+  \operatorname{Ran}Q=\operatorname{Ran}A.
+  \label{eq:training-intrinsic-frame}
+\end{equation}
+The same physical point has correlated fractional coordinates $\mathbf s$,
+intrinsic Cartesian coordinates $\mathbf x$, and ambient Cartesian coordinates
+$\mathbf r$ when
 \begin{equation}
   \mathbf r=A\mathbf s=Q\mathbf x,
   \qquad
   \mathbf x=Q^{\mathsf T}A\mathbf s.
   \label{eq:training-three-coordinate-languages}
 \end{equation}
+\end{definition}
 Nothing physical changes when we translate the point faithfully between these
 languages. What changes is the representation and therefore the matrices that
 act on coordinate arrays.
@@ -173,27 +217,30 @@ convention rather than relying on visual inspection of a rectangular array.
 \index{Gram metric|textbf}
 \index{metric tensor!direct lattice}
 
-The Cartesian squared length of a displacement is
+\begin{definition}[Induced Gram metric]
+\label{def:training-induced-gram-metric}
+For the ordered direct basis $A$, the \emph{induced Gram metric} is
+\begin{equation}
+  G=A^{\mathsf T}A,
+  \qquad
+  G_{ij}=\mathbf a_i\cdot\mathbf a_j.
+  \label{eq:training-gram-metric}
+\end{equation}
+It is the unique matrix satisfying
 \begin{align}
   \lVert \mathrm{d}\mathbf r\rVert_2^2
   &= (A\,\mathrm{d}\mathbf s)^{\mathsf T}
      (A\,\mathrm{d}\mathbf s) \\
-  &= \mathrm{d}\mathbf s^{\mathsf T}G\,\mathrm{d}\mathbf s,
+  &= \mathrm{d}\mathbf s^{\mathsf T}G\,\mathrm{d}\mathbf s
   \label{eq:training-induced-metric}
 \end{align}
-where
-\begin{equation}
-  G=A^{\mathsf T}A.
-  \label{eq:training-gram-metric}
-\end{equation}
-The matrix $G$ is the Gram metric of the ordered primitive vectors. It contains
-all intrinsic lengths and angles:
-\begin{equation}
-  G_{ij}=\mathbf a_i\cdot\mathbf a_j.
-  \label{eq:training-metric-components}
-\end{equation}
-If the columns of $A$ are linearly independent, then $G$ is symmetric positive
-definite and $G^{-1}$ exists.
+for every fractional displacement $\mathrm{d}\mathbf s$. Because the columns
+of $A$ are linearly independent, $G$ is symmetric positive definite and
+$G^{-1}$ exists.
+\end{definition}
+
+The metric contains all intrinsic lengths and angles of the ordered primitive
+vectors.
 
 This observation explains why an intrinsic $2\times2$ basis and an embedded
 $3\times2$ basis can define the same scalar periodic geometry. If
@@ -347,27 +394,31 @@ separate bounded test route.}
 \section{Dual reciprocal vectors}
 \index{reciprocal lattice!dual basis}
 
-For a full-column-rank $A\in\mathbb R^{m\times d}$, with $m\geq d$, define
+\begin{definition}[Two-pi-dual reciprocal basis]
+\label{def:training-two-pi-dual-basis}
+For a full-column-rank $A\in\mathbb R^{m\times d}$, with $m\geq d$, the
+\emph{two-pi-dual reciprocal basis matrix} is
 \begin{equation}
   B=2\pi A\left(A^{\mathsf T}A\right)^{-1}
    =2\pi A G^{-1}.
   \label{eq:training-rectangular-dual}
 \end{equation}
-Its columns $\mathbf b_j$ obey
+Its ordered columns $\mathbf b_j$ are the reciprocal primitive vectors and obey
 \begin{equation}
   A^{\mathsf T}B=2\pi I_d,
   \qquad
   \mathbf a_i\cdot\mathbf b_j=2\pi\delta_{ij}.
   \label{eq:training-dual-identity}
 \end{equation}
-When $A$ is square and invertible, Equation~\eqref{eq:training-rectangular-dual}
-reduces to the familiar expression
+When $A$ is square and invertible, the same definition reduces to
 \begin{equation}
   B=2\pi A^{-\mathsf T}.
   \label{eq:training-square-dual}
 \end{equation}
-The rectangular formula is therefore not a different reciprocal-lattice
-convention. It is the full-column-rank extension of the same duality condition.
+\end{definition}
+
+The rectangular formula is not a different reciprocal-lattice convention. It
+is the full-column-rank extension of the same duality condition.
 
 \subsection{Deriving the rectangular formula at the board}
 
@@ -410,6 +461,130 @@ length squared, and $B$ carries inverse length. These unit checks often reveal a
 transposition or scaling mistake before a numerical calculation is run. In
 lecture, it is useful to say the units aloud while moving through the product:
 ``length times inverse length squared gives inverse length.''
+
+\section{Lattice translations and reciprocal-space coordinates}
+\index{lattice translation|textbf}
+\index{reciprocal coordinate|textbf}
+\index{Bloch wavevector|textbf}
+
+The matrices $A$ and $B$ define coordinate maps, but their operands and outputs
+are different scientific objects.
+
+\begin{definition}[Lattice displacement, translation, reciprocal coordinate, and Bloch wavevector]
+\label{def:training-periodic-coordinate-values}
+For the ordered direct basis $A$ and its two-pi-dual reciprocal basis $B$, an
+\emph{integer lattice displacement} is a dimensionless coordinate
+$\mathbf n\in\mathbb Z^d$. Its associated \emph{physical direct-lattice
+translation} is
+\begin{equation}
+  \mathbf R_{\mathbf n}=A\mathbf n.
+  \label{eq:training-direct-lattice-translation}
+\end{equation}
+A \emph{reciprocal-lattice coordinate} is a dimensionless coefficient vector
+$\mathbf q\in\mathbb R^d$. Its associated \emph{physical Bloch wavevector} is
+\begin{equation}
+  \mathbf k_{\mathbf q}=B\mathbf q.
+  \label{eq:training-reciprocal-coordinate-wavevector}
+\end{equation}
+Thus $\mathbf R_{\mathbf n}$ has a length unit and $\mathbf k_{\mathbf q}$ has
+an inverse-length unit. The four values are correlated by
+\begin{equation}
+  \mathbf k_{\mathbf q}\cdot\mathbf R_{\mathbf n}
+  =2\pi\,\mathbf q\cdot\mathbf n.
+  \label{eq:training-direct-reciprocal-pairing}
+\end{equation}
+\end{definition}
+
+The left side of Equation~\eqref{eq:training-direct-reciprocal-pairing} pairs
+physical reciprocal and direct vectors. The right side pairs dimensionless
+reciprocal coefficients with integer lattice coordinates. This relation permits
+a Bloch phase to be written equivalently as $\exp(i\mathbf k\cdot\mathbf R)$ or
+$\exp(2\pi i\mathbf q\cdot\mathbf n)$ when all four operands belong to the same
+declared geometry and basis convention. Equal array lengths do not make the
+four scientific values interchangeable.
+
+\begin{definition}[Embedded-basis element displacement]
+\label{def:training-embedded-basis-element-displacement}
+Let an ordered retained basis have fractional direct-basis centers
+$\mathbf s_1,\ldots,\mathbf s_M\in\mathbb R^d$. For a matrix element from
+source state $\alpha$ in the reference cell to target state $\beta$ in cell
+$\mathbf n$, the \emph{directed physical element displacement} is
+\begin{equation}
+  \mathbf d_{\alpha\beta\mathbf n}
+  =A\left(\mathbf n+\mathbf s_\beta-\mathbf s_\alpha\right).
+  \label{eq:training-embedded-basis-element-displacement}
+\end{equation}
+The centers are part of an ordered basis embedding, not of the lattice geometry
+alone.
+\end{definition}
+
+The cell displacement $A\mathbf n$ and the element displacement
+$\mathbf d_{\alpha\beta\mathbf n}$ coincide only when the intracell offset
+difference vanishes. A same-cell off-diagonal element can therefore have
+nonzero physical separation. Conversely, an element with
+$\mathbf n\neq\mathbf0$ can be shorter than the corresponding cell displacement.
+This distinction is required before assigning orbital- or Wannier-pair hopping
+coefficients to physical-distance shells.
+
+\subsection{A coordinate is not yet a Brillouin-zone representative}
+
+\begin{definition}[Reciprocal-lattice class and representative]
+\label{def:training-reciprocal-class-representative}
+For a fixed ordered reciprocal basis, reciprocal coordinates $\mathbf q$ and
+$\mathbf q'$ belong to the same \emph{reciprocal-lattice class} when
+$\mathbf q'-\mathbf q\in\mathbb Z^d$. A \emph{representative convention}
+selects one or more coordinates from each class and states its boundary,
+ordering, multiplicity, and symmetry rules.
+\end{definition}
+
+A reciprocal coordinate $\mathbf q$ does not by itself select a first
+Brillouin-zone representative. Coordinates $\mathbf q$ and
+$\mathbf q+\mathbf m$, with $\mathbf m\in\mathbb Z^d$, remain distinct stored
+coordinates. Their physical Bloch fibers may be identified only after the
+Bloch, basis, sewing, and gauge conventions have been stated. A centered
+half-open cell, a unit half-open cell, a symmetry-reduced wedge, a labeled path,
+and an ordered mesh are different representative structures. They also own
+different endpoint, ordering, weight, and adjacency conventions.
+
+This distinction matters computationally. Wrapping a coordinate modulo integers
+is a representative-selection operation. It must not be hidden inside geometry
+construction, physical wavevector construction, or coordinate conversion.
+
+\subsection{Recovering reciprocal-basis coefficients}
+\index{reciprocal coordinate!recovery}
+
+Given a physical reciprocal-space vector $\mathbf k$, recovering coefficients in
+the reciprocal primitive basis is a numerical projection.
+
+\begin{definition}[Reciprocal-coordinate projection and reconstruction residual]
+\label{def:training-reciprocal-coordinate-projection}
+For the full-column-rank basis used here, the \emph{recovered reciprocal
+coordinate}, \emph{reconstructed wavevector}, and \emph{reconstruction
+residual} are
+\begin{align}
+  \mathbf q_{\mathbf k}
+  &=\frac{1}{2\pi}A^{\mathsf T}\mathbf k,
+  \label{eq:training-reciprocal-coordinate-recovery}\\
+  \mathbf k_{\mathrm{rec}}
+  &=B\mathbf q_{\mathbf k},
+  \label{eq:training-reciprocal-wavevector-reconstruction}\\
+  \delta_k
+  &=\left\lVert\mathbf k_{\mathrm{rec}}-\mathbf k\right\rVert_2.
+  \label{eq:training-reciprocal-coordinate-residual}
+\end{align}
+The residual $\delta_k$ has inverse-length units.
+\end{definition}
+
+If $\mathbf k$ lies in the reciprocal tangent space, then
+$B\mathbf q_{\mathbf k}=\mathbf k$. For a general ambient vector,
+$\mathbf k_{\mathrm{rec}}$ is its projection into that space, and $\delta_k$
+records what the projection discarded or failed to reconstruct numerically.
+
+Coordinate recovery should therefore return more than an unlabelled tuple. A
+scientifically complete result correlates the source wavevector, recovered
+reciprocal coordinate, reconstructed wavevector, geometry, and residual. A
+separate verifier may compare $\delta_k$ with a declared tolerance. Neither the
+projection nor that tolerance check selects a Brillouin-zone representative.
 
 \section{The one-dimensional reciprocal quotient}
 \index{Brillouin zone!one-dimensional}
@@ -532,25 +707,22 @@ Bloch-to-lattice reduction.
 \index{pseudoinverse}
 \index{projection!ambient plane}
 
-The left pseudoinverse of a full-column-rank embedded basis is
+\begin{definition}[Left pseudoinverse and ambient tangent projector]
+\label{def:training-left-pseudoinverse-projector}
+For a full-column-rank embedded basis $A$, its \emph{left pseudoinverse} and
+\emph{ambient tangent projector} are
 \begin{equation}
   A^{+}=G^{-1}A^{\mathsf T}.
   \label{eq:training-left-pseudoinverse}
 \end{equation}
-For an in-plane point $\mathbf r=A\mathbf s$,
-\begin{equation}
-  A^{+}\mathbf r=\mathbf s.
-  \label{eq:training-fractional-recovery}
-\end{equation}
-For a general ambient vector, $A^{+}\mathbf r$ returns the fractional
-coordinates of its orthogonal in-plane projection. The associated ambient
-projector is
 \begin{equation}
   P=AA^{+}=AG^{-1}A^{\mathsf T}.
   \label{eq:training-ambient-projector}
 \end{equation}
-It satisfies
+They satisfy
 \begin{equation}
+  A^{+}A=I_d,
+  \qquad
   P^{\mathsf T}=P,
   \qquad
   P^2=P,
@@ -558,6 +730,15 @@ It satisfies
   \operatorname{Ran}P=\operatorname{Ran}A.
   \label{eq:training-projector-identities}
 \end{equation}
+In particular, for every in-plane point $\mathbf r=A\mathbf s$,
+\begin{equation}
+  A^{+}\mathbf r=\mathbf s.
+  \label{eq:training-fractional-recovery}
+\end{equation}
+\end{definition}
+
+For a general ambient vector, $A^{+}\mathbf r$ returns the fractional
+coordinates of its orthogonal in-plane projection.
 An out-of-plane component is removed by this operation. That removal must be
 explicit: it is not evidence that the ambient vector was originally confined
 to the plane.
@@ -585,8 +766,9 @@ make that physical decision for us.
 \section{An intrinsic frame that preserves the embedding}
 \index{orthonormal frame!embedded plane}
 
-Let $Q\in\mathbb R^{3\times2}$ contain an ordered orthonormal frame for the
-plane, so that
+Return now to the ordered orthonormal frame $Q$ introduced in
+Definition~\ref{def:training-intrinsic-frame}. For an embedded plane,
+$Q\in\mathbb R^{3\times2}$ and
 \begin{equation}
   Q^{\mathsf T}Q=I_2,
   \qquad
@@ -665,6 +847,23 @@ The maintained PhysKit dependency represents the defining basis with
 basis, induced metric, inverse metric, ambient dual reciprocal basis,
 orthonormal frame, and tangent-plane projector. The adapter preserves the
 original $A$ rather than silently replacing it by $C$.
+
+The maintained KSD dimensional geometry values
+\path{Periodic1DLatticeGeometry}, \path{Periodic2DLatticeGeometry}, and
+\path{Periodic3DLatticeGeometry} retain immutable scalar snapshots and explicit
+physical length units, then reconstruct the corresponding PhysKit direct and
+reciprocal lattices. At the source revision described by this chapter, their
+translation and Bloch-coordinate methods expose PhysKit scalar or vector
+quantities, while inverse conversion exposes built-in scalar or tuple
+coefficients. Those values are numerical representations of the scientific
+objects defined above; they do not erase the distinction among integer lattice
+displacement, physical translation, reciprocal-basis coordinate, and physical
+Bloch wavevector.
+
+A prospective v3 source refinement records those correlations through dedicated
+translation, reciprocal-coordinate, Bloch-wavevector, and residual-bearing
+projection values. This manuscript does not describe that prospective surface
+as implemented until the source owners and verification evidence exist.
 
 The corresponding strict JSON codec serializes only the defining $3\times2$
 basis, its unit, a schema version, a representation discriminator, and the

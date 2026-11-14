@@ -5,11 +5,8 @@ that has not been run as retained evidence. The calculation asks how increasing 
 number of retained states and the depth of momentum-dependent basis rotations changes
 the range of the resulting real-space hopping matrices.
 
-The protocol's short labels mean:
-
-- **D1:** one spatial dimension;
-- **P0:** the retained subspace is fixed rather than moving with momentum; and
-- **G0:** the basis rotations are real orthogonal rotations.
+The selected control is one-dimensional, keeps the retained subspace fixed over
+momentum, and applies real Givens rotations within that retained subspace.
 
 The direct typed producer now enters through the rank-$N$ rank-first alignment-study
 specification and binds the explicit reduced-convention geometry
@@ -24,7 +21,7 @@ recalculation.
 
 | File | SHA-256 |
 |---|---|
-| [`experimental-protocol.tex`](experimental-protocol.tex) | `2c1a5e7e2ee476ff27151f3ed6d9c02abc25ca7a577b30a40a4ce45199231a8e` |
+| [`experimental-protocol.tex`](experimental-protocol.tex) | `38387e65d79f7bc839b45081380ab90b91b186b1977b390f11e9c0cde415a156` |
 
 The TeX file originated from
 `experiments/periodic-reduction/higher-rank-composite-band-alignment-and-locality/experimental-protocol.tex`
@@ -32,7 +29,7 @@ at predecessor revision `81f7c09a5edc50be698bd3a5f047438cd61d4eca`. The maintain
 calculation-owned protocol now uses descriptive gauge-alignment identities and includes
 scientific-flow and typed-lifecycle schematics; it is no longer byte-identical to that
 historical donor. Its current SHA-256 is
-`2c1a5e7e2ee476ff27151f3ed6d9c02abc25ca7a577b30a40a4ce45199231a8e`.
+`38387e65d79f7bc839b45081380ab90b91b186b1977b390f11e9c0cde415a156`.
 
 The plan specifies the one-dimensional cases, numerical controls, resource limits, and
 scientific interpretation. Storyboard rationale, evidence boundaries, encoding rules,
@@ -46,9 +43,8 @@ uv run python \
 ```
 
 The renderer reads only the integrity-admitted `results/development-cache/` inventory and
-writes the closed figure set under `figures/storyboard/`. Its references to
-`verify_d1_p0_g0_controls.py` name the old
-finite-grid formula-check script; the maintained replacement is
+writes the closed figure set under `figures/storyboard/`. References to the removed
+predecessor formula-check script are historical; the maintained replacement is
 [`../verify_analytic_controls.py`](../verify_analytic_controls.py). The direct lifecycle
 uses `run_01_calculation.py`, `run_02_verification.py`, and `run_03_render.py`. The cache
 manifest records exact result-byte identities and the single

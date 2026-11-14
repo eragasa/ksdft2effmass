@@ -7,6 +7,8 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
+
 from ksdft2effmass.band_equivalence_hopping_locality import (
     definitions,
 )
@@ -19,9 +21,19 @@ from ksdft2effmass.band_equivalence_hopping_locality.plotting import (
     BandEquivalenceToleranceMapRequest,
     BandEquivalenceToleranceMapWriter,
 )
-from projectkoios.physkit.periodic.lattice import DirectLattice2D, DirectLatticeMetric
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
+
+
+def _endpoint_sewing() -> ReciprocalEndpointSewingInventory:
+    identity_sewing = IdentityReciprocalSewing(ambient_dimension=4)
+    return ReciprocalEndpointSewingInventory(
+        positive_axis_maps=(identity_sewing.endpoint_map,) * 2
+    )
 
 
 class TestBandEquivalenceHoppingLocalityPlotWriter:
@@ -61,8 +73,14 @@ class TestBandEquivalenceHoppingLocalityPlotWriter:
             construction_size=6,
             evaluation_size=7,
         )
-        smoke = Rank2BandEquivalenceHoppingLocalityAnalyzer(request=smoke_request).execute()
-        refined = Rank2BandEquivalenceHoppingLocalityAnalyzer(request=refined_request).execute()
+        smoke = Rank2BandEquivalenceHoppingLocalityAnalyzer(
+            request=smoke_request,
+            endpoint_sewing=_endpoint_sewing(),
+        ).execute()
+        refined = Rank2BandEquivalenceHoppingLocalityAnalyzer(
+            request=refined_request,
+            endpoint_sewing=_endpoint_sewing(),
+        ).execute()
 
         result = BandEquivalenceHoppingLocalityPlotWriter(
             request=BandEquivalenceHoppingLocalityPlotRequest(
@@ -110,8 +128,14 @@ class TestBandEquivalenceHoppingLocalityPlotWriter:
             family=definitions.BandEquivalenceHoppingLocalityFamilyEnum.GRAPHENE_INSPIRED,
         )
         diagnostics = (
-            Rank2BandEquivalenceHoppingLocalityAnalyzer(request=first_request).execute(),
-            Rank2BandEquivalenceHoppingLocalityAnalyzer(request=second_request).execute(),
+            Rank2BandEquivalenceHoppingLocalityAnalyzer(
+                request=first_request,
+                endpoint_sewing=_endpoint_sewing(),
+            ).execute(),
+            Rank2BandEquivalenceHoppingLocalityAnalyzer(
+                request=second_request,
+                endpoint_sewing=_endpoint_sewing(),
+            ).execute(),
         )
 
         result = BandEquivalenceToleranceMapWriter(

@@ -16,7 +16,7 @@ from projectkoios.physkit.units import (
 )
 
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.rank1.model.blochhopping import (
+from ksdft2effmass.periodic1d.rank1.models.blochhopping import (
     Periodic1DRank1BlochHoppingModel,
 )
 

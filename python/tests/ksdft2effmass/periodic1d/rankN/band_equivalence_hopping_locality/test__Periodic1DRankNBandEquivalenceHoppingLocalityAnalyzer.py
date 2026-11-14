@@ -25,14 +25,12 @@ from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentGroupFamily,
     GaugeAlignmentInnerProductConvention,
 )
+from ksdft2effmass.periodic1d.rankN import interpolation as gauge_interpolation
 from ksdft2effmass.periodic1d.rankN.band_alignment.frame_transport.failure import (
     Periodic1DRankNTransportBackendExceptionCode,
 )
 from ksdft2effmass.periodic1d.rankN.band_alignment.gauge_case_result import (
     Periodic1DRankNGaugeAlignmentMeshResult,
-)
-from ksdft2effmass.periodic1d.rankN.band_alignment.model import (
-    Periodic1DRankNAnalyticCaseConstructor,
 )
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.analysis import (
     Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer as StudyAnalyzer,
@@ -46,20 +44,12 @@ from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request im
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
     Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis as StudyAnalysis,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment import (
-    interpolation as gauge_interpolation,
+from ksdft2effmass.periodic1d.rankN.fourier_analysis import (
+    Periodic1DRankNFourierAnalysisRequest,
+    Periodic1DRankNFourierAnalyzer,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.fields import (
-    Periodic1DRankNGaugeAlignedFields,
-    Periodic1DRankNGaugeAlignmentConstructionRequest,
-    Periodic1DRankNGaugeAlignmentConstructor,
-)
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier import (
-    Periodic1DRankNFourierAnalysisRequest,
-    Periodic1DRankNFourierAnalyzer,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.nyquist import (
     NyquistModeDispositionEnum,
@@ -75,9 +65,22 @@ from ksdft2effmass.periodic1d.rankN.hopping_locality.analysis import (
     Periodic1DRankNHoppingLocalityAnalysisRequest,
     Periodic1DRankNHoppingLocalityAnalyzer,
 )
+from ksdft2effmass.periodic1d.rankN.represented_fields import (
+    Periodic1DRankNRepresentedFieldConstructionRequest,
+    Periodic1DRankNRepresentedFieldConstructor,
+    Periodic1DRankNRepresentedFields,
+)
 from ksdft2effmass.periodic1d.rankN.support_truncation.analysis import (
     Periodic1DRankNSupportTruncationAnalysisRequest,
     Periodic1DRankNSupportTruncationAnalyzer,
+)
+from periodic1d_rankn_analytic_case_support import (
+    SyntheticPeriodic1DRankNAnalyticCaseConstructor,
+)
+from periodic1d_rankn_analytic_oracle import analytic_fourier_givens_transformation
+from periodic1d_rankn_control_basis_support import (
+    synthetic_basis_identity,
+    synthetic_parent_model,
 )
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
@@ -122,14 +125,22 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
             assert mesh.model_diagnostics.exact_analytic_isolation_gap == 2.1
             assert mesh.model_diagnostics.sampled_isolation_gaps.shape == (3,)
             assert np.all(mesh.model_diagnostics.sampled_isolation_gaps >= 2.1)
-            assert mesh.model_diagnostics.exact_analytic_attack_angle_maximum < 0.4025
-            assert mesh.model_diagnostics.sampled_attack_angle_maxima.shape == (3,)
+            assert (
+                mesh.model_diagnostics.exact_analytic_transformation_angle_maximum
+                < 0.4025
+            )
+            assert mesh.model_diagnostics.sampled_transformation_angle_maxima.shape == (
+                3,
+            )
             assert np.all(
-                mesh.model_diagnostics.sampled_attack_angle_maxima
-                <= mesh.model_diagnostics.exact_analytic_attack_angle_maximum
+                mesh.model_diagnostics.sampled_transformation_angle_maxima
+                <= mesh.model_diagnostics.exact_analytic_transformation_angle_maximum
             )
             assert mesh.model_diagnostics.gauge_unitarity_defect < 1.0e-12
-            assert mesh.model_diagnostics.attacked_projector_equality_defect < 1.0e-12
+            assert (
+                mesh.model_diagnostics.gauge_transformed_projector_equality_defect
+                < 1.0e-12
+            )
             assert (
                 mesh.pointwise_selection.maximum_objective_identity_defect is not None
             )
@@ -300,13 +311,23 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
             "frames",
             np.dtype(np.complex128),
         ).execute()
-        matching_model = Periodic1DRankNAnalyticCaseConstructor(
+        matching_model = SyntheticPeriodic1DRankNAnalyticCaseConstructor(
             retained_rank=3,
             circuit_depth=1,
+            basis_identity=synthetic_basis_identity(3),
+            gauge_transformation=analytic_fourier_givens_transformation(
+                retained_rank=3,
+                circuit_depth=1,
+            ),
         ).execute()
-        mismatched_model = Periodic1DRankNAnalyticCaseConstructor(
+        mismatched_model = SyntheticPeriodic1DRankNAnalyticCaseConstructor(
             retained_rank=3,
             circuit_depth=2,
+            basis_identity=synthetic_basis_identity(3),
+            gauge_transformation=analytic_fourier_givens_transformation(
+                retained_rank=3,
+                circuit_depth=2,
+            ),
         ).execute()
         coordinates = NumpyImmutableArrayConstructor(
             -0.5 + np.arange(513, dtype=np.float64) / 513,
@@ -314,7 +335,7 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
             np.dtype(np.float64),
         ).execute()
 
-        aligned_fields = Periodic1DRankNGaugeAlignedFields(
+        aligned_fields = Periodic1DRankNRepresentedFields(
             case_identity=higher_rank_calculation_request.case_identity,
             gauge_alignment=status.gauge_alignment,
             coordinates=coordinates,
@@ -324,7 +345,8 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
         with pytest.raises(ValueError, match="model rank and depth"):
             Periodic1DRankNGaugeAlignmentAnalysisRequest(
                 calculation_request=higher_rank_calculation_request,
-                model=mismatched_model,
+                parent_model=mismatched_model.parent_model,
+                gauge_transformation=mismatched_model.gauge_transformation,
                 mesh=mesh,
                 status=status,
                 aligned_fields=aligned_fields,
@@ -338,10 +360,11 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
         with pytest.raises(ValueError, match="declared construction mesh"):
             Periodic1DRankNGaugeAlignmentAnalysisRequest(
                 calculation_request=higher_rank_calculation_request,
-                model=matching_model,
+                parent_model=matching_model.parent_model,
+                gauge_transformation=matching_model.gauge_transformation,
                 mesh=mesh,
                 status=status,
-                aligned_fields=Periodic1DRankNGaugeAlignedFields(
+                aligned_fields=Periodic1DRankNRepresentedFields(
                     case_identity=higher_rank_calculation_request.case_identity,
                     gauge_alignment=status.gauge_alignment,
                     coordinates=mismatched_coordinates,
@@ -353,7 +376,8 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
         with pytest.raises(ValueError, match="represented operators"):
             Periodic1DRankNGaugeAlignmentAnalysisRequest(
                 calculation_request=higher_rank_calculation_request,
-                model=matching_model,
+                parent_model=matching_model.parent_model,
+                gauge_transformation=matching_model.gauge_transformation,
                 mesh=mesh,
                 status=status,
                 aligned_fields=aligned_fields,
@@ -371,17 +395,23 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
             "coordinates",
             np.dtype(np.float64),
         ).execute()
-        model = Periodic1DRankNAnalyticCaseConstructor(
+        model = SyntheticPeriodic1DRankNAnalyticCaseConstructor(
             retained_rank=3,
             circuit_depth=1,
+            basis_identity=synthetic_basis_identity(3),
+            gauge_transformation=analytic_fourier_givens_transformation(
+                retained_rank=3,
+                circuit_depth=1,
+            ),
         ).execute()
         status = (
             higher_rank_calculation_result.meshes[0].gauge_alignment_results[0].status
         )
-        fields = Periodic1DRankNGaugeAlignmentConstructor(
-            Periodic1DRankNGaugeAlignmentConstructionRequest(
+        fields = Periodic1DRankNRepresentedFieldConstructor(
+            Periodic1DRankNRepresentedFieldConstructionRequest(
                 calculation_request=higher_rank_calculation_request,
-                model=model,
+                parent_model=model.parent_model,
+                gauge_transformation=model.gauge_transformation,
                 gauge_alignment=status.gauge_alignment,
                 coordinates=coordinates,
                 global_selection=higher_rank_calculation_result.global_selection,
@@ -389,7 +419,8 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
         ).execute()
         analysis_request = Periodic1DRankNGaugeAlignmentAnalysisRequest(
             calculation_request=higher_rank_calculation_request,
-            model=model,
+            parent_model=model.parent_model,
+            gauge_transformation=model.gauge_transformation,
             mesh=mesh,
             status=status,
             aligned_fields=fields,
@@ -408,7 +439,7 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
         )
         assert (
             analysis_request.gauge_group_identity.represented_dimension
-            == analysis_request.model.retained_rank
+            == analysis_request.parent_model.band_subspace_rank
         )
         assert (
             analysis_request.action_convention is GaugeAlignmentActionConvention.RIGHT
@@ -484,7 +515,7 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
             diagnostics,
             case_identity="r04-L01",
             retained_rank=4,
-            exact_analytic_attack_angle_maximum=rank_four_angle,
+            exact_analytic_transformation_angle_maximum=rank_four_angle,
         )
         mismatched_mesh = replace(
             first_mesh,
@@ -612,6 +643,13 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
         )
         result = StudyAnalyzer(
             request=bounded_failure_study_request,
+            parent_model=synthetic_parent_model(
+                bounded_failure_study_request.retained_rank
+            ),
+            gauge_transformation=analytic_fourier_givens_transformation(
+                retained_rank=bounded_failure_study_request.retained_rank,
+                circuit_depth=bounded_failure_study_request.circuit_depth,
+            ),
             procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
             transporter=ClosedLoopPolarFrameTransporter(),
             scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
@@ -658,6 +696,13 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
         )
         result = StudyAnalyzer(
             request=higher_rank_calculation_request,
+            parent_model=synthetic_parent_model(
+                higher_rank_calculation_request.retained_rank
+            ),
+            gauge_transformation=analytic_fourier_givens_transformation(
+                retained_rank=higher_rank_calculation_request.retained_rank,
+                circuit_depth=higher_rank_calculation_request.circuit_depth,
+            ),
             procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
             transporter=ClosedLoopPolarFrameTransporter(),
             scalar_refinement_analyzer=ScalarRefinementAnalyzer(),

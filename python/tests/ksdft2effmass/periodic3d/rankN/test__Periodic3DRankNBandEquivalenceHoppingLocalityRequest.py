@@ -16,17 +16,14 @@ from projectkoios.physkit.periodic.lattice import (
     DirectLatticeMetric,
 )
 
-from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.case_expansion import (  # noqa: E501
-    Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander,
-)
-from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model import (
-    Periodic3DRankNAnalyticCase,
-    Periodic3DRankNGaugeNormalizationEnum,
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.case import (
+    Periodic3DRankNParentGaugeCase,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.request import (
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition,
     Periodic3DRankNBandEquivalenceHoppingLocalityFamilyEnum,
     Periodic3DRankNBandEquivalenceHoppingLocalityRequest,
+    Periodic3DRankNLatticeControlEnum,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.result import (
     Periodic3DRankNBandEquivalenceHoppingLocalityAnalysis,
@@ -37,6 +34,12 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.verificati
 )
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
+)
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
+    Periodic3DRankNGaugeNormalizationEnum,
+)
+from periodic3d_rankn_analytic_case_support import (
+    SyntheticPeriodic3DRankNCaseExpander,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -64,7 +67,9 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
         if family is Periodic3DRankNBandEquivalenceHoppingLocalityFamilyEnum.ORTHOGONAL:
             cases = (
                 Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
-                    identifier="simple-cubic-axis-control",
+                    lattice_control=(
+                        Periodic3DRankNLatticeControlEnum.SIMPLE_CUBIC_AXIS_CONTROL
+                    ),
                     positive_bonds=simple_bonds,
                     gauge_normalization=(
                         Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM
@@ -73,7 +78,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
                     shell_metric_scale=1.0,
                 ),
             )
-            attacks = (0.0, math.pi / 8.0, math.pi / 4.0)
+            transformations = (0.0, math.pi / 8.0, math.pi / 4.0)
             shell_cap = 9
         else:
             fcc_bonds = (
@@ -89,7 +94,9 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
             )
             cases = (
                 Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
-                    identifier="matched-simple-cubic-bravais-control",
+                    lattice_control=(
+                        Periodic3DRankNLatticeControlEnum.MATCHED_SIMPLE_CUBIC_BRAVAIS_CONTROL
+                    ),
                     positive_bonds=simple_bonds,
                     gauge_normalization=(
                         Periodic3DRankNGaugeNormalizationEnum.BOND_RMS
@@ -98,7 +105,9 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
                     shell_metric_scale=2.0,
                 ),
                 Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
-                    identifier="fcc-bravais-control",
+                    lattice_control=(
+                        Periodic3DRankNLatticeControlEnum.FCC_BRAVAIS_CONTROL
+                    ),
                     positive_bonds=fcc_bonds,
                     gauge_normalization=(
                         Periodic3DRankNGaugeNormalizationEnum.BOND_RMS
@@ -107,7 +116,9 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
                     shell_metric_scale=2.0,
                 ),
                 Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
-                    identifier="fcc-two-basis-metric-control",
+                    lattice_control=(
+                        Periodic3DRankNLatticeControlEnum.FCC_TWO_BASIS_METRIC_CONTROL
+                    ),
                     positive_bonds=fcc_bonds,
                     gauge_normalization=(
                         Periodic3DRankNGaugeNormalizationEnum.BOND_RMS
@@ -117,7 +128,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
                     basis_offsets=((0.0, 0.0, 0.0), (0.25, 0.25, 0.25)),
                 ),
             )
-            attacks = (
+            transformations = (
                 0.0,
                 math.pi / (8.0 * math.sqrt(12.0)),
                 math.pi / (4.0 * math.sqrt(12.0)),
@@ -132,7 +143,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
             evaluation_size=17,
             evaluation_shift=1.0 / 3.0,
             parent_scales=(0.0, 1.0),
-            attack_coefficients=attacks,
+            transformation_coefficients=transformations,
             band_tolerances=(1.0e-3, 1.0e-5),
             gauge_alignments=(
                 Periodic3DRankNGaugeAlignment.IDENTITY,
@@ -174,15 +185,13 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
         decoded = Periodic3DRankNBandEquivalenceHoppingLocalityRequest.from_json(
             encoded
         )  # noqa: E501
-        expanded = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=decoded
-        ).execute()
+        expanded = SyntheticPeriodic3DRankNCaseExpander(request=decoded).execute()
 
         assert decoded.to_json() == encoded
         assert decoded.case_count == expected_count
         assert decoded.band_subspace_ranks == decoded.retained_ranks
         assert len(expanded) == expected_count
-        assert all(type(case) is Periodic3DRankNAnalyticCase for case in expanded)
+        assert all(type(case) is Periodic3DRankNParentGaugeCase for case in expanded)
         assert len({case.model_identity for case in expanded}) == expected_count
         assert {case.retained_rank for case in expanded} == {3, 4, 8}
         assert {case.circuit_depth for case in expanded} == {1, 2, 4}
@@ -199,6 +208,21 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
             Periodic3DRankNGaugeAlignment.POINTWISE_UNITARY,
             Periodic3DRankNGaugeAlignment.KNOWN_INVERSE_ORACLE,
         )
+
+    def test_lattice_control_enum_selects_request_owned_geometry(self) -> None:
+        request = self._request(
+            Periodic3DRankNBandEquivalenceHoppingLocalityFamilyEnum.ORTHOGONAL
+        )
+
+        selected = request.case(
+            Periodic3DRankNLatticeControlEnum.SIMPLE_CUBIC_AXIS_CONTROL
+        )
+
+        assert selected.lattice_control is (
+            Periodic3DRankNLatticeControlEnum.SIMPLE_CUBIC_AXIS_CONTROL
+        )
+        with pytest.raises(ValueError, match="exactly one"):
+            request.case(Periodic3DRankNLatticeControlEnum.FCC_BRAVAIS_CONTROL)
 
     def test_wire_identities_name_both_aggregate_operands(self) -> None:
         identities = (
@@ -254,7 +278,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
                 evaluation_size=request.evaluation_size,
                 evaluation_shift=request.evaluation_shift,
                 parent_scales=request.parent_scales,
-                attack_coefficients=request.attack_coefficients,
+                transformation_coefficients=request.transformation_coefficients,
                 band_tolerances=request.band_tolerances,
                 gauge_alignments=request.gauge_alignments,
                 shell_cap=request.shell_cap,
@@ -279,7 +303,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityRequest:
                 evaluation_size=request.evaluation_size,
                 evaluation_shift=request.evaluation_shift,
                 parent_scales=request.parent_scales,
-                attack_coefficients=(
+                transformation_coefficients=(
                     0.0,
                     math.pi / (8.0 * math.sqrt(12.0)),
                     math.pi / (4.0 * math.sqrt(12.0)),

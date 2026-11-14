@@ -1,9 +1,29 @@
 # Gauge-locality cost under synthetic finite strain
 
 > **Authority:** this calculation-owned periodic multiband document preserves the shared
-> synthetic-strain protocol. Dimension-specific authoritative protocols remain with the
-> rhombic and Bain calculation contexts. Migration is tracked in
+> rank-two synthetic-strain donor protocol. Dimension- and rank-specific authoritative
+> protocols remain with their calculation contexts. Migration is tracked in
 > [`migration.md`](migration.md).
+
+## Study identities
+
+The strain program has four distinct calculation-study identities:
+
+1. [`periodic2d_rank2_rhombic_path/`](../../periodic2d_rank2_rhombic_path/) owns the
+   bounded periodic-2D rank-two rhombic controls;
+2. [`periodic2d_rankN_strain/`](../../periodic2d_rankN_strain/) owns the prospective
+   periodic-2D arbitrary-finite-rank strain study;
+3. [`periodic3d_rank2_bain_path/`](../../periodic3d_rank2_bain_path/) owns the bounded
+   periodic-3D rank-two Bain controls; and
+4. [`periodic3d_rankN_strain/`](../../periodic3d_rankN_strain/) owns the partial-protocol
+   periodic-3D arbitrary-finite-rank Bain study.
+
+The three scientific controls below are rank-two response channels, not three calculation
+study identities. The rank-N studies must select their own common state spaces, parent
+and response laws, rank/depth inventories, meshes, tolerances, verification, and evidence
+identities. The 2-D rank-N protocol remains unselected. The 3-D rank-N protocol currently
+selects only its Bain geometry/common-state-space and M0/M1N boundaries; it does not
+inherit rank-two M1/M2 formulas or outcomes.
 
 ## Scientific question
 
@@ -14,7 +34,7 @@ physical real-space range required to meet a declared fidelity tolerance?
 This is a synthetic gauge stress test. It is not an elastic, structural-stability, or
 material-strain calculation.
 
-## Scientific controls
+## Rank-two scientific controls
 
 1. **Geometry-only flat-parent control:** a constant rank-two parent and imposed smooth
    gauge. This control has exact band equivalence, zero covariant residual, and
@@ -65,9 +85,11 @@ and \(\mathbf n_B\) the Bain/BCT coordinate. The prospectively fixed map is
  \qquad \det U=1.
 \]
 
-It induces \(\mathbf q_B=U^\mathsf{T}\mathbf q_F\) on the reciprocal torus and a cell
-permutation \(\mathbf n_B\mapsto U\mathbf n_B\pmod N\) on every finite periodic mesh.
-The existing diamond offset \((1/4,1/4,1/4)_F\) becomes
+It induces \(\mathbf q_B=U^\mathsf{T}\mathbf q_F\) on the reciprocal torus. On a
+finite quotient, the cell map is a permutation only for positive period triples with
+\(N_2=N_3\) and \(N_1\mid N_2\), including every positive cubic quotient; incompatible
+mixed periods receive no fallback map. The existing diamond offset
+\((1/4,1/4,1/4)_F\) becomes
 \((1/2,-1/4,1/4)_B\); orbital and sublattice labels are otherwise unchanged. The
 unit-volume endpoint metrics obey \(G_B=U^\mathsf{T}G_FU\), and the six FCC bond pairs
 map exactly to the six Bain-coordinate bond pairs used by the geometry-only control.

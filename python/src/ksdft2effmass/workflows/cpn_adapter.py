@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
-from enum import StrEnum
 from hashlib import sha256
 from itertools import product
 from string import hexdigits
@@ -40,6 +39,7 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetTransitionIdentity,
     ColoredPetriNetValue,
 )
+from ksdft2effmass.serialization import StrWireEnum
 
 from .model import (
     AllOfTaskActivationSelection,
@@ -89,7 +89,7 @@ def _binding_identity_state(binding: ColoredPetriNetBinding) -> dict[str, object
     }
 
 
-class ColoredPetriNetWorkflowSelectionPolicy(StrEnum):
+class ColoredPetriNetWorkflowSelectionPolicy(StrWireEnum):
     """Workflow-owned permission for noncanonical generic selection.
 
     ``DETERMINISTIC_ONLY`` permits only the generic canonical binding.
@@ -101,7 +101,7 @@ class ColoredPetriNetWorkflowSelectionPolicy(StrEnum):
     DIRECTED_ALLOWED = "directed_allowed"
 
 
-class ColoredPetriNetWorkflowActivationMode(StrEnum):
+class ColoredPetriNetWorkflowActivationMode(StrWireEnum):
     """Closed caller intent for automatic or direct Task activation."""
 
     AUTOMATIC = "automatic"
@@ -340,7 +340,7 @@ class ColoredPetriNetWorkflowActivationRequest:
             raise ValueError("mapped variable identities must be unique")
 
 
-class ColoredPetriNetWorkflowActivationOutcomeKind(StrEnum):
+class ColoredPetriNetWorkflowActivationOutcomeKind(StrWireEnum):
     """Closed effect-free adapter outcomes."""
 
     ACTIVATED = "activated"
@@ -348,7 +348,7 @@ class ColoredPetriNetWorkflowActivationOutcomeKind(StrEnum):
     FAILURE = "failure"
 
 
-class ColoredPetriNetWorkflowActivationFailureCode(StrEnum):
+class ColoredPetriNetWorkflowActivationFailureCode(StrWireEnum):
     """Stable failure partitions owned by Workflow-to-CPN adaptation."""
 
     INVALID_WORKFLOW_MAPPING = "invalid_workflow_mapping"

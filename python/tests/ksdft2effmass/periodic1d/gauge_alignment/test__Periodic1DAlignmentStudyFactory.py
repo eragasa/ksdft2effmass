@@ -43,6 +43,9 @@ from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request im
     Periodic1DRankNBandEquivalenceHoppingLocalityControls,
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
 )
+from ksdft2effmass.sewing import IdentityReciprocalSewing
+from periodic1d_rankn_analytic_oracle import analytic_fourier_givens_transformation
+from periodic1d_rankn_control_basis_support import synthetic_parent_model
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
@@ -91,8 +94,8 @@ class TestPeriodic1DAlignmentStudyFactory:
             evaluation_shift_numerator=1,
             evaluation_shift_denominator=65,
             hopping_ranges=configuration_type.HOPPING_RANGES,
-            attack_constant_angle=0.30,
-            attack_sine_coefficients=(0.65, 0.30),
+            transformation_constant_angle=0.30,
+            transformation_sine_coefficients=(0.65, 0.30),
             sampled_gap_threshold=0.5,
             overlap_singular_value_threshold=0.8,
             procrustes_rank_absolute_tolerance=1.0e-14,
@@ -180,12 +183,18 @@ class TestPeriodic1DAlignmentStudyFactory:
             lattice_geometry=rank2_geometry,
             configuration=self.rank2_configuration(),
             procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
+            endpoint_sewing=IdentityReciprocalSewing(ambient_dimension=4).endpoint_map,
         )
         rank2_factory = Periodic1DAlignmentStudyFactory(rank2_specification)
         rank2 = rank2_factory.create()
         rankn_specification = Periodic1DRankNAlignmentStudySpecification(
             lattice_geometry=rankn_geometry,
             request=self.rankn_request(),
+            parent_model=synthetic_parent_model(3),
+            gauge_transformation=analytic_fourier_givens_transformation(
+                retained_rank=3,
+                circuit_depth=1,
+            ),
             procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
             transporter=ClosedLoopPolarFrameTransporter(),
             scalar_refinement_analyzer=ScalarRefinementAnalyzer(),
@@ -222,11 +231,19 @@ class TestPeriodic1DAlignmentStudyFactory:
                 lattice_geometry=object(),  # type: ignore[arg-type]
                 configuration=self.rank2_configuration(),
                 procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
+                endpoint_sewing=IdentityReciprocalSewing(
+                    ambient_dimension=4
+                ).endpoint_map,
             )
         with pytest.raises(TypeError, match="lattice_geometry"):
             Periodic1DRankNAlignmentStudySpecification(
                 lattice_geometry=object(),  # type: ignore[arg-type]
                 request=self.rankn_request(),
+                parent_model=synthetic_parent_model(3),
+                gauge_transformation=analytic_fourier_givens_transformation(
+                    retained_rank=3,
+                    circuit_depth=1,
+                ),
                 procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
                 transporter=ClosedLoopPolarFrameTransporter(),
                 scalar_refinement_analyzer=ScalarRefinementAnalyzer(),

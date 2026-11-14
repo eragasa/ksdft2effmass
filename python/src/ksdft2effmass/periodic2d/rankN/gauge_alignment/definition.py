@@ -1,9 +1,9 @@
 """Scientific gauge-alignment identities for periodic-2D rank-N studies."""
 
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 
 
-class Periodic2DRankNGaugeAlignment(StringWireEnum):
+class Periodic2DRankNGaugeAlignment(StrWireEnum):
     """Identify one prescribed periodic-2D retained-space gauge alignment."""
 
     IDENTITY = "identity"

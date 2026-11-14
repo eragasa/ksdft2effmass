@@ -21,6 +21,6 @@ vocabulary. Rank two has no retained typed backend-failure branch, so it does no
 manufacture the rank-$N$ failed-analysis variant.
 
 The rank-two composite calculation sequences this capability before applying the known
-gauge attack. Composite orchestration does not own the transport operation or its
+gauge transformation. Composite orchestration does not own the transport operation or its
 capability result. Extraction changes Python ownership only; the established aggregate
 result wire is unchanged.

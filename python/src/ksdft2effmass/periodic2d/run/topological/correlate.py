@@ -5,7 +5,10 @@ import json
 from dataclasses import dataclass
 from typing import cast
 
-from ...model.retained.topological import Periodic2DTopologicalCampaignModel
+from ksdft2effmass.periodic.periodic2d.models.retained.topological import (
+    Periodic2DTopologicalCampaignModel,
+)
+
 from .calculate import (
     Periodic2DTopologicalCalculationRequest,
     Periodic2DTopologicalCalculationWorkflow,

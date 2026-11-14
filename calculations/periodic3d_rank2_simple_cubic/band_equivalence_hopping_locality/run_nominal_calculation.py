@@ -5,6 +5,11 @@ from __future__ import annotations
 import math
 from pathlib import Path
 
+from projectkoios.physkit.periodic.lattice import (
+    BravaisLattice,
+    DirectLatticeMetric,
+)
+
 from ksdft2effmass.band_equivalence_hopping_locality.calculation import (
     BandEquivalenceHoppingLocalityVerifier,
 )
@@ -29,11 +34,19 @@ from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.result imp
     Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRecorder,
     Periodic3DRank2BandEquivalenceHoppingLocalityCalculationResult,
 )
-from projectkoios.physkit.periodic.lattice import (
-    BravaisLattice,
-    DirectLatticeMetric,
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
 )
 
+IDENTITY_RECIPROCAL_SEWING = IdentityReciprocalSewing(ambient_dimension=4)
+ENDPOINT_SEWING = ReciprocalEndpointSewingInventory(
+    positive_axis_maps=(
+        IDENTITY_RECIPROCAL_SEWING.endpoint_map,
+        IDENTITY_RECIPROCAL_SEWING.endpoint_map,
+        IDENTITY_RECIPROCAL_SEWING.endpoint_map,
+    )
+)
 SIMPLE_CUBIC_METRIC = DirectLatticeMetric(
     BravaisLattice.cubic_primitive().direct_lattice
 )
@@ -71,7 +84,8 @@ def construct_artifacts(
 ]:
     """Calculate and independently verify one typed result."""
     analysis = Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer(
-        request=request
+        request=request,
+        endpoint_sewing=ENDPOINT_SEWING,
     ).execute()
     result = Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(
         analysis

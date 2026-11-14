@@ -1,4 +1,4 @@
-"""Immutable analytic construction-mesh samples for rank-N band alignment."""
+"""Immutable construction-mesh samples for rank-N band alignment."""
 
 from __future__ import annotations
 
@@ -9,30 +9,44 @@ from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
 from projectkoios.numerics.numpy.validation import NumpyImmutableArrayConstructor
 from projectkoios.physkit.numerics.typing.numpy.arrays import ComplexArray, RealArray
 
+from ksdft2effmass.periodic.periodic1d.rankN.models import (
+    Periodic1DRankNParentModel,
+)
+from ksdft2effmass.periodic1d.gauge_transformation import (
+    Periodic1DFourierGivensGaugeTransformation,
+)
+
 from .configuration import Periodic1DRankNAlignmentConfiguration
-from .model import Periodic1DRankNAnalyticCase
 
 
 @final
-class Periodic1DRankNAnalyticMeshSample:
-    """Bind one model to one immutable unshifted construction-mesh sample."""
+class Periodic1DRankNConstructionMeshSample:
+    """Bind explicit parent and transformation fields to one construction mesh."""
 
     __slots__ = (
-        "_model",
+        "_parent_model",
+        "_gauge_transformation",
         "_construction_mesh_size",
         "_coordinates",
         "_reference_frames",
-        "_attacked_frames",
+        "_gauge_transformed_frames",
     )
 
     def __init__(
         self,
-        model: Periodic1DRankNAnalyticCase,
+        parent_model: Periodic1DRankNParentModel,
+        gauge_transformation: Periodic1DFourierGivensGaugeTransformation,
         configuration: Periodic1DRankNAlignmentConfiguration,
         construction_mesh_size: int,
     ) -> None:
-        if type(model) is not Periodic1DRankNAnalyticCase:
-            raise TypeError("model must be the exact analytic rank-N case")
+        if not isinstance(parent_model, Periodic1DRankNParentModel):
+            raise TypeError("parent_model must satisfy Periodic1DRankNParentModel")
+        if type(gauge_transformation) is not Periodic1DFourierGivensGaugeTransformation:
+            raise TypeError(
+                "gauge_transformation must be the exact Fourier-Givens transformation"
+            )
+        if parent_model.band_subspace_rank != gauge_transformation.retained_rank:
+            raise ValueError("parent and gauge-transformation ranks must match")
         if type(configuration) is not Periodic1DRankNAlignmentConfiguration:
             raise TypeError("configuration must be the exact rank-N configuration")
         if type(construction_mesh_size) is not int:
@@ -43,35 +57,41 @@ class Periodic1DRankNAnalyticMeshSample:
             )
         coordinates = configuration.construction_coordinates(construction_mesh_size)
         reference_frames = NumpyImmutableArrayConstructor(
-            model.reference_frames(coordinates),
+            parent_model.reference_frames(coordinates),
             "reference_frames",
             np.dtype(np.complex128),
         ).execute()
-        attacked_frames = NumpyImmutableArrayConstructor(
-            model.attacked_frames(coordinates),
-            "attacked_frames",
+        gauge_transformed_frames = NumpyImmutableArrayConstructor(
+            gauge_transformation.transform_frames(coordinates, reference_frames),
+            "gauge_transformed_frames",
             np.dtype(np.complex128),
         ).execute()
         expected_shape = (
             construction_mesh_size,
-            model.ambient_dimension,
-            model.retained_rank,
+            parent_model.ambient_dimension,
+            parent_model.band_subspace_rank,
         )
         if (
             reference_frames.shape != expected_shape
-            or attacked_frames.shape != expected_shape
+            or gauge_transformed_frames.shape != expected_shape
         ):
-            raise ValueError("analytic frames do not match the construction mesh")
-        self._model = model
+            raise ValueError("parent frames do not match the construction mesh")
+        self._parent_model = parent_model
+        self._gauge_transformation = gauge_transformation
         self._construction_mesh_size = construction_mesh_size
         self._coordinates = coordinates
         self._reference_frames = reference_frames
-        self._attacked_frames = attacked_frames
+        self._gauge_transformed_frames = gauge_transformed_frames
 
     @property
-    def model(self) -> Periodic1DRankNAnalyticCase:
-        """Return the exact analytic model sampled by this value."""
-        return self._model
+    def parent_model(self) -> Periodic1DRankNParentModel:
+        """Return the explicit parent sampled by this value."""
+        return self._parent_model
+
+    @property
+    def gauge_transformation(self) -> Periodic1DFourierGivensGaugeTransformation:
+        """Return the explicit gauge transformation sampled by this value."""
+        return self._gauge_transformation
 
     @property
     def construction_mesh_size(self) -> int:
@@ -94,13 +114,13 @@ class Periodic1DRankNAnalyticMeshSample:
 
     @property
     def reference_frames(self) -> ComplexArray:
-        """Return the immutable analytic reference frames."""
+        """Return the immutable reference frames."""
         return self._reference_frames
 
     @property
-    def attacked_frames(self) -> ComplexArray:
-        """Return the immutable attacked frames on the same mesh."""
-        return self._attacked_frames
+    def gauge_transformed_frames(self) -> ComplexArray:
+        """Return the immutable gauge-transformed frames on the same mesh."""
+        return self._gauge_transformed_frames
 
 
-__all__ = ["Periodic1DRankNAnalyticMeshSample"]
+__all__ = ["Periodic1DRankNConstructionMeshSample"]

@@ -68,6 +68,7 @@ from ksdft2effmass.real_space_support_truncation import (
     SupportToleranceUnresolved,
 )
 from ksdft2effmass.real_space_support_truncation.base import (
+    PeriodicRankNSupportTruncationCapability,
     PeriodicRealSpaceSupportTruncation,
     PeriodicRealSpaceSupportTruncationAnalysis,
     PeriodicRealSpaceSupportTruncationAnalysisRequest,
@@ -114,14 +115,18 @@ class TestSupportTruncation:
             RealSpaceSupportTruncationAnalyzer,
         )
 
-    def test__rank_capabilities_are_meaningfully_abstract_siblings(self) -> None:
+    def test__rank_two_refines_finite_rank_support_truncation(self) -> None:
         for capability in (
             Periodic1DRank1SupportTruncationCapability,
             Periodic1DRank2SupportTruncationCapability,
             Periodic1DRankNSupportTruncationCapability,
         ):
             assert capability.__abstractmethods__ == {"band_subspace_rank"}
-        assert not issubclass(
+        assert issubclass(
+            Periodic1DRankNSupportTruncationCapability,
+            PeriodicRankNSupportTruncationCapability,
+        )
+        assert issubclass(
             Periodic1DRank2SupportTruncationCapability,
             Periodic1DRankNSupportTruncationCapability,
         )

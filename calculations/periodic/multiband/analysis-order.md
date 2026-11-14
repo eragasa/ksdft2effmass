@@ -14,7 +14,7 @@ The principal periodic analysis spine is:
 
 1. **Structural and scalar controls.** Establish analytic identities, scalar Fourier
    reconstruction, withheld interpolation, and support-truncation semantics in
-   `periodic1d/rank1/fourier-locality/`. `mathieu1d/` remains outside this multiband
+   `periodic1d_rank1/band_equivalence_hopping_locality/`. `mathieu1d/` remains outside this multiband
    authority; do not infer or install its local order from this document.
 2. **One-dimensional rank-two controls.** Establish retained-state qualification,
    gauge/frame alignment, band equivalence, matrix-valued Fourier hopping, and distinct
@@ -32,9 +32,11 @@ The principal periodic analysis spine is:
    independently admitted operands. Never transfer a family's tolerances, shell index,
    support decision, or evidence status into another family.
 7. **Higher-rank controls.** Analyze the one-dimensional non-Abelian rank/depth ladder
-   before interpreting multidimensional higher-rank controls. Fixed-geometry periodic-3D
-   rank-N precedes the continuous rank-N Bain composition. A prospective or partial
-   protocol contributes no numerical result.
+   before interpreting multidimensional higher-rank controls. In each dimension, the
+   fixed-geometry periodic-2D or periodic-3D rank-N baseline precedes its separate
+   continuous rank-N strain composition. The 2-D strain protocol is prospective; the
+   3-D strain protocol selects a Bain path only partially. Neither contributes a
+   numerical result.
 8. **Material-facing or external-code work.** Synthetic periodic controls can inform
    method design but cannot validate silicon or another material. Material calculations
    retain separate parent, provenance, execution, and evidence authority.
@@ -42,6 +44,12 @@ The principal periodic analysis spine is:
 The hopping-support hierarchy is a separate dependency branch. Its selected order is
 isotropic 2-D, isotropic 3-D, anisotropic 2-D, then anisotropic 3-D. It must not be
 interleaved with the rank ladder as if the studies had one family identity.
+
+The program order is not a source inheritance order. Reusable rank-two operations refine
+finite-rank dimensional capabilities even when rank-two studies are analyzed before
+study inventories restricted to ranks greater than two. Calculation-owned admission
+inventories, thresholds, and evidence identities remain exact and do not widen through
+capability inheritance.
 
 ## Fixed-geometry family order
 

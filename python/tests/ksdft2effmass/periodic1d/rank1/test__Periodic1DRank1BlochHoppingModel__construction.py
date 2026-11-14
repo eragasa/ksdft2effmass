@@ -23,11 +23,14 @@ from projectkoios.physkit.units import (
     UnitSystem,
 )
 
-from ksdft2effmass.model.blochhopping import BlochHoppingModel
-from ksdft2effmass.periodic import Periodic1DModel, PeriodicModelRole
+from ksdft2effmass.models.blochhopping import BlochHoppingModel
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic1d.models import Periodic1DModel
+from ksdft2effmass.periodic.periodic1d.models.blochhopping import (
+    Periodic1DBlochHoppingModel,
+)
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.model.blochhopping import Periodic1DBlochHoppingModel
-from ksdft2effmass.periodic1d.rank1.model.blochhopping import (
+from ksdft2effmass.periodic1d.rank1.models.blochhopping import (
     Periodic1DRank1BlochHoppingModel,
 )
 

@@ -11,12 +11,12 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, fields, is_dataclass
-from enum import StrEnum
 from hashlib import sha256
 from itertools import product
 from string import hexdigits
 from typing import Any, final
 
+from ...serialization import StrWireEnum
 from .definitions import ColoredPetriNetDefinition, ColoredPetriNetSelectionPolicy
 from .expressions import (
     ColoredPetriNetExpressionEvaluator,
@@ -119,7 +119,7 @@ class ColoredPetriNetEnablementFailureIdentity:
             )
 
 
-class ColoredPetriNetEnablementFailureCode(StrEnum):
+class ColoredPetriNetEnablementFailureCode(StrWireEnum):
     """Closed operational failure codes for complete enablement."""
 
     INVALID_DEFINITION = "invalid_definition"
@@ -281,7 +281,7 @@ def _represented_state(value: object) -> object:
         return str(value)
     if type(value) is float:
         return value.hex()
-    if isinstance(value, StrEnum):
+    if isinstance(value, StrWireEnum):
         return {"enum": type(value).__name__, "value": value.value}
     if type(value) is tuple:
         return [_represented_state(item) for item in value]

@@ -1,0 +1,88 @@
+{
+  "figures": {
+    "alignment-invariance.pdf": {
+      "byte_size": 19980,
+      "sha256": "b1786578ab4e5f410357ba951bef05e6c5c24d84e202a216fcc67946e68e264c"
+    },
+    "alignment-invariance.png": {
+      "byte_size": 179433,
+      "sha256": "7852f4b1e8d84db5e927f7cdafedda3e1196b71835367000285b339b855ee8b0"
+    },
+    "complete-spectrum-equivalence.pdf": {
+      "byte_size": 43414,
+      "sha256": "96da82751e107ce07d89a59116399785dff2cb769bfe0dafd5e7301739489adc"
+    },
+    "complete-spectrum-equivalence.png": {
+      "byte_size": 254810,
+      "sha256": "03c72eb1e32505696e7786783f4d2e47370073e36b5871c05f976f4faf1cb104"
+    },
+    "direct-parent-overlay.pdf": {
+      "byte_size": 63784,
+      "sha256": "4d3fc90d62682b5a6485d724aac074f413f62d26e8538ba39e8d12be46601d35"
+    },
+    "direct-parent-overlay.png": {
+      "byte_size": 269187,
+      "sha256": "823248f2cbe4d29e4be9a2f8c305a2a17e1d983613f4e60c7346aacbb5b04dca"
+    },
+    "displacement-block-power.pdf": {
+      "byte_size": 28625,
+      "sha256": "dc2005569c041700c1b6490beb86889c76b02d518a241f6377195658e6f025e1"
+    },
+    "displacement-block-power.png": {
+      "byte_size": 220944,
+      "sha256": "cfce69df6f6badfbc219a34391eb19eeb7baa5e787ed1acc91848b5ee8a27e57"
+    },
+    "equal-attained-error-support.pdf": {
+      "byte_size": 22473,
+      "sha256": "bf5fb8e8f3cfb60f746959228acd38adc25ecd3e5d493043d18a2fed6f005e4b"
+    },
+    "equal-attained-error-support.png": {
+      "byte_size": 239101,
+      "sha256": "f2f476ac228a70557628611dd0f34eb8c41201ed5d8f194e484b719c027a41f1"
+    },
+    "experiment-schematic.pdf": {
+      "byte_size": 24078,
+      "sha256": "a1484c06fbc8254b677dbe30fa8eebce82c125805677ed227d2cae89b4ea9fb1"
+    },
+    "experiment-schematic.png": {
+      "byte_size": 127916,
+      "sha256": "eefa242436b293bd12dc7ff5d258c1bc5fed17c0fff0455afe91c7509dd8edbb"
+    },
+    "fourier-power-redistribution.pdf": {
+      "byte_size": 21380,
+      "sha256": "542672803236c7b2ce03c43560a27c8c0cf1e5a2245a505ec54d31be9bebf7c5"
+    },
+    "fourier-power-redistribution.png": {
+      "byte_size": 184703,
+      "sha256": "7fe08cc05cedda458a19cbda528caaea47e157d40fc0d53a059a43ac25c8e8a2"
+    },
+    "support-error-frontiers.pdf": {
+      "byte_size": 25234,
+      "sha256": "50de7f9446157fba71c40ecfaeed0380c5a44dfce5961cf4f8ce997c15e168eb"
+    },
+    "support-error-frontiers.png": {
+      "byte_size": 318315,
+      "sha256": "f911c3534301fb3c39534169538e115e2f1a2c3a8e27111b410fba6b39267800"
+    },
+    "transport-diagnostics.pdf": {
+      "byte_size": 34988,
+      "sha256": "a694c206550e790544551d2eddd4058146008861b0577b8fe63ef518953f69c6"
+    },
+    "transport-diagnostics.png": {
+      "byte_size": 348143,
+      "sha256": "f7bd8c0ffcd83e8059f3cf01e1a7c210483b7172de6741b35b216bbffea76438"
+    }
+  },
+  "renderer": {
+    "byte_size": 22566,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/python/../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/render_plots.py",
+    "sha256": "8a106ba0f0bf9d79a5564f7c0a432a84de0aa6091728410488ecb537537076c6"
+  },
+  "result": {
+    "byte_size": 799131,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/result.json",
+    "sha256": "0b802463af64be191b3fdedc07f732120de735efce227d1ae94cd6225f1b3ea4"
+  },
+  "schema_version": 1,
+  "status": "producer-checked-development-analysis-not-independently-verified"
+}

@@ -9,6 +9,10 @@ from projectkoios.optimization.alignment.procrustes import (
     ComplexUnitaryProcrustesTolerance,
 )
 
+from ksdft2effmass.sewing import (
+    ReciprocalEndpointSewingInventory,
+)
+
 from .base import Periodic2DRank2FrameTransportAnalysisRequest
 
 
@@ -17,7 +21,12 @@ class Periodic2DRank2TransportAnalysisRequest(
 ):
     """Bind one immutable rank-two frame field and numerical-rank policy."""
 
-    __slots__ = ("_frame", "_rank_absolute", "_rank_relative")
+    __slots__ = (
+        "_endpoint_sewing",
+        "_frame",
+        "_rank_absolute",
+        "_rank_relative",
+    )
 
     def __init__(
         self,
@@ -25,6 +34,7 @@ class Periodic2DRank2TransportAnalysisRequest(
         frame: Complex128Array,
         rank_absolute: float,
         rank_relative: float,
+        endpoint_sewing: ReciprocalEndpointSewingInventory,
     ) -> None:
         tolerance = ComplexUnitaryProcrustesTolerance(
             rank_absolute=rank_absolute,
@@ -36,14 +46,26 @@ class Periodic2DRank2TransportAnalysisRequest(
             np.dtype(np.complex128),
         ).execute()
         if admitted.ndim != 4 or admitted.shape[-1] != 2:
-            raise ValueError("frame must have shape (N1, N2, ambient, 2)")
+            raise ValueError("frame must have shape (N1, N2, ambient_dimension, 2)")
         if admitted.shape[-2] < 2:
             raise ValueError("frame ambient dimension must be at least two")
         if any(size <= 0 for size in admitted.shape[:2]):
             raise ValueError("periodic mesh axes must be nonempty")
+        if type(endpoint_sewing) is not ReciprocalEndpointSewingInventory:
+            raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingInventory")
+        if endpoint_sewing.spatial_dimension != 2:
+            raise ValueError("endpoint sewing must contain two axis maps")
+        if endpoint_sewing.ambient_dimension != admitted.shape[-2]:
+            raise ValueError("endpoint sewing must match the frame ambient dimension")
         self._frame = admitted
+        self._endpoint_sewing = endpoint_sewing
         self._rank_absolute = tolerance.rank_absolute
         self._rank_relative = tolerance.rank_relative
+
+    @property
+    def endpoint_sewing(self) -> ReciprocalEndpointSewingInventory:
+        """Return the explicit ordered reciprocal-axis sewing maps."""
+        return self._endpoint_sewing
 
     @property
     def frame(self) -> Complex128Array:

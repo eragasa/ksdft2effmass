@@ -5,14 +5,15 @@ from __future__ import annotations
 from dataclasses import replace
 from pathlib import Path
 
+from run_development import DEFINITION, construct_artifacts, write_artifacts
+from run_first_refinement import REFINEMENT as FIRST_REFINEMENT
+
 from ksdft2effmass.band_equivalence_hopping_locality.refinement import (
     BandEquivalenceHoppingLocalityRefinementAnalyzer,
 )
 from ksdft2effmass.band_equivalence_hopping_locality.refinement_recording import (
     BandEquivalenceHoppingLocalityRefinementAssessmentRecorder,
 )
-from run_development import DEFINITION, construct_artifacts, write_artifacts
-from run_first_refinement import REFINEMENT as FIRST_REFINEMENT
 
 REFINEMENT = replace(DEFINITION, construction_size=64, evaluation_size=129)
 
@@ -36,7 +37,9 @@ def main() -> int:
         outputs, results, verifications, strict=True
     ):
         write_artifacts(output, result, verification)
-    assessment = BandEquivalenceHoppingLocalityRefinementAnalyzer(results=analyses).execute()
+    assessment = BandEquivalenceHoppingLocalityRefinementAnalyzer(
+        results=analyses
+    ).execute()
     assessment_record = BandEquivalenceHoppingLocalityRefinementAssessmentRecorder(
         assessment
     ).result()

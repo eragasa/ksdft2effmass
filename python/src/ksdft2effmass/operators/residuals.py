@@ -11,9 +11,10 @@ interpretations.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 import numpy as np
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .difference import OperatorRecordDifferenceResult
 from .records import ComplexMatrix
@@ -218,7 +219,7 @@ class OperatorRecordComparisonResult:
         return real
 
 
-class OperatorRecordComparisonNumericalErrorCode(StrEnum):
+class OperatorRecordComparisonNumericalErrorCode(StrWireEnum):
     r"""Stable residual-analysis numerical-error categories.
 
     Attributes

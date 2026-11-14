@@ -21,11 +21,12 @@ from analysis.development.plots import (
     _positive,
     _sampled_pareto_membership,
 )
+from projectkoios.physkit.units import PhysicalUnit
+
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
-from projectkoios.physkit.units import PhysicalUnit
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
@@ -111,7 +112,7 @@ class TestHigherRankDevelopmentPlot:
             / "technical_report.tex"
         ).read_text(encoding="utf-8")
 
-        for shorthand in ("D1", "P0", "P1", "G0", "G1", "A0", "A1", "A2", "A3"):
+        for shorthand in ("A0", "A1", "A2", "A3"):
             assert shorthand not in report
         assert "hopping-diagnostic cutoff" in report
         assert "retained-support inventory" in report

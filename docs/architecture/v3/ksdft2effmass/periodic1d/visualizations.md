@@ -164,10 +164,10 @@ The closed native inventory contains six verified figures:
 4. `rank2-composite-locality.png` presents complete hopping-block norms and
    retained-support ordered-spectrum consequences by channel;
 5. `rank2-composite-error-channels.png` keeps centered-Nyquist conversion power and the
-   attacked channel's interpolation, deliberate-truncation, and total consequences
+   gauge-transformed channel's interpolation, deliberate-truncation, and total consequences
    separate; and
 6. `rank2-composite-error-trajectories.png` compares those three error channels for the
-   reference, attacked, and pointwise represented operators.
+   reference, gauge-transformed, and pointwise represented operators.
 
 No certificate supplement is admitted. The pointwise channel remains an oracle control,
 the fixed global unitary remains diagnostic-only for locality, and neither is presented

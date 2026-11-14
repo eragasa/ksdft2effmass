@@ -10,7 +10,7 @@ import pytest
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.gauge import (
     Periodic1DRank2SinusoidalGaugeRotation,
 )
-from ksdft2effmass.solidstate import GaugeAttack
+from ksdft2effmass.solidstate import GaugeTransformation
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -42,7 +42,7 @@ class TestPeriodic1DRank2SinusoidalGaugeRotation:
         )
         assert np.allclose(np.linalg.det(rotations), 1.0, rtol=0.0, atol=1.0e-15)
 
-    def test_zero_amplitude_is_the_identity_attack(self) -> None:
+    def test_zero_amplitude_is_the_identity_transformation(self) -> None:
         coordinates = np.asarray((-0.5, 0.0, 0.25), dtype=np.float64)
         matrices = np.asarray(
             [
@@ -53,14 +53,14 @@ class TestPeriodic1DRank2SinusoidalGaugeRotation:
             dtype=np.complex128,
         )
         rotation = Periodic1DRank2SinusoidalGaugeRotation(0.0)
-        transformed = GaugeAttack(rotation, 1.0e-14).apply(
+        transformed = GaugeTransformation(rotation, 1.0e-14).transform_operators(
             coordinates=coordinates,
             represented_matrices=matrices,
         )
         assert not transformed.flags.writeable
         assert np.array_equal(transformed, matrices)
 
-    def test_attack_preserves_pointwise_sorted_spectra(self) -> None:
+    def test_transformation_preserves_pointwise_sorted_spectra(self) -> None:
         coordinates = np.asarray((-0.4, -0.1, 0.2), dtype=np.float64)
         matrices = np.asarray(
             [
@@ -71,7 +71,7 @@ class TestPeriodic1DRank2SinusoidalGaugeRotation:
             dtype=np.complex128,
         )
         rotation = Periodic1DRank2SinusoidalGaugeRotation(0.3)
-        transformed = GaugeAttack(rotation, 1.0e-14).apply(
+        transformed = GaugeTransformation(rotation, 1.0e-14).transform_operators(
             coordinates=coordinates,
             represented_matrices=matrices,
         )

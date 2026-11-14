@@ -56,7 +56,9 @@ if not all(
 ):
     raise FileNotFoundError("the declared periodic-2D locality execution is incomplete")
 execution_bytes = execution_path.read_bytes()
-execution = Periodic2DRank2BandEquivalenceHoppingLocalityExecution.from_json(execution_bytes)
+execution = Periodic2DRank2BandEquivalenceHoppingLocalityExecution.from_json(
+    execution_bytes
+)
 if execution.to_json() != execution_bytes:
     raise ValueError("execution document is not canonical typed JSON")
 if execution.execution_id != EXECUTION_ID:
@@ -81,7 +83,9 @@ if execution.result_sha256 != hashlib.sha256(result_bytes).hexdigest():
 configuration = Periodic2DRank2BandEquivalenceHoppingLocalityRequest.from_json(
     configuration_bytes
 )
-result = Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult.from_json(result_bytes)
+result = Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult.from_json(
+    result_bytes
+)
 if configuration.to_json() != configuration_bytes or result.to_json() != result_bytes:
     raise ValueError("calculation artifacts are not canonical typed JSON")
 if result.request.to_json() != configuration_bytes:
@@ -108,25 +112,27 @@ verified = Periodic2DRank2BandEquivalenceHoppingLocalityResultVerifier(
 if not verified.verification.passed:
     raise ValueError("periodic-2D locality independent verification failed")
 temporary_directory.mkdir()
-verification_record = Periodic2DRank2BandEquivalenceHoppingLocalityExecutionVerification(
-    schema_version=1,
-    schema=(
-        "ksdft2effmass.periodic2d-rank2-orthogonal-"
-        "band-equivalence-locality-verification.direct.v1"
-    ),
-    calculation_family=CALCULATION_FAMILY,
-    study_family=STUDY_FAMILY,
-    execution_id=EXECUTION_ID,
-    verification=verified.verification,
-    visualization_data=verified.visualization_data,
-    comparison_count=len(verified.verification.checks),
-    result_sha256=hashlib.sha256(result_bytes).hexdigest(),
-    script_sha256=hashlib.sha256(script_path.read_bytes()).hexdigest(),
-    claim_boundary=(
-        "Independent finite numerical verification only; not continuum "
-        "convergence, uncertainty quantification, material validation, "
-        "publication acceptance, or evidence sealing."
-    ),
+verification_record = (
+    Periodic2DRank2BandEquivalenceHoppingLocalityExecutionVerification(
+        schema_version=1,
+        schema=(
+            "ksdft2effmass.periodic2d-rank2-orthogonal-"
+            "band-equivalence-locality-verification.direct.v1"
+        ),
+        calculation_family=CALCULATION_FAMILY,
+        study_family=STUDY_FAMILY,
+        execution_id=EXECUTION_ID,
+        verification=verified.verification,
+        visualization_data=verified.visualization_data,
+        comparison_count=len(verified.verification.checks),
+        result_sha256=hashlib.sha256(result_bytes).hexdigest(),
+        script_sha256=hashlib.sha256(script_path.read_bytes()).hexdigest(),
+        claim_boundary=(
+            "Independent finite numerical verification only; not continuum "
+            "convergence, uncertainty quantification, material validation, "
+            "publication acceptance, or evidence sealing."
+        ),
+    )
 )
 (temporary_directory / "verification.json").write_bytes(verification_record.to_json())
 temporary_directory.rename(verification_directory)

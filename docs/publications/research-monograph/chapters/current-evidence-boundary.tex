@@ -170,6 +170,46 @@ model, or effective masses.
 Appendix~\ref{app:preliminary-silicon-work} states the construction, selected
 numerical observations, and exclusions.
 
+\section{Retained Slater--Koster common-space gate}
+\index{evidence!Slater--Koster alignment gate}
+\index{rank deficiency!silicon trial space}
+
+\evidenceclass{retained no-calculator numerical diagnosis with a blocked
+scientific disposition; independent verification remains incomplete.}
+
+A retained bulk-silicon reduction attempt tested whether the declared
+10-coordinate two-site $(s,p_x,p_y,p_z,s^{\ast})$ trial frame was fully
+represented inside a rank-10 Wannier subspace at every one of 216 construction
+points. The projection-anchored overlap was the matrix in
+Eq.~\eqref{eq:sk-common-space-overlap}. Its singular values are invariant under
+unitary basis changes inside the retained subspace, so the gate diagnoses
+trial-to-retained state-space overlap rather than the ordering of eigenvectors
+inside an energy-degenerate cluster.
+
+Using the retained native-format uncertainty bound
+$5.890206739032098\times10^{-7}$, the resolved rank was nine at
+$\mathbf q=(0,0,0)$ and $\mathbf q=(0,1/3,0)$. The corresponding smallest
+singular values were approximately $5.3620\times10^{-13}$ and
+$2.0187\times10^{-7}$. At $\Gamma$, the unresolved right-singular direction
+contained approximately $80.5\%$ combined $s^{\ast}$ weight and $19.5\%$
+combined $s$ weight, shared nearly equally across the two sites.
+
+The supported conclusion is narrow: the declared atomic trial frame did not
+pass the full-rank common-space gate for this retained source. No unitary
+projection-anchored map or aligned Slater--Koster operator residual was therefore
+defined. No least-squares fit ran, no parameter vector exists, and no nearest-
+or second-neighbor model was accepted or rejected on spectral or
+operator-adequacy grounds. Energy degeneracy alone is not an established cause,
+and no symmetry-sector attribution has been independently retained.
+
+A calculation-owned diagnostic producer can reconstruct the complete
+singular-value field and invariant controls without importing the failed fit
+implementation, but the separately implemented independent verifier remains
+absent. Appendix~\ref{app:preliminary-silicon-work} records the detailed
+numbers, interpretation, and successor boundaries. This blocked admission
+result does not authorize a global-unitary fit, a rank-nine replacement, a new
+Wannier source, or new calculator execution.
+
 \section{Controlled periodic-reduction benchmarks}
 \index{evidence!periodic reduction benchmarks}
 
@@ -355,11 +395,14 @@ synthetic or software records would therefore lack required meaning.
 
 \subsection{Bulk model reduction}
 
-The executable $sp^3s^{\ast}$ hierarchy, frozen training and withheld sets,
-alignment group, shell weights, objective normalizations, operator tolerance,
-and complete model-selection rule remain downstream work. Proposed manuscript
-tolerances are not treated as accepted computational evidence merely because
-they appear in a draft.
+Chapter~\ref{ch:tight-binding-slater-koster} now fixes the mathematical
+orthogonal $sp^3s^{\ast}$ basis, two-center matrix, cell/full-center gauge
+relation, and Hermitian assembly convention. The concrete silicon onsite and
+bond inventories, KSD-owned model composition, frozen training and withheld
+sets, admissible alignment family, shell weights, objective normalizations,
+operator tolerance, and complete model-selection rule remain downstream work.
+Proposed manuscript tolerances are not treated as accepted computational
+evidence merely because they appear in a draft.
 
 \subsection{Impurity branches}
 
@@ -391,8 +434,11 @@ evidence for their frozen synthetic protocol. They are not a scientific
 negative finding about silicon, defects, or the proposed material model
 hierarchy.
 
-No scientific negative finding has yet been accepted for the model hierarchy.
-In particular, the project has not shown that
+The retained rank-deficient trial-to-Wannier overlap is a negative admission
+result for one source and one projection-anchored common-space
+contract. It is not a negative adequacy result for the nearest-neighbor or
+second-neighbor Slater--Koster classes. In particular, the project has not shown
+that
 
 \begin{itemize}
   \item nearest-neighbor $sp^3s^{\ast}$ is incompatible with the joint criteria;

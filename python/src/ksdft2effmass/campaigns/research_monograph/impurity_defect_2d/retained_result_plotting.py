@@ -1,4 +1,4 @@
-"""Matplotlib rendering for retained defect-2D Stage C parent results.
+"""Matplotlib rendering for retained defect-2D defect-model parent results.
 
 The represented input is a retained JSON result document. The plotting ActionObjects
 render scalar criteria and adverse-control diagnostics on caller-supplied Matplotlib
@@ -106,8 +106,8 @@ class AdverseControlPlotRecord:
 
 
 @dataclass(frozen=True, slots=True)
-class StageCParentPlotData:
-    """Retain the scalar Stage C data required by the plotting composition.
+class DefectModelParentPlotData:
+    """Retain scalar defect-model data required by the plotting composition.
 
     Parameters
     ----------
@@ -166,13 +166,13 @@ class StageCParentPlotData:
                 raise ValueError(f"{name} must be nonnegative")
 
 
-class StageCParentResultReader:
+class DefectModelParentResultReader:
     """Decode the retained scalar diagnostics required by the plotters."""
 
     __slots__ = ()
 
-    def execute(self, result_path: Path) -> StageCParentPlotData:
-        """Decode one retained Stage C JSON result into immutable plotting data.
+    def execute(self, result_path: Path) -> DefectModelParentPlotData:
+        """Decode one retained defect-model JSON result into immutable plotting data.
 
         Parameters
         ----------
@@ -181,7 +181,7 @@ class StageCParentResultReader:
 
         Returns
         -------
-        StageCParentPlotData
+        DefectModelParentPlotData
             Immutable scalar diagnostics and inventory counts.
 
         Raises
@@ -218,7 +218,7 @@ class StageCParentResultReader:
                 first_schedule["adverse_controls"], "adverse controls"
             )
         )
-        return StageCParentPlotData(
+        return DefectModelParentPlotData(
             accepted_parent_read=self.boolean(
                 result["accepted_parent_read"], "accepted_parent_read"
             ),
@@ -343,7 +343,7 @@ class StageCParentResultReader:
 
 
 class AdoptedCriteriaPlot:
-    """Render adopted Stage C criteria on supplied or newly created axes.
+    """Render adopted defect-model criteria on supplied or newly created axes.
 
     Parameters
     ----------
@@ -536,16 +536,16 @@ class AdverseControlBarPlot:
         return figure.add_subplot(1, 1, 1)
 
 
-class StageCParentSvgPlotter:
+class DefectModelParentSvgPlotter:
     """Compose retained criteria and adverse-control plots into one SVG."""
 
     __slots__ = ("_reader",)
 
     def __init__(self) -> None:
-        self._reader = StageCParentResultReader()
+        self._reader = DefectModelParentResultReader()
 
     def execute(self, result_path: Path, output_path: Path) -> None:
-        """Render one retained Stage C JSON result to a new deterministic SVG.
+        """Render one retained defect-model JSON result to a new deterministic SVG.
 
         Parameters
         ----------
@@ -582,7 +582,7 @@ class StageCParentSvgPlotter:
             {
                 "font.family": "DejaVu Sans",
                 "svg.fonttype": "none",
-                "svg.hashsalt": "ksdft2effmass-stage-c-parent-v2",
+                "svg.hashsalt": "ksdft2effmass-defect-model-parent-v2",
             }
         ):
             figure = plt.figure(figsize=(12.4, 10.8), layout="constrained")
@@ -592,9 +592,9 @@ class StageCParentSvgPlotter:
             AdoptedCriteriaPlot(criteria_axes).execute(data.criteria)
             AdverseControlBarPlot(adverse_axes).execute(data.adverse_controls)
             title = (
-                "Stage C accepted-parent retained result"
+                "Defect-model accepted-parent retained result"
                 if data.accepted_parent_read
-                else "Stage C accepted-parent contract: authored-fixture behavior"
+                else "Defect-model accepted-parent contract: authored-fixture behavior"
             )
             subtitle = (
                 "Calculated numerical-verification evidence; not scientific validation"

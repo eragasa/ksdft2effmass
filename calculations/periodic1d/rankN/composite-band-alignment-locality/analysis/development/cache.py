@@ -13,15 +13,16 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Self, final
 
+from projectkoios.physkit.units import PhysicalUnit
+
 from ksdft2effmass.periodic1d.geometry import Periodic1DLatticeGeometry
-from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
-    Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
-)
 from ksdft2effmass.periodic1d.rankN.band_alignment.configuration import (
     Periodic1DRankNAlignmentConfiguration,
 )
+from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.result import (
+    Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis,
+)
 from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
-from projectkoios.physkit.units import PhysicalUnit
 
 _CACHE_FORMAT = "ksdft2effmass.higher-rank-development-result-cache.v2"
 _CACHE_ROLE = "replaceable-development-result-cache"
@@ -368,7 +369,9 @@ class HigherRankDevelopmentCacheAdmission(BaseTypedRecord):
 class HigherRankDevelopmentCacheWriteRequest:
     """Bind complete calculated results and one replaceable cache directory."""
 
-    calculation_results: tuple[Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis, ...]
+    calculation_results: tuple[
+        Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis, ...
+    ]
     lattice_geometry: Periodic1DLatticeGeometry
     cache_directory: Path
     calculation_infrastructure_sha256: str
@@ -427,7 +430,9 @@ class HigherRankDevelopmentCacheReadResult:
 
     manifest: HigherRankDevelopmentCacheManifest
     manifest_sha256: str
-    calculation_results: tuple[Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis, ...]
+    calculation_results: tuple[
+        Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis, ...
+    ]
 
     def __post_init__(self) -> None:
         if type(self.manifest) is not HigherRankDevelopmentCacheManifest:
@@ -520,7 +525,9 @@ class HigherRankDevelopmentCacheReader:
                 raise ValueError(f"cached byte count changed for {entry.file_name}")
             if _sha256(wire) != entry.result_sha256:
                 raise ValueError(f"cached digest changed for {entry.file_name}")
-            result = Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis.from_json(wire)
+            result = Periodic1DRankNBandEquivalenceHoppingLocalityAnalysis.from_json(
+                wire
+            )
             if result.to_json() != wire:
                 raise ValueError(f"cached result is not canonical: {entry.file_name}")
             if (

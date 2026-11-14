@@ -8,7 +8,7 @@ Facet and represented meaning
 
 -----------------------------
 This class-owned evidence verifies the closed wire vocabulary and the public
-``StrEnum`` value- and name-lookup surfaces.
+``StrWireEnum`` value- and name-lookup surfaces.
 
 Intrinsic and cross-object scope
 
@@ -26,24 +26,25 @@ numerical verification, physical correctness, scientific validation, UQ,
 portability, or cross-language agreement.
 """
 
-from enum import StrEnum
 from typing import Any, cast
 
 import pytest
 
 from ksdft2effmass.provenance import CapabilityKind
+from ksdft2effmass.serialization import StrWireEnum
 
 SUT = CapabilityKind
 pytestmark = pytest.mark.software_verification
 
 
-def test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum() -> None:
+def test_field__wire_vocabulary__is_exact_ordered_alias_free_str_wire_enum() -> None:
     """Evidence ID: SV-PROV-030
 
     Requirement: The enum exposes the exact ordered version-1 names and values without
     aliases.
 
-    Method: Inspect iteration, the public member mapping, and ``StrEnum`` inheritance.
+    Method: Inspect iteration, the public member mapping, and ``StrWireEnum``
+    inheritance.
 
     Oracle: The accepted vocabulary is EXECUTE/execute, PARSE/parse, RENDER/render, and
     TRANSFER/transfer in that order.
@@ -65,7 +66,7 @@ def test_field__wire_vocabulary__is_exact_ordered_alias_free_strenum() -> None:
         ("RENDER", "render"),
         ("TRANSFER", "transfer"),
     )
-    assert issubclass(SUT, StrEnum)
+    assert issubclass(SUT, StrWireEnum)
     assert tuple((member.name, member.value) for member in SUT) == expected
     assert tuple(SUT.__members__) == tuple(name for name, _ in expected)
     assert len(SUT.__members__) == len(tuple(SUT))

@@ -6,7 +6,7 @@ The current flat parent uses the dimensionless represented Hamiltonian
 H_0=\operatorname{diag}(1,-1)
 ```
 
-and the real gauge attack
+and the real gauge transformation
 
 ```math
 U_a(q)=R(a\sin 2\pi q),\qquad
@@ -14,7 +14,7 @@ H_a(q)=U_a(q)^{\mathsf T}H_0U_a(q),\qquad 0\le a\le\pi/4.
 ```
 
 `Periodic1DRank2SinusoidalGaugeRotation(a)` defines the matrix-valued field
-`U_a`; it does not retain a sampled matrix inventory. Generic `GaugeAttack`
+`U_a`; it does not retain a sampled matrix inventory. Generic `GaugeTransformation`
 evaluates that field on the declared coordinates, checks the resulting matrices for
 unitarity using the producer tolerance, and applies `U_a^\dagger H U_a` to the aligned
 represented-operator inventory.
@@ -32,7 +32,7 @@ operator-only and exact-spectrum joint thresholds remain separate. The continuum
 is reported and it does not replace the finite value.
 
 For each ordinary cutoff, the implementation separately reports omitted-block L2 norm,
-truncation-only Hamiltonian/spectral errors, and total errors relative to direct attacked
+truncation-only Hamiltonian/spectral errors, and total errors relative to direct gauge-transformed
 values on the disjoint mesh. Matrix errors use the maximum Frobenius norm normalized by
 `\sqrt{2}`; spectral errors use maximum sorted-eigenvalue discrepancy. These channels
 are not asserted to be additive.
@@ -55,7 +55,7 @@ joint thresholds, minimum-loss reconstruction defect, reference/comparison nonze
 hopping power, and reference/comparison Parseval defects. Harmonic controls configure the
 producer maximizer internally. Fourier coordinate admission uses the producer's frame
 numerical tolerance, not verification policy. Correlation bounding corrects only
-binary64 overshoot beyond the mathematical interval, while the exactly zero attack uses
+binary64 overshoot beyond the mathematical interval, while the exactly zero transformation uses
 its exact identity-model consequence. The cyclic Nyquist class stays in this core
 inventory; no ordinary-lattice truncation is implied.
 
@@ -64,7 +64,7 @@ the producer actions. It diagonalizes the explicit parent matrices, forms each p
 right action from the eigendecomposition of the cross-Gram matrix rather than the
 production SVD path, reconstructs the endpoint matrix function from an independent
 unitary eigendecomposition, and evaluates Fourier blocks with explicit finite sums.  At
-exactly zero attack amplitude, the independent route separately applies the mathematical
+exactly zero transformation amplitude, the independent route separately applies the mathematical
 identity $A_0=H$, so the normalized correlation is exactly one and both threshold
 formulas are exactly zero rather than square roots of accumulated roundoff.
 Qualification variants and inventories compare exactly; binary64 scalar, phase,
@@ -90,8 +90,8 @@ by retained rank two is retained as conversion power. Ordinary omitted power is 
 of the same normalized block powers outside `|R| <= R_c`; total omitted power adds the
 conversion power without claiming an off-node Nyquist interpolation.
 
-Reference and attacked ordinary fields are evaluated on the shifted mesh. The direct
-attacked comparator applies the declared gauge rotation to the complete reference
+Reference and gauge-transformed ordinary fields are evaluated on the shifted mesh. The direct
+gauge-transformed comparator applies the declared gauge rotation to the complete reference
 ordinary field at those evaluation coordinates. Interpolation, truncation-only, and
 total differences therefore remain distinct. Hamiltonian maximum and RMS errors use
 rank-normalized Frobenius norms. Spectral maximum and RMS errors are calculated directly

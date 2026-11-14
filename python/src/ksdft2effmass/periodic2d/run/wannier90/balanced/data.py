@@ -3,10 +3,11 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from ....campaign.base import Periodic2DCampaign
-from ....model.retained.wannier90_balanced import (
+from ksdft2effmass.periodic.periodic2d.models.retained.wannier90_balanced import (
     Periodic2DWannier90BalancedCampaignModel,
 )
+
+from ....campaign.base import Periodic2DCampaign
 from .verify import (
     Periodic2DWannier90BalancedCampaignVerificationRequest,
     Periodic2DWannier90BalancedCampaignVerificationResult,

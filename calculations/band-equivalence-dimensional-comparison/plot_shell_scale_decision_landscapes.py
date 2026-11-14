@@ -14,12 +14,15 @@ from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape import (
     ShellScaleDecisionLandscapeCalculator,
     ShellScaleDecisionLandscapeRequest,
 )
-from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape_plotting import (  # noqa: E501
+from ksdft2effmass.band_equivalence_hopping_locality.decision_landscape_plotting import (
     ShellScaleDecisionLandscapePlotRequest,
     ShellScaleDecisionLandscapePlotWriter,
 )
 from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
     BandEquivalenceHoppingLocalityRequest,
+)
+from ksdft2effmass.sewing import (
+    ReciprocalEndpointSewingInventory,
 )
 
 
@@ -27,6 +30,7 @@ class _DevelopmentDefinitionModule(Protocol):
     """Expose the typed request owned by one family composition root."""
 
     DEFINITION: BandEquivalenceHoppingLocalityRequest
+    ENDPOINT_SEWING: ReciprocalEndpointSewingInventory
 
 
 CALCULATION_DIRECTORY = Path(__file__).resolve().parent
@@ -54,8 +58,11 @@ FAMILY_DEFINITION_PATHS = (
 OUTPUT_DIRECTORY = CALCULATION_DIRECTORY / "analysis" / "development" / "generated"
 
 
-def _load_definition(path: Path, index: int) -> BandEquivalenceHoppingLocalityRequest:
-    """Load one explicit family request without packaging experiment roots."""
+def _load_composition(
+    path: Path,
+    index: int,
+) -> tuple[BandEquivalenceHoppingLocalityRequest, ReciprocalEndpointSewingInventory]:
+    """Load one explicit family request and reciprocal-axis sewing inventory."""
     specification = importlib.util.spec_from_file_location(
         f"shell_scale_decision_landscape_family_{index}",
         path,
@@ -64,31 +71,44 @@ def _load_definition(path: Path, index: int) -> BandEquivalenceHoppingLocalityRe
         raise RuntimeError(f"could not load family definition: {path}")
     module = importlib.util.module_from_spec(specification)
     specification.loader.exec_module(module)
-    definition = cast(_DevelopmentDefinitionModule, module).DEFINITION
+    typed_module = cast(_DevelopmentDefinitionModule, module)
+    definition = typed_module.DEFINITION
+    endpoint_sewing = typed_module.ENDPOINT_SEWING
     if not isinstance(definition, BandEquivalenceHoppingLocalityRequest):
         raise TypeError(
             f"DEFINITION is not BandEquivalenceHoppingLocalityRequest: {path}"
         )
-    return definition
+    if type(endpoint_sewing) is not ReciprocalEndpointSewingInventory:
+        raise TypeError(f"ENDPOINT_SEWING has the wrong type: {path}")
+    return definition, endpoint_sewing
 
 
 def main() -> int:
     """Calculate all family landscapes and render separate and composite views."""
+    compositions = tuple(
+        _load_composition(path, index)
+        for index, path in enumerate(FAMILY_DEFINITION_PATHS)
+    )
     requests = tuple(
         ShellScaleDecisionLandscapeRequest(
-            locality_request=_load_definition(path, index),
+            locality_request=definition,
             scale_sample_count=17,
         )
-        for index, path in enumerate(FAMILY_DEFINITION_PATHS)
+        for definition, _ in compositions
     )
     results = tuple(
         ShellScaleDecisionLandscapeCalculator(
             request=request,
             analyzer=Rank2BandEquivalenceHoppingLocalityAnalyzer(
-                request=request.locality_request
+                request=request.locality_request,
+                endpoint_sewing=endpoint_sewing,
             ),
         ).execute()
-        for request in requests
+        for request, (_, endpoint_sewing) in zip(
+            requests,
+            compositions,
+            strict=True,
+        )
     )
     OUTPUT_DIRECTORY.mkdir(parents=True, exist_ok=True)
     artifacts: list[tuple[Path, str]] = []

@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "authorized": true,
+  "authorized_at_utc": "2026-11-02T20:24:36Z",
+  "operator_message": "recommendation authorized",
+  "authorized_scope": "Exactly one local Quantum ESPRESSO 7.5 fixed-density parent band-path invocation for the accepted-S1 SSSP-1.3.0 PBE parent, along L-Gamma-X-Gamma, with 20 bands and no retry.",
+  "authorized_bounds": {
+    "maximum_invocations": 1,
+    "retries": 0,
+    "stop_on_failure": true
+  }
+}

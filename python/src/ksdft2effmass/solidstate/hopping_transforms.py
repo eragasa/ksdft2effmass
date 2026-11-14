@@ -5,10 +5,20 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.physkit.periodic.lattice.finite_domain import (
+    LatticeDimension,
+    LatticeDisplacement,
+)
+from projectkoios.physkit.periodic.lattice.hopping import (
+    DenseBlockHoppingModel,
+    DenseBlockHoppingTerm,
+)
 from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ModelSystemUnitConverter,
+    PhysicalUnit,
     ScalarQuantity,
+    Unitless,
     VectorQuantity,
 )
 
@@ -181,6 +191,96 @@ class BlockHoppingModel1D:
     def maximum_range(self) -> int:
         """Return the largest absolute represented cell displacement."""
         return max(abs(value) for value in self.representatives)
+
+    def to_physkit_ordinary_representation(
+        self,
+        *,
+        identifier: str,
+        energy_reference: str,
+        basis_identifier: str,
+    ) -> DenseBlockHoppingModel:
+        """Return provider-owned dense storage for declared ordinary support.
+
+        Parameters
+        ----------
+        identifier
+            Nonempty identity for the provider representation.
+        energy_reference
+            Nonempty identity for the common energy zero.
+        basis_identifier
+            Nonempty identity for the ordered primitive-cell basis shared by every
+            coefficient block.
+
+        Returns
+        -------
+        DenseBlockHoppingModel
+            One-dimensional ordinary-lattice representation with unchanged integer
+            support, coefficient values, block rank, and coefficient unit.
+
+        Raises
+        ------
+        TypeError
+            If an identity is not a built-in string or the coefficient unit cannot be
+            represented by the provider block-hopping model.
+        ValueError
+            If an identity is empty.
+
+        Notes
+        -----
+        The caller declares that ``representatives`` are ordinary integer lattice
+        displacements. A cyclic finite-DFT inventory must first pass through
+        :class:`CenteredEvenMeshCyclicToOrdinaryConverter1D`.
+
+        This conversion does not consume or reinterpret ``reciprocal_period``. It does
+        not infer physical direct-lattice geometry, impose rank two, repair Hermiticity,
+        complete conjugate support, or construct a KSD scientific model.
+
+        """
+        # Representation, basis, and energy-zero identities cannot be reconstructed
+        # from matrix contents, so every identity remains an explicit caller input.
+        for value, name in (
+            (identifier, "identifier"),
+            (energy_reference, "energy_reference"),
+            (basis_identifier, "basis_identifier"),
+        ):
+            if type(value) is not str:
+                raise TypeError(f"{name} must be a built-in string")
+            if not value:
+                raise ValueError(f"{name} must be nonempty")
+
+        energy_unit = self.hopping_blocks[0].unit
+        if not isinstance(energy_unit, PhysicalUnit | Unitless):
+            raise TypeError(
+                "ordinary provider representation requires PhysicalUnit or Unitless"
+            )
+
+        # Each legacy integer is a coefficient index. Mapping it to a typed PhysKit
+        # displacement does not yet attach physical distance; the direct lattice and
+        # its unit belong to a later scientific-model composition boundary.
+        terms = tuple(
+            DenseBlockHoppingTerm(
+                displacement=LatticeDisplacement(
+                    LatticeDimension.ONE,
+                    (representative,),
+                ),
+                # ComplexMatrixQuantity is immutable, so retaining the exact quantity
+                # preserves coefficient bytes and units without a numerical copy.
+                coefficient=block,
+            )
+            for representative, block in zip(
+                self.representatives,
+                self.hopping_blocks,
+                strict=True,
+            )
+        )
+        return DenseBlockHoppingModel(
+            identifier=identifier,
+            dimension=LatticeDimension.ONE,
+            terms=terms,
+            energy_unit=energy_unit,
+            energy_reference=energy_reference,
+            basis_identifier=basis_identifier,
+        )
 
 
 @dataclass(frozen=True, slots=True, eq=False)

@@ -9,8 +9,8 @@ validator.
 """
 
 from dataclasses import dataclass
-from enum import StrEnum
 
+from ...serialization import StrWireEnum
 from .expressions import (
     ColoredPetriNetGuardExpression,
     ColoredPetriNetInputInscription,
@@ -25,7 +25,7 @@ from .markings import (
 from .values import ColoredPetriNetColorIdentity, ColoredPetriNetValueKind
 
 
-class ColoredPetriNetSelectionPolicy(StrEnum):
+class ColoredPetriNetSelectionPolicy(StrWireEnum):
     """Definition-owned permission for binding selection.
 
     ``DETERMINISTIC_ONLY`` permits only canonical default selection.
@@ -85,7 +85,7 @@ class ColoredPetriNetColorDefinition:
 
     Notes
     -----
-    A legacy no-payload color is represented explicitly by the singleton
+    A no-payload color is represented explicitly by the singleton
     ``NONE`` kind rather than an empty admitted set.
     """
 

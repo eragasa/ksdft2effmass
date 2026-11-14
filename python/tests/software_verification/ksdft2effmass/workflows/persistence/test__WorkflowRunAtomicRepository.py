@@ -29,7 +29,7 @@ import pytest
 from ksdft2effmass import persistence as p
 from ksdft2effmass import workflows as w
 from ksdft2effmass.integration.quantum_espresso import (
-    QuantumEspressoResultValueSerializer,
+    QeResultValueSerializer,
 )
 from ksdft2effmass.workflows import WorkflowRunAtomicRepository
 
@@ -158,7 +158,7 @@ class TestWorkflowRunAtomicRepository:
     def make_repository(store: p.AtomicRevisionStore) -> w.WorkflowRunAtomicRepository:
         serializer = w.WorkflowRunSerializer(
             result_codec=w.WorkflowResultValueSerializer(
-                source_codec=QuantumEspressoResultValueSerializer()
+                source_codec=QeResultValueSerializer()
             )
         )
         return SUT(
@@ -177,7 +177,7 @@ class TestWorkflowRunAtomicRepository:
         payload = Path(__file__).with_name("resources").joinpath(name).read_bytes()
         serializer = w.WorkflowRunSerializer(
             result_codec=w.WorkflowResultValueSerializer(
-                source_codec=QuantumEspressoResultValueSerializer()
+                source_codec=QeResultValueSerializer()
             )
         )
         decoded = serializer.deserialize(payload)

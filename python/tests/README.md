@@ -32,16 +32,22 @@ this boundary/evidence marker rule.
 - `expensive` identifies measured or structurally unavoidable work that is unsuitable
   for every bounded continuous-integration run. Every expensive test is also marked
   `integration`.
-- `legacy_equivalence` identifies compatibility-only equivalence with a historical
-  software surface. It must be paired with `software_verification`; it does not claim
-  numerical equivalence, scientific validation, or retained-evidence validity.
 - `software_verification`, `numerical_verification`, `scientific_validation`, and
   `uncertainty_quantification` state the kind of claim tested. They are independent of
   cost and boundary markers.
 
-This marker cleanup does not create skips or change the disposition of tests whose
-historical calculation subjects are absent. Migrating or retiring those subjects is a
-separate provenance decision.
+Historical calculation subjects require an explicit test disposition. Maintained
+campaign replay may use exact, digest-bound test resources under
+`tests/resources/historical_calculations/` rather than restoring a superseded
+calculation layout. Defect-2D Folding and Null-Alignment Controls use active typed
+public contracts and an authored synthetic calculation package replayed from
+`calculations/periodic2d_rank_defect/`. The same owner retains a separate accepted-
+historical-synthetic parent-qualification package; routine tests authenticate its
+manifest and exercise compact calculation and independent-verification inventories
+rather than rerunning the complete 11,340 route constructions. Removed Stage B/C
+execution contracts are not retained as skipped test modules. The maintained
+defect-model plotter instead uses a scalar test-owned projection. These dispositions do
+not promote fixtures to active calculation owners or strengthen scientific claims.
 
 From `python/`, run the bounded suite with:
 
@@ -53,19 +59,6 @@ Run package-owned expensive tests explicitly with:
 
 ```console
 uv run pytest -m expensive tests
-```
-
-Run bounded historical-compatibility checks with:
-
-```console
-uv run pytest -m "legacy_equivalence and not expensive" tests
-```
-
-Run costly historical-compatibility checks only when their compatibility surface
-changes:
-
-```console
-uv run pytest -m "legacy_equivalence and expensive" tests
 ```
 
 The maintained rank-N calculation-local structural and plotting tests are outside the

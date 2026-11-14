@@ -8,6 +8,7 @@ not establish scientific validity, retained evidence, or material applicability.
 
 import numpy as np
 import pytest
+from projectkoios.physkit.periodic.lattice.finite_domain import LatticeDimension
 from projectkoios.physkit.units import (
     ComplexMatrixQuantity,
     ScalarQuantity,
@@ -67,6 +68,23 @@ class TestCenteredEvenMeshCyclicToOrdinaryConverter1D:
             rtol=0.0,
             atol=np.finfo(np.float64).eps * 4.0,
         )
+
+        # Provider conversion occurs only after the negative-Nyquist class has been
+        # removed. The retained conversion result continues to own the omitted class
+        # and its power rather than hiding either value inside the ordinary model.
+        representation = result.ordinary.to_physkit_ordinary_representation(
+            identifier="ordinary-after-cyclic-conversion-v1",
+            energy_reference="dimensionless-zero-v1",
+            basis_identifier="ordered-rank2-basis-v1",
+        )
+        assert representation.dimension is LatticeDimension.ONE
+        assert tuple(term.displacement.components for term in representation.terms) == (
+            (-1,),
+            (0,),
+            (1,),
+        )
+        assert result.conversion_representative == -2
+        assert result.conversion_power_per_matrix_dimension > 0.0
 
     def test_class__init__rejects_odd_representative_inventory(self) -> None:
         """An odd mesh has no unique negative-Nyquist conversion class."""

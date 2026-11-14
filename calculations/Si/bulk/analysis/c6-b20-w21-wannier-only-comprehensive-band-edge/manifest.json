@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "producer-checked-development-not-independently-verified",
+  "artifacts": [
+    {"path": "request.json", "byte_size": 4029, "sha256": "81401e96a4c5ad7d99f5895ed0850974fec3307f6def112f796b8e5e53fe8e0f"},
+    {"path": "run_analysis.py", "byte_size": 30010, "sha256": "19f107e0aedee8831dbc5d3e8ca1602f24ab87688abd02639c0e59db7d493f3b"},
+    {"path": "result.json", "byte_size": 309960, "sha256": "533dfcbed4883793bb84d1a13d1a8f62f7bb7f99b02d3ab07bb3ea99f78b0764"},
+    {"path": "run_multiband_analysis.py", "byte_size": 13255, "sha256": "c78e27c9f7bc1deaf48e53ad1ff2c917075f6e1d568ffc69057fd79b521a026d"},
+    {"path": "multiband-result.json", "byte_size": 104385, "sha256": "bb7be7af470c521a69897fd910fe476dce40eee1382ff8e46e6040b851718ea6"},
+    {"path": "render_results.py", "byte_size": 13255, "sha256": "841c8829d6def0b38d70680299704c780e40b3621b93f2941b7267c4467cca78"},
+    {"path": "render_multiband.py", "byte_size": 3972, "sha256": "46cec80cde46b72bcdff1f3d8d34be02fc79aae5aa79e9967d5ea18ac69c1a22"},
+    {"path": "plot-data.json", "byte_size": 240339, "sha256": "6a17837bc70cb8e370f7fe4e33e7a0eba3bfb14fe8ab05149161864aaa8f29f0"},
+    {"path": "figures/derived-electron-mass-fidelity.pdf", "byte_size": 19956, "sha256": "f6beb18454a332d3fe10319f8cca1ec0b9f042961c18247451c516b1fe7f13d8"},
+    {"path": "figures/derived-electron-mass-fidelity.png", "byte_size": 137764, "sha256": "94168fd86557646132b8dc1b503c621a5d1c9226d2c28c7cd2d96d4f58449c29"},
+    {"path": "figures/directional-valence-cluster-dispersions.pdf", "byte_size": 30731, "sha256": "b4d5b00108ab8de202f4b7b63b16d4cba0aaf1a3ef467c25c204bae97d6161d4"},
+    {"path": "figures/directional-valence-cluster-dispersions.png", "byte_size": 281828, "sha256": "d37a46859119ed8438baa274b9cb50e17c65f329f4c91fc32ef917a00c235960"},
+    {"path": "figures/directional-valence-mass-sensitivity.pdf", "byte_size": 36947, "sha256": "91130b4a194b3ec7c1a9831514cd4496f5da94b42c5244427ff0481dc9582f86"},
+    {"path": "figures/directional-valence-mass-sensitivity.png", "byte_size": 346870, "sha256": "2c4d6ce0848ba0259c7d407198fbc52557d10c0be1a3606545918d28ee198a01"},
+    {"path": "figures/gamma-valence-cluster-fidelity.pdf", "byte_size": 17294, "sha256": "6b4e564b3c47183d5d6d26d65eb57665fe5ebe3eec1377a6eb8eb0b80dcd7a5e"},
+    {"path": "figures/gamma-valence-cluster-fidelity.png", "byte_size": 105657, "sha256": "d86519b9564513cfa62587a906ffe78a7eb43245d2e13c8320cfb38b5e4fbac0"},
+    {"path": "figures/high-symmetry-edge-fidelity.pdf", "byte_size": 17854, "sha256": "e2779110c534f70433ba5ee5e9e5ae91ee1261f3d66dfa9aeb4c6f93fcabacc6"},
+    {"path": "figures/high-symmetry-edge-fidelity.png", "byte_size": 74538, "sha256": "b75fbf09ebf6d59dfd778462c7a7c95647d1a631bd1311f5511b4d452d1be911"},
+    {"path": "figures/multiband-valence-curvature-channels.pdf", "byte_size": 23251, "sha256": "8aba2cd70bdb3b827d7202730595aec1ef614837538086f44aae0793fff3bc26"},
+    {"path": "figures/multiband-valence-curvature-channels.png", "byte_size": 126732, "sha256": "a0ee85a7f1b7d953532c5f8da4fd991f5ff8c5c84f2d9633efa68851c46a6efe"},
+    {"path": "figures/multiband-valence-fidelity-summary.pdf", "byte_size": 20663, "sha256": "953c7627eb9caf9ef42bc2667debdeeb6b511bd72f2e25f764d75f3b84392ed2"},
+    {"path": "figures/multiband-valence-fidelity-summary.png", "byte_size": 107171, "sha256": "cca1c6648ce6de9ccd876cff6c50c290aa304cf6d0982256bca0bbea3262d49e"}
+  ],
+  "excluded_from_manifest": [
+    "README.md is explanatory documentation and may be amended without changing retained numerical outputs.",
+    "manifest.json and execution records do not self-hash."
+  ]
+}

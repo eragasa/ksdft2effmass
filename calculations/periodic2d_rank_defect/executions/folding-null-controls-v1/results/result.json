@@ -1,0 +1,285 @@
+{
+  "calculation_status": "calculated_synthetic_result",
+  "cases": [
+    {
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 2.7755575615628914e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_diagonal_maximum_absolute": 4.1498092271678117e-16,
+        "primitive_energy_maximum_absolute_defect": 4.1498092271678117e-16,
+        "unitarity_maximum_absolute_defect": 8.836797807016411e-16
+      },
+      "identifier": "shape-6.twist-0",
+      "null_extraction": {
+        "recovered_frobenius_defect": 2.9515257068761426e-16,
+        "recovered_maximum_absolute_defect": 1.1123893155135927e-16,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      }
+    },
+    {
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 8.326672684688674e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_diagonal_maximum_absolute": 3.5636219633060333e-16,
+        "primitive_energy_maximum_absolute_defect": 3.5636219633060333e-16,
+        "unitarity_maximum_absolute_defect": 1.2793982557424658e-15
+      },
+      "identifier": "shape-6.twist-1",
+      "null_extraction": {
+        "recovered_frobenius_defect": 3.056016490400441e-16,
+        "recovered_maximum_absolute_defect": 1.1123893155135927e-16,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      }
+    },
+    {
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 3.3306690738754696e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_diagonal_maximum_absolute": 4.537424092377916e-16,
+        "primitive_energy_maximum_absolute_defect": 4.537424092377916e-16,
+        "unitarity_maximum_absolute_defect": 1.079529865844036e-15
+      },
+      "identifier": "shape-6.twist-2",
+      "null_extraction": {
+        "recovered_frobenius_defect": 2.9835841134182047e-16,
+        "recovered_maximum_absolute_defect": 1.1123893155135927e-16,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      }
+    },
+    {
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 5.551115123125783e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_diagonal_maximum_absolute": 4.815895519011202e-16,
+        "primitive_energy_maximum_absolute_defect": 4.815895519011202e-16,
+        "unitarity_maximum_absolute_defect": 1.0738880384125018e-15
+      },
+      "identifier": "shape-6.twist-3",
+      "null_extraction": {
+        "recovered_frobenius_defect": 2.9520939490278476e-16,
+        "recovered_maximum_absolute_defect": 1.1123893155135927e-16,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      }
+    },
+    {
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 3.885780586188048e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_diagonal_maximum_absolute": 4.834602037645539e-16,
+        "primitive_energy_maximum_absolute_defect": 4.834602037645539e-16,
+        "unitarity_maximum_absolute_defect": 1.070742898624873e-15
+      },
+      "identifier": "shape-8.twist-0",
+      "null_extraction": {
+        "recovered_frobenius_defect": 4.002532362734454e-16,
+        "recovered_maximum_absolute_defect": 1.1123893155135927e-16,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      }
+    },
+    {
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 8.881784197001252e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_diagonal_maximum_absolute": 4.658499689234552e-16,
+        "primitive_energy_maximum_absolute_defect": 4.658499689234552e-16,
+        "unitarity_maximum_absolute_defect": 1.1311368147553565e-15
+      },
+      "identifier": "shape-8.twist-1",
+      "null_extraction": {
+        "recovered_frobenius_defect": 4.005343581648052e-16,
+        "recovered_maximum_absolute_defect": 1.1123893155135927e-16,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      }
+    },
+    {
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 5.551115123125783e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_diagonal_maximum_absolute": 3.934165136707411e-16,
+        "primitive_energy_maximum_absolute_defect": 3.934165136707411e-16,
+        "unitarity_maximum_absolute_defect": 9.08332099272885e-16
+      },
+      "identifier": "shape-8.twist-2",
+      "null_extraction": {
+        "recovered_frobenius_defect": 4.02945352438228e-16,
+        "recovered_maximum_absolute_defect": 1.1123893155135927e-16,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      }
+    },
+    {
+      "folding": {
+        "eigenvalue_maximum_absolute_defect": 3.885780586188048e-16,
+        "hermiticity_maximum_absolute_defect": 0.0,
+        "off_diagonal_maximum_absolute": 2.8248278688620286e-16,
+        "primitive_energy_maximum_absolute_defect": 2.8248278688620286e-16,
+        "unitarity_maximum_absolute_defect": 8.97921110413607e-16
+      },
+      "identifier": "shape-8.twist-3",
+      "null_extraction": {
+        "recovered_frobenius_defect": 4.011708218924556e-16,
+        "recovered_maximum_absolute_defect": 1.1123893155135927e-16,
+        "transform_unitarity_maximum_absolute_defect": 2.220446049250313e-16
+      }
+    }
+  ],
+  "definition": {
+    "cases": [
+      {
+        "identifier": "shape-6.twist-0",
+        "shape": [
+          6,
+          6
+        ],
+        "twist_turns": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "identifier": "shape-6.twist-1",
+        "shape": [
+          6,
+          6
+        ],
+        "twist_turns": [
+          0.37,
+          -0.23
+        ]
+      },
+      {
+        "identifier": "shape-6.twist-2",
+        "shape": [
+          6,
+          6
+        ],
+        "twist_turns": [
+          0.5,
+          0.0
+        ]
+      },
+      {
+        "identifier": "shape-6.twist-3",
+        "shape": [
+          6,
+          6
+        ],
+        "twist_turns": [
+          0.0,
+          0.5
+        ]
+      },
+      {
+        "identifier": "shape-8.twist-0",
+        "shape": [
+          8,
+          8
+        ],
+        "twist_turns": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "identifier": "shape-8.twist-1",
+        "shape": [
+          8,
+          8
+        ],
+        "twist_turns": [
+          0.37,
+          -0.23
+        ]
+      },
+      {
+        "identifier": "shape-8.twist-2",
+        "shape": [
+          8,
+          8
+        ],
+        "twist_turns": [
+          0.5,
+          0.0
+        ]
+      },
+      {
+        "identifier": "shape-8.twist-3",
+        "shape": [
+          8,
+          8
+        ],
+        "twist_turns": [
+          0.0,
+          0.5
+        ]
+      }
+    ],
+    "identifier": "periodic2d-rank-defect.folding-null-controls.v1",
+    "null_attack": {
+      "energy_reference_shift": 0.137,
+      "site_phase_steps_radians": [
+        0.137,
+        -0.191
+      ],
+      "translation_cells": [
+        1,
+        1
+      ]
+    },
+    "parent": {
+      "basis_identifier": "scalar-cell-basis",
+      "energy_reference": "authored-folding-null-zero",
+      "energy_unit": "unitless",
+      "identifier": "authored-folding-null-parent",
+      "terms": [
+        {
+          "displacement": [
+            -1,
+            0
+          ],
+          "imaginary": 0.0,
+          "real": -0.1
+        },
+        {
+          "displacement": [
+            0,
+            -1
+          ],
+          "imaginary": 0.0,
+          "real": -0.08
+        },
+        {
+          "displacement": [
+            0,
+            0
+          ],
+          "imaginary": 0.0,
+          "real": 0.2
+        },
+        {
+          "displacement": [
+            0,
+            1
+          ],
+          "imaginary": 0.0,
+          "real": -0.08
+        },
+        {
+          "displacement": [
+            1,
+            0
+          ],
+          "imaginary": 0.0,
+          "real": -0.1
+        }
+      ]
+    },
+    "tolerances": {
+      "algebraic_absolute": 1e-11,
+      "folding_unitarity": 1e-11
+    }
+  },
+  "evidence_status": "authored_synthetic_numerical_verification",
+  "failed_criteria": [],
+  "record_type": "periodic2d_rank_defect_folding_null_result",
+  "schema_version": 1
+}

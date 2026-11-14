@@ -19,11 +19,21 @@ class Periodic3DRank2HoppingLocalityAnalysis(
     MetricShellHoppingPowerResult,
     Periodic3DRank2HoppingLocalityAnalysisRole,
 ):
-    """Retain one channel's unchanged rank-two hopping powers by metric shell."""
+    """Retain one model's unchanged rank-two hopping powers by metric shell."""
 
     request: Periodic3DRank2HoppingLocalityAnalysisRequest
 
     def __post_init__(self) -> None:
+        """Validate request correlation, retained rank, and dimensional powers.
+
+        Raises
+        ------
+        TypeError
+            If ``request`` lacks its exact periodic-3D request owner.
+        ValueError
+            If retained rank is not two or a displacement is not three-dimensional.
+
+        """
         MetricShellHoppingPowerResult.__post_init__(self)
         if type(self.request) is not Periodic3DRank2HoppingLocalityAnalysisRequest:
             raise TypeError("request must be the exact periodic-3D rank-two request")

@@ -8,7 +8,7 @@ Facet and represented meaning
 
 -----------------------------
 This class-owned evidence verifies the closed failure-stage vocabulary,
-``StrEnum`` inheritance, exact ordered names and values, alias absence, value
+``StrWireEnum`` inheritance, exact ordered names and values, alias absence, value
 construction, name lookup, and rejection behavior.
 
 Intrinsic and cross-object scope
@@ -27,12 +27,12 @@ or classify scientific-model error. It does not establish numerical
 verification, scientific validation, UQ, or provenance truth.
 """
 
-from enum import StrEnum
 from typing import Any, cast
 
 import pytest
 
 from ksdft2effmass.provenance import ExternalFailureStage
+from ksdft2effmass.serialization import StrWireEnum
 
 SUT = ExternalFailureStage
 pytestmark = pytest.mark.software_verification
@@ -41,7 +41,8 @@ pytestmark = pytest.mark.software_verification
 def test_field__wire_vocabulary__has_exact_order_names_values_and_count() -> None:
     """Evidence ID: SV-PROV-045
 
-    Requirement: The enum is an alias-free StrEnum with the exact three ordered stages.
+    Requirement: The enum is an alias-free StrWireEnum with the exact three ordered
+    stages.
 
     Method: Inspect inheritance, iteration, the public member mapping, and member
     counts.
@@ -61,7 +62,7 @@ def test_field__wire_vocabulary__has_exact_order_names_values_and_count() -> Non
         ("EXECUTION", "execution"),
         ("RESULT_CAPTURE", "result_capture"),
     )
-    assert issubclass(SUT, StrEnum)
+    assert issubclass(SUT, StrWireEnum)
     assert tuple((member.name, member.value) for member in SUT) == expected
     assert tuple(SUT.__members__) == (
         "REQUEST_ACCEPTANCE",

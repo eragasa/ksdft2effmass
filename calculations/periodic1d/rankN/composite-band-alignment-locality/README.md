@@ -16,7 +16,7 @@ This family is the one-dimensional higher-rank prerequisite in the shared
 [periodic analysis order](../../../periodic/multiband/analysis-order.md). For every
 admitted rank/depth case, analyze:
 
-1. analytic parent, retained/exterior isolation, geometry, and attack invariants;
+1. analytic parent, retained/exterior isolation, geometry, and transformation invariants;
 2. constant-frame transport and closure diagnostics;
 3. identity, global-unitary, pointwise-unitary, and known-inverse controls as separately
    labelled alignments;
@@ -33,11 +33,13 @@ This calculation precedes interpretation of multidimensional rank-N studies, but
 coefficients, ranks, depths, meshes, thresholds, and results do not transfer to them.
 
 Composite sequencing belongs to
-`ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality`. Immutable configuration,
-request, transport, provenance, calculation-result, refinement, and failure records live
-under `rankN.band_alignment`; reusable gauge stages live under `rankN.gauge_alignment`;
-hopping locality and support truncation retain their own rank-first capability owners.
-Package initializers are inert, so calculation adapters import from defining modules.
+`ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality`. The reusable analytic
+parent model, gauge transformation, represented fields, gauge alignment, Fourier
+analysis, interpolation, hopping locality, and support truncation have separate source
+owners. [`control_basis.py`](control_basis.py) owns this calculation's explicit structured
+basis inventory for ranks `3`, `4`, `8`, and `16`; reusable source receives the selected
+basis identity explicitly and does not synthesize coordinates from rank. Package
+initializers remain inert except at documented public capability surfaces.
 
 - [`run_01_calculation.py`](run_01_calculation.py) obtains the complete protocol from
   `Periodic1DRankNAlignmentConfiguration.frozen()` and constructs every case through the
@@ -66,13 +68,13 @@ Package initializers are inert, so calculation adapters import from defining mod
   and direct execution do not import, adapt, or execute it.
 
 Canonical typed calculation bytes and four bounded producer-independent references now
-exist. The core slice reconstructs analytic-model and attack invariants. The Fourier slice
+exist. The core slice reconstructs analytic-model and transformation invariants. The Fourier slice
 covers all four gauge controls on all three construction meshes and independently
 compares block norms, reconstruction, Parseval, Hermitian pairing, shifted interpolation,
 and support tails; for the oracle it also compares analytic $|R|\le2$
 coefficients. The Procrustes slice reconstructs the single global selection with an
 Hermitian-eigendecomposition polar factor and all three pointwise selections directly
-from the analytic attack, including rank, residual, integrity, and selected-unitary
+from the analytic transformation, including rank, residual, integrity, and selected-unitary
 evidence. The transport slice directly reconstructs the exact constant-frame closed
 route on all three meshes, including link rank evidence and closure actions. These
 references do not reconstruct complete locality error channels or refinement evidence
@@ -87,11 +89,14 @@ result schemas, or verification policies.
 Proposed two- and three-dimensional and nonorthonormal studies remain outside this
 periodic-1D orthonormal contract.
 
-Ranks `1` and `2` are also intentionally outside the D1-v1 case inventory. Rank one is
+Ranks `1` and `2` are also intentionally outside the higher-rank analytic validation v1 case inventory. Rank one is
 the separate scalar Fourier-locality specialization because $U(1)$ phases do not change
-a scalar represented Hamiltonian. Rank two can reuse orthonormal matrix mechanisms but
-retains its own model, controls, verification, and evidence identity; this higher-rank
-family is not its replacement. The Architecture v3
+a scalar represented Hamiltonian. Rank-two operation owners refine the reusable
+periodic-1D finite-rank gauge-alignment, frame-transport, band-equivalence,
+hopping-locality, and support-truncation capabilities, but the rank-two calculation
+retains its own model, controls, verification, and evidence identity. This higher-rank analytic validation v1 study
+inventory is not its replacement and does not redefine finite-rank capability admission.
+The Architecture v3
 [rank-specialization crosswalk](../../../../docs/architecture/v3/ksdft2effmass/periodic1d/rankN/band_equivalence_hopping_locality/rank-specialization-crosswalk.md)
 records the boundary.
 
@@ -119,5 +124,5 @@ Migration records:
 | Independent reference and verification | Bounded direct-formula core-invariant, all-gauge Fourier, global/pointwise Procrustes, and constant-frame transport references are implemented; cache integrity verification is the direct stage-two lifecycle. |
 | Figures and execution | Nine views are regenerated from the admitted calculation cache without recalculation. Retained execution and publication remain separately authorization-gated. |
 | Historical Workflow source | Preserved as read-only provenance and excluded from maintained runtime and tests. |
-| Rank specializations | Rank one remains scalar Fourier locality; rank two remains a separate composite-alignment study. Neither is admitted by widening the D1-v1 inventory. |
+| Rank specializations | Rank one remains scalar Fourier locality. Rank-two operation owners refine finite-rank capabilities, while the rank-two calculation remains a separate composite-alignment study and is not admitted by widening the higher-rank analytic validation v1 inventory. |
 | Future variants | Moving-subspace, complex-rotation, restricted-optimizer, 2-D, 3-D, and nonorthonormal variants are absent and cannot inherit this result. |

@@ -51,7 +51,6 @@ from .records import (
     TaskInvocationOutcome,
     TaskWorkflowMembership,
     TaskWorkflowTransitionRecord,
-    UnknownLegacyResultProducer,
 )
 
 
@@ -513,8 +512,7 @@ class WorkflowRun:
             | RepresentedScientificDecisionIngressProducer
             | ExternalResultProducer
             | ImportedRetainedResultProducer
-            | HumanAuthoredResultProducer
-            | UnknownLegacyResultProducer,
+            | HumanAuthoredResultProducer,
         ] = {}
         for reference in self.result_references:
             producer = reference.producer_provenance

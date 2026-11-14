@@ -29,8 +29,8 @@ from projectkoios.physkit.periodic.lattice.finite_domain import (
     LatticeDisplacement,
 )
 from projectkoios.physkit.periodic.lattice.hopping import (
-    BlockHoppingModel,
-    BlockHoppingTerm,
+    DenseBlockHoppingModel,
+    DenseBlockHoppingTerm,
 )
 from projectkoios.physkit.solidstate.tb.diagnostics import BlockHoppingPowerAnalyzer
 from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
@@ -659,11 +659,11 @@ class SmoothFourStateExperiment:
         blocks: ComplexArray,
         identifier: str,
     ) -> RealArray:
-        model = BlockHoppingModel(
+        model = DenseBlockHoppingModel(
             identifier=identifier,
             dimension=LatticeDimension.ONE,
             terms=tuple(
-                BlockHoppingTerm(
+                DenseBlockHoppingTerm(
                     displacement=LatticeDisplacement(
                         LatticeDimension.ONE, (displacement,)
                     ),

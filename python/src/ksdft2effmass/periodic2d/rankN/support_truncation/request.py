@@ -12,12 +12,12 @@ from ksdft2effmass.band_equivalence_hopping_locality.results import (
     BandEquivalenceHoppingLocalityErrorChannels,
 )
 from ksdft2effmass.real_space_support_truncation import MetricShellSupportInventory
-from ksdft2effmass.serialization.enums import StringWireEnum
+from ksdft2effmass.serialization.enums import StrWireEnum
 
 from .base import Periodic2DRankNSupportTruncationAnalysisRequestRole
 
 
-class Periodic2DRankNSupportTruncationChannelEnum(StringWireEnum):
+class Periodic2DRankNSupportTruncationChannelEnum(StrWireEnum):
     """Identify one model channel whose support is irreversibly removed."""
 
     REFERENCE = "reference"

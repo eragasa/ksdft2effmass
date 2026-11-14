@@ -64,12 +64,14 @@ def maximum_matrix_defect(left: ComplexArray, right: ComplexArray) -> float:
 def error_channels(
     approximation: ComplexArray,
     direct: ComplexArray,
+    *,
+    norm_energy_scale: float,
 ) -> BandEquivalenceHoppingLocalityErrorChannels:
-    """Return legacy rank-normalized matrix and sorted-band error channels."""
+    """Return rank-normalized matrix and sorted-band error channels."""
     summary = MatrixFieldErrorAnalyzer(
         approximation=approximation,
         reference=direct,
-        norm_energy_scale=1.0,
+        norm_energy_scale=norm_energy_scale,
     ).result()
     return BandEquivalenceHoppingLocalityErrorChannels(
         maximum_hamiltonian=summary.normalized_matrix_frobenius_maximum,

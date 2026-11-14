@@ -45,7 +45,7 @@ def _request() -> Periodic1DRank2BandEquivalenceHoppingLocalityRequest:
         represented_basis_identifier="fixed-real-rank-two-basis.v1",
         energy_reference_identifier="positive-reference-energy-E_ref.v1",
         reciprocal_coordinate_convention="centered-half-open-reduced-coordinate.v1",
-        gauge_attack_identifier="real-sinusoidal-rotation.v1",
+        gauge_transformation_identifier="real-sinusoidal-rotation.v1",
         construction_size=16,
         evaluation_size=33,
         evaluation_shift_numerator=1,
@@ -97,7 +97,7 @@ class TestPeriodic1DRank2BandEquivalenceHoppingLocalityFlatOwner:
                 reciprocal_coordinate_convention=(
                     values.reciprocal_coordinate_convention
                 ),
-                gauge_attack_identifier=values.gauge_attack_identifier,
+                gauge_transformation_identifier=values.gauge_transformation_identifier,
                 construction_size=True,
                 evaluation_size=values.evaluation_size,
                 evaluation_shift_numerator=values.evaluation_shift_numerator,

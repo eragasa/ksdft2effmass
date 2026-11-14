@@ -83,6 +83,13 @@ For one declared finite request, the result may report:
 These quantities have meaning only with their recorded basis, gauge normalization,
 finite meshes, support metric, and applicability state.
 
+The installed hopping-power channel is cell-block locality. It answers how total
+Frobenius power is distributed across integer cell displacements and metric shells. It
+does not answer which matrix-element, orbital, or MLWF pair carries that power. Optional
+basis offsets contribute only geometric range diagnostics. The peer orbital- and
+MLWF-resolved meanings are prospective contracts under
+[`ksdft2effmass.hopping_locality`](../hopping_locality/index.md).
+
 ## Nonclaims
 
 Neither the typed lifecycle nor a passing verification establishes:

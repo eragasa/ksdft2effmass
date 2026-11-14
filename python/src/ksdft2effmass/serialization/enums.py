@@ -6,7 +6,7 @@ from enum import Enum
 from typing import Self
 
 
-class StringWireEnum(Enum):
+class StrWireEnum(Enum):
     """Provide exact string mapping for an ordinary, closed Enum vocabulary.
 
     This behavior-only base intentionally does not inherit :class:`str`. Concrete
@@ -17,12 +17,12 @@ class StringWireEnum(Enum):
     def __init__(self, value: str) -> None:
         """Reject non-string member values while the concrete Enum is defined."""
         if type(value) is not str:
-            raise TypeError("StringWireEnum member values must be built-in strings")
+            raise TypeError("StrWireEnum member values must be built-in strings")
 
     def to_wire(self) -> str:
         """Return this member's exact built-in string mapping value."""
         if type(self.value) is not str:
-            raise TypeError("StringWireEnum member values must be built-in strings")
+            raise TypeError("StrWireEnum member values must be built-in strings")
         return self.value
 
     @classmethod
@@ -36,4 +36,4 @@ class StringWireEnum(Enum):
         raise ValueError(f"unsupported {cls.__name__} wire label: {wire!r}")
 
 
-__all__ = ["StringWireEnum"]
+__all__ = ["StrWireEnum"]

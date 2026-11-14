@@ -92,7 +92,7 @@ and failure; it adds no wrapper or stored state.
 `ProvenanceJsonSerializer` owns the strict version-1 wire boundary. These
 ActionObjects have no fields or retained policy: they are stateless and perform
 no I/O, execution, mutation, or hidden deployment or scientific policy. Public
-string-valued enum vocabularies use `StrEnum`.
+string-mapped enum vocabularies use `StrWireEnum` for explicit wire conversion.
 
 The schema owns structural wire constraints; strict JSON parsing also rejects
 syntax-level defects, while Python constructors own intrinsic and record-local

@@ -14,10 +14,10 @@ from ksdft2effmass.analysis import (
     ScalarQuantityOfInterestValue,
 )
 from ksdft2effmass.integration.quantum_espresso import (
-    QuantumEspressoBandsResult,
-    QuantumEspressoExtractedObservationResult,
-    QuantumEspressoPwResult,
-    QuantumEspressoResultValueSerializer,
+    QeBandsResult,
+    QeExtractedObservationResult,
+    QePwResult,
+    QeResultValueSerializer,
 )
 from ksdft2effmass.workflows import (
     NormalizedObservationSet,
@@ -41,7 +41,7 @@ class ApplicationResultValueSerializer:
     ----------
     workflow_codec
         Exact frozen Workflow serializer. Its source dependency must be an exact
-        ``QuantumEspressoResultValueSerializer``, preventing arbitrary nested source
+        ``QeResultValueSerializer``, preventing arbitrary nested source
         implementations. Independently constructed instances of this stateless
         immutable codec are equivalent; object identity is not a wire contract.
     quantum_espresso_codec
@@ -66,20 +66,15 @@ class ApplicationResultValueSerializer:
     """
 
     workflow_codec: WorkflowResultValueSerializer
-    quantum_espresso_codec: QuantumEspressoResultValueSerializer
+    quantum_espresso_codec: QeResultValueSerializer
     quantity_of_interest_codec: QuantityOfInterestResultValueSerializer
 
     def __post_init__(self) -> None:
         """Require the three exact immutable owners and the selected source family."""
         if type(self.workflow_codec) is not WorkflowResultValueSerializer:
             raise TypeError("workflow_codec must be WorkflowResultValueSerializer")
-        if (
-            type(self.quantum_espresso_codec)
-            is not QuantumEspressoResultValueSerializer
-        ):
-            raise TypeError(
-                "quantum_espresso_codec must be QuantumEspressoResultValueSerializer"
-            )
+        if type(self.quantum_espresso_codec) is not QeResultValueSerializer:
+            raise TypeError("quantum_espresso_codec must be QeResultValueSerializer")
         if (
             type(self.quantity_of_interest_codec)
             is not QuantityOfInterestResultValueSerializer
@@ -88,13 +83,8 @@ class ApplicationResultValueSerializer:
                 "quantity_of_interest_codec must be "
                 "QuantityOfInterestResultValueSerializer"
             )
-        if (
-            type(self.workflow_codec.source_codec)
-            is not QuantumEspressoResultValueSerializer
-        ):
-            raise TypeError(
-                "Workflow source codec must be QuantumEspressoResultValueSerializer"
-            )
+        if type(self.workflow_codec.source_codec) is not QeResultValueSerializer:
+            raise TypeError("Workflow source codec must be QeResultValueSerializer")
 
     def encode(self, value: ResultObject) -> WorkflowResultValueEncodeResult:
         """Delegate one exact supported result to its owning codec.
@@ -126,9 +116,9 @@ class ApplicationResultValueSerializer:
         ):
             return self.workflow_codec.encode(value)
         if (
-            type(value) is QuantumEspressoPwResult
-            or type(value) is QuantumEspressoBandsResult
-            or type(value) is QuantumEspressoExtractedObservationResult
+            type(value) is QePwResult
+            or type(value) is QeBandsResult
+            or type(value) is QeExtractedObservationResult
         ):
             return self.quantum_espresso_codec.encode(value)
         if (
@@ -172,7 +162,7 @@ class ApplicationResultValueSerializer:
         ):
             return self.workflow_codec.decode(value)
         if label in (
-            "ksdft2effmass.integration.quantum_espresso.QuantumEspressoPwResult:1",
+            "ksdft2effmass.integration.quantum_espresso.QePwResult:2",
             "ksdft2effmass.integration.quantum_espresso.QuantumEspressoBandsResult:1",
             "ksdft2effmass.integration.quantum_espresso.QuantumEspressoExtractedObservationResult:1",
         ):

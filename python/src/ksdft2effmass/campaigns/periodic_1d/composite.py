@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import warnings
 from dataclasses import dataclass
 
 from projectkoios.physkit.units import (
@@ -242,24 +241,6 @@ class Periodic1DCompositeCampaignJsonSerializer(
         return (
             json.dumps(payload, sort_keys=True, separators=(",", ":")) + "\n"
         ).encode("utf-8")
-
-    def decode(self, payload: bytes) -> Periodic1DCompositeCampaignDefinition:
-        """Deprecated compatibility alias for :meth:`deserialize`."""
-        warnings.warn(
-            "decode() is deprecated; use deserialize()",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return self.deserialize(payload)
-
-    def encode(self, value: Periodic1DCompositeCampaignDefinition) -> bytes:
-        """Deprecated compatibility alias for :meth:`serialize`."""
-        warnings.warn(
-            "encode() is deprecated; use serialize()",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return self.serialize(value)
 
     def decode_group(self, value: object) -> Periodic1DRetainedBandGroup:
         """Decode one retained contiguous-band group representation."""

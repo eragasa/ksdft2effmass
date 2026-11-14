@@ -2,21 +2,12 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import final
+from itertools import product
+from typing import ClassVar, final
 
 import numpy as np
-from projectkoios.numerics.finite_periodic.meshes import CenteredUniformMesh
 from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
     NumpyFiniteFourierMatrixSeries,
-)
-from projectkoios.numerics.finite_periodic.numpy.tensor_product_evaluation import (
-    NumpyTensorProductFourierMatrixEvaluationDefinition,
-    NumpyTensorProductFourierMatrixSeriesEvaluator,
-)
-from projectkoios.numerics.finite_periodic.numpy.transforms import (
-    NumpyCenteredUniformMeshMatrixFourierTransformDefinition,
-    NumpyCenteredUniformMeshMatrixFourierTransformer,
 )
 from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array, Int64Array
 from projectkoios.physkit.solidstate.tb.diagnostics import BlockHoppingPowerAnalyzer
@@ -29,18 +20,17 @@ from ksdft2effmass.band_equivalence_hopping_locality.fourier import (
 from ksdft2effmass.band_equivalence_hopping_locality.geometry import (
     metric_shell_classification,
 )
+from ksdft2effmass.band_equivalence_hopping_locality.rankN.analysis import (
+    _PeriodicRankNBandEquivalenceHoppingLocalityProductionArithmetic,
+    _ReferenceFourierData,
+)
 from ksdft2effmass.band_equivalence_hopping_locality.results import (
     BandEquivalenceHoppingLocalityErrorChannels,
 )
 from ksdft2effmass.band_equivalence_hopping_locality.shell_power import (
     MetricShellHoppingPowerResult,
 )
-from ksdft2effmass.gauge_alignment import (
-    GaugeAlignmentActionConvention,
-    GaugeAlignmentAnalysisIdentity,
-    GaugeAlignmentGroupIdentity,
-    GaugeAlignmentInnerProductConvention,
-)
+from ksdft2effmass.gauge_alignment import GaugeAlignmentAnalysisIdentity
 from ksdft2effmass.periodic2d.rankN.band_alignment.frame_transport.analysis import (
     Periodic2DRankNTransportAnalyzer,
 )
@@ -89,14 +79,16 @@ from ksdft2effmass.periodic2d.rankN.support_truncation.request import (
     Periodic2DRankNSupportTruncationChannelEnum,
 )
 from ksdft2effmass.real_space_support_truncation import (
-    MetricShellClassification,
     MinimumToleranceSatisfyingSupport,
     SupportToleranceSelectionOutcome,
     SupportToleranceUnresolved,
 )
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 
-from .case_expansion import Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander
-from .model import Periodic2DRankNAnalyticCase
+from .case import Periodic2DRankNParentGaugeCase
 from .request import (
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
     Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
@@ -120,28 +112,24 @@ from .result import (
 )
 
 
-@dataclass(frozen=True, slots=True)
-class _ReferenceFourierData:
-    source_mesh: CenteredUniformMesh
-    construction_axes: tuple[Float64Array, Float64Array]
-    evaluation_axes: tuple[Float64Array, Float64Array]
-    ordinary_series: NumpyFiniteFourierMatrixSeries
-    full_construction: Complex128Array
-    full_evaluation: Complex128Array
-    shell_classification: MetricShellClassification
-    metric_indices: Int64Array
-    metric_shell_values: tuple[int, ...]
-    locality: MetricShellHoppingPowerResult
-    shell_evaluation_fields: tuple[Complex128Array, ...]
-
-
 @final
 class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
-    Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction
+    _PeriodicRankNBandEquivalenceHoppingLocalityProductionArithmetic,
+    Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction,
 ):
-    """Compose installed capability owners for one exact analytic case."""
+    """Compose installed capability owners for one explicit parent/gauge case.
 
-    __slots__ = ("_geometry", "_model", "_request")
+    The retained locality summary currently derives non-onsite power by subtracting
+    the separately rounded onsite power from total power and clipping at zero.  For
+    the selected bounded analytic baseline this can suppress only roundoff-scale
+    power and does not affect shell selection, which uses direct shell sums.  It is
+    deferred numerical robustness debt recorded as ``TD-BEL-003``; a reported zero
+    must not be interpreted as proof of an exactly onsite-only model.
+    """
+
+    __slots__ = ("_endpoint_sewing", "_geometry", "_model", "_request")
+
+    _SPATIAL_DIMENSION: ClassVar[int] = 2
 
     @property
     def band_subspace_rank(self) -> int:
@@ -152,13 +140,14 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
         self,
         *,
         request: Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
-        model: Periodic2DRankNAnalyticCase,
+        model: Periodic2DRankNParentGaugeCase,
         geometry: Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
+        endpoint_sewing: ReciprocalEndpointSewingInventory,
     ) -> None:
         if type(request) is not Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
             raise TypeError("request must be the exact periodic-2D rank-N request")
-        if type(model) is not Periodic2DRankNAnalyticCase:
-            raise TypeError("model must be the exact periodic-2D analytic case")
+        if type(model) is not Periodic2DRankNParentGaugeCase:
+            raise TypeError("model must be the exact periodic-2D parent/gauge case")
         if (
             type(geometry)
             is not Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition
@@ -180,103 +169,41 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             or model.retained_rank not in request.retained_ranks
             or model.circuit_depth not in request.circuit_depths
             or model.parent_scale not in request.parent_scales
-            or model.attack_coefficient not in request.attack_coefficients
+            or model.transformation_coefficient
+            not in request.transformation_coefficients
         ):
             raise ValueError("model must be one exact expansion of the request")
+        if type(endpoint_sewing) is not ReciprocalEndpointSewingInventory:
+            raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingInventory")
+        if endpoint_sewing.spatial_dimension != self._SPATIAL_DIMENSION:
+            raise ValueError("endpoint sewing must contain two axis maps")
+        if endpoint_sewing.ambient_dimension != model.ambient_dimension:
+            raise ValueError("endpoint sewing must match the model ambient dimension")
+        identity_endpoint_wire = IdentityReciprocalSewing(
+            ambient_dimension=model.ambient_dimension
+        ).endpoint_map.to_json()
+        if any(
+            endpoint_map.to_json() != identity_endpoint_wire
+            for endpoint_map in endpoint_sewing.positive_axis_maps
+        ):
+            raise ValueError("the v1 case analysis supports only named identity sewing")
         self._request = request
         self._model = model
         self._geometry = geometry
+        self._endpoint_sewing = endpoint_sewing
 
     @property
     def request(self) -> Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
         """Return the immutable aggregate request bound to this action."""
         return self._request
 
-    @staticmethod
-    def _coordinate_axis(size: int, offset: float) -> Float64Array:
-        return np.asarray(
-            -0.5 + (np.arange(size, dtype=np.float64) + offset) / float(size),
-            dtype=np.float64,
-        )
-
-    @classmethod
-    def _coordinates(cls, size: int, offset: float) -> Float64Array:
-        axis = cls._coordinate_axis(size, offset)
-        return np.asarray(
-            np.stack(np.meshgrid(axis, axis, indexing="ij"), axis=-1),
-            dtype=np.float64,
-        )
-
-    @staticmethod
-    def _transform(
-        mesh: CenteredUniformMesh,
-        values: Complex128Array,
-    ) -> NumpyFiniteFourierMatrixSeries:
-        return (
-            NumpyCenteredUniformMeshMatrixFourierTransformer(
-                definition=NumpyCenteredUniformMeshMatrixFourierTransformDefinition.from_array(
-                    mesh,
-                    values,
-                )
-            )
-            .result()
-            .series
-        )
-
-    @staticmethod
-    def _evaluate(
-        mesh: CenteredUniformMesh,
-        series: NumpyFiniteFourierMatrixSeries,
-        axes: tuple[Float64Array, Float64Array],
-    ) -> Complex128Array:
-        return (
-            NumpyTensorProductFourierMatrixSeriesEvaluator(
-                definition=NumpyTensorProductFourierMatrixEvaluationDefinition.from_arrays(
-                    mesh,
-                    series,
-                    axes,
-                )
-            )
-            .result()
-            .matrix_values
-        )
-
-    @staticmethod
-    def _ordinary_series(
-        construction_size: int,
-        series: NumpyFiniteFourierMatrixSeries,
-    ) -> NumpyFiniteFourierMatrixSeries:
-        ordinary = ~np.any(
-            series.integer_modes == -construction_size // 2,
-            axis=1,
-        )
-        return NumpyFiniteFourierMatrixSeries.from_arrays(
-            2,
-            series.integer_modes[ordinary],
-            series.matrix_coefficients[ordinary],
-        )
-
     def _alignment_identity(
         self,
         retained_rank: int,
     ) -> GaugeAlignmentAnalysisIdentity:
-        return GaugeAlignmentAnalysisIdentity(
-            gauge_group_identity=GaugeAlignmentGroupIdentity.unitary(
-                represented_dimension=retained_rank
-            ),
-            alignment_sample_count=self._request.construction_size**2,
-            action_convention=GaugeAlignmentActionConvention.RIGHT,
-            inner_product_convention=GaugeAlignmentInnerProductConvention.EUCLIDEAN,
-        )
-
-    @staticmethod
-    def _apply_right_action(
-        operators: Complex128Array,
-        right_action: Complex128Array,
-    ) -> Complex128Array:
-        return np.asarray(
-            np.swapaxes(right_action.conjugate(), -1, -2) @ operators @ right_action,
-            dtype=np.complex128,
+        return super()._common_alignment_identity(
+            retained_rank,
+            self._request.construction_size,
         )
 
     @staticmethod
@@ -294,6 +221,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     def _locality_summary(
         value: MetricShellHoppingPowerResult,
     ) -> Periodic2DRankNBandEquivalenceHoppingLocalityLocalitySummary:
+        """Project powers through the deferred subtraction policy of TD-BEL-003."""
         onsite = tuple(
             power.displacement for power in value.powers if power.displacement.is_zero
         )
@@ -308,7 +236,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     def _hopping_locality(
         self,
         *,
-        model: Periodic2DRankNAnalyticCase,
+        model: Periodic2DRankNParentGaugeCase,
         channel: Periodic2DRankNHoppingLocalityChannelEnum,
         series: NumpyFiniteFourierMatrixSeries,
         metric_indices: Int64Array,
@@ -318,9 +246,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                 retained_rank=model.retained_rank,
                 channel=channel,
                 energy_reference="dimensionless-zero-v1",
-                basis_identifier=(
-                    f"{model.MODEL_FAMILY_IDENTITY}:retained-coordinate-basis"
-                ),
+                basis_identifier=model.basis_identity.display_identifier,
                 series=series,
                 shell_indices=tuple(int(value) for value in metric_indices),
             ),
@@ -330,19 +256,19 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     def _reference_fourier(
         self,
         *,
-        model: Periodic2DRankNAnalyticCase,
+        model: Periodic2DRankNParentGaugeCase,
         geometry: Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
         construction_values: Complex128Array,
     ) -> _ReferenceFourierData:
         size = self._request.construction_size
-        source_mesh = CenteredUniformMesh(2, size, (0.5, 0.5))
+        source_mesh = self._centered_mesh(size, 0.5)
         construction_axis = self._coordinate_axis(size, 0.5)
         evaluation_axis = self._coordinate_axis(
             self._request.evaluation_size,
             0.5 + self._request.evaluation_shift,
         )
-        construction_axes = (construction_axis, construction_axis)
-        evaluation_axes = (evaluation_axis, evaluation_axis)
+        construction_axes = self._tensor_axes(construction_axis)
+        evaluation_axes = self._tensor_axes(evaluation_axis)
         series = self._ordinary_series(
             size,
             self._transform(source_mesh, construction_values),
@@ -436,7 +362,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     def _decisions(
         self,
         *,
-        model: Periodic2DRankNAnalyticCase,
+        model: Periodic2DRankNParentGaugeCase,
         reference_errors: tuple[BandEquivalenceHoppingLocalityErrorChannels, ...],
         comparison_errors: tuple[BandEquivalenceHoppingLocalityErrorChannels, ...],
         reference: _ReferenceFourierData,
@@ -489,7 +415,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
     def _qualified_alignment(
         self,
         *,
-        model: Periodic2DRankNAnalyticCase,
+        model: Periodic2DRankNParentGaugeCase,
         geometry: Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
         alignment: Periodic2DRankNGaugeAlignment,
         evidence: Periodic2DRankNFittedAlignmentEvidence
@@ -511,6 +437,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                 frame=aligned_frame,
                 rank_absolute=self._request.transport_rank_absolute,
                 rank_relative=self._request.transport_rank_relative,
+                endpoint_sewing=self._endpoint_sewing,
             )
         ).execute()
         if transport.rank_deficient_link_count > 0:
@@ -566,6 +493,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
         ] = []
         reference_total_errors: list[BandEquivalenceHoppingLocalityErrorChannels] = []
         comparison_total_errors: list[BandEquivalenceHoppingLocalityErrorChannels] = []
+        norm_energy_scale = self._request.norm_energy_scale
         for ordinal, (metric_value, reference_eval, comparison_eval) in enumerate(
             zip(
                 reference.metric_shell_values,
@@ -578,13 +506,23 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             reference_truncation = error_channels(
                 reference_eval,
                 reference.full_evaluation,
+                norm_energy_scale=norm_energy_scale,
             )
             comparison_truncation = error_channels(
                 comparison_eval,
                 comparison_full_evaluation,
+                norm_energy_scale=norm_energy_scale,
             )
-            reference_total = error_channels(reference_eval, reference_evaluation)
-            comparison_total = error_channels(comparison_eval, comparison_evaluation)
+            reference_total = error_channels(
+                reference_eval,
+                reference_evaluation,
+                norm_energy_scale=norm_energy_scale,
+            )
+            comparison_total = error_channels(
+                comparison_eval,
+                comparison_evaluation,
+                norm_energy_scale=norm_energy_scale,
+            )
             reference_total_errors.append(reference_total)
             comparison_total_errors.append(comparison_total)
             shell_results.append(
@@ -644,19 +582,32 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             ),
             maximum_direct_ordered_spectrum_difference=direct_spectrum_difference,
             reference_reconstruction_errors=self._error_record(
-                error_channels(reference.full_construction, reference_construction)
+                error_channels(
+                    reference.full_construction,
+                    reference_construction,
+                    norm_energy_scale=norm_energy_scale,
+                )
             ),
             comparison_reconstruction_errors=self._error_record(
                 error_channels(
                     comparison_full_construction,
                     comparison_construction,
+                    norm_energy_scale=norm_energy_scale,
                 )
             ),
             reference_interpolation_errors=self._error_record(
-                error_channels(reference.full_evaluation, reference_evaluation)
+                error_channels(
+                    reference.full_evaluation,
+                    reference_evaluation,
+                    norm_energy_scale=norm_energy_scale,
+                )
             ),
             comparison_interpolation_errors=self._error_record(
-                error_channels(comparison_full_evaluation, comparison_evaluation)
+                error_channels(
+                    comparison_full_evaluation,
+                    comparison_evaluation,
+                    norm_energy_scale=norm_energy_scale,
+                )
             ),
             reference_locality=self._locality_summary(reference.locality),
             comparison_locality=self._locality_summary(comparison_locality),
@@ -671,7 +622,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
 
     def _case(
         self,
-        model: Periodic2DRankNAnalyticCase,
+        model: Periodic2DRankNParentGaugeCase,
         geometry: Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
         construction: Float64Array,
         evaluation: Float64Array,
@@ -679,9 +630,13 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
         reference_construction = model.exact_reduced_hamiltonians(construction)
         reference_evaluation = model.exact_reduced_hamiltonians(evaluation)
         reference_frame = model.reference_frames(construction)
-        attacked_frame = model.attacked_frames(construction)
-        attacked_construction = model.attacked_reduced_hamiltonians(construction)
-        attacked_evaluation = model.attacked_reduced_hamiltonians(evaluation)
+        gauge_transformed_frame = model.gauge_transformed_frames(construction)
+        gauge_transformed_construction = model.gauge_transformed_reduced_hamiltonians(
+            construction
+        )
+        gauge_transformed_evaluation = model.gauge_transformed_reduced_hamiltonians(
+            evaluation
+        )
         reference = self._reference_fourier(
             model=model,
             geometry=geometry,
@@ -699,9 +654,9 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                         geometry=geometry,
                         alignment=alignment,
                         evidence=Periodic2DRankNPrescribedAlignmentEvidence("identity"),
-                        aligned_frame=attacked_frame,
-                        comparison_construction=attacked_construction,
-                        comparison_evaluation=attacked_evaluation,
+                        aligned_frame=gauge_transformed_frame,
+                        comparison_construction=gauge_transformed_construction,
+                        comparison_evaluation=gauge_transformed_evaluation,
                         reference_construction=reference_construction,
                         reference_evaluation=reference_evaluation,
                         reference_frame=reference_frame,
@@ -720,13 +675,13 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                         evidence=Periodic2DRankNPrescribedAlignmentEvidence(
                             "known-inverse-oracle"
                         ),
-                        aligned_frame=attacked_frame @ construction_action,
+                        aligned_frame=gauge_transformed_frame @ construction_action,
                         comparison_construction=self._apply_right_action(
-                            attacked_construction,
+                            gauge_transformed_construction,
                             construction_action,
                         ),
                         comparison_evaluation=self._apply_right_action(
-                            attacked_evaluation,
+                            gauge_transformed_evaluation,
                             evaluation_action,
                         ),
                         reference_construction=reference_construction,
@@ -740,7 +695,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                 global_analysis = Periodic2DRankNGlobalGaugeAlignmentAnalyzer(
                     request=Periodic2DRankNGlobalGaugeAlignmentAnalysisRequest(
                         retained_rank=model.retained_rank,
-                        source=attacked_frame,
+                        source=gauge_transformed_frame,
                         target=reference_frame,
                         tolerance=self._request.procrustes_tolerance,
                     )
@@ -768,13 +723,13 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                         geometry=geometry,
                         alignment=alignment,
                         evidence=self._fitted_evidence(global_analysis),
-                        aligned_frame=attacked_frame @ action,
+                        aligned_frame=gauge_transformed_frame @ action,
                         comparison_construction=self._apply_right_action(
-                            attacked_construction,
+                            gauge_transformed_construction,
                             action,
                         ),
                         comparison_evaluation=self._apply_right_action(
-                            attacked_evaluation,
+                            gauge_transformed_evaluation,
                             action,
                         ),
                         reference_construction=reference_construction,
@@ -787,7 +742,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             construction_analysis = Periodic2DRankNProcrustesAnalyzer(
                 request=Periodic2DRankNProcrustesAnalysisRequest(
                     retained_rank=model.retained_rank,
-                    source=attacked_frame,
+                    source=gauge_transformed_frame,
                     target=reference_frame,
                     tolerance=self._request.procrustes_tolerance,
                 )
@@ -809,12 +764,14 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                     )
                 )
                 continue
-            attacked_eval_frame = model.attacked_frames(evaluation)
+            gauge_transformed_evaluation_frame = model.gauge_transformed_frames(
+                evaluation
+            )
             reference_eval_frame = model.reference_frames(evaluation)
             evaluation_analysis = Periodic2DRankNProcrustesAnalyzer(
                 request=Periodic2DRankNProcrustesAnalysisRequest(
                     retained_rank=model.retained_rank,
-                    source=attacked_eval_frame,
+                    source=gauge_transformed_evaluation_frame,
                     target=reference_eval_frame,
                     tolerance=self._request.procrustes_tolerance,
                 )
@@ -851,13 +808,13 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                         construction_analysis,
                         evaluation_analysis,
                     ),
-                    aligned_frame=attacked_frame @ construction_action,
+                    aligned_frame=gauge_transformed_frame @ construction_action,
                     comparison_construction=self._apply_right_action(
-                        attacked_construction,
+                        gauge_transformed_construction,
                         construction_action,
                     ),
                     comparison_evaluation=self._apply_right_action(
-                        attacked_evaluation,
+                        gauge_transformed_evaluation,
                         evaluation_action,
                     ),
                     reference_construction=reference_construction,
@@ -877,13 +834,13 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             retained_rank=model.retained_rank,
             circuit_depth=model.circuit_depth,
             parent_scale=model.parent_scale,
-            attack_coefficient=model.attack_coefficient,
+            transformation_coefficient=model.transformation_coefficient,
             minimum_sampled_external_gap=minimum_gap,
             alignments=tuple(alignments),
         )
 
     def execute(self) -> Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis:
-        """Execute one analytic case without creating retained evidence."""
+        """Execute one supplied parent/gauge case without retained evidence."""
         construction = self._coordinates(self._request.construction_size, 0.5)
         evaluation = self._coordinates(
             self._request.evaluation_size,
@@ -905,16 +862,60 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer(
 ):
     """Thinly expand and sequence one exact aggregate software request."""
 
-    __slots__ = ("_request",)
+    __slots__ = ("_request", "_models")
 
     def __init__(
         self,
         *,
         request: Periodic2DRankNBandEquivalenceHoppingLocalityRequest,
+        models: tuple[Periodic2DRankNParentGaugeCase, ...],
     ) -> None:
         if type(request) is not Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
             raise TypeError("request must be the exact periodic-2D rank-N request")
+        if type(models) is not tuple or not models:
+            raise TypeError("models must be a nonempty tuple")
+        if any(type(model) is not Periodic2DRankNParentGaugeCase for model in models):
+            raise TypeError("models must contain exact periodic-2D parent/gauge cases")
+        expected_inventory = {
+            (
+                geometry.identifier,
+                retained_rank,
+                circuit_depth,
+                parent_scale,
+                transformation_coefficient,
+            )
+            for (
+                geometry,
+                retained_rank,
+                circuit_depth,
+                parent_scale,
+                transformation_coefficient,
+            ) in product(
+                request.cases,
+                request.retained_ranks,
+                request.circuit_depths,
+                request.parent_scales,
+                request.transformation_coefficients,
+            )
+        }
+        actual_inventory = {
+            (
+                model.case_identifier,
+                model.retained_rank,
+                model.circuit_depth,
+                model.parent_scale,
+                model.transformation_coefficient,
+            )
+            for model in models
+        }
+        if actual_inventory != expected_inventory or len(models) != len(
+            expected_inventory
+        ):
+            raise ValueError("models must contain every exact request expansion")
+        if len({model.model_identity for model in models}) != len(models):
+            raise ValueError("models must have unique correlation identities")
         self._request = request
+        self._models = models
 
     @property
     def request(self) -> Periodic2DRankNBandEquivalenceHoppingLocalityRequest:
@@ -922,18 +923,23 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityAnalyzer(
         return self._request
 
     def execute(self) -> Periodic2DRankNBandEquivalenceHoppingLocalityAnalysis:
-        """Execute all analytic cases without creating retained evidence."""
+        """Execute all supplied parent/gauge cases without retained evidence."""
         geometry_by_identifier = {case.identifier: case for case in self._request.cases}
-        models = Periodic2DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=self._request
-        ).execute()
         cases = tuple(
             Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
                 request=self._request,
                 model=model,
                 geometry=geometry_by_identifier[model.case_identifier],
+                endpoint_sewing=ReciprocalEndpointSewingInventory(
+                    positive_axis_maps=(
+                        IdentityReciprocalSewing(
+                            ambient_dimension=model.ambient_dimension
+                        ).endpoint_map,
+                    )
+                    * 2
+                ),
             ).execute()
-            for model in models
+            for model in self._models
         )
         return Periodic2DRankNBandEquivalenceHoppingLocalityAnalysis(
             request=self._request,

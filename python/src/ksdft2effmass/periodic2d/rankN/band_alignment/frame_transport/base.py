@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import final
 
+from ksdft2effmass.frame_transport.base import PeriodicRankNFrameTransportCapability
 from ksdft2effmass.periodic2d.frame_transport.base import (
     Periodic2DFrameTransport,
     Periodic2DFrameTransportAnalysis,
@@ -13,7 +13,11 @@ from ksdft2effmass.periodic2d.frame_transport.base import (
 )
 
 
-class Periodic2DRankNFrameTransportCapability(Periodic2DFrameTransport, ABC):
+class Periodic2DRankNFrameTransportCapability(
+    Periodic2DFrameTransport,
+    PeriodicRankNFrameTransportCapability,
+    ABC,
+):
     """Identify frame transport on a periodic-2D finite-rank band subspace."""
 
     __slots__ = ()
@@ -39,7 +43,6 @@ class Periodic2DRankNFrameTransportAnalysisRequest(
         """Return the request's historical retained-rank field."""
 
     @property
-    @final
     def band_subspace_rank(self) -> int:
         """Return the rank of the transported band frame."""
         return self.retained_rank
@@ -73,7 +76,6 @@ class Periodic2DRankNFrameTransportAnalyzer[
         """Return the immutable request bound to this action."""
 
     @property
-    @final
     def band_subspace_rank(self) -> int:
         """Return the rank of the transported band frame."""
         return self.request.band_subspace_rank

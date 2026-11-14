@@ -24,7 +24,6 @@ import json
 import math
 from dataclasses import dataclass, replace
 from datetime import UTC, datetime, timedelta
-from enum import StrEnum
 from typing import Literal, Never, Protocol, cast, runtime_checkable
 from uuid import uuid4
 
@@ -115,6 +114,7 @@ from ksdft2effmass.petrinet.colored.values import (
     ColoredPetriNetValue,
     ColoredPetriNetValueKind,
 )
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.workflows.artifacts import (
     ArtifactManifestEntryIdentity,
     ArtifactManifestIdentity,
@@ -233,7 +233,6 @@ from ksdft2effmass.workflows.runs.records import (
     TaskInvocationOutcomeKind,
     TaskWorkflowMembership,
     TaskWorkflowTransitionRecord,
-    UnknownLegacyResultProducer,
 )
 
 from .model import (
@@ -453,7 +452,6 @@ type _RunValue = (
     | TaskWorkflowMembershipIdentity
     | TaskWorkflowTransitionRecord
     | TaskWorkflowTransitionRecordIdentity
-    | UnknownLegacyResultProducer
     | WorkflowDefinitionReferenceIdentity
     | WorkflowIdentity
     | WorkflowRun
@@ -471,7 +469,7 @@ type _RunValue = (
 )
 
 
-class WorkflowPersistenceFailureCode(StrEnum):
+class WorkflowPersistenceFailureCode(StrWireEnum):
     """Closed represented codec and persistence failure categories.
 
     Attributes
@@ -2676,7 +2674,7 @@ class WorkflowRunSerializer:
     The root has exactly ``schema``, ``run`` and ``commit_binding``. Schema is
     ``ksdft2effmass.workflow-run:1``; the historical writer is explicitly recognized as
     ``ksdft2effmass.workflows.WorkflowRunAtomicRepository:1``. Unknown versions are
-    incompatible, not inferred legacy representations. Declared reachable fields
+    incompatible, not inferred representations. Declared reachable fields
     (including null/default/derived fields) use literal field/constructor branches,
     subject to the exact empty-collection omission rule below.
     Records, nominal identities and enums use ``{type, fields}``; tuples are ordered
@@ -5228,18 +5226,6 @@ class WorkflowRunSerializer:
                 "TaskWorkflowTransitionRecordIdentity",
                 {
                     "value": self._encode(value.value, seen),
-                },
-            )
-        if type(value) is UnknownLegacyResultProducer:
-            return self._record(
-                "UnknownLegacyResultProducer",
-                {
-                    "identity": self._encode(value.identity, seen),
-                    "source_identity": self._encode(value.source_identity, seen),
-                    "evidence_identities": self._encode(
-                        value.evidence_identities, seen
-                    ),
-                    "limitations": self._encode(value.limitations, seen),
                 },
             )
         if type(value) is WorkflowDefinitionReferenceIdentity:
@@ -9091,33 +9077,6 @@ class WorkflowRunSerializer:
                 value=self._exact(self._decode(fields["value"], seen), str),
             )
             return record
-        if tag == "UnknownLegacyResultProducer":
-            fields = self._fields(
-                wire,
-                tag,
-                ("identity", "source_identity", "evidence_identities", "limitations"),
-            )
-            record = UnknownLegacyResultProducer(
-                identity=self._exact(
-                    self._decode(fields["identity"], seen),
-                    ResultProducerProvenanceIdentity,
-                ),
-                source_identity=self._exact(
-                    self._decode(fields["source_identity"], seen),
-                    RetainedResultSourceIdentity,
-                ),
-                evidence_identities=tuple(
-                    self._exact(item, ResultProducerEvidenceIdentity)
-                    for item in self._items(
-                        self._decode(fields["evidence_identities"], seen)
-                    )
-                ),
-                limitations=tuple(
-                    self._exact(item, str)
-                    for item in self._items(self._decode(fields["limitations"], seen))
-                ),
-            )
-            return record
         if tag == "WorkflowDefinitionReferenceIdentity":
             fields = self._fields(wire, tag, ("value",))
             record = WorkflowDefinitionReferenceIdentity(
@@ -9658,7 +9617,6 @@ class WorkflowRunSerializer:
         | ExternalResultProducer
         | ImportedRetainedResultProducer
         | HumanAuthoredResultProducer
-        | UnknownLegacyResultProducer
     ):
         if type(value) is RepresentedTaskResultProducer:
             return self._exact(value, RepresentedTaskResultProducer)
@@ -9670,8 +9628,6 @@ class WorkflowRunSerializer:
             return self._exact(value, ImportedRetainedResultProducer)
         if type(value) is HumanAuthoredResultProducer:
             return self._exact(value, HumanAuthoredResultProducer)
-        if type(value) is UnknownLegacyResultProducer:
-            return self._exact(value, UnknownLegacyResultProducer)
         raise TypeError("wrong closed field variant")
 
     def _parse_ScientificExecutionAuthorityGrant_reserved_obligation_identity(

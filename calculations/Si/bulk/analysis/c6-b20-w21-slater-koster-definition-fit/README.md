@@ -36,6 +36,49 @@ Thus the proposed ten-orbital atomic frame is not fully represented inside the r
 rank-10 Wannier subspace at every construction point. A unitary common-space map and
 its operator residual are not defined under the declared contract.
 
+This is an orbital-subspace overlap failure, not an established consequence of energy
+degeneracy. Unitary changes of basis inside a degenerate retained subspace leave the
+singular values of `B(k)` unchanged. A symmetry-enforced absence or cancellation remains
+possible, but the retained calculation contains no little-group representation analysis
+that would establish it, and the second deficient point is not Gamma. The bounded
+interpretation and proposed successor sequence are documented in
+[`common-space-rank-deficiency-diagnosis-and-successor.md`](common-space-rank-deficiency-diagnosis-and-successor.md).
+
+## S110-independent diagnosis producer
+
+The calculation now includes a separate CSD0/CSD1 producer that does not import
+`run_definition_fit.py`:
+
+- `common-space-diagnosis-request.json` binds the exact S30, S105, S110, AMN, `u`,
+  `u_dis`, complete provider-parser source closure, geometry, basis, unit, and
+  energy-reference identities;
+- [`../../common_space/diagnostics/`](../../common_space/diagnostics/) owns the
+  calculation-incubated producer that authenticates those identities and reconstructs
+  the full 216-point singular-value field, normalized principal-angle diagnostics,
+  Gamma deficient-direction weights, and a retained-subspace unitary-invariance control;
+  higher-precision sensitivity and symmetry-related deficient-point inventory extensions
+  remain unimplemented;
+- `run_common_space_diagnosis.py` provides human-readable live stdout that distinguishes
+  successful diagnostic execution from the scientifically blocked fit disposition.
+
+Run it only with a fresh output directory:
+
+```bash
+cd python
+uv run python \
+  ../calculations/Si/bulk/analysis/c6-b20-w21-slater-koster-definition-fit/\
+run_common_space_diagnosis.py \
+  --output-root /tmp/c6-b20-w21-common-space-diagnosis
+```
+
+The entrypoint requires a nonexistent output root, then creates `result.json`,
+`human-readable-summary.txt`, and `manifest.json` without overwriting existing paths.
+This producer does not share S110's calculation implementation; it is not the
+separately implemented CSD1 verifier required by the successor protocol.
+The implementation and its tests do not constitute a retained CSD execution, independent
+verification, a CSD2 symmetry attribution, a CSD3 human disposition, or scientific
+authorization for a fit or calculator run.
+
 ## Disposition
 
 Status: `blocked-orbital-alignment-rank-deficient-no-fit`.
@@ -58,7 +101,11 @@ portable v2 rerun retained `UNRESOLVED_DEVELOPMENT_EVALUATION`; the required 408
 per-shell intervals remain unavailable, and S105 full support is preserved.
 Reusable Slater--Koster foundations, spectral-only feasibility, a global-unitary rank-10
 operator study, a separately defined rank-9 source, and a new
-projection/target-space/localization route remain scientifically distinct. Level 1 has
+projection/target-space/localization route remain scientifically distinct. The proposed
+first step is a no-calculator projector- and symmetry-level diagnosis. For a rank-10
+operator comparison, the preferred successor is a prospectively frozen global-unitary
+study; if projection-anchored site-resolved atomic semantics are mandatory, a newly
+qualified Wannier source is required instead. Level 1 has
 since been implemented as a
 [software-verification-only reusable foundation](level-1-foundation-disposition.md).
 It did not close the hopping-first gates, alter this blocked result, or produce a fitted

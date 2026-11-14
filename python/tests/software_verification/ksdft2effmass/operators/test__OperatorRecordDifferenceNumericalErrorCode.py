@@ -32,7 +32,7 @@ Evidence class, strategy, and oracle
 This cohesive module provides software-verification evidence ``SV-ORDNEC-001``
 through ``SV-ORDNEC-006``. The independently written literal member sequence is
 the oracle for exact membership, name, value, and declaration order. Public
-``Enum.__members__``, Python 3.14 ``StrEnum`` behavior, public value/name lookup,
+``Enum.__members__``, KSD ``StrWireEnum`` conversion, public value/name lookup,
 and standard Enum exceptions provide the remaining contract oracles. Passing
 establishes the closed one-member enum, alias absence, stable string behavior,
 lookup round trips, and invalid-lookup taxonomy. Failure may indicate an enum
@@ -68,11 +68,11 @@ agreement.
 """
 
 import re
-from enum import StrEnum
 
 import pytest
 
 from ksdft2effmass.operators import OperatorRecordDifferenceNumericalErrorCode
+from ksdft2effmass.serialization import StrWireEnum
 
 pytestmark = pytest.mark.software_verification
 
@@ -168,19 +168,16 @@ class TestOperatorRecordDifferenceNumericalErrorCode:
         assert len(tuple(OperatorRecordDifferenceNumericalErrorCode)) == 1
 
     @staticmethod
-    def test_field__represented_state__strenum_machine_value() -> None:
+    def test_field__represented_state__str_wire_enum_machine_value() -> None:
         r"""Evidence ID: SV-ORDNEC-003
 
-        Requirement: The public enum subclasses ``StrEnum`` and its code is the exact
-        ASCII
-        lowercase
-        snake-case machine identifier ``"nonfinite_difference"``.
+        Requirement: The public enum subclasses ``StrWireEnum`` and explicitly projects
+        the exact ASCII lowercase snake-case wire identifier ``"nonfinite_difference"``.
 
-        Method: Inspect public inheritance and string equality, call ``str()``, apply an
-        explicit
-        full-match rule, and encode the value as ASCII.
+        Method: Inspect public inheritance, ordinary-Enum separation from ``str``, exact
+        ``to_wire()`` projection, lexical form, and ASCII encoding.
 
-        Oracle: Python 3.14 ``StrEnum`` semantics and the approved stable enum value.
+        Oracle: The common ``StrWireEnum`` contract and approved stable wire value.
 
         Acceptance: Every existing assertion, exact value, exception taxonomy, ordering
         rule, fixture
@@ -200,12 +197,12 @@ class TestOperatorRecordDifferenceNumericalErrorCode:
 
         code = OperatorRecordDifferenceNumericalErrorCode.NONFINITE_DIFFERENCE
 
-        assert issubclass(OperatorRecordDifferenceNumericalErrorCode, StrEnum)
-        assert isinstance(code, str)
-        assert code == "nonfinite_difference"
-        assert str(code) == "nonfinite_difference"
-        assert re.fullmatch(r"[a-z][a-z0-9]*(?:_[a-z0-9]+)*", code.value) is not None
-        code.value.encode("ascii")
+        assert issubclass(OperatorRecordDifferenceNumericalErrorCode, StrWireEnum)
+        assert not isinstance(code, str)
+        assert type(code.to_wire()) is str
+        assert code.to_wire() == "nonfinite_difference"
+        assert re.fullmatch(r"[a-z][a-z0-9]*(?:_[a-z0-9]+)*", code.to_wire())
+        code.to_wire().encode("ascii")
 
     @staticmethod
     def test_method__call__value_based_lookup_round_trip() -> None:

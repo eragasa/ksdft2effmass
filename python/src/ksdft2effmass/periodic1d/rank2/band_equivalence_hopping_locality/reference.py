@@ -47,8 +47,10 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityIndependentReferenceAnalyzer(
         ordinary_mask = representatives != -(request.construction_size // 2)
         points: list[Periodic1DBandEquivalencePointAnalysis] = []
         for amplitude in request.amplitudes:
-            construction_values = _flat_attacked_values(construction, amplitude)
-            evaluation_values = _flat_attacked_values(evaluation, amplitude)
+            construction_values = _flat_gauge_transformed_values(
+                construction, amplitude
+            )
+            evaluation_values = _flat_gauge_transformed_values(evaluation, amplitude)
             blocks = _direct_fourier_blocks(
                 construction, construction_values, representatives
             )
@@ -157,7 +159,7 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityIndependentReferenceAnalyzer(
         )
 
 
-def _flat_attacked_values(
+def _flat_gauge_transformed_values(
     coordinates: np.ndarray[tuple[int], np.dtype[np.float64]], amplitude: float
 ) -> np.ndarray[tuple[int, int, int], np.dtype[np.complex128]]:
     theta = amplitude * np.sin(2.0 * np.pi * coordinates)

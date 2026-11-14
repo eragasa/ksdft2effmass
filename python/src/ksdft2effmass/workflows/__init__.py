@@ -32,7 +32,6 @@ from .artifacts import (
     ImportedRetainedFixture,
     RepresentedWorkflowProducer,
     ResultArtifactRelationIdentity,
-    UnknownLegacyProducer,
 )
 from .control import (
     ScientificExecutionAuthorityGrant,
@@ -239,7 +238,6 @@ from .runs import (
     TaskWorkflowMembershipIdentity,
     TaskWorkflowTransitionRecord,
     TaskWorkflowTransitionRecordIdentity,
-    UnknownLegacyResultProducer,
     WorkflowDefinitionReference,
     WorkflowDefinitionReferenceIdentity,
     WorkflowRun,
@@ -444,8 +442,6 @@ __all__ = [
     "TaskWorkflowMembershipIdentity",
     "TaskWorkflowTransitionRecord",
     "TaskWorkflowTransitionRecordIdentity",
-    "UnknownLegacyProducer",
-    "UnknownLegacyResultProducer",
     "Workflow",
     "WorkflowComposition",
     "WorkflowDefinitionReference",

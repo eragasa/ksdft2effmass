@@ -24,7 +24,7 @@ from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.embedded_s
 from ksdft2effmass.periodic1d.rank2.support_truncation.results import (
     Periodic1DRank2TruncationCompleted,
 )
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.visualizations import (
     BaseFigure,
     PngFigureRenderer,
@@ -38,7 +38,7 @@ _TAIL_RANGES = (0, 1, 2, 3, 4, 6, 8)
 _BLACK = "#202020"
 
 
-class Periodic1DRank2CompleteFiveScaleFigureEnum(StringWireEnum):
+class Periodic1DRank2CompleteFiveScaleFigureEnum(StrWireEnum):
     """Identify the closed complete-five-scale publication figure inventory."""
 
     SCIENTIFIC_STORY = "band-equivalence-locality-scientific-story.png"

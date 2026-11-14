@@ -22,7 +22,8 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from enum import StrEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .external_execution import (
     ExternalExecutionFailure,
@@ -33,7 +34,7 @@ from .external_execution import (
 from .records import ArtifactReference
 
 
-class ArtifactIdentityVerificationStatus(StrEnum):
+class ArtifactIdentityVerificationStatus(StrWireEnum):
     """Derived result of exact represented artifact-identity verification.
 
     Attributes
@@ -57,7 +58,7 @@ class ArtifactIdentityVerificationStatus(StrEnum):
     MISMATCH = "mismatch"
 
 
-class CorrelationStatus(StrEnum):
+class CorrelationStatus(StrWireEnum):
     """Derived result of exact request/outcome identity correlation.
 
     Attributes
@@ -78,7 +79,7 @@ class CorrelationStatus(StrEnum):
     MISMATCH = "mismatch"
 
 
-class CorrelationIssue(StrEnum):
+class CorrelationIssue(StrWireEnum):
     """Closed, deterministically ordered execution-correlation issue set.
 
     Attributes

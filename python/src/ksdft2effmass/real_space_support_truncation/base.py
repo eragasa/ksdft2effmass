@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from abc import ABC
+from abc import ABC, abstractmethod
 
 from ksdft2effmass.support_truncation.base import (
     SupportTruncation,
@@ -70,6 +70,20 @@ class PeriodicRealSpaceSupportTruncation(
     __slots__ = ()
 
 
+class PeriodicRankNSupportTruncationCapability(
+    PeriodicRealSpaceSupportTruncation,
+    ABC,
+):
+    """Identify periodic support truncation of finite-rank operator blocks."""
+
+    __slots__ = ()
+
+    @property
+    @abstractmethod
+    def band_subspace_rank(self) -> int:
+        """Return the finite operator-block rank."""
+
+
 class PeriodicRealSpaceSupportTruncationAnalysisRequest(
     RealSpaceSupportTruncationAnalysisRequest,
     PeriodicRealSpaceSupportTruncation,
@@ -108,6 +122,7 @@ __all__ = [
     "PeriodicRealSpaceSupportTruncationAnalysis",
     "PeriodicRealSpaceSupportTruncationAnalysisRequest",
     "PeriodicRealSpaceSupportTruncationAnalyzer",
+    "PeriodicRankNSupportTruncationCapability",
     "RealSpaceSupportTruncation",
     "RealSpaceSupportTruncationAnalysis",
     "RealSpaceSupportTruncationAnalysisRequest",

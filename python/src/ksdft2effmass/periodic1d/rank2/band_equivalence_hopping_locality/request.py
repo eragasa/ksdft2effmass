@@ -16,7 +16,7 @@ FLAT_PARENT_MODEL_IDENTIFIER = "flat-two-level-parent.v1"
 FLAT_REPRESENTED_BASIS_IDENTIFIER = "fixed-real-rank-two-basis.v1"
 FLAT_ENERGY_REFERENCE_IDENTIFIER = "positive-reference-energy-E_ref.v1"
 FLAT_RECIPROCAL_COORDINATE_CONVENTION = "centered-half-open-reduced-coordinate.v1"
-FLAT_GAUGE_ATTACK_IDENTIFIER = "real-sinusoidal-rotation.v1"
+FLAT_GAUGE_TRANSFORMATION_IDENTIFIER = "real-sinusoidal-rotation.v1"
 
 
 @dataclass(frozen=True, slots=True)
@@ -35,7 +35,7 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityRequest(
     represented_basis_identifier: str
     energy_reference_identifier: str
     reciprocal_coordinate_convention: str
-    gauge_attack_identifier: str
+    gauge_transformation_identifier: str
     construction_size: int
     evaluation_size: int
     evaluation_shift_numerator: int
@@ -56,7 +56,7 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityRequest(
                 self.reciprocal_coordinate_convention,
                 "reciprocal_coordinate_convention",
             ),
-            (self.gauge_attack_identifier, "gauge_attack_identifier"),
+            (self.gauge_transformation_identifier, "gauge_transformation_identifier"),
         ):
             if type(identifier) is not str or not identifier:
                 raise TypeError(f"{identifier_name} must be a nonempty built-in string")
@@ -65,7 +65,7 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityRequest(
             "represented_basis_identifier": FLAT_REPRESENTED_BASIS_IDENTIFIER,
             "energy_reference_identifier": FLAT_ENERGY_REFERENCE_IDENTIFIER,
             "reciprocal_coordinate_convention": (FLAT_RECIPROCAL_COORDINATE_CONVENTION),
-            "gauge_attack_identifier": FLAT_GAUGE_ATTACK_IDENTIFIER,
+            "gauge_transformation_identifier": FLAT_GAUGE_TRANSFORMATION_IDENTIFIER,
         }
         for identifier_name, expected_identifier in expected_identifiers.items():
             if getattr(self, identifier_name) != expected_identifier:
@@ -168,7 +168,7 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityRequest(
 
 __all__ = [
     "FLAT_ENERGY_REFERENCE_IDENTIFIER",
-    "FLAT_GAUGE_ATTACK_IDENTIFIER",
+    "FLAT_GAUGE_TRANSFORMATION_IDENTIFIER",
     "FLAT_PARENT_MODEL_IDENTIFIER",
     "FLAT_RECIPROCAL_COORDINATE_CONVENTION",
     "FLAT_REPRESENTED_BASIS_IDENTIFIER",

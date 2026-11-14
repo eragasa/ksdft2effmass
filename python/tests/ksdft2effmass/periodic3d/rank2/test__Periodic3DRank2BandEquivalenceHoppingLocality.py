@@ -44,12 +44,27 @@ from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.visualizat
 from ksdft2effmass.periodic3d.rank2.band_equivalence_hopping_locality.visualizations.visualizer import (  # noqa: E501
     Periodic3DRank2BandEquivalenceHoppingLocalityVisualizer,
 )
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestPeriodic3DRank2BandEquivalenceHoppingLocality:
     """Establish rank-first delegation and typed serialization boundaries."""
+
+    @staticmethod
+    def _endpoint_sewing() -> ReciprocalEndpointSewingInventory:
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=4)
+        return ReciprocalEndpointSewingInventory(
+            positive_axis_maps=(
+                identity_sewing.endpoint_map,
+                identity_sewing.endpoint_map,
+                identity_sewing.endpoint_map,
+            )
+        )
 
     @staticmethod
     def _request() -> Periodic3DRank2BandEquivalenceHoppingLocalityRequest:
@@ -94,7 +109,8 @@ class TestPeriodic3DRank2BandEquivalenceHoppingLocality:
 
     def test__analysis_and_result__retain_rank_first_owner_types(self) -> None:
         analysis = Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer(
-            request=self._request()
+            request=self._request(),
+            endpoint_sewing=self._endpoint_sewing(),
         ).execute()
         result = Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(
             analysis
@@ -122,7 +138,8 @@ class TestPeriodic3DRank2BandEquivalenceHoppingLocality:
 
     def test__verification_and_visualization__retain_rank_first_actions(self) -> None:
         analysis = Periodic3DRank2BandEquivalenceHoppingLocalityAnalyzer(
-            request=self._request()
+            request=self._request(),
+            endpoint_sewing=self._endpoint_sewing(),
         ).execute()
         result = Periodic3DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(
             analysis

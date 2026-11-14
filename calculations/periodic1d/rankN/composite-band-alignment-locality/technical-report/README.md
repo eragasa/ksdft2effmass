@@ -20,9 +20,9 @@ scientific verification.
 Build outside the source tree with:
 
 ```bash
-mkdir -p /tmp/ksd-higher-rank-d1-report
+mkdir -p /tmp/ksd-periodic1d-rankn-analytic-report
 latexmk -pdf -interaction=nonstopmode -halt-on-error \
-  -outdir=/tmp/ksd-higher-rank-d1-report technical_report.tex
+  -outdir=/tmp/ksd-periodic1d-rankn-analytic-report technical_report.tex
 ```
 
 The selected compiled `technical_report.pdf` is retained as an unsealed review snapshot.

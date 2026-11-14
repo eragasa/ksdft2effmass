@@ -5,7 +5,7 @@ flowchart TD
     C[exact typed configuration] --> P[parent fibers]
     P --> F[lowest rank-two frames]
     F --> R[polar closed reference]
-    R --> A[declared right-unitary attack]
+    R --> A[declared right-unitary transformation]
     A --> W[pointwise Procrustes recovery]
     A --> G[one global unitary diagnostic]
     R --> O[represented operators]

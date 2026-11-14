@@ -9,10 +9,10 @@ partial coverage rather than parity with periodic1d: typed stress controls, reus
 gauge and hopping-route Actions, granular result records, and complete serializers
 remain required by the periodic2d parity gate.
 
-Represented toy model
----------------------
+Represented control model
+-------------------------
 
-``Periodic2DCosinePotentialToyModel`` owns the reusable spinless dimensionless
+``Periodic2DCosinePotentialModel`` owns the reusable spinless dimensionless
 potential
 
 .. math::
@@ -37,8 +37,8 @@ produce the kinetic diagonal
 :math:`(\kappa_x+p)^2+(\kappa_y+q)^2` is its square-cell specialization.
 
 The campaign plane-wave adapter delegates matrix construction to the reusable
-``PlaneWaveBlochHamiltonian2DConstructor`` documented in
-:doc:`../api/ksdft2effmass/model_systems/periodic2d/plane_waves`. That
+``Periodic2DPlaneWaveBlochHamiltonianConstructor`` documented in
+:doc:`../api/ksdft2effmass/periodic/periodic2d/models/plane_waves`. That
 Action owns the general finite Fourier inventory, PhysKit lattice duality check,
 reduced-to-Cartesian reciprocal map, and represented operator result; the campaign
 retains only its cosine coefficients and provenance policy.
@@ -48,7 +48,7 @@ reciprocal sampling, positive-direction wrapping, and integer boundary translati
 explicit. ``PlaneWaveReciprocalSewing2DConstructor`` maps a wrapped momentum fiber by
 shifting reciprocal coefficients without wrapping the finite basis itself: coefficients
 leaving the retained cutoff are discarded. See
-:doc:`../api/ksdft2effmass/model_systems/periodic2d/reciprocal_mesh`.
+:doc:`../api/ksdft2effmass/periodic/periodic2d/models/reciprocal_mesh`.
 This distinction separates periodic mesh topology from finite-basis truncation.
 
 ``Periodic2DCommonSpaceOperatorComparator`` now samples the retained plane waves on
@@ -87,7 +87,7 @@ runner identities and reconstructs the plane-wave cutoff sequence, finite-differ
 sequence, separable Kronecker identities, degenerate projectors, coupling sequence,
 sewn-link topology, hopping shells, effective-mass tensors, and anisotropy control.
 The independent verifier imports neither the maintained calculation Workflow nor the
-reusable toy-model constructors.
+reusable control-model constructors.
 
 Composite projected-gauge campaign
 ----------------------------------
@@ -99,7 +99,7 @@ comparing gauge-invariant spectra, Chern sums, and Wilson eigenphase sets. Local
 spreads and matrix-valued hopping locality remain gauge-dependent diagnostics rather
 than invariants. The independent verifier reconstructs polar projection, reciprocal
 links, hopping blocks, and finite-supercell density moments without importing the
-maintained calculation or toy-model constructor.
+maintained calculation or control-model constructor.
 
 Topological benchmark campaign
 ------------------------------
@@ -107,7 +107,7 @@ Topological benchmark campaign
 ``Periodic2DTopologicalCampaign`` retains Qi--Wu--Zhang, flux-one-third
 Hofstadter, and Haldane benchmarks as three separate represented state spaces.
 Each model includes a nonzero-Chern case, a trivial control, finite-mesh
-refinement, Wilson-loop winding, a gauge attack, and source authentication. The
+refinement, Wilson-loop winding, a gauge transformation, and source authentication. The
 campaign does not combine errors between models or identify any benchmark with
 the scalar cosine parent. Nonzero Chern and Wilson diagnostics are bounded
 numerical obstruction evidence, not a general mathematical proof or material

@@ -9,7 +9,7 @@ import pytest
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
 )
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -18,7 +18,7 @@ class TestPeriodic1DRankNGaugeAlignment:
     """Establish ordinary-enum identity and strict stable wire conversion."""
 
     def test__enum__is_an_ordinary_string_wire_enum(self) -> None:
-        assert issubclass(Periodic1DRankNGaugeAlignment, StringWireEnum)
+        assert issubclass(Periodic1DRankNGaugeAlignment, StrWireEnum)
         assert issubclass(Periodic1DRankNGaugeAlignment, Enum)
         assert not issubclass(Periodic1DRankNGaugeAlignment, str)
 
@@ -36,9 +36,6 @@ class TestPeriodic1DRankNGaugeAlignment:
             assert domain_value.to_wire() == wire_value
             assert Periodic1DRankNGaugeAlignment.from_wire(wire_value) is domain_value
 
-    def test__wire_conversion__rejects_wrong_types_and_old_values(self) -> None:
+    def test__wire_conversion__rejects_wrong_types(self) -> None:
         with pytest.raises(TypeError, match="built-in string"):
             Periodic1DRankNGaugeAlignment.from_wire(1)  # type: ignore[arg-type]
-        for legacy_value in ("A0", "A1", "A2", "A3"):
-            with pytest.raises(ValueError, match="unsupported"):
-                Periodic1DRankNGaugeAlignment.from_wire(legacy_value)

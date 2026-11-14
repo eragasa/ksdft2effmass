@@ -9,7 +9,6 @@ from projectkoios.numerics.finite_periodic.numpy.matrix_series import (
     NumpyFiniteFourierMatrixSeries,
 )
 from projectkoios.numerics.numpy.typing import Complex128Array
-from projectkoios.physkit.solidstate.tb.diagnostics import BlockHoppingPowerAnalyzer
 
 from ksdft2effmass.band_equivalence_hopping_locality.alignment import (
     FrameTransportDiagnostic,
@@ -41,13 +40,6 @@ from ksdft2effmass.periodic2d.rank2.gauge_alignment.analysis import (
 from ksdft2effmass.periodic2d.rank2.gauge_alignment.request import (
     Periodic2DRank2RestrictedGaugeAlignmentAnalysisRequest,
 )
-from ksdft2effmass.periodic2d.rank2.hopping_locality.analysis import (
-    Periodic2DRank2HoppingLocalityAnalyzer,
-)
-from ksdft2effmass.periodic2d.rank2.hopping_locality.request import (
-    Periodic2DRank2HoppingLocalityAnalysisRequest,
-    Periodic2DRank2HoppingLocalityChannelEnum,
-)
 from ksdft2effmass.periodic2d.rank2.support_truncation.analysis import (
     Periodic2DRank2SupportTruncationAnalyzer,
 )
@@ -58,6 +50,9 @@ from ksdft2effmass.periodic2d.rank2.support_truncation.request import (
 from ksdft2effmass.real_space_support_truncation import (
     MetricShellSupportInventory,
     RealSpaceSupportTruncationModelToleranceSelection,
+)
+from ksdft2effmass.sewing import (
+    ReciprocalEndpointSewingInventory,
 )
 
 from .request import Periodic2DRank2BandEquivalenceHoppingLocalityRequest
@@ -99,12 +94,27 @@ class Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
         self,
         *,
         request: Periodic2DRank2BandEquivalenceHoppingLocalityRequest,
+        endpoint_sewing: ReciprocalEndpointSewingInventory,
     ) -> None:
         if type(request) is not Periodic2DRank2BandEquivalenceHoppingLocalityRequest:
             raise TypeError(
                 "request must be Periodic2DRank2BandEquivalenceHoppingLocalityRequest"
             )
-        super().__init__(request=request)
+        if type(endpoint_sewing) is not ReciprocalEndpointSewingInventory:
+            raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingInventory")
+        if endpoint_sewing.spatial_dimension != 2:
+            raise ValueError("endpoint sewing must contain two axis maps")
+        ambient_dimension = int(
+            request.synthetic_model.retained_seed.magnitude.shape[0]
+        )
+        if endpoint_sewing.ambient_dimension != ambient_dimension:
+            raise ValueError("endpoint sewing must match the parent ambient dimension")
+        super().__init__(request=request, endpoint_sewing=endpoint_sewing)
+
+    @property
+    def endpoint_sewing(self) -> ReciprocalEndpointSewingInventory:
+        """Return positive reciprocal-axis maps in lattice-axis order."""
+        return self._endpoint_sewing
 
     @property
     def request(self) -> Periodic2DRank2BandEquivalenceHoppingLocalityRequest:
@@ -129,6 +139,7 @@ class Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
                 frame=frame,
                 rank_absolute=rank_absolute,
                 rank_relative=rank_relative,
+                endpoint_sewing=self.endpoint_sewing,
             )
         ).execute()
 
@@ -156,19 +167,20 @@ class Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
         shell_indices: tuple[int, ...],
         retained_rank: int,
     ) -> MetricShellHoppingPowerResult:
-        """Route one channel through its periodic-2D rank-two capability owner."""
+        """Preserve the legacy Fourier-channel diagnostic without model promotion."""
         if retained_rank != 2:
             raise ValueError("retained_rank must be two")
-        return Periodic2DRank2HoppingLocalityAnalyzer(
-            request=Periodic2DRank2HoppingLocalityAnalysisRequest(
-                channel=Periodic2DRank2HoppingLocalityChannelEnum(channel),
-                energy_reference=energy_reference,
-                basis_identifier=basis_identifier,
-                series=series,
-                shell_indices=shell_indices,
-            ),
-            power_analyzer=BlockHoppingPowerAnalyzer(),
-        ).execute()
+        # Transformed floating-point coefficients need not satisfy the exact model
+        # admissibility contract byte-for-byte. Keep this legacy diagnostic at the
+        # representation boundary rather than misclassifying it as an exact model.
+        return super().analyze_ordinary_hopping_locality(
+            channel=channel,
+            energy_reference=energy_reference,
+            basis_identifier=basis_identifier,
+            series=series,
+            shell_indices=shell_indices,
+            retained_rank=retained_rank,
+        )
 
     def analyze_support_truncation(
         self,
@@ -193,6 +205,7 @@ class Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
         analysis = Rank2BandEquivalenceHoppingLocalityAnalyzer.execute(self)
         return Periodic2DRank2BandEquivalenceHoppingLocalityAnalysis(
             request=self.request,
+            endpoint_sewing=analysis.endpoint_sewing,
             status=analysis.status,
             cases=analysis.cases,
         )

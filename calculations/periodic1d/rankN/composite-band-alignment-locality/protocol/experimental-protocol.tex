@@ -19,7 +19,7 @@
 \title{\textbf{Experimental protocol:\\
 Higher-rank composite-band alignment and hopping locality}}
 \author{KSD reduced-Hamiltonian research program}
-\date{Complete pre-execution D1 v1 protocol candidate}
+\date{Complete pre-execution periodic-1D higher-rank analytic validation v1 protocol candidate}
 
 \begin{document}
 \maketitle
@@ -30,7 +30,7 @@ rank, noncommuting gauge-circuit depth, admissible alignment, and spatial dimens
 change matrix-valued hopping locality while the untruncated retained spectrum and
 projector remain exactly equivalent. The common analytic construction permits arbitrary
 declared finite rank and finite circuit depth and is topologically trivial by
-construction. Its first bounded specialization, D1 P0/G0 v1, fixes a constant-projector
+construction. Its first bounded specialization, the periodic-1D constant-subspace real-Givens validation study v1, fixes a constant-projector
 real-gauge model, exact exterior-isolation and alignment certificates, four ranks, four
 depths, identity, global-unitary, pointwise-unitary, and known-inverse-oracle gauge
 alignments, odd Fourier-refinement meshes, a disjoint evaluation
@@ -51,14 +51,14 @@ Fourier hopping; locality; truncation; convergence; retained evidence
 
 This document defines a publication-independent experiment family for spatial dimensions
 one, two, and three. The common mathematical family remains prospective outside the
-selected one-dimensional specialization. The first P0/G0 specialization is now a
+selected one-dimensional specialization. The first constant-subspace real-Givens specialization is now a
 complete pre-execution protocol candidate with identity
 
 \begin{quote}\small
 \path{ksdft2effmass.campaign.periodic-reduction.periodic1d.higher-rank-composite-band-alignment-and-locality.v1}\par
 \end{quote}
 
-and short label \path{HR-CBAL-D1-P0-G0-v1}. Its model, cases, sample roles, tolerances,
+and short label \path{periodic1d-rankN-analytic-validation-v1}. Its model, cases, sample roles, tolerances,
 supports, decision rules, bounded reference controls, resource gate, and evidence policy
 are selected below. Rank-generic structural, error-channel, perturbation-bound,
 decomposition, block-norm, tail, monotonicity, and refinement diagnostic primitives are
@@ -69,7 +69,7 @@ admission.
 The family is a successor to, not a replacement for, the retained rank-two controls and
 the extracted fixed rank-three two-dimensional calculation. No rank-two tolerance, mesh,
 gauge amplitude, truncation range, or evidence disposition transfers into this protocol.
-The 2-D, 3-D, P1, and G1 branches remain prospective and cannot inherit the D1 v1
+The 2-D, 3-D, moving-subspace control, and complex-unitary branches remain prospective and cannot inherit the periodic-1D higher-rank analytic validation v1
 numerical controls without an explicit reviewed specialization.
 
 \section{Scientific and evidence-flow schematics}
@@ -92,9 +92,9 @@ frame once per construction mesh and is common to every gauge alignment.
   evidence/.style={flow, dashed}
 ]
 \node[wide] (model) {Analytic case $(r,L)$\\$D_r(k)$, $F_r(k)$, $G_{r,L}(k)$};
-\node[wide, right=of model] (attack) {Gauge attack\\$H'=G^\dagger D_rG$, $F'=F_rG$};
+\node[wide, right=of model] (transformation) {Gauge transformation\\$H'=G^\dagger D_rG$, $F'=F_rG$};
 \node[wide, below=of model] (transport) {Common closed-loop transport\\analytic reference frame; once per mesh};
-\node[box, below=28mm of attack, xshift=-52mm] (identity) {Identity\\$U=I_r$};
+\node[box, below=28mm of transformation, xshift=-52mm] (identity) {Identity\\$U=I_r$};
 \node[box, right=of identity] (global) {Global-unitary\\select at $M=2049$; reuse};
 \node[box, right=of global] (pointwise) {Pointwise-unitary\\Procrustes at each mesh point};
 \node[box, right=of pointwise] (oracle) {Known-inverse-oracle\\$U=G^\dagger$};
@@ -104,12 +104,12 @@ frame once per construction mesh and is common to every gauge alignment.
 \node[wide, below right=of fourier] (locality) {Symmetric-support locality\\tails, truncation, total error};
 \node[wide, below=13mm of fourier] (evidenceout) {Typed mesh evidence\\recovery, Parseval, Hermiticity, refinement};
 
-\draw[flow] (model) -- (attack);
+\draw[flow] (model) -- (transformation);
 \draw[evidence] (model) -- (transport);
-\draw[flow] (attack) -- (identity);
-\draw[flow] (attack) -- (global);
-\draw[flow] (attack) -- (pointwise);
-\draw[flow] (attack) -- (oracle);
+\draw[flow] (transformation) -- (identity);
+\draw[flow] (transformation) -- (global);
+\draw[flow] (transformation) -- (pointwise);
+\draw[flow] (transformation) -- (oracle);
 \draw[flow] (identity) -- (represented);
 \draw[flow] (global) -- (represented);
 \draw[flow] (pointwise) -- (represented);
@@ -341,7 +341,7 @@ Hermitian or unitary field.
 
 The analytic parent below specializes the grammar to
 $K_{\mathrm{ret}}=D_r$, the selected diagonal $D_{\mathrm{ext}}$, and the generated
-$W=W_r$. Its internal attack is $G=G_{r,L}$. D1 P0/G0 v1 further fixes
+$W=W_r$. Its internal transformation is $G=G_{r,L}$. the periodic-1D constant-subspace real-Givens validation study v1 further fixes
 $W_r=I_{2r}$ and $G_{r,L}\in SO(r)$ with the coefficient laws, ranks, depths, and
 numerical controls stated below. Papers 1 and 2 contain rank-two specializations of the
 same construction principle; they are predecessor controls, not executions of this
@@ -349,7 +349,7 @@ higher-rank identity, and no predecessor mesh, tolerance, result, or evidence st
 transferred here.
 
 This section organizes analytic guarantees already inherent in the selected family. It
-does not change the D1 v1 identity, coefficients, meshes, tolerances, gauge alignments, schemas,
+does not change the periodic-1D higher-rank analytic validation v1 identity, coefficients, meshes, tolerances, gauge alignments, schemas,
 resource gate, execution authority, or evidence status.
 
 \section{Periodic scalar fields}
@@ -455,13 +455,13 @@ H_{F_r}(\mathbf k)=F_r^\dagger H_p^{(d,r)}F_r=D_r(\mathbf k).
 Two projector controls remain separate:
 
 \begin{itemize}
-\item \textbf{P0, constant-projector control:} every $\eta_a=0$;
-\item \textbf{P1, moving-projector control:} prospectively selected nonconstant $\eta_a$ fields.
+\item \textbf{constant-subspace control:} every $\eta_a=0$;
+\item \textbf{moving-subspace control, moving-projector control:} prospectively selected nonconstant $\eta_a$ fields.
 \end{itemize}
 
-P0 isolates internal gauge, alignment, Fourier conversion, and truncation. P1 additionally
+The constant-subspace control isolates internal gauge, alignment, Fourier conversion, and truncation. The moving-subspace control additionally
 tests frame construction, neighbor transport, reciprocal-boundary sewing, and projector
-reconstruction. P0 and P1 results are not pooled into one error measure.
+reconstruction. constant-subspace and moving-subspace controls results are not pooled into one error measure.
 
 Internal retained-band crossings or degeneracies are permitted because the retained
 projector and analytic frame are defined as complete rank-$r$ objects. Individual
@@ -510,18 +510,18 @@ R_{j,j+1}\!\left(
 Increasing layer order is part of the canonical definition. Factors within a layer
 commute; adjacent layers generally do not. The interaction graph is connected once the
 selected layers cover every adjacent pair, so the construction is not a direct sum of
-independent rank-two attacks.
+independent rank-two transformations.
 
 The protocol distinguishes two gauge classes:
 
 \begin{itemize}
-\item \textbf{G0, real class:} $\phi_{\ell j}=0$ and $\chi_a=0$, hence
+\item \textbf{real-Givens control:} $\phi_{\ell j}=0$ and $\chi_a=0$, hence
 $G_{r,L}\in SO(r)$;
-\item \textbf{G1, complex class:} complex pair phases and diagonal phases are allowed, hence
+\item \textbf{complex-unitary control, complex class:} complex pair phases and diagonal phases are allowed, hence
 $G_{r,L}\in U(r)$.
 \end{itemize}
 
-A G0 result does not validate G1. The attacked frame and represented operator are
+A real-Givens result does not validate complex-unitary control. The gauge-transformed frame and represented operator are
 
 \[
 F'_{r,L}(\mathbf k)=F_r(\mathbf k)G_{r,L}(\mathbf k),
@@ -557,7 +557,7 @@ Every comparison declares its admissible alignment family before observing resul
  \label{eq:alignment-reference-candidate}
 \end{equation}
 
-be the reference frame, attacked candidate frame, and represented candidate operator.
+be the reference frame, gauge-transformed candidate frame, and represented candidate operator.
 Every selected alignment acts on candidate coordinates from the right. For a unitary
 $U(\mathbf k)\in U(r)$, define
 
@@ -569,7 +569,7 @@ $U(\mathbf k)\in U(r)$, define
  \label{eq:alignment-application}
 \end{equation}
 
-This source/target orientation is canonical for D1 v1. Returning $U^\dagger$ instead of
+This source/target orientation is canonical for periodic-1D higher-rank analytic validation v1. Returning $U^\dagger$ instead of
 $U$ while leaving Equation~\eqref{eq:alignment-application} unchanged is a convention
 failure, not an equivalent serialization.
 
@@ -630,19 +630,19 @@ The selected diagnostic ladder is:
 
 \begin{enumerate}
 \item \textbf{Identity:}
-$U_{\mathrm{id}}(\mathbf k)=I_r$. No transformation is selected; the attacked representation is
+$U_{\mathrm{id}}(\mathbf k)=I_r$. No transformation is selected; the gauge-transformed representation is
 measured as supplied.
 
 \item \textbf{Global-unitary:}
 $U_{\mathrm{glob}}=\mathcal P(B_{\mathcal S})$ minimizes
-Equation~\eqref{eq:alignment-global-objective} over exactly one $U\in U(r)$. D1 v1 uses
+Equation~\eqref{eq:alignment-global-objective} over exactly one $U\in U(r)$. periodic-1D higher-rank analytic validation v1 uses
 $\mathcal S=\mathcal K_{2049}$, evaluates the ordered sum in increasing mesh-index order,
 and reuses the selected $U_{\mathrm{glob}}$ on every other construction and evaluation point. It
 is not refitted on another mesh.
 
 \item \textbf{Pointwise-unitary:}
 $U_{\mathrm{pt}}(\mathbf k)=\mathcal P(M(\mathbf k))$ independently minimizes
-$\lVert C(\mathbf k)U-R(\mathbf k)\rVert_F^2/r$ at every construction point. D1 v1
+$\lVert C(\mathbf k)U-R(\mathbf k)\rVert_F^2/r$ at every construction point. periodic-1D higher-rank analytic validation v1
 reconstructs this alignment separately on each construction mesh. It does not interpolate selected
 unitaries onto the withheld mesh; the withheld direct reference for the recovered field
 is the analytic $D_r$ declared below.
@@ -654,11 +654,11 @@ and Fourier conventions only.
 
 \end{enumerate}
 
-A restricted-circuit alignment is absent from D1 v1 because no optimizer or certificate
+A restricted-circuit alignment is absent from periodic-1D higher-rank analytic validation v1 because no optimizer or certificate
 policy has been selected. Global-unitary and pointwise-unitary are different feasible
 sets; neither is described as a numerical approximation to the other. The
 known-inverse-oracle is not an admissible fitted solution and cannot
-be used to claim practical recoverability. In the exact D1 P0 construction,
+be used to claim practical recoverability. In the exact selected constant-subspace analytic construction,
 $M(k)=G_{r,L}^\dagger(k)$, so pointwise-unitary and known-inverse-oracle coincide analytically; their numerical separation
 is retained solely as an implementation check.
 
@@ -701,7 +701,7 @@ The remaining integrity diagnostics are
 An admitted global-unitary or pointwise-unitary factor must satisfy the selected unitarity, stationarity, objective-
 identity, and positive-semidefinite tolerances below. The independent construction returns to the original frames and recomputes the
 objective, singular spectrum, rank decision, polar action, unitarity, stationarity, and
-positive-semidefinite disposition. Pointwise, the analytic D1 relation gives
+positive-semidefinite disposition. Pointwise, the analytic analytic relation gives
 $M(k)=G_{r,L}^\dagger(k)$, so that cross matrix is itself the exact polar factor. Globally,
 the independent polar factor is
 
@@ -716,7 +716,7 @@ These tolerances define finite-precision Procrustes agreement; equality of float
 bytes from separate numerical executions is not a scientific requirement.
 
 Equality at the applied singular-value cutoff is deficient. A deficient covariance has
-unitary minimizers but does not have a unique full polar factor; D1 v1 therefore returns
+unitary minimizers but does not have a unique full polar factor; periodic-1D higher-rank analytic validation v1 therefore returns
 no selected transformation and never completes null-space action. Its exact alignment
 dispositions are:
 
@@ -728,7 +728,7 @@ dispositions are:
       transformation or downstream global-unitary locality value is emitted, and those fields carry
       \path{inapplicable-aggregate-rank-deficient};
 \item \path{pointwise-rank-deficient}: at least one pointwise-unitary point fails the strict rank gate;
-      no transformation is emitted at that point and the complete D1 case is invalid;
+      no transformation is emitted at that point and the complete analytic validation case is invalid;
 \item \path{alignment-numerically-unresolved}: an input is nonfinite or the declared SVD
       backend fails or does not converge; no transformation is emitted and the complete
       case is invalid;
@@ -757,9 +757,9 @@ noncommuting operation and is outside this protocol.
 
 \section{Boundary to algorithm-selected localization}
 
-D1 v1 supplies every frame analytically and does not execute Wannier90 or optimize a
+periodic-1D higher-rank analytic validation v1 supplies every frame analytically and does not execute Wannier90 or optimize a
 spread functional. This exclusion is deliberate: it keeps parent construction, internal
-gauge attack, admissible alignment, Fourier conversion, and truncation independently
+gauge transformation, admissible alignment, Fourier conversion, and truncation independently
 identifiable. The retained one-dimensional and two-dimensional Wannier90 calculations
 reported by Paper 3 are historical algorithm-selected controls, not runs of this
 protocol.
@@ -767,12 +767,12 @@ protocol.
 Initialization, native convergence, preconditioning, inactive embedding, optimizer
 continuation, and observed-basin reproducibility belong to a separate
 Wannier90-localization-reproducibility experiment family. Evidence from that family may
-qualify claims about algorithm-selected frames but cannot select or modify a D1 v1 mesh,
+qualify claims about algorithm-selected frames but cannot select or modify a periodic-1D higher-rank analytic validation v1 mesh,
 tolerance, support, or disposition.
 
 \section{Selected v1 candidate: periodic 1-D real gauge}
 
-The first bounded specialization is \path{HR-CBAL-D1-P0-G0-v1}, with the full identity given
+The first bounded specialization is \path{periodic1d-rankN-analytic-validation-v1}, with the full identity given
 above. It isolates retained rank and Givens-circuit depth before projector motion,
 complex phases, or multidimensional plaquettes are introduced. All numerical execution
 uses binary64 arithmetic and sets $E_{\mathrm{ref}}=1$ in the declared dimensionless
@@ -819,12 +819,12 @@ Because $c(0)=1$, equality is attained. Every selected rank therefore has the ex
 mesh-independent isolation certificate
 $\Delta_{\mathrm{iso}}=2.10E_{\mathrm{ref}}$.
 
-The first tranche uses P0: $\eta_a(k)=0$, $W_r(k)=I_{2r}$, and
+The first tranche uses the constant-subspace control: $\eta_a(k)=0$, $W_r(k)=I_{2r}$, and
 $F_r(k)=E_r$. The parent and retained projector are consequently known without an
 eigensolver. Internal retained-band crossings, if present, do not change the complete
 rank-$r$ projector.
 
-\subsection{Deterministic real attack}
+\subsection{Deterministic real transformation}
 
 For $j\in\{1,\ldots,r-1\}$ define
 
@@ -882,12 +882,12 @@ T_{D_r}(R)=0\qquad\text{for every }|R|>2.
 
 This is an analytic support statement, not a sampled locality result. By contrast,
 entries of $G_{r,L}(k)$ contain sines and cosines of nonconstant trigonometric
-polynomials. Consequently the attacked field
+polynomials. Consequently the gauge-transformed field
 $H'_{r,L}(k)=G_{r,L}^{\dagger}(k)D_r(k)G_{r,L}(k)$ is periodic and analytic but is not
 assigned any finite Fourier support by the construction. The first-two-harmonic input
-inventory must not be mistaken for a hopping cutoff after the nonlinear gauge attack.
+inventory must not be mistaken for a hopping cutoff after the nonlinear gauge transformation.
 
-For P0, the exact candidate-to-reference cross-overlap is
+For the constant-subspace control, whose exact candidate-to-reference cross-overlap is
 
 \[
 M(k)=F_{r,L}^{\prime\dagger}(k)F_r(k)=G_{r,L}^{\dagger}(k).
@@ -989,7 +989,7 @@ A singular-value decision uses
 A cross-covariance is full rank only when
 $\sigma_{\min}(X)>\tau_{\mathrm{sv}}(X)$; equality is deficient. A deficient global-unitary
 aggregate makes global-unitary downstream diagnostics inapplicable for that case but does not erase
-identity, pointwise-unitary, or known-inverse-oracle. A deficient pointwise-unitary point makes the complete case invalid because P0 supplies
+identity, pointwise-unitary, or known-inverse-oracle. A deficient pointwise-unitary point makes the complete case invalid because The constant-subspace control supplies
 an analytically full-rank overlap.
 
 All pass comparisons are inclusive except the strict singular-value test above. Norms
@@ -1009,7 +1009,7 @@ frame orthonormality, gauge/alignment unitarity, projector idempotency & raw Fro
 normalized Procrustes stationarity defect $\varepsilon_{\mathrm{stat}}$ & dimensionless & $10^{-12}$ \\
 Procrustes objective-identity defect $\varepsilon_{\mathrm{obj}}$ & dimensionless & $10^{-12}$ \\
 negative polar-factor part $\varepsilon_{\mathrm{psd}}$ & dimensionless & $10^{-12}$ \\
-smooth/attacked projector equality & raw Frobenius norm & $10^{-12}$ \\
+smooth/gauge-transformed projector equality & raw Frobenius norm & $10^{-12}$ \\
 direct ordered-spectrum equivalence & $E_{\mathrm{ref}}$ & $10^{-11}$ \\
 pointwise-unitary and known-inverse-oracle frame recovery & $\sqrt r$ & $10^{-11}$ \\
 pointwise-unitary and known-inverse-oracle represented-operator recovery & $\sqrt rE_{\mathrm{ref}}$ & $10^{-11}$ \\
@@ -1050,7 +1050,7 @@ is not repaired by relaxing a tolerance after inspection.
 
 \subsection{Non-authoritative finite-grid sanity check}
 
-The development utility \path{verify_d1_p0_g0_controls.py} samples the selected formulas on
+The removed predecessor formula-check utility sampled the selected formulas on
 
 \[
 \mathcal K_M=\left\{-\pi+\frac{2\pi n}{M}:n=0,\ldots,M\right\},
@@ -1089,7 +1089,7 @@ sewing rather than infer it from array shape.
 
 The one-dimensional case uses the same sequential parallel-transport and distributed
 closure-correction convention as the Part~2 rank-two workflow, generalized to rank $r$
-and using the D1 maximum-rule rank cutoff. Let $Y_n=F_r(k_n)$ be the directly sampled
+and using the selected maximum-rule rank cutoff. Let $Y_n=F_r(k_n)$ be the directly sampled
 analytic reference frame, set $\widetilde F_0=Y_0$, and append the direct endpoint
 $Y_M=F_r(+\pi)$ after the $M$ half-open samples. In increasing index order define
 \[
@@ -1099,7 +1099,7 @@ $Y_M=F_r(+\pi)$ after the $M$ half-open samples. In increasing index order defin
 \]
 Equivalently, $Q_n$ is the unique full-rank right-unitary Procrustes transformation from
 $Y_{n+1}$ to $\widetilde F_n$. Every neighbor step and the endpoint step use the strict
-cutoff $\tau_{\mathrm{sv}}$ already selected for D1; no deficient null-space completion is
+cutoff $\tau_{\mathrm{sv}}$ already selected for the selected periodic-1D analytic validation study; no deficient null-space completion is
 permitted. Sequential transport stops at the first deficient required link, retains that
 evaluated deficient index and the exact ordered indices left unattempted, and does not
 infer rank outcomes for links whose transported source frame is consequently unavailable.
@@ -1117,8 +1117,8 @@ in $(-\pi,\pi]$. The periodically closed frame is
 The ordered closure product therefore follows the same increasing-index traversal rather
 than an independently chosen link orientation. Endpoint frame and projector sewing are
 evaluated directly from $F_r(-\pi)$, $F_r(+\pi)$, $P_r(-\pi)$, and $P_r(+\pi)$.
-Transport acts on the analytic reference frame and is shared by identity, global-unitary, pointwise-unitary, and known-inverse-oracle; attacked-frame
-behavior remains in the separate alignment and recovery diagnostics. For P0 the exact
+Transport acts on the analytic reference frame and is shared by identity, global-unitary, pointwise-unitary, and known-inverse-oracle; gauge-transformed-frame
+behavior remains in the separate alignment and recovery diagnostics. For the constant-subspace control the exact
 reference frame is constant, but the complete transport route is still executed rather
 than replaced by a fabricated zero.
 
@@ -1149,7 +1149,7 @@ zero, when a required link is rank deficient.
 \section{Topological boundary}
 
 The analytic frame $F_r(\mathbf k)=W_r(\mathbf k)E_r$ is global and periodic. Therefore
-P0 and P1 define topologically trivial complex composite bundles. Wilson loops, closure
+constant-subspace and moving-subspace controls define topologically trivial complex composite bundles. Wilson loops, closure
 phases, and plaquettes are transport and sewing diagnostics in this family; they are not
 claims of Chern, $\mathbb Z_2$, crystalline, or three-dimensional topological character.
 
@@ -1160,7 +1160,7 @@ separate experiment family rather than a hidden coefficient choice here.
 The reusable diagnostics developed from this family may later support a fail-closed
 pristine/defect compatibility screen, but Paper 3 does not construct defect operators.
 Paper 5 owns the common-space subtraction decision, and Paper 6 owns full topological
-and symmetry-obstruction protocols. The synthetic P0/P1 cases exercise known-compatible
+and symmetry-obstruction protocols. The synthetic constant-subspace/moving-subspace controls cases exercise known-compatible
 frames; they do not validate material bundle compatibility.
 
 \section{Fourier representation and locality}
@@ -1173,7 +1173,7 @@ T(\mathbf R)=\frac{1}{(2\pi)^d}
 H(\mathbf k)\,d^d\mathbf k.
 \]
 
-For D1 v1, the selected discrete convention on $\mathcal K_M$ is
+For periodic-1D higher-rank analytic validation v1, the selected discrete convention on $\mathcal K_M$ is
 
 \[
 T_M(R)=\frac1M\sum_{k\in\mathcal K_M}e^{-ikR}H(k),
@@ -1330,7 +1330,7 @@ saturation ratios $b/s$ and $b/f$; otherwise the corresponding ratio is explicit
 inapplicable. No ratio with a roundoff-scale denominator is serialized as zero.
 
 The odd centered translation inventory is already an ordinary inversion-complete integer
-inventory. D1 therefore has no Nyquist singleton and no separate cyclic-to-ordinary
+inventory. The selected odd-mesh study therefore has no Nyquist singleton and no separate cyclic-to-ordinary
 conversion power. Instead, every transform retains representative count, uniqueness,
 ordering, inversion-closure, and index-bijection checks, while the predecessor Nyquist
 conversion record carries the exact disposition
@@ -1378,7 +1378,7 @@ is defined.
 \section{Diagnostic-completeness crosswalk to the Paper 1 v3 workflow}
 
 Paper 1 v3's supplementary execution sequence is used as a completeness checklist, not
-as an evidence source or a license to copy rank-two controls. D1 v1 instantiates every
+as an evidence source or a license to copy rank-two controls. periodic-1D higher-rank analytic validation v1 instantiates every
 applicable stage as follows:
 
 \begin{enumerate}
@@ -1390,7 +1390,7 @@ applicable stage as follows:
       projectors are qualified before alignment;
 \item neighbor transport, reciprocal sewing, closure, and deficient-overlap behavior are
       checked before any locality interpretation;
-\item the deterministic higher-rank attack and its analytic angle bound are reconstructed
+\item the deterministic higher-rank transformation and its analytic angle bound are reconstructed
       before comparing representations;
 \item identity, global-unitary, pointwise-unitary, and known-inverse-oracle objectives, ranks, transformations, application orientation, and residuals
       are evaluated from the original frames and operators;
@@ -1410,12 +1410,12 @@ control or a construction disposition;
       and resource checks close the workflow.
 \end{enumerate}
 
-Several Paper 1 v3 gauge alignments are intentionally inapplicable rather than missing. D1 v1
+Several Paper 1 v3 gauge alignments are intentionally inapplicable rather than missing. periodic-1D higher-rank analytic validation v1
 has no model-parameter admissible sets, common-witness search, rectangle containment
-problem, or positive set-separation certificate. It has no continuous attack-amplitude
+problem, or positive set-separation certificate. It has no continuous transformation-amplitude
 optimizer, parent homotopy, cyclic Nyquist singleton, or first-passing range decision.
 Those fields receive explicit out-of-scope or inapplicable dispositions and are not
-encoded as numerical zero. Conversely, D1 adds the rank/depth ladder, noncommuting
+encoded as numerical zero. Conversely, The selected periodic-1D study adds the rank/depth ladder, noncommuting
 higher-rank circuit, global-unitary/pointwise-unitary/known-inverse-oracle separation, cross-rank normalization, and exact finite-rank
 property-construction certificates that were outside Paper 1.
 
@@ -1424,7 +1424,7 @@ mesh, coefficient, tolerance, threshold, calculated value, or evidence status.
 
 \section{Convergence and claim-resolution policy}
 
-A D1 v1 case is \textbf{numerically qualified} only if identity, pointwise-unitary, and known-inverse-oracle carry
+A periodic-1D higher-rank analytic validation v1 case is \textbf{numerically qualified} only if identity, pointwise-unitary, and known-inverse-oracle carry
 \path{qualified}, every mandatory integrity gate passes, its final interpolation errors
 pass, and all retained blocks and locality diagnostics meet the frozen
 $1025\rightarrow2049$ refinement rules. global-unitary may carry either \path{qualified} or the
@@ -1461,7 +1461,7 @@ negative theorem.
 
 \section{Support--error Pareto diagnostics}
 
-D1 adopts Part~2's sampled nondominance rule while keeping the higher-rank alignment
+The selected periodic-1D study adopts Part~2's sampled nondominance rule while keeping the higher-rank alignment
 families separate. For each technically qualified case, applicable gauge alignment $a$, and
 final construction mesh $M=2049$, every declared support $S$ defines the three-objective
 point
@@ -1500,7 +1500,7 @@ The selected v1 matrix contains four rank sweeps at every fixed depth and four d
 sweeps at every fixed rank. Rank comparisons hold dimension, parent coefficient rule,
 active harmonics, gauge class, supports, and $E_{\mathrm{ref}}$ fixed. Depth comparisons
 hold rank and the per-layer rule fixed. The shared later-dimensional subset creates no
-D1-to-D2 or D1-to-D3 claim until those protocols select matched meshes and metrics.
+one-dimensional-to-two-dimensional or one-dimensional-to-three-dimensional claim until those protocols select matched meshes and metrics.
 
 Dense unitary factorization scales as $O(r^3)$ per sampled point. Actual peak memory,
 wall time, and processed mesh points are recorded per producer and verifier invocation.
@@ -1744,7 +1744,7 @@ recovery and direct represented-field integrity are deliberately separate contro
 \end{figure}
 
 Figure~\ref{fig:storyboard-rank-depth} then exposes the finite rank/depth structure. The
-identity panels show the attacked representation's $S=2$ hopping tail and total spectral
+identity panels show the gauge-transformed representation's $S=2$ hopping tail and total spectral
 consequence, the global panel shows the restricted feasible set's frame residual, and the
 pointwise panel supplies a roundoff-scale control. These finite heatmaps support no
 asymptotic monotonicity theorem and no ratios are formed from roundoff-scale controls.
@@ -1840,7 +1840,7 @@ by the current development protocol.
 
 Verification has two distinct meanings. Artifact integrity establishes that one admitted
 16-case inventory is complete and unchanged. Scientific numerical qualification tests
-the analytic-model and attack invariants, direct Fourier sums for every gauge family,
+the analytic-model and transformation invariants, direct Fourier sums for every gauge family,
 constant-frame transport, and the independent Procrustes construction in
 Equation~\eqref{eq:independent-global-polar}.
 
@@ -1860,7 +1860,7 @@ is required.
 
 \section{Resource and execution gate}
 
-D1 v1 is a deterministic local synthetic calculation. It must not invoke Quantum
+periodic-1D higher-rank analytic validation v1 is a deterministic local synthetic calculation. It must not invoke Quantum
 ESPRESSO, Wannier90, a scheduler, a remote service, a GPU, or network access. The
 producer and verifier each run as one process with numerical-library thread counts fixed
 to one. The prospective ceilings are:
@@ -1906,15 +1906,15 @@ independent reference quantities. A fresh execution is qualified by those mathem
 controls and may then be admitted as a distinct artifact; byte-for-byte identity with an
 existing cache is neither a prerequisite nor a reproducibility claim.
 
-Retained evidence supports only the selected finite synthetic D1 cases and the declared
+Retained evidence supports only the selected finite synthetic analytic validation cases and the declared
 resolution classifications. It does not validate a material, a global localization
 optimum, an unrestricted alignment algorithm, arbitrary executed rank, a continuum decay
 law, or any topological classification. Publication, release, and evidence promotion
 remain separate human decisions.
 
-\section{Selections remaining outside D1 v1}
+\section{Selections remaining outside periodic-1D higher-rank analytic validation v1}
 
-No D1 v1 scientific or numerical control remains outcome-selectable. Implementation
+No periodic-1D higher-rank analytic validation v1 scientific or numerical control remains outcome-selectable. Implementation
 class names, file layout, and dependency revisions may be chosen during implementation
 review only when they preserve every contract above; the selected scientific source
 bytes are then bound by \path{calculation_infrastructure_sha256}.
@@ -1922,15 +1922,15 @@ bytes are then bound by \path{calculation_infrastructure_sha256}.
 The following remain open for later, separately versioned protocols:
 
 \begin{enumerate}
-\item P1 moving-projector coefficients and their certified exterior-gap method;
+\item moving-subspace control moving-projector coefficients and their certified exterior-gap method;
 \item every 2-D and 3-D coefficient table, mesh, support, and dimensional identity;
-\item G1 complex phases and diagonal-phase laws;
+\item complex-unitary control complex phases and diagonal-phase laws;
 \item restricted-circuit alignment restricted-circuit optimizer, initialization, stopping rule, and certificate;
 \item nonorthogonal metrics, point-group constraints, or material specializations; and
 \item any topologically obstructed or patchwise-frame family.
 \end{enumerate}
 
-None of these may be added to D1 v1 after observing its outcomes. The D1 identity,
+None of these may be added to periodic-1D higher-rank analytic validation v1 after observing its outcomes. The validation-study identity,
 coefficients, exact certificates, rank/depth ladder, meshes, supports, tolerances,
 identity, global-unitary, pointwise-unitary, and known-inverse-oracle gauge alignments, decision rules, verifier method, resource gate, and evidence policy are
 now selected. The maintained calculator and development renderer do not change that

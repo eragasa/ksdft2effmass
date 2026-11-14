@@ -11,7 +11,8 @@ from __future__ import annotations
 import itertools
 import math
 from dataclasses import dataclass
-from enum import StrEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .geometry import (
     LatticeDimension,
@@ -25,7 +26,7 @@ type LatticeFloatComponents = (
 """Closed floating coordinate representation for one to three dimensions."""
 
 
-class TwistGaugeRepresentation(StrEnum):
+class TwistGaugeRepresentation(StrWireEnum):
     """Supported finite-lattice boundary-twist gauge representations."""
 
     CENTERED_UNIFORM_LINK = "centered_uniform_link"

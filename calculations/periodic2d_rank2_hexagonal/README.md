@@ -36,6 +36,12 @@ This family follows the nonorthogonal/basis-aware rank-two stage of the shared
 The case order isolates Bravais-metric and basis-offset effects. It does not make the
 two-basis control a material model, and refinements do not establish convergence.
 
+The nominal composition explicitly supplies two reciprocal-axis maps in lattice-axis
+order. Both are named identity sewing with `ambient_dimension = 4`, so
+$Q_{\mathbf{G}_a}=I_4$ acts on the parent ambient basis of each $4\times2$ retained
+frame. Retained rank two does not change the identity-map order, and the projected
+closure is not required to be identity.
+
 The aggregate calculation owner contains the authoritative
 [research protocol](band_equivalence_hopping_locality/protocol/README.md), bibliography,
 actions, migration record, and technical report. The former experiment-tree location is

@@ -14,6 +14,8 @@ from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentGroupFamily,
     GaugeAlignmentGroupIdentity,
     GaugeAlignmentInnerProductConvention,
+    PeriodicGaugeAlignment,
+    PeriodicRankNGaugeAlignmentCapability,
 )
 from ksdft2effmass.periodic1d.gauge_alignment import (
     Periodic1DGaugeAlignment,
@@ -33,6 +35,9 @@ from ksdft2effmass.periodic1d.rank2.gauge_alignment.analysis import (
     Periodic1DRank2GaugeAlignmentAnalysisRequest,
     Periodic1DRank2GaugeAlignmentAnalyzer,
 )
+from ksdft2effmass.periodic1d.rank2.gauge_alignment.base import (
+    Periodic1DRank2GaugeAlignment,
+)
 from ksdft2effmass.periodic1d.rank2.gauge_alignment.result import (
     Periodic1DRank2GaugeAlignmentAnalysis,
 )
@@ -44,6 +49,9 @@ from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality import (
 )
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality import (
     gauge_case as rankN_composite_gauge_case,
+)
+from ksdft2effmass.periodic1d.rankN.gauge_alignment.base import (
+    Periodic1DRankNGaugeAlignmentCapability,
 )
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
     Periodic1DRankNGaugeAlignmentAnalysisRequest,
@@ -181,6 +189,19 @@ class TestGaugeAlignment:
             Periodic1DGaugeAlignmentAnalyzer,
         ):
             assert issubclass(value, Periodic1DGaugeAlignment)
+
+    def test__rank_two_refines_dimension_neutral_and_dimensional_finite_rank(
+        self,
+    ) -> None:
+        assert issubclass(Periodic1DGaugeAlignment, PeriodicGaugeAlignment)
+        assert issubclass(
+            Periodic1DRankNGaugeAlignmentCapability,
+            PeriodicRankNGaugeAlignmentCapability,
+        )
+        assert issubclass(
+            Periodic1DRank2GaugeAlignment,
+            Periodic1DRankNGaugeAlignmentCapability,
+        )
 
     def test__rank2_and_rankN_classes__implement_every_analysis_role(self) -> None:
         assert issubclass(

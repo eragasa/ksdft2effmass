@@ -18,6 +18,8 @@ After working through this chapter, a reader should be able to
   \item state the domain-qualified definition of a linear operator;
   \item interpret expectation values and Hamiltonian eigenproblems;
   \item distinguish an operator identity from a matrix identity;
+  \item distinguish physical dimensions, units, and additive reference values,
+        and carry out an explicit unit conversion;
   \item solve the one-dimensional particle-in-a-box eigenproblem from its
         boundary conditions;
   \item apply Born's interpretation to position and energy measurements; and
@@ -117,6 +119,158 @@ The stationary eigenproblem is
 Energy eigenvalues are important outputs, but they do not alone identify the
 state correspondence or the action of \(\hat H\) on arbitrary superpositions.
 A list of energies is therefore not a complete Hamiltonian representation.
+
+\section{Physical dimensions and unit conversion}
+\index{dimension!physical}
+\index{unit!conversion}
+
+Quantum-mechanical equations combine positions, reciprocal-space vectors,
+energies, and other physical quantities. Their dimensions and units must be
+explicit before the quantities are compared or assembled into a numerical
+model.
+
+The dimension of a physical quantity records how it enters dimensional
+arithmetic. We write
+\begin{equation}
+  \dim(q)=\mathsf D
+\end{equation}
+when \(q\) has dimension \(\mathsf D\). We use \(\mathsf L\) for length,
+\(\mathsf E\) for energy, and \(\mathsf 1\) for the dimensionless dimension.
+For a position \(\mathbf r\), a reciprocal-space vector \(\mathbf k\), and an
+energy \(E\), for example,
+\begin{equation}
+  \dim(\mathbf r)=\mathsf L,
+  \qquad
+  \dim(\mathbf k)=\mathsf L^{-1},
+  \qquad
+  \dim(E)=\mathsf E.
+\end{equation}
+Dimensions multiply and divide with the corresponding quantities:
+\begin{equation}
+  \dim(q_1q_2)=\dim(q_1)\dim(q_2),
+  \qquad
+  \dim\!\left(\frac{q_1}{q_2}\right)
+  =\dim(q_1)\dim(q_2)^{-1}.
+\end{equation}
+Addition and subtraction require equal dimensions, but equal dimensions alone
+are not enough. The operands must describe the same kind of quantity and use
+compatible references, normalizations, and represented spaces.
+
+\begin{definition}[Dimensional representation and unit conversion]
+\label{def:training-dimensional-representation}
+Let \(q\) have dimension \(\mathsf D\), and let \(u\) be a unit with that
+dimension. Its numerical value in unit \(u\) is the scalar \(x_u\) defined by
+\begin{equation}
+  q=x_u u.
+  \label{eq:training-quantity-unit-representation}
+\end{equation}
+For another unit \(v\) of the same dimension, define the positive conversion
+factor \(c_{v\leftarrow u}\) by
+\begin{equation}
+  u=c_{v\leftarrow u}v.
+\end{equation}
+Substitution then gives
+\begin{equation}
+  x_v=c_{v\leftarrow u}x_u.
+  \label{eq:training-explicit-unit-conversion}
+\end{equation}
+The same rule applies componentwise to an array whose entries share one unit.
+\end{definition}
+
+The arrow in \(c_{v\leftarrow u}\) is read from right to left: a value in
+\(u\) is converted to a value in \(v\). These factors satisfy
+\begin{equation}
+  c_{u\leftarrow u}=1,
+  \qquad
+  c_{u\leftarrow v}=c_{v\leftarrow u}^{-1},
+  \qquad
+  c_{w\leftarrow u}
+  =c_{w\leftarrow v}c_{v\leftarrow u}.
+  \label{eq:training-unit-conversion-composition}
+\end{equation}
+For length, \(u\) and \(v\) might be angstrom and bohr; for energy, they might
+be electronvolt and hartree. In either case, the numerical value and its unit
+change together, while the physical quantity \(q\) remains the same.
+
+\section{Energy references and normalization}
+\index{energy reference}
+\index{normalization}
+
+A unit fixes a scale, but it does not fix an additive zero. If \(E_0\) is the
+declared reference for an energy \(E\), the reported value is
+\begin{equation}
+  \overline E^{[E_0]}=E-E_0.
+  \label{eq:training-referenced-energy}
+\end{equation}
+The bracketed superscript labels the chosen reference; it is not an exponent.
+
+\begin{definition}[Reference-dependent energy representation]
+\label{def:training-reference-dependent-energy}
+Given an energy unit \(u_E\) and a scalar reference \(E_0\), an energy record
+retains the pair
+\begin{equation}
+  \left(\overline E^{[E_0]},E_0\right),
+  \qquad
+  E=\overline E^{[E_0]}+E_0,
+\end{equation}
+with both terms expressed in compatible energy units. Re-expressing the same
+energy relative to \(E_1\) gives the affine change of origin
+\begin{equation}
+  \overline E^{[E_1]}
+  =\overline E^{[E_0]}+(E_0-E_1).
+  \label{eq:training-energy-reference-change}
+\end{equation}
+For \(\mathbf E=(E_i)_{i=1}^{N}\), the change is applied uniformly:
+\begin{equation}
+  \overline{\mathbf E}^{[E_1]}
+  =\overline{\mathbf E}^{[E_0]}
+  +(E_0-E_1)\mathbf 1_N,
+\end{equation}
+where \(\mathbf 1_N\) is the column of \(N\) ones.
+\end{definition}
+
+Unit conversion changes scale; reference alignment changes origin. Conflating
+the two leads directly to incorrect subtraction. With unequal references,
+\begin{equation}
+  \overline E_a^{[E_{0,a}]}
+  -\overline E_b^{[E_{0,b}]}
+  =(E_a-E_b)+(E_{0,b}-E_{0,a}).
+  \label{eq:training-energy-reference-mismatch}
+\end{equation}
+The final term vanishes only when \(E_{0,a}=E_{0,b}\). Writing both operands
+in electronvolts does not make their references equal, and changing units cannot
+remove the offset.
+
+Normalization is independent of both scale and reference. Energy per primitive
+cell and energy per atom both have dimension \(\mathsf E\), and either may be
+reported in electronvolts, but they are related by
+\begin{equation}
+  E_{\mathrm{atom}}
+  =\frac{E_{\mathrm{cell}}}{N_{\mathrm{atom/cell}}}.
+  \label{eq:training-energy-normalization}
+\end{equation}
+The atom count and cell convention are therefore part of the definition of the
+reported value. They are not encoded by the unit label. The same distinction
+applies to normalization per state, retained rank, volume, or sampled point.
+
+Before carrying out arithmetic, it is useful to check five points:
+
+\begin{enumerate}
+  \item Do the operands represent the same kind of scientific quantity, rather
+        than merely having the same array shape?
+  \item Do they have the same physical dimension?
+  \item Do they use the same unit, or is an explicit conversion
+        \(c_{v\leftarrow u}\) required?
+  \item Do they share the required origin, scalar zero, coordinate reference,
+        and normalization?
+  \item Will the result retain enough metadata to remain interpretable?
+\end{enumerate}
+
+Finally, dimensionless does not mean convention-free. Fractional coordinates,
+reduced Bloch twists, phases, and normalized coefficients all have dimension
+\(\mathsf 1\), yet each may depend on an ordered basis, a representative
+interval, a phase convention, or a normalization rule. Equal dimensions and
+equal numerical values do not make them interchangeable.
 
 \section{Position-space representation}
 \index{position-space representation|textbf}

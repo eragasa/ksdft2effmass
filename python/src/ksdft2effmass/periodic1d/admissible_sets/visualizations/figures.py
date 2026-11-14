@@ -115,7 +115,10 @@ class _LocalityChannelsFigure(BaseFigure):
             )
             ordinary_channels = (
                 [value.reference_ordinary_omitted_block_l2_norm for value in locality],
-                [value.attacked_ordinary_omitted_block_l2_norm for value in locality],
+                [
+                    value.gauge_transformed_ordinary_omitted_block_l2_norm
+                    for value in locality
+                ],
                 [value.candidate_ordinary_omitted_block_l2_norm for value in locality],
             )
             for channel_index, channel in enumerate(self.data.locality_channel_names):
@@ -137,7 +140,9 @@ class _LocalityChannelsFigure(BaseFigure):
                 [
                     (
                         point.evaluation.locality[0].reference_cyclic_conversion_power,
-                        point.evaluation.locality[0].attacked_cyclic_conversion_power,
+                        point.evaluation.locality[
+                            0
+                        ].gauge_transformed_cyclic_conversion_power,
                         point.evaluation.locality[0].candidate_cyclic_conversion_power,
                     )[channel_index]
                     for point in self.data.proof_points

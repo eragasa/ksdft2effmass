@@ -460,7 +460,13 @@ exponent.
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.93\linewidth]{../../../../../calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-shell-block-norms.pdf}
+\IfFileExists{../../../../../calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-shell-block-norms.pdf}{%
+\includegraphics[width=0.93\linewidth]{../../../../../calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-shell-block-norms.pdf}%
+}{%
+\begin{prospective}
+\fbox{\parbox{0.88\linewidth}{\centering Historical tutorial figure unavailable at its retained path; no numerical replacement is supplied.}}
+\end{prospective}%
+}
 \caption{Component-resolved finite-mesh block norms for the read-only Wannier90 silicon
 tutorial. Each point is the maximum Frobenius norm at one canonical representative
 radius. The curves do not establish an infinite-lattice decay law.}
@@ -489,7 +495,13 @@ finite-mesh truncation, not a proof that every compact silicon Hamiltonian class
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.93\linewidth]{../../../../../calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-truncation-relative-error.pdf}
+\IfFileExists{../../../../../calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-truncation-relative-error.pdf}{%
+\includegraphics[width=0.93\linewidth]{../../../../../calculations/ICMSEP2026/conference/paper_1/silicon-wannier-kinetic-preview/real-space-truncation-relative-error.pdf}%
+}{%
+\begin{prospective}
+\fbox{\parbox{0.88\linewidth}{\centering Historical tutorial figure unavailable at its retained path; no numerical replacement is supplied.}}
+\end{prospective}%
+}
 \caption{Relative reciprocal-matrix errors under finite-block truncation for the
 read-only tutorial representation. The final drop at 64 blocks is complete discrete
 reconstruction, not continuum convergence.}
