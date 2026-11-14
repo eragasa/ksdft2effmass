@@ -17,11 +17,11 @@ from ksdft2effmass.periodic1d.rank2.gauge_alignment.base import (
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
-    StringWireEnum,
+    StrWireEnum,
 )
 
 
-class Periodic1DRank2ProcrustesSelectionScope(StringWireEnum):
+class Periodic1DRank2ProcrustesSelectionScope(StrWireEnum):
     """Identify whether one selection acts pointwise or globally."""
 
     POINTWISE = "pointwise"

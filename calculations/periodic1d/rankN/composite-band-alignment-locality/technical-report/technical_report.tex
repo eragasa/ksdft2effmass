@@ -41,7 +41,7 @@ spectrum while changing individual Fourier hopping blocks and, consequently, the
 incurred by finite-range truncation. This report develops a controlled periodic
 one-dimensional study of that distinction for retained ranks
 $r\in\{3,4,8,16\}$ and noncommuting gauge-circuit depths
-$L\in\{1,2,4,8\}$. The parent Hamiltonian, isolated retained subspace, and gauge attack
+$L\in\{1,2,4,8\}$. The parent Hamiltonian, isolated retained subspace, and gauge transformation
 are analytic. Four prescribed retained-space gauge alignments---identity,
 global-unitary, pointwise-unitary, and known-inverse-oracle---are compared using a common
 closed-loop transport of the analytic reference frame. Odd construction meshes support
@@ -51,12 +51,12 @@ rank-normalized block tails, Parseval and Hermiticity defects, operator and orde
 spectrum errors, perturbation bounds, and mandatory mesh-refinement evidence.
 
 Several conclusions follow analytically from the construction: the retained subspace has
-an exact uniform exterior-isolation energy $2.10\Eref$; the gauge attack preserves the
+an exact uniform exterior-isolation energy $2.10\Eref$; the gauge transformation preserves the
 retained projector and spectrum; pointwise-unitary and known-inverse-oracle alignment
 recover the diagonal reference representation in exact arithmetic; and that recovered
 field has Fourier support only for $|R|\leq2$. These are properties by construction, not
 new numerical findings. The maintained producer, typed evidence records, bounded
-producer-independent reference analysis of analytic-model and attack core invariants,
+producer-independent reference analysis of analytic-model and transformation core invariants,
 bounded direct-sum all-gauge Fourier controls, and independent global/pointwise
 Procrustes-selection and constant-frame-transport slices are implemented and
 software-tested. A complete 16-case producer calculation has also been run locally and
@@ -90,7 +90,7 @@ The present study isolates this issue from material-specific electronic-structur
 uncertainties. It does not run Quantum ESPRESSO, Wannier90, or a spread minimization. It
 instead supplies an analytic, finite-dimensional parent Hamiltonian with an exactly
 isolated retained subspace and then applies a deterministic higher-rank gauge circuit.
-The attacked representation has the same pointwise spectrum and projector as the
+The gauge-transformed representation has the same pointwise spectrum and projector as the
 reference representation. Any difference in its hopping locality is therefore a
 representation effect rather than a change of the underlying retained operator.
 
@@ -114,7 +114,7 @@ The report makes five methodological contributions.
 
 \begin{enumerate}[label=(\roman*)]
 \item It defines a rank-generic analytic family with an exact, rank-independent exterior-
-isolation certificate and a connected noncommuting gauge attack.
+isolation certificate and a connected noncommuting gauge transformation.
 \item It distinguishes common reference-frame transport from retained-space gauge
 alignment and fixes the left/right action conventions needed to compare them.
 \item It separates identity, global-unitary, pointwise-unitary, and known-inverse-oracle
@@ -188,7 +188,7 @@ accuracies for the same optimization problem.
 
 Neither alignment is equivalent to minimizing a Wannier spread functional. The present
 protocol therefore does not claim to reproduce maximally localized Wannier functions.
-Its purpose is diagnostic: it asks how much locality is lost under a known gauge attack
+Its purpose is diagnostic: it asks how much locality is lost under a known gauge transformation
 and how much is recovered under precisely declared alignment information.
 
 \subsection{Fourier locality and finite support}
@@ -233,7 +233,7 @@ Procrustes problem minimizes
 This expansion explains why the cross matrix is $A(k)^*B(k)$: it is the matrix paired
 with the right-acting $Q(k)^*$ in the trace. The reversed product corresponds to a
 different orientation, and products in the ambient space solve a different problem. In
-the notation used below, $A=C$ is the attacked candidate and $B=R$ is the reference.
+the notation used below, $A=C$ is the gauge-transformed candidate and $B=R$ is the reference.
 When $A(k)^*B(k)=Q(k)P(k)$ is an exact polar factorization with $P(k)$ positive
 semidefinite, $Q(k)$ minimizes the local objective; positive definiteness supplies the
 usual uniqueness condition.
@@ -326,7 +326,7 @@ The proposition is an analytic property of the finite model. A sampled minimum i
 retained separately as a numerical reconstruction check and is never relabeled as the
 continuum certificate.
 
-\subsection{Deterministic noncommuting gauge attack}
+\subsection{Deterministic noncommuting gauge transformation}
 
 Adjacent retained coordinates are mixed by real Givens rotations. For layer $\ell$ and
 pair start $j$, define
@@ -338,37 +338,37 @@ pair start $j$, define
 \begin{equation}
  \theta_{\ell j}(k)=0.35(-1)^{\ell+j}
  \left(1+0.15y_{r,j}\right)s_\ell(k).
- \label{eq:attack-angle}
+ \label{eq:transformation-angle}
 \end{equation}
 Layer $\ell$ acts on the disjoint adjacent pairs with $j\equiv\ell\pmod2$. Factors
 within one layer commute; neighboring layers generally do not. Increasing layer order is
 part of the definition. The depth-$L$ product is denoted $G_{r,L}(k)\in SO(r)$.
 
-The attacked frame and represented operator are
+The gauge-transformed frame and represented operator are
 \begin{equation}
  F'_{r,L}(k)=F_r(k)G_{r,L}(k),
  \qquad
  H'_{r,L}(k)=G_{r,L}(k)^\dagger D_r(k)G_{r,L}(k).
- \label{eq:attacked-fields}
+ \label{eq:gauge-transformed-fields}
 \end{equation}
 One layer is an incomplete-connectivity baseline; two or more alternating layers cover
 every adjacent edge and form a connected chain. Increasing depth changes the
 representation while leaving the retained operator and projector invariant.
 
 \begin{proposition}[Exact covariant equivalence]
-For every $r$, $L$, and $k$, the attacked frame is orthonormal, its ambient projector is
+For every $r$, $L$, and $k$, the gauge-transformed frame is orthonormal, its ambient projector is
 $P_0$, and $H'_{r,L}(k)$ has the same unordered spectrum as $D_r(k)$.
 \end{proposition}
 
 \begin{proof}
 Each Givens factor is orthogonal, hence $G_{r,L}^\dagger G_{r,L}=I_r$. Substitution into
-Equation~\eqref{eq:attacked-fields} proves frame orthonormality and projector equality.
+Equation~\eqref{eq:gauge-transformed-fields} proves frame orthonormality and projector equality.
 The represented operators are related by a unitary similarity, which proves spectral
 equivalence.
 \end{proof}
 
 The nonlinear entries of $G_{r,L}$ generally contain harmonics beyond those present in
-the angle functions. Consequently the attacked represented field is analytic and
+the angle functions. Consequently the gauge-transformed represented field is analytic and
 periodic but is not assigned a finite Fourier support by construction.
 
 \section{Gauge-alignment methodology}
@@ -376,7 +376,7 @@ periodic but is not assigned a finite Fourier support by construction.
 
 \subsection{Canonical source and target orientation}
 
-Let $R(k)=F_r(k)$ be the reference, $C(k)=F'_{r,L}(k)$ the attacked candidate, and
+Let $R(k)=F_r(k)$ be the reference, $C(k)=F'_{r,L}(k)$ the gauge-transformed candidate, and
 $H_C(k)=H'_{r,L}(k)$ the represented candidate operator. Every prescribed gauge
 alignment acts from the right:
 \begin{equation}
@@ -406,7 +406,7 @@ Equality is deficient. No arbitrary null-space completion is introduced.
 \subsection{Four prescribed gauge alignments}
 
 \paragraph{Identity, wire value \texttt{identity}.}
-$U_{\mathrm{id}}(k)=I_r$. This control measures the attacked representation as supplied.
+$U_{\mathrm{id}}(k)=I_r$. This control measures the gauge-transformed representation as supplied.
 
 \paragraph{Global-unitary, wire value \texttt{global-unitary}.}
 One matrix minimizes the equal-weight objective
@@ -652,8 +652,8 @@ is correlated into the aggregate result but does not redefine a gauge alignment.
   evidence/.style={flow, dashed}
 ]
 \node[box] (parent) {Analytic parent and reference frame\\$D_r$, $F_r$, exact isolation};
-\node[box, right=of parent] (attack) {Gauge attack\\$G_{r,L}$, $F'$, $H'$};
-\node[wide, below=11mm of attack, xshift=-26mm] (alignments) {
+\node[box, right=of parent] (transformation) {Gauge transformation\\$G_{r,L}$, $F'$, $H'$};
+\node[wide, below=11mm of transformation, xshift=-26mm] (alignments) {
 \textbf{Prescribed gauge alignments}\\
 identity \quad global-unitary at $M=2049$ and reused\\
 pointwise-unitary per mesh \quad known-inverse-oracle};
@@ -665,8 +665,8 @@ pointwise-unitary per mesh \quad known-inverse-oracle};
 \coordinate (branchbottom) at ($(evaluation.south)!0.5!(supports.south)$);
 \node[wide, below=8mm of branchbottom] (result) {Correlated typed evidence\\recovery, Parseval, Hermiticity, error decomposition, refinement};
 
-\draw[flow] (parent) -- (attack);
-\draw[flow] (attack) -- (alignments);
+\draw[flow] (parent) -- (transformation);
+\draw[flow] (transformation) -- (alignments);
 \draw[flow] (alignments) -- (fields);
 \draw[flow] (fields) -- (fourier);
 \draw[flow] (fourier) -- (evaluation);
@@ -810,7 +810,7 @@ They require no numerical execution and must not be reported as empirical observ
 \textbf{Result} & \textbf{Statement} & \textbf{Interpretive boundary} \\
 \midrule
 Exterior isolation & $\Delta_{\mathrm{iso}}=2.10\Eref$ for every selected rank. & Exact finite-model certificate; not a material band gap. \\
-Gauge covariance & Attack preserves projector and pointwise spectrum. & Does not preserve matrix entries or hopping locality. \\
+Gauge covariance & Transformation preserves projector and pointwise spectrum. & Does not preserve matrix entries or hopping locality. \\
 Pointwise recovery & Pointwise polar factor equals $G_{r,L}^\dagger$. & Exact constant-projector property; not evidence for noisy or unknown frames. \\
 Oracle recovery & Known inverse restores $F_r$ and $D_r$. & Construction control, not a fitted solution. \\
 Reference support & $T_{D_r}(R)=0$ for $|R|>2$. & Continuum statement; finite-transform defects remain numerical. \\
@@ -824,7 +824,7 @@ Hermitian pairing & $T(-R)=T(R)^\dagger$. & Exact continuum identity tested sepa
 The exact results establish a controlled contrast. Identity and global-unitary alignment
 are not assigned finite support by construction, while pointwise-unitary and oracle
 alignment recover a field whose exact support is known. Whether the selected finite
-attack produces a \emph{resolved} tail or truncation effect at each $(r,L)$ remains a
+transformation produces a \emph{resolved} tail or truncation effect at each $(r,L)$ remains a
 numerical question governed by the frozen thresholds.
 
 \subsection{Implementation and software-verification results}
@@ -1110,7 +1110,7 @@ physically realistic or that one gauge is universally optimal.
 
 Pointwise-unitary and oracle recovery form a strong implementation control because their
 exact target is known. Global-unitary alignment is scientifically different: one matrix
-cannot generally undo a momentum-dependent noncommuting attack. A nonzero qualified
+cannot generally undo a momentum-dependent noncommuting transformation. A nonzero qualified
 global-frame residual is a supporting measure of the limitation of that restricted
 feasible set, not solver failure. Only the separately frozen maximum normalized
 represented-operator residual resolves the protocol's global-alignment claim, and that
@@ -1126,7 +1126,7 @@ $\sqrt r$ and $r$ normalizations make cross-rank magnitudes interpretable withou
 removing all rank dependence. Raw values remain necessary because normalization itself
 answers a different question.
 
-Depth is not a scalar attack amplitude. Additional layers can reinforce or cancel
+Depth is not a scalar transformation amplitude. Additional layers can reinforce or cancel
 existing harmonics, so locality need not vary monotonically with $L$. The finite set
 $L\in\{1,2,4,8\}$ supports controlled comparisons only; it does not define a continuum
 or asymptotic-depth limit.
@@ -1455,7 +1455,7 @@ Diagnostic & Normalization & Tolerance \\
 momentum and endpoint coordinates & radian & $10^{-14}$ \\
 frame orthonormality, gauge/alignment unitarity, projector idempotency & raw Frobenius & $10^{-12}$ \\
 Procrustes stationarity, objective identity, and negative polar part & dimensionless & $10^{-12}$ \\
-smooth/attacked projector equality & raw Frobenius & $10^{-12}$ \\
+smooth/gauge-transformed projector equality & raw Frobenius & $10^{-12}$ \\
 direct ordered-spectrum equivalence & $\Eref$ & $10^{-11}$ \\
 pointwise/oracle frame recovery & $\sqrt r$ & $10^{-11}$ \\
 pointwise/oracle represented-operator recovery & $\sqrt r\Eref$ & $10^{-11}$ \\

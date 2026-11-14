@@ -25,9 +25,10 @@ PeriodicModel
 ```
 
 The foundation classes in this tree are implemented and publicly exported from
-`ksdft2effmass.periodic`. `PeriodicModelRole` supplies the exact `TOY` and
-`MATERIAL_REFERENCE` values. Concrete graphene, silicon, and migrated toy-model classes
-remain proposed work; the foundation does not authorize empty concrete placeholders.
+`ksdft2effmass.periodic`. `PeriodicModelRole` distinguishes controlled models,
+`MATERIAL_REFERENCE` models, and parameterized `REDUCED_MODEL` instances. Concrete
+graphene, silicon, controlled-model, and reduced-model classes require their own reviewed
+contracts; the foundation does not authorize empty concrete placeholders.
 
 ## Dimensional identity
 
@@ -65,18 +66,20 @@ A defect label alone never authorizes operator subtraction. Pristine and defect
 operators may be differenced only after an owning compatibility or alignment Action
 establishes a common state space and conventions.
 
-## Toy and material-reference roles
+## Scientific model roles
 
-Toy versus material-reference status is orthogonal to dimension, defect status, and
-scientific retention. It is an exact closed model-role value rather than a second
-inheritance lattice. This avoids multiple-inheritance combinations such as separate
-toy-defect base classes for every dimension.
+Model role is orthogonal to dimension, defect status, scientific retention, and fitting
+status. It is an exact closed value rather than a second inheritance lattice.
 
-- A **toy model** is a controlled model used to isolate mathematical, numerical, or
-  software behavior. Its results are not material evidence.
-- A **material-reference model** represents an explicitly specified material model.
-  The label does not imply experimental truth, scientific validation, or complete
-  many-body excitation physics.
+- A **controlled model** uses `TOY` only for established compatibility and identifies a
+  synthetic control used to isolate mathematical, numerical, or software behavior. Its
+  results are not material evidence.
+- A **material-reference model** represents an explicitly specified material model. The
+  label does not imply experimental truth, scientific validation, or complete many-body
+  excitation physics.
+- A **reduced model** is a parameterized effective model intended to be fitted or
+  compared with an identified reference. `REDUCED_MODEL` does not imply that fitting,
+  verification, or scientific validation has completed.
 
 Graphene is the target two-dimensional material-reference family. Bulk silicon is the
 target three-dimensional material-reference family. Their physical assumptions,

@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import hashlib
 from dataclasses import replace
-from pathlib import Path
 
 import pytest
 from projectkoios.optimization.alignment.numpy.batched_procrustes import (
@@ -45,6 +44,7 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite.verification import
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
+from ksdft2effmass.sewing import IdentityReciprocalSewing
 
 pytestmark = [pytest.mark.integration, pytest.mark.numerical_verification]
 
@@ -66,8 +66,8 @@ def composite_wire() -> bytes:
         evaluation_shift_numerator=1,
         evaluation_shift_denominator=65,
         hopping_ranges=configuration_type.HOPPING_RANGES,
-        attack_constant_angle=0.30,
-        attack_sine_coefficients=(0.65, 0.30),
+        transformation_constant_angle=0.30,
+        transformation_sine_coefficients=(0.65, 0.30),
         sampled_gap_threshold=0.5,
         overlap_singular_value_threshold=0.8,
         procrustes_rank_absolute_tolerance=1.0e-14,
@@ -79,6 +79,7 @@ def composite_wire() -> bytes:
         Periodic1DCompositeBandAlignmentAnalyzer(
             configuration,
             NumpyBatchedComplexUnitaryProcrustesSolver(),
+            IdentityReciprocalSewing(ambient_dimension=4).endpoint_map,
         )
         .execute()
         .to_json()
@@ -171,8 +172,8 @@ class TestPeriodic1DConstrainedAdmissibleSetAnalyzer:
         )
         assert separated.separation_lower_bound > separated.separation_resolution
         locality = separated.operator_certificate_point.locality[-1]
-        assert locality.attacked_cyclic_conversion_power >= 0.0
-        assert locality.attacked_ordinary_omitted_block_l2_norm >= 0.0
+        assert locality.gauge_transformed_cyclic_conversion_power >= 0.0
+        assert locality.gauge_transformed_ordinary_omitted_block_l2_norm >= 0.0
 
     def test__result__round_trips_canonical_typed_json(
         self,
@@ -277,23 +278,3 @@ class TestPeriodic1DConstrainedAdmissibleSetAnalyzer:
         ).result()
 
         assert not verified.verification.passed
-
-    def test__source__does_not_import_or_execute_legacy_multiband_alignment(
-        self,
-    ) -> None:
-        package = (
-            Path(__file__).resolve().parents[4]
-            / "src/ksdft2effmass/periodic1d/admissible_sets"
-        )
-        source = "\n".join(
-            path.read_text(encoding="utf-8") for path in sorted(package.rglob("*.py"))
-        )
-
-        assert "periodic1d.multiband_alignment" not in source
-        assert "Periodic1DMultibandAlignment" not in source
-        assert "ConstrainedAdmissibleSetCalculator" not in source
-        assert "ResultJsonSerializer" not in source
-        assert "_compare_values" not in source
-        assert '.startswith("result.")' not in source
-        assert '.startswith("visualization.")' not in source
-        assert "@staticmethod" not in source

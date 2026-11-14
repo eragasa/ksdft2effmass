@@ -3,8 +3,11 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from ksdft2effmass.periodic.periodic2d.models.retained.optimizer_basin import (
+    Periodic2DOptimizerBasinCampaignModel,
+)
+
 from ....campaign.base import Periodic2DCampaign
-from ....model.retained.optimizer_basin import Periodic2DOptimizerBasinCampaignModel
 from .verify import (
     Periodic2DOptimizerBasinCampaignVerificationRequest,
     Periodic2DOptimizerBasinCampaignVerificationResult,

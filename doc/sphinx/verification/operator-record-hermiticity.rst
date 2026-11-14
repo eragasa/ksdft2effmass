@@ -18,7 +18,7 @@ Hermiticity objects and ownership
    It performs no analysis or conversion.
 
 ``HermiticityNumericalErrorCode``
-   Closed Python 3.14 ``StrEnum`` vocabulary for Analyzer-owned numerical
+   Closed KSD ``StrWireEnum`` vocabulary for Analyzer-owned numerical
    failure classification. It performs no matrix operation or detection.
 
 ``HermiticityNumericalError``
@@ -264,7 +264,7 @@ The exact public enumeration contract is one member in declaration order:
 
 .. code-block:: python
 
-   class HermiticityNumericalErrorCode(StrEnum):
+   class HermiticityNumericalErrorCode(StrWireEnum):
        NONFINITE_RESIDUAL = "nonfinite_residual"
 
 ``NONFINITE_RESIDUAL`` means that ``HermiticityAnalyzer`` could not produce a
@@ -282,8 +282,8 @@ only the stable category vocabulary; it performs no subtraction, maximum
 reduction, finite check, or exception construction.
 
 The public registry contains exactly the declared name ``NONFINITE_RESIDUAL``
-and no aliases. As a Python 3.14 ``StrEnum``, the member is also a string,
-``str(code)`` is ``"nonfinite_residual"``, value lookup uses
+and no aliases. As a KSD ``StrWireEnum``, the member is an ordinary enum rather
+than a string; ``code.to_wire()`` is ``"nonfinite_residual"``, value lookup uses
 ``HermiticityNumericalErrorCode("nonfinite_residual")``, and name lookup uses
 ``HermiticityNumericalErrorCode["NONFINITE_RESIDUAL"]``. The stable value is an
 ASCII lowercase snake-case identifier. This in-memory behavior supports a future
@@ -300,7 +300,7 @@ software/numerical failure, not evidence that the physical Hamiltonian is non-
 Hermitian.
 
 ``SV-HNEC-001`` through ``SV-HNEC-006`` verify exact member sequence and value,
-no aliases, Python 3.14 ``StrEnum`` behavior, value and name lookup identity, and
+no aliases, KSD ``StrWireEnum`` conversion, value and name lookup identity, and
 ``ValueError`` versus ``KeyError`` invalid-lookup taxonomy. Their cohesive owner
 is
 ``python/tests/software_verification/ksdft2effmass/operators/test__HermiticityNumericalErrorCode.py``.
@@ -334,8 +334,8 @@ residual exceeding tolerance remains ``HermiticityRequirementError``. A
 represented, not that a finite residual was calculated and found too large.
 
 No numerical-exception JSON or dictionary format is approved.
-``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``. ``StrEnum``
-string compatibility does not create a wire contract. A future Rust mapping
+``OperatorRecordJsonSerializer`` serializes only ``OperatorRecord``. ``StrWireEnum``
+conversion does not by itself create an exception wire contract. A future Rust mapping
 would use a closed error enum, but no Rust serialization, implementation, or
 conformance evidence exists.
 

@@ -2,7 +2,7 @@
 
 `run_01_calculation.py` executes the complete finite rank/depth inventory through the maintained higher-rank analyzer and writes canonical ignored results under `results/`. `run_03_render.py` can then regenerate every figure without repeating the calculation.
 
-`verify_analytic_controls.py` samples the declared isolation-energy and attack-angle formulas. It is a finite-grid sanity check, not the missing full-result verifier and not a proof.
+`verify_analytic_controls.py` samples the declared isolation-energy and transformation-angle formulas. It is a finite-grid sanity check, not the missing full-result verifier and not a proof.
 
 From the repository root:
 

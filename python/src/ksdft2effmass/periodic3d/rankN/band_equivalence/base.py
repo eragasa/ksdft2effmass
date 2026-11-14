@@ -4,6 +4,9 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
+from ksdft2effmass.analysis.model_adequacy.band_equivalence.base import (
+    PeriodicRankNBandEquivalenceCapability,
+)
 from ksdft2effmass.periodic3d.band_equivalence.base import (
     Periodic3DBandEquivalence,
     Periodic3DBandEquivalenceAnalysis,
@@ -12,7 +15,11 @@ from ksdft2effmass.periodic3d.band_equivalence.base import (
 )
 
 
-class Periodic3DRankNBandEquivalence(Periodic3DBandEquivalence, ABC):
+class Periodic3DRankNBandEquivalence(
+    Periodic3DBandEquivalence,
+    PeriodicRankNBandEquivalenceCapability,
+    ABC,
+):
     """Identify arbitrary-rank band equivalence on a periodic 3D lattice."""
 
     __slots__ = ()
@@ -32,11 +39,6 @@ class Periodic3DRankNBandEquivalenceRequest(
 
     __slots__ = ()
 
-    @property
-    @abstractmethod
-    def band_subspace_ranks(self) -> tuple[int, ...]:
-        """Return the requested band-subspace rank inventory."""
-
 
 class Periodic3DRankNBandEquivalenceAnalysis[
     RequestT: Periodic3DRankNBandEquivalenceRequest,
@@ -48,11 +50,6 @@ class Periodic3DRankNBandEquivalenceAnalysis[
     """Require rank-N ownership for periodic-3D analyses."""
 
     __slots__ = ()
-
-    @property
-    @abstractmethod
-    def band_subspace_ranks(self) -> tuple[int, ...]:
-        """Return the analyzed band-subspace rank inventory."""
 
 
 class Periodic3DRankNBandEquivalenceAnalyzer[

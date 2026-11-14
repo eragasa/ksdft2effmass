@@ -15,7 +15,7 @@ current canonical cache and summary are replaceable development output only.
 
 ## Inventory and reconciliation
 
-- [x] Inventory D1 P0/G0, rank/depth ladders, the identity, global-unitary, pointwise-unitary, and known-inverse-oracle gauge alignments, sewing, transport, ledger, and failure dispositions.
+- [x] Inventory the periodic-1D constant-subspace real-Givens control, rank/depth ladders, identity/global/pointwise/known-inverse gauge alignments, sewing, transport, ledger, and failure dispositions.
 - [x] Record P1, G1, restricted-circuit, complex-unitary, moving-subspace, 2-D, and 3-D branches as absent.
 - [x] Record the removed installed-package tree and its calculation-local `workflow/` successor by revision, tree identity, and file digest.
 - [x] Crosswalk the old and current development runners and formula checks.
@@ -34,7 +34,7 @@ current canonical cache and summary are replaceable development output only.
 - [x] Implement canonical typed-record serialization for calculation bytes.
 - [x] Route development calculation through the rank-first rank-$N$ study specification
   and bind the explicit reduced-convention lattice geometry in cache format v2.
-- [x] Materialize the first bounded producer-independent analytic-model and attack core-invariant reference slice.
+- [x] Materialize the first bounded producer-independent analytic-model and transformation core-invariant reference slice.
 - [x] Materialize the bounded direct-sum all-gauge Fourier reference slice, including shifted interpolation and support tails for all four controls and exact support for the oracle.
 - [x] Materialize the bounded global/pointwise Procrustes reference slice using an independent polar construction and direct analytic pointwise inverses.
 - [x] Materialize the bounded constant-frame closed-loop transport reference slice.

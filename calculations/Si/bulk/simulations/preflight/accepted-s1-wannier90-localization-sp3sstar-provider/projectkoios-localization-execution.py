@@ -10,7 +10,6 @@ from enum import StrEnum
 from pathlib import Path
 
 import numpy as np
-
 from projectkoios.integrations.wannier90.artifacts import (
     Wannier90NativeArtifactIdentity,
 )

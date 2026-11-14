@@ -436,8 +436,8 @@ rank, noncommuting Givens depth, projector motion, real versus complex gauge cla
 spatial dimension as independently declared controls. This lineage transfers the
 construction logic only; it transfers no predecessor mesh, threshold, tolerance,
 result, or evidence status. The selected family below specializes the grammar to
-$K=D_r$, diagonal $D_{\mathrm{ext}}$, and the explicitly generated $W_r$; its P0
-control further sets $W_r=I_{2r}$.
+$K=D_r$, diagonal $D_{\mathrm{ext}}$, and the explicitly generated $W_r$; its
+constant-subspace control further sets $W_r=I_{2r}$.
 
 \subsection{Common isolated parent}
 Let the Brillouin torus be $\mathbb T^d=[-\pi,\pi)^d$ and let
@@ -556,7 +556,7 @@ The multidimensional coefficients and amplitudes remain open controls. A genuine
 multidimensional case requires active wavevectors spanning $\mathbb R^d$ and at least
 one nonzero mixed harmonic.
 
-The selected first one-dimensional development tranche uses P0, G0, and
+The selected first one-dimensional development tranche uses a constant-subspace control, a real-Givens transformation, and
 $\mathcal Q_1=\{1,2\}$. Define
 \begin{equation}
  x_{r,a}=\frac{2a-r-1}{r-1},
@@ -572,7 +572,7 @@ Its retained and exterior dispersions are
 \end{align}
 These coefficients give the exact, rank-independent and mesh-independent
 exterior-isolation energy $\Delta_{\mathrm{iso}}=2.10E_{\mathrm{ref}}$;
-Appendix~\ref{app:d1-gap-certificate} gives the
+Appendix~\ref{app:periodic1d-analytic-gap-certificate} gives the
 analytic gap and angle certificates. For
 \begin{equation}
  y_{r,j}=\frac{2j-r}{r-1},
@@ -596,9 +596,9 @@ $r\in\{3,4,8\}$ and $L\in\{1,2,4\}$. Identity, one-global-unitary,
 pointwise-complete-unitary, and known-inverse-oracle channels remain distinct; the oracle
 is not a fitted recovery.
 
-\begin{proposition}[Exact D1 representation certificates]
+\begin{proposition}[Exact periodic-1D representation certificates]
 Under the continuum Fourier convention above, the smooth represented field $D_r(k)$
-has $T_{D_r}(R)=0$ for every $|R|>2$. For P0, the exact candidate-to-reference overlap
+has $T_{D_r}(R)=0$ for every $|R|>2$. For the constant-subspace control, the exact candidate-to-reference overlap
 is $M(k)=G_{r,L}^\dagger(k)$, all its singular values equal one, and its unique
 complete-unitary pointwise polar factor is
 $G_{r,L}^\dagger(k)=G_{r,L}^{-1}(k)$. Consequently A2 and A3 both restore $D_r(k)$
@@ -625,7 +625,7 @@ assigned a finite hopping support merely because the input angles use two harmon
 
 The one-dimensional specialization has one primitive closure, one endpoint-sewing
 condition, and hopping blocks indexed by $R\in\mathbb Z$. It first separates retained
-rank from circuit depth without plaquettes. The complete pre-execution D1 v1 protocol
+rank from circuit depth without plaquettes. The complete pre-execution periodic-1D higher-rank analytic validation v1 protocol
 uses odd construction meshes $M\in\{513,1025,2049\}$, a disjoint shifted 8191-point
 evaluation mesh, and supports $|R|\leq S$ for
 $S\in\{0,1,2,4,8,16,32,64,128\}$. It freezes singular-value and numerical tolerances,
@@ -658,8 +658,8 @@ classification. A topologically obstructed family would require patchwise frames
 separate protocol.
 
 \section{Prospective multiband protocol}
-The dimension-indexed family above remains prospective outside D1. Its first bounded
-P0/G0 specialization now has the reserved version identity
+The dimension-indexed family above remains prospective outside the selected periodic-1D analytic validation study. Its first bounded
+constant-subspace real-Givens specialization now has the reserved version identity
 \texttt{ksdft2effmass.campaign.periodic-reduction.periodic1d.}
 \texttt{higher-rank-composite-band-alignment-and-locality.v1}.
 The protocol fixes the parent, exact certificates, real Givens-angle law, rank/depth
@@ -679,7 +679,7 @@ The maintained experiment inventory is therefore:
 \textbf{Experiment surface} & \textbf{Current status} & \textbf{Role in this paper} \\
 \midrule
 Periodic-1D composite-band alignment/locality & Protocol migrated to calculation owner; prospective and unexecuted & Publication-independent rank-two successor to the historical M2/M3 controls \\
-Periodic-1D higher-rank D1 P0/G0 & Complete pre-execution v1 protocol candidate; no implementation or run & Selected future rank/depth experiment \\
+Periodic-1D higher-rank constant-subspace real-Givens validation study & Complete pre-execution v1 protocol candidate; no implementation or run & Selected future rank/depth experiment \\
 Wannier90 localization reproducibility & No maintained experiment package yet & Historical calculation evidence only; future separate family \\
 \bottomrule
 \end{tabularx}
@@ -695,9 +695,9 @@ independent finite variables. No combined diagnostic score or asymptotic arbitra
 claim is admitted.
 
 \section{Results boundary}
-No calculation has instantiated this arbitrary-rank family. The D1 v1 identity and
+No calculation has instantiated this arbitrary-rank family. The periodic-1D higher-rank analytic validation v1 identity and
 complete protocol controls are reserved, but no reviewed implementation, immutable
-executed version, D1 v1 numerical result, retained D1 run, or D1 evidence package exists.
+executed version, periodic-1D higher-rank analytic validation v1 numerical result, retained analytic validation run, or analytic validation evidence package exists.
 New numerical conclusions for that protocol may be added only after implementation review,
 authorized execution, and independent verification. The extracted rank-three controls
 above retain their
@@ -710,7 +710,7 @@ separate unpublished works~\cite{Ragasa2026d,Ragasa2026e,Ragasa2026f,Ragasa2026g
 \appendix
 \input{appendices/A-1-extracted-evidence-boundary}
 
-\input{appendices/A-2-d1-p0-g0-isolation-gap-certificate}
+\input{appendices/A-2-periodic1d-analytic-isolation-gap-certificate}
 
 \bibliographystyle{unsrt}
 \bibliography{references,../../unpublished-papers}

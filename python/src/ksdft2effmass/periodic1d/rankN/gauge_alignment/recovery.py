@@ -17,11 +17,11 @@ from ksdft2effmass.periodic1d.rankN.diagnostics.matrix import (
 )
 from ksdft2effmass.representation_equivalence import RepresentationEquivalence
 
-from .definition import Periodic1DRankNGaugeAlignment
-from .fields import (
-    Periodic1DRankNGaugeAlignmentEvaluationRequest,
-    Periodic1DRankNGaugeAlignmentEvaluator,
+from ..represented_fields import (
+    Periodic1DRankNRepresentedFieldEvaluationRequest,
+    Periodic1DRankNRepresentedFieldEvaluator,
 )
+from .definition import Periodic1DRankNGaugeAlignment
 from .request import Periodic1DRankNGaugeAlignmentAnalysisRequest
 
 
@@ -95,17 +95,17 @@ class Periodic1DRankNRecoveryAnalyzer:
         analysis_request = self._request.analysis_request
         calculation_request = analysis_request.calculation_request
         controls = calculation_request.controls
-        model = analysis_request.model
+        parent_model = analysis_request.parent_model
         fields = analysis_request.aligned_fields
         coordinates = fields.coordinates
-        reference_frames = model.reference_frames(coordinates)
+        reference_frames = parent_model.reference_frames(coordinates)
         frame_norms = np.linalg.norm(
             fields.frames - reference_frames,
             axis=(-2, -1),
         )
-        frame_scale = math.sqrt(model.retained_rank)
+        frame_scale = math.sqrt(parent_model.band_subspace_rank)
         frame_recovery = Periodic1DRankNFrameErrorResult(
-            rank=model.retained_rank,
+            rank=parent_model.band_subspace_rank,
             frobenius_maximum=float(np.max(frame_norms)),
             frobenius_rms=float(np.sqrt(np.mean(frame_norms**2))),
             normalized_frobenius_maximum=float(np.max(frame_norms) / frame_scale),
@@ -113,10 +113,11 @@ class Periodic1DRankNRecoveryAnalyzer:
                 np.sqrt(np.mean(frame_norms**2)) / frame_scale
             ),
         )
-        direct_construction = Periodic1DRankNGaugeAlignmentEvaluator(
-            Periodic1DRankNGaugeAlignmentEvaluationRequest(
+        direct_construction = Periodic1DRankNRepresentedFieldEvaluator(
+            Periodic1DRankNRepresentedFieldEvaluationRequest(
                 calculation_request=calculation_request,
-                model=model,
+                parent_model=parent_model,
+                gauge_transformation=analysis_request.gauge_transformation,
                 gauge_alignment=fields.gauge_alignment,
                 coordinates=coordinates,
                 global_selection=analysis_request.global_selection,

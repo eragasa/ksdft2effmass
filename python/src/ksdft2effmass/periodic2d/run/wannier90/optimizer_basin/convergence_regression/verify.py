@@ -13,7 +13,7 @@ import numpy as np
 import numpy.typing as npt
 from scipy.special import log_ndtr, ndtr  # type: ignore[import-untyped]
 
-from .....model.retained.optimizer_regression import (
+from ksdft2effmass.periodic.periodic2d.models.retained.optimizer_regression import (
     Periodic2DOptimizerRegressionCampaignModel,
 )
 

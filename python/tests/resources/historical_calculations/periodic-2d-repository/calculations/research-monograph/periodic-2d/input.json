@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "experiment_id": "research-monograph.periodic-2d.separable-coupled.v1",
+  "evidence_status": "illustrative numerical experiment",
+  "dimensionless_convention": {
+    "lattice_period": 6.283185307179586,
+    "reciprocal_vector": 1.0,
+    "reciprocal_energy": 1.0
+  },
+  "isotropic_potential": {
+    "lambda_x": 0.5,
+    "lambda_y": 0.5
+  },
+  "anisotropic_control": {
+    "lambda_x": 0.3,
+    "lambda_y": 0.7,
+    "lambda_xy": 0.0
+  },
+  "coupling_sequence": [0.0, 0.05, 0.15, 0.3],
+  "plane_wave_cutoffs": [1, 2, 3, 4],
+  "plane_wave_reference_cutoff": 5,
+  "finite_difference_points": [9, 13, 17, 25],
+  "parent_sample_momenta": [
+    [0.0, 0.0],
+    [0.25, 0.0],
+    [0.25, -0.25],
+    [0.5, 0.0]
+  ],
+  "parent_coupling": 0.15,
+  "compared_band_count": 4,
+  "common_low_mode_cutoff": 1,
+  "reciprocal_mesh_size": 15,
+  "withheld_mesh_size": 31,
+  "hopping_shell_squared_radii": [0, 1, 2, 4, 8, 18, 50, 98],
+  "effective_mass_step": 0.002,
+  "topology_tolerances": {
+    "minimum_neighbor_overlap": 0.85,
+    "chern_integer_defect": 1e-10
+  }
+}

@@ -6,7 +6,7 @@
 flowchart TD
     Q[Immutable calculation request]
     P[Analytic parent spectrum and reference frame]
-    G[Depth-dependent gauge attack]
+    G[Depth-dependent gauge transformation]
     GS[Global-unitary selection once at M = 2049]
     M[Construction meshes M = 513, 1025, 2049]
     T[Common closed-loop transport of analytic reference frame]
@@ -109,12 +109,12 @@ values.
 ```mermaid
 flowchart TD
     FA[Fiberwise gauge-alignment equations]
-    D1[Implemented periodic-1D orthonormal specialization]
+    P1D[Implemented periodic-1D orthonormal specialization]
     D2[Future reviewed 2-D mesh, Fourier-index, and support geometry]
     D3[Future reviewed 3-D mesh, Fourier-index, and support geometry]
     NM[Future reviewed metric-aware nonorthonormal formulation]
 
-    FA --> D1
+    FA --> P1D
     FA -. no current implementation .-> D2
     FA -. no current implementation .-> D3
     FA -. distinct metric contract .-> NM

@@ -2,18 +2,18 @@
   "schema_version": 1,
   "modules": [
     {
-      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoSimulation.py",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QeSimulation__composition.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "sut": "QuantumEspressoSimulation"
+      "sut": "QeSimulation"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QuantumEspressoSimulation__contract.py",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QeSimulationContract__contracts.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "sut": "QuantumEspressoSimulation"
+      "sut": "QeSimulation"
     }
   ]
 }

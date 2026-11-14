@@ -28,23 +28,23 @@ and the distinct Workflow dispatch-effect port. The accepted
 [QE task-contract boundary decision](../calculators/quantum-espresso-task-contract-boundary-decision.md)
 selects these contracts:
 
-- `QuantumEspressoScfTask` consumes one exact SCF input and returns a `QuantumEspressoPwResult` containing identified mechanical execution evidence and native continuation state;
-- `QuantumEspressoNscfTask` consumes one exact NSCF input plus the admitted SCF result and exact staged continuation-state identity, and returns a new `QuantumEspressoPwResult` and native-state identity;
-- `QuantumEspressoBandPathTask` consumes one exact band-path input plus its admitted predecessor state and returns a `QuantumEspressoPwResult`; and
-- `QuantumEspressoBandsExtractionTask` consumes one exact bands-extraction input plus an admitted band-path result and returns a `QuantumEspressoBandsResult`.
+- `QeScfTask` consumes one exact SCF input and returns a `QePwResult` containing identified mechanical execution evidence and native continuation state;
+- `QeNscfTask` consumes one exact NSCF input plus the admitted SCF result and exact staged continuation-state identity, and returns a new `QePwResult` and native-state identity;
+- `QeBandPathTask` consumes one exact band-path input plus its admitted predecessor state and returns a `QePwResult`; and
+- `QeBandsExtractionTask` consumes one exact bands-extraction input plus an admitted band-path result and returns a `QeBandsResult`.
 
 These selected Task adapters are implemented with fixed definition identities, exact
 operation and predecessor boundaries, and explicitly injected calculator ports.
-`QuantumEspressoSimulation` binds one such Task, its equal exact execution input, the
+`QeSimulation` binds one such Task, its equal exact execution input, the
 identical calculator object retained by the Task, and one structural Workflow
 `SimulationDispatchEffect`. It selects the immutable result class mechanically from
 the Task kind but does not invoke either port, adapt their signatures, retain an
-output, or create authority. `LocalQuantumEspressoExecutor` is the implemented local
+output, or create authority. `LocalQeExecutor` is the implemented local
 QE effect binding. DOS is deferred until its executable and result boundary exists;
 it is not an accepted initial public class.
 `PlaneWaveCalculator` is the implemented generic
-public port; `QuantumEspressoExecutionInput`, `QuantumEspressoPwResult`,
-`QuantumEspressoBandsResult`, and `LocalQuantumEspressoExecutor` are implemented public
+public port; `QeExecutionInput`, `QePwResult`,
+`QeBandsResult`, and `LocalQeExecutor` are implemented public
 in-memory QE contracts. A future reusable DOS Workflow composes Task instances of the
 operation definitions rather than collapsing them into one shell-sequence operation.
 
@@ -52,46 +52,46 @@ operation definitions rather than collapsing them into one shell-sequence operat
 classDiagram
     class Task
     class SimulationTask
-    class QuantumEspressoScfTask
-    class QuantumEspressoNscfTask
-    class QuantumEspressoBandPathTask
-    class QuantumEspressoBandsExtractionTask
-    class QuantumEspressoSimulation
-    class QuantumEspressoExecutionInput
-    class QuantumEspressoPwResult
-    class QuantumEspressoBandsResult
+    class QeScfTask
+    class QeNscfTask
+    class QeBandPathTask
+    class QeBandsExtractionTask
+    class QeSimulation
+    class QeExecutionInput
+    class QePwResult
+    class QeBandsResult
     class PlaneWaveCalculator
     class SimulationDispatchEffect
-    class LocalQuantumEspressoExecutor
+    class LocalQeExecutor
     class ResultObject
 
     Task <|.. SimulationTask
-    SimulationTask <|.. QuantumEspressoScfTask
-    SimulationTask <|.. QuantumEspressoNscfTask
-    SimulationTask <|.. QuantumEspressoBandPathTask
-    SimulationTask <|.. QuantumEspressoBandsExtractionTask
-    QuantumEspressoScfTask --> QuantumEspressoExecutionInput
-    QuantumEspressoNscfTask --> QuantumEspressoExecutionInput
-    QuantumEspressoBandPathTask --> QuantumEspressoExecutionInput
-    QuantumEspressoBandsExtractionTask --> QuantumEspressoExecutionInput
-    QuantumEspressoScfTask --> PlaneWaveCalculator
-    QuantumEspressoNscfTask --> PlaneWaveCalculator
-    QuantumEspressoBandPathTask --> PlaneWaveCalculator
-    QuantumEspressoBandsExtractionTask --> PlaneWaveCalculator
-    QuantumEspressoSimulation --> SimulationTask : selected operation
-    QuantumEspressoSimulation --> QuantumEspressoExecutionInput
-    QuantumEspressoSimulation --> PlaneWaveCalculator
-    QuantumEspressoSimulation --> SimulationDispatchEffect
-    SimulationDispatchEffect <|.. LocalQuantumEspressoExecutor
-    PlaneWaveCalculator --> QuantumEspressoPwResult
-    PlaneWaveCalculator --> QuantumEspressoBandsResult
-    ResultObject <|.. QuantumEspressoPwResult
-    ResultObject <|.. QuantumEspressoBandsResult
+    SimulationTask <|.. QeScfTask
+    SimulationTask <|.. QeNscfTask
+    SimulationTask <|.. QeBandPathTask
+    SimulationTask <|.. QeBandsExtractionTask
+    QeScfTask --> QeExecutionInput
+    QeNscfTask --> QeExecutionInput
+    QeBandPathTask --> QeExecutionInput
+    QeBandsExtractionTask --> QeExecutionInput
+    QeScfTask --> PlaneWaveCalculator
+    QeNscfTask --> PlaneWaveCalculator
+    QeBandPathTask --> PlaneWaveCalculator
+    QeBandsExtractionTask --> PlaneWaveCalculator
+    QeSimulation --> SimulationTask : selected operation
+    QeSimulation --> QeExecutionInput
+    QeSimulation --> PlaneWaveCalculator
+    QeSimulation --> SimulationDispatchEffect
+    SimulationDispatchEffect <|.. LocalQeExecutor
+    PlaneWaveCalculator --> QePwResult
+    PlaneWaveCalculator --> QeBandsResult
+    ResultObject <|.. QePwResult
+    ResultObject <|.. QeBandsResult
 ```
 
 ## Quantum ESPRESSO roles
 
-The implemented immutable `QuantumEspressoExecutionInput` contains or references exact
+The implemented immutable `QeExecutionInput` contains or references exact
 native QE input bytes and exact pseudopotential and predecessor-artifact identities.
 It does not own the grouping, variable, or scientific policy used to form input text.
 The integration-owned `QePwInputFile` preserves upstream-selected groups and
@@ -106,8 +106,8 @@ The backend-neutral plane-wave calculator port is owned by
 `ksdft2effmass.calculators.dft.pw`. Application composition injects an implementation
 bound to the exact QE input and immutable result types. The distinct Workflow
 `SimulationDispatchEffect` receives an authority-bearing dispatch request;
-`LocalQuantumEspressoExecutor` implements that effect port rather than claiming the
-calculator port's different call signature. `QuantumEspressoSimulation` records both
+`LocalQeExecutor` implements that effect port rather than claiming the
+calculator port's different call signature. `QeSimulation` records both
 bindings without bridging or invoking them. Neither port mutates output state onto the
 input or Task.
 
@@ -196,7 +196,7 @@ The bounded private fields selected by the
 only to its retained-result architecture probe. The private
 `ksdft2effmass.workflows._dft_scf_nscf_dos` slice implements only the effect-free
 composition of three distinct reusable Task-definition identities and their CPN
-transitions. Private `QuantumEspressoNscfInput`, `QuantumEspressoDosInput`, and their
+transitions. Private `QeNscfInput`, `QeDosInput`, and their
 mechanical result variants now preserve the bounded exact identities required by the
 probe. Neither private slice owns the public QE Task classes, native-state handoff, or
 result ingress described on this page. The canonical QE package separately implements

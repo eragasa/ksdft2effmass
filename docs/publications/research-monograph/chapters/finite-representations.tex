@@ -68,21 +68,18 @@ example, is a vector even though it is a function rather than an arrow. The
 common mathematical structure is a vector space: its elements can be added to
 one another and multiplied by scalars while remaining in the same space.
 
-\begin{definition}[Vector space]
-A vector space \(\mathcal V\) is a collection of objects called vectors for
-which vector addition and scalar multiplication are defined. If
-\(u,v\in\mathcal V\) and \(\alpha,\beta\in\mathbb C\), then
-\begin{equation}
-  \alpha u+\beta v\in\mathcal V.
-\end{equation}
-These operations obey the familiar distributive and associative rules of
-ordinary coordinate vectors.
-\end{definition}
+Definition~\ref{def:training-vector-space} gives the vector-space axioms, and
+Definition~\ref{def:training-vector-subspace} identifies the subsets that
+inherit those operations. In this chapter, \(\mathcal V\) usually denotes a
+complex vector space unless a real scalar field is stated explicitly. An
+element \(v\in\mathcal V\) is an abstract vector; a bold column such as
+\(\mathbf c\in\mathbb C^N\) is its coordinate representation only after a
+basis or sampling map has been declared.
 
 \subsection{Examples of vectors}
 
-The definition is deliberately broad. Its meaning is easier to see through
-examples.
+The vector-space definition is deliberately broad. Its meaning is easier to
+see through examples.
 
 \begin{enumerate}
   \item \textbf{A spatial displacement.}
@@ -441,10 +438,9 @@ The identity map leaves every vector unchanged:
 In any basis its matrix is the identity matrix \(I_N\), with ones on the
 diagonal and zeros elsewhere.
 
-For a matrix \(A\), the conjugate transpose \(A^{\dagger}\) is obtained by
-transposing the array and complex-conjugating every entry. It represents the
-adjoint map when the domain and codomain bases are orthonormal. The adjoint is
-characterized abstractly by
+Definition~\ref{def:training-matrix-conjugate-transpose} introduced the
+conjugate transpose \(A^{\dagger}\). In orthonormal domain and codomain bases,
+this matrix represents the adjoint map, which is characterized abstractly by
 \begin{equation}
   \langle w,A v\rangle
   =\langle A^{\dagger}w,v\rangle.
@@ -470,8 +466,10 @@ Unitary matrices preserve coordinate inner products and Euclidean norms:
 \end{equation}
 Real unitary matrices are called orthogonal matrices.
 
-Chapter~\ref{ch:training-hermitian-eigensystems} will define Hermitian matrices
-and show why unitary basis matrices are central to their diagonalization.
+Definition~\ref{def:training-hermitian-matrix} gives the Hermitian matrix
+condition. Chapter~\ref{ch:training-hermitian-eigensystems} develops its
+spectral consequences and shows why unitary basis matrices are central to
+Hermitian diagonalization.
 
 \section{Changing coordinates without changing the object}
 \index{basis transformation}

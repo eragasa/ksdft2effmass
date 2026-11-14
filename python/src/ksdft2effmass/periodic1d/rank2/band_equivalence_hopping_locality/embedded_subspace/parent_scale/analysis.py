@@ -22,7 +22,7 @@ from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.base impor
 from ksdft2effmass.periodic1d.rank2.band_equivalence_hopping_locality.gauge import (
     Periodic1DRank2SinusoidalGaugeRotation,
 )
-from ksdft2effmass.solidstate import GaugeAttack
+from ksdft2effmass.solidstate import GaugeTransformation
 
 from .frame_transport import (
     _Periodic1DRank2ParentQualifier,
@@ -59,7 +59,7 @@ class _Periodic1DRank2PreparedAnalysis:
     reference_parseval_defect: float
 
     def point(self, amplitude: float) -> Periodic1DRank2PointAnalysis:
-        """Evaluate one direct gauge-attack amplitude on the prepared parent."""
+        """Evaluate one direct gauge-transformation amplitude on the prepared parent."""
         return self.analyzer._point(
             coordinates=self.coordinates,
             retained=self.retained_matrices,
@@ -177,10 +177,10 @@ class Periodic1DRank2Analyzer(
         amplitude: float,
     ) -> Periodic1DRank2PointAnalysis:
         rotation = Periodic1DRank2SinusoidalGaugeRotation(amplitude)
-        comparison = GaugeAttack(
+        comparison = GaugeTransformation(
             rotation,
             self.request.frame_absolute_tolerance,
-        ).apply(
+        ).transform_operators(
             coordinates=coordinates,
             represented_matrices=retained,
         )
@@ -198,7 +198,7 @@ class Periodic1DRank2Analyzer(
             splitting_scale,
         )
         if amplitude == 0.0:
-            # The declared gauge attack is exactly the identity at zero amplitude.
+            # The gauge transformation is exactly the identity at zero amplitude.
             correlation = 1.0
         optimal_scale = max(0.0, correlation)
         minimum_squared_loss = splitting_scale * (1.0 - optimal_scale**2)

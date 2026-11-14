@@ -6,8 +6,8 @@ Bounded artifact scope: the closed non-Workflow result-producer variant family.
 
 Facet and represented meaning
 
-The artifact verifies that distinct external, imported, authored, and legacy producer
-records retain actual evidence and limitations without fabricated Workflow lineage.
+The artifact verifies that distinct external, imported, and authored producer records
+retain actual evidence and limitations without fabricated Workflow lineage.
 
 Intrinsic and cross-object scope
 
@@ -34,7 +34,6 @@ from ksdft2effmass.workflows.runs import (
     ResultProducerEvidenceIdentity,
     ResultProducerProvenanceIdentity,
     RetainedResultSourceIdentity,
-    UnknownLegacyResultProducer,
 )
 
 pytestmark = pytest.mark.software_verification
@@ -50,8 +49,8 @@ class TestResultProducerVariants:
 
         Evidence ID: SV-WFR-RECORDS-006
 
-        Requirement: External, imported-retained, human-authored, and unknown-legacy
-        producers are distinct closed variants with actual evidence and limitations,
+        Requirement: External, imported-retained, and human-authored producers are
+        distinct closed variants with actual evidence and limitations,
         not fabricated Workflow lineage.
 
         Acceptance: Every variant constructs with canonical evidence; empty evidence
@@ -79,20 +78,10 @@ class TestResultProducerVariants:
             evidence_identities=evidence,
             limitations=limitations,
         )
-        legacy = UnknownLegacyResultProducer(
-            identity=ResultProducerProvenanceIdentity("producer.legacy"),
-            source_identity=RetainedResultSourceIdentity("source.legacy"),
-            evidence_identities=evidence,
-            limitations=limitations,
-        )
-
-        assert tuple(
-            type(producer) for producer in (external, imported, authored, legacy)
-        ) == (
+        assert tuple(type(producer) for producer in (external, imported, authored)) == (
             ExternalResultProducer,
             ImportedRetainedResultProducer,
             HumanAuthoredResultProducer,
-            UnknownLegacyResultProducer,
         )
         with pytest.raises(ValueError):
             replace(external, evidence_identities=())

@@ -6,6 +6,7 @@ import math
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+
 from ksdft2effmass.band_equivalence_hopping_locality.strain import (
     SyntheticStrainCalculator,
     SyntheticStrainPathEnum,

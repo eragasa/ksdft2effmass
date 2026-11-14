@@ -5,7 +5,7 @@ flowchart TD
     C[configuration] --> H[parent samples]
     H --> S[spectra and raw frames]
     S --> F[polar closed reference]
-    F --> A[attacked frames]
+    F --> A[gauge-transformed frames]
     A --> P[pointwise recovery]
     A --> G[global alignment]
     F --> O[represented operators]

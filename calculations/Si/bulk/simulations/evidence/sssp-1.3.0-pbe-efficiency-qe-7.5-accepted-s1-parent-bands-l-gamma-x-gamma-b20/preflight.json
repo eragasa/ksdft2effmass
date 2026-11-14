@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "purpose": "Produce a conventional parent-DFT band diagram for the working Ragasa2026icmsep manuscript without substituting the 408-point valley/Hessian inventory for a band path.",
+  "executable": {
+    "path": "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw.x",
+    "version": "Quantum ESPRESSO 7.5",
+    "sha256": "87aa72158e2c103c63fce1deca977dc42ff4ba344519a9662aadb96d33eab910"
+  },
+  "accepted_parent": {
+    "identity": "Si.PrimitiveUnitCell.RightHanded.RelaxedS1.SSSP130.PBE.GammaK10.C42Rho336",
+    "structure_sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03",
+    "saved_state_root": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-scf-gamma-k10-c42-20261031T070321Z/run/tmp",
+    "saved_state_manifest_sha256": "2b80acf2bc53dcbc5c667d50c4747036704a640c86cdf5902a98e998e21aefb9"
+  },
+  "scientific_settings": {
+    "calculation": "bands",
+    "exchange_correlation": "PBE",
+    "pseudopotential": "SSSP 1.3.0 PBE efficiency Si ultrasoft",
+    "pseudopotential_sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b",
+    "wavefunction_cutoff_ry": 42.0,
+    "density_cutoff_ry": 336.0,
+    "band_count": 20,
+    "spinors": false,
+    "symmetry_reduction": false,
+    "path": "L-Gamma-X-Gamma",
+    "points_per_segment_including_endpoints": 81,
+    "ordered_unique_point_count": 241,
+    "input_sha256": "a8c1a511949effceae4ef3581ca2a0adc1bbea9330c0dd2fdff65e5f62fda856",
+    "path_manifest_sha256": "05d1abb15cf4e9067f761ba74942d692b0b12af46ab4e8db362c22aa903a7ca7"
+  },
+  "execution_bounds": {
+    "local_processes": 1,
+    "openmp_threads": 1,
+    "maximum_invocations": 1,
+    "retries": 0,
+    "stop_on_failure": true
+  },
+  "expected_outputs": [
+    "pw.out and pw.err",
+    "QEXSD data-file-schema.xml with 241 ordered points and 20 eigenvalues per point",
+    "compact execution and checksum records",
+    "parent DFT band figure and machine-readable plotted data"
+  ],
+  "anticipated_resources": {
+    "runtime": "minutes on one local process; not known prospectively more precisely",
+    "external_storage": "an isolated copy of the 6.6 MB SCF state plus calculator outputs; disk_io='none' suppresses new path wavefunction files",
+    "repository_retention": "compact inputs, QEXSD, streams, checksums, plotted data, and figures only"
+  },
+  "claim_boundary": "This is a parent PBE Kohn-Sham band path for context and source-adequacy comparison. It is not an experimental spectrum, a quasiparticle calculation, a convergence study, or publication qualification by itself."
+}

@@ -33,7 +33,8 @@ from __future__ import annotations
 import re
 import unicodedata
 from dataclasses import dataclass
-from enum import StrEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 # Exact version-1 portable identifier and Windows-drive lexical grammars.
 _ID_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z")
@@ -49,7 +50,7 @@ _WINDOWS_DEVICE_NAMES = {
 }
 
 
-class ExternalExecutionStatus(StrEnum):
+class ExternalExecutionStatus(StrWireEnum):
     """Successful-boundary status, distinct from scientific acceptance.
 
     Attributes
@@ -67,7 +68,7 @@ class ExternalExecutionStatus(StrEnum):
     COMPLETED = "completed"
 
 
-class ExternalFailureStage(StrEnum):
+class ExternalFailureStage(StrWireEnum):
     """Closed lifecycle stage at which an external failure was observed.
 
     Attributes
@@ -90,7 +91,7 @@ class ExternalFailureStage(StrEnum):
     RESULT_CAPTURE = "result_capture"
 
 
-class ExternalFailureCode(StrEnum):
+class ExternalFailureCode(StrWireEnum):
     """Closed version-1 classification for an external-operation failure.
 
     Attributes

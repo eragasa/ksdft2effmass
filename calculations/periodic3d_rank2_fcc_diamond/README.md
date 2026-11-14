@@ -38,5 +38,11 @@ This family follows the nonorthogonal/basis-aware rank-two stage of the shared
 The case order isolates metric and basis-offset effects. It does not turn the two-basis
 control into silicon, and refinement is not convergence evidence.
 
+The nominal composition explicitly supplies three reciprocal-axis maps in lattice-axis
+order. Each is named identity sewing with `ambient_dimension = 4`, so
+$Q_{\mathbf{G}_a}=I_4$ acts on the parent ambient basis of the $4\times2$ retained
+frame. Retained rank two does not imply $I_2$, and projected closure may remain
+nonidentity.
+
 The former experiment-tree location is a legacy forward pointer only. This organization
 performs no calculation, retention, sealing, promotion, or publication.

@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "status": "wannier-only-fidelity-ladder-producer-checked-development-not-independently-verified",
+  "completed_utc": "2026-11-02T19:07:18Z",
+  "authorization": "explicit human instruction 'go' in the active pi session",
+  "calculator_invocations": 0,
+  "refitting_performed": false,
+  "independent_reconstruction_performed": false,
+  "final_analysis_command": "cd python && /usr/bin/time -l uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/run_analysis_v2.py",
+  "render_command": "cd python && uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/render_results.py",
+  "preliminary_amendment": {
+    "reason": "The initial source-centered 0.08 inverse-angstrom search reached its local bound for the H-shell-05 y valleys.",
+    "retained_files": ["request.json", "run_analysis.py", "result.json"],
+    "final_change": "Use the eight lowest 32-cubed starts in each Cartesian-axis sector and a 0.12 inverse-angstrom local box about each coarse start."
+  },
+  "observed_resources": {
+    "final_result_elapsed_seconds": 3.423201791010797,
+    "time_real_seconds": 4.05,
+    "time_user_seconds": 3.63,
+    "time_system_seconds": 0.23,
+    "maximum_resident_bytes": 873086976
+  },
+  "selection": {
+    "frozen_models": ["H-shell-05", "H-shell-10", "H-shell-16"],
+    "dense_meshes": [12, 20, 32],
+    "largest_dense_mesh_point_count": 32768,
+    "valley_count_per_model": 6,
+    "curvature_step_inverse_angstrom": 0.002,
+    "source_reference": "full authenticated C6-B20-W21 rank-10 Wannier Hamiltonian"
+  },
+  "outputs": {
+    "request": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/request-v2.json",
+      "byte_size": 5662,
+      "sha256": "3d4b513bd2b5149fa533e6a059989b7f013a9692c5945fb7b34e65a8565e9627"
+    },
+    "producer": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/run_analysis_v2.py",
+      "byte_size": 36167,
+      "sha256": "d6228a5119431112631d031f1e8761ea1bf5d6ca151ae0a7cb7719d99ca91210"
+    },
+    "result": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/result-v2.json",
+      "byte_size": 100898,
+      "sha256": "781c29c9512c643bbf6e23a6d524a2466caaba501dc9c7323954ba7782296fdc"
+    },
+    "renderer": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/render_results.py",
+      "byte_size": 9043,
+      "sha256": "c14e6d1cd5a2c916f98d40c7d72228dbaaeb47f63b6a6c70fca98e52ed64c23a"
+    },
+    "fidelity_ladder_pdf": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/wannier-fidelity-ladder.pdf",
+      "byte_size": 22935,
+      "sha256": "55551ae572b1f6dc4f24971e758aed1b9a720c67ae967e328d54f71e23793b09"
+    },
+    "fidelity_ladder_png": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/wannier-fidelity-ladder.png",
+      "byte_size": 160417,
+      "sha256": "b97de88b41f4393509bcde7e9a259066199935c10c1ed75d88476b14f265c033"
+    },
+    "feature_fidelity_pdf": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/source-relative-feature-fidelity.pdf",
+      "byte_size": 23199,
+      "sha256": "0520aaf5170a640880a220ab9f28eed45e579774502fa63e4f41fec16b2a153e"
+    },
+    "feature_fidelity_png": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/source-relative-feature-fidelity.png",
+      "byte_size": 193762,
+      "sha256": "2b466226e94fd63c8c6bbec35ac42ee1a675f31cda7dfed1ac6c47b19a14762e"
+    },
+    "figure_manifest": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-fidelity-ladder/figures/figure-manifest.json",
+      "byte_size": 2416,
+      "sha256": "828bbc9a0aebffd542af9d39509b45f0c9565de5dface9588e58fab586cc2137"
+    },
+    "technical_report_source": {
+      "path": "calculations/Si/bulk/technical-report/technical-report.tex",
+      "byte_size": 43703,
+      "sha256": "39735e428eb46ba2f0b572514b508e06a7ce267ee91ee563ef5233d638f147c1"
+    },
+    "technical_report_pdf": {
+      "path": "calculations/Si/bulk/technical-report/technical-report.pdf",
+      "byte_size": 2809424,
+      "sha256": "e314260cbc4823f026bcf967a3cf8ec1e3d8fd20bbf87eca832da6f8dff644a7"
+    }
+  },
+  "checks": {
+    "source_authentication_passed": true,
+    "frozen_alpha_surface_binding_passed": true,
+    "effective_representatives_unique": true,
+    "request_and_producer_result_bindings_passed": true,
+    "figure_manifest_bindings_passed": true,
+    "parseval_sampled_maximum_absolute_difference_ev": 5.551115123125783e-17,
+    "all_final_valley_optimizers_succeeded": true,
+    "all_final_valley_local_bounds_inactive": true,
+    "full_source_valley_energy_maximum_difference_from_prior_characterization_ev": 1.509903313490213e-14,
+    "figure_and_report_ghostscript_validation_passed": true,
+    "latex_final_log_warning_scan_clean": true,
+    "technical_report_contains_fidelity_ladder": true,
+    "git_diff_check_passed": true,
+    "ruff_check_passed_with_calculation_local_E501_B023_I001_ignored_to_preserve_executed_source_hashes": true
+  },
+  "limitations": [
+    "All fidelity results are relative to the full Wannier source, not DFT.",
+    "The source fails declared DFT-parent gap and effective-mass fidelity targets.",
+    "The 408-point inventory is revealed development evidence and its fitted errors are not prospective acceptance thresholds.",
+    "No frozen 402-point confirmation values were consumed.",
+    "No Quantum ESPRESSO or Wannier90 execution occurred."
+  ]
+}

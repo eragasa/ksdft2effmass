@@ -5,11 +5,11 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import final
 
-from ksdft2effmass.periodic3d.band_equivalence.base import (
-    Periodic3DBandEquivalence,
-    Periodic3DBandEquivalenceAnalysis,
-    Periodic3DBandEquivalenceAnalyzer,
-    Periodic3DBandEquivalenceRequest,
+from ksdft2effmass.periodic3d.rankN.band_equivalence.base import (
+    Periodic3DRankNBandEquivalence,
+    Periodic3DRankNBandEquivalenceAnalysis,
+    Periodic3DRankNBandEquivalenceAnalyzer,
+    Periodic3DRankNBandEquivalenceRequest,
 )
 
 
@@ -23,7 +23,10 @@ class _Periodic3DRank2BandSubspace:
         return 2
 
 
-class Periodic3DRank2BandEquivalence(Periodic3DBandEquivalence, ABC):
+class Periodic3DRank2BandEquivalence(
+    Periodic3DRankNBandEquivalence,
+    ABC,
+):
     """Identify rank-two band equivalence on a periodic 3D lattice."""
 
     __slots__ = ()
@@ -33,10 +36,15 @@ class Periodic3DRank2BandEquivalence(Periodic3DBandEquivalence, ABC):
     def band_subspace_rank(self) -> int:
         """Return the rank of the represented band subspace at each momentum."""
 
+    @property
+    def band_subspace_ranks(self) -> tuple[int, ...]:
+        """Return the one-entry represented rank inventory."""
+        return (self.band_subspace_rank,)
+
 
 class Periodic3DRank2BandEquivalenceRequest(
     _Periodic3DRank2BandSubspace,
-    Periodic3DBandEquivalenceRequest,
+    Periodic3DRankNBandEquivalenceRequest,
     Periodic3DRank2BandEquivalence,
     ABC,
 ):
@@ -49,7 +57,7 @@ class Periodic3DRank2BandEquivalenceAnalysis[
     RequestT: Periodic3DRank2BandEquivalenceRequest,
 ](
     _Periodic3DRank2BandSubspace,
-    Periodic3DBandEquivalenceAnalysis[RequestT],
+    Periodic3DRankNBandEquivalenceAnalysis[RequestT],
     Periodic3DRank2BandEquivalence,
     ABC,
 ):
@@ -62,7 +70,7 @@ class Periodic3DRank2BandEquivalenceAnalyzer[
     RequestT: Periodic3DRank2BandEquivalenceRequest,
 ](
     _Periodic3DRank2BandSubspace,
-    Periodic3DBandEquivalenceAnalyzer[RequestT],
+    Periodic3DRankNBandEquivalenceAnalyzer[RequestT],
     Periodic3DRank2BandEquivalence,
     ABC,
 ):

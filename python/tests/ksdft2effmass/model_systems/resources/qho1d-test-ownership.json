@@ -16,13 +16,6 @@
       "sut": "Qho1dCrossGridAnalyzer"
     },
     {
-      "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dLegacySurfaceRemoval.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "Qho1d legacy surface removal"
-    },
-    {
       "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dComparator__analytical_pullback.py",
       "mode": "class_owned",
       "evidence_class": "numerical_verification",
@@ -107,34 +100,6 @@
       "sut": "Qho1dParameters"
     },
     {
-      "path": "python/tests/ksdft2effmass/model_systems/test__MatrixQuantity.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "MatrixQuantity"
-    },
-    {
-      "path": "python/tests/ksdft2effmass/model_systems/test__PhysicalUnit.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "PhysicalUnit"
-    },
-    {
-      "path": "python/tests/ksdft2effmass/model_systems/test__PintUnitConverter.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "PintUnitConverter"
-    },
-    {
-      "path": "python/tests/ksdft2effmass/model_systems/test__ScalarQuantity.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "ScalarQuantity"
-    },
-    {
       "path": "python/tests/ksdft2effmass/model_systems/test__UniformCartesianGrid1D.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
@@ -154,20 +119,6 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "UniformCartesianGrid3D"
-    },
-    {
-      "path": "python/tests/ksdft2effmass/model_systems/test__Unitless.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "Unitless"
-    },
-    {
-      "path": "python/tests/ksdft2effmass/model_systems/test__VectorQuantity.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "VectorQuantity"
     },
     {
       "path": "python/tests/ksdft2effmass/model_systems/qho1d/test__Qho1dVerifier.py",

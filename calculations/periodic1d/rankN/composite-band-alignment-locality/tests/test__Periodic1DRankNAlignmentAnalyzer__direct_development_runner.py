@@ -33,7 +33,10 @@ class TestPeriodic1DRankNBandEquivalenceHoppingLocalityAnalyzer:
         assert ").create()" in source
         assert "Periodic1DRankNAlignmentStudySpecification" in source
         assert "Periodic1DRankNAlignmentConfiguration.frozen()" in source
-        assert "return Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer(" not in source
+        assert (
+            "return Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer("
+            not in source
+        )
         assert "Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer" in source
         assert "NumpyBatchedComplexUnitaryProcrustesSolver" in source
         assert "ClosedLoopPolarFrameTransporter" in source

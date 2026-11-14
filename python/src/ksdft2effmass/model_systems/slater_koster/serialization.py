@@ -1,4 +1,4 @@
-"""Deterministic typed-JSON serialization for diamond ``sp3s*`` models."""
+"""Deterministic typed-JSON serialization for KSD diamond ``sp3s*`` models."""
 
 from __future__ import annotations
 
@@ -6,29 +6,21 @@ from collections.abc import Mapping
 
 from projectkoios.physkit.units import ScalarQuantity
 
-from ksdft2effmass.serialization import (
-    SerializableValue,
-    TypedJsonMappingSerializer,
-)
+from ksdft2effmass.serialization import SerializableValue, TypedJsonMappingSerializer
 
 from .model import DiamondSp3sStarModel
 from .parameters import ELECTRON_VOLT
 
 
 class DiamondSp3sStarModelJsonSerializer:
-    """Serialize one model definition without filesystem effects.
-
-    The wire document records inputs and conventions, not a sampled Hamiltonian or a
-    scientific-fit disposition. Encoding is delegated to the repository's canonical
-    :class:`TypedJsonMappingSerializer`.
-    """
+    """Serialize one concrete model definition without evidence or fit claims."""
 
     __slots__ = ("_serializer",)
 
     def __init__(self) -> None:
         self._serializer = TypedJsonMappingSerializer()
 
-    def serialize(self, model: DiamondSp3sStarModel) -> bytes:
+    def serialize(self, *, model: DiamondSp3sStarModel) -> bytes:
         """Return canonical sorted UTF-8 JSON with a terminal newline."""
         if type(model) is not DiamondSp3sStarModel:
             raise TypeError("model must be DiamondSp3sStarModel")
@@ -52,29 +44,18 @@ class DiamondSp3sStarModelJsonSerializer:
             "V2_pp_sigma": parameters.second_neighbor.pp_sigma,
             "V2_s_s_star_sigma": parameters.second_neighbor.s_s_star_sigma,
             "V2_s_star_p_sigma": parameters.second_neighbor.s_star_p_sigma,
-            "V2_s_star_s_star_sigma": (parameters.second_neighbor.s_star_s_star_sigma),
+            "V2_s_star_s_star_sigma": parameters.second_neighbor.s_star_s_star_sigma,
             "V2_sp_sigma": parameters.second_neighbor.sp_sigma,
             "V2_ss_sigma": parameters.second_neighbor.ss_sigma,
         }
         record: Mapping[str, SerializableValue] = {
-            "basis_order": (
-                "A:s",
-                "A:px",
-                "A:py",
-                "A:pz",
-                "A:s_star",
-                "B:s",
-                "B:px",
-                "B:py",
-                "B:pz",
-                "B:s_star",
-            ),
+            "basis": model.basis_identity,
             "geometry": {
                 "basis_fractional_primitive": (
                     (0.0, 0.0, 0.0),
                     (0.25, 0.25, 0.25),
                 ),
-                "first_neighbor_A_to_B_target_cells": tuple(
+                "first_neighbor_origin_to_quarter_target_cells": tuple(
                     bond.target_cell for bond in model.geometry.first_neighbor_bonds
                 ),
                 "lattice_parameter": model.geometry.lattice_parameter,
@@ -89,6 +70,7 @@ class DiamondSp3sStarModelJsonSerializer:
                     for bond in model.geometry.second_neighbor_positive_bonds
                 ),
             },
+            "mechanics_owner": ("projectkoios.physkit.solidstate.tb.slater_koster"),
             "model": "homopolar-diamond-spinless-sp3s-star",
             "parameter_order": parameters.parameter_names,
             "parameters": {
@@ -100,6 +82,6 @@ class DiamondSp3sStarModelJsonSerializer:
                 "exp(+2*pi*i*k_fractional dot full_primitive_displacement); "
                 "Bloch sums include R+tau"
             ),
-            "schema_version": 1,
+            "schema_version": 3,
         }
         return self._serializer.serialize(record)

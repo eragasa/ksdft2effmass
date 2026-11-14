@@ -115,7 +115,6 @@ from .records import (
     TaskInvocationOutcomeKind,
     TaskWorkflowMembership,
     TaskWorkflowTransitionRecord,
-    UnknownLegacyResultProducer,
     WorkflowDefinitionReference,
 )
 from .replay import (
@@ -228,7 +227,6 @@ __all__ = [
     "TaskWorkflowMembershipIdentity",
     "TaskWorkflowTransitionRecord",
     "TaskWorkflowTransitionRecordIdentity",
-    "UnknownLegacyResultProducer",
     "WorkflowDefinitionReference",
     "WorkflowDefinitionReferenceIdentity",
     "WorkflowRun",

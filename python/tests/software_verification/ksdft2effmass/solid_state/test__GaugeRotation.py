@@ -1,4 +1,4 @@
-"""Tests for generic gauge-rotation definitions and attacks."""
+"""Tests for generic gauge-rotation definitions and transformations."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 from projectkoios.numerics.numpy.typing import Complex128Array, Float64Array
 
-from ksdft2effmass.solidstate import GaugeAttack, GaugeRotation
+from ksdft2effmass.solidstate import GaugeRotation, GaugeTransformation
 
 
 class TestGaugeRotation:
@@ -61,7 +61,7 @@ class TestGaugeRotation:
         with pytest.raises(TypeError, match="abstract class"):
             GaugeRotation(rank=2)  # type: ignore[abstract]
 
-    def test_attack_applies_the_right_acting_similarity_transform(self) -> None:
+    def test_transformation_applies_the_right_acting_similarity_transform(self) -> None:
         coordinates = np.asarray((0.0, 0.5), dtype=np.float64)
         rotation = self._FixedGaugeRotation(self._rotation_values())
         matrices = np.asarray(
@@ -71,16 +71,18 @@ class TestGaugeRotation:
             ),
             dtype=np.complex128,
         )
-        attacked = GaugeAttack(rotation, 1.0e-14).apply(
+        gauge_transformed = GaugeTransformation(rotation, 1.0e-14).transform_operators(
             coordinates=coordinates,
             represented_matrices=matrices,
         )
         rotations = rotation.matrices(coordinates)
         expected = np.swapaxes(rotations.conjugate(), -1, -2) @ matrices @ rotations
-        assert not attacked.flags.writeable
-        assert np.array_equal(attacked, expected)
+        assert not gauge_transformed.flags.writeable
+        assert np.array_equal(gauge_transformed, expected)
 
-    def test_attack_supports_multidimensional_coordinates_and_higher_rank(self) -> None:
+    def test_transformation_supports_multidimensional_coordinates_and_higher_rank(
+        self,
+    ) -> None:
         coordinates = np.asarray(((0.1, 0.2), (0.3, -0.4)), dtype=np.float64)
         matrices = np.asarray(
             (
@@ -89,41 +91,41 @@ class TestGaugeRotation:
             ),
             dtype=np.complex128,
         )
-        attacked = GaugeAttack(
+        gauge_transformed = GaugeTransformation(
             self._TwoCoordinateRank3GaugeRotation(),
             1.0e-14,
-        ).apply(
+        ).transform_operators(
             coordinates=coordinates,
             represented_matrices=matrices,
         )
-        assert attacked.shape == (2, 3, 3)
-        assert np.allclose(attacked, matrices, rtol=0.0, atol=1.0e-15)
+        assert gauge_transformed.shape == (2, 3, 3)
+        assert np.allclose(gauge_transformed, matrices, rtol=0.0, atol=1.0e-15)
 
-    def test_attack_rejects_nonunitary_rotation_values(self) -> None:
+    def test_transformation_rejects_nonunitary_rotation_values(self) -> None:
         coordinates = np.asarray((0.0, 0.5), dtype=np.float64)
         values = self._rotation_values()
         values[0, 0, 0] = 2.0
-        attack = GaugeAttack(self._FixedGaugeRotation(values), 1.0e-14)
+        transformation = GaugeTransformation(self._FixedGaugeRotation(values), 1.0e-14)
         matrices = np.zeros((2, 2, 2), dtype=np.complex128)
         with pytest.raises(ValueError, match="unitarity tolerance"):
-            attack.apply(
+            transformation.transform_operators(
                 coordinates=coordinates,
                 represented_matrices=matrices,
             )
 
-    def test_attack_rejects_boolean_tolerance(self) -> None:
+    def test_transformation_rejects_boolean_tolerance(self) -> None:
         rotation = self._FixedGaugeRotation(self._rotation_values())
         with pytest.raises(TypeError, match="built-in float"):
-            GaugeAttack(rotation, True)  # type: ignore[arg-type]
+            GaugeTransformation(rotation, True)  # type: ignore[arg-type]
 
-    def test_attack_rejects_a_misaligned_sample_or_rank_inventory(self) -> None:
+    def test_transformation_rejects_a_misaligned_sample_or_rank_inventory(self) -> None:
         coordinates = np.asarray((0.0, 0.5), dtype=np.float64)
-        attack = GaugeAttack(
+        transformation = GaugeTransformation(
             self._FixedGaugeRotation(self._rotation_values()),
             1.0e-14,
         )
         with pytest.raises(ValueError, match="coordinate count and rotation rank"):
-            attack.apply(
+            transformation.transform_operators(
                 coordinates=coordinates,
                 represented_matrices=np.zeros((2, 3, 3), dtype=np.complex128),
             )

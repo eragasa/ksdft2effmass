@@ -203,15 +203,27 @@ matrix,
 \end{equation}
 when all represented blocks and the matching convention are retained.
 
-Real-space decay can be diagnosed with quantities such as
-$\|H^{(\mathrm W)}(\mathbf R)\|_{\mathrm F}$. Discarding distant blocks is a
-separate approximation whose cutoff, boundary convention, and induced spectral
-and operator residuals must be reported. The existence of localized functions
-does not authorize an unrecorded hopping truncation. Localization selects the
-coordinates in which a short-range approximation is attempted; it does not
-change the complete represented spectrum. Appendix~\ref{app:one-dimensional-reduction}
-shows that smooth and rough gauges can preserve the complete operator while
-producing substantially different finite-range errors.
+Using the cell-block resolution of
+Definition~\ref{def:training-hopping-locality-resolution}, identify the block
+coefficient $T(\mathbf n)$ with the real-space Wannier block
+$H^{(\mathrm W)}(\mathbf R_{\mathbf n})$ under the recorded lattice and Fourier
+conventions. Its Frobenius power then diagnoses decay of the selected Wannier
+frame. When the ordered matrix indices are explicitly correlated with Wannier
+identities and center representatives, the MLWF-pair specialization of the
+same definition supplies center-attributed element locality. It remains gauge
+and construction dependent; it is not a unique atomic-orbital decomposition or
+an intrinsic material observable. Wannier spreads remain separate localization
+diagnostics and are not implicit weights in the center-attributed hopping
+distance.
+
+Discarding distant blocks is a separate approximation whose cutoff, boundary
+convention, and induced spectral and operator residuals must be reported. The
+existence of localized functions does not authorize an unrecorded hopping
+truncation. Localization selects the coordinates in which a short-range
+approximation is attempted; it does not change the complete represented
+spectrum. Appendix~\ref{app:one-dimensional-reduction} shows that smooth and
+rough gauges can preserve the complete operator while producing substantially
+different finite-range errors.
 
 \subsection{Validation of a candidate Wannier representation}
 \index{Wannier representation!validation}

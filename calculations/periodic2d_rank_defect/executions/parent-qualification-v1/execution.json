@@ -1,0 +1,30 @@
+{
+  "accepted_parent_projection_read": true,
+  "calculation_family": "periodic2d-rank-defect",
+  "calculation_script_sha256": "8bb215c1611871b2b65af4ae864b656c12e43c969a956122a03e86eb17c8eda1",
+  "claim_boundary": "Accepted historical dimensionless synthetic parent capability qualification only. This request does not establish material validation, isolated-defect behavior, finite-domain convergence, uncertainty quantification, or authority to execute the 3,240-evaluation defect campaign.",
+  "criterion_status": "pass",
+  "defect_campaign_executed": false,
+  "defect_route_evaluations": 4536,
+  "execution_id": "parent-qualification-v1",
+  "execution_status": "completed",
+  "external_execution": false,
+  "network_access": false,
+  "parent_count": 3,
+  "parent_route_evaluations": 6804,
+  "perturbation_count": 2,
+  "record_type": "periodic2d_rank_defect_parent_qualification_execution",
+  "repository": {
+    "revision": "d00f53df0e3e90b8bad2e62afcf28d7c417f1c00",
+    "working_tree_dirty": true
+  },
+  "request_path": "calculations/periodic2d_rank_defect/executions/parent-qualification-v1/inputs/request.json",
+  "request_sha256": "61e4865806c4dff8f0da3ea4e50c369b058c28af317c1176a4ce2856c60a339f",
+  "resource_observation": {
+    "peak_memory_bytes": 140410880,
+    "retained_result_bytes": 60267,
+    "runtime_seconds": 137.36745366686955
+  },
+  "result_sha256": "e5626e48ce844e215306fa03630a1faa89519075918032af986727f57ecf9ca5",
+  "schema_version": 1
+}

@@ -22,8 +22,8 @@ and retry dispatch.
 
 ## Observed current behavior
 
-**Implemented fact.** `QuantumEspressoPwResult` and
-`QuantumEspressoBandsResult` are immutable operation-specific ResultObjects carrying
+**Implemented fact.** `QePwResult` and
+`QeBandsResult` are immutable operation-specific ResultObjects carrying
 mechanical process, diagnostic, native-output, and artifact identities without
 convergence or acceptance claims
 ([QE calculator architecture](quantum-espresso.md)).

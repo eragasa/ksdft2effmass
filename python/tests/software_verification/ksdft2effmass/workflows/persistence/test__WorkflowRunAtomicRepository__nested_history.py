@@ -32,7 +32,7 @@ from ksdft2effmass import workflows as w
 from ksdft2effmass.analysis import QuantityOfInterestResultValueSerializer
 from ksdft2effmass.application import ApplicationResultValueSerializer
 from ksdft2effmass.integration.quantum_espresso import (
-    QuantumEspressoResultValueSerializer,
+    QeResultValueSerializer,
 )
 from ksdft2effmass.workflows import WorkflowRunAtomicRepository
 
@@ -64,7 +64,7 @@ class TestWorkflowRunAtomicRepositoryNestedHistory:
 
     @staticmethod
     def make_serializer() -> w.WorkflowRunSerializer:
-        qe = QuantumEspressoResultValueSerializer()
+        qe = QeResultValueSerializer()
         return w.WorkflowRunSerializer(
             result_codec=ApplicationResultValueSerializer(
                 workflow_codec=w.WorkflowResultValueSerializer(source_codec=qe),

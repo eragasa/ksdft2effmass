@@ -25,7 +25,7 @@ _RETAINED_FRAME_ID = "lowest-rank2-spectral-frame.v1"
 _ENDPOINT_SEWING_ID = "identity-periodic-endpoint-sewing.v1"
 _ENERGY_REFERENCE_ID = "positive-reference-energy-E_ref.v1"
 _RECIPROCAL_COORDINATE_CONVENTION = "centered-half-open-reduced-coordinate.v1"
-_GAUGE_ATTACK_ID = "retained-real-sinusoidal-rotation.v1"
+_GAUGE_TRANSFORMATION_ID = "retained-real-sinusoidal-rotation.v1"
 _VERIFICATION_ABSOLUTE_TOLERANCE = 1.0e-10
 
 
@@ -34,7 +34,7 @@ class Periodic1DRank2Request(
     Periodic1DRank2BandEquivalenceHoppingLocalityRequestRole,
     Periodic1DReducedCoordinateConvention,
 ):
-    """Bind mesh, gauge attack amplitudes, qualification gates, and tolerances."""
+    """Bind mesh, transformation amplitudes, qualification gates, and tolerances."""
 
     reciprocal_mesh_size: int
     amplitudes: tuple[float, ...]
@@ -138,9 +138,9 @@ class Periodic1DRank2Request(
         return _RECIPROCAL_COORDINATE_CONVENTION
 
     @property
-    def gauge_attack_identifier(self) -> str:
-        """Return the fixed retained-space gauge-attack identity."""
-        return _GAUGE_ATTACK_ID
+    def gauge_transformation_identifier(self) -> str:
+        """Return the fixed retained-space gauge-transformation identity."""
+        return _GAUGE_TRANSFORMATION_ID
 
     def construction_reduced_momenta(self) -> tuple[float, ...]:
         """Return the exact centered half-open construction mesh."""

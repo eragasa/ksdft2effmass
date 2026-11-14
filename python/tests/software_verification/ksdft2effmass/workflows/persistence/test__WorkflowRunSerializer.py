@@ -39,7 +39,7 @@ from ksdft2effmass.analysis import (
 )
 from ksdft2effmass.application import ApplicationResultValueSerializer
 from ksdft2effmass.integration.quantum_espresso import (
-    QuantumEspressoResultValueSerializer,
+    QeResultValueSerializer,
 )
 from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetBinding,
@@ -119,7 +119,7 @@ class TestWorkflowRunSerializer:
 
     @staticmethod
     def make_serializer() -> WorkflowRunSerializer:
-        qe = QuantumEspressoResultValueSerializer()
+        qe = QeResultValueSerializer()
         return WorkflowRunSerializer(
             result_codec=ApplicationResultValueSerializer(
                 workflow_codec=WorkflowResultValueSerializer(source_codec=qe),

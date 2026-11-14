@@ -49,21 +49,25 @@ class TestResearchMonographCitationSnapshotCompiler:
         rendered citation semantics while recording the exact current repository
         revision.
 
-        Acceptance: The result has 47 files, 138 groups, 255 calls, 325 occurrences,
+        Acceptance: The result has 49 files, 138 groups, 257 calls, 329 occurrences,
         43 todos, 138 bibliography entries, two source gaps, and no closure gaps.
         """
         snapshot = self.compile_repository()
 
         assert len(snapshot.repository_revision) == 40
         assert set(snapshot.repository_revision) <= set("0123456789abcdef")
-        assert len(snapshot.source_files) == 47
-        assert len(snapshot.include_instances) == 47
+        assert len(snapshot.source_files) == 49
+        assert len(snapshot.include_instances) == 49
         assert len(snapshot.groups) == 138
-        assert len(snapshot.calls) == 255
-        assert len(snapshot.occurrences) == 325
+        assert len(snapshot.calls) == 257
+        assert len(snapshot.occurrences) == 329
         assert len(snapshot.todos) == 43
         assert len(snapshot.bibliography_entries) == 138
         assert len(snapshot.source_gaps) == 2
+        assert snapshot.source_files[-1].source_path == (
+            "docs/publications/research-monograph/appendices/"
+            "M-preliminary-silicon-work.tex"
+        )
         assert snapshot.missing_keys == ()
         assert snapshot.duplicate_keys == ()
         assert snapshot.uncited_keys == ()
@@ -84,7 +88,7 @@ class TestResearchMonographCitationSnapshotCompiler:
         snapshot = self.compile_repository()
 
         assert Counter(value.origin for value in snapshot.occurrences) == {
-            ManuscriptCitationOrigin.DIRECT: 247,
+            ManuscriptCitationOrigin.DIRECT: 251,
             ManuscriptCitationOrigin.CITATION_TODO_EXPANSION: 78,
         }
         assert Counter(value.priority for value in snapshot.todos) == {

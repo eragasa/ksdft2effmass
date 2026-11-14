@@ -14,7 +14,6 @@ historical migration.  Their tests provide software verification only.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 from typing import Protocol, runtime_checkable
 
 from ksdft2effmass.petrinet.colored import (
@@ -22,6 +21,7 @@ from ksdft2effmass.petrinet.colored import (
     ColoredPetriNetSelectionResultIdentity,
     ColoredPetriNetTransitionIdentity,
 )
+from ksdft2effmass.serialization import StrWireEnum
 
 
 def _require_identity_value(value: object, owner: str) -> None:
@@ -334,7 +334,7 @@ class Task(Protocol):
         ...
 
 
-class TaskStartGateSetMode(StrEnum):
+class TaskStartGateSetMode(StrWireEnum):
     """Closed composition modes for a Task start-gate set."""
 
     ANY_OF = "any_of"

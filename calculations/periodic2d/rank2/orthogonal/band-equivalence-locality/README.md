@@ -21,6 +21,14 @@ This square-lattice family is the orthogonal periodic-2D rank-two stage in the s
 The retained nominal result remains unsealed. Refinement is not convergence evidence,
 and this order does not authorize rerunning any producer.
 
+## Reciprocal-endpoint sewing
+
+The current source composition explicitly selects two axis-ordered identity maps with
+`ambient_dimension = 4`. Thus each $Q_{\mathbf{G}_a}=I_4$ acts on the four-dimensional
+ordered parent ambient basis of the $4\times2$ retained frame. This is not an $I_2$
+construction inferred from retained rank, and projected closure may remain nonidentity.
+The retained execution and its authenticated producer bytes are not rewritten.
+
 ## Calculation surfaces
 
 - `run_01_calculation.py`, `run_02_verification.py`, and `run_03_render.py`

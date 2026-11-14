@@ -39,7 +39,7 @@ from ksdft2effmass.periodic1d.rank1.support_truncation import (
 from ksdft2effmass.periodic1d.support_truncation import (
     Periodic1DSupportTruncation,
 )
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 from ksdft2effmass.support_truncation import SupportTruncation
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
@@ -126,7 +126,7 @@ class TestPeriodic1DRank1Capabilities:
     def test__alignment_applicability__uses_strict_string_wire_enum(self) -> None:
         applicability = Periodic1DRank1AlignmentApplicability.OPERATOR_TRIVIAL
 
-        assert isinstance(applicability, StringWireEnum)
+        assert isinstance(applicability, StrWireEnum)
         assert applicability.to_wire() == "operator-trivial"
         assert (
             Periodic1DRank1AlignmentApplicability.from_wire("operator-trivial")

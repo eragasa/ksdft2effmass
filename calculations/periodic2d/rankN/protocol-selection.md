@@ -36,8 +36,11 @@ independent references, authenticated visualization data, and typed lifecycle re
 Every rank-bound request and result must carry an explicit retained rank. Study-level
 requests admit exactly `3`, `4`, and `8`; reusable pointwise Procrustes, transport,
 locality, and support actions may admit another finite rank only through a separately
-reviewed caller. Rank-N classes mirror applicable `Periodic2DRank2...` role names using
-`Periodic2DRankN...`; they do not inherit rank-two classes.
+reviewed caller. Dimensional rank-N owners refine dimension-neutral periodic finite-rank
+capabilities. Applicable `Periodic2DRank2...` operation owners then refine the
+corresponding `Periodic2DRankN...` owner and fix the rank to two. The rank-N study family
+does not inherit rank-two calculation policy, and its `3`, `4`, and `8` inventory remains
+calculation-owned.
 
 The recommended alignment inventory is identity, complete global-unitary Procrustes,
 pointwise-unitary Procrustes, and a separately labelled known-inverse oracle when the
@@ -50,8 +53,9 @@ scientific overlap thresholds or convergence evidence.
 
 The selected parent has ambient dimension `2 * retained_rank`, a rank-dimensional
 retained seed, and separated retained/exterior sectors. The exact rank-dependent energy,
-gap, generator, harmonic, and attack formulas are frozen in `recommended-baseline.md`
-and implemented by the dimension-owned analytic model.
+gap, generator, harmonic, and gauge-transformation formulas are frozen in
+`recommended-baseline.md`. Their concrete implementation belongs to calculation or
+verification support behind the reusable dimension-owned parent contract.
 
 ## Open periodic-2D decisions
 
@@ -81,7 +85,7 @@ admission work; no entry authorizes execution.
 ## Recommended review sequence
 
 1. Select and certify the parent family and retained state space before choosing a gauge
-   attack.
+   transformation.
 2. Select the lattice and physical metric before defining locality or support.
 3. Select the gauge group, generators, depth semantics, and oracle boundary before
    specifying alignment actions.
@@ -102,15 +106,21 @@ coefficients, transport closure, and support endpoints are not donors. The perio
 rank-two square, triangular, and honeycomb controls may inform vocabulary and software
 composition, but they do not select a rank-N parent, gauge circuit, tolerance, or claim.
 Historical rank-three two-dimensional Wannier90 evidence is not a donor for this
-synthetic analytic protocol.
+synthetic analytic protocol. A continuous deformation or strain study remains separately
+owned by
+[`calculations/periodic2d_rankN_strain/`](../../periodic2d_rankN_strain/README.md);
+none of this fixed-geometry protocol's inventories transfer automatically to it.
 
 ## Implementation gate
 
-The package currently installs the analytic parent/gauge model, global and pointwise
-Procrustes, frame transport, hopping locality, support truncation, typed aggregate
-requests, case expansion, thin aggregate analysis, immutable per-case/per-alignment
-results, and bounded producer-independent parent, alignment, transport, Fourier,
-shell-power, and support-selection references plus typed aggregate verification.
+The package currently installs the reusable parent-model contract, independent gauge
+transformation mechanics, calculation-owned structured basis inventory, explicit
+parent/transformation case correlation, global and pointwise Procrustes, frame transport,
+hopping locality, support truncation, typed aggregate requests, thin aggregate analysis,
+immutable per-case/per-alignment results, and bounded producer-independent parent,
+alignment, transport, Fourier, shell-power, and support-selection references plus typed
+aggregate verification. Concrete analytic formulas and request cross-product expansion
+remain calculation or verification-support responsibilities rather than reusable source.
 Visualization and lifecycle owners remain pending. Until the remaining implementation
 and admission work is reviewed, it must not
 install an aggregate lifecycle and this calculation root must contain no

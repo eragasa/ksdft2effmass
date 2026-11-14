@@ -142,7 +142,7 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
                 unit,
             ),
             loss_channel_names=("spectral", "operator"),
-            locality_channel_names=("reference", "attacked", "candidate"),
+            locality_channel_names=("reference", "gauge_transformed", "candidate"),
             proof_points=(proof_points[0], proof_points[1], proof_points[2]),
         )
 
@@ -530,7 +530,7 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
                             [
                                 (
                                     item.reference_cyclic_conversion_power,
-                                    item.attacked_cyclic_conversion_power,
+                                    item.gauge_transformed_cyclic_conversion_power,
                                     item.candidate_cyclic_conversion_power,
                                 )
                                 for value in observed_evaluations
@@ -544,7 +544,7 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
                             [
                                 (
                                     item.reference_cyclic_conversion_power,
-                                    item.attacked_cyclic_conversion_power,
+                                    item.gauge_transformed_cyclic_conversion_power,
                                     item.candidate_cyclic_conversion_power,
                                 )
                                 for value in expected_evaluations
@@ -564,7 +564,7 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
                         [
                             (
                                 item.reference_ordinary_omitted_block_l2_norm,
-                                item.attacked_ordinary_omitted_block_l2_norm,
+                                item.gauge_transformed_ordinary_omitted_block_l2_norm,
                                 item.candidate_ordinary_omitted_block_l2_norm,
                             )
                             for value in observed_evaluations
@@ -578,7 +578,7 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
                         [
                             (
                                 item.reference_ordinary_omitted_block_l2_norm,
-                                item.attacked_ordinary_omitted_block_l2_norm,
+                                item.gauge_transformed_ordinary_omitted_block_l2_norm,
                                 item.candidate_ordinary_omitted_block_l2_norm,
                             )
                             for value in expected_evaluations
@@ -868,7 +868,7 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
                                 [
                                     (
                                         item.reference_cyclic_conversion_power,
-                                        item.attacked_cyclic_conversion_power,
+                                        item.gauge_transformed_cyclic_conversion_power,
                                         item.candidate_cyclic_conversion_power,
                                     )
                                     for value in observed_points
@@ -882,7 +882,7 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
                                 [
                                     (
                                         item.reference_cyclic_conversion_power,
-                                        item.attacked_cyclic_conversion_power,
+                                        item.gauge_transformed_cyclic_conversion_power,
                                         item.candidate_cyclic_conversion_power,
                                     )
                                     for value in expected_points
@@ -904,7 +904,7 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
                                 [
                                     (
                                         item.reference_ordinary_omitted_block_l2_norm,
-                                        item.attacked_ordinary_omitted_block_l2_norm,
+                                        item.gauge_transformed_ordinary_omitted_block_l2_norm,
                                         item.candidate_ordinary_omitted_block_l2_norm,
                                     )
                                     for value in observed_points
@@ -918,7 +918,7 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
                                 [
                                     (
                                         item.reference_ordinary_omitted_block_l2_norm,
-                                        item.attacked_ordinary_omitted_block_l2_norm,
+                                        item.gauge_transformed_ordinary_omitted_block_l2_norm,
                                         item.candidate_ordinary_omitted_block_l2_norm,
                                     )
                                     for value in expected_points
@@ -939,13 +939,13 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
         configuration = retained.configuration
         baseline = retained.composite_baseline
         reference = self._matrices(baseline.reference_operators)
-        attacked = self._matrices(baseline.attacked_operators)
+        gauge_transformed = self._matrices(baseline.gauge_transformed_operators)
         scale = configuration.loss_energy_scale.magnitude
         spectral = self._spectral_quadratic(
             reference, baseline.construction_parent_spectrum.magnitude[:, :2], scale
         )
         operators = tuple(
-            self._operator_quadratic(reference, attacked, scale, angle)
+            self._operator_quadratic(reference, gauge_transformed, scale, angle)
             for angle in configuration.alignment_angles
         )
         cases = (
@@ -1041,20 +1041,22 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
         baseline = result.composite_baseline
         scale = configuration.loss_energy_scale.magnitude
         reference = self._matrices(baseline.reference_operators)
-        attacked = self._matrices(baseline.attacked_operators)
+        gauge_transformed = self._matrices(baseline.gauge_transformed_operators)
         transforms = {transform.channel: transform for transform in baseline.transforms}
         reference_representatives, reference_blocks, reference_power = (
             self._ordinary_transform(transforms["reference"])
         )
-        attacked_representatives, attacked_blocks, attacked_power = (
-            self._ordinary_transform(transforms["attacked"])
-        )
+        (
+            gauge_transformed_representatives,
+            gauge_transformed_blocks,
+            gauge_transformed_power,
+        ) = self._ordinary_transform(transforms["gauge_transformed"])
         coordinates = np.asarray(baseline.evaluation_reduced_momenta, dtype=np.float64)
         evaluation_reference = self._interpolate(
             coordinates, reference_representatives, reference_blocks
         )
-        evaluation_attacked = self._interpolate(
-            coordinates, attacked_representatives, attacked_blocks
+        evaluation_gauge_transformed = self._interpolate(
+            coordinates, gauge_transformed_representatives, gauge_transformed_blocks
         )
         construction_candidate = self._candidate(reference, parameter, scale)
         evaluation_candidate = self._candidate(evaluation_reference, parameter, scale)
@@ -1086,13 +1088,15 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
             Periodic1DAdmissibleSetLocalityResult(
                 maximum_range,
                 reference_power,
-                attacked_power,
+                gauge_transformed_power,
                 candidate_power,
                 self._omitted_norm(
                     reference_representatives, reference_blocks, maximum_range
                 ),
                 self._omitted_norm(
-                    attacked_representatives, attacked_blocks, maximum_range
+                    gauge_transformed_representatives,
+                    gauge_transformed_blocks,
+                    maximum_range,
                 ),
                 self._omitted_norm(
                     candidate_representatives, candidate_ordinary_blocks, maximum_range
@@ -1110,14 +1114,16 @@ class Periodic1DConstrainedAdmissibleSetIndependentReferenceAnalyzer:
                 scale,
             ),
             self._operator_rms(
-                self._conjugate(construction_candidate, rotation), attacked, scale
+                self._conjugate(construction_candidate, rotation),
+                gauge_transformed,
+                scale,
             ),
             self._spectral_rms(
                 evaluation_candidate,
                 baseline.evaluation_parent_spectrum.magnitude[:, :2],
                 scale,
             ),
-            self._operator_rms(evaluation_rotated, evaluation_attacked, scale),
+            self._operator_rms(evaluation_rotated, evaluation_gauge_transformed, scale),
             locality,
         )
 

@@ -70,6 +70,17 @@ class PeriodicBandEquivalence(BandEquivalence, ABC):  # noqa: B024
         return "periodic"
 
 
+class PeriodicRankNBandEquivalenceCapability(PeriodicBandEquivalence, ABC):
+    """Identify periodic band equivalence over finite-rank subspaces."""
+
+    __slots__ = ()
+
+    @property
+    @abstractmethod
+    def band_subspace_ranks(self) -> tuple[int, ...]:
+        """Return the represented finite-rank inventory."""
+
+
 class PeriodicBandEquivalenceRequest(
     BandEquivalenceRequest,
     PeriodicBandEquivalence,
@@ -115,4 +126,5 @@ __all__ = [
     "PeriodicBandEquivalenceAnalysis",
     "PeriodicBandEquivalenceAnalyzer",
     "PeriodicBandEquivalenceRequest",
+    "PeriodicRankNBandEquivalenceCapability",
 ]

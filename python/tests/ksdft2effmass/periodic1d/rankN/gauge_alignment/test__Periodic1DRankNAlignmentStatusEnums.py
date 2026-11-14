@@ -9,7 +9,7 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
     Periodic1DRankNAlignmentStatus,
     Periodic1DRankNGlobalUnitaryDownstreamApplicability,
 )
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -23,7 +23,7 @@ class TestPeriodic1DRankNAlignmentStatusEnums:
             Periodic1DRankNGlobalUnitaryDownstreamApplicability,
             Periodic1DRankNAlignmentBackendExceptionCode,
         ):
-            assert issubclass(enum_type, StringWireEnum)
+            assert issubclass(enum_type, StrWireEnum)
             assert issubclass(enum_type, Enum)
             assert not issubclass(enum_type, str)
 

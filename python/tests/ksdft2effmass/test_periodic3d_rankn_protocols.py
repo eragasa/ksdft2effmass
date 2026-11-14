@@ -35,7 +35,8 @@ class TestPeriodic3DRankNProtocols:
             "Rank four remains a value of rank-N",
             "2 * retained_rank",
             "complete global-unitary Procrustes",
-            "they do not inherit rank-two classes",
+            "`Periodic3DRank2...` operation owners then refine",
+            "does not inherit rank-two calculation policy",
             "INSTALLED WITH TYPED AGGREGATE VERIFICATION",
             "Visualization projection",
             "VISUALIZATION-BOUND SCHEMAS PENDING",
@@ -64,7 +65,8 @@ class TestPeriodic3DRankNProtocols:
             "global-unitary",
             "pointwise-unitary",
             "known-inverse-oracle",
-            "no inheritance from\nrank-two classes",
+            "`Periodic3DRank2...` operation owners refine them",
+            "does not transfer rank-two calculation policy",
             "does not authorize execution or retained evidence",
             "construction size `8`",
             "evaluation size `17`",
@@ -99,9 +101,8 @@ class TestPeriodic3DRankNProtocols:
         assert (rank_root / "bain_quotient_admission.py").is_file()
         aggregate_root = rank_root / "band_equivalence_hopping_locality"
         for filename in (
-            "model.py",
+            "case.py",
             "request.py",
-            "case_expansion.py",
             "analysis.py",
             "result.py",
             "reference.py",
@@ -109,13 +110,22 @@ class TestPeriodic3DRankNProtocols:
             "verification.py",
         ):
             assert (aggregate_root / filename).is_file()
+        assert not (aggregate_root / "case_expansion.py").exists()
+        assert not (aggregate_root / "model.py").exists()
+        assert not (aggregate_root / "parent.py").exists()
         assert not (aggregate_root / "lifecycle.py").exists()
+        assert (
+            repository_root
+            / "python"
+            / "tests"
+            / "periodic3d_rankn_analytic_case_support.py"
+        ).is_file()
 
     def test_bain_context_records_geometry_and_blockers_without_execution(
         self,
         repository_root: Path,
     ) -> None:
-        context = repository_root / "calculations" / "periodic3d_rankN_bain_path"
+        context = repository_root / "calculations" / "periodic3d_rankN_strain"
         required_directories = (
             "gauge_alignment",
             "frame_transport",
@@ -215,7 +225,7 @@ class TestPeriodic3DRankNProtocols:
         rankn_index = (
             repository_root / "calculations" / "periodic3d" / "rankN" / "README.md"
         ).read_text(encoding="utf-8")
-        assert "periodic3d_rankN_bain_path" in rankn_index
+        assert "periodic3d_rankN_strain" in rankn_index
         assert "does **not** select a continuous synthetic-strain" in rankn_index
         assert "proof obligation also remains fail-closed" not in (
             context / "README.md"

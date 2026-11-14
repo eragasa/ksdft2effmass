@@ -68,7 +68,7 @@ The prospective calculation owns the following concrete choices unless a later r
 protocol revision states otherwise:
 
 - a one-dimensional inversion-symmetric periodic family;
-- a rank-two parent fiber and a rank-two retained subspace;
+- a four-dimensional ordered parent ambient basis and a rank-two retained subspace;
 - exact synthetic source and evaluation meshes with explicit construction/evaluation
   separation;
 - a declared inter-sample alignment objective and tie policy;
@@ -80,7 +80,11 @@ protocol revision states otherwise:
   publication acceptance.
 
 The direct lifecycle now enters through the rank-first alignment-study specification
-rather than constructing the composite analyzer directly. Calculation adapters obtain
+rather than constructing the composite analyzer directly. It explicitly selects
+`IdentityReciprocalSewing(ambient_dimension=4)`, so $Q_G=I_4$ for the $4\times2$
+retained frame; this does not require the projected $2\times2$ closure to be identity.
+That selection is valid only for the declared identical ordered ambient basis and Bloch
+convention at both reciprocal endpoints. Calculation adapters obtain
 the protocol configuration from `Periodic1DCompositeBandAlignmentConfiguration.frozen()`
 instead of restating its numerical fields. It records the configuration's
 explicit reduced-convention geometry, $a_0=1\,\mathrm{bohr}$, in execution,

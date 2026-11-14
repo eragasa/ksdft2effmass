@@ -1,0 +1,26 @@
+{
+  "cell_construction": "exact requirement coordinates define logarithmic rectangular threshold cells; no numerical interpolation or smoothing is used",
+  "figures": {
+    "single-witness-surface.pdf": {
+      "byte_size": 30818,
+      "sha256": "e85a4e46bab6fa45edb0b2934260059ba220f6f680ded29473af4981a98633ff"
+    },
+    "single-witness-surface.png": {
+      "byte_size": 237027,
+      "sha256": "7386934825a2d4ef425424be0c66fa89de74b765e711c3deb930ade8116923b8"
+    }
+  },
+  "renderer": {
+    "byte_size": 8125,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/python/../calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/render_single_witness.py",
+    "sha256": "826ee704d9f95b2ca5a18d09df4c86de9d686a53aa985861f4e6ec6c9d134ea6"
+  },
+  "result": {
+    "byte_size": 12773,
+    "path": "/Users/eugene/worktrees/ksdft2effmass-source-cleanup-audit/calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/result.json",
+    "sha256": "2933765cb26d4aee05dca69fd73ec45f2ab26a32a145ebf9e8af80db0fdaa503"
+  },
+  "schema_version": 1,
+  "status": "post-hoc-producer-checked-development-exploration-not-independently-verified",
+  "surface_definition": "W(tau_1,tau_2) is the proper reduced candidate with the smallest exact included-representative count among candidates satisfying both primary RMS threshold inequalities"
+}

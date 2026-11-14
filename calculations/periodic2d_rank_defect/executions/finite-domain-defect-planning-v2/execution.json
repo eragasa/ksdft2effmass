@@ -1,0 +1,17 @@
+{
+  "calculation_family": "periodic2d-rank-defect",
+  "claim_boundary": "Execution-free deterministic case planning only. The 1x1 through 5x5 area cases are small-cell periodic-aliasing controls, not isolated-defect or convergence evidence. No operator was constructed, no accepted parent was read, and no calculation, material validation, uncertainty quantification, or protected external execution is authorized or reported.",
+  "execution_id": "finite-domain-defect-planning-v2",
+  "execution_status": "not_executed",
+  "input_path": "inputs/definition.json",
+  "input_sha256": "a62ba1079b984be9305172a3e8ea1e1cb35e4ebfc33d92ac62cf9f361ecb1388",
+  "isotropic_case_count": 2268,
+  "orientation_case_count": 324,
+  "outcome": "completed_execution_free_planning",
+  "planning_script_sha256": "dde6b946696d893850f18c97f595e9090209b25435dbdd145d8af58a4fe3f5d9",
+  "proposed_operator_evaluation_count": 3240,
+  "record_type": "finite_domain_effects_planning_execution",
+  "result_path": "results/case-inventory.json",
+  "result_sha256": "da722ec9042b232162c46fe49e228c14c714665cae35f6043e475d3d3d9a88d5",
+  "schema_version": 1
+}

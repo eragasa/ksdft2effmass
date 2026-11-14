@@ -1,0 +1,26 @@
+{
+  "artifacts": [
+    {
+      "bytes": 19957,
+      "path": "result.json",
+      "sha256": "56c15bd597056cb1a607f2cd88100bb10da94af55d29f6606d868fb353d513cc"
+    },
+    {
+      "bytes": 111355,
+      "path": "conversion-ledger.json",
+      "sha256": "36f4e06e58081f2b6e13e42b77bf6b5b6f45aa337c2983bbb02596b7c932e036"
+    },
+    {
+      "bytes": 22138,
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-independent-convention-audit/run_audit.py",
+      "sha256": "431b67434f36d41f44be0b65e6475674b461f8f5642711d01103acbe47b598df"
+    },
+    {
+      "bytes": 1538,
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-independent-convention-audit/README.md",
+      "sha256": "b213974a77c46b0b77a246cc98447063a5e6274494980f6fa3a0749f614afb88"
+    }
+  ],
+  "record_type": "c6_b20_w21_independent_numerical_convention_audit_manifest",
+  "schema_version": 1
+}

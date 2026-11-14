@@ -18,13 +18,13 @@
     "payload_digest": "1e43b94de77397f2fbac71666fde38df1f7e51b5d156d09723112b7274b618b8"
   },
   "pw": {
-    "path": "integration/quantum_espresso/resources/result-values-v1.json",
+    "path": "integration/quantum_espresso/resources/quantum-espresso-simulations-result-v1.json",
     "result_identity": "synthetic-result",
-    "concrete_type_identity": "ksdft2effmass.integration.quantum_espresso.QuantumEspressoPwResult:1",
+    "concrete_type_identity": "ksdft2effmass.integration.quantum_espresso.QePwResult:2",
     "owning_domain_identity": "ksdft2effmass.integration.quantum_espresso",
-    "schema_identity": "qe-result-value:1",
-    "content_identity": "qe-result-value:1:sha256:c0b95caf1fe33cc64f6434e5913e8af853e8f13282c0b8869baa9b5ea420bd57",
-    "payload_digest": "c0b95caf1fe33cc64f6434e5913e8af853e8f13282c0b8869baa9b5ea420bd57"
+    "schema_identity": "quantum-espresso-simulations-result:1",
+    "content_identity": "quantum-espresso-simulations-result:1:sha256:f8707cb3e73d3f7c742ceb90cd7977029f4ae12744f95113f8aaf59bcf1d26da",
+    "payload_digest": "f8707cb3e73d3f7c742ceb90cd7977029f4ae12744f95113f8aaf59bcf1d26da"
   },
   "bands": {
     "path": "integration/quantum_espresso/resources/result-bands-v1.json",

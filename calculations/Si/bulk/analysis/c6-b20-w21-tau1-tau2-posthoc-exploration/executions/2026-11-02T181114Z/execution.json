@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "status": "post-hoc-producer-checked-development-exploration-not-independently-verified",
+  "completed_utc": "2026-11-02T18:11:14Z",
+  "authorization": {
+    "source": "explicit human instruction in the active pi session",
+    "scope": "post-hoc exploration of the two-tolerance hypothesis using native Wannier/Wigner-Seitz shell reductions, figure rendering, and technical-report integration",
+    "calculator_execution_authorized": false,
+    "independent_reconstruction_required": false
+  },
+  "commands": [
+    "cd python && uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/run_analysis.py",
+    "cd python && uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/render_plots_v3.py",
+    "cd calculations/Si/bulk/technical-report && latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=/tmp/ksd-si-bulk-technical-report technical-report.tex"
+  ],
+  "calculator_invocations": 0,
+  "independent_reconstruction_performed": false,
+  "analysis_elapsed_seconds": 0.6978941247798502,
+  "result_summary": {
+    "proper_reduced_candidate_count": 17,
+    "full_support_control_excluded_from_feasibility": true,
+    "best_proper_shell": "H-shell-16",
+    "best_proper_shell_representative_count": 371,
+    "tau_1_rms_requirement": 0.00044635917135606217,
+    "tau_2_rms_requirement": 0.0015173254290054908,
+    "spectral_operator_conflict_observed": false,
+    "interpretation": "within the literal native shell family both primary losses are minimized by the same largest proper reduction; the nontrivial map reports minimum support across post-hoc threshold pairs"
+  },
+  "outputs": {
+    "request": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/request.json",
+      "byte_size": 3524,
+      "sha256": "cefda6d7d53987abdd4f919218253a2c722dc40ecec1d28d2d2b01f99bfec050"
+    },
+    "producer": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/run_analysis.py",
+      "byte_size": 13381,
+      "sha256": "0a37ab7b912a8f4787cb44a1f5956de128a198204a90f72ceaab63f953491f0d"
+    },
+    "result": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/result.json",
+      "byte_size": 12773,
+      "sha256": "2933765cb26d4aee05dca69fd73ec45f2ab26a32a145ebf9e8af80db0fdaa503"
+    },
+    "renderer": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/render_plots_v3.py",
+      "byte_size": 8564,
+      "sha256": "ca517df701e53a4b480ec08c2a25177fac94226d9aba4b539281f3a9579dc2f0"
+    },
+    "figure_manifest": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/figures-v3/figure-manifest.json",
+      "byte_size": 1319,
+      "sha256": "c25ad7cd9f8daa9f2999642e563a536793562ce4a87afb94b82ef8c17a6f31f2"
+    },
+    "rms_map_pdf": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/figures-v3/tau1-tau2-rms-map.pdf",
+      "byte_size": 1818436,
+      "sha256": "7f85012d050c85a96c9a70992ecde0d6431e9291a8f4e184e873c09fc22af151"
+    },
+    "maximum_map_pdf": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/figures-v3/tau1-tau2-maximum-map.pdf",
+      "byte_size": 1836665,
+      "sha256": "32925d32edbadbc74a006792fcf762f7afad7dd14c3fee7dfe511fec533fd76a"
+    },
+    "technical_report_source": {
+      "path": "calculations/Si/bulk/technical-report/technical-report.tex",
+      "byte_size": 38706,
+      "sha256": "2bcb9bf5adc219c3362f78ca3a7a46c98ea99726fc8d4abfb23af3eff56f94d4"
+    },
+    "technical_report_pdf": {
+      "path": "calculations/Si/bulk/technical-report/technical-report.pdf",
+      "byte_size": 4185374,
+      "sha256": "7c8e0866728cf8b8aa25c16ec7505de9938e6f1333519eedb44a4fb37bbea7d6"
+    }
+  },
+  "checks": {
+    "all_declared_source_sizes_and_sha256_authenticated": true,
+    "all_18_frozen_shell_counts_reconstructed": true,
+    "full_support_control_exact_zero_loss": true,
+    "parent_values_consumed": false,
+    "confirmation_402_geometry_consumed": false,
+    "latex_final_log_warning_scan_clean": true,
+    "technical_report_pdf_ghostscript_validation_passed": true
+  },
+  "nonclaims": [
+    "This is post-hoc exploration, not prospective threshold acceptance.",
+    "No Slater-Koster model or refitted block model was constructed.",
+    "This tests internal compression of one represented Wannier Hamiltonian, not DFT-parent or experimental accuracy.",
+    "No Quantum ESPRESSO or Wannier90 process was invoked."
+  ]
+}

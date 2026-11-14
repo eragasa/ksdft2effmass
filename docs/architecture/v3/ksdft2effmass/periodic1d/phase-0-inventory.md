@@ -17,6 +17,14 @@ This inventory is bound to baseline commit
 `2a5681b877b5fbf9e1cf8fcdd0c9332d0bc69c63`. No source or artifact is removed by Phase
 0.
 
+The replacement decision above applies to the inventoried M1--M3 workflow-shaped APIs
+and retained schema surfaces. It does not authorize premature removal of the separately
+maintained `solidstate.hopping_transforms.BlockHoppingModel1D` representation or its
+cyclic-to-ordinary conversion values. Those reusable numerical and historical-study
+contracts remain active until each maintained consumer passes the study-specific
+migration gates in [`migration.md`](migration.md). They are not compatibility aliases
+for the new model hierarchy.
+
 ## Baseline installed package
 
 At the bound Phase 0 baseline, the root exported 31 distinct names. All were scheduled
@@ -26,7 +34,7 @@ update below; the M2 and M3 rows remain live until their own replacement gates p
 
 | Baseline source surface | Exported names | Replacement owner and gate |
 |---|---|---|
-| `periodic1d.model` | `Periodic1DFourierHamiltonianToyModel`, `Periodic1DBlockHamiltonianToyModel` | Replace with concrete typed parent data owned by `model_systems.mathieu1d`, `periodic1d.fourier_locality`, and the two rank-two owners as applicable; remove after Phases 1--4 migrate callers. |
+| Historical `periodic1d/model.py` | `Periodic1DFourierHamiltonianToyModel`, `Periodic1DBlockHamiltonianToyModel` | Replace with concrete typed parent data owned by `model_systems.mathieu1d`, `periodic1d.fourier_locality`, and the two rank-two owners as applicable; retire the file after Phases 1--4 migrate callers. The later `periodic1d.models` package namespace is a distinct reviewed owner for `models.blochhopping` and does not restore these toy-parent exports. |
 | `periodic1d.isolated_band.definition` | `Periodic1DIsolatedBandCalculationDefinition` | Replace in `periodic1d.fourier_locality` during Phase 2. |
 | `periodic1d.isolated_band.calculate` | `Periodic1DIsolatedBandCalculator` | Replace with the Phase 2 analyzer; do not preserve the Action signature. |
 | `periodic1d.isolated_band.results` | `Periodic1DPlaneWaveConvergenceObservation`, `Periodic1DFiniteDifferenceConvergenceObservation`, `Periodic1DIsolatedBandRangeResult`, `Periodic1DIsolatedBandCalculationResult` | Replace with immutable Phase 2 result sections. |
@@ -76,7 +84,7 @@ its sole direct external test consumer, the `Periodic1DFourierHamiltonianToyMode
 definition and exports, and the obsolete Sphinx page. The package-aligned direct
 Fourier-locality tests and a legacy-surface-removal test now own the replacement boundary.
 Exact source, test, documentation, export-module, and recovery identities are recorded in
-[`legacy-retirement.md`](../../../../../calculations/periodic1d/rank1/fourier-locality/legacy-retirement.md).
+[`legacy-retirement.md`](../../../../../calculations/periodic1d_rank1/band_equivalence_hopping_locality/legacy-retirement.md).
 The historical Architecture v2 pages remain unchanged and the distinct
 `campaigns.periodic_1d` API is outside this retirement.
 
@@ -194,22 +202,22 @@ Current software case:
 - the exact four-by-four onsite and positive-neighbor block matrices in
   `test__Periodic1DMultibandAlignmentCalculator.py`;
 - retained rank `2`, training mesh `16`, withheld mesh `33`, ranges `(0, 1, 2, 3)`;
-- attack constant angle `0.30` and sine coefficients `(0.65, 0.30)`;
+- transformation constant angle `0.30` and sine coefficients `(0.65, 0.30)`;
 - external-gap lower bound `0.5`, overlap threshold `0.8`;
 - orthonormality and reconstruction tolerances `1e-12`, coordinate tolerance `1e-14`,
   Hermiticity tolerance `1e-12`, and verification tolerance `1e-11`.
 
-Parity requires external gap above `0.5`, attacked-frame defect above `0.5`, pointwise
+Parity requires external gap above `0.5`, gauge-transformed-frame defect above `0.5`, pointwise
 frame and inverse-rotation defects below `1e-12`, one-global-unitary frame defect above
-`0.5`, the declared attacked/reference omitted-block ordering, and independent energy and
+`0.5`, the declared gauge-transformed/reference omitted-block ordering, and independent energy and
 dimensionless defects below `1e-11`. Rank-deficient global alignment must fail closed.
 A `1e-3` changed frame or Hermiticity diagnostic must produce a defect above `9e-4`.
 
 The retained publication values used for data parity include minimum external gap
 approximately `1.056646`, minimum neighboring/closure singular value `0.9999829`,
-projector defect `3.24e-16`, attacked frame defect `1.506`, attacked operator defect
+projector defect `3.24e-16`, gauge-transformed frame defect `1.506`, gauge-transformed operator defect
 `0.9972`, pointwise recovery defects `6.77e-16` and `9.83e-16`, one-global-unitary
-frame/operator defects `1.131` and `0.744`, range-8 attacked omitted norm `5.65e-5`,
+frame/operator defects `1.131` and `0.744`, range-8 gauge-transformed omitted norm `5.65e-5`,
 withheld maximum error `7.04e-5`, and independent reconstruction defect `7.43e-15`.
 The successor comparison uses the exact recovered JSON values rather than these rounded
 publication values.

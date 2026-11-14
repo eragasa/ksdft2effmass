@@ -25,7 +25,7 @@ from ksdft2effmass.solidstate import (
     CenteredEvenMeshCyclicToOrdinaryConverter1D,
     CenteredEvenMeshCyclicToOrdinaryRequest1D,
     CenteredUniformReciprocalMesh1D,
-    GaugeAttack,
+    GaugeTransformation,
     ReciprocalOperatorFourierTransformer1D,
     ReciprocalOperatorFourierTransformRequest1D,
     ReciprocalOperatorSamples1D,
@@ -89,7 +89,7 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer(
         reference_eigenvalues = np.asarray((-1.0, 1.0), dtype=np.float64)
         points: list[Periodic1DBandEquivalencePointAnalysis] = []
         for amplitude in request.amplitudes:
-            construction_matrices = self._attacked_matrices(
+            construction_matrices = self._gauge_transformed_matrices(
                 construction_coordinates,
                 amplitude,
                 request.numerical_absolute_tolerance,
@@ -154,7 +154,7 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer(
                     evaluation_coordinates,
                 )
             ).execute()
-            direct_evaluation_values = self._attacked_matrices(
+            direct_evaluation_values = self._gauge_transformed_matrices(
                 evaluation_coordinates.magnitude,
                 amplitude,
                 request.numerical_absolute_tolerance,
@@ -221,7 +221,7 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer(
         )
 
     @staticmethod
-    def _attacked_matrices(
+    def _gauge_transformed_matrices(
         coordinates: np.ndarray[tuple[int], np.dtype[np.float64]],
         amplitude: float,
         unitarity_absolute_tolerance: float,
@@ -231,10 +231,10 @@ class Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer(
             (coordinates.size, 2, 2),
         ).copy()
         rotation = Periodic1DRank2SinusoidalGaugeRotation(amplitude)
-        return GaugeAttack(
+        return GaugeTransformation(
             rotation,
             unitarity_absolute_tolerance,
-        ).apply(
+        ).transform_operators(
             coordinates=coordinates,
             represented_matrices=parent,
         )

@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "purpose": "exact historical fixtures for maintained campaign tests",
+  "artifacts": [
+    {
+      "family": "periodic-1d",
+      "historical_path": "calculations/research-monograph/periodic-1d/composite-input.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-1d/composite-input.json",
+      "sha256": "2ce60a96b72747a820c68b05aa9dbe0beaecb5de03fd5e336c9c77cc7bf5fc20",
+      "size_bytes": 632,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-1d",
+      "historical_path": "calculations/research-monograph/periodic-1d/composite-result.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-1d/composite-result.json",
+      "sha256": "9231057d96be5e7277e5d76d7272a9bad0a00b02996b7e989164ab619e19c02f",
+      "size_bytes": 460680,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-1d",
+      "historical_path": "calculations/research-monograph/periodic-1d/input.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-1d/input.json",
+      "sha256": "ae17de790380dee76693e984b96fbb22773a40440e267d3e77b4543cafaad6fb",
+      "size_bytes": 722,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-1d",
+      "historical_path": "calculations/research-monograph/periodic-1d/result.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-1d/result.json",
+      "sha256": "37a4619e3a6ebf1c8ec9fac9f4c7cb5398ffe27254003529f736987c5f0bf71c",
+      "size_bytes": 20398,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-1d",
+      "historical_path": "calculations/research-monograph/periodic-1d/stress-input.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-1d/stress-input.json",
+      "sha256": "3be86c6ee7cb08c1c194aa97e856c89458907c23428bed19f6b38cdb437d987a",
+      "size_bytes": 1605,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-1d",
+      "historical_path": "calculations/research-monograph/periodic-1d/stress-result.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-1d/stress-result.json",
+      "sha256": "5897e16570609f3b2ad2fb5cdefb39b8da9df6395e42796d8c5af77734cba394",
+      "size_bytes": 89654,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-1d",
+      "historical_path": "calculations/research-monograph/periodic-1d/wannier90-convergence-attempt.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-1d/wannier90-convergence-attempt.json",
+      "sha256": "54dc87a1f341a4f57116dcdf456a060e8d7b482b92d9596c6022cbe647347b3a",
+      "size_bytes": 3608,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-1d",
+      "historical_path": "calculations/research-monograph/periodic-1d/wannier90-preconditioned-result.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-1d/wannier90-preconditioned-result.json",
+      "sha256": "c4d6d32f8a52e93c447424b49b649e63fa036117bf88a4f8af6ed4e1d270316c",
+      "size_bytes": 115966,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-1d",
+      "historical_path": "calculations/research-monograph/periodic-1d/wannier90-result.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-1d/wannier90-result.json",
+      "sha256": "d167294da9ebb53173b91fa69f089900f11e03917969bc028b9c0e69db951535",
+      "size_bytes": 115917,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/composite-input.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/composite-input.json",
+      "sha256": "4abe583a5198537703f3a9e4937fd93c4c7cd6f46a3eefd302a551b1f0ae7e90",
+      "size_bytes": 822,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/composite-result.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/composite-result.json",
+      "sha256": "2bd97c1138e501e0b26f19dd43b3bb1718dc6e4655804f6bc96e853c7fd87792",
+      "size_bytes": 598055,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/extract_wannier90.py",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/extract_wannier90.py",
+      "sha256": "138a357c5e42669e37201b88d5a6879302160790834a734701567e5c0640fd45",
+      "size_bytes": 30542,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/extract_wannier90_study.py",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/extract_wannier90_study.py",
+      "sha256": "ccc02498dccf278ccd8b218709ecebfe91dfe6ebdaff1ba673d181481ae96647",
+      "size_bytes": 11997,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/input.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/input.json",
+      "sha256": "82e9915101e755f7cc77cb8901478f88d878ffaa808732036631b7ae5cfd78ec",
+      "size_bytes": 1074,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/result.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/result.json",
+      "sha256": "4eb55bde9d456d86bad1d65c8ac60267c07873c6936f8af876b07fd3e1d27be6",
+      "size_bytes": 239133,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/run_composite.py",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/run_composite.py",
+      "sha256": "c8d45b7c0b448ddd2760c7146269e973e9d2989bfbd0481f18b8b4f0cf609b2a",
+      "size_bytes": 30565,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/run_experiment.py",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/run_experiment.py",
+      "sha256": "20f0f25f8e73578e0dbaa36e4e81d172c18c5042b9834158093d525a283cf3cc",
+      "size_bytes": 44852,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/run_topological.py",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/run_topological.py",
+      "sha256": "57e71c9cd7a52845dda80e110448d216897c09a0690e875ee4ff754a362f51a2",
+      "size_bytes": 21231,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/run_topological_phase_sweep.py",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/run_topological_phase_sweep.py",
+      "sha256": "11fa32dea76e718686a50162baa5d9b00ffe898b799291bbe9c7511ee320e735",
+      "size_bytes": 13490,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/topological-input.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/topological-input.json",
+      "sha256": "b4372d84ba80e84a1bf9a12d25750618bf276baa8999d298031e3ac6e0c18436",
+      "size_bytes": 1121,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/topological-phase-sweep-input.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/topological-phase-sweep-input.json",
+      "sha256": "f8b535250ede7efc79b96682979b72472791172d0662d41a490f8bad2a0a553c",
+      "size_bytes": 1000,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/topological-phase-sweep-result.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/topological-phase-sweep-result.json",
+      "sha256": "298532cba30f56518c6578feb187704ad8f031eabdeae468b7ad067d0b286b11",
+      "size_bytes": 96949,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/topological-result.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/topological-result.json",
+      "sha256": "bd94c40a3b12f4f7ecb41009e86c936e456d09738176256f4e0d27ab9fdd959a",
+      "size_bytes": 33586,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/wannier90-balanced-result.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/wannier90-balanced-result.json",
+      "sha256": "422e53b012fb824164e3f03e67eeef6f5a013ce6f17da942ddc3f2d477b06e93",
+      "size_bytes": 411617,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/wannier90-study-input.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/wannier90-study-input.json",
+      "sha256": "0092895cf1ff970ab3275b976d365e3c4df8c3c4c2a3ad33f4d0eaf9dbf5517a",
+      "size_bytes": 1865,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/wannier90-study-result.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/wannier90-study-result.json",
+      "sha256": "a4a400f7610520d75f42af991b5b0eacaaaca53ac5dfd0736f072b918d092e11",
+      "size_bytes": 12300,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/wannier90-study-results/cutoff_p2.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/wannier90-study-results/cutoff_p2.json",
+      "sha256": "a60f8f8844e4c2f7b635f2d764d0423c1151a008dba65efe9482029d30c2123b",
+      "size_bytes": 420386,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/wannier90-study-results/cutoff_p4.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/wannier90-study-results/cutoff_p4.json",
+      "sha256": "668d0174d0a448f15156be69c111c8320638adeb5e7799ba203c278200e79450",
+      "size_bytes": 419794,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/wannier90-study-results/embedding_c12.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/wannier90-study-results/embedding_c12.json",
+      "sha256": "b75374ed247882752d77d4de5646326b6ce0e01e58afc2676267b9b03a93e176",
+      "size_bytes": 412875,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/wannier90-study-results/embedding_c18.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/wannier90-study-results/embedding_c18.json",
+      "sha256": "e6b8f1c3b629eca982fdfa2ab0af8a07bd75dc641d73eba770789ddb2dd76f8a",
+      "size_bytes": 419833,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/wannier90-study-results/mesh_n11.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/wannier90-study-results/mesh_n11.json",
+      "sha256": "403a074f1b6c319993024fef2158cc3840b1cb722af26f132eb9db3b8ebc7bac",
+      "size_bytes": 227663,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    },
+    {
+      "family": "periodic-2d",
+      "historical_path": "calculations/research-monograph/periodic-2d/wannier90-study-results/mesh_n19.json",
+      "fixture_path": "python/tests/resources/historical_calculations/periodic-2d-repository/calculations/research-monograph/periodic-2d/wannier90-study-results/mesh_n19.json",
+      "sha256": "80235e8fb5af4d708b5a04c2072d6b9487cf1a0238c0df216a1e39f193ff8642",
+      "size_bytes": 668123,
+      "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42"
+    }
+  ]
+}

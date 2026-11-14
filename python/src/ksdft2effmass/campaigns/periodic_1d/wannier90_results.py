@@ -5,8 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
+from projectkoios.integrations.wannier90 import Wannier90NativeArtifactIdentity
 
-from ksdft2effmass.integration.wannier90 import Wannier90NativeArtifactIdentity
 from ksdft2effmass.serialization import JsonCodec
 from ksdft2effmass.solidstate import (
     WilsonCenterConvention1D,

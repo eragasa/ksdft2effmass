@@ -1,0 +1,43 @@
+{
+  "artifacts": [
+    {
+      "bytes": 57716,
+      "path": "inputs/request.json",
+      "sha256": "61e4865806c4dff8f0da3ea4e50c369b058c28af317c1176a4ce2856c60a339f"
+    },
+    {
+      "bytes": 60267,
+      "path": "results/result.json",
+      "sha256": "e5626e48ce844e215306fa03630a1faa89519075918032af986727f57ecf9ca5"
+    },
+    {
+      "bytes": 1466,
+      "path": "execution.json",
+      "sha256": "7bf71907ab39001534c7dd8f25a2180ad27d166f74bbc43f12442002ac4ca77c"
+    },
+    {
+      "bytes": 215,
+      "path": "software-versions.json",
+      "sha256": "0e4a1eb37ff8b4ca3214582cf2f1aef71fbce0e4deb3ec30303435becc8cf623"
+    },
+    {
+      "bytes": 6080,
+      "path": "calculations/periodic2d_rank_defect/run_07_qualify_parents.py",
+      "sha256": "8bb215c1611871b2b65af4ae864b656c12e43c969a956122a03e86eb17c8eda1"
+    },
+    {
+      "bytes": 9054,
+      "path": "calculations/periodic2d_rank_defect/run_08_verify_parent_qualification.py",
+      "sha256": "204b92e33247f64f285586ef696628729987105fe8f3c9eecc12d81f2abea3e9"
+    },
+    {
+      "bytes": 1198,
+      "path": "verification/verification.json",
+      "sha256": "decb9d370ebf2e50b875ab4bb510324c6c708816b9aaa10a637d92748e2145e4"
+    }
+  ],
+  "dense_matrices_retained": false,
+  "execution_id": "parent-qualification-v1",
+  "record_type": "periodic2d_rank_defect_parent_qualification_manifest",
+  "schema_version": 1
+}

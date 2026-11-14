@@ -10,6 +10,7 @@ from projectkoios.numerics.numpy.typing import Complex128Array
 from projectkoios.optimization.alignment.procrustes import (
     ComplexUnitaryProcrustesTolerance,
 )
+from projectkoios.physkit.units import ComplexMatrixQuantity, Unitless
 
 from ksdft2effmass.periodic3d.rankN.band_alignment.frame_transport.analysis import (
     Periodic3DRankNTransportAnalyzer,
@@ -51,12 +52,26 @@ from ksdft2effmass.periodic3d.rankN.gauge_alignment.result import (
     Periodic3DRankNGlobalGaugeAlignmentRankDeficient,
     Periodic3DRankNGlobalGaugeAlignmentSelected,
 )
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+    ReciprocalEndpointSewingMap,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
 
 class TestPeriodic3DRankNAlignmentCapabilities:
     """Retain explicit finite-rank invariants on three-dimensional meshes."""
+
+    @staticmethod
+    def _endpoint_sewing(
+        ambient_dimension: int,
+    ) -> ReciprocalEndpointSewingInventory:
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=ambient_dimension)
+        return ReciprocalEndpointSewingInventory(
+            positive_axis_maps=(identity_sewing.endpoint_map,) * 3
+        )
 
     @staticmethod
     def _frames(
@@ -174,6 +189,7 @@ class TestPeriodic3DRankNAlignmentCapabilities:
             frame=frame,
             rank_absolute=1.0e-12,
             rank_relative=1.0e-10,
+            endpoint_sewing=self._endpoint_sewing(3),
         )
 
         analyzer = Periodic3DRankNTransportAnalyzer(request=request)
@@ -192,6 +208,67 @@ class TestPeriodic3DRankNAlignmentCapabilities:
         assert result.maximum_absolute_closure_phases == pytest.approx((0.0, 0.0, 0.0))
         assert result.maximum_plaquette_phase == pytest.approx(0.0)
 
+    def test_transport_uses_explicit_ambient_sewing_on_boundary_links(self) -> None:
+        phase = 0.25
+        frame = np.broadcast_to(
+            np.eye(5, 4, dtype=np.complex128),
+            (2, 2, 2, 5, 4),
+        ).copy()
+        phase_matrix = np.eye(5, dtype=np.complex128)
+        phase_matrix[0, 0] = np.exp(1j * phase)
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=5)
+        request = Periodic3DRankNTransportAnalysisRequest(
+            retained_rank=4,
+            frame=frame,
+            rank_absolute=1.0e-12,
+            rank_relative=1.0e-10,
+            endpoint_sewing=ReciprocalEndpointSewingInventory(
+                positive_axis_maps=(
+                    ReciprocalEndpointSewingMap(
+                        identifier="rankN-diagonal-phase-axis-1.test",
+                        coefficient_map=ComplexMatrixQuantity(
+                            phase_matrix,
+                            Unitless(),
+                        ),
+                    ),
+                    identity_sewing.endpoint_map,
+                    identity_sewing.endpoint_map,
+                )
+            ),
+        )
+
+        result = Periodic3DRankNTransportAnalyzer(request=request).execute()
+
+        assert request.endpoint_sewing is not None
+        assert result.maximum_absolute_closure_phases == pytest.approx(
+            (0.0, 0.0, 0.0, phase)
+        )
+        assert result.maximum_plaquette_phase == pytest.approx(0.0)
+
+    def test_transport_rejects_mismatched_endpoint_sewing(self) -> None:
+        frame, _ = self._frames((2, 2, 2), retained_rank=3)
+        with pytest.raises(ValueError, match="three axis maps"):
+            Periodic3DRankNTransportAnalysisRequest(
+                retained_rank=3,
+                frame=frame,
+                rank_absolute=1.0e-12,
+                rank_relative=1.0e-10,
+                endpoint_sewing=ReciprocalEndpointSewingInventory(
+                    positive_axis_maps=(
+                        IdentityReciprocalSewing(ambient_dimension=3).endpoint_map,
+                    )
+                    * 2
+                ),
+            )
+        with pytest.raises(ValueError, match="frame ambient dimension"):
+            Periodic3DRankNTransportAnalysisRequest(
+                retained_rank=3,
+                frame=frame,
+                rank_absolute=1.0e-12,
+                rank_relative=1.0e-10,
+                endpoint_sewing=self._endpoint_sewing(4),
+            )
+
     def test_rejects_two_dimensional_meshes_and_rank_two(self) -> None:
         source, target = self._frames((2, 3), retained_rank=3)
         with pytest.raises(ValueError, match="N1, N2, N3, ambient, retained_rank"):
@@ -208,4 +285,5 @@ class TestPeriodic3DRankNAlignmentCapabilities:
                 frame=frame,
                 rank_absolute=1.0e-12,
                 rank_relative=1.0e-10,
+                endpoint_sewing=self._endpoint_sewing(2),
             )

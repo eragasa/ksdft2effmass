@@ -121,7 +121,9 @@ class TestPeriodic1DRank2Truncation:
                 point.comparison_nyquist_power, rel=0.0, abs=1.0e-20
             )
 
-    def test_zero_attack_has_no_interpolation_or_total_full_range_error(self) -> None:
+    def test_zero_transformation_has_no_interpolation_or_total_full_range_error(
+        self,
+    ) -> None:
         result = _analyze(_request())
         assert type(result) is Periodic1DRank2TruncationCompleted
         point = result.points[0]

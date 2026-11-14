@@ -9,23 +9,24 @@ binding explicitly supplies one.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 
-class CitationContentAlgorithm(StrEnum):
+class CitationContentAlgorithm(StrWireEnum):
     """Supported exact source-content digest algorithms."""
 
     SHA256 = "sha256"
 
 
-class ManuscriptCitationCommandKind(StrEnum):
+class ManuscriptCitationCommandKind(StrWireEnum):
     """Rendered citation command kinds supported by the monograph contract."""
 
     CITE = "cite"
     EQINCITE = "eqincite"
 
 
-class ManuscriptCitationOrigin(StrEnum):
+class ManuscriptCitationOrigin(StrWireEnum):
     """Source construct responsible for one rendered citation occurrence."""
 
     DIRECT = "direct"
@@ -33,7 +34,7 @@ class ManuscriptCitationOrigin(StrEnum):
     CITATION_TODO_EXPANSION = "citation_todo_expansion"
 
 
-class ManuscriptCitationPriority(StrEnum):
+class ManuscriptCitationPriority(StrWireEnum):
     """Editorial priority encoded by ``citationtodo`` markers."""
 
     HIGH = "high"
@@ -41,13 +42,13 @@ class ManuscriptCitationPriority(StrEnum):
     LOW = "low"
 
 
-class ManuscriptCitationSourceGapReason(StrEnum):
+class ManuscriptCitationSourceGapReason(StrWireEnum):
     """Closed reasons for a source gap without an invented citation key."""
 
     PLACEHOLDER_IDENTIFIER = "placeholder_identifier"
 
 
-class CitationSnapshotErrorCode(StrEnum):
+class CitationSnapshotErrorCode(StrWireEnum):
     """Fail-closed citation snapshot error codes."""
 
     INVALID_REQUEST = "invalid_request"

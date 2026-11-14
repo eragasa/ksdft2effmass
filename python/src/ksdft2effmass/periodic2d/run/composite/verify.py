@@ -13,7 +13,9 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from ...model.retained.composite import Periodic2DCompositeCampaignModel
+from ksdft2effmass.periodic.periodic2d.models.retained.composite import (
+    Periodic2DCompositeCampaignModel,
+)
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -156,17 +158,17 @@ class Periodic2DCompositeCampaignVerifier:
             minimum_projection > 0.88, "independent verification condition failed"
         )
 
-        attacked = np.empty_like(smooth)
-        attacked_hamiltonians = np.empty_like(hamiltonians)
+        gauge_transformed = np.empty_like(smooth)
+        gauge_transformed_hamiltonians = np.empty_like(hamiltonians)
         for ix in range(mesh_size):
             for iy in range(mesh_size):
-                rotation = self._attack(ix, iy, mesh_size)
-                attacked[ix, iy] = smooth[ix, iy] @ rotation
-                attacked_hamiltonians[ix, iy] = (
+                rotation = self._transformation(ix, iy, mesh_size)
+                gauge_transformed[ix, iy] = smooth[ix, iy] @ rotation
+                gauge_transformed_hamiltonians[ix, iy] = (
                     rotation.conj().T @ hamiltonians[ix, iy] @ rotation
                 )
         smooth_topology = self._topology(smooth, cutoff)
-        attacked_topology = self._topology(attacked, cutoff)
+        gauge_transformed_topology = self._topology(gauge_transformed, cutoff)
         smooth_record = self._mapping(result["smooth_projected_gauge"], "smooth")
         rough_record = self._mapping(result["controlled_rough_gauge"], "rough")
         self._verify_topology(
@@ -175,7 +177,7 @@ class Periodic2DCompositeCampaignVerifier:
         )
         self._verify_topology(
             self._mapping(rough_record["topology"], "rough topology"),
-            attacked_topology,
+            gauge_transformed_topology,
         )
         self._require(
             smooth_topology[0] > 0.78, "independent verification condition failed"
@@ -192,7 +194,7 @@ class Periodic2DCompositeCampaignVerifier:
         )
         rough_hopping_defect = self._verify_reduction(
             self._mapping(rough_record["reduction"], "rough reduction"),
-            attacked_hamiltonians,
+            gauge_transformed_hamiltonians,
             mesh,
             shell_radii,
         )
@@ -204,21 +206,21 @@ class Periodic2DCompositeCampaignVerifier:
         )
         rough_spreads = self._verify_localization(
             self._records(rough_record["localization"]),
-            attacked,
+            gauge_transformed,
             cutoff,
             fft_size,
         )
         comparison = self._mapping(result["gauge_invariant_comparison"], "comparison")
         np.testing.assert_allclose(
             self._real(comparison["chern_difference"]),
-            abs(smooth_topology[1] - attacked_topology[1]),
+            abs(smooth_topology[1] - gauge_transformed_topology[1]),
             atol=1.0e-15,
         )
         np.testing.assert_allclose(
             self._real(comparison["maximum_wilson_eigenphase_set_defect"]),
             max(
-                self._wilson_defect(smooth_topology[2], attacked_topology[2]),
-                self._wilson_defect(smooth_topology[3], attacked_topology[3]),
+                self._wilson_defect(smooth_topology[2], gauge_transformed_topology[2]),
+                self._wilson_defect(smooth_topology[3], gauge_transformed_topology[3]),
             ),
             atol=2.0e-14,
         )
@@ -528,7 +530,7 @@ class Periodic2DCompositeCampaignVerifier:
         )
 
     @staticmethod
-    def _attack(ix: int, iy: int, size: int) -> ComplexMatrix:
+    def _transformation(ix: int, iy: int, size: int) -> ComplexMatrix:
         a = 1.7 * np.sin(2.0 * np.pi * (3 * ix + iy) / size)
         b = 1.3 * np.cos(2.0 * np.pi * (ix + 4 * iy) / size)
         first = np.asarray(

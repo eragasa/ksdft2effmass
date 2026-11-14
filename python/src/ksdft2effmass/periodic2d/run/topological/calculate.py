@@ -37,7 +37,7 @@ class Periodic2DTopologicalInput:
     haldane_topological_mass: float
     haldane_trivial_mass: float
     chern_integer_defect: float
-    gauge_attack_invariant_defect: float
+    gauge_transformation_invariant_defect: float
     minimum_gap: float
 
     def __post_init__(self) -> None:
@@ -54,7 +54,7 @@ class Periodic2DTopologicalInput:
             self.haldane_nearest_hopping,
             self.haldane_next_nearest_hopping,
             self.chern_integer_defect,
-            self.gauge_attack_invariant_defect,
+            self.gauge_transformation_invariant_defect,
             self.minimum_gap,
         )
         if any(not np.isfinite(value) or value <= 0.0 for value in positive):
@@ -103,7 +103,7 @@ class Periodic2DTopologicalInputDeserializer:
             haldane_topological_mass=self._real(haldane["topological_sublattice_mass"]),
             haldane_trivial_mass=self._real(haldane["trivial_sublattice_mass"]),
             chern_integer_defect=self._real(tolerances["chern_integer_defect"]),
-            gauge_attack_invariant_defect=self._real(
+            gauge_transformation_invariant_defect=self._real(
                 tolerances["gauge_attack_invariant_defect"]
             ),
             minimum_gap=self._real(tolerances["minimum_gap"]),
@@ -244,9 +244,9 @@ class Periodic2DTopologicalCalculator:
                     raise RuntimeError("TOPOLOGICAL.CHERN_NOT_QUANTIZED")
                 if (
                     cast(float, final["gauge_attack_chern_defect"])
-                    >= self._controls.gauge_attack_invariant_defect
+                    >= self._controls.gauge_transformation_invariant_defect
                     or cast(float, final["gauge_attack_wilson_phase_defect"])
-                    >= self._controls.gauge_attack_invariant_defect
+                    >= self._controls.gauge_transformation_invariant_defect
                 ):
                     raise RuntimeError("TOPOLOGICAL.GAUGE_INVARIANCE_FAILED")
                 chern_integer = cast(int, final["retained_chern_integer"])
@@ -344,19 +344,27 @@ class Periodic2DTopologicalCalculator:
         wilson_phases = self._wilson_phases(retained_links_x)
         wilson_winding = self._winding(wilson_phases)
 
-        attacked = frames[:, :, :, 0].copy()
+        gauge_transformed = frames[:, :, :, 0].copy()
         for i in range(mesh_size):
             for j in range(mesh_size):
                 phase = 0.37 * np.sin(4.0 * np.pi * i / mesh_size)
                 phase += 0.29 * np.cos(6.0 * np.pi * j / mesh_size)
                 phase += 0.13 * np.sin(2.0 * np.pi * (i + 2 * j) / mesh_size)
-                attacked[i, j] *= np.exp(1j * phase)
-        attacked_x, attacked_y = self._links(attacked)
-        attacked_plaquettes = self._plaquette_phases(attacked_x, attacked_y)
-        attacked_chern = float(np.sum(attacked_plaquettes) / (2.0 * np.pi))
-        attacked_wilson = self._wilson_phases(attacked_x)
+                gauge_transformed[i, j] *= np.exp(1j * phase)
+        gauge_transformed_x, gauge_transformed_y = self._links(gauge_transformed)
+        gauge_transformed_plaquettes = self._plaquette_phases(
+            gauge_transformed_x, gauge_transformed_y
+        )
+        gauge_transformed_chern = float(
+            np.sum(gauge_transformed_plaquettes) / (2.0 * np.pi)
+        )
+        gauge_transformed_wilson = self._wilson_phases(gauge_transformed_x)
         wilson_defect = float(
-            np.max(np.abs(np.angle(np.exp(1j * (wilson_phases - attacked_wilson)))))
+            np.max(
+                np.abs(
+                    np.angle(np.exp(1j * (wilson_phases - gauge_transformed_wilson)))
+                )
+            )
         )
         projector_periodicity_defect = self._projector_periodicity_defect(
             model_name, parameter, mesh_size
@@ -377,7 +385,7 @@ class Periodic2DTopologicalCalculator:
             ),
             "wilson_phases": wilson_phases.tolist(),
             "wilson_winding": wilson_winding,
-            "gauge_attack_chern_defect": abs(attacked_chern - retained_chern),
+            "gauge_attack_chern_defect": abs(gauge_transformed_chern - retained_chern),
             "gauge_attack_wilson_phase_defect": wilson_defect,
             "projector_periodicity_defect": projector_periodicity_defect,
             "obstruction_detected": abs(int(round(retained_chern))) == 1

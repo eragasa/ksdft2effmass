@@ -168,7 +168,6 @@ under :mod:`ksdft2effmass.provenance`.
 .. autoclass:: ExternalSourceObservation
 .. autoclass:: ImportedRetainedFixture
 .. autoclass:: HumanAuthoredCompactInput
-.. autoclass:: UnknownLegacyProducer
 .. autoclass:: ArtifactManifestEntry
 .. autoclass:: ArtifactManifest
 
@@ -368,7 +367,6 @@ lineage. A dependency is independent of Workflow membership.
 .. autoclass:: ImportedRetainedResultProducer
 .. autoclass:: HumanResultAuthorIdentity
 .. autoclass:: HumanAuthoredResultProducer
-.. autoclass:: UnknownLegacyResultProducer
 .. autoclass:: ResultProductionRecordIdentity
 .. autoclass:: ResultProductionRecord
 .. autoclass:: NativeOutputAdmissionIdentity

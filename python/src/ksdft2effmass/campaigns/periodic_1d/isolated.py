@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import json
 import math
-import warnings
 from dataclasses import dataclass
 
 from projectkoios.physkit.units import (
@@ -224,21 +223,3 @@ class Periodic1DIsolatedBandCampaignJsonSerializer(
         return (
             json.dumps(document, sort_keys=True, separators=(",", ":")) + "\n"
         ).encode()
-
-    def decode(self, payload: bytes) -> Periodic1DIsolatedBandCampaignDefinition:
-        """Deprecated compatibility alias for :meth:`deserialize`."""
-        warnings.warn(
-            "decode() is deprecated; use deserialize()",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return self.deserialize(payload)
-
-    def encode(self, value: Periodic1DIsolatedBandCampaignDefinition) -> bytes:
-        """Deprecated compatibility alias for :meth:`serialize`."""
-        warnings.warn(
-            "encode() is deprecated; use serialize()",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return self.serialize(value)

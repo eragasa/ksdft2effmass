@@ -19,6 +19,8 @@ Domain and periodic roles
 .. autoclass:: FrameTransportAnalyzer
    :members:
 .. autoclass:: PeriodicFrameTransport
+.. autoclass:: PeriodicRankNFrameTransportCapability
+   :members:
 .. autoclass:: PeriodicFrameTransportAnalysisRequest
    :members:
 .. autoclass:: PeriodicFrameTransportAnalysis
@@ -53,6 +55,7 @@ Dimensional specializations
 Rank specializations
 --------------------
 
-Rank two and arbitrary rank are sibling specializations. A rank-four transport is a
-rank-N value, not a separate rank-four namespace. No Periodic2D or Periodic3D rank-one
-transport capability is claimed.
+Rank-two transport refines the applicable dimensional finite-rank transport owner and
+fixes ``band_subspace_rank`` to two. A rank-four transport is a rank-N value, not a
+separate rank-four namespace. No Periodic2D or Periodic3D rank-one transport capability
+is claimed.

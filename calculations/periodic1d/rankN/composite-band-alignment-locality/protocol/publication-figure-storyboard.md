@@ -17,7 +17,7 @@ as the detailed diagnostic record.
 | Figure | Scientific question | Intended placement |
 |---|---|---|
 | `01-alignment-information-hierarchy` | Which alignment families recover the reference frame, restore short-range hopping diagnostics, and reduce the finite-support spectral consequence? | Main text |
-| `02-rank-depth-scaling` | How do the attacked representation, restricted global fit, and pointwise control vary over the frozen rank/depth grid? | Main text |
+| `02-rank-depth-scaling` | How do the gauge-transformed representation, restricted global fit, and pointwise control vary over the frozen rank/depth grid? | Main text |
 | `03-locality-and-support-consequences` | At the fixed interior anchor, how do unchanged Fourier coefficients and retained-support consequences respond to alignment? | Main text |
 | `04-separated-error-channels` | Are interpolation, deliberate truncation, and total spectral consequence kept distinct rather than presented as an additive scalar budget? | Main text or methods |
 | `05-claim-operands-and-unresolved-boundary` | Which frozen threshold operands are available, and which missing represented-operator operand prevents a complete claim disposition? | Main text |

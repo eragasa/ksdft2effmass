@@ -173,7 +173,30 @@ than leaving it implicit in constructor loops:
 The represented-identity, reciprocal-mesh, finite plane-wave sewing, and transported
 common-space portions of implementation step 2 are now explicit. The input-definition
 and input-serialization portion of step 3 is also explicit; granular typed result
-records remain open. No stress or defect capability is activated by these slices.
+records remain open. No general stress or defect campaign is activated by these slices.
+
+A calculation-local parent-qualification slice is retained at
+`calculations/periodic2d_rank_defect/executions/parent-qualification-v1/`. It binds an
+authenticated projection of accepted historical synthetic evidence for the isotropic,
+anisotropic, and axis-swapped rank-one parents to the maintained scalar hopping,
+finite-shape, twist, localized-perturbation, uniform-link, quotient-seam, and gauge-
+bridge contracts. The calculation covers fourteen unique planned shapes and the full
+$9\times9$ twist mesh; a separate verifier uses FFT reconstruction and direct sparse
+uniform/seam arithmetic without importing the qualification calculator. The package
+passes its prospective represented criteria and explicitly retains nonzero radius-18
+truncation losses. An additive read-only audit authenticates the compact and
+pretruncation projections against the exact historical Git objects and binds the
+implementation modules and installed package versions without replacing the original
+manifest.
+
+That package closes the exact parent identity, represented space, basis/order,
+gauge/twist, energy reference, unit, support, perturbation-term, construction,
+independent-reconstruction, criterion, resource, provenance, and retention checklist
+for those three synthetic parents only. It does not close the broader parity table,
+activate Onsite Extraction and Covariance Controls, Defect-Model Discrimination, or
+Finite-Domain Sensitivity, select a finite cell, or establish physical/material
+validation. Granular periodic2d result, stress, alignment, route, and native-boundary
+work remains open as listed above.
 
 ## Implementation order
 

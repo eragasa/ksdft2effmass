@@ -37,8 +37,11 @@ lifecycle records.
 Every rank-bound request and result must carry an explicit retained rank. Study-level
 requests admit exactly `3`, `4`, and `8`; reusable pointwise Procrustes, transport,
 locality, and support actions may admit another finite rank only through a separately
-reviewed caller. Rank-N classes mirror applicable `Periodic3DRank2...` role names using
-`Periodic3DRankN...`; they do not inherit rank-two classes.
+reviewed caller. Dimensional rank-N owners refine dimension-neutral periodic finite-rank
+capabilities. Applicable `Periodic3DRank2...` operation owners then refine the
+corresponding `Periodic3DRankN...` owner and fix the rank to two. The rank-N study family
+does not inherit rank-two calculation policy, and its `3`, `4`, and `8` inventory remains
+calculation-owned.
 
 The recommended alignment inventory is identity, complete global-unitary Procrustes,
 pointwise-unitary Procrustes, and a separately labelled known-inverse oracle when the
@@ -51,8 +54,10 @@ scientific overlap thresholds or convergence evidence.
 
 The selected parent has ambient dimension `2 * retained_rank`, a rank-dimensional
 retained seed, and separated retained/exterior sectors. The exact rank-dependent energy,
-gap, generator, harmonic, and attack formulas are frozen in `recommended-baseline.md`
-and implemented by the dimension-owned analytic model.
+gap, generator, harmonic, and transformation formulas are frozen in
+`recommended-baseline.md`. Concrete implementation belongs to this calculation or
+independent verification support; reusable source owns only the parent and transformation
+contracts.
 
 ## Open periodic-3D decisions
 
@@ -82,7 +87,7 @@ admission work; no entry authorizes execution.
 ## Recommended review sequence
 
 1. Select and certify the parent family and retained state space before choosing a gauge
-   attack.
+   transformation.
 2. Select the lattice and physical metric before defining locality or support.
 3. Select the gauge group, generators, depth semantics, and oracle boundary before
    specifying alignment actions.
@@ -110,7 +115,7 @@ dimensional refinement or resource feasibility.
 This selected protocol covers the fixed simple-cubic and FCC/basis-metric case inventory.
 It does not itself select homogeneous strain, a continuous Bain metric, a common-cell
 path map, or M0/M1N/M2 response channels. The separate calculation-owned context is
-[`calculations/periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/README.md).
+[`calculations/periodic3d_rankN_strain/`](../../periodic3d_rankN_strain/README.md).
 That context now selects its exact Bain geometry/common-state-space, M0 shared-`2r` flat
 `lambda=0` geometry control, and M1N frozen `2r`-state analytic-parent semantics. Its
 candidate ranks and depths, M2 parent/response, remaining response laws, meshes,
@@ -119,11 +124,14 @@ this fixed-geometry record transfers no outcomes or evidence.
 
 ## Implementation gate
 
-The package currently installs the analytic parent/gauge model, global and pointwise
+The package currently installs abstract parent ownership, generic gauge-transformation
+mechanics, explicit parent/transformation case correlation, global and pointwise
 Procrustes, frame transport, hopping locality, support truncation, typed aggregate
-requests, case expansion, thin aggregate analysis, immutable per-case/per-alignment
-results, and bounded producer-independent parent, alignment, transport, Fourier,
-shell-power, and support-selection references plus typed aggregate verification.
+requests, thin aggregate analysis over an explicitly supplied complete case inventory,
+immutable per-case/per-alignment results, and bounded producer-independent parent,
+alignment, transport, Fourier, shell-power, and support-selection references plus typed
+aggregate verification. This calculation owns the concrete parent formulas, basis
+inventory, transformation schedule, and case expansion when it is implemented.
 Visualization and lifecycle owners remain pending. Until the remaining implementation
 and admission work is reviewed, it must not
 install an aggregate lifecycle and this calculation root must contain no

@@ -483,17 +483,17 @@ def _add_interpolation_and_tail_comparisons(
         Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY,
     ):
         gauge = reference_model.gauge_unitaries(evaluation_coordinates)
-        attacked = np.asarray(
+        gauge_transformed = np.asarray(
             np.swapaxes(gauge.conjugate(), -1, -2) @ exact @ gauge,
             dtype=np.complex128,
         )
         if gauge_alignment is Periodic1DRankNGaugeAlignment.GLOBAL_UNITARY:
             direct = np.asarray(
-                global_right.conjugate().T @ attacked @ global_right,
+                global_right.conjugate().T @ gauge_transformed @ global_right,
                 dtype=np.complex128,
             )
         else:
-            direct = attacked
+            direct = gauge_transformed
     else:
         direct = exact
     interpolation = observed.interpolation

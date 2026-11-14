@@ -30,7 +30,9 @@ After working through this chapter, a reader should be able to
         and closure holonomy;
   \item derive pointwise and globally constrained unitary Procrustes alignment;
   \item explain why complete spectra can be gauge invariant while finite-range
-        locality is gauge dependent; and
+        locality is gauge dependent;
+  \item distinguish cell-block, orbital-resolved, and maximally localized
+        Wannier-function (MLWF)-resolved hopping locality; and
   \item interpret the Frobenius, singular-value, gap, Hermiticity, and spectral
         diagnostics used in a bounded multiband calculation.
 \end{enumerate}
@@ -338,6 +340,12 @@ mesh points.
 \index{holonomy!closure}
 \index{principal phase!branch convention}
 \index{matrix root!distributed closure}
+
+Chapter~\ref{ch:training-sewing-periodic-fibers} owns the foundational
+definitions of reciprocal fibers, sewing-map direction, projected sewing, and
+sewn-loop covariance. This section applies those definitions to transported
+composite frames and retains the orientation used by the controlled
+one-dimensional calculation.
 
 The first and last stored points of a half-open reciprocal mesh are not duplicate
 endpoints.  Let the ordered mesh contain
@@ -813,6 +821,112 @@ it changes both $\eta_F$ and the spectral error of a finite-range model. This is
 why localization or gauge selection matters to short-range approximation even
 though it does not change the complete retained spectrum.
 
+\subsection{Cell-block, orbital-resolved, and MLWF-resolved locality}
+\index{locality!cell-block resolution}
+\index{locality!orbital-resolved}
+\index{locality!MLWF-resolved}
+\index{Wannier function!center-attributed hopping locality}
+
+The omitted-block norm in Equation~\eqref{eq:training-composite-omitted-block-norm}
+is a cell-block diagnostic: it assigns one Frobenius power to the complete
+$M\times M$ coefficient block at each cell displacement. It does not identify
+which matrix elements carry that power. The following definition separates
+three questions that should not share one unnamed locality value.
+
+\begin{definition}[Hopping-locality resolution]
+\label{def:training-hopping-locality-resolution}
+For a complete block $H_F(R)\in\mathbb C^{M\times M}$, define the
+\emph{cell-block power}
+\begin{equation}
+  p_{\mathrm{cell}}(R)=\lVert H_F(R)\rVert_{\mathrm F}^{2}.
+  \label{eq:training-cell-block-hopping-power}
+\end{equation}
+If the ordered retained basis is correlated with fractional intracell centers
+$s_1,\ldots,s_M$, the \emph{orbital-resolved power} and directed physical
+element displacement are
+\begin{align}
+  p_{\alpha\beta}(R)
+  &=\left|[H_F(R)]_{\alpha\beta}\right|^{2},
+  \label{eq:training-orbital-resolved-hopping-power}\\
+  d_{\alpha\beta R}
+  &=a\left(R+s_\beta-s_\alpha\right),
+  \label{eq:training-orbital-resolved-hopping-displacement}
+\end{align}
+where $a>0$ is the primitive-cell length in the present one-dimensional setting.
+The higher-dimensional form is Definition~\ref{def:training-embedded-basis-element-displacement}.
+When the ordered basis states are explicitly correlated maximally localized
+Wannier functions, the same element powers and displacements define
+\emph{center-attributed MLWF-resolved locality}, provided that the Wannier
+identities, center representatives, gauge, and localization provenance are
+retained.
+\end{definition}
+
+\index{definition crosswalk}
+\index{ProjectKoios Formal}
+\begin{definitioncrosswalk}
+\begin{description}
+  \item[ProjectKoios Formal definition.]
+  The exact finite cell-block core is represented by
+  \texttt{BG-FOURIER-DEF-012}
+  (\path{finiteMatrixFrobeniusPower}) and
+  \texttt{BG-FOURIER-DEF-013}
+  (\path{omittedMatrixFrobeniusPower}). The matrix Parseval identity is
+  \texttt{BG-FOURIER-THM-028}. These declarations formalize finite
+  matrix-Frobenius power and omitted-support power under an exact finite Fourier
+  convention. They do not formalize ordered orbital embeddings, physical
+  element displacements, MLWF identities, or localization provenance.
+
+  \item[Runtime implementation.]
+  The nominal operation is owned by
+  \path{ksdft2effmass.hopping_locality}. The installed
+  \path{ksdft2effmass.periodic2d.rank2.hopping_locality} specialization binds
+  one immutable request to one exact scientific model and returns one immutable
+  analysis. For retained rank $M$, its reported per-block value is
+  \begin{equation*}
+    \widetilde p_{\mathrm{cell}}(\mathbf n)
+    =\frac{p_{\mathrm{cell}}(\mathbf n)}{M},
+  \end{equation*}
+  correlated with an explicit metric-shell label. PhysKit owns the raw block
+  power; KSD owns retained-rank normalization and shell correlation. The
+  installed route accepts an unchanged dense unitless block representation.
+  Orbital- and MLWF-resolved analyzers are prospective.
+
+  \item[Evidence boundary.]
+  Maintained tests establish request correlation, dimensional and rank
+  admission, normalization, shell aggregation, and unchanged-support software
+  behavior. They do not establish physical locality, material convergence, or
+  an executed MLWF-resolved locality result.
+\end{description}
+\end{definitioncrosswalk}
+
+The exact reconciliation
+\begin{equation}
+  p_{\mathrm{cell}}(R)
+  =\sum_{\alpha=1}^{M}\sum_{\beta=1}^{M}p_{\alpha\beta}(R)
+  \label{eq:training-locality-resolution-reconciliation}
+\end{equation}
+shows that orbital resolution decomposes cell-block Frobenius power rather than
+creating a second hopping representation. Hermiticity pairs
+$(\alpha,\beta,R)$ with $(\beta,\alpha,-R)$, so a directed or pair-symmetric
+inventory must state whether both partners, one canonical representative, or a
+weighted pair sum is reported.
+
+The term ``orbital'' here means an ordered retained basis state. It does not by
+itself assert an atomic orbital, chemical site, bond orbital, or Slater--Koster
+channel. MLWF resolution is more specific but remains gauge conditioned.
+Permutations, lattice-image changes, admissible unitary mixing, projections,
+disentanglement windows, localization settings, and distinct local minima can
+change individual centers and matrix-element attribution. Results from two
+Wannier constructions therefore require an explicit state correlation or
+alignment; nearest-center matching alone is not generally sufficient.
+
+The initial scientifically controlled MLWF observable is center-attributed
+coefficient locality. A quadratic spread may be retained as a peer localization
+diagnostic, but it does not alter $d_{\alpha\beta R}$ or
+$p_{\alpha\beta}(R)$. A spread-weighted distance or a full wavefunction-shape
+observable requires a separate definition because centers and spreads do not
+determine overlap, directional tails, or nodal structure.
+
 The maximum spectral error on a declared set $\mathcal K$ is
 \begin{equation}
   \epsilon_{\mathrm{spec},\max}
@@ -880,7 +994,7 @@ agreement.
   \centering
   \caption{Distinct diagnostics in a bounded composite-frame calculation.}
   \label{tab:training-composite-diagnostics}
-  \small
+  \footnotesize
   \begin{tabular}{@{}p{0.25\textwidth}p{0.29\textwidth}p{0.13\textwidth}p{0.23\textwidth}@{}}
     \toprule
     Quantity & Compared objects & Unit & Interpretation \\
@@ -894,6 +1008,9 @@ agreement.
     Projector Frobenius defect & two retained subspaces & unitless & gauge-invariant subspace difference \\
     Projected-operator defect & two matrices in declared coordinates & energy & coordinate-sensitive operator difference \\
     Block Hermiticity defect & $H(-R)$ and $H(R)^{\dagger}$ & energy & represented structural consistency \\
+    Cell-block power & complete coefficient block at one displacement & energy squared & basis-aggregate hopping locality \\
+    Orbital-resolved power & one ordered embedded basis-state pair & energy squared & gauge- and embedding-conditioned coefficient attribution \\
+    MLWF-resolved power & one correlated Wannier pair and its center displacement & energy squared & localization- and provenance-conditioned attribution \\
     Omitted-block norm & discarded hopping blocks & energy & range-truncation diagnostic \\
     Hamiltonian truncation error & complete and truncated matrices in common coordinates & energy & sampled operator discrepancy \\
     Maximum spectral error & ordered eigenvalues on a mesh & energy & worst sampled band discrepancy \\
@@ -1171,6 +1288,10 @@ manuscript change.}
         evaluating a localization functional.
   \item Inferring Wannier centers, spreads, or densities from Hamiltonian
         blocks alone.
+  \item Calling matrix indices atomic orbitals or MLWFs without an ordered
+        basis correlation and the required gauge or localization provenance.
+  \item Using Wannier spreads as unannounced weights in a center-attributed
+        hopping-distance diagnostic.
   \item Assuming gauge invariance of the complete spectrum survives an
         arbitrary finite-range truncation.
   \item Treating an omitted-block Frobenius norm as a probability or physical
@@ -1191,6 +1312,9 @@ manuscript change.}
         $F\mapsto FU$.
   \item Derive Equation~\eqref{eq:training-composite-wannier-hopping} from the
         finite Wannier transformation and Bloch orthogonality.
+  \item Prove Equation~\eqref{eq:training-locality-resolution-reconciliation}
+        and derive the Hermitian partner relations for
+        $p_{\alpha\beta}(R)$ and $d_{\alpha\beta R}$.
   \item Show explicitly why the gauge cancels from the complete scalar
         isolated-band Hamiltonian but not from a general composite matrix.
   \item Derive the positive overlap in

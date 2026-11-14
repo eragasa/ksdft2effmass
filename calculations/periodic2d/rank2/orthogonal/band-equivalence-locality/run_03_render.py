@@ -64,7 +64,9 @@ if not all(
 execution_bytes = execution_path.read_bytes()
 result_bytes = result_path.read_bytes()
 verification_bytes = verification_path.read_bytes()
-execution = Periodic2DRank2BandEquivalenceHoppingLocalityExecution.from_json(execution_bytes)
+execution = Periodic2DRank2BandEquivalenceHoppingLocalityExecution.from_json(
+    execution_bytes
+)
 if execution.to_json() != execution_bytes:
     raise ValueError("execution document is not canonical typed JSON")
 if execution.execution_id != EXECUTION_ID:
@@ -104,7 +106,9 @@ if (
     raise ValueError("verification script bytes do not match verification.json")
 verification = verification_record.verification
 data = verification_record.visualization_data
-result = Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult.from_json(result_bytes)
+result = Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult.from_json(
+    result_bytes
+)
 if result.to_json() != result_bytes:
     raise ValueError("result document is not canonical typed JSON")
 admitted = Periodic2DRank2BandEquivalenceHoppingLocalityResultVerifier(

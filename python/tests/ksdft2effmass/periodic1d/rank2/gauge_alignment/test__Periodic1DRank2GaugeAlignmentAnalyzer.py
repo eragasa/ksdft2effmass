@@ -58,28 +58,34 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
         with pytest.raises(ValueError, match="both have rank two"):
             self._request(
                 reference=self._path(point_count=2, ambient_dimension=3, rank=1),
-                attacked=self._path(point_count=2, ambient_dimension=3, rank=2),
+                gauge_transformed=self._path(
+                    point_count=2, ambient_dimension=3, rank=2
+                ),
             )
 
     def test__request__requires_one_reciprocal_mesh(self) -> None:
         with pytest.raises(ValueError, match="meshes must agree"):
             self._request(
                 reference=self._path(point_count=2, ambient_dimension=3, rank=2),
-                attacked=self._path(point_count=4, ambient_dimension=3, rank=2),
+                gauge_transformed=self._path(
+                    point_count=4, ambient_dimension=3, rank=2
+                ),
             )
 
     def test__request__requires_one_ambient_state_space_dimension(self) -> None:
         with pytest.raises(ValueError, match="ambient dimensions must agree"):
             self._request(
                 reference=self._path(point_count=2, ambient_dimension=3, rank=2),
-                attacked=self._path(point_count=2, ambient_dimension=4, rank=2),
+                gauge_transformed=self._path(
+                    point_count=2, ambient_dimension=4, rank=2
+                ),
             )
 
     def test__request__requires_one_endpoint_sewing_convention(self) -> None:
         with pytest.raises(ValueError, match="sewing maps must agree"):
             self._request(
                 reference=self._path(point_count=2, ambient_dimension=3, rank=2),
-                attacked=self._path(
+                gauge_transformed=self._path(
                     point_count=2,
                     ambient_dimension=3,
                     rank=2,
@@ -149,9 +155,9 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
                 composite_configuration.dimensionless_absolute_tolerance
             ),
         )
-        attacked = ReciprocalBandFramePath1D(
+        gauge_transformed = ReciprocalBandFramePath1D(
             mesh=mesh,
-            frames=composite_result.attacked_frames,
+            frames=composite_result.gauge_transformed_frames,
             sewing_map=sewing_map,
             orthonormality_absolute_tolerance=(
                 composite_configuration.dimensionless_absolute_tolerance
@@ -160,7 +166,7 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
 
         request = Periodic1DRank2GaugeAlignmentAnalysisRequest(
             reference=reference,
-            attacked=attacked,
+            gauge_transformed=gauge_transformed,
             rank_absolute_tolerance=(
                 composite_configuration.procrustes_rank_absolute_tolerance
             ),
@@ -262,11 +268,11 @@ class TestPeriodic1DRank2GaugeAlignmentAnalyzer:
     def _request(
         *,
         reference: ReciprocalBandFramePath1D,
-        attacked: ReciprocalBandFramePath1D,
+        gauge_transformed: ReciprocalBandFramePath1D,
     ) -> Periodic1DRank2GaugeAlignmentAnalysisRequest:
         return Periodic1DRank2GaugeAlignmentAnalysisRequest(
             reference=reference,
-            attacked=attacked,
+            gauge_transformed=gauge_transformed,
             rank_absolute_tolerance=0.0,
             rank_relative_tolerance=0.0,
             validation_absolute_tolerance=0.0,

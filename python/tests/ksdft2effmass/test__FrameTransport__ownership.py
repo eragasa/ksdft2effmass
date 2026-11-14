@@ -13,6 +13,7 @@ from ksdft2effmass.frame_transport.base import (
     PeriodicFrameTransportAnalysis,
     PeriodicFrameTransportAnalysisRequest,
     PeriodicFrameTransportAnalyzer,
+    PeriodicRankNFrameTransportCapability,
 )
 from ksdft2effmass.gauge_alignment.base import GaugeAlignment
 from ksdft2effmass.periodic1d.frame_transport.base import (
@@ -78,7 +79,7 @@ class TestFrameTransportOwnership:
             PeriodicFrameTransportAnalyzer,
         )
 
-    def test_rank_two_and_rank_n_are_sibling_specializations(self) -> None:
+    def test_rank_two_refines_the_finite_rank_specialization(self) -> None:
         assert Periodic1DRank2FrameTransport.__abstractmethods__ == {
             "band_subspace_rank"
         }
@@ -103,6 +104,10 @@ class TestFrameTransportOwnership:
             Periodic1DFrameTransport,
         )
         assert issubclass(
+            Periodic1DRankNFrameTransportCapability,
+            PeriodicRankNFrameTransportCapability,
+        )
+        assert issubclass(
             Periodic1DRankNFrameTransportAnalysisRequest,
             Periodic1DFrameTransportAnalysisRequest,
         )
@@ -114,9 +119,21 @@ class TestFrameTransportOwnership:
             Periodic1DRankNFrameTransportAnalyzer,
             Periodic1DFrameTransportAnalyzer,
         )
-        assert not issubclass(
+        assert issubclass(
             Periodic1DRank2FrameTransport,
             Periodic1DRankNFrameTransportCapability,
+        )
+        assert issubclass(
+            Periodic1DRank2FrameTransportAnalysisRequest,
+            Periodic1DRankNFrameTransportAnalysisRequest,
+        )
+        assert issubclass(
+            Periodic1DRank2FrameTransportAnalysis,
+            Periodic1DRankNFrameTransportAnalysis,
+        )
+        assert issubclass(
+            Periodic1DRank2FrameTransportAnalyzer,
+            Periodic1DRankNFrameTransportAnalyzer,
         )
         assert not issubclass(
             Periodic1DRankNFrameTransportCapability,

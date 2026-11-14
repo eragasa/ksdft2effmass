@@ -12,7 +12,9 @@ from typing import cast
 import numpy as np
 import numpy.typing as npt
 
-from ...model.retained.topological import Periodic2DTopologicalCampaignModel
+from ksdft2effmass.periodic.periodic2d.models.retained.topological import (
+    Periodic2DTopologicalCampaignModel,
+)
 
 type JsonValue = (
     None | bool | int | float | str | list[JsonValue] | dict[str, JsonValue]
@@ -146,13 +148,15 @@ class Periodic2DTopologicalReconstructor:
                     f"{model_name} {case_name} projector periodicity",
                 )
                 if self._real(final["gauge_attack_chern_defect"]) > invariant_tolerance:
-                    raise AssertionError(f"{model_name} gauge-attacked Chern changed")
+                    raise AssertionError(
+                        f"{model_name} gauge-transformed Chern changed"
+                    )
                 if (
                     self._real(final["gauge_attack_wilson_phase_defect"])
                     > invariant_tolerance
                 ):
                     raise AssertionError(
-                        f"{model_name} gauge-attacked Wilson loop changed"
+                        f"{model_name} gauge-transformed Wilson loop changed"
                     )
                 topological = case_name == "topological"
                 chern_integer = int(round(cast(float, rebuilt["retained_chern"])))

@@ -1,0 +1,15 @@
+{
+  "current_successor_manifest": {
+    "path": "calculations/Si/bulk/analysis/c6-b20-w21-wannier-only-comprehensive-band-edge/figures-v3/rendering-manifest.json",
+    "sha256": "f5058ec3e078ec892acfaf72a1763e0a29e269ca7352c90f91a522212eefad65"
+  },
+  "note": "Renderer modules received strict typing-only edits after version-2 rendering; version 2 is superseded and is not a manuscript input.",
+  "original_manifest": {
+    "path": "rendering-manifest.json",
+    "sha256": "9f630686cd0b3efcabceda32425a0e032c40c132a594b11ff82308792b3848c8"
+  },
+  "record_type": "superseded_figure_rendering_manifest_amendment",
+  "schema_version": 1,
+  "scientific_data_changed": false,
+  "status": "superseded-not-current-manuscript-input"
+}

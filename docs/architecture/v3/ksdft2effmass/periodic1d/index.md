@@ -89,7 +89,7 @@ status, or conclusions:
 | Study | Distinguishing question | Architecture disposition |
 |---|---|---|
 | 1. Mathieu1D single-band Fourier reduction | How do two finite parent representations support one scalar retained-band reduction? | Implemented [`model_systems.mathieu1d`](../model_systems/mathieu1d/index.md) vertical slice and `calculations/mathieu1d/`; not the rank-one specialization below. |
-| 2. Compatible rank-one Fourier locality | What scalar locality baseline remains when internal gauge action is operator-trivial? | Implemented typed source under [`periodic1d.fourier_locality`](fourier_locality/index.md) with direct stages and provisional non-retained report material under `calculations/periodic1d/rank1/fourier-locality/`; the legacy M1 runtime is retired. |
+| 2. Compatible rank-one Fourier locality | What scalar locality baseline remains when internal gauge action is operator-trivial? | Implemented typed source under [`periodic1d.fourier_locality`](fourier_locality/index.md) with operation-first calculation ownership under `calculations/periodic1d_rank1/` and one local unsealed scalar-producer execution under its `band_equivalence_hopping_locality/` aggregate; the legacy M1 runtime is retired. |
 | 3. Rank-two band equivalence versus hopping locality | Can analytically or certifiably band-equivalent represented Hamiltonians have different finite-range locality? | Installed typed flat and embedded rank-two owners under [`periodic1d.rank2.band_equivalence_hopping_locality`](rank2/band_equivalence_hopping_locality/index.md), with closed family/refinement/truncation aggregation, independent verification, authenticated six-figure rendering, and preserved unsealed `v1`/`v2` executions. Named full donor parity, donor retirement, sealing, and scientific validation remain open. |
 | 4. Rank-two composite-band alignment and locality | How do declared pointwise or global alignment choices affect block hoppings and diagnostics? | Implemented direct typed lifecycle under [`periodic1d.rank2.band_alignment.composite`](rank2/band_alignment/composite/index.md) and `calculations/periodic1d/rank2/composite-band-alignment-locality/`; no retained execution exists. |
 | 5. Confirmatory constrained admissible sets | Does one common candidate satisfy all prespecified spectral and operator thresholds? | Implemented authenticated source lifecycle at [`periodic1d.admissible_sets`](admissible_sets/index.md); no retained successor execution exists. |
@@ -124,11 +124,25 @@ searchable provenance aliases; they are not names for new studies or a version c
 - Calculation scripts use direct module-scope composition and contain no Workflow,
   `main()`, argument parser, JSON-authored scientific input, or reusable kernel.
 - Historical bytes are not rewritten into successor wires; retired predecessor payloads remain recoverable only through recorded Git identities.
+- The maintained `BlockHoppingModel1D` intermediate representation and its
+  cyclic-to-ordinary conversion values remain active until every dependent study passes
+  explicit model-correlation, parity, replay, provenance, and consumer-migration gates.
+- The approved periodic rank-two inheritance hierarchy is not extended during that
+  transition. Any proposed new class or public migration type requires separate human
+  approval before architecture or implementation work.
 - Passing software and bounded numerical checks do not establish continuum convergence,
   uncertainty quantification, material validity, publication acceptance, or release.
 
 ## Detailed plan
 
+- [Dimension-neutral model ownership](../models/index.md)
+- [Periodic scientific-model hierarchy](../periodic/models/index.md)
+- [Periodic-1D model ownership](../periodic/periodic1d/models/index.md)
+- [Dimension-neutral Bloch-hopping model contract](../models/blochhopping/index.md)
+- [Periodic-1D Bloch-hopping model contract](../periodic/periodic1d/models/blochhopping/index.md)
+- [Rank-one Bloch-hopping model contract](rank1/models/blochhopping/index.md)
+- [Rank-two Bloch-hopping model contract](../periodic/periodic1d/rank2/models/blochhopping/index.md)
+- [Rank-N Bloch-hopping model contract](../periodic/periodic1d/rankN/models/blochhopping/index.md)
 - [Compatible rank-one Fourier-locality architecture](fourier_locality/index.md)
 - [Rank-two band-equivalence/locality architecture](rank2/band_equivalence_hopping_locality/index.md)
 - [Rank-two gauge-alignment capability](rank2/gauge_alignment/index.md)
@@ -143,6 +157,6 @@ searchable provenance aliases; they are not names for new studies or a version c
 - [Visualization migration plan](visualizations.md)
 - [Migration sequence](migration.md)
 - [Phase 0 inventory and replacement boundary](phase-0-inventory.md)
-- [Phase 2 legacy retirement record](../../../../../calculations/periodic1d/rank1/fourier-locality/legacy-retirement.md)
+- [Phase 2 legacy retirement record](../../../../../calculations/periodic1d_rank1/band_equivalence_hopping_locality/legacy-retirement.md)
 - [M2 legacy retirement record](../../../../../calculations/periodic1d/rank2/composite-band-alignment-locality/legacy-retirement.md)
 - [Formal-method boundary](formal.md)

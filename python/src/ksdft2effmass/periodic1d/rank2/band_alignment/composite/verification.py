@@ -254,20 +254,20 @@ class Periodic1DCompositeBandAlignmentVerifier(
                 unit,
             ),
             diagnostic_names=(
-                "attack frame",
+                "transformation frame",
                 "pointwise frame",
                 "global frame",
-                "attack operator",
+                "transformation operator",
                 "pointwise operator",
                 "global operator",
             ),
             diagnostic_values=VectorQuantity(
                 np.asarray(
                     [
-                        result.diagnostics.attack_frame_maximum_frobenius_defect,
+                        result.diagnostics.transformation_frame_maximum_frobenius_defect,
                         result.diagnostics.pointwise_frame_maximum_frobenius_defect,
                         result.diagnostics.global_frame_maximum_frobenius_defect,
-                        result.diagnostics.attacked_operator_maximum_frobenius_defect.magnitude,
+                        result.diagnostics.gauge_transformed_operator_maximum_frobenius_defect.magnitude,
                         result.diagnostics.pointwise_operator_maximum_frobenius_defect.magnitude,
                         result.diagnostics.global_operator_maximum_frobenius_defect.magnitude,
                     ],

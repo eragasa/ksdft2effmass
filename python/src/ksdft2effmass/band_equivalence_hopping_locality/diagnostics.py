@@ -8,10 +8,10 @@ from ksdft2effmass.analysis.diagnostics import (
     BaseDiagnosticAnalyzer,
     DiagnosticObservation,
 )
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 
 
-class BandEquivalenceHoppingLocalityDiagnosticMethodEnum(StringWireEnum):
+class BandEquivalenceHoppingLocalityDiagnosticMethodEnum(StrWireEnum):
     """Identify each independently verified locality diagnostic."""
 
     storedIdentityMaximumDefect = "stored_identity_maximum_defect"

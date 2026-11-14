@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "status": "succeeded",
+  "returncode": 0,
+  "invocation_count": 1,
+  "retry_count": 0,
+  "command": [
+    "/Users/eugene/projects/q-e-qe-7.5/build/bin/pw.x",
+    "-in",
+    "pw.in"
+  ],
+  "working_directory": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-bands-l-gamma-x-gamma-b20-20261102T202436Z/run",
+  "started_unix_seconds": 1793651158.282305,
+  "finished_unix_seconds": 1793651204.689095,
+  "wall_seconds": 46.406790018081665,
+  "openmp_threads": 1,
+  "input": {
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-bands-l-gamma-x-gamma-b20-20261102T202436Z/run/pw.in",
+    "byte_size": 17951,
+    "sha256": "a8c1a511949effceae4ef3581ca2a0adc1bbea9330c0dd2fdff65e5f62fda856"
+  },
+  "pseudopotential": {
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-bands-l-gamma-x-gamma-b20-20261102T202436Z/run/Si.pbe-n-rrkjus_psl.1.0.0.UPF",
+    "byte_size": 1299382,
+    "sha256": "ae3aefd0811f9499dbc4a72f1f9ae02ef4fc7f3568bf6f559b68668719c69e2b"
+  },
+  "stdout": {
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-bands-l-gamma-x-gamma-b20-20261102T202436Z/run/pw.out",
+    "byte_size": 128953,
+    "sha256": "ac291059569886db84a3723b2c6c8da9489987aa8a57769e1e5a2d5f48ffe138"
+  },
+  "stderr": {
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-parent-bands-l-gamma-x-gamma-b20-20261102T202436Z/run/pw.err",
+    "byte_size": 139,
+    "sha256": "f382ec8367e667a70bf57907b4d4298dc573e3a6569c53218739fdb92f87b99e"
+  }
+}

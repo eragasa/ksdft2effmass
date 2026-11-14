@@ -5,11 +5,11 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import final
 
-from ksdft2effmass.periodic2d.hopping_locality.base import (
-    Periodic2DHoppingLocality,
-    Periodic2DHoppingLocalityAnalysis,
-    Periodic2DHoppingLocalityAnalysisRequest,
-    Periodic2DHoppingLocalityAnalyzer,
+from ksdft2effmass.periodic2d.rankN.hopping_locality.base import (
+    Periodic2DRankNHoppingLocalityAnalysisRequestRole,
+    Periodic2DRankNHoppingLocalityAnalysisRole,
+    Periodic2DRankNHoppingLocalityAnalyzerRole,
+    Periodic2DRankNHoppingLocalityCapability,
 )
 
 
@@ -23,7 +23,10 @@ class _Periodic2DRank2BandSubspace:
         return 2
 
 
-class Periodic2DRank2HoppingLocalityCapability(Periodic2DHoppingLocality, ABC):
+class Periodic2DRank2HoppingLocalityCapability(
+    Periodic2DRankNHoppingLocalityCapability,
+    ABC,
+):
     """Identify unchanged periodic-2D rank-two hopping coefficients."""
 
     __slots__ = ()
@@ -36,7 +39,7 @@ class Periodic2DRank2HoppingLocalityCapability(Periodic2DHoppingLocality, ABC):
 
 class Periodic2DRank2HoppingLocalityAnalysisRequestRole(
     _Periodic2DRank2BandSubspace,
-    Periodic2DHoppingLocalityAnalysisRequest,
+    Periodic2DRankNHoppingLocalityAnalysisRequestRole,
     Periodic2DRank2HoppingLocalityCapability,
     ABC,
 ):
@@ -47,7 +50,7 @@ class Periodic2DRank2HoppingLocalityAnalysisRequestRole(
 
 class Periodic2DRank2HoppingLocalityAnalysisRole(
     _Periodic2DRank2BandSubspace,
-    Periodic2DHoppingLocalityAnalysis,
+    Periodic2DRankNHoppingLocalityAnalysisRole,
     Periodic2DRank2HoppingLocalityCapability,
     ABC,
 ):
@@ -61,7 +64,7 @@ class Periodic2DRank2HoppingLocalityAnalyzerRole[
     AnalysisT: Periodic2DRank2HoppingLocalityAnalysisRole,
 ](
     _Periodic2DRank2BandSubspace,
-    Periodic2DHoppingLocalityAnalyzer[RequestT, AnalysisT],
+    Periodic2DRankNHoppingLocalityAnalyzerRole[RequestT, AnalysisT],
     Periodic2DRank2HoppingLocalityCapability,
     ABC,
 ):

@@ -3,10 +3,11 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from .....campaign.base import Periodic2DCampaign
-from .....model.retained.optimizer_standalone import (
+from ksdft2effmass.periodic.periodic2d.models.retained.optimizer_standalone import (
     Periodic2DOptimizerStandaloneCampaignModel,
 )
+
+from .....campaign.base import Periodic2DCampaign
 from .verify import (
     Periodic2DOptimizerStandaloneCampaignVerificationRequest,
     Periodic2DOptimizerStandaloneCampaignVerificationResult,

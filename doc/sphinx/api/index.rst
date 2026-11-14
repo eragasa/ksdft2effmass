@@ -10,6 +10,9 @@ public compatibility contract.
    hamiltonian
    operators
    solid-state
+   periodic-basis
+   periodic2d-models
+   sewing
    analysis
    model-systems
    visualizations
@@ -17,10 +20,13 @@ public compatibility contract.
    band-equivalence-hopping-locality
    gauge-alignment
    frame-transport
+   fourier-analysis
+   interpolation
    hopping-locality
    support-truncation
    research-monograph-campaigns
    serialization
+   certifications
    application
    units
    plane-wave-calculators

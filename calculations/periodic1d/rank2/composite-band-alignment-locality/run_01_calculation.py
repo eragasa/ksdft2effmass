@@ -23,6 +23,7 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
 from ksdft2effmass.serialization import TypedJsonValueCodec
+from ksdft2effmass.sewing import IdentityReciprocalSewing
 
 EXECUTION_ID = "direct-controlled-rank2-n64-v2"
 CALCULATION_FAMILY = (
@@ -36,11 +37,13 @@ temporary_directory = execution_directory.with_name(f".{EXECUTION_ID}.incomplete
 if execution_directory.exists() or temporary_directory.exists():
     raise FileExistsError("refusing to overwrite a composite-alignment execution")
 lattice_geometry = configuration.reduced_lattice_geometry
+endpoint_sewing = IdentityReciprocalSewing(ambient_dimension=4).endpoint_map
 study = Periodic1DAlignmentStudyFactory(
     Periodic1DRank2AlignmentStudySpecification(
         lattice_geometry=lattice_geometry,
         configuration=configuration,
         procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
+        endpoint_sewing=endpoint_sewing,
     )
 ).create()
 result = study.execute()
@@ -69,6 +72,7 @@ if (
             "result_schema": RESULT_SCHEMA,
             "calculation_family": CALCULATION_FAMILY,
             "parent_identity": configuration.parent_identity,
+            "endpoint_sewing_identifier": endpoint_sewing.identifier,
             "execution_id": EXECUTION_ID,
             "lattice_geometry": {
                 "lattice_period": lattice_geometry.lattice_period,

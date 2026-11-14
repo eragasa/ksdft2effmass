@@ -11,13 +11,15 @@ import numpy as np
 import numpy.typing as npt
 from scipy.linalg import eigh  # type: ignore[import-untyped]
 
-from ...model.toy_models import (
-    Periodic2DCosinePotentialToyModel,
-    Periodic2DFiniteDifferenceHamiltonianConstructor,
+from ksdft2effmass.periodic.models import PeriodicModelRole
+from ksdft2effmass.periodic.periodic2d.models import (
+    Periodic2DCosinePotentialModel,
+    Periodic2DFiniteDifferenceHamiltonian,
     Periodic2DFiniteDifferenceHamiltonianRequest,
-    Periodic2DPlaneWaveHamiltonianConstructor,
+    Periodic2DPlaneWaveHamiltonian,
     Periodic2DPlaneWaveHamiltonianRequest,
 )
+
 from .definition import (
     Periodic2DIsolatedBandCampaignDefinition,
     Periodic2DIsolatedBandProvenance,
@@ -296,7 +298,7 @@ class Periodic2DIsolatedBandCalculator:
         hadamard = np.asarray([[1.0, 1.0], [1.0, -1.0]]) / np.sqrt(2.0)
         rotated = product_cluster @ hadamard
         individual_overlap = np.abs(product_cluster.conj().T @ rotated)
-        attacked_projector_defect = float(
+        gauge_transformed_projector_defect = float(
             np.linalg.norm(
                 product_cluster @ product_cluster.conj().T - rotated @ rotated.conj().T
             )
@@ -312,7 +314,9 @@ class Periodic2DIsolatedBandCalculator:
                 "controlled_basis_rotation_minimum_individual_overlap": float(
                     np.min(individual_overlap)
                 ),
-                "controlled_basis_rotation_projector_defect": attacked_projector_defect,
+                "controlled_basis_rotation_projector_defect": (
+                    gauge_transformed_projector_defect
+                ),
                 "interpretation": (
                     "individual vectors are gauge dependent; the complete rank-two "
                     "projector is stable"
@@ -363,25 +367,29 @@ class Periodic2DIsolatedBandCalculator:
                     ),
                 )
         topology = self._topology(vectors, cutoff)
-        attacked = vectors.copy()
+        gauge_transformed = vectors.copy()
         for ix in range(size):
             for iy in range(size):
-                attacked[ix, iy] *= np.exp(
+                gauge_transformed[ix, iy] *= np.exp(
                     1j * (0.37 * ix + 0.23 * iy + 0.11 * ix * iy)
                 )
-        attacked_topology = self._topology(attacked, cutoff)
+        gauge_transformed_topology = self._topology(gauge_transformed, cutoff)
         topology["gauge_attack_chern_difference"] = abs(
             cast(float, topology["chern_number"])
-            - cast(float, attacked_topology["chern_number"])
+            - cast(float, gauge_transformed_topology["chern_number"])
         )
         topology["gauge_attack_maximum_wilson_phase_difference"] = max(
             self._phase_sequence_defect(
                 cast(list[JsonValue], topology["wilson_loop_x_phases"]),
-                cast(list[JsonValue], attacked_topology["wilson_loop_x_phases"]),
+                cast(
+                    list[JsonValue], gauge_transformed_topology["wilson_loop_x_phases"]
+                ),
             ),
             self._phase_sequence_defect(
                 cast(list[JsonValue], topology["wilson_loop_y_phases"]),
-                cast(list[JsonValue], attacked_topology["wilson_loop_y_phases"]),
+                cast(
+                    list[JsonValue], gauge_transformed_topology["wilson_loop_y_phases"]
+                ),
             ),
         )
         if (
@@ -778,10 +786,14 @@ class Periodic2DIsolatedBandCalculator:
         lambda_xy: float,
         cutoff: int,
     ) -> ComplexMatrix:
-        model = Periodic2DCosinePotentialToyModel(lambda_x, lambda_y, lambda_xy)
+        model = Periodic2DCosinePotentialModel(
+            lambda_x, lambda_y, lambda_xy, role=PeriodicModelRole.CONTROL_MODEL
+        )
         return (
-            Periodic2DPlaneWaveHamiltonianConstructor()
-            .execute(Periodic2DPlaneWaveHamiltonianRequest(model, kx, ky, cutoff))
+            Periodic2DPlaneWaveHamiltonian(
+                Periodic2DPlaneWaveHamiltonianRequest(model, kx, ky, cutoff)
+            )
+            .result()
             .matrix
         )
 
@@ -813,13 +825,17 @@ class Periodic2DIsolatedBandCalculator:
         period: float,
     ) -> ComplexMatrix:
         if not np.isclose(period, 2.0 * np.pi, rtol=0.0, atol=2.0e-15):
-            raise ValueError("toy finite-difference cell period must equal 2*pi")
-        model = Periodic2DCosinePotentialToyModel(lambda_x, lambda_y, lambda_xy)
+            raise ValueError(
+                "control-model finite-difference cell period must equal 2*pi"
+            )
+        model = Periodic2DCosinePotentialModel(
+            lambda_x, lambda_y, lambda_xy, role=PeriodicModelRole.CONTROL_MODEL
+        )
         return (
-            Periodic2DFiniteDifferenceHamiltonianConstructor()
-            .execute(
+            Periodic2DFiniteDifferenceHamiltonian(
                 Periodic2DFiniteDifferenceHamiltonianRequest(model, kx, ky, points)
             )
+            .result()
             .matrix
         )
 

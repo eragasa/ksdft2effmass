@@ -5,11 +5,11 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import final
 
-from ksdft2effmass.periodic3d.hopping_locality.base import (
-    Periodic3DHoppingLocality,
-    Periodic3DHoppingLocalityAnalysis,
-    Periodic3DHoppingLocalityAnalysisRequest,
-    Periodic3DHoppingLocalityAnalyzer,
+from ksdft2effmass.periodic3d.rankN.hopping_locality.base import (
+    Periodic3DRankNHoppingLocalityAnalysisRequestRole,
+    Periodic3DRankNHoppingLocalityAnalysisRole,
+    Periodic3DRankNHoppingLocalityAnalyzerRole,
+    Periodic3DRankNHoppingLocalityCapability,
 )
 
 
@@ -23,7 +23,10 @@ class _Periodic3DRank2BandSubspace:
         return 2
 
 
-class Periodic3DRank2HoppingLocalityCapability(Periodic3DHoppingLocality, ABC):
+class Periodic3DRank2HoppingLocalityCapability(
+    Periodic3DRankNHoppingLocalityCapability,
+    ABC,
+):
     """Identify unchanged periodic-3D rank-two hopping coefficients."""
 
     __slots__ = ()
@@ -36,7 +39,7 @@ class Periodic3DRank2HoppingLocalityCapability(Periodic3DHoppingLocality, ABC):
 
 class Periodic3DRank2HoppingLocalityAnalysisRequestRole(
     _Periodic3DRank2BandSubspace,
-    Periodic3DHoppingLocalityAnalysisRequest,
+    Periodic3DRankNHoppingLocalityAnalysisRequestRole,
     Periodic3DRank2HoppingLocalityCapability,
     ABC,
 ):
@@ -47,7 +50,7 @@ class Periodic3DRank2HoppingLocalityAnalysisRequestRole(
 
 class Periodic3DRank2HoppingLocalityAnalysisRole(
     _Periodic3DRank2BandSubspace,
-    Periodic3DHoppingLocalityAnalysis,
+    Periodic3DRankNHoppingLocalityAnalysisRole,
     Periodic3DRank2HoppingLocalityCapability,
     ABC,
 ):
@@ -61,7 +64,7 @@ class Periodic3DRank2HoppingLocalityAnalyzerRole[
     AnalysisT: Periodic3DRank2HoppingLocalityAnalysisRole,
 ](
     _Periodic3DRank2BandSubspace,
-    Periodic3DHoppingLocalityAnalyzer[RequestT, AnalysisT],
+    Periodic3DRankNHoppingLocalityAnalyzerRole[RequestT, AnalysisT],
     Periodic3DRank2HoppingLocalityCapability,
     ABC,
 ):

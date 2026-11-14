@@ -8,7 +8,7 @@ It is not a second implementation owner. Reusable algorithms remain under `pytho
 
 | Spatial dimension | Retained rank | Current owner | Status |
 |---|---:|---|---|
-| 1-D | 1 | [`periodic1d/rank1/fourier-locality/`](../../periodic1d/rank1/fourier-locality/) | Implemented typed calculate → independently verify → authenticated render lifecycle; provisional in-memory control reports all 725 named comparisons passing; no retained execution or evidence promotion |
+| 1-D | 1 | [`periodic1d_rank1/`](../../periodic1d_rank1/) | Operation-first gauge-alignment, band-equivalence, hopping-locality, and support-truncation context with an implemented aggregate calculate → independently verify → authenticated render lifecycle; one local unsealed scalar-producer execution passed all 725 named comparisons and rendered the closed two-figure inventory; no sealing or evidence promotion |
 | 1-D | 2 | [`periodic1d/rank2/band-equivalence-versus-hopping-locality/`](../../periodic1d/rank2/band-equivalence-versus-hopping-locality/) | Extracted development calculation; no retained successor run |
 | 1-D | 2 | [`periodic1d/rank2/composite-band-alignment-locality/`](../../periodic1d/rank2/composite-band-alignment-locality/) | Three-file protocol migrated; donor reconciliation and implementation remain open; no successor execution |
 | 2-D | 2 | [`periodic2d/rank2/orthogonal/band-equivalence-locality/`](../../periodic2d/rank2/orthogonal/band-equivalence-locality/) | Bounded orthogonal development calculation |
@@ -20,11 +20,26 @@ It is not a second implementation owner. Reusable algorithms remain under `pytho
 | 3-D | 1 | [`periodic3d/rank1/anisotropic-hopping-support-hierarchy/`](../../periodic3d/rank1/anisotropic-hopping-support-hierarchy/) | Three-file proposal migrated; sequence-gated and unimplemented |
 | 3-D | 2 | [`periodic3d_rank2_bain_path/`](../../periodic3d_rank2_bain_path/) | Separate bounded M0, M1, M2, and Bain-path scan controls |
 | 1-D | 3, 4, 8, 16 | [`periodic1d/rankN/composite-band-alignment-locality/`](../../periodic1d/rankN/composite-band-alignment-locality/) | Schema-free development calculation; no retained run |
-| 2-D | greater than 2 | None | Prospective |
+| 2-D | 3, 4, 8 | [`periodic2d/rankN/`](../../periodic2d/rankN/) | Fixed-geometry analytic software baseline and aggregate verification installed; no visualization, lifecycle, execution, or evidence |
+| 2-D | prospective finite rank | [`periodic2d_rankN_strain/`](../../periodic2d_rankN_strain/) | Dedicated continuous-deformation context; scientific protocol, implementation, execution, and evidence remain unselected |
 | 3-D | 3, 4, 8 | [`periodic3d/rankN/`](../../periodic3d/rankN/) | Fixed-geometry analytic software baseline and aggregate verification installed; no visualization, lifecycle, execution, or evidence |
-| 3-D | candidate 3, 4, 8 | [`periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/) | Exact Bain geometry/common-state-space, M0 shared-`2r` flat geometry control, and M1N frozen `2r` semantics selected; M2 and the remaining contracts stay open |
+| 3-D | candidate 3, 4, 8 | [`periodic3d_rankN_strain/`](../../periodic3d_rankN_strain/) | Dedicated continuous-deformation context with exact Bain geometry/common-state-space, M0 shared-`2r` flat geometry control, and M1N frozen `2r` semantics selected; M2 and the remaining contracts stay open |
 
 The current cross-family rank-two comparison is owned by [`band-equivalence-dimensional-comparison/`](../../band-equivalence-dimensional-comparison/). This planning layer may summarize that output but does not replace it.
+
+## Capability hierarchy and calculation identity
+
+Reusable periodic finite-rank capabilities are dimension neutral at their algebraic
+root, then specialize by spatial dimension. Rank-two gauge alignment, frame transport,
+band equivalence, hopping locality, and support truncation refine the corresponding
+dimensional finite-rank capability and fix the represented rank to two. Rank one remains
+a separate specialization.
+
+This source hierarchy does not merge calculation identities. A rank-two calculation
+continues to use its exact rank-two request, result, verification, lifecycle, and evidence
+owners. Rank-N study inventories may deliberately admit only ranks `3`, `4`, `8`, or
+`16`; that study policy does not redefine the reusable finite-rank capability or exclude
+rank two from the mathematical capability boundary.
 
 The retained [`Mathieu1D`](../../mathieu1d/) calculation remains a related scalar periodic-potential benchmark. It is not the model-family-compatible rank-one control and is not relabeled or replaced by this plan.
 
@@ -34,7 +49,7 @@ The levels below describe increasing model, geometry, alignment, verification, a
 
 ### Level 0 --- structural and analytic null controls
 
-- [`periodic1d/rank1/fourier-locality/`](../../periodic1d/rank1/fourier-locality/) --- implemented compatible scalar control for Fourier interpolation and truncation, recording that scalar phase conjugation cannot alter the represented Hamiltonian. Its provisional in-memory development control reports all 725 named comparisons passing. No retained execution or evidence promotion exists.
+- [`periodic1d_rank1/`](../../periodic1d_rank1/) --- operation-first compatible scalar context. Its [`band_equivalence_hopping_locality/`](../../periodic1d_rank1/band_equivalence_hopping_locality/) aggregate records that scalar phase conjugation cannot alter the represented Hamiltonian and sequences Fourier interpolation, descriptive locality, and truncation. One local unsealed scalar-producer execution passed all 725 named comparisons. No sealing or evidence promotion exists.
 
 ### Level 1 --- scalar single-band periodic reduction
 
@@ -66,9 +81,10 @@ The levels below describe increasing model, geometry, alignment, verification, a
 
 ### Level 6 --- higher-rank multidimensional controls
 
-- **Periodic 2-D higher rank** --- prospective; no calculation root, implementation, or result.
+- [`periodic2d/rankN/`](../../periodic2d/rankN/) --- selected fixed-geometry analytic software baseline with aggregate verification; no visualization, lifecycle, execution, or result evidence.
+- [`periodic2d_rankN_strain/`](../../periodic2d_rankN_strain/) --- documentation-only continuous-deformation context; its scientific path and response protocol remain unselected.
 - [`periodic3d/rankN/`](../../periodic3d/rankN/) --- selected fixed-geometry analytic software baseline with aggregate verification; no visualization, lifecycle, execution, or result evidence.
-- [`periodic3d_rankN_bain_path/`](../../periodic3d_rankN_bain_path/) --- documentation-only continuous Bain-path context with selected exact geometry/common-state-space, M0 shared-`2r` flat geometry control, and M1N frozen `2r` semantics; M2, admitted inventories, resources, visualization, and authentication remain open.
+- [`periodic3d_rankN_strain/`](../../periodic3d_rankN_strain/) --- documentation-only continuous-deformation context with selected exact Bain geometry/common-state-space, M0 shared-`2r` flat geometry control, and M1N frozen `2r` semantics; M2, admitted inventories, resources, visualization, and authentication remain open.
 
 ### Level 7 --- external-code and material-facing reductions
 

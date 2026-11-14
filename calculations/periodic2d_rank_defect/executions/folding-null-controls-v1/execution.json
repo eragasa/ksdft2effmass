@@ -1,0 +1,18 @@
+{
+  "accepted_parent_read": false,
+  "calculation_family": "periodic2d-rank-defect",
+  "calculation_script_sha256": "aa335e4bb2e9fb82edd39c355497819e6d03e98ed697f942f071a83efe12ba96",
+  "case_count": 8,
+  "claim_boundary": "Authored dimensionless scalar synthetic folding and known-map null extraction only. No accepted parent, material model, external calculator, convergence conclusion, uncertainty quantification, or protected execution is included.",
+  "criterion_status": "pass",
+  "definition_location": "embedded_in_results/result.json",
+  "evidence_status": "calculated_synthetic_result_unsealed",
+  "execution_id": "folding-null-controls-v1",
+  "external_execution": false,
+  "failed_criteria": [],
+  "outcome": "completed",
+  "record_type": "periodic2d_rank_defect_folding_null_execution",
+  "result_path": "results/result.json",
+  "result_sha256": "8c771b58a135f4ea16412cfbaa825efa9ab1d26f0365a83de10d1d4af1d9b44c",
+  "schema_version": 1
+}

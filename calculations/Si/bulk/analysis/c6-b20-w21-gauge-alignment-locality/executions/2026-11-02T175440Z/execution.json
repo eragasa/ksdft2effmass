@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "producer-checked-development-analysis-not-independently-verified",
+  "authorization": {
+    "source": "explicit human authorization in the active pi session",
+    "scope": "retained no-calculator analysis, nine plot renderings, and technical-report rebuild",
+    "independent_reconstruction_required": false,
+    "calculator_execution_authorized": false
+  },
+  "completed_utc": "2026-11-02T17:54:40Z",
+  "commands": [
+    "cd python && uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/run_analysis.py",
+    "cd python && uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/render_plots.py",
+    "cd calculations/Si/bulk/technical-report && latexmk -pdf -interaction=nonstopmode -halt-on-error -outdir=/tmp/ksd-si-bulk-technical-report technical-report.tex"
+  ],
+  "calculator_invocations": 0,
+  "independent_reconstruction_performed": false,
+  "analysis_elapsed_seconds": 1.6391715831123292,
+  "outputs": {
+    "request": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/request.json",
+      "byte_size": 4908,
+      "sha256": "aa596f95e1890097e1250e4fe394d6594b19621880cf63bb4e7d3b6befd8a198"
+    },
+    "producer": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/run_analysis.py",
+      "byte_size": 31116,
+      "sha256": "9c887a80377de681c1be481156f6026767c04e3808b8728179f4c8857de6c979"
+    },
+    "result": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/result.json",
+      "byte_size": 799131,
+      "sha256": "0b802463af64be191b3fdedc07f732120de735efce227d1ae94cd6225f1b3ea4"
+    },
+    "renderer": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/render_plots.py",
+      "byte_size": 22566,
+      "sha256": "8a106ba0f0bf9d79a5564f7c0a432a84de0aa6091728410488ecb537537076c6"
+    },
+    "figure_manifest": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-gauge-alignment-locality/figures/figure-manifest.json",
+      "byte_size": 3471,
+      "sha256": "568a44967c9f7fd17afc1cf45590c6087d28d89b9da23a40d01e282cd03553f4"
+    },
+    "technical_report_source": {
+      "path": "calculations/Si/bulk/technical-report/technical-report.tex",
+      "byte_size": 35214,
+      "sha256": "3317c4868ccee898ece1f85e9dc9ff33e7000597ecad4a0432ea0bed3c13d472"
+    },
+    "technical_report_pdf": {
+      "path": "calculations/Si/bulk/technical-report/technical-report.pdf",
+      "byte_size": 527236,
+      "sha256": "f79f24ad46b700d7e656d114dec778d011a8c1a954ae163f0e336aa18b011867"
+    }
+  },
+  "checks": {
+    "all_declared_source_sizes_and_sha256_authenticated": true,
+    "ordinary_displacement_count": 125,
+    "evaluation_point_count": 408,
+    "maximum_complete_spectrum_attack_difference_ev": 3.197442310920451e-14,
+    "latex_final_log_warning_scan_clean": true,
+    "technical_report_pending_plot_notices_absent": true,
+    "technical_report_pdf_ghostscript_validation_passed": true
+  },
+  "nonclaims": [
+    "This is not an independently reconstructed result.",
+    "This does not validate the source operator as an adequate silicon Hamiltonian.",
+    "No Quantum ESPRESSO or Wannier90 process was invoked.",
+    "The revealed 408-point inventory is development evidence only.",
+    "The frozen 402-point confirmation values remain excluded."
+  ]
+}

@@ -37,5 +37,11 @@ This family is the orthogonal periodic-3D rank-two stage in the shared
 Refinement does not establish convergence, and the synthetic control does not establish
 material behavior.
 
+The nominal composition explicitly supplies three reciprocal-axis maps in lattice-axis
+order. Each is named identity sewing with `ambient_dimension = 4`, so
+$Q_{\mathbf{G}_a}=I_4$ acts on the parent ambient basis of the $4\times2$ retained
+frame. The retained rank does not reduce the ambient identity to $I_2$, and projected
+closure may remain nonidentity.
+
 The former experiment-tree location is a legacy forward pointer only. This organization
 performs no calculation, retention, sealing, promotion, or publication.

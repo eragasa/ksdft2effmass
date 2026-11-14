@@ -15,10 +15,10 @@
 | `rankN/band_alignment/frame_transport/link.py` | Stores one typed neighbor- or closure-link diagnostic. |
 | `rankN/band_alignment/frame_transport/result.py` | Stores the request-bound aggregate closed-loop frame-transport result. |
 | `rankN/band_equivalence_hopping_locality/request.py` | Defines aggregate controls and the complete frozen study request. |
-| `rankN/band_alignment/model.py` | Constructs the analytic parent spectrum, retained frame, identity sewing, and gauge circuit. |
-| `rankN/gauge_alignment/definition.py` | Defines the four gauge-alignment identities as strict `StringWireEnum` values. |
+| `rankN/band_alignment/model.py` | Composes a generic immutable `PeriodicBasisInventory` with explicitly enumerated one-dimensional structured basis entries, then constructs the closed-form control parent spectrum, retained frame, identity sewing, and gauge circuit. |
+| `rankN/gauge_alignment/definition.py` | Defines the four gauge-alignment identities as strict `StrWireEnum` values. |
 | `rankN/gauge_alignment/status.py` | Stores gauge-alignment outcomes, backend codes, and bounded downstream applicability. |
-| `rankN/gauge_alignment/nyquist.py` | Defines the odd-mesh Nyquist disposition as a strict `StringWireEnum` value. |
+| `rankN/gauge_alignment/nyquist.py` | Defines the odd-mesh Nyquist disposition as a strict `StrWireEnum` value. |
 | `rankN/gauge_alignment/procrustes/analysis.py` | Builds bounded global and pointwise Procrustes selection evidence. |
 | `rankN/gauge_alignment/procrustes/result.py` | Stores complete Procrustes rank and integrity evidence. |
 | `rankN/gauge_alignment/fields.py` | Constructs nominal immutable gauge-aligned operators and frames. |
@@ -40,13 +40,32 @@
 | `rankN/band_alignment/scalar_diagnostics.py` | Owns the scalar-diagnostic inventory used by refinement and aggregate admission. |
 | `rankN/band_equivalence_hopping_locality/refinement.py` | Analyzes correlated evidence across construction meshes. |
 | `rankN/band_equivalence_hopping_locality/result.py` | Stores and correlates the aggregate request-bound analysis. |
-| `rankN/band_equivalence_hopping_locality/reference.py` | Independently reconstructs the analytic model and attack core invariants with direct NumPy formulas. |
+| `rankN/band_equivalence_hopping_locality/reference.py` | Independently reconstructs the analytic model and transformation core invariants with direct NumPy formulas. |
 | `rankN/band_equivalence_hopping_locality/fourier_reference.py` | Independently reconstructs all four bounded Fourier controls with direct NumPy sums. |
 | `rankN/band_equivalence_hopping_locality/procrustes_reference.py` | Verifies aggregate Procrustes evidence with a producer-independent construction. |
 | `rankN/band_equivalence_hopping_locality/transport_reference.py` | Independently reconstructs the constant-frame closed route without the producer transporter. |
 | `rankN/band_equivalence_hopping_locality/analysis.py` | Sequences case construction, global selection, construction-mesh analyses, refinement, and evaluation independence. |
 | `rankN/band_equivalence_hopping_locality/construction_mesh.py` | Composes pointwise selection, transport, diagnostics, and gauge cases for one immutable mesh sample. |
 | `rankN/band_equivalence_hopping_locality/evaluation.py` | Proves exact construction/evaluation mesh separation. |
+
+## Control-model basis inventory
+
+`band_alignment/protocol.py` owns only the frozen scientific study selections such as
+admitted ranks and circuit depths. It is not the structured-basis owner.
+
+`PeriodicBasisInventoryEntry` binds one admitted retained rank to one exact
+`Periodic1DBasisIdentity`. The generic `PeriodicBasisInventory` is a frozen, slotted
+domain value that validates exact entry types, increasing unique ranks, homogeneous
+basis ownership, and basis coordinate counts. The analytic constructor separately
+admits only the protocol's frozen rank inventory. The module retains one named
+instance, `PERIODIC1D_RANK_N_CONTROL_BASIS_INVENTORY`, consumed by the analytic control
+model constructor.
+
+Every coordinate label is explicitly enumerated in the inventory instance. The model
+does not infer structured compatibility from the rank, model family identifier, legacy
+basis strings, lattice geometry, reference-frame shape, or hopping support. The rank is
+used only to select an already declared entry after the inventory has validated the
+complete finite mapping.
 
 The rank-first migration uses the scientific bases installed directly under
 `ksdft2effmass`: representation equivalence, real-space support truncation, and
@@ -112,7 +131,7 @@ control.
 
 `Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer` receives one complete immutable calculation
 request and explicit Optimization, PhysKit, and KSD collaborators. Its zero-argument
-`execute()` constructs an analytic case, performs the sole global selection at
+`execute()` consumes the explicit parent model and gauge transformation, then performs the sole global selection at
 $M=2049$, evaluates all construction meshes, delegates each prescribed composite
 case to `Periodic1DRankNCompositeGaugeCaseAnalyzer`, and delegates mesh-pair
 comparisons to `Periodic1DRankNRefinementAnalyzer`. Reusable gauge construction,
@@ -199,7 +218,7 @@ action.
 `Periodic1DRankNCoreInvariantReferenceAnalyzer` is the first bounded
 producer-independent slice. It admits one exact calculation result and reconstructs the
 analytic retained and exterior energies, constant frame, real Givens circuit, parent and
-represented operators, projectors, isolation certificate, attack-angle certificate, and
+represented operators, projectors, isolation certificate, transformation-angle certificate, and
 all model-structure and recovery diagnostics with direct NumPy formulas. It does not
 directly import or invoke the producer, the producer-owned analytic model, or the
 reusable producer diagnostic actions. Scalar comparisons use the protocol's
@@ -221,7 +240,7 @@ invoke producer Fourier, interpolation, locality, model, or reusable diagnostic 
 the global cross matrix directly at the frozen $M=2049$ selection mesh and obtains its
 unique right polar factor from an Hermitian eigendecomposition of the cross Gram matrix,
 not the producer SVD solver. At each construction mesh it reconstructs the pointwise
-right unitaries directly as the analytic attack adjoints. It compares singular spectra,
+right unitaries directly as the analytic transformation adjoints. It compares singular spectra,
 strict numerical ranks and cutoffs, rank margins, condition numbers, normalized
 residuals, all retained integrity defects, deficient-point counts, and the selected
 global right unitary. It does not import Optimization or invoke the producer model,

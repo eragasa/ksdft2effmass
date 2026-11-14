@@ -13,6 +13,7 @@ from ksdft2effmass.hopping_locality.base import (
     PeriodicHoppingLocalityAnalysis,
     PeriodicHoppingLocalityAnalysisRequest,
     PeriodicHoppingLocalityAnalyzer,
+    PeriodicRankNHoppingLocalityCapability,
 )
 from ksdft2effmass.periodic1d.hopping_locality import Periodic1DHoppingLocality
 from ksdft2effmass.periodic1d.rank1.hopping_locality import (
@@ -54,14 +55,18 @@ class TestHoppingLocality:
         assert issubclass(PeriodicHoppingLocalityAnalyzer, HoppingLocalityAnalyzer)
         assert issubclass(Periodic1DHoppingLocality, PeriodicHoppingLocality)
 
-    def test__rank_capabilities_are_meaningfully_abstract_siblings(self) -> None:
+    def test__rank_two_refines_finite_rank_locality(self) -> None:
         for capability in (
             Periodic1DRank1HoppingLocalityCapability,
             Periodic1DRank2HoppingLocalityCapability,
             Periodic1DRankNHoppingLocalityCapability,
         ):
             assert capability.__abstractmethods__ == {"band_subspace_rank"}
-        assert not issubclass(
+        assert issubclass(
+            Periodic1DRankNHoppingLocalityCapability,
+            PeriodicRankNHoppingLocalityCapability,
+        )
+        assert issubclass(
             Periodic1DRank2HoppingLocalityCapability,
             Periodic1DRankNHoppingLocalityCapability,
         )

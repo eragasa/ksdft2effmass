@@ -12,18 +12,19 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from enum import StrEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 type Spectrum = tuple[tuple[float, ...], ...]
 
 
-class EnergyUnit(StrEnum):
+class EnergyUnit(StrWireEnum):
     """Concrete energy units demonstrated by retained observations."""
 
     HARTREE = "hartree"
 
 
-class Availability(StrEnum):
+class Availability(StrWireEnum):
     """Availability states needed by the retained Kohn--Sham artifact."""
 
     AVAILABLE = "available"
@@ -31,7 +32,7 @@ class Availability(StrEnum):
     NO_SPIN_RESOLVED_ARRAYS = "no_spin_resolved_arrays"
 
 
-def _require_enum(value: object, enum_type: type[StrEnum], name: str) -> None:
+def _require_enum(value: object, enum_type: type[StrWireEnum], name: str) -> None:
     if type(value) is not enum_type:
         raise TypeError(f"{name} must be {enum_type.__name__}")
 

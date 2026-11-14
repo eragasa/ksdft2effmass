@@ -65,13 +65,6 @@
       "sut": "ComplexHermitianEigenpairResult"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexMatrixQuantity.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "ComplexMatrixQuantity"
-    },
-    {
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexSparseHermiticityAnalyzer.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
@@ -84,13 +77,6 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "ComplexSparseHermiticityResult"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/operators/test__ComplexSparseMatrixQuantity.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "ComplexSparseMatrixQuantity"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__DirichletBoundaryConditionRepresentation.py",
@@ -476,13 +462,6 @@
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
       "sut": "SecondOrderCentralDifferenceLaplacian1D"
-    },
-    {
-      "path": "python/tests/software_verification/ksdft2effmass/operators/test__SparseMatrixQuantity.py",
-      "mode": "class_owned",
-      "evidence_class": "software_verification",
-      "evidence_profile": "routine",
-      "sut": "SparseMatrixQuantity"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/operators/test__StateSpace__construction.py",

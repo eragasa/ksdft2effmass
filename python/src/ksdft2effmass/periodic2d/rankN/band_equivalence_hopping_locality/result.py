@@ -7,6 +7,14 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import ClassVar, Self
 
+from ksdft2effmass.band_equivalence_hopping_locality.rankN.result import (
+    PeriodicRankNBandEquivalenceHoppingLocalityErrorChannels,
+    PeriodicRankNBandEquivalenceHoppingLocalityLocalitySummary,
+    PeriodicRankNFittedAlignmentEvidence,
+    PeriodicRankNPrescribedAlignmentEvidence,
+    PeriodicRankNSupportSelected,
+    PeriodicRankNSupportUnresolved,
+)
 from ksdft2effmass.gauge_alignment import (
     GaugeAlignmentActionConvention,
     GaugeAlignmentAnalysisIdentity,
@@ -26,7 +34,7 @@ from ksdft2effmass.periodic2d.rankN.gauge_alignment.definition import (
 from ksdft2effmass.serialization import (
     BaseTypedRecord,
     SerializableValue,
-    StringWireEnum,
+    StrWireEnum,
 )
 
 from .request import Periodic2DRankNBandEquivalenceHoppingLocalityRequest
@@ -40,47 +48,22 @@ def _nonnegative_float(value: float, name: str) -> None:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic2DRankNBandEquivalenceHoppingLocalityErrorChannels:
+class Periodic2DRankNBandEquivalenceHoppingLocalityErrorChannels(
+    PeriodicRankNBandEquivalenceHoppingLocalityErrorChannels,
+):
     """Retain rank-normalized matrix and ordered-spectrum errors."""
-
-    maximum_matrix_frobenius: float
-    root_mean_square_matrix_frobenius: float
-    maximum_ordered_spectrum: float
-    root_mean_square_ordered_spectrum: float
-
-    def __post_init__(self) -> None:
-        for name, value in (
-            ("maximum_matrix_frobenius", self.maximum_matrix_frobenius),
-            (
-                "root_mean_square_matrix_frobenius",
-                self.root_mean_square_matrix_frobenius,
-            ),
-            ("maximum_ordered_spectrum", self.maximum_ordered_spectrum),
-            (
-                "root_mean_square_ordered_spectrum",
-                self.root_mean_square_ordered_spectrum,
-            ),
-        ):
-            _nonnegative_float(value, name)
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic2DRankNBandEquivalenceHoppingLocalityLocalitySummary:
-    """Retain normalized total, onsite, and nononsite hopping powers."""
+class Periodic2DRankNBandEquivalenceHoppingLocalityLocalitySummary(
+    PeriodicRankNBandEquivalenceHoppingLocalityLocalitySummary,
+):
+    """Retain normalized total, onsite, and nononsite hopping powers.
 
-    total_power: float
-    onsite_power: float
-    nononsite_power: float
-
-    def __post_init__(self) -> None:
-        for name, value in (
-            ("total_power", self.total_power),
-            ("onsite_power", self.onsite_power),
-            ("nononsite_power", self.nononsite_power),
-        ):
-            _nonnegative_float(value, name)
-        if abs(self.total_power - self.onsite_power - self.nononsite_power) > 1.0e-12:
-            raise ValueError("locality powers must satisfy total = onsite + nononsite")
+    A stored zero non-onsite power is not an exact onsite-only certificate.  The
+    current producer derives this scalar by subtraction and zero clipping, which can
+    suppress roundoff-scale power under the bounded baseline; see ``TD-BEL-003``.
+    """
 
 
 @dataclass(frozen=True, slots=True)
@@ -134,49 +117,13 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityShellAnalysis:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic2DRankNSupportSelected:
+class Periodic2DRankNSupportSelected(PeriodicRankNSupportSelected):
     """Retain one minimum tolerance-satisfying metric shell."""
-
-    ordinal_shell_index: int
-    metric_shell_value: int
-    satisfying_error: float
-    preceding_error: float | None
-
-    def __post_init__(self) -> None:
-        for value, name in (
-            (self.ordinal_shell_index, "ordinal_shell_index"),
-            (self.metric_shell_value, "metric_shell_value"),
-        ):
-            if type(value) is not int:
-                raise TypeError(f"{name} must be a built-in integer")
-            if value < 0:
-                raise ValueError(f"{name} must be nonnegative")
-        _nonnegative_float(self.satisfying_error, "satisfying_error")
-        if self.preceding_error is not None:
-            _nonnegative_float(self.preceding_error, "preceding_error")
-        if (self.ordinal_shell_index == 0) is not (self.preceding_error is None):
-            raise ValueError("preceding_error must be absent exactly at shell zero")
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic2DRankNSupportUnresolved:
+class Periodic2DRankNSupportUnresolved(PeriodicRankNSupportUnresolved):
     """Retain the unresolved support-selection error evidence."""
-
-    comparison_count: int
-    minimum_observed_error: float
-    largest_support_error: float
-
-    def __post_init__(self) -> None:
-        if type(self.comparison_count) is not int:
-            raise TypeError("comparison_count must be a built-in integer")
-        if self.comparison_count <= 0:
-            raise ValueError("comparison_count must be positive")
-        _nonnegative_float(self.minimum_observed_error, "minimum_observed_error")
-        _nonnegative_float(self.largest_support_error, "largest_support_error")
-        if self.minimum_observed_error > self.largest_support_error:
-            raise ValueError(
-                "minimum_observed_error cannot exceed largest_support_error"
-            )
 
 
 type Periodic2DRankNSupportSelection = (
@@ -208,46 +155,17 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityToleranceDecision:
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic2DRankNFittedAlignmentEvidence:
+class Periodic2DRankNFittedAlignmentEvidence(
+    PeriodicRankNFittedAlignmentEvidence,
+):
     """Retain invariant evidence for one fitted unitary alignment."""
-
-    sample_count: int
-    minimum_numerical_rank: int
-    minimum_cross_singular_value: float
-    maximum_optimal_residual_frobenius_norm: float
-    maximum_applied_rank_cutoff: float
-
-    def __post_init__(self) -> None:
-        for value, name in (
-            (self.sample_count, "sample_count"),
-            (self.minimum_numerical_rank, "minimum_numerical_rank"),
-        ):
-            if type(value) is not int:
-                raise TypeError(f"{name} must be a built-in integer")
-            if value <= 0:
-                raise ValueError(f"{name} must be positive")
-        for name, float_value in (
-            ("minimum_cross_singular_value", self.minimum_cross_singular_value),
-            (
-                "maximum_optimal_residual_frobenius_norm",
-                self.maximum_optimal_residual_frobenius_norm,
-            ),
-            ("maximum_applied_rank_cutoff", self.maximum_applied_rank_cutoff),
-        ):
-            _nonnegative_float(float_value, name)
 
 
 @dataclass(frozen=True, slots=True)
-class Periodic2DRankNPrescribedAlignmentEvidence:
+class Periodic2DRankNPrescribedAlignmentEvidence(
+    PeriodicRankNPrescribedAlignmentEvidence,
+):
     """Identify a prescribed identity or construction-oracle alignment."""
-
-    identifier: str
-
-    def __post_init__(self) -> None:
-        if type(self.identifier) is not str or not self.identifier:
-            raise TypeError("identifier must be a nonempty built-in string")
-        if self.identifier not in ("identity", "known-inverse-oracle"):
-            raise ValueError("identifier must be one prescribed alignment")
 
 
 type Periodic2DRankNAlignmentEvidence = (
@@ -255,7 +173,7 @@ type Periodic2DRankNAlignmentEvidence = (
 )
 
 
-class Periodic2DRankNAlignmentInapplicabilityEnum(StringWireEnum):
+class Periodic2DRankNAlignmentInapplicabilityEnum(StrWireEnum):
     """Identify why one fitted alignment has no downstream aggregate values."""
 
     AGGREGATE_RANK_DEFICIENT = "aggregate-rank-deficient"
@@ -448,7 +366,7 @@ type Periodic2DRankNBandEquivalenceHoppingLocalityAlignmentAnalysis = (
 class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis(
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue
 ):
-    """Retain all alignment routes for one analytic model case."""
+    """Retain all alignment routes for one parent/gauge model case."""
 
     @property
     def band_subspace_rank(self) -> int:
@@ -460,7 +378,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis(
     retained_rank: int
     circuit_depth: int
     parent_scale: float
-    attack_coefficient: float
+    transformation_coefficient: float
     minimum_sampled_external_gap: float
     alignments: tuple[
         Periodic2DRankNBandEquivalenceHoppingLocalityAlignmentAnalysis, ...
@@ -482,7 +400,9 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis(
             if integer_value <= 0:
                 raise ValueError(f"{name} must be positive")
         _nonnegative_float(self.parent_scale, "parent_scale")
-        _nonnegative_float(self.attack_coefficient, "attack_coefficient")
+        _nonnegative_float(
+            self.transformation_coefficient, "transformation_coefficient"
+        )
         _nonnegative_float(
             self.minimum_sampled_external_gap, "minimum_sampled_external_gap"
         )
@@ -506,7 +426,7 @@ class Periodic2DRankNBandEquivalenceHoppingLocalityCaseAnalysis(
             raise ValueError("alignments must follow the selected four-route inventory")
 
 
-class Periodic2DRankNBandEquivalenceHoppingLocalityAnalysisStatusEnum(StringWireEnum):
+class Periodic2DRankNBandEquivalenceHoppingLocalityAnalysisStatusEnum(StrWireEnum):
     """Identify the claim boundary of one aggregate software analysis."""
 
     SOFTWARE_QUALIFICATION_NOT_SCIENTIFIC_EVIDENCE = (
@@ -615,15 +535,24 @@ def _error_from_mapping(
         "maximum_ordered_spectrum",
         "root_mean_square_ordered_spectrum",
     }
-    if set(values) != required or any(
-        type(values[name]) is not float for name in required
+    if set(values) != required:
+        raise TypeError("error-channel fields must be exact built-in floats")
+    maximum_matrix_frobenius = values["maximum_matrix_frobenius"]
+    root_mean_square_matrix_frobenius = values["root_mean_square_matrix_frobenius"]
+    maximum_ordered_spectrum = values["maximum_ordered_spectrum"]
+    root_mean_square_ordered_spectrum = values["root_mean_square_ordered_spectrum"]
+    if (
+        type(maximum_matrix_frobenius) is not float
+        or type(root_mean_square_matrix_frobenius) is not float
+        or type(maximum_ordered_spectrum) is not float
+        or type(root_mean_square_ordered_spectrum) is not float
     ):
         raise TypeError("error-channel fields must be exact built-in floats")
     return Periodic2DRankNBandEquivalenceHoppingLocalityErrorChannels(
-        maximum_matrix_frobenius=values["maximum_matrix_frobenius"],  # type: ignore[arg-type]
-        root_mean_square_matrix_frobenius=values["root_mean_square_matrix_frobenius"],  # type: ignore[arg-type]
-        maximum_ordered_spectrum=values["maximum_ordered_spectrum"],  # type: ignore[arg-type]
-        root_mean_square_ordered_spectrum=values["root_mean_square_ordered_spectrum"],  # type: ignore[arg-type]
+        maximum_matrix_frobenius=maximum_matrix_frobenius,
+        root_mean_square_matrix_frobenius=root_mean_square_matrix_frobenius,
+        maximum_ordered_spectrum=maximum_ordered_spectrum,
+        root_mean_square_ordered_spectrum=root_mean_square_ordered_spectrum,
     )
 
 
@@ -641,14 +570,21 @@ def _locality_from_mapping(
     values: Mapping[str, SerializableValue],
 ) -> Periodic2DRankNBandEquivalenceHoppingLocalityLocalitySummary:
     required = {"total_power", "onsite_power", "nononsite_power"}
-    if set(values) != required or any(
-        type(values[name]) is not float for name in required
+    if set(values) != required:
+        raise TypeError("locality fields must be exact built-in floats")
+    total_power = values["total_power"]
+    onsite_power = values["onsite_power"]
+    nononsite_power = values["nononsite_power"]
+    if (
+        type(total_power) is not float
+        or type(onsite_power) is not float
+        or type(nononsite_power) is not float
     ):
         raise TypeError("locality fields must be exact built-in floats")
     return Periodic2DRankNBandEquivalenceHoppingLocalityLocalitySummary(
-        total_power=values["total_power"],  # type: ignore[arg-type]
-        onsite_power=values["onsite_power"],  # type: ignore[arg-type]
-        nononsite_power=values["nononsite_power"],  # type: ignore[arg-type]
+        total_power=total_power,
+        onsite_power=onsite_power,
+        nononsite_power=nononsite_power,
     )
 
 
@@ -766,44 +702,46 @@ def _shell_from_mapping(
     }
     if set(values) != required:
         raise ValueError("shell fields do not match")
-    integer_names = (
-        "ordinal_shell_index",
-        "metric_shell_value",
-        "retained_block_count",
-    )
-    float_names = (
-        "reference_shell_power",
-        "comparison_shell_power",
-        "reference_omitted_power",
-        "comparison_omitted_power",
-    )
-    if any(type(values[name]) is not int for name in integer_names) or any(
-        type(values[name]) is not float for name in float_names
+    ordinal_shell_index = values["ordinal_shell_index"]
+    metric_shell_value = values["metric_shell_value"]
+    retained_block_count = values["retained_block_count"]
+    reference_shell_power = values["reference_shell_power"]
+    comparison_shell_power = values["comparison_shell_power"]
+    reference_omitted_power = values["reference_omitted_power"]
+    comparison_omitted_power = values["comparison_omitted_power"]
+    if (
+        type(ordinal_shell_index) is not int
+        or type(metric_shell_value) is not int
+        or type(retained_block_count) is not int
+        or type(reference_shell_power) is not float
+        or type(comparison_shell_power) is not float
+        or type(reference_omitted_power) is not float
+        or type(comparison_omitted_power) is not float
     ):
         raise TypeError("shell scalar fields have invalid types")
-    error_values = tuple(
-        values[name]
-        for name in (
-            "reference_total_errors",
-            "comparison_total_errors",
-            "reference_truncation_errors",
-            "comparison_truncation_errors",
-        )
-    )
-    if any(not isinstance(value, Mapping) for value in error_values):
+    reference_total_errors = values["reference_total_errors"]
+    comparison_total_errors = values["comparison_total_errors"]
+    reference_truncation_errors = values["reference_truncation_errors"]
+    comparison_truncation_errors = values["comparison_truncation_errors"]
+    if (
+        not isinstance(reference_total_errors, Mapping)
+        or not isinstance(comparison_total_errors, Mapping)
+        or not isinstance(reference_truncation_errors, Mapping)
+        or not isinstance(comparison_truncation_errors, Mapping)
+    ):
         raise TypeError("shell error fields must decode to mappings")
     return Periodic2DRankNBandEquivalenceHoppingLocalityShellAnalysis(
-        ordinal_shell_index=values["ordinal_shell_index"],  # type: ignore[arg-type]
-        metric_shell_value=values["metric_shell_value"],  # type: ignore[arg-type]
-        retained_block_count=values["retained_block_count"],  # type: ignore[arg-type]
-        reference_shell_power=values["reference_shell_power"],  # type: ignore[arg-type]
-        comparison_shell_power=values["comparison_shell_power"],  # type: ignore[arg-type]
-        reference_omitted_power=values["reference_omitted_power"],  # type: ignore[arg-type]
-        comparison_omitted_power=values["comparison_omitted_power"],  # type: ignore[arg-type]
-        reference_total_errors=_error_from_mapping(error_values[0]),  # type: ignore[arg-type]
-        comparison_total_errors=_error_from_mapping(error_values[1]),  # type: ignore[arg-type]
-        reference_truncation_errors=_error_from_mapping(error_values[2]),  # type: ignore[arg-type]
-        comparison_truncation_errors=_error_from_mapping(error_values[3]),  # type: ignore[arg-type]
+        ordinal_shell_index=ordinal_shell_index,
+        metric_shell_value=metric_shell_value,
+        retained_block_count=retained_block_count,
+        reference_shell_power=reference_shell_power,
+        comparison_shell_power=comparison_shell_power,
+        reference_omitted_power=reference_omitted_power,
+        comparison_omitted_power=comparison_omitted_power,
+        reference_total_errors=_error_from_mapping(reference_total_errors),
+        comparison_total_errors=_error_from_mapping(comparison_total_errors),
+        reference_truncation_errors=_error_from_mapping(reference_truncation_errors),
+        comparison_truncation_errors=_error_from_mapping(comparison_truncation_errors),
     )
 
 
@@ -833,25 +771,28 @@ def _decision_from_mapping(
         "comparison_matrix",
         "comparison_ordered_spectrum",
     }
-    if set(values) != required or type(values["tolerance"]) is not float:
+    if set(values) != required:
         raise ValueError("tolerance-decision fields do not match")
-    nested = tuple(
-        values[name]
-        for name in (
-            "reference_matrix",
-            "reference_ordered_spectrum",
-            "comparison_matrix",
-            "comparison_ordered_spectrum",
-        )
-    )
-    if any(not isinstance(value, Mapping) for value in nested):
+    tolerance = values["tolerance"]
+    if type(tolerance) is not float:
+        raise ValueError("tolerance-decision fields do not match")
+    reference_matrix = values["reference_matrix"]
+    reference_ordered_spectrum = values["reference_ordered_spectrum"]
+    comparison_matrix = values["comparison_matrix"]
+    comparison_ordered_spectrum = values["comparison_ordered_spectrum"]
+    if (
+        not isinstance(reference_matrix, Mapping)
+        or not isinstance(reference_ordered_spectrum, Mapping)
+        or not isinstance(comparison_matrix, Mapping)
+        or not isinstance(comparison_ordered_spectrum, Mapping)
+    ):
         raise TypeError("support decisions must decode to mappings")
     return Periodic2DRankNBandEquivalenceHoppingLocalityToleranceDecision(
-        tolerance=values["tolerance"],
-        reference_matrix=_support_from_mapping(nested[0]),  # type: ignore[arg-type]
-        reference_ordered_spectrum=_support_from_mapping(nested[1]),  # type: ignore[arg-type]
-        comparison_matrix=_support_from_mapping(nested[2]),  # type: ignore[arg-type]
-        comparison_ordered_spectrum=_support_from_mapping(nested[3]),  # type: ignore[arg-type]
+        tolerance=tolerance,
+        reference_matrix=_support_from_mapping(reference_matrix),
+        reference_ordered_spectrum=_support_from_mapping(reference_ordered_spectrum),
+        comparison_matrix=_support_from_mapping(comparison_matrix),
+        comparison_ordered_spectrum=_support_from_mapping(comparison_ordered_spectrum),
     )
 
 
@@ -900,26 +841,29 @@ def _evidence_from_mapping(
         }
         if set(values) != required:
             raise ValueError("fitted evidence fields do not match")
-        if (
-            type(values["sample_count"]) is not int
-            or type(values["minimum_numerical_rank"]) is not int
-        ):
+        sample_count = values["sample_count"]
+        minimum_numerical_rank = values["minimum_numerical_rank"]
+        if type(sample_count) is not int or type(minimum_numerical_rank) is not int:
             raise TypeError("fitted evidence integer fields have invalid types")
-        float_names = (
-            "minimum_cross_singular_value",
-            "maximum_optimal_residual_frobenius_norm",
-            "maximum_applied_rank_cutoff",
-        )
-        if any(type(values[name]) is not float for name in float_names):
+        minimum_cross_singular_value = values["minimum_cross_singular_value"]
+        maximum_optimal_residual_frobenius_norm = values[
+            "maximum_optimal_residual_frobenius_norm"
+        ]
+        maximum_applied_rank_cutoff = values["maximum_applied_rank_cutoff"]
+        if (
+            type(minimum_cross_singular_value) is not float
+            or type(maximum_optimal_residual_frobenius_norm) is not float
+            or type(maximum_applied_rank_cutoff) is not float
+        ):
             raise TypeError("fitted evidence float fields have invalid types")
         return Periodic2DRankNFittedAlignmentEvidence(
-            sample_count=values["sample_count"],
-            minimum_numerical_rank=values["minimum_numerical_rank"],
-            minimum_cross_singular_value=values["minimum_cross_singular_value"],  # type: ignore[arg-type]
-            maximum_optimal_residual_frobenius_norm=values[
-                "maximum_optimal_residual_frobenius_norm"
-            ],  # type: ignore[arg-type]
-            maximum_applied_rank_cutoff=values["maximum_applied_rank_cutoff"],  # type: ignore[arg-type]
+            sample_count=sample_count,
+            minimum_numerical_rank=minimum_numerical_rank,
+            minimum_cross_singular_value=minimum_cross_singular_value,
+            maximum_optimal_residual_frobenius_norm=(
+                maximum_optimal_residual_frobenius_norm
+            ),
+            maximum_applied_rank_cutoff=maximum_applied_rank_cutoff,
         )
     raise ValueError("alignment evidence kind is not recognized")
 
@@ -1102,28 +1046,45 @@ def _alignment_from_mapping(
     }
     if set(values) != required:
         raise ValueError("qualified alignment fields do not match")
-    mapping_names = (
-        "alignment_evidence",
-        "reference_reconstruction_errors",
-        "comparison_reconstruction_errors",
-        "reference_interpolation_errors",
-        "comparison_interpolation_errors",
-        "reference_locality",
-        "comparison_locality",
-    )
-    if any(not isinstance(values[name], Mapping) for name in mapping_names):
+    alignment_evidence = values["alignment_evidence"]
+    reference_reconstruction_errors = values["reference_reconstruction_errors"]
+    comparison_reconstruction_errors = values["comparison_reconstruction_errors"]
+    reference_interpolation_errors = values["reference_interpolation_errors"]
+    comparison_interpolation_errors = values["comparison_interpolation_errors"]
+    reference_locality = values["reference_locality"]
+    comparison_locality = values["comparison_locality"]
+    if (
+        not isinstance(alignment_evidence, Mapping)
+        or not isinstance(reference_reconstruction_errors, Mapping)
+        or not isinstance(comparison_reconstruction_errors, Mapping)
+        or not isinstance(reference_interpolation_errors, Mapping)
+        or not isinstance(comparison_interpolation_errors, Mapping)
+        or not isinstance(reference_locality, Mapping)
+        or not isinstance(comparison_locality, Mapping)
+    ):
         raise TypeError("qualified alignment nested fields must decode to mappings")
-    float_names = (
-        "maximum_aligned_frame_defect",
-        "minimum_transport_singular_value",
-        "maximum_transport_procrustes_residual",
-        "maximum_transport_unitarity_defect",
-        "maximum_transport_rank_cutoff",
-        "maximum_plaquette_phase",
-        "maximum_direct_matrix_difference",
-        "maximum_direct_ordered_spectrum_difference",
-    )
-    if any(type(values[name]) is not float for name in float_names):
+    maximum_aligned_frame_defect = values["maximum_aligned_frame_defect"]
+    minimum_transport_singular_value = values["minimum_transport_singular_value"]
+    maximum_transport_procrustes_residual = values[
+        "maximum_transport_procrustes_residual"
+    ]
+    maximum_transport_unitarity_defect = values["maximum_transport_unitarity_defect"]
+    maximum_transport_rank_cutoff = values["maximum_transport_rank_cutoff"]
+    maximum_plaquette_phase = values["maximum_plaquette_phase"]
+    maximum_direct_matrix_difference = values["maximum_direct_matrix_difference"]
+    maximum_direct_ordered_spectrum_difference = values[
+        "maximum_direct_ordered_spectrum_difference"
+    ]
+    if (
+        type(maximum_aligned_frame_defect) is not float
+        or type(minimum_transport_singular_value) is not float
+        or type(maximum_transport_procrustes_residual) is not float
+        or type(maximum_transport_unitarity_defect) is not float
+        or type(maximum_transport_rank_cutoff) is not float
+        or type(maximum_plaquette_phase) is not float
+        or type(maximum_direct_matrix_difference) is not float
+        or type(maximum_direct_ordered_spectrum_difference) is not float
+    ):
         raise TypeError("qualified alignment scalar diagnostics must be floats")
     phases = values["maximum_absolute_closure_phases"]
     shells = values["shells"]
@@ -1141,34 +1102,32 @@ def _alignment_from_mapping(
     return Periodic2DRankNBandEquivalenceHoppingLocalityQualifiedAlignmentAnalysis(
         identity=analysis_identity,
         alignment=alignment,
-        alignment_evidence=_evidence_from_mapping(values["alignment_evidence"]),  # type: ignore[arg-type]
-        maximum_aligned_frame_defect=values["maximum_aligned_frame_defect"],  # type: ignore[arg-type]
-        minimum_transport_singular_value=values["minimum_transport_singular_value"],  # type: ignore[arg-type]
-        maximum_transport_procrustes_residual=values[
-            "maximum_transport_procrustes_residual"
-        ],  # type: ignore[arg-type]
-        maximum_transport_unitarity_defect=values["maximum_transport_unitarity_defect"],  # type: ignore[arg-type]
-        maximum_transport_rank_cutoff=values["maximum_transport_rank_cutoff"],  # type: ignore[arg-type]
+        alignment_evidence=_evidence_from_mapping(alignment_evidence),
+        maximum_aligned_frame_defect=maximum_aligned_frame_defect,
+        minimum_transport_singular_value=minimum_transport_singular_value,
+        maximum_transport_procrustes_residual=(maximum_transport_procrustes_residual),
+        maximum_transport_unitarity_defect=maximum_transport_unitarity_defect,
+        maximum_transport_rank_cutoff=maximum_transport_rank_cutoff,
         maximum_absolute_closure_phases=phases,
-        maximum_plaquette_phase=values["maximum_plaquette_phase"],  # type: ignore[arg-type]
-        maximum_direct_matrix_difference=values["maximum_direct_matrix_difference"],  # type: ignore[arg-type]
-        maximum_direct_ordered_spectrum_difference=values[
-            "maximum_direct_ordered_spectrum_difference"
-        ],  # type: ignore[arg-type]
+        maximum_plaquette_phase=maximum_plaquette_phase,
+        maximum_direct_matrix_difference=maximum_direct_matrix_difference,
+        maximum_direct_ordered_spectrum_difference=(
+            maximum_direct_ordered_spectrum_difference
+        ),
         reference_reconstruction_errors=_error_from_mapping(
-            values["reference_reconstruction_errors"]  # type: ignore[arg-type]
+            reference_reconstruction_errors
         ),
         comparison_reconstruction_errors=_error_from_mapping(
-            values["comparison_reconstruction_errors"]  # type: ignore[arg-type]
+            comparison_reconstruction_errors
         ),
         reference_interpolation_errors=_error_from_mapping(
-            values["reference_interpolation_errors"]  # type: ignore[arg-type]
+            reference_interpolation_errors
         ),
         comparison_interpolation_errors=_error_from_mapping(
-            values["comparison_interpolation_errors"]  # type: ignore[arg-type]
+            comparison_interpolation_errors
         ),
-        reference_locality=_locality_from_mapping(values["reference_locality"]),  # type: ignore[arg-type]
-        comparison_locality=_locality_from_mapping(values["comparison_locality"]),  # type: ignore[arg-type]
+        reference_locality=_locality_from_mapping(reference_locality),
+        comparison_locality=_locality_from_mapping(comparison_locality),
         shells=tuple(_shell_from_mapping(value) for value in shells),
         tolerance_decisions=tuple(_decision_from_mapping(value) for value in decisions),
     )
@@ -1183,7 +1142,7 @@ def _case_mapping(
         "retained_rank": value.retained_rank,
         "circuit_depth": value.circuit_depth,
         "parent_scale": value.parent_scale,
-        "attack_coefficient": value.attack_coefficient,
+        "transformation_coefficient": value.transformation_coefficient,
         "minimum_sampled_external_gap": value.minimum_sampled_external_gap,
         "alignments": tuple(_alignment_mapping(item) for item in value.alignments),
     }
@@ -1198,7 +1157,7 @@ def _case_from_mapping(
         "retained_rank",
         "circuit_depth",
         "parent_scale",
-        "attack_coefficient",
+        "transformation_coefficient",
         "minimum_sampled_external_gap",
         "alignments",
     }
@@ -1215,12 +1174,12 @@ def _case_from_mapping(
     ):
         raise TypeError("case rank and depth must decode to built-in integers")
     parent_scale = values["parent_scale"]
-    attack_coefficient = values["attack_coefficient"]
+    transformation_coefficient = values["transformation_coefficient"]
     minimum_sampled_external_gap = values["minimum_sampled_external_gap"]
     if type(parent_scale) is not float:
         raise TypeError("parent_scale must decode to a built-in float")
-    if type(attack_coefficient) is not float:
-        raise TypeError("attack_coefficient must decode to a built-in float")
+    if type(transformation_coefficient) is not float:
+        raise TypeError("transformation_coefficient must decode to a built-in float")
     if type(minimum_sampled_external_gap) is not float:
         raise TypeError("minimum_sampled_external_gap must decode to a built-in float")
     alignments = values["alignments"]
@@ -1234,7 +1193,7 @@ def _case_from_mapping(
         retained_rank=values["retained_rank"],
         circuit_depth=values["circuit_depth"],
         parent_scale=parent_scale,
-        attack_coefficient=attack_coefficient,
+        transformation_coefficient=transformation_coefficient,
         minimum_sampled_external_gap=minimum_sampled_external_gap,
         alignments=tuple(_alignment_from_mapping(value) for value in alignments),
     )

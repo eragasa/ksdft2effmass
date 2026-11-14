@@ -664,11 +664,11 @@
       "sut": "TaskWorkflowTransitionRecord"
     },
     {
-      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__UnknownLegacyResultProducer.py",
+      "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__ImportedRetainedResultProducer.py",
       "mode": "class_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",
-      "sut": "UnknownLegacyResultProducer"
+      "sut": "ImportedRetainedResultProducer"
     },
     {
       "path": "python/tests/software_verification/ksdft2effmass/workflows/runs/records/test__WorkflowDefinitionReference.py",

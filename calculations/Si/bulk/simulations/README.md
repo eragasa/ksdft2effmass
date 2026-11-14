@@ -134,8 +134,9 @@ Compact material for that one-occurrence gate is retained under
 and was separately authorized and completed without retries. Compact evidence is
 retained under
 [`evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-parent-scf-gamma-k10-c42/`](evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-parent-scf-gamma-k10-c42/).
-Its authenticated saved state is the prospective source for a separately declared and
-authorized NSCF. The required human scientific choices and the non-transfer boundary
+Its authenticated saved state is the prospective source for separately declared fixed-density successors. A later manuscript-specific authorization produced one 241-point, 20-band $L$--$\Gamma$--$X$--$\Gamma$ parent path without retries; compact evidence and the source-Wannier overlay are retained under
+[`evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-parent-bands-l-gamma-x-gamma-b20/`](evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-parent-bands-l-gamma-x-gamma-b20/).
+It is contextual path evidence, not a fitting inventory, global-extremum proof, or new source construction. The required human scientific choices and the non-transfer boundary
 are recorded in
 [`wannier-interface-decision.md`](wannier-interface-decision.md). The recommended
 first candidate was approved and preflight is retained under

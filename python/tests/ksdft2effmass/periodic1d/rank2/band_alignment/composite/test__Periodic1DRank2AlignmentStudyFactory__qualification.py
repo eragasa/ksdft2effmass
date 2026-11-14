@@ -22,6 +22,7 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite.verification import
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
+from ksdft2effmass.sewing import IdentityReciprocalSewing
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
@@ -42,6 +43,9 @@ class TestPeriodic1DAlignmentStudyFactoryRank2Qualification:
                 ),
                 configuration=composite_configuration,
                 procrustes_solver=NumpyBatchedComplexUnitaryProcrustesSolver(),
+                endpoint_sewing=IdentityReciprocalSewing(
+                    ambient_dimension=4
+                ).endpoint_map,
             )
         ).create()
 

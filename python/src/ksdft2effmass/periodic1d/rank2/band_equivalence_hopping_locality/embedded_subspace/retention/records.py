@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 from dataclasses import dataclass
-from enum import Enum, StrEnum
+from enum import Enum
 from typing import TYPE_CHECKING, Self
 
 from projectkoios.optimization.alignment.closed_loop_polar_transport import (
@@ -33,7 +33,7 @@ from ksdft2effmass.real_space_support_truncation import (
     RealSpaceSupportTruncationFamily,
     RealSpaceSupportTruncationFamilyMember,
 )
-from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue
+from ksdft2effmass.serialization import BaseTypedRecord, SerializableValue, StrWireEnum
 
 from ..amplitude_refinement.analysis import (
     Periodic1DRank2AdaptiveAmplitudeAnalysis,
@@ -101,7 +101,7 @@ class CalculationWireEnum(Enum):
     TRUNCATION_COMPLETED = "truncation-completed"
 
 
-class _QualificationWireVariant(StrEnum):
+class _QualificationWireVariant(StrWireEnum):
     """Discriminate qualification payloads only at the retained-wire boundary."""
 
     EXTERNAL_GAP_FAILURE = "external-gap-failure"
@@ -215,7 +215,7 @@ def _request_mapping(
         "endpoint_sewing_identifier": request.endpoint_sewing_identifier,
         "energy_reference_identifier": request.energy_reference_identifier,
         "reciprocal_coordinate_convention": request.reciprocal_coordinate_convention,
-        "gauge_attack_identifier": request.gauge_attack_identifier,
+        "gauge_attack_identifier": request.gauge_transformation_identifier,
         "ambient_rank": request.ambient_rank,
         "retained_rank": request.retained_rank,
         "reciprocal_mesh_size": request.reciprocal_mesh_size,
@@ -313,7 +313,7 @@ def _request_from_mapping(
         "endpoint_sewing_identifier": request.endpoint_sewing_identifier,
         "energy_reference_identifier": request.energy_reference_identifier,
         "reciprocal_coordinate_convention": request.reciprocal_coordinate_convention,
-        "gauge_attack_identifier": request.gauge_attack_identifier,
+        "gauge_attack_identifier": request.gauge_transformation_identifier,
     }
     for name, expected in expected_identity.items():
         observed = (
@@ -547,7 +547,7 @@ class Periodic1DRank2QualificationRecord(BaseTypedRecord):
 
 @dataclass(frozen=True, slots=True)
 class Periodic1DRank2HoppingPowerRecord(BaseTypedRecord):
-    """Retain paired reference and attacked power at one displacement."""
+    """Retain paired reference and gauge_transformed power at one displacement."""
 
     value: Periodic1DRank2HoppingPower
 

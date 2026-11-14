@@ -1,9 +1,9 @@
 """Scientific gauge-alignment identities and stable string mappings."""
 
-from ksdft2effmass.serialization import StringWireEnum
+from ksdft2effmass.serialization import StrWireEnum
 
 
-class Periodic1DRankNGaugeAlignment(StringWireEnum):
+class Periodic1DRankNGaugeAlignment(StrWireEnum):
     """Identify one prescribed retained-space gauge alignment."""
 
     IDENTITY = "identity"

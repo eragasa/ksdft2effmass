@@ -4,10 +4,15 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
+from ksdft2effmass.gauge_alignment import PeriodicRankNGaugeAlignmentCapability
 from ksdft2effmass.periodic1d.gauge_alignment.base import Periodic1DGaugeAlignment
 
 
-class Periodic1DRankNGaugeAlignmentCapability(Periodic1DGaugeAlignment, ABC):
+class Periodic1DRankNGaugeAlignmentCapability(
+    Periodic1DGaugeAlignment,
+    PeriodicRankNGaugeAlignmentCapability,
+    ABC,
+):
     """Identify gauge alignment on a periodic-1D finite-rank band subspace.
 
     The ``Capability`` suffix distinguishes this owner from the existing

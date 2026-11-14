@@ -4,7 +4,8 @@
 
 Architecture v3 source contract with immutable configuration, direct calculation,
 independent byte-owning verification, authenticated visualization, and direct effect
-adapters. No retained execution exists yet.
+adapters. One local unsealed execution has completed the three direct stages; no sealing
+or evidence promotion has occurred.
 
 ## Scientific question
 
@@ -103,4 +104,4 @@ source objects by identity and do not rewrite the established calculation bytes.
 - [Numerics](numerics.md)
 - [Scientific interpretation](scientifics.md)
 - [Periodic1D parent package](../index.md)
-- [Frozen calculation protocol](../../../../../../calculations/periodic1d/rank1/fourier-locality/protocol.md)
+- [Frozen aggregate calculation protocol](../../../../../../calculations/periodic1d_rank1/band_equivalence_hopping_locality/protocol.md)

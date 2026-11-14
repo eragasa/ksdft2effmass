@@ -9,8 +9,8 @@ effects, grant authority, or establish scientific validity or acceptance.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
+from ...serialization import StrWireEnum
 from .definitions import (
     ColoredPetriNetArcDefinition,
     ColoredPetriNetColorDefinition,
@@ -31,7 +31,7 @@ from .markings import (
 from .values import ColoredPetriNetColorIdentity
 
 
-class ColoredPetriNetValidationIssueCode(StrEnum):
+class ColoredPetriNetValidationIssueCode(StrWireEnum):
     """Stable semantic codes for v2 structural findings.
 
     Attributes

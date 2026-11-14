@@ -31,7 +31,7 @@ class HigherRankD1SampledFields:
     gauges: Complex128Array = field(repr=False)
     candidate_frames: Complex128Array = field(repr=False)
     reference_operators: Complex128Array = field(repr=False)
-    attacked_operators: Complex128Array = field(repr=False)
+    gauge_transformed_operators: Complex128Array = field(repr=False)
 
     def __post_init__(self) -> None:
         """Validate exact shapes, storage, and defining construction identities."""
@@ -53,7 +53,7 @@ class HigherRankD1SampledFields:
             ("gauges", self.gauges),
             ("candidate_frames", self.candidate_frames),
             ("reference_operators", self.reference_operators),
-            ("attacked_operators", self.attacked_operators),
+            ("gauge_transformed_operators", self.gauge_transformed_operators),
         ):
             validate_immutable_complex128_array(complex_value, name)
         count = int(self.reduced_coordinates.size)
@@ -79,18 +79,18 @@ class HigherRankD1SampledFields:
             "reference_operators",
         )
         require_array_shape(
-            self.attacked_operators, (count, rank, rank), "attacked_operators"
+            self.gauge_transformed_operators, (count, rank, rank), "gauge_transformed_operators"
         )
         expected_candidate = self.reference_frames @ self.gauges
         if not np.array_equal(self.candidate_frames, expected_candidate):
             raise ValueError("candidate_frames must equal reference_frames @ gauges")
-        expected_attacked = (
+        expected_gauge_transformed = (
             np.swapaxes(self.gauges.conjugate(), -1, -2)
             @ self.reference_operators
             @ self.gauges
         )
-        if not np.array_equal(self.attacked_operators, expected_attacked):
-            raise ValueError("attacked_operators must equal G^dagger D G")
+        if not np.array_equal(self.gauge_transformed_operators, expected_gauge_transformed):
+            raise ValueError("gauge_transformed_operators must equal G^dagger D G")
 
 
 class HigherRankD1ModelConstructor:
@@ -170,7 +170,7 @@ class HigherRankD1ModelConstructor:
         reference_frames[:, :rank, :] = np.eye(rank, dtype=np.complex128)
         gauges = self._gauges(rank, depth, phase)
         candidate_frames = reference_frames @ gauges
-        attacked = (
+        gauge_transformed = (
             np.swapaxes(gauges.conjugate(), -1, -2) @ reference_operators @ gauges
         )
         return HigherRankD1SampledFields(
@@ -192,13 +192,13 @@ class HigherRankD1ModelConstructor:
             reference_operators=immutable_complex128_array(
                 reference_operators, "reference_operators"
             ),
-            attacked_operators=immutable_complex128_array(
-                attacked, "attacked_operators"
+            gauge_transformed_operators=immutable_complex128_array(
+                gauge_transformed, "gauge_transformed_operators"
             ),
         )
 
     @staticmethod
-    def exact_attack_angle_bound(rank: int) -> float:
+    def exact_transformation_angle_bound(rank: int) -> float:
         """Return the selected rank-specific continuum angle certificate."""
         if type(rank) is not int or rank < 3:
             raise ValueError("rank must be a built-in integer at least three")
@@ -209,7 +209,7 @@ class HigherRankD1ModelConstructor:
         )
 
     @staticmethod
-    def sampled_attack_angle_maximum(
+    def sampled_transformation_angle_maximum(
         rank: int,
         depth: int,
         reduced_coordinates: Float64Array,

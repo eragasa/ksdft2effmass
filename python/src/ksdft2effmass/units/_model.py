@@ -10,10 +10,11 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 from decimal import Decimal
-from enum import StrEnum
+
+from ksdft2effmass.serialization import StrWireEnum
 
 
-class PhysicalDimension(StrEnum):
+class PhysicalDimension(StrWireEnum):
     """Identify physical dimensions represented by unit contracts.
 
     Attributes
@@ -64,7 +65,7 @@ class PhysicalDimension(StrEnum):
     MOLAR_MASS = "molar_mass"
 
 
-class UnitIdentity(StrEnum):
+class UnitIdentity(StrWireEnum):
     """Identify exact source and canonical units without implicit conversion.
 
     Attributes
@@ -785,7 +786,7 @@ class MetalUnitConversionRequest:
             )
 
 
-class MetalUnitConversionOutcome(StrEnum):
+class MetalUnitConversionOutcome(StrWireEnum):
     """Identify closed outcomes of one unit-conversion request.
 
     Attributes
@@ -806,7 +807,7 @@ class MetalUnitConversionOutcome(StrEnum):
     UNDERFLOW = "underflow"
 
 
-class MetalUnitConversionFailureCode(StrEnum):
+class MetalUnitConversionFailureCode(StrWireEnum):
     """Identify closed failure reasons for one conversion request.
 
     Attributes
@@ -824,7 +825,7 @@ class MetalUnitConversionFailureCode(StrEnum):
     NONZERO_ROUNDED_TO_ZERO = "nonzero_rounded_to_zero"
 
 
-class MetalUnitConversionLimitation(StrEnum):
+class MetalUnitConversionLimitation(StrWireEnum):
     """Identify limitations retained by conversion results.
 
     Attributes

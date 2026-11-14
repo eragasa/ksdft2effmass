@@ -34,8 +34,8 @@ class Periodic1DCompositeBandAlignmentConfiguration(
     evaluation_shift_numerator: int
     evaluation_shift_denominator: int
     hopping_ranges: tuple[int, ...]
-    attack_constant_angle: float
-    attack_sine_coefficients: tuple[float, ...]
+    transformation_constant_angle: float
+    transformation_sine_coefficients: tuple[float, ...]
     sampled_gap_threshold: float
     overlap_singular_value_threshold: float
     procrustes_rank_absolute_tolerance: float
@@ -65,8 +65,8 @@ class Periodic1DCompositeBandAlignmentConfiguration(
     EVALUATION_SHIFT_NUMERATOR: ClassVar[int] = 1
     EVALUATION_SHIFT_DENOMINATOR: ClassVar[int] = 65
     HOPPING_RANGES: ClassVar[tuple[int, ...]] = (0, 1, 2, 3, 4, 6, 8)
-    ATTACK_CONSTANT_ANGLE: ClassVar[float] = 0.30
-    ATTACK_SINE_COEFFICIENTS: ClassVar[tuple[float, ...]] = (0.65, 0.30)
+    TRANSFORMATION_CONSTANT_ANGLE: ClassVar[float] = 0.30
+    TRANSFORMATION_SINE_COEFFICIENTS: ClassVar[tuple[float, ...]] = (0.65, 0.30)
     SAMPLED_GAP_THRESHOLD: ClassVar[float] = 0.5
     OVERLAP_SINGULAR_VALUE_THRESHOLD: ClassVar[float] = 0.8
     PROCRUSTES_RANK_ABSOLUTE_TOLERANCE: ClassVar[float] = 1.0e-14
@@ -75,12 +75,12 @@ class Periodic1DCompositeBandAlignmentConfiguration(
     DIMENSIONLESS_ABSOLUTE_TOLERANCE: ClassVar[float] = 1.0e-12
     HOPPING_LOCALITY_CHANNELS: ClassVar[tuple[str, ...]] = (
         "reference",
-        "attacked",
+        "gauge_transformed",
         "pointwise",
     )
 
     def __post_init__(self) -> None:
-        """Reject alternate parents, sample sets, attacks, and numerical controls."""
+        """Reject alternate parents, samples, transformations, and controls."""
         if type(self.parent_identity) is not str:
             raise TypeError("parent_identity must be a built-in string")
         for matrix, name in (
@@ -139,12 +139,14 @@ class Periodic1DCompositeBandAlignmentConfiguration(
             raise ValueError("hopping_ranges must match the frozen range inventory")
         if 2 * self.hopping_ranges[-1] + 1 >= self.construction_size:
             raise ValueError("hopping ranges must exclude the cyclic Nyquist point")
-        if not isinstance(self.attack_sine_coefficients, tuple) or any(
-            type(value) is not float for value in self.attack_sine_coefficients
+        if not isinstance(self.transformation_sine_coefficients, tuple) or any(
+            type(value) is not float for value in self.transformation_sine_coefficients
         ):
-            raise TypeError("attack_sine_coefficients must contain built-in floats")
+            raise TypeError(
+                "transformation_sine_coefficients must contain built-in floats"
+            )
         for scalar, name in (
-            (self.attack_constant_angle, "attack_constant_angle"),
+            (self.transformation_constant_angle, "transformation_constant_angle"),
             (self.sampled_gap_threshold, "sampled_gap_threshold"),
             (
                 self.overlap_singular_value_threshold,
@@ -168,14 +170,16 @@ class Periodic1DCompositeBandAlignmentConfiguration(
                 raise TypeError(f"{name} must be a finite built-in float")
             if scalar < 0.0:
                 raise ValueError(f"{name} must be nonnegative")
-        if any(not isfinite(value) for value in self.attack_sine_coefficients):
-            raise ValueError("attack_sine_coefficients must be finite")
+        if any(not isfinite(value) for value in self.transformation_sine_coefficients):
+            raise ValueError("transformation_sine_coefficients must be finite")
         if (
-            self.attack_constant_angle != self.ATTACK_CONSTANT_ANGLE
-            or self.attack_sine_coefficients != self.ATTACK_SINE_COEFFICIENTS
+            self.transformation_constant_angle != self.TRANSFORMATION_CONSTANT_ANGLE
+            or self.transformation_sine_coefficients
+            != self.TRANSFORMATION_SINE_COEFFICIENTS
         ):
             raise ValueError(
-                "attack coefficients must match the frozen rank-two attack"
+                "transformation coefficients must match the frozen rank-two "
+                "transformation"
             )
         if self.sampled_gap_threshold != self.SAMPLED_GAP_THRESHOLD:
             raise ValueError("sampled_gap_threshold must equal 0.5")
@@ -225,8 +229,8 @@ class Periodic1DCompositeBandAlignmentConfiguration(
             evaluation_shift_numerator=cls.EVALUATION_SHIFT_NUMERATOR,
             evaluation_shift_denominator=cls.EVALUATION_SHIFT_DENOMINATOR,
             hopping_ranges=cls.HOPPING_RANGES,
-            attack_constant_angle=cls.ATTACK_CONSTANT_ANGLE,
-            attack_sine_coefficients=cls.ATTACK_SINE_COEFFICIENTS,
+            transformation_constant_angle=cls.TRANSFORMATION_CONSTANT_ANGLE,
+            transformation_sine_coefficients=cls.TRANSFORMATION_SINE_COEFFICIENTS,
             sampled_gap_threshold=cls.SAMPLED_GAP_THRESHOLD,
             overlap_singular_value_threshold=cls.OVERLAP_SINGULAR_VALUE_THRESHOLD,
             procrustes_rank_absolute_tolerance=(cls.PROCRUSTES_RANK_ABSOLUTE_TOLERANCE),
@@ -287,8 +291,8 @@ class Periodic1DCompositeBandAlignmentConfiguration(
             "evaluation_shift_numerator": self.evaluation_shift_numerator,
             "evaluation_shift_denominator": self.evaluation_shift_denominator,
             "hopping_ranges": self.hopping_ranges,
-            "attack_constant_angle": self.attack_constant_angle,
-            "attack_sine_coefficients": self.attack_sine_coefficients,
+            "transformation_constant_angle": self.transformation_constant_angle,
+            "transformation_sine_coefficients": self.transformation_sine_coefficients,
             "sampled_gap_threshold": self.sampled_gap_threshold,
             "overlap_singular_value_threshold": self.overlap_singular_value_threshold,
             "procrustes_rank_absolute_tolerance": (
@@ -314,8 +318,8 @@ class Periodic1DCompositeBandAlignmentConfiguration(
             "evaluation_shift_numerator",
             "evaluation_shift_denominator",
             "hopping_ranges",
-            "attack_constant_angle",
-            "attack_sine_coefficients",
+            "transformation_constant_angle",
+            "transformation_sine_coefficients",
             "sampled_gap_threshold",
             "overlap_singular_value_threshold",
             "procrustes_rank_absolute_tolerance",
@@ -329,13 +333,15 @@ class Periodic1DCompositeBandAlignmentConfiguration(
         onsite = values["onsite_numerators"]
         positive = values["positive_hopping_numerators"]
         ranges = values["hopping_ranges"]
-        attack = values["attack_sine_coefficients"]
+        transformation = values["transformation_sine_coefficients"]
         if type(parent_identity) is not str:
             raise TypeError("parent_identity must decode to a string")
         if not isinstance(onsite, tuple) or not isinstance(positive, tuple):
             raise TypeError("parent coefficient matrices must decode to tuples")
-        if not isinstance(ranges, tuple) or not isinstance(attack, tuple):
-            raise TypeError("range and attack inventories must decode to tuples")
+        if not isinstance(ranges, tuple) or not isinstance(transformation, tuple):
+            raise TypeError(
+                "range and transformation inventories must decode to tuples"
+            )
         integer_names = (
             "coefficient_denominator",
             "retained_rank",
@@ -351,7 +357,7 @@ class Periodic1DCompositeBandAlignmentConfiguration(
                 raise TypeError(f"{name} must decode to a built-in integer")
             integer_values[name] = value
         float_names = (
-            "attack_constant_angle",
+            "transformation_constant_angle",
             "sampled_gap_threshold",
             "overlap_singular_value_threshold",
             "procrustes_rank_absolute_tolerance",
@@ -376,8 +382,8 @@ class Periodic1DCompositeBandAlignmentConfiguration(
             evaluation_shift_numerator=integer_values["evaluation_shift_numerator"],
             evaluation_shift_denominator=integer_values["evaluation_shift_denominator"],
             hopping_ranges=tuple(ranges),
-            attack_constant_angle=float_values["attack_constant_angle"],
-            attack_sine_coefficients=tuple(attack),
+            transformation_constant_angle=float_values["transformation_constant_angle"],
+            transformation_sine_coefficients=tuple(transformation),
             sampled_gap_threshold=float_values["sampled_gap_threshold"],
             overlap_singular_value_threshold=float_values[
                 "overlap_singular_value_threshold"

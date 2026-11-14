@@ -12,16 +12,17 @@ transport, Fourier, locality, support, and aggregate-verification contracts are 
 
 This owner follows the fixed-geometry rank-N sequence in the shared
 [periodic analysis order](../../../periodic/multiband/analysis-order.md): qualify parent
-and geometry cases; construct the gauge; assess alignment and transport; establish
+and geometry cases; construct the gauge transformation; assess alignment and transport; establish
 Fourier/interpolation identities; diagnose locality; apply complete-shell support
 selection; retain separate error operands; run bounded independent references and typed
 aggregate verification; then close resources, visualization, authentication, lifecycle,
 and execution identity. The current boundary stops before those final admission stages
 and owns no calculation result.
 
-The installed reusable software foundations remain under
-`python/src/ksdft2effmass/periodic3d/rankN/`; this calculation directory does not duplicate
-them. Visualization, execution-scale resource bounds, lifecycle/authentication, and a
+Reusable parent, transformation, operation, analysis, and verification contracts remain
+under `python/src/ksdft2effmass/`; this calculation directory must own the concrete
+analytic formulas, basis inventory, and case composition rather than moving them into
+reusable source. Visualization, execution-scale resource bounds, lifecycle/authentication, and a
 retained study remain unselected. There are intentionally no direct execution
 entrypoints or generated outputs.
 
@@ -29,4 +30,4 @@ The periodic-1D rank-N protocol cannot be copied, and the periodic-3D rank-two l
 cannot be relabeled rank-N. The selected fixed-geometry baseline also does not authorize
 a continuous strain path. The separate rank-N Bain partial-protocol context, which now
 owns the exact path geometry/common-state-space and M0/M1N boundaries, is
-[`calculations/periodic3d_rankN_bain_path/`](../../../periodic3d_rankN_bain_path/README.md).
+[`calculations/periodic3d_rankN_strain/`](../../../periodic3d_rankN_strain/README.md).

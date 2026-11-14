@@ -47,12 +47,23 @@ from ksdft2effmass.band_equivalence_hopping_locality.verification import (
     BandEquivalenceHoppingLocalityResultVerifier,
     BandEquivalenceHoppingLocalityVerificationThresholds,
 )
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 
 pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 class TestBandEquivalenceHoppingLocalityResultVerifier:
     """Establish exact-byte admission and its direct lifecycle integration."""
+
+    @staticmethod
+    def endpoint_sewing() -> ReciprocalEndpointSewingInventory:
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=4)
+        return ReciprocalEndpointSewingInventory(
+            positive_axis_maps=(identity_sewing.endpoint_map,) * 2
+        )
 
     def request(self) -> BandEquivalenceHoppingLocalityRequest:
         return BandEquivalenceHoppingLocalityRequest(
@@ -87,7 +98,8 @@ class TestBandEquivalenceHoppingLocalityResultVerifier:
     def result(self) -> BandEquivalenceHoppingLocalityCalculationResult:
         request = self.request()
         analysis = Rank2BandEquivalenceHoppingLocalityAnalyzer(
-            request=request
+            request=request,
+            endpoint_sewing=self.endpoint_sewing(),
         ).execute()
         return BandEquivalenceHoppingLocalityAnalysisRecorder(analysis).result()
 
@@ -173,7 +185,10 @@ class TestBandEquivalenceHoppingLocalityResultVerifier:
         assert tuple(diagnostic_verifier_parameters) == ("self",)
         assert tuple(verifier_parameters) == ("self",)
         request = self.request()
-        analyzer = Rank2BandEquivalenceHoppingLocalityAnalyzer(request=request)
+        analyzer = Rank2BandEquivalenceHoppingLocalityAnalyzer(
+            request=request,
+            endpoint_sewing=self.endpoint_sewing(),
+        )
         assert analyzer.request is request
 
     def test__exact_byte_verifier__rejects_modified_result_and_projection(self) -> None:

@@ -573,7 +573,8 @@ def test_constructor__stage_type__rejects_failure_code_member() -> None:
 
     Method: Override only stage with ExternalFailureCode.INTERRUPTED.
 
-    Oracle: Distinct enum classes remain distinct despite both being StrEnum families.
+    Oracle: Distinct enum classes remain distinct despite both being StrWireEnum
+    families.
 
     Acceptance: Construction raises exactly TypeError.
 
@@ -685,7 +686,8 @@ def test_constructor__code_type__rejects_failure_stage_member() -> None:
 
     Method: Override only code with ExternalFailureStage.EXECUTION.
 
-    Oracle: Distinct enum classes remain distinct despite both being StrEnum families.
+    Oracle: Distinct enum classes remain distinct despite both being StrWireEnum
+    families.
 
     Acceptance: Construction raises exactly TypeError.
 

@@ -5,11 +5,11 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import final
 
-from ksdft2effmass.periodic2d.gauge_alignment.base import (
-    Periodic2DGaugeAlignment,
-    Periodic2DGaugeAlignmentAnalysis,
-    Periodic2DGaugeAlignmentAnalysisRequest,
-    Periodic2DGaugeAlignmentAnalyzer,
+from ksdft2effmass.periodic2d.rankN.gauge_alignment.base import (
+    Periodic2DRankNGaugeAlignmentAnalysis,
+    Periodic2DRankNGaugeAlignmentAnalysisRequest,
+    Periodic2DRankNGaugeAlignmentAnalyzer,
+    Periodic2DRankNGaugeAlignmentCapability,
 )
 
 
@@ -23,8 +23,11 @@ class _Periodic2DRank2BandSubspace:
         return 2
 
 
-class Periodic2DRank2GaugeAlignment(Periodic2DGaugeAlignment, ABC):
-    """Identify gauge alignment on a periodic-2D rank-two band subspace."""
+class Periodic2DRank2GaugeAlignment(
+    Periodic2DRankNGaugeAlignmentCapability,
+    ABC,
+):
+    """Refine finite-rank periodic-2D gauge alignment to rank two."""
 
     __slots__ = ()
 
@@ -36,7 +39,7 @@ class Periodic2DRank2GaugeAlignment(Periodic2DGaugeAlignment, ABC):
 
 class Periodic2DRank2GaugeAlignmentAnalysisRequest(
     _Periodic2DRank2BandSubspace,
-    Periodic2DGaugeAlignmentAnalysisRequest,
+    Periodic2DRankNGaugeAlignmentAnalysisRequest,
     Periodic2DRank2GaugeAlignment,
     ABC,
 ):
@@ -47,7 +50,7 @@ class Periodic2DRank2GaugeAlignmentAnalysisRequest(
 
 class Periodic2DRank2GaugeAlignmentAnalysis(
     _Periodic2DRank2BandSubspace,
-    Periodic2DGaugeAlignmentAnalysis,
+    Periodic2DRankNGaugeAlignmentAnalysis,
     Periodic2DRank2GaugeAlignment,
     ABC,
 ):
@@ -61,7 +64,7 @@ class Periodic2DRank2GaugeAlignmentAnalyzer[
     AnalysisT: Periodic2DRank2GaugeAlignmentAnalysis,
 ](
     _Periodic2DRank2BandSubspace,
-    Periodic2DGaugeAlignmentAnalyzer[RequestT, AnalysisT],
+    Periodic2DRankNGaugeAlignmentAnalyzer[RequestT, AnalysisT],
     Periodic2DRank2GaugeAlignment,
     ABC,
 ):

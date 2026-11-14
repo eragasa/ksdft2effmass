@@ -40,8 +40,8 @@ The exact public enum contains one member:
      - Subtraction of individually finite, compatible represented matrices
        produced at least one nonfinite entry in :math:`\Delta\mathbf H`.
 
-The enum is a Python 3.14 ``StrEnum``.  Its value behaves as a string and is an
-ASCII lowercase snake-case identifier.  Value lookup uses
+The enum is a KSD ``StrWireEnum``. It is not a string subclass; ``to_wire()``
+returns its ASCII lowercase snake-case identifier. Value lookup uses
 ``OperatorRecordDifferenceNumericalErrorCode(value)``; name lookup uses
 ``OperatorRecordDifferenceNumericalErrorCode[name]``.  Invalid values raise
 ``ValueError`` and invalid names raise ``KeyError`` under the standard Enum
@@ -90,7 +90,7 @@ Executable evidence
 
 * the exact one-member sequence, name, value, and declaration order;
 * explicit absence of aliases through the public ``Enum.__members__`` registry;
-* Python 3.14 ``StrEnum`` and ASCII snake-case string behavior;
+* KSD ``StrWireEnum`` inheritance and explicit ASCII snake-case wire conversion;
 * value-based and name-based lookup round trips; and
 * ``ValueError`` for an invalid value and ``KeyError`` for an invalid name.
 

@@ -248,7 +248,7 @@ Existing selected roots are:
 | Study | Calculation root |
 |---|---|
 | Mathieu1D | `calculations/mathieu1d/` |
-| Compatible rank-one control | `calculations/periodic1d/rank1/fourier-locality/` |
+| Compatible rank-one aggregate control | `calculations/periodic1d_rank1/band_equivalence_hopping_locality/` |
 | Rank-two band equivalence | `calculations/periodic1d/rank2/band-equivalence-versus-hopping-locality/` |
 | Rank-two composite alignment | `calculations/periodic1d/rank2/composite-band-alignment-locality/` |
 | Higher-rank alignment | `calculations/periodic1d/rankN/composite-band-alignment-locality/` |

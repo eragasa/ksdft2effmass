@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "status": "post-hoc-producer-checked-development-exploration-not-independently-verified",
+  "kind": "single-witness-surface-report-amendment",
+  "completed_utc": "2026-11-02T18:15:59Z",
+  "analysis_reexecuted": false,
+  "calculator_invocations": 0,
+  "independent_reconstruction_performed": false,
+  "reason": "The paired two-panel maps were diagnostic projections. The requested headline object is the single exact-cell minimum-support witness surface W(tau_1,tau_2).",
+  "surface_definition": "For each post-hoc RMS threshold pair, W is the proper reduced native Wigner-Seitz shell with the smallest included-representative count among candidates satisfying both inequalities.",
+  "cell_policy": "Candidate requirement coordinates define exact logarithmic rectangular cells; no smoothing or numerical interpolation is used.",
+  "command": "cd python && uv run python ../calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/render_single_witness.py",
+  "inputs": {
+    "result": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/result.json",
+      "byte_size": 12773,
+      "sha256": "2933765cb26d4aee05dca69fd73ec45f2ab26a32a145ebf9e8af80db0fdaa503"
+    }
+  },
+  "outputs": {
+    "renderer": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/render_single_witness.py",
+      "byte_size": 7854,
+      "sha256": "3c1fbde819913ce8beb04ff07c2f628a733596363aed6fac0dabea52f8a8a57e"
+    },
+    "surface_pdf": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/figures-v3/single-witness-surface.pdf",
+      "byte_size": 30813,
+      "sha256": "2184e4b5b58040aaa48adfd8926384ea3fb49ee13618d5243e5fb87e3025beec"
+    },
+    "surface_png": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/figures-v3/single-witness-surface.png",
+      "byte_size": 237861,
+      "sha256": "263fb647fe0096c925b99c183ff99c0b3ab13a8c53ffd5e4fd078dfd7048be77"
+    },
+    "surface_manifest": {
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/figures-v3/single-witness-manifest.json",
+      "byte_size": 1376,
+      "sha256": "f86479355547198b53fc488060d9acf26f2efd02eb91d774278829f07cd1ab27"
+    },
+    "technical_report_source": {
+      "path": "calculations/Si/bulk/technical-report/technical-report.tex",
+      "byte_size": 38555,
+      "sha256": "a69578af2b3e08f6356dfee5b5278e8f09155945a96b3f194d814c0bc1e3bf61"
+    },
+    "technical_report_pdf": {
+      "path": "calculations/Si/bulk/technical-report/technical-report.pdf",
+      "byte_size": 565961,
+      "sha256": "f9c00d8c4292b1970bce31e8473f58477e63b95803829822db830129ced640bb"
+    }
+  },
+  "checks": {
+    "surface_present_in_technical_report": true,
+    "surface_uses_primary_rms_losses_only": true,
+    "full_support_control_excluded": true,
+    "latex_final_log_warning_scan_clean": true,
+    "technical_report_pdf_ghostscript_validation_passed": true
+  }
+}

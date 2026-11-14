@@ -5,11 +5,11 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import final
 
-from ksdft2effmass.periodic2d.frame_transport.base import (
-    Periodic2DFrameTransport,
-    Periodic2DFrameTransportAnalysis,
-    Periodic2DFrameTransportAnalysisRequest,
-    Periodic2DFrameTransportAnalyzer,
+from ksdft2effmass.periodic2d.rankN.band_alignment.frame_transport.base import (
+    Periodic2DRankNFrameTransportAnalysis,
+    Periodic2DRankNFrameTransportAnalysisRequest,
+    Periodic2DRankNFrameTransportAnalyzer,
+    Periodic2DRankNFrameTransportCapability,
 )
 
 
@@ -18,13 +18,22 @@ class _Periodic2DRank2BandSubspace:
 
     @property
     @final
-    def band_subspace_rank(self) -> int:
-        """Return the rank of the transported band frame."""
+    def retained_rank(self) -> int:
+        """Return the fixed historical retained-rank value."""
         return 2
 
+    @property
+    @final
+    def band_subspace_rank(self) -> int:
+        """Return the rank of the transported band frame."""
+        return self.retained_rank
 
-class Periodic2DRank2FrameTransport(Periodic2DFrameTransport, ABC):
-    """Identify frame transport on a periodic-2D rank-two band subspace."""
+
+class Periodic2DRank2FrameTransport(
+    Periodic2DRankNFrameTransportCapability,
+    ABC,
+):
+    """Refine finite-rank periodic-2D frame transport to rank two."""
 
     __slots__ = ()
 
@@ -36,7 +45,7 @@ class Periodic2DRank2FrameTransport(Periodic2DFrameTransport, ABC):
 
 class Periodic2DRank2FrameTransportAnalysisRequest(
     _Periodic2DRank2BandSubspace,
-    Periodic2DFrameTransportAnalysisRequest,
+    Periodic2DRankNFrameTransportAnalysisRequest,
     Periodic2DRank2FrameTransport,
     ABC,
 ):
@@ -47,7 +56,7 @@ class Periodic2DRank2FrameTransportAnalysisRequest(
 
 class Periodic2DRank2FrameTransportAnalysis(
     _Periodic2DRank2BandSubspace,
-    Periodic2DFrameTransportAnalysis,
+    Periodic2DRankNFrameTransportAnalysis,
     Periodic2DRank2FrameTransport,
     ABC,
 ):
@@ -61,7 +70,7 @@ class Periodic2DRank2FrameTransportAnalyzer[
     AnalysisT: Periodic2DRank2FrameTransportAnalysis,
 ](
     _Periodic2DRank2BandSubspace,
-    Periodic2DFrameTransportAnalyzer[RequestT, AnalysisT],
+    Periodic2DRankNFrameTransportAnalyzer[RequestT, AnalysisT],
     Periodic2DRank2FrameTransport,
     ABC,
 ):

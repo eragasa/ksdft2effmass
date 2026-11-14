@@ -10,6 +10,8 @@ from .base import (
     GaugeAlignmentGroupFamily,
     GaugeAlignmentGroupIdentity,
     GaugeAlignmentInnerProductConvention,
+    PeriodicGaugeAlignment,
+    PeriodicRankNGaugeAlignmentCapability,
 )
 
 __all__ = [
@@ -22,4 +24,6 @@ __all__ = [
     "GaugeAlignmentGroupFamily",
     "GaugeAlignmentGroupIdentity",
     "GaugeAlignmentInnerProductConvention",
+    "PeriodicGaugeAlignment",
+    "PeriodicRankNGaugeAlignmentCapability",
 ]

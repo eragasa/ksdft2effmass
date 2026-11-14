@@ -10,7 +10,7 @@ observations use ``ksdft2effmass.ksdft``; and plane-wave records and serializati
 use ``ksdft2effmass.ksdft.pw``.
 
 ``ksdft2effmass.periodic`` owns the nominal one- through three-dimensional scientific-
-model hierarchy and explicit toy-model catalogs. It temporarily also re-exports the
+model hierarchy and explicit control-model catalogs. It temporarily also re-exports the
 former geometry and sampling inventory for source compatibility; new geometry and
 sampling code uses the owning packages above.
 
@@ -24,7 +24,7 @@ for later model catalogs and compatible-observation comparisons.
 .. toctree::
    :maxdepth: 1
 
-   ksdft2effmass/periodic/model
+   ksdft2effmass/periodic/models
    ksdft2effmass/periodic/catalog
 
 QEXSD source and translation
@@ -38,7 +38,7 @@ QEXSD source and translation
 .. autoclass:: QexsdDocument
    :members:
 
-.. autoclass:: QuantumEspressoXsdDocumentParser
+.. autoclass:: QeXsdDocumentParser
    :members:
 
 The parser accepts exactly QEXSD ``23.03.10`` from the retained QE 7.2 artifact

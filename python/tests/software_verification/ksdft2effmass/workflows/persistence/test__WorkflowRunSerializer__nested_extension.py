@@ -27,7 +27,7 @@ import pytest
 
 from ksdft2effmass import workflows as w
 from ksdft2effmass.integration.quantum_espresso import (
-    QuantumEspressoResultValueSerializer,
+    QeResultValueSerializer,
 )
 from ksdft2effmass.workflows import WorkflowRunSerializer
 
@@ -44,7 +44,7 @@ class TestWorkflowRunSerializerNestedExtension:
     def make_serializer() -> WorkflowRunSerializer:
         return SUT(
             result_codec=w.WorkflowResultValueSerializer(
-                source_codec=QuantumEspressoResultValueSerializer()
+                source_codec=QeResultValueSerializer()
             )
         )
 

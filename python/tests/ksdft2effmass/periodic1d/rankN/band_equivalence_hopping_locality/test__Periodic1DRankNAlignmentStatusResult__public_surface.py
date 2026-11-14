@@ -154,6 +154,10 @@ class TestPeriodic1DRankNAlignmentStatusResult:
         obsolete_composite = "ksdft2effmass.periodic1d.rankN.band_alignment.composite"
         for module_name in (
             "ksdft2effmass.periodic1d.rankN.band_alignment.request",
+            "ksdft2effmass.periodic1d.rankN.band_alignment.model",
+            "ksdft2effmass.periodic1d.rankN.gauge_alignment.fields",
+            "ksdft2effmass.periodic1d.rankN.gauge_alignment.fourier",
+            "ksdft2effmass.periodic1d.rankN.gauge_alignment.interpolation",
             obsolete_composite,
             f"{obsolete_composite}.transport",
             f"{obsolete_composite}.result",

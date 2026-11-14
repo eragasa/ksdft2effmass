@@ -6,7 +6,7 @@ The bounded extraction path is:
 .. code-block:: text
 
    explicit QEXSD bytes and source identity
-   -> QuantumEspressoXsdDocumentParser
+   -> QeXsdDocumentParser
    -> mechanically faithful QexsdDocument
    -> ConstructQexsdKohnShamPlaneWaveRecord
    -> immutable KohnShamPlaneWaveCalculationRecord

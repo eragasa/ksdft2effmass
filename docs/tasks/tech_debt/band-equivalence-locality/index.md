@@ -93,6 +93,43 @@ an evidence claim, or authorization for a production or retained calculation.
   schemas, results, refinements, and images. Passing these software checks does not
   qualify scientific evidence.
 
-While either debt remains open, the affected calculations remain bounded
+### `TD-BEL-003`: rank-N non-onsite summary subtraction
+
+- **Disposition:** deferred numerical robustness debt.
+- **Current owners:** the periodic-2D and periodic-3D rank-N
+  `BandEquivalenceHoppingLocalityCaseAnalyzer`,
+  `BandEquivalenceHoppingLocalityFourierReferenceAnalyzer`, and
+  `BandEquivalenceHoppingLocalityLocalitySummary` specializations under
+  `python/src/ksdft2effmass/periodic2d/rankN/` and
+  `python/src/ksdft2effmass/periodic3d/rankN/`.
+- **Current mechanism:** the producer calculates normalized non-onsite power as
+  `max(0.0, total_power - onsite_power)` after total and onsite powers have been
+  rounded separately in binary64. The Fourier reference repeats the same subtraction,
+  so agreement of those two routes does not independently exclude a subtraction-induced
+  false zero.
+- **Bounded current impact:** the selected analytic baseline has retained energies of
+  magnitude at most `0.7` in the declared unit scale. Unitary gauge action preserves
+  Frobenius power, so normalized total power is at most approximately `0.49`. Within
+  this bounded family, the subtraction can hide only roundoff-scale power. The summary
+  does not drive support selection: shell decisions use direct
+  `normalized_power_beyond_shell(...)` sums and reconstruction-error channels.
+- **Interpretation limit:** a serialized zero non-onsite summary is not a certificate
+  that every nonzero-displacement hopping block vanishes exactly. No current result may
+  use that scalar alone to claim a strictly onsite model.
+- **Required replacement:** classify the complete hopping inventory into disjoint,
+  exhaustive zero- and nonzero-displacement sets; sum each set directly with stable
+  binary64 summation; and make the independent route reconstruct those partitions
+  without calling or repeating the producer formula. Total-versus-partition checking
+  must preserve the existing `1.0e-12` absolute floor while admitting only a bounded
+  representational-ULP allowance and no broad relative tolerance.
+- **Required tests:** a high-dynamic-range synthetic inventory retaining a representable
+  non-onsite contribution, exact zero and ordinary baseline cases, producer/reference
+  agreement through independent partition sums, tampered partition rejection, and
+  confirmation that support selections remain unchanged.
+- **Revisit condition:** resolve before any admitted scale expansion, retained production
+  execution, or categorical strictly-onsite claim. Resolving this debt does not itself
+  authorize a calculation or establish scientific validation.
+
+While any debt remains open, the affected calculations remain bounded
 software-development mechanisms only. They cannot support qualified convergence,
 retained evidence, or a scientific claim at their resolution scales.

@@ -5,11 +5,11 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import final
 
-from ksdft2effmass.periodic2d.support_truncation.base import (
-    Periodic2DSupportTruncation,
-    Periodic2DSupportTruncationAnalysis,
-    Periodic2DSupportTruncationAnalysisRequest,
-    Periodic2DSupportTruncationAnalyzer,
+from ksdft2effmass.periodic2d.rankN.support_truncation.base import (
+    Periodic2DRankNSupportTruncationAnalysisRequestRole,
+    Periodic2DRankNSupportTruncationAnalysisRole,
+    Periodic2DRankNSupportTruncationAnalyzerRole,
+    Periodic2DRankNSupportTruncationCapability,
 )
 
 
@@ -24,7 +24,7 @@ class _Periodic2DRank2BandSubspace:
 
 
 class Periodic2DRank2SupportTruncationCapability(
-    Periodic2DSupportTruncation,
+    Periodic2DRankNSupportTruncationCapability,
     ABC,
 ):
     """Identify periodic-2D rank-two support truncation."""
@@ -39,7 +39,7 @@ class Periodic2DRank2SupportTruncationCapability(
 
 class Periodic2DRank2SupportTruncationAnalysisRequestRole(
     _Periodic2DRank2BandSubspace,
-    Periodic2DSupportTruncationAnalysisRequest,
+    Periodic2DRankNSupportTruncationAnalysisRequestRole,
     Periodic2DRank2SupportTruncationCapability,
     ABC,
 ):
@@ -50,7 +50,7 @@ class Periodic2DRank2SupportTruncationAnalysisRequestRole(
 
 class Periodic2DRank2SupportTruncationAnalysisRole(
     _Periodic2DRank2BandSubspace,
-    Periodic2DSupportTruncationAnalysis,
+    Periodic2DRankNSupportTruncationAnalysisRole,
     Periodic2DRank2SupportTruncationCapability,
     ABC,
 ):
@@ -64,7 +64,7 @@ class Periodic2DRank2SupportTruncationAnalyzerRole[
     AnalysisT: Periodic2DRank2SupportTruncationAnalysisRole,
 ](
     _Periodic2DRank2BandSubspace,
-    Periodic2DSupportTruncationAnalyzer[RequestT, AnalysisT],
+    Periodic2DRankNSupportTruncationAnalyzerRole[RequestT, AnalysisT],
     Periodic2DRank2SupportTruncationCapability,
     ABC,
 ):

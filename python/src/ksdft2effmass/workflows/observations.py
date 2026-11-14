@@ -15,10 +15,10 @@ schema-version-1 neutral observation is not copied or changed.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 from typing import Protocol, runtime_checkable
 
 from ksdft2effmass.ksdft.pw import KohnShamPlaneWaveCalculationRecord
+from ksdft2effmass.serialization import StrWireEnum
 
 from .artifacts import (
     ArtifactContentIdentity,
@@ -318,7 +318,7 @@ class NormalizedObservationSet:
             )
 
 
-class NormalizedObservationAssemblyFailureCode(StrEnum):
+class NormalizedObservationAssemblyFailureCode(StrWireEnum):
     """Closed expected failure classification for Workflow normalization assembly.
 
     Attributes

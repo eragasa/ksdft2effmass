@@ -11,6 +11,45 @@ Parent and retained matrices are never subtracted across unequal spaces. The ret
 frame and the declared gauge transformation supply the coordinate maps before any
 represented-Hamiltonian comparison.
 
+The ordered ambient-basis dimension is named `ambient_dimension` throughout the
+software and documentation. For retained rank $r$, a frame has shape
+
+$$
+F(\mathbf{k})\in
+\mathbb{C}^{\mathtt{ambient\_dimension}\times r}.
+$$
+
+The current synthetic control therefore has `ambient_dimension = 4` and $r=2$; its
+frame is a $4\times2$ matrix at each reciprocal coordinate. A model whose complete
+ambient basis itself has rank two would instead have `ambient_dimension = 2`.
+
+Reciprocal-endpoint sewing is an explicit calculation input. For positive reciprocal
+axis $a$, identity sewing means exactly
+
+$$
+Q_{\mathbf{G}_a}=I_{\mathtt{ambient\_dimension}},
+$$
+
+not $I_r$ merely because the retained subspace has rank $r$. This construction is
+admissible only when both endpoint coefficient arrays use the identical ordered ambient
+basis and Bloch convention. In two and three dimensions, the sewing inventory is ordered
+by reciprocal axis and contains exactly one map per axis. The projected retained-space
+closure
+
+$$
+F_{\mathrm{end}}^\dagger Q_{\mathbf{G}_a}F_{\mathrm{start}}
+$$
+
+is an $r\times r$ value and need not be the identity, even when
+$Q_{\mathbf{G}_a}$ is the ambient identity.
+
+The historical v1 calculation-result wire has no sewing field. Its recorder therefore
+admits only the deterministic named identity construction and rejects nonidentity maps.
+A calculation using any other explicit map must use the sewing-bound result, which
+retains the complete ordered map inventory alongside the calculation result. This keeps
+historical bytes unchanged while preventing two different sewing inputs from being
+retained under one indistinguishable v1 result contract.
+
 ## Geometry and reciprocal coordinates
 
 The case records a direct-lattice primitive basis with primitive vectors stored as
@@ -58,11 +97,21 @@ block. KSD then assigns the block to its declared metric shell and divides by th
 rank $r=2$. Thus the power recorded exactly on shell $s$ is
 
 $$
-P_s = \frac{1}{r}\sum_{R:\,\operatorname{shell}(R)=s}\lVert H_R\rVert_F^2,
+P_s = \frac{1}{r}\sum_{\mathbf n:\,\operatorname{shell}(\mathbf n)=s}
+\lVert T(\mathbf n)\rVert_F^2,
 $$
 
 while omitted power sums the same normalized block powers over shells strictly beyond
-$s$. The current synthetic models are explicitly unitless; scalar conversion rejects a
+$s$. The coefficient remains indexed by integer displacement $\mathbf n$; geometry
+derives the physical cell displacement $A\mathbf n$ used by the shell metric.
+
+This is cell-block locality. Although a case may retain intracell `basis_offsets`, the
+installed power does not decompose $\lvert T_{\alpha\beta}(\mathbf n)\rvert^2$ by ordered
+basis pair and does not correlate matrix indices with MLWF identities. The three peer
+resolution contracts are specified by
+[`ksdft2effmass.hopping_locality`](../hopping_locality/index.md).
+
+The current synthetic models are explicitly unitless; scalar conversion rejects a
 physical-unit model rather than dropping squared-energy units. A shell result records the
 complete retained block count, reference and comparison shell power, omitted power, and
 both Hamiltonian and ordered-band consequences. Shells are compared only within one

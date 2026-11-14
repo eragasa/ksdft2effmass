@@ -15,6 +15,8 @@ Domain and periodic roles
 .. autoclass:: HoppingLocalityAnalysis
 .. autoclass:: HoppingLocalityAnalyzer
 .. autoclass:: PeriodicHoppingLocality
+.. autoclass:: PeriodicRankNHoppingLocalityCapability
+   :members:
 .. autoclass:: PeriodicHoppingLocalityAnalysisRequest
 .. autoclass:: PeriodicHoppingLocalityAnalysis
 .. autoclass:: PeriodicHoppingLocalityAnalyzer
@@ -47,6 +49,7 @@ Rank ownership
 --------------
 
 Implemented rank-one, rank-two, and arbitrary-rank leaves expose
-``band_subspace_rank``. Rank two and rank N are sibling specializations, and rank four
-is a rank-N value rather than a separate namespace. Standalone hopping-power and tail
-values inherit their truthful rank owner without becoming support-truncation results.
+``band_subspace_rank``. Rank-two owners refine the applicable dimensional finite-rank
+owner, while rank one remains a separate specialization. Rank four is a rank-N value
+rather than a separate namespace. Standalone hopping-power and tail values inherit their
+truthful rank owner without becoming support-truncation results.

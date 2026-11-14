@@ -80,11 +80,22 @@ channel. Historical point attributes remain read-only projections of that result
 case result retains a
 `BandEquivalenceHoppingLocalityMetricCovarianceDefectResult`; the result records the
 ordinary-`Enum` probe identity and maximum absolute squared-length defect. The enum
-inherits the common `StringWireEnum` behavior, whose `to_wire()` and `from_wire()`
+inherits the common `StrWireEnum` behavior, whose `to_wire()` and `from_wire()`
 methods explicitly map between enum members and stable built-in strings without making
 members strings themselves. The retained record projection continues to
 emit only the historical scalar defect, so existing
 canonical result mappings and bytes do not change.
+`FourierSeriesBlockHoppingRepresentation` owns the representation-only projection from
+one finite Fourier matrix series into a sorted, immutable PhysKit dense block-hopping
+value. It preserves coefficient bytes and assigns provider identities but does not assign
+KSD scientific-model identity, infer geometry, select support, or analyze locality. The
+periodic-2D and periodic-3D rank-two hopping-locality request owners instead require one
+complete exact dimensional block-hopping model. This prevents a mesh-transformed
+floating-point series from being silently promoted into an exact scientific model when
+its opposite-displacement blocks differ from conjugate transposes by roundoff. The
+historical aggregate analyzer retains its representation-level Fourier diagnostic and
+therefore preserves existing numerical behavior and retained result bytes.
+
 `BandEquivalenceHoppingLocalityAnalysisRecorder` binds one completed analysis and projects it
 into `BandEquivalenceHoppingLocalityCalculationResult`, which passively binds the exact request
 to retained `BandEquivalenceHoppingLocalityDiagnostics`. Construction checks family, mesh sizes,
@@ -114,7 +125,7 @@ Analyzer ownership follows one explicit domain, periodicity, dimension, and rank
 ```text
 BandEquivalenceHoppingLocalityAnalyzer
 └── PeriodicBandEquivalenceHoppingLocalityAnalyzer
-    ├── Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer
+    ├── Periodic1DBandEquivalenceHoppingLocalityAnalyzer
     │   ├── Periodic1DRank2BandEquivalenceHoppingLocalityAnalyzer
     │   └── Periodic1DRankNBandEquivalenceHoppingLocalityAnalyzer
     ├── Periodic2DBandEquivalenceHoppingLocalityAnalyzer
@@ -125,13 +136,36 @@ BandEquivalenceHoppingLocalityAnalyzer
         └── Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer
 ```
 
+The periodic-2D and periodic-3D rank-N analyzer roles additionally inherit
+`PeriodicRankNBandEquivalenceHoppingLocalityAnalyzerRole`. That common role owns only the
+cross-dimensional periodic rank-N contract; each concrete role also retains its
+corresponding dimensional branch above. The same additive ownership applies to the
+rank-N capability, request, analysis, case, value, and action roles. It does not make one
+dimension inherit from the other.
+
 Rank-two and rank-N analyzers are sibling specializations. Neither rank branch inherits
 from the other. `Rank2BandEquivalenceHoppingLocalityAnalyzer` separately owns the shared
 rank-two arithmetic composed by the periodic-2D and periodic-3D rank-two analyzers; it is
-not a rank-N parent. This hierarchy is an enforceable ownership guardrail rather than a
-compatibility export tree.
+not a rank-N parent. Dimension-neutral rank-N leaf-result parents centralize validation
+without replacing the exact periodic-2D and periodic-3D result types. This hierarchy is
+an enforceable ownership guardrail rather than a compatibility export tree.
 
 ## Production composition
+
+The periodic-2D and periodic-3D rank-N case analyzers inherit one internal common
+production-arithmetic parent for coordinate grids, finite-Fourier transformation and
+evaluation, ordinary-mode filtering, right-unitary action, and alignment-identity sample
+counting. Each dimensional analyzer still owns its exact request and model admission,
+mesh and geometry selection, transport topology, gauge-alignment collaborators,
+hopping-locality route, support-truncation route, result construction, and public return
+type.
+
+Independent reconstruction does not inherit that production parent. Parent and alignment
+references share a separate direct-formula implementation across dimensions. Fourier,
+shell, error, and support references share a separate explicit dense-sum implementation.
+The reference implementations do not call the production transformer, evaluator, model,
+shell classifier, hopping-locality analyzer, or support selector for the quantity being
+checked.
 
 `Rank2BandEquivalenceHoppingLocalityAnalyzer` binds one immutable rank-two request at
 construction and exposes
@@ -201,6 +235,13 @@ enum-to-string and string-to-enum mapping. Adding that identity to retained requ
 requires a new schema version; it must not be inserted into the existing mapping. Until
 that schema decision is authorized, the function remains a compatibility projection and
 no typed analyzer claims a physical or reduced-unit interpretation for its scalars.
+
+This distance-only projection does not establish orbital-resolved locality. It does not
+retain ordered state identities or associate a distance with the corresponding
+$\lvert T_{\alpha\beta}(\mathbf n)\rvert^2$. It also lacks the localization and gauge
+provenance required for MLWF-resolved locality. Those peer capabilities belong to the
+[`ksdft2effmass.hopping_locality`](../hopping_locality/index.md) architecture rather than
+being inferred from `basis_offsets`.
 
 ## Scientific results and retained records
 

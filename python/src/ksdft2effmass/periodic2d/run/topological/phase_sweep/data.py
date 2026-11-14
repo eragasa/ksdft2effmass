@@ -3,10 +3,11 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from ....campaign.base import Periodic2DCampaign
-from ....model.retained.topological_phase_sweep import (
+from ksdft2effmass.periodic.periodic2d.models.retained.topological_phase_sweep import (
     Periodic2DTopologicalPhaseSweepCampaignModel,
 )
+
+from ....campaign.base import Periodic2DCampaign
 from .correlate import (
     Periodic2DTopologicalPhaseSweepCampaignCorrelationRequest,
     Periodic2DTopologicalPhaseSweepCampaignCorrelationResult,

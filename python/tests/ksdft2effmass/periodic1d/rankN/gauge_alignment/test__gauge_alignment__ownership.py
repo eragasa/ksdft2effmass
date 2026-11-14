@@ -13,10 +13,6 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.base import (
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.definition import (
     Periodic1DRankNGaugeAlignment,
 )
-from ksdft2effmass.periodic1d.rankN.gauge_alignment.fields import (
-    Periodic1DRankNGaugeAlignedFields,
-    Periodic1DRankNGaugeAlignmentConstructionRequest,
-)
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.procrustes.result import (
     Periodic1DRankNProcrustesDiagnostics,
 )
@@ -32,6 +28,10 @@ from ksdft2effmass.periodic1d.rankN.gauge_alignment.request import (
 from ksdft2effmass.periodic1d.rankN.gauge_alignment.status import (
     Periodic1DRankNAlignmentStatusResult,
 )
+from ksdft2effmass.periodic1d.rankN.represented_fields import (
+    Periodic1DRankNRepresentedFieldConstructionRequest,
+    Periodic1DRankNRepresentedFields,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -43,9 +43,7 @@ class TestGaugeAlignmentOwnership:
         for value in (
             Periodic1DRankNGaugeAlignmentCapability,
             Periodic1DRankNGaugeAlignment,
-            Periodic1DRankNGaugeAlignedFields,
             Periodic1DRankNGaugeAlignmentAnalysisRequest,
-            Periodic1DRankNGaugeAlignmentConstructionRequest,
             Periodic1DRankNProcrustesDiagnostics,
             Periodic1DRankNProcrustesSelectionAnalyzer,
             Periodic1DRankNProcrustesSelectionRequest,
@@ -54,6 +52,12 @@ class TestGaugeAlignmentOwnership:
             Periodic1DRankNAlignmentStatusResult,
         ):
             assert ".rankN.gauge_alignment" in value.__module__
+
+        for value in (
+            Periodic1DRankNRepresentedFields,
+            Periodic1DRankNRepresentedFieldConstructionRequest,
+        ):
+            assert value.__module__.endswith(".rankN.represented_fields")
 
     def test__rankN_values__inherit_the_gauge_alignment_capability(self) -> None:
         assert issubclass(

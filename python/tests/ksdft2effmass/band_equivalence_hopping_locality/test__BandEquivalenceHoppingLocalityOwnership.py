@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import importlib.util
+
 import pytest
 
 from ksdft2effmass.analysis.model_adequacy.band_equivalence.base import BandEquivalence
@@ -73,8 +75,8 @@ from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.base impor
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction,
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue,
 )
-from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.model import (
-    Periodic2DRankNAnalyticCase,
+from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.case import (
+    Periodic2DRankNParentGaugeCase,
 )
 from ksdft2effmass.periodic2d.rankN.band_equivalence_hopping_locality.request import (
     Periodic2DRankNBandEquivalenceHoppingLocalityCaseDefinition,
@@ -96,8 +98,8 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.base impor
     Periodic3DRankNBandEquivalenceHoppingLocalityCapability,
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
 )
-from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model import (
-    Periodic3DRankNAnalyticCase,
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.case import (
+    Periodic3DRankNParentGaugeCase,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.request import (
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition,
@@ -188,13 +190,21 @@ class TestBandEquivalenceHoppingLocalityOwnership:
             Periodic2DRankNBandEquivalenceHoppingLocalityCaseAction,
         )
         assert issubclass(
-            Periodic2DRankNAnalyticCase,
+            Periodic2DRankNParentGaugeCase,
             Periodic2DRankNBandEquivalenceHoppingLocalityCaseValue,
         )
         assert issubclass(
-            Periodic3DRankNAnalyticCase,
+            Periodic3DRankNParentGaugeCase,
             Periodic3DRankNBandEquivalenceHoppingLocalityCaseValue,
         )
+
+    def test_dimensional_analytic_parents_are_not_reusable_source(self) -> None:
+        for module_name in (
+            "ksdft2effmass.periodic.periodic2d.rankN.models.analytic",
+            "ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model",
+            "ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.parent",
+        ):
+            assert importlib.util.find_spec(module_name) is None
 
     def test_periodic1d_rank_n_supporting_stages_retain_case_rank_ownership(
         self,

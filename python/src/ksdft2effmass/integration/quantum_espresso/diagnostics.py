@@ -12,24 +12,24 @@ from dataclasses import dataclass
 from ksdft2effmass.workflows import ArtifactContentIdentity
 
 from .contracts import (
-    QuantumEspressoDiagnosticChannel,
-    QuantumEspressoDiagnosticClassifierIdentity,
-    QuantumEspressoDiagnosticDisposition,
-    QuantumEspressoDiagnosticObservation,
-    QuantumEspressoDiagnosticObservationIdentity,
-    QuantumEspressoDiagnosticReport,
-    QuantumEspressoDiagnosticReportIdentity,
-    QuantumEspressoDiagnosticReportKind,
-    QuantumEspressoExecutableConfiguration,
-    QuantumEspressoExecutableKind,
-    QuantumEspressoOutputMarkerObservation,
-    QuantumEspressoOutputMarkerObservationIdentity,
-    QuantumEspressoProgram,
+    QeDiagnosticChannel,
+    QeDiagnosticClassifierIdentity,
+    QeDiagnosticDisposition,
+    QeDiagnosticObservation,
+    QeDiagnosticObservationIdentity,
+    QeDiagnosticReport,
+    QeDiagnosticReportIdentity,
+    QeDiagnosticReportKind,
+    QeExecutableConfiguration,
+    QeExecutableKind,
+    QeOutputMarkerObservation,
+    QeOutputMarkerObservationIdentity,
+    QeProgram,
 )
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoDiagnosticSignature:
+class QeDiagnosticSignature:
     """Represent one exact fixture diagnostic-line signature.
 
     Attributes
@@ -47,9 +47,9 @@ class QuantumEspressoDiagnosticSignature:
     """
 
     identity: str
-    channel: QuantumEspressoDiagnosticChannel
+    channel: QeDiagnosticChannel
     exact_line: bytes
-    disposition: QuantumEspressoDiagnosticDisposition
+    disposition: QeDiagnosticDisposition
     sanitized_summary: str
 
     def __post_init__(self) -> None:
@@ -57,17 +57,17 @@ class QuantumEspressoDiagnosticSignature:
             raise TypeError("identity must be a built-in str")
         if not self.identity:
             raise ValueError("identity must not be empty")
-        if type(self.channel) is not QuantumEspressoDiagnosticChannel:
-            raise TypeError("channel must be QuantumEspressoDiagnosticChannel")
+        if type(self.channel) is not QeDiagnosticChannel:
+            raise TypeError("channel must be QeDiagnosticChannel")
         if type(self.exact_line) is not bytes:
             raise TypeError("exact_line must be built-in bytes")
         if not self.exact_line or b"\n" in self.exact_line or b"\r" in self.exact_line:
             raise ValueError("exact_line must be one nonempty line without terminator")
         if not self.exact_line.startswith(b"DIAGNOSTIC: "):
             raise ValueError("diagnostic signature must use the fixture line prefix")
-        if type(self.disposition) is not QuantumEspressoDiagnosticDisposition:
-            raise TypeError("disposition must be QuantumEspressoDiagnosticDisposition")
-        if self.disposition is QuantumEspressoDiagnosticDisposition.UNRESOLVED:
+        if type(self.disposition) is not QeDiagnosticDisposition:
+            raise TypeError("disposition must be QeDiagnosticDisposition")
+        if self.disposition is QeDiagnosticDisposition.UNRESOLVED:
             raise ValueError("catalog signatures must have a known disposition")
         if type(self.sanitized_summary) is not str:
             raise TypeError("sanitized_summary must be a built-in str")
@@ -76,7 +76,7 @@ class QuantumEspressoDiagnosticSignature:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoOutputMarkerSignature:
+class QeOutputMarkerSignature:
     """Represent one exact fixture completion-marker line signature.
 
     Attributes
@@ -90,7 +90,7 @@ class QuantumEspressoOutputMarkerSignature:
     """
 
     identity: str
-    channel: QuantumEspressoDiagnosticChannel
+    channel: QeDiagnosticChannel
     exact_line: bytes
 
     def __post_init__(self) -> None:
@@ -98,8 +98,8 @@ class QuantumEspressoOutputMarkerSignature:
             raise TypeError("identity must be a built-in str")
         if not self.identity:
             raise ValueError("identity must not be empty")
-        if type(self.channel) is not QuantumEspressoDiagnosticChannel:
-            raise TypeError("channel must be QuantumEspressoDiagnosticChannel")
+        if type(self.channel) is not QeDiagnosticChannel:
+            raise TypeError("channel must be QeDiagnosticChannel")
         if type(self.exact_line) is not bytes:
             raise TypeError("exact_line must be built-in bytes")
         if not self.exact_line or b"\n" in self.exact_line or b"\r" in self.exact_line:
@@ -107,7 +107,7 @@ class QuantumEspressoOutputMarkerSignature:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoDiagnosticCatalog:
+class QeDiagnosticCatalog:
     """Bind one immutable classifier catalog to an exact fixture configuration.
 
     Attributes
@@ -126,39 +126,32 @@ class QuantumEspressoDiagnosticCatalog:
         Canonical immutable exact completion-marker catalog.
     """
 
-    classifier_identity: QuantumEspressoDiagnosticClassifierIdentity
-    executable_kind: QuantumEspressoExecutableKind
-    program: QuantumEspressoProgram
+    classifier_identity: QeDiagnosticClassifierIdentity
+    executable_kind: QeExecutableKind
+    program: QeProgram
     program_version: str
-    diagnostic_signatures: tuple[QuantumEspressoDiagnosticSignature, ...]
-    marker_signatures: tuple[QuantumEspressoOutputMarkerSignature, ...]
+    diagnostic_signatures: tuple[QeDiagnosticSignature, ...]
+    marker_signatures: tuple[QeOutputMarkerSignature, ...]
 
     def __post_init__(self) -> None:
-        if type(self.classifier_identity) is not (
-            QuantumEspressoDiagnosticClassifierIdentity
-        ):
+        if type(self.classifier_identity) is not (QeDiagnosticClassifierIdentity):
             raise TypeError(
-                "classifier_identity must be "
-                "QuantumEspressoDiagnosticClassifierIdentity"
+                "classifier_identity must be QeDiagnosticClassifierIdentity"
             )
-        if self.executable_kind is not (
-            QuantumEspressoExecutableKind.DETERMINISTIC_FIXTURE
-        ):
+        if self.executable_kind is not (QeExecutableKind.DETERMINISTIC_FIXTURE):
             raise ValueError("the initial catalog supports fixture executables only")
-        if type(self.program) is not QuantumEspressoProgram:
-            raise TypeError("program must be QuantumEspressoProgram")
+        if type(self.program) is not QeProgram:
+            raise TypeError("program must be QeProgram")
         if type(self.program_version) is not str:
             raise TypeError("program_version must be a built-in str")
         if not self.program_version.startswith("fixture-"):
             raise ValueError("fixture catalog version must use the fixture namespace")
         signatures = self.diagnostic_signatures
         if type(signatures) is not tuple or any(
-            type(value) is not QuantumEspressoDiagnosticSignature
-            for value in signatures
+            type(value) is not QeDiagnosticSignature for value in signatures
         ):
             raise TypeError(
-                "diagnostic_signatures must contain "
-                "QuantumEspressoDiagnosticSignature values"
+                "diagnostic_signatures must contain QeDiagnosticSignature values"
             )
         if signatures != tuple(sorted(signatures, key=lambda value: value.identity)):
             raise ValueError("diagnostic_signatures must be lexically ordered")
@@ -168,11 +161,10 @@ class QuantumEspressoDiagnosticCatalog:
             raise ValueError("diagnostic signatures must be unique")
         markers = self.marker_signatures
         if type(markers) is not tuple or any(
-            type(value) is not QuantumEspressoOutputMarkerSignature for value in markers
+            type(value) is not QeOutputMarkerSignature for value in markers
         ):
             raise TypeError(
-                "marker_signatures must contain "
-                "QuantumEspressoOutputMarkerSignature values"
+                "marker_signatures must contain QeOutputMarkerSignature values"
             )
         if markers != tuple(sorted(markers, key=lambda value: value.identity)):
             raise ValueError("marker_signatures must be lexically ordered")
@@ -182,46 +174,46 @@ class QuantumEspressoDiagnosticCatalog:
             raise ValueError("marker signatures must be unique")
 
     @classmethod
-    def fixture_pw_v1(cls) -> QuantumEspressoDiagnosticCatalog:
+    def fixture_pw_v1(cls) -> QeDiagnosticCatalog:
         """Return the exact deterministic fixture ``pw`` catalog."""
         return cls(
-            classifier_identity=QuantumEspressoDiagnosticClassifierIdentity(
+            classifier_identity=QeDiagnosticClassifierIdentity(
                 "qe-diagnostic-classifier.fixture-pw:1"
             ),
-            executable_kind=QuantumEspressoExecutableKind.DETERMINISTIC_FIXTURE,
-            program=QuantumEspressoProgram.PW,
+            executable_kind=QeExecutableKind.DETERMINISTIC_FIXTURE,
+            program=QeProgram.PW,
             program_version="fixture-pw-v1",
             diagnostic_signatures=(
-                QuantumEspressoDiagnosticSignature(
+                QeDiagnosticSignature(
                     identity="fixture.pw.fatal-c-bands.v1",
-                    channel=QuantumEspressoDiagnosticChannel.STDOUT,
+                    channel=QeDiagnosticChannel.STDOUT,
                     exact_line=(
                         b"DIAGNOSTIC: FATAL c_bands too many bands are not converged"
                     ),
-                    disposition=QuantumEspressoDiagnosticDisposition.FATAL,
+                    disposition=QeDiagnosticDisposition.FATAL,
                     sanitized_summary="fixture calculator fatal diagnostic",
                 ),
-                QuantumEspressoDiagnosticSignature(
+                QeDiagnosticSignature(
                     identity="fixture.pw.nonblocking-floating-point.v1",
-                    channel=QuantumEspressoDiagnosticChannel.STDERR,
+                    channel=QeDiagnosticChannel.STDERR,
                     exact_line=(
                         b"DIAGNOSTIC: NONBLOCKING synthetic floating-point notice"
                     ),
-                    disposition=QuantumEspressoDiagnosticDisposition.NONBLOCKING,
+                    disposition=QeDiagnosticDisposition.NONBLOCKING,
                     sanitized_summary="fixture nonblocking diagnostic",
                 ),
-                QuantumEspressoDiagnosticSignature(
+                QeDiagnosticSignature(
                     identity="fixture.pw.secondary-mpi-abort.v1",
-                    channel=QuantumEspressoDiagnosticChannel.STDERR,
+                    channel=QeDiagnosticChannel.STDERR,
                     exact_line=b"DIAGNOSTIC: SECONDARY synthetic MPI_ABORT",
-                    disposition=QuantumEspressoDiagnosticDisposition.SECONDARY_FATAL,
+                    disposition=QeDiagnosticDisposition.SECONDARY_FATAL,
                     sanitized_summary="fixture secondary fatal diagnostic",
                 ),
             ),
             marker_signatures=(
-                QuantumEspressoOutputMarkerSignature(
+                QeOutputMarkerSignature(
                     identity="fixture.pw.job-done.v1",
-                    channel=QuantumEspressoDiagnosticChannel.STDOUT,
+                    channel=QeDiagnosticChannel.STDOUT,
                     exact_line=b"JOB DONE.",
                 ),
             ),
@@ -229,7 +221,7 @@ class QuantumEspressoDiagnosticCatalog:
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
-class QuantumEspressoDiagnosticClassificationRequest:
+class QeDiagnosticClassificationRequest:
     """Supply exact captured streams and configuration for classification.
 
     Attributes
@@ -250,8 +242,8 @@ class QuantumEspressoDiagnosticClassificationRequest:
         Nonempty immutable statements limiting evidentiary interpretation.
     """
 
-    report_identity: QuantumEspressoDiagnosticReportIdentity
-    configuration: QuantumEspressoExecutableConfiguration
+    report_identity: QeDiagnosticReportIdentity
+    configuration: QeExecutableConfiguration
     stdout: bytes
     stderr: bytes
     stdout_content_identity: ArtifactContentIdentity
@@ -259,14 +251,10 @@ class QuantumEspressoDiagnosticClassificationRequest:
     claim_boundary: tuple[str, ...]
 
     def __post_init__(self) -> None:
-        if type(self.report_identity) is not QuantumEspressoDiagnosticReportIdentity:
-            raise TypeError(
-                "report_identity must be QuantumEspressoDiagnosticReportIdentity"
-            )
-        if type(self.configuration) is not QuantumEspressoExecutableConfiguration:
-            raise TypeError(
-                "configuration must be QuantumEspressoExecutableConfiguration"
-            )
+        if type(self.report_identity) is not QeDiagnosticReportIdentity:
+            raise TypeError("report_identity must be QeDiagnosticReportIdentity")
+        if type(self.configuration) is not QeExecutableConfiguration:
+            raise TypeError("configuration must be QeExecutableConfiguration")
         if type(self.stdout) is not bytes:
             raise TypeError("stdout must be built-in bytes")
         if type(self.stderr) is not bytes:
@@ -284,7 +272,7 @@ class QuantumEspressoDiagnosticClassificationRequest:
 
 
 @dataclass(frozen=True, slots=True)
-class QuantumEspressoDiagnosticClassifier:
+class QeDiagnosticClassifier:
     """Classify exact fixture diagnostics from stdout and stderr independently.
 
     Attributes
@@ -293,21 +281,19 @@ class QuantumEspressoDiagnosticClassifier:
         Immutable executable- and version-bound diagnostic catalog.
     """
 
-    catalog: QuantumEspressoDiagnosticCatalog
+    catalog: QeDiagnosticCatalog
 
     def __post_init__(self) -> None:
-        if type(self.catalog) is not QuantumEspressoDiagnosticCatalog:
-            raise TypeError("catalog must be QuantumEspressoDiagnosticCatalog")
+        if type(self.catalog) is not QeDiagnosticCatalog:
+            raise TypeError("catalog must be QeDiagnosticCatalog")
 
     def execute(
         self,
-        request: QuantumEspressoDiagnosticClassificationRequest,
-    ) -> QuantumEspressoDiagnosticReport:
+        request: QeDiagnosticClassificationRequest,
+    ) -> QeDiagnosticReport:
         """Return one closed report or raise for integration identity mismatch."""
-        if type(request) is not QuantumEspressoDiagnosticClassificationRequest:
-            raise TypeError(
-                "request must be QuantumEspressoDiagnosticClassificationRequest"
-            )
+        if type(request) is not QeDiagnosticClassificationRequest:
+            raise TypeError("request must be QeDiagnosticClassificationRequest")
         self._require_configuration(request.configuration)
         self._require_content_identity(
             request.stdout, request.stdout_content_identity, "stdout"
@@ -319,12 +305,12 @@ class QuantumEspressoDiagnosticClassifier:
             sorted(
                 (
                     *self._diagnostics(
-                        QuantumEspressoDiagnosticChannel.STDOUT,
+                        QeDiagnosticChannel.STDOUT,
                         request.stdout,
                         request.stdout_content_identity,
                     ),
                     *self._diagnostics(
-                        QuantumEspressoDiagnosticChannel.STDERR,
+                        QeDiagnosticChannel.STDERR,
                         request.stderr,
                         request.stderr_content_identity,
                     ),
@@ -341,12 +327,12 @@ class QuantumEspressoDiagnosticClassifier:
             sorted(
                 (
                     *self._markers(
-                        QuantumEspressoDiagnosticChannel.STDOUT,
+                        QeDiagnosticChannel.STDOUT,
                         request.stdout,
                         request.stdout_content_identity,
                     ),
                     *self._markers(
-                        QuantumEspressoDiagnosticChannel.STDERR,
+                        QeDiagnosticChannel.STDERR,
                         request.stderr,
                         request.stderr_content_identity,
                     ),
@@ -359,7 +345,7 @@ class QuantumEspressoDiagnosticClassifier:
                 ),
             )
         )
-        return QuantumEspressoDiagnosticReport(
+        return QeDiagnosticReport(
             identity=request.report_identity,
             classifier_identity=self.catalog.classifier_identity,
             executable_configuration_identity=request.configuration.identity,
@@ -374,9 +360,7 @@ class QuantumEspressoDiagnosticClassifier:
             claim_boundary=request.claim_boundary,
         )
 
-    def _require_configuration(
-        self, configuration: QuantumEspressoExecutableConfiguration
-    ) -> None:
+    def _require_configuration(self, configuration: QeExecutableConfiguration) -> None:
         catalog = self.catalog
         if (
             configuration.classifier_identity != catalog.classifier_identity
@@ -400,22 +384,22 @@ class QuantumEspressoDiagnosticClassifier:
 
     def _diagnostics(
         self,
-        channel: QuantumEspressoDiagnosticChannel,
+        channel: QeDiagnosticChannel,
         content: bytes,
         content_identity: ArtifactContentIdentity,
-    ) -> tuple[QuantumEspressoDiagnosticObservation, ...]:
+    ) -> tuple[QeDiagnosticObservation, ...]:
         signatures = {
             value.exact_line: value
             for value in self.catalog.diagnostic_signatures
             if value.channel is channel
         }
-        observations: list[QuantumEspressoDiagnosticObservation] = []
+        observations: list[QeDiagnosticObservation] = []
         for start, end, line in self._lines(content):
             signature = signatures.get(line)
             if signature is None and not line.startswith(b"DIAGNOSTIC: "):
                 continue
             disposition = (
-                QuantumEspressoDiagnosticDisposition.UNRESOLVED
+                QeDiagnosticDisposition.UNRESOLVED
                 if signature is None
                 else signature.disposition
             )
@@ -434,10 +418,8 @@ class QuantumEspressoDiagnosticClassifier:
                 signature_identity or "unresolved",
             )
             observations.append(
-                QuantumEspressoDiagnosticObservation(
-                    identity=QuantumEspressoDiagnosticObservationIdentity(
-                        identity_value
-                    ),
+                QeDiagnosticObservation(
+                    identity=QeDiagnosticObservationIdentity(identity_value),
                     channel=channel,
                     byte_start=start,
                     byte_end=end,
@@ -455,16 +437,16 @@ class QuantumEspressoDiagnosticClassifier:
 
     def _markers(
         self,
-        channel: QuantumEspressoDiagnosticChannel,
+        channel: QeDiagnosticChannel,
         content: bytes,
         content_identity: ArtifactContentIdentity,
-    ) -> tuple[QuantumEspressoOutputMarkerObservation, ...]:
+    ) -> tuple[QeOutputMarkerObservation, ...]:
         signatures = {
             value.exact_line: value
             for value in self.catalog.marker_signatures
             if value.channel is channel
         }
-        observations: list[QuantumEspressoOutputMarkerObservation] = []
+        observations: list[QeOutputMarkerObservation] = []
         for start, end, line in self._lines(content):
             signature = signatures.get(line)
             if signature is None:
@@ -478,10 +460,8 @@ class QuantumEspressoDiagnosticClassifier:
                 signature.identity,
             )
             observations.append(
-                QuantumEspressoOutputMarkerObservation(
-                    identity=QuantumEspressoOutputMarkerObservationIdentity(
-                        identity_value
-                    ),
+                QeOutputMarkerObservation(
+                    identity=QeOutputMarkerObservationIdentity(identity_value),
                     channel=channel,
                     byte_start=start,
                     byte_end=end,
@@ -515,7 +495,7 @@ class QuantumEspressoDiagnosticClassifier:
     @staticmethod
     def _derived_identity(
         role: str,
-        channel: QuantumEspressoDiagnosticChannel,
+        channel: QeDiagnosticChannel,
         stream_identity: ArtifactContentIdentity,
         start: int,
         end: int,
@@ -529,17 +509,17 @@ class QuantumEspressoDiagnosticClassifier:
 
     @staticmethod
     def _report_kind(
-        observations: tuple[QuantumEspressoDiagnosticObservation, ...],
-        markers: tuple[QuantumEspressoOutputMarkerObservation, ...],
-    ) -> QuantumEspressoDiagnosticReportKind:
+        observations: tuple[QeDiagnosticObservation, ...],
+        markers: tuple[QeOutputMarkerObservation, ...],
+    ) -> QeDiagnosticReportKind:
         dispositions = {value.disposition for value in observations}
-        fatal = QuantumEspressoDiagnosticDisposition.FATAL in dispositions
-        secondary = QuantumEspressoDiagnosticDisposition.SECONDARY_FATAL in dispositions
-        unresolved = QuantumEspressoDiagnosticDisposition.UNRESOLVED in dispositions
+        fatal = QeDiagnosticDisposition.FATAL in dispositions
+        secondary = QeDiagnosticDisposition.SECONDARY_FATAL in dispositions
+        unresolved = QeDiagnosticDisposition.UNRESOLVED in dispositions
         if (fatal and markers) or (secondary and not fatal):
-            return QuantumEspressoDiagnosticReportKind.CONTRADICTORY
+            return QeDiagnosticReportKind.CONTRADICTORY
         if unresolved:
-            return QuantumEspressoDiagnosticReportKind.UNRESOLVED
+            return QeDiagnosticReportKind.UNRESOLVED
         if fatal:
-            return QuantumEspressoDiagnosticReportKind.FATAL
-        return QuantumEspressoDiagnosticReportKind.CLEAR
+            return QeDiagnosticReportKind.FATAL
+        return QeDiagnosticReportKind.CLEAR

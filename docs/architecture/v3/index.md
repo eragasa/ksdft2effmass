@@ -18,13 +18,15 @@ explicitly labeled and do not claim implemented or supported source.
 | `model_systems` | Controlled physical and mathematical systems, shared finite-domain geometry, exact solutions, finite representations, and model-specific comparisons | General-purpose analysis, campaign authority, or external-tool integration |
 | `analysis` | Calculator-independent scientific analyses, model-adequacy calculations, and quantities of interest | Model definitions, campaign orchestration, native file formats, or execution authority |
 | `campaigns` | Project-specific composition of declared inputs, analyses, verification, retained results, and campaign serialization | Reusable mathematics already owned by `operators`, `solidstate`, or `analysis` |
-| `periodic1d` and `periodic2d` | Dimension-specific controlled-model capabilities and deliberate family APIs; the prospective Periodic1D direct-lifecycle rewrite is documented in the source mirror | Generic operator, lattice, workflow, provenance infrastructure, or a universal scientific result layout |
-| `periodic` | The existing periodic-model hierarchy, toy-model catalog, and explicitly transitional imports | New representation or transformation frameworks |
+| `models` | KSD nominal scientific-model identity and dimension-neutral model-family contracts | Periodic dimension, retained-rank, campaign, provider, serializer, or acceptance policy |
+| `periodic1d`, `periodic2d`, and `periodic3d` | Dimension- and rank-owned nominal models plus dimension-specific controlled-model capabilities and deliberate family APIs | Generic operator, lattice, workflow, provenance infrastructure, or a universal scientific result layout |
+| `periodic` | Dimension-neutral periodic-model role and spatial-dimension vocabulary plus explicitly imported supporting catalogs | Dimension/rank model ownership, provider model integration, representation frameworks, or campaign execution |
 | `calculators` | Calculator-facing requests and calculator-independent execution contracts | Native-format decoding or campaign acceptance policy |
 | `integration` | Native calculator/file-format adapters such as Quantum ESPRESSO and Wannier90 integration | Generic scientific analysis or workflow policy |
 | `workflows` | Calculator-independent task, workflow, gate, run-state, and execution-authority contracts | Scientific algorithms and native external-tool behavior |
 | `provenance` | Portable artifact, execution, lineage, and external-tool provenance records | Scientific validity or campaign-specific result meaning |
 | `serialization` | Shared typed JSON contracts, scientific-value normalization, mapping byte actions, and final typed-record boundaries | Domain schemas, filesystem persistence, provenance policy, or scientific interpretation |
+| `certifications` | Proposition-specific typed certification records, exact endpoint decisions, and producer/verifier artifact correlation | Scientific analyses, numerical engines in general, parallel JSON schemas, scientific validation, or human acceptance |
 | `visualizations` | Domain-neutral visualization projection serialization, figure composition contracts, PNG admission, authentication mechanics, and closed-inventory enforcement | Family scientific projections, plot inventories, calculation paths, scientific interpretation, or publication policy |
 | `structures` | Atomic periodic-structure records | Finite represented matrices or lattice-model calculations |
 | `electronic_structure` | General electronic-structure sampling records | Calculator execution or campaign composition |
@@ -88,10 +90,12 @@ existing owner:
    `model_systems`.
 4. Put lattice-, Bloch-, frame-, gauge-, or hopping-specific behavior in `solidstate`.
 5. Put reusable scientific interpretation in `analysis`.
-6. Put experiment or retained-result composition in the existing campaign/capability
+6. Put an exact claim-bearing proposition and its enclosure-evidence contract in
+   `certifications`; keep the scientific quantity with its analysis owner.
+7. Put experiment or retained-result composition in the existing campaign/capability
    owner.
-7. Put external syntax and tool adaptation in `integration`.
-8. Put task/run state in `workflows` and evidence lineage in `provenance`.
+8. Put external syntax and tool adaptation in `integration`.
+9. Put task/run state in `workflows` and evidence lineage in `provenance`.
 
 Do not create a parallel `representation`, `representations`, `transformation`, or
 `transformations` hierarchy merely to rename existing concepts. Introduce a new owner

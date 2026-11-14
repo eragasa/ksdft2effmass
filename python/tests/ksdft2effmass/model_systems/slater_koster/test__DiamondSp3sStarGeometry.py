@@ -39,12 +39,35 @@ class TestDiamondSp3sStarGeometry:
             ),
         )
 
+    def test_spatial_basis__ordered_centers__retains_s_star_radial_semantics(
+        self,
+    ) -> None:
+        definition = self._geometry().spatial_basis.definition
+
+        assert tuple(center.identifier for center in definition.centers) == (
+            "diamond_origin_center",
+            "diamond_body_diagonal_quarter_center",
+        )
+        assert tuple(
+            (coordinate.orbital_component.value, coordinate.radial_channel)
+            for coordinate in definition.coordinates[0:5]
+        ) == (
+            ("s", 0),
+            ("p_x", 0),
+            ("p_y", 0),
+            ("p_z", 0),
+            ("s", 1),
+        )
+        assert definition.coordinates[5].center_identifier == (
+            "diamond_body_diagonal_quarter_center"
+        )
+
     def test_first_neighbor_bonds__four_tetrahedral_vectors__are_complete(self) -> None:
         geometry = self._geometry()
 
         displacements = np.asarray(
             [
-                geometry.normalized_cartesian_displacement(bond)
+                geometry.normalized_cartesian_displacement(bond=bond)
                 for bond in geometry.first_neighbor_bonds
             ]
         )
@@ -73,7 +96,7 @@ class TestDiamondSp3sStarGeometry:
         geometry = self._geometry()
 
         displacements = {
-            tuple(geometry.normalized_cartesian_displacement(bond))
+            tuple(geometry.normalized_cartesian_displacement(bond=bond))
             for bond in geometry.second_neighbor_bonds
         }
 
@@ -96,24 +119,30 @@ class TestDiamondSp3sStarGeometry:
         with pytest.raises(ValueError, match="opposite sublattices"):
             DiamondNeighborBond(
                 shell=1,
-                source=DiamondSublattice.A,
-                target=DiamondSublattice.A,
+                source=DiamondSublattice.ORIGIN,
+                target=DiamondSublattice.ORIGIN,
                 target_cell=(0, 0, 0),
             )
         with pytest.raises(ValueError, match="declared shell"):
             DiamondNeighborBond(
                 shell=2,
-                source=DiamondSublattice.B,
-                target=DiamondSublattice.B,
+                source=DiamondSublattice.BODY_DIAGONAL_QUARTER,
+                target=DiamondSublattice.BODY_DIAGONAL_QUARTER,
                 target_cell=(0, 0, 0),
             )
 
     def test_lattice_parameter__wrong_unit_or_nonpositive__rejects(self) -> None:
         with pytest.raises(ValueError, match="angstrom"):
-            DiamondSp3sStarGeometry(ScalarQuantity(5.4, PhysicalUnit("bohr")))
+            DiamondSp3sStarGeometry(
+                lattice_parameter=ScalarQuantity(5.4, PhysicalUnit("bohr"))
+            )
         with pytest.raises(ValueError, match="positive"):
-            DiamondSp3sStarGeometry(ScalarQuantity(0.0, PhysicalUnit("angstrom")))
+            DiamondSp3sStarGeometry(
+                lattice_parameter=ScalarQuantity(0.0, PhysicalUnit("angstrom"))
+            )
 
     @staticmethod
     def _geometry() -> DiamondSp3sStarGeometry:
-        return DiamondSp3sStarGeometry(ScalarQuantity(5.4, PhysicalUnit("angstrom")))
+        return DiamondSp3sStarGeometry(
+            lattice_parameter=ScalarQuantity(5.4, PhysicalUnit("angstrom"))
+        )

@@ -371,24 +371,10 @@ the direct replacement. Exact Git recovery identities and the maintained boundar
 recorded in
 ``docs/architecture/v3/ksdft2effmass/model_systems/piab1d/legacy-disposition.md``.
 
-Two-dimensional plane-wave Bloch operators
--------------------------------------------
-
-The reusable periodic2d plane-wave owner uses PhysKit direct and reciprocal lattices,
-an explicit finite Fourier inventory, reduced primitive-basis momentum coordinates,
-and a caller-toleranced two-pi duality check. The reciprocal-mesh surface adds
-centered half-open sampling, explicit positive-neighbor translations, and truncating
-finite-basis sewing maps. See
-:doc:`ksdft2effmass/model_systems/periodic2d/plane_waves` and
-:doc:`ksdft2effmass/model_systems/periodic2d/reciprocal_mesh` for the complete
-mathematics, units, ordering, implementation, evidence, and limitation contracts.
-
 .. toctree::
    :hidden:
 
    ksdft2effmass/model_systems/mathieu1d
-   ksdft2effmass/model_systems/periodic2d/plane_waves
-   ksdft2effmass/model_systems/periodic2d/reciprocal_mesh
 
 One-dimensional periodic Fourier models
 ---------------------------------------
@@ -429,4 +415,48 @@ belong to :doc:`solid-state`.
    :members:
 
 .. autoclass:: PeriodicFiniteDifferenceFiberHamiltonian1DConstructor
+   :members:
+
+Diamond Slater--Koster composition
+----------------------------------
+
+``model_systems.slater_koster`` owns one concrete spinless, orthogonal, homopolar
+diamond ``sp3s*`` composition. Project Koios PhysKit owns the reusable structured
+basis, directed-bond, seven-channel hopping, ordinary-cell assembly, linear channel
+parameterization, ordered reciprocal-sample evaluation, Bloch, and orbital-center gauge
+mechanics. KSD retains the diamond geometry and shell inventory,
+onsite terms, stable fifteen-parameter order, represented-basis correlation, and
+model-definition wire. This surface performs no fitting, common-space admission,
+evidence promotion, or scientific acceptance.
+
+.. currentmodule:: ksdft2effmass.model_systems.slater_koster
+
+.. autoclass:: DiamondSublattice
+   :members:
+
+.. autoclass:: DiamondNeighborBond
+   :members:
+
+.. autoclass:: DiamondSp3sStarGeometry
+   :members:
+
+.. autoclass:: DiamondSp3sStarOnsite
+   :members:
+
+.. autoclass:: DiamondSp3sStarFirstNeighbor
+   :members:
+
+.. autoclass:: DiamondSp3sStarSecondNeighbor
+   :members:
+
+.. autoclass:: DiamondSp3sStarParameters
+   :members:
+
+.. autoclass:: DiamondSp3sStarModel
+   :members:
+
+.. autoclass:: DiamondSp3sStarBlochHamiltonianEvaluation
+   :members:
+
+.. autoclass:: DiamondSp3sStarModelJsonSerializer
    :members:

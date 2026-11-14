@@ -6,6 +6,10 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
+from projectkoios.optimization.alignment.numpy.batched_procrustes import (
+    NumpyBatchedComplexUnitaryProcrustesSolver,
+)
+
 from ksdft2effmass.periodic1d.rank2.band_alignment.composite.analysis import (
     Periodic1DCompositeBandAlignmentAnalyzer,
 )
@@ -21,9 +25,7 @@ from ksdft2effmass.periodic1d.rank2.band_alignment.composite.visualizations.visu
 from ksdft2effmass.periodic1d.rank2.band_alignment.configuration import (
     Periodic1DCompositeBandAlignmentConfiguration,
 )
-from projectkoios.optimization.alignment.numpy.batched_procrustes import (
-    NumpyBatchedComplexUnitaryProcrustesSolver,
-)
+from ksdft2effmass.sewing import IdentityReciprocalSewing
 
 
 def configuration() -> Periodic1DCompositeBandAlignmentConfiguration:
@@ -38,6 +40,7 @@ def main() -> int:
     result = Periodic1DCompositeBandAlignmentAnalyzer(
         request,
         NumpyBatchedComplexUnitaryProcrustesSolver(),
+        IdentityReciprocalSewing(ambient_dimension=4).endpoint_map,
     ).execute()
     verified = Periodic1DCompositeBandAlignmentVerifier(
         result_wire=result.to_json()

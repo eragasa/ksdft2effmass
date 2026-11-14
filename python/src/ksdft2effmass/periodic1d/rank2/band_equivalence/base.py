@@ -5,11 +5,11 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import final
 
-from ksdft2effmass.periodic1d.band_equivalence.base import (
-    Periodic1DBandEquivalence,
-    Periodic1DBandEquivalenceAnalysis,
-    Periodic1DBandEquivalenceAnalyzer,
-    Periodic1DBandEquivalenceRequest,
+from ksdft2effmass.periodic1d.rankN.band_equivalence.base import (
+    Periodic1DRankNBandEquivalence,
+    Periodic1DRankNBandEquivalenceAnalysis,
+    Periodic1DRankNBandEquivalenceAnalyzer,
+    Periodic1DRankNBandEquivalenceRequest,
 )
 
 
@@ -23,7 +23,10 @@ class _Periodic1DRank2BandSubspace:
         return 2
 
 
-class Periodic1DRank2BandEquivalence(Periodic1DBandEquivalence, ABC):
+class Periodic1DRank2BandEquivalence(
+    Periodic1DRankNBandEquivalence,
+    ABC,
+):
     """Identify rank-two band equivalence on a periodic one-dimensional lattice."""
 
     __slots__ = ()
@@ -33,10 +36,15 @@ class Periodic1DRank2BandEquivalence(Periodic1DBandEquivalence, ABC):
     def band_subspace_rank(self) -> int:
         """Return the rank of the represented band subspace at each momentum."""
 
+    @property
+    def band_subspace_ranks(self) -> tuple[int, ...]:
+        """Return the one-entry represented rank inventory."""
+        return (self.band_subspace_rank,)
+
 
 class Periodic1DRank2BandEquivalenceRequest(
     _Periodic1DRank2BandSubspace,
-    Periodic1DBandEquivalenceRequest,
+    Periodic1DRankNBandEquivalenceRequest,
     Periodic1DRank2BandEquivalence,
     ABC,
 ):
@@ -49,7 +57,7 @@ class Periodic1DRank2BandEquivalenceAnalysis[
     RequestT: Periodic1DRank2BandEquivalenceRequest,
 ](
     _Periodic1DRank2BandSubspace,
-    Periodic1DBandEquivalenceAnalysis[RequestT],
+    Periodic1DRankNBandEquivalenceAnalysis[RequestT],
     Periodic1DRank2BandEquivalence,
     ABC,
 ):
@@ -62,7 +70,7 @@ class Periodic1DRank2BandEquivalenceAnalyzer[
     RequestT: Periodic1DRank2BandEquivalenceRequest,
 ](
     _Periodic1DRank2BandSubspace,
-    Periodic1DBandEquivalenceAnalyzer[RequestT],
+    Periodic1DRankNBandEquivalenceAnalyzer[RequestT],
     Periodic1DRank2BandEquivalence,
     ABC,
 ):

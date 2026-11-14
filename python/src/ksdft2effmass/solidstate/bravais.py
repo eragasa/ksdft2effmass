@@ -11,8 +11,9 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from enum import StrEnum
 from typing import TYPE_CHECKING
+
+from ksdft2effmass.serialization import StrWireEnum
 
 if TYPE_CHECKING:
     from .lattices import DirectLattice, LatticeBasisVectors
@@ -21,7 +22,7 @@ if TYPE_CHECKING:
 type BravaisLattice = BravaisLattice1D | BravaisLattice2D | BravaisLattice3D
 
 
-class BravaisCentering(StrEnum):
+class BravaisCentering(StrWireEnum):
     """Conventional-cell centering used by supported Bravais classifications.
 
     ``P`` is primitive, ``C`` is the canonical base-centered setting, ``I`` is
@@ -37,13 +38,13 @@ class BravaisCentering(StrEnum):
     R = "R"
 
 
-class LatticeSystem1D(StrEnum):
+class LatticeSystem1D(StrWireEnum):
     """One-dimensional lattice systems."""
 
     LINE = "line"
 
 
-class LatticeSystem2D(StrEnum):
+class LatticeSystem2D(StrWireEnum):
     """Two-dimensional lattice systems before centering is applied."""
 
     OBLIQUE = "oblique"
@@ -52,7 +53,7 @@ class LatticeSystem2D(StrEnum):
     HEXAGONAL = "hexagonal"
 
 
-class LatticeSystem3D(StrEnum):
+class LatticeSystem3D(StrWireEnum):
     """Three-dimensional lattice systems before centering is applied."""
 
     TRICLINIC = "triclinic"

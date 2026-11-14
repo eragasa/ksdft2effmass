@@ -11,7 +11,7 @@ inventory contains six report figures.
 - paired frame and represented-operator recovery controls;
 - hopping-tail diagnostics from unchanged coefficients;
 - complete hopping-block locality and retained-support consequences;
-- cyclic-conversion and attacked-channel error accounting; and
+- cyclic-conversion and gauge-transformed-channel error accounting; and
 - all-channel support-truncation error trajectories.
 
 `Periodic1DCompositeBandAlignmentVisualizer` lives in `visualizer.py`. It binds verified

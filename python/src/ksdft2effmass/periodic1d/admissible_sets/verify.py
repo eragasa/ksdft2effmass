@@ -178,7 +178,7 @@ class Periodic1DConstrainedAdmissibleSetVerifier(
                 unit,
             ),
             loss_channel_names=("spectral", "operator"),
-            locality_channel_names=("reference", "attacked", "candidate"),
+            locality_channel_names=("reference", "gauge_transformed", "candidate"),
             proof_points=(proof_points[0], proof_points[1], proof_points[2]),
         )
 

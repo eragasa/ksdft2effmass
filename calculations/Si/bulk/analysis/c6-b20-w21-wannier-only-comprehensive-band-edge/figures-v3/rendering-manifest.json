@@ -1,0 +1,112 @@
+{
+  "artifacts": [
+    {
+      "bytes": 309960,
+      "path": "result.json",
+      "sha256": "533dfcbed4883793bb84d1a13d1a8f62f7bb7f99b02d3ab07bb3ea99f78b0764"
+    },
+    {
+      "bytes": 104385,
+      "path": "multiband-result.json",
+      "sha256": "bb7be7af470c521a69897fd910fe476dce40eee1382ff8e46e6040b851718ea6"
+    },
+    {
+      "bytes": 240339,
+      "path": "plot-data.json",
+      "sha256": "6a17837bc70cb8e370f7fe4e33e7a0eba3bfb14fe8ab05149161864aaa8f29f0"
+    },
+    {
+      "bytes": 13629,
+      "path": "render_results.py",
+      "sha256": "a887ce775689a7f0f7b0ba20d3d95127c26a33b5e6d102751a89b38399564200"
+    },
+    {
+      "bytes": 4151,
+      "path": "render_multiband.py",
+      "sha256": "bb4329b9b258fff4cc1999e4cf745c7ba2488d322873df25e3ad588d60ac730a"
+    },
+    {
+      "bytes": 923,
+      "path": "render_figures_v3.py",
+      "sha256": "baa03a6bcd4d321e6999b5284de0b89a6e273776e8e1ca6c890fdb5211a4fc7c"
+    },
+    {
+      "bytes": 394,
+      "path": "figures-v3/README.md",
+      "sha256": "1c6e68aaa0d5de485e0f7714a9825732e46d1b22845258c847d1a88f54f28e5a"
+    },
+    {
+      "bytes": 19963,
+      "path": "figures-v3/derived-electron-mass-fidelity.pdf",
+      "sha256": "8d11be667a144e96815d65cebff909f366c76e000906c096625fdb356b4f27c4"
+    },
+    {
+      "bytes": 139668,
+      "path": "figures-v3/derived-electron-mass-fidelity.png",
+      "sha256": "b55bd816c3591b4117fafa41d2fc99ab12f861f3edc97281bc574693cd546881"
+    },
+    {
+      "bytes": 30746,
+      "path": "figures-v3/directional-valence-cluster-dispersions.pdf",
+      "sha256": "bbaeb4e1119150a8a5e63bc5058326be245d62b307754ec9b40715809fbcffcc"
+    },
+    {
+      "bytes": 278160,
+      "path": "figures-v3/directional-valence-cluster-dispersions.png",
+      "sha256": "6328bb2c27af049e192270945e1de82b44c4ce28868b443f5cfb533886c3098c"
+    },
+    {
+      "bytes": 36935,
+      "path": "figures-v3/directional-valence-mass-sensitivity.pdf",
+      "sha256": "c03e9de178fbe2e551367f43c86edbc51de44162b689dfb36be188c60b5c0262"
+    },
+    {
+      "bytes": 344129,
+      "path": "figures-v3/directional-valence-mass-sensitivity.png",
+      "sha256": "3ebb6c56eb4d258abae0e61e71cf09ad8f7629a8dde8243d992a905f9c2cbce5"
+    },
+    {
+      "bytes": 17294,
+      "path": "figures-v3/gamma-valence-cluster-fidelity.pdf",
+      "sha256": "96c0ccfdbb1b371589321a099a324342a4c3dd06d2b26e8d82f81c23e889c7cd"
+    },
+    {
+      "bytes": 105657,
+      "path": "figures-v3/gamma-valence-cluster-fidelity.png",
+      "sha256": "d86519b9564513cfa62587a906ffe78a7eb43245d2e13c8320cfb38b5e4fbac0"
+    },
+    {
+      "bytes": 17854,
+      "path": "figures-v3/high-symmetry-edge-fidelity.pdf",
+      "sha256": "01aa0f39151246f451c8ee71cee973da3c8c396d5e240c28774448bbf947c7c4"
+    },
+    {
+      "bytes": 74538,
+      "path": "figures-v3/high-symmetry-edge-fidelity.png",
+      "sha256": "b75fbf09ebf6d59dfd778462c7a7c95647d1a631bd1311f5511b4d452d1be911"
+    },
+    {
+      "bytes": 23240,
+      "path": "figures-v3/multiband-valence-curvature-channels.pdf",
+      "sha256": "d96c1781b5e25724757be7094b63c1e9a4cb787630973c91e3efe8a1d918a2f3"
+    },
+    {
+      "bytes": 120776,
+      "path": "figures-v3/multiband-valence-curvature-channels.png",
+      "sha256": "1bf5ecc055d49edcfd9c7b6b5469866962008760e0ca41bffc2d65da8d26cd9f"
+    },
+    {
+      "bytes": 20663,
+      "path": "figures-v3/multiband-valence-fidelity-summary.pdf",
+      "sha256": "f89912dcb2d9ee5c47c9eb64f296901680d6c0291b80d0f4f1cac0fe92ad04ee"
+    },
+    {
+      "bytes": 107171,
+      "path": "figures-v3/multiband-valence-fidelity-summary.png",
+      "sha256": "cca1c6648ce6de9ccd876cff6c50c290aa304cf6d0982256bca0bbea3262d49e"
+    }
+  ],
+  "record_type": "c6_b20_w21_comprehensive_band_edge_figure_rendering_v3",
+  "schema_version": 1,
+  "scientific_data_changed": false
+}

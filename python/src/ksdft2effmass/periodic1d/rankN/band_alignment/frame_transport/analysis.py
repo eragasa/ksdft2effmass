@@ -14,7 +14,7 @@ from projectkoios.physkit.solidstate.electronic.frame_transport import (
 )
 
 from ksdft2effmass.periodic1d.rankN.band_alignment.mesh_sample import (
-    Periodic1DRankNAnalyticMeshSample,
+    Periodic1DRankNConstructionMeshSample,
 )
 from ksdft2effmass.periodic1d.rankN.band_equivalence_hopping_locality.request import (
     Periodic1DRankNBandEquivalenceHoppingLocalityRequest,
@@ -36,7 +36,7 @@ class Periodic1DRankNTransportAnalysisRequest(
     """Bind one calculation request to one immutable construction-mesh sample."""
 
     calculation_request: Periodic1DRankNBandEquivalenceHoppingLocalityRequest
-    sample: Periodic1DRankNAnalyticMeshSample
+    sample: Periodic1DRankNConstructionMeshSample
 
     @property
     @final
@@ -50,13 +50,13 @@ class Periodic1DRankNTransportAnalysisRequest(
             is not Periodic1DRankNBandEquivalenceHoppingLocalityRequest
         ):
             raise TypeError("calculation_request must be the exact rank-N request")
-        if type(self.sample) is not Periodic1DRankNAnalyticMeshSample:
-            raise TypeError("sample must be the exact analytic mesh sample")
+        if type(self.sample) is not Periodic1DRankNConstructionMeshSample:
+            raise TypeError("sample must be the exact construction-mesh sample")
         request = self.calculation_request
-        model = self.sample.model
+        sample = self.sample
         if (
-            model.retained_rank != request.retained_rank
-            or model.circuit_depth != request.circuit_depth
+            sample.parent_model.band_subspace_rank != request.retained_rank
+            or sample.gauge_transformation.circuit_depth != request.circuit_depth
             or self.sample.construction_mesh_size
             not in request.configuration.construction_mesh_sizes
         ):
@@ -148,12 +148,12 @@ class Periodic1DRankNTransportAnalyzer(
         analysis_request = self._request
         calculation_request = analysis_request.calculation_request
         sample = analysis_request.sample
-        model = sample.model
+        parent_model = sample.parent_model
         mesh_size = sample.construction_mesh_size
         source = FinitePeriodicMeshFrameInventory.from_arrays(
             mesh=sample.mesh,
             frames=sample.reference_frames,
-            endpoint_sewing_map=model.endpoint_sewing_map,
+            endpoint_sewing_map=parent_model.endpoint_sewing_map,
             ambient_basis_identifier=calculation_request.ambient_basis_identifier,
             retained_frame_identifier=calculation_request.retained_frame_identifier,
             endpoint_sewing_identifier=calculation_request.endpoint_sewing_identifier,
@@ -183,18 +183,20 @@ class Periodic1DRankNTransportAnalyzer(
             outcome.transported_frames is None
             or outcome.closure_alignment_right_action is None
         ):
-            raise ValueError("analytic reference transport must remain full rank")
+            raise ValueError("reference transport must remain full rank")
         transported = outcome.transported_frames
         endpoint_defect = float(
-            np.linalg.norm(transported[-1] - model.endpoint_sewing_map @ transported[0])
-            / math.sqrt(model.retained_rank)
+            np.linalg.norm(
+                transported[-1] - parent_model.endpoint_sewing_map @ transported[0]
+            )
+            / math.sqrt(parent_model.band_subspace_rank)
         )
         primitive_defect = float(
             np.linalg.norm(
                 transported[-1] @ outcome.closure_alignment_right_action
-                - model.endpoint_sewing_map @ transported[0]
+                - parent_model.endpoint_sewing_map @ transported[0]
             )
-            / math.sqrt(model.retained_rank)
+            / math.sqrt(parent_model.band_subspace_rank)
         )
         return Periodic1DRankNResolvedTransportAnalysis(
             transport=transport,

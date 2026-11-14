@@ -18,8 +18,8 @@ After working through this chapter, a reader should be able to
   \item attach units, coordinate meaning, indexing conventions, and provenance
         to numerical values;
   \item explain why shape and data type do not determine scientific meaning;
-  \item convert units and coordinates without silently changing the represented
-        quantity; and
+  \item identify when an operation requires an explicit unit conversion,
+        coordinate transformation, or reference alignment; and
   \item identify defining metadata that must accompany a retained array.
 \end{enumerate}
 
@@ -58,63 +58,301 @@ of Cartesian displacement vectors requires compatible coordinates and length
 units. Comparing represented Hamiltonians requires substantially more, as later
 chapters show.
 
-\section{Dimensions, units, and reference values}
-\index{dimension!physical}
-\index{energy reference}
+\index{notation!numeric type and shape}
 
-A physical dimension describes the kind of quantity, such as length, inverse
-length, or energy. A unit selects a numerical scale within that dimension.
-Angstrom and bohr are different length units; electronvolt and hartree are
-different energy units. Unit compatibility does not imply equality of numerical
-values, so conversion must be explicit.
+\subsection{Number sets and scalar notation}
 
-Some quantities also depend on a reference. If an energy is reported relative
-to a chosen zero \(E_0\), then
+We begin with the standard number sets. To avoid the common ambiguity over
+whether zero is a natural number, we write
+\begin{subequations}
+\label{eq:training-natural-number-conventions}
+\begin{align}
+  \mathbb N_0
+  &=\{0,1,2,\ldots\},
+  \label{eq:training-natural-numbers-with-zero}\\
+  \mathbb N_{>0}
+  &=\{1,2,3,\ldots\}.
+  \label{eq:training-positive-natural-numbers}
+\end{align}
+\end{subequations}
+The integers are
 \begin{equation}
-  \overline E=E-E_0.
+  \mathbb Z=\{\ldots,-2,-1,0,1,2,\ldots\}.
 \end{equation}
-Two arrays expressed in electronvolts can still be incompatible when their
-energy zeros differ. A unit conversion cannot repair a reference mismatch.
+We write \(\mathbb R\) for the real numbers. Let \(\mathrm i\) denote the
+imaginary unit, with \(\mathrm i^2=-1\). The complex numbers are then
+\begin{equation}
+  \mathbb C
+  =\left\{a+b\,\mathrm i\;\middle|\;a,b\in\mathbb R\right\}.
+  \label{eq:training-standard-number-sets}
+\end{equation}
+The four sets satisfy the familiar inclusions
+\begin{equation}
+  \mathbb N_0\subseteq\mathbb Z\subseteq\mathbb R\subseteq\mathbb C.
+\end{equation}
+Finite dimensions and nonzero counts are taken from \(\mathbb N_{>0}\), so
+\begin{equation}
+  d,m,n,N\in\mathbb N_{>0}.
+\end{equation}
+Integer indices and lattice coordinates take values in \(\mathbb Z\), while
+real coordinates and complex amplitudes take values in \(\mathbb R\) and
+\(\mathbb C\), respectively.
 
-A useful dimensional audit asks three questions before arithmetic:
+Throughout this chapter, italic lowercase letters denote scalars,
+\begin{equation}
+  x\in\mathbb R,
+  \qquad
+  z\in\mathbb C.
+\end{equation}
 
+\section{Vectors}
+\index{vector!coordinate notation}
+
+Bold lowercase letters denote finite coordinate column vectors. We first write
+a real vector as
+\begin{subequations}
+\label{eq:training-basic-vector-notation}
+\begin{equation}
+  \mathbf x
+  =\begin{bmatrix}
+      x_1\\
+      \vdots\\
+      x_d
+    \end{bmatrix}
+  =\begin{bmatrix}x_1&\cdots&x_d\end{bmatrix}^{\mathsf T}
+  \in\mathbb R^d.
+  \label{eq:training-basic-real-vector-notation}
+\end{equation}
+Here \(\mathbf x\) names the vector, and \(x_j\in\mathbb R\) is its
+\(j\)-th component for \(j=1,\ldots,d\). The bracketed expression
+\(\begin{bmatrix}x_1&\cdots&x_d\end{bmatrix}\) is a \(1\times d\) row. The
+superscript \(\mathsf T\) transposes it into the displayed \(d\times1\)
+column. The set
+\begin{equation*}
+  \mathbb R^d
+  =\underbrace{\mathbb R\times\cdots\times\mathbb R}_{d\ \text{factors}}
+\end{equation*}
+contains all such ordered real coordinate columns. The superscript \(d\)
+records the number of components; it is not an exponent applied to a particular
+real number.
+
+The same coordinate notation works with other underlying number sets. Integer
+coordinate columns and complex coordinate columns are written, for example, as
+\begin{align}
+  \mathbf n
+  &=\begin{bmatrix}n_1&\cdots&n_d\end{bmatrix}^{\mathsf T}
+    \in\mathbb Z^d,
+  \qquad n_j\in\mathbb Z,
+  \label{eq:training-basic-integer-vector-notation}\\
+  \mathbf z
+  &=\begin{bmatrix}z_1&\cdots&z_d\end{bmatrix}^{\mathsf T}
+    \in\mathbb C^d,
+  \qquad z_j\in\mathbb C.
+  \label{eq:training-basic-complex-vector-notation}
+\end{align}
+\end{subequations}
+Thus \(\mathbf x\), \(\mathbf n\), and \(\mathbf z\) have the same column
+shape but different allowed component sets. Their membership declarations do
+not yet identify the entries as positions, lattice coordinates, energies,
+samples, or model parameters. They specify numerical structure, not scientific
+interpretation.
+
+This notation describes numerical structure, not physical meaning. If the
+column \(\mathbf x_{u_L}\in\mathbb R^d\) gives the components of a physical
+displacement \(\mathbf r\) in a length unit \(u_L\), we write
+\begin{equation}
+  \mathbf r=\mathbf x_{u_L}u_L.
+  \label{eq:training-vector-unit-representation}
+\end{equation}
+Similarly, \(N\) energies reported relative to a reference \(E_0\) may be
+written
+\begin{equation}
+  \overline{\mathbf E}^{[E_0]}
+  =\mathbf e_{u_E}^{[E_0]}u_E,
+  \qquad
+  \mathbf e_{u_E}^{[E_0]}\in\mathbb R^N,
+  \label{eq:training-energy-array-numeric-representation}
+\end{equation}
+where \(u_E\) is the energy unit. Membership in \(\mathbb R^N\) gives only
+the numerical field and shape. The unit, reference, ordering, and physical role
+come from the notation and the accompanying record. Chapter~\ref{ch:training-finite-representations}
+will make the related distinction between an abstract vector and its coordinate
+column.
+
+\begin{definition}[Vector space]
+\label{def:training-vector-space}
+Let \(\mathbb F\) be either \(\mathbb R\) or \(\mathbb C\). A vector space
+\(\mathcal V\) over \(\mathbb F\) is a set equipped with vector addition
+\(\mathcal V\times\mathcal V\to\mathcal V\) and scalar multiplication
+\(\mathbb F\times\mathcal V\to\mathcal V\). There is an additive identity
+\(0_{\mathcal V}\in\mathcal V\), and every \(u\in\mathcal V\) has an
+additive inverse \(-u\in\mathcal V\). For all \(u,v,w\in\mathcal V\) and
+\(\alpha,\beta\in\mathbb F\), the operations satisfy
+\begin{equation}
+\begin{aligned}
+  u+v&=v+u,
+  & (u+v)+w&=u+(v+w),\\
+  u+0_{\mathcal V}&=u,
+  & u+(-u)&=0_{\mathcal V},\\
+  \alpha(u+v)&=\alpha u+\alpha v,
+  & (\alpha+\beta)u&=\alpha u+\beta u,\\
+  \alpha(\beta u)&=(\alpha\beta)u,
+  & 1u&=u.
+\end{aligned}
+\label{eq:training-vector-space-axioms}
+\end{equation}
+Here \(0_{\mathcal V}\) is the additive identity, and \(-u\) is the additive
+inverse of \(u\). The choice of scalar field \(\mathbb F\) is part of the
+vector-space definition.
+\end{definition}
+
+The coordinate spaces \(\mathbb R^d\) and \(\mathbb C^d\) are vector spaces
+over \(\mathbb R\) and \(\mathbb C\), respectively, under componentwise
+addition and scalar multiplication.
+
+\subsection{Vector subspaces}
+\index{vector subspace}
+
+A subset of a vector space is not automatically a vector space under the
+inherited operations. It must remain closed under the combinations allowed in
+the ambient space.
+
+\begin{definition}[Vector subspace]
+\label{def:training-vector-subspace}
+Let \(\mathcal V\) be a vector space over \(\mathbb F\). A subset
+\(\mathcal S\subseteq\mathcal V\) is a vector subspace of \(\mathcal V\)
+when
 \begin{enumerate}
-  \item Do the operands represent the same physical dimension?
-  \item Are their units identical, or is an explicit conversion required?
-  \item Does either quantity depend on an origin, zero, normalization, or other
-        reference convention?
+  \item \(0_{\mathcal V}\in\mathcal S\);
+  \item \(u+v\in\mathcal S\) whenever \(u,v\in\mathcal S\); and
+  \item \(\alpha u\in\mathcal S\) whenever
+        \(\alpha\in\mathbb F\) and \(u\in\mathcal S\).
 \end{enumerate}
+Equivalently, \(\alpha u+\beta v\in\mathcal S\) for all
+\(u,v\in\mathcal S\) and all \(\alpha,\beta\in\mathbb F\).
+\end{definition}
 
-Dimensionless does not mean convention free. Fractional coordinates, reduced
-Bloch twists, phases, and normalized coefficients can all be dimensionless
-while still requiring a basis, interval, or phase convention.
-
-\section{Coordinates are part of the data}
-\index{coordinate system!metadata}
-
-The tuple \((1,0)\) can denote a Cartesian vector, fractional lattice
-coordinates, grid indices, or coefficients in an abstract basis. These are not
-interchangeable meanings. A coordinate record should identify at least
-
-\begin{itemize}
-  \item the space in which the coordinates live;
-  \item the ordered axes or basis vectors;
-  \item whether components are Cartesian, fractional, reciprocal, or abstract;
-  \item the component unit, if any;
-  \item the origin or reference point when relevant; and
-  \item the vector-axis and array-order convention.
-\end{itemize}
-
-A coordinate transformation changes the numerical components while preserving
-the represented object only when the transformation rule is applied
-consistently. If \(A\) stores basis vectors as columns and \(\mathbf s\) stores
-fractional coordinates, then
+For example,
 \begin{equation}
-  \mathbf r=A\mathbf s.
+  \mathcal S=\{\mathbf x\in\mathbb R^d\mid x_d=0\}
 \end{equation}
-Transposing \(A\) without changing the convention is not a harmless formatting
-operation. Chapter~\ref{ch:training-periodic-geometry} develops this map for
-periodic cells after the required linear algebra has been introduced.
+is a vector subspace of \(\mathbb R^d\). Replacing the condition by
+\(x_d=1\) produces an affine set rather than a vector subspace. Also,
+\(\mathbb Z^d\) is a useful set of integer coordinate columns, but it is
+not a vector space over \(\mathbb R\) or \(\mathbb C\), because arbitrary real
+or complex scalar multiplication does not preserve integer entries.
+
+\section{Matrices}
+\index{matrix!transpose}
+\index{matrix!conjugate transpose}
+\index{Hermitian matrix}
+
+Capital italic letters denote matrices and other two-index arrays. Their two
+dimensions record the numbers of rows and columns.
+
+\subsection{Real matrices}
+
+A real matrix is a rectangular array of real numbers organized into \(m\)
+rows and \(n\) columns. Written entry by entry,
+\begin{equation}
+  A
+  =\begin{bmatrix}
+      A_{11} & A_{12} & \cdots & A_{1n}\\
+      A_{21} & A_{22} & \cdots & A_{2n}\\
+      \vdots & \vdots & \ddots & \vdots\\
+      A_{m1} & A_{m2} & \cdots & A_{mn}
+    \end{bmatrix}
+  \in\mathbb R^{m\times n}.
+  \label{eq:training-basic-matrix-notation}
+\end{equation}
+The notation \(\mathbb R^{m\times n}\) denotes the set of all real matrices
+with this shape. We abbreviate the displayed matrix as \(A=(A_{ij})\), where
+\(A_{ij}\in\mathbb R\) is the entry in row \(i\) and column \(j\), with
+\(1\leq i\leq m\) and \(1\leq j\leq n\).
+
+\begin{definition}[Transpose of a matrix]
+\label{def:training-matrix-transpose}
+Let \(A=(A_{ij})\in\mathbb R^{m\times n}\). The transpose of \(A\) is the
+matrix \(A^{\mathsf T}\in\mathbb R^{n\times m}\) defined by
+\begin{equation}
+  \left(A^{\mathsf T}\right)_{ji}=A_{ij},
+  \qquad
+  1\leq i\leq m,
+  \quad
+  1\leq j\leq n.
+  \label{eq:training-matrix-transpose-definition}
+\end{equation}
+Thus row \(i\) of \(A\) becomes column \(i\) of \(A^{\mathsf T}\).
+\end{definition}
+
+The standard size-dependent symbols
+\begin{equation}
+  \mathbf 0_d,\mathbf 1_d\in\mathbb R^d,
+  \qquad
+  I_d\in\mathbb R^{d\times d}
+\end{equation}
+denote the zero column, the column of ones, and the identity matrix,
+respectively.
+
+A table of \(N\) samples, each with \(d\) components, is written with one
+sample per row:
+\begin{equation}
+  X
+  =\begin{bmatrix}
+      \mathbf x_1^{\mathsf T}\\
+      \vdots\\
+      \mathbf x_N^{\mathsf T}
+    \end{bmatrix}
+  \in\mathbb R^{N\times d},
+  \qquad
+  \mathbf x_i\in\mathbb R^d.
+  \label{eq:training-point-table-notation}
+\end{equation}
+The first index therefore labels the sample, and the second labels the
+component. The transpose \(X^{\mathsf T}\in\mathbb R^{d\times N}\) can encode
+the same collection only after the change of layout has been stated explicitly.
+
+\subsection{Complex matrices}
+
+A complex \(m\times n\) matrix is written
+\begin{equation}
+  A=(A_{ij})\in\mathbb C^{m\times n},
+  \qquad
+  A_{ij}\in\mathbb C.
+  \label{eq:training-basic-complex-matrix-notation}
+\end{equation}
+The transpose uses the same exchange of row and column indices as in
+Definition~\ref{def:training-matrix-transpose}. Complex matrices also carry a
+second operation that conjugates the entries as it exchanges the indices.
+
+\begin{definition}[Conjugate transpose of a matrix]
+\label{def:training-matrix-conjugate-transpose}
+For \(A\in\mathbb C^{m\times n}\), the conjugate transpose is
+\begin{equation}
+  A^{\dagger}=\overline A^{\mathsf T}\in\mathbb C^{n\times m},
+  \qquad
+  \left(A^{\dagger}\right)_{ji}=\overline{A_{ij}},
+  \label{eq:training-matrix-conjugate-transpose-definition}
+\end{equation}
+where the overline denotes entrywise complex conjugation.
+\end{definition}
+
+\begin{definition}[Hermitian matrix]
+\label{def:training-hermitian-matrix}
+A square complex matrix \(H\in\mathbb C^{N\times N}\) is \emph{Hermitian} when
+\begin{equation}
+  H=H^{\dagger}.
+  \label{eq:training-hermitian-definition}
+\end{equation}
+Equivalently,
+\begin{equation}
+  H_{ij}=\overline{H_{ji}}
+  \qquad
+  \text{for all }i,j\in\{1,\ldots,N\}.
+\end{equation}
+A real square matrix is Hermitian exactly when it is symmetric:
+\(H=H^{\mathsf T}\).
+\end{definition}
 
 \section{Indexing, axis meaning, and ordering}
 \index{array ordering}

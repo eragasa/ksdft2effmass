@@ -2,7 +2,7 @@
   "schema_version": 1,
   "modules": [
     {
-      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__quantum_espresso_task_contracts.py",
+      "path": "python/tests/software_verification/ksdft2effmass/integration/quantum_espresso/test__QeTaskContracts__contracts.py",
       "mode": "artifact_owned",
       "evidence_class": "software_verification",
       "evidence_profile": "routine",

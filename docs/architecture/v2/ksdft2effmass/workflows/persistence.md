@@ -85,7 +85,7 @@ The independently reviewed implementation plan selects these seven exact familie
 | Owning codec | Required concrete coverage | Implementation status |
 |---|---|---|
 | `WorkflowResultValueSerializer` | `ScientificDecisionResolution`, `NormalizedObservationSet` | Implemented provisional two-family wire only |
-| `QuantumEspressoResultValueSerializer` | `QuantumEspressoPwResult`, `QuantumEspressoBandsResult`, `QuantumEspressoExtractedObservationResult` | Implemented provisional three-family wire only |
+| `QeResultValueSerializer` | `QePwResult`, `QeBandsResult`, `QeExtractedObservationResult` | Implemented provisional three-family wire only |
 | `QuantityOfInterestResultValueSerializer` | `ScalarQuantityOfInterestValue`, `ScalarQuantityOfInterestEvaluationFailure` | Implemented provisional scalar wire only |
 
 The implemented normalized observation codec receives one explicit source codec;
@@ -136,21 +136,23 @@ routing tests retain independent literal wires and nested/standalone repeated-id
 agreement. Cross-occurrence conflict rejection in a whole run remains an aggregate
 codec obligation, not an ambient identity cache in these stateless value codecs.
 
-The implemented QE codec uses `qe-result-value:1` with explicit complete records,
-nominal/enum tags, tagged canonical signed hexadecimal integers and ordered tuples.
-PW/bands and execution-input versions are exactly `qe-pw-result:1`,
-`qe-bands-result:1` and `qe-execution-input:1`. It preserves all operation evidence
-and native artifact references (not native bytes), or the complete extracted
-observation with exact parser/document/policy identities and neutral provenance.
-Parser/policy versions are `1`; unknown owning versions are incompatible. The
-neutral schema-1 JSON remains a nested exact string produced by the existing owner
-with unchanged `1.0e-12` tolerance, including its final newline and numeric grammar.
-A fresh neutral serializer is used per operation, not a mutable retained dependency.
-Complete canonical QE bytes define `qe-result-value:1:sha256:<digest>` content
-identity. Independent literal wires, fixed variant fragments, nested-identity and
-corruption oracles verify software representation only. Independent implementation
-review and bounded Task software gates are complete, not human acceptance or
-scientific validation.
+The implemented QE codec now has two exact persistence branches. `QePwResult` uses
+`quantum-espresso-simulations-result:1`, concrete type `QePwResult:2`, and contract
+`qe-pw-result:2`. The result and its reachable QE-owned execution, diagnostic,
+outcome, artifact, and terminal records implement `BaseTypedRecord`; canonical JSON
+preserves their nested object hierarchy through `to_dict`/`from_dict` and
+`to_json`/`from_json`. Execution inputs require `qe-execution-input:1`. The PW wire
+retains exact provider `execution.json` publication and private terminal-record
+content references in addition to Workflow and native-output correlations.
+
+`QeBandsResult` and `QeExtractedObservationResult` remain unchanged on the legacy
+`qe-result-value:1` branch. Bands retains `qe-bands-result:1` and its legacy evidence
+structure; extracted observations retain exact parser/document/policy identities and
+neutral provenance. The neutral schema-1 JSON remains the exact nested string produced
+by its existing owner with unchanged `1.0e-12` tolerance. No fallback reads, dual
+writes, or implied `bands.x` execution support are introduced. Independent literal
+wires and corruption oracles verify software representation only, not scientific
+validity or human acceptance.
 
 ## Intrinsic aggregate record implementation status
 

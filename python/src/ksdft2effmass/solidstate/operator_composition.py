@@ -3,14 +3,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 from projectkoios.physkit.units import ComplexSparseMatrixQuantity
+
+from ksdft2effmass.serialization import StrWireEnum
 
 from .represented_operators import ScalarFiniteLatticeOperator
 
 
-class ScalarFiniteLatticeOperatorCompatibilityIssueCode(StrEnum):
+class ScalarFiniteLatticeOperatorCompatibilityIssueCode(StrWireEnum):
     """Comparison-critical metadata mismatches that prohibit operator addition."""
 
     SHAPE = "shape"

@@ -16,7 +16,8 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from enum import StrEnum
+
+from ...serialization import StrWireEnum
 
 _I64_MIN = -(2**63)
 _I64_MAX = 2**63 - 1
@@ -78,7 +79,7 @@ class ColoredPetriNetTokenIdentity:
             raise ValueError("token identity value must not be empty")
 
 
-class ColoredPetriNetValueKind(StrEnum):
+class ColoredPetriNetValueKind(StrWireEnum):
     """Closed tags for generic colored-Petri-net scalar values.
 
     Attributes

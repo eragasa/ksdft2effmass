@@ -7,6 +7,7 @@ from dataclasses import replace
 
 import numpy as np
 import pytest
+from projectkoios.numerics.numpy.typing import Float64Array
 from projectkoios.optimization.alignment.procrustes import (
     ComplexUnitaryProcrustesRankCutoffRule,
 )
@@ -17,31 +18,38 @@ from ksdft2effmass.periodic3d.gauge_alignment.base import (
     Periodic3DGaugeAlignmentAnalysis,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.analysis import (
+    Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer,
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer,
+    Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer,
 )
-from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.case_expansion import (  # noqa: E501
-    Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander,
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.field_geometry import (  # noqa: E501
+    Periodic3DRankNBandEquivalenceHoppingLocalityFieldGeometry,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.fourier_reference import (  # noqa: E501
     Periodic3DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer,
     Periodic3DRankNBandEquivalenceHoppingLocalityFourierReferenceRequest,
 )
-from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.model import (
-    Periodic3DRankNGaugeNormalizationEnum,
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.policy import (
+    Periodic3DRankNBandEquivalenceHoppingLocalityPolicy,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.reference import (
     Periodic3DRankNBandEquivalenceHoppingLocalityReferenceAnalyzer,
     Periodic3DRankNBandEquivalenceHoppingLocalityReferenceRequest,
 )
+from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.represented_fields import (  # noqa: E501
+    Periodic3DRankNParentGaugeCaseFieldSampler,
+)
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.request import (
     Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition,
     Periodic3DRankNBandEquivalenceHoppingLocalityFamilyEnum,
     Periodic3DRankNBandEquivalenceHoppingLocalityRequest,
+    Periodic3DRankNLatticeControlEnum,
 )
 from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.result import (
     Periodic3DRankNAlignmentInapplicabilityEnum,
     Periodic3DRankNBandEquivalenceHoppingLocalityAnalysis,
     Periodic3DRankNBandEquivalenceHoppingLocalityAnalysisStatusEnum,
+    Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalysis,
     Periodic3DRankNBandEquivalenceHoppingLocalityInapplicableAlignmentAnalysis,
     Periodic3DRankNBandEquivalenceHoppingLocalityQualifiedAlignmentAnalysis,
 )
@@ -54,6 +62,16 @@ from ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality.verificati
 from ksdft2effmass.periodic3d.rankN.gauge_alignment.definition import (
     Periodic3DRankNGaugeAlignment,
 )
+from ksdft2effmass.periodic3d.rankN.gauge_alignment.transformation import (
+    Periodic3DRankNGaugeNormalizationEnum,
+)
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
+from periodic3d_rankn_analytic_case_support import (
+    SyntheticPeriodic3DRankNCaseExpander,
+)
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
 
@@ -64,7 +82,9 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
     @staticmethod
     def _request() -> Periodic3DRankNBandEquivalenceHoppingLocalityRequest:
         geometry = Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition(
-            identifier="simple-cubic-axis-control",
+            lattice_control=(
+                Periodic3DRankNLatticeControlEnum.SIMPLE_CUBIC_AXIS_CONTROL
+            ),
             positive_bonds=((1, 0, 0), (0, 1, 0), (0, 0, 1)),
             gauge_normalization=Periodic3DRankNGaugeNormalizationEnum.AXIS_MAXIMUM,
             direct_metric=DirectLatticeMetric(
@@ -85,7 +105,7 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
             evaluation_size=17,
             evaluation_shift=1.0 / 3.0,
             parent_scales=(0.0, 1.0),
-            attack_coefficients=(0.0, math.pi / 8.0, math.pi / 4.0),
+            transformation_coefficients=(0.0, math.pi / 8.0, math.pi / 4.0),
             band_tolerances=(1.0e-3, 1.0e-5),
             gauge_alignments=(
                 Periodic3DRankNGaugeAlignment.IDENTITY,
@@ -106,16 +126,78 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
             norm_energy_scale=1.0,
         )
 
+    @staticmethod
+    def _simple_cubic_case(
+        request: Periodic3DRankNBandEquivalenceHoppingLocalityRequest,
+    ) -> Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition:
+        return request.case(Periodic3DRankNLatticeControlEnum.SIMPLE_CUBIC_AXIS_CONTROL)
+
+    @staticmethod
+    def _field_geometry(
+        source: Periodic3DRankNBandEquivalenceHoppingLocalityCaseDefinition,
+    ) -> Periodic3DRankNBandEquivalenceHoppingLocalityFieldGeometry:
+        return Periodic3DRankNBandEquivalenceHoppingLocalityFieldGeometry(
+            identifier=source.lattice_control.to_wire(),
+            direct_metric=source.direct_metric,
+            shell_metric_scale=source.shell_metric_scale,
+            basis_offsets=source.basis_offsets,
+        )
+
+    @staticmethod
+    def _policy(
+        request: Periodic3DRankNBandEquivalenceHoppingLocalityRequest,
+        ambient_dimension: int,
+    ) -> Periodic3DRankNBandEquivalenceHoppingLocalityPolicy:
+        identity_sewing = IdentityReciprocalSewing(ambient_dimension=ambient_dimension)
+        return Periodic3DRankNBandEquivalenceHoppingLocalityPolicy(
+            construction_size=request.construction_size,
+            construction_offsets=(0.5, 0.5, 0.5),
+            norm_energy_scale=request.norm_energy_scale,
+            band_tolerances=request.band_tolerances,
+            gauge_alignments=request.gauge_alignments,
+            shell_cap=request.shell_cap,
+            procrustes_tolerance=request.procrustes_tolerance,
+            transport_rank_absolute=request.transport_rank_absolute,
+            transport_rank_relative=request.transport_rank_relative,
+            endpoint_sewing=ReciprocalEndpointSewingInventory(
+                positive_axis_maps=(identity_sewing.endpoint_map,) * 3
+            ),
+        )
+
+    @staticmethod
+    def _coordinates(size: int, offset: float) -> Float64Array:
+        axis = -0.5 + (np.arange(size, dtype=np.float64) + offset) / float(size)
+        return np.asarray(
+            np.stack(np.meshgrid(axis, axis, axis, indexing="ij"), axis=-1),
+            dtype=np.float64,
+        )
+
+    def test_aggregate_analyzer_requires_explicit_complete_model_inventory(
+        self,
+    ) -> None:
+        request = self._request()
+        models = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()
+
+        analyzer = Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer(
+            request=request,
+            models=models,
+        )
+
+        assert analyzer.request is request
+        with pytest.raises(ValueError, match="every exact request expansion"):
+            Periodic3DRankNBandEquivalenceHoppingLocalityAnalyzer(
+                request=request,
+                models=models[:-1],
+            )
+
     def test_case_analysis_uses_dimension_and_gauge_analysis_bases(self) -> None:
         request = self._request()
-        expander = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
-        )
+        expander = SyntheticPeriodic3DRankNCaseExpander(request=request)
         model = expander.execute()[1]
         analyzer = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
             model=model,
-            geometry=request.cases[0],
+            geometry=self._simple_cubic_case(request),
         )
         result = analyzer.execute()
 
@@ -166,15 +248,93 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
         assert all(len(item.shells) == 9 for item in qualified)
         assert all(len(item.tolerance_decisions) == 2 for item in qualified)
 
+    def test_field_analyzer_reproduces_the_synthetic_adapter_analysis(self) -> None:
+        request = self._request()
+        model = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()[1]
+        fields = Periodic3DRankNParentGaugeCaseFieldSampler(model).execute(
+            self._coordinates(request.construction_size, 0.5),
+            self._coordinates(
+                request.evaluation_size,
+                0.5 + request.evaluation_shift,
+            ),
+        )
+
+        policy = self._policy(request, model.ambient_dimension)
+        field_analysis = Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer(
+            policy=policy,
+            geometry=self._field_geometry(self._simple_cubic_case(request)),
+            fields=fields,
+        ).execute()
+        case_analysis = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
+            request=request,
+            model=model,
+            geometry=self._simple_cubic_case(request),
+        ).execute()
+
+        assert (
+            type(field_analysis)
+            is Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalysis
+        )
+        assert field_analysis.policy is policy
+        assert field_analysis.geometry_identifier == (
+            self._simple_cubic_case(request).lattice_control.to_wire()
+        )
+        assert field_analysis.retained_rank == fields.retained_rank
+        assert field_analysis.operator_identifier == fields.operator_identifier
+        assert field_analysis.energy_reference == fields.energy_reference
+        assert field_analysis.energy_unit == fields.energy_unit
+        assert field_analysis.basis_identifier == fields.basis_identifier
+        assert field_analysis.alignments == case_analysis.alignments
+        assert not hasattr(field_analysis, "parent_scale")
+        assert not hasattr(field_analysis, "transformation_coefficient")
+        assert not hasattr(field_analysis, "minimum_sampled_external_gap")
+
+    def test_field_analyzer_allows_analysis_without_an_inverse_oracle(self) -> None:
+        request = self._request()
+        model = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()[1]
+        fields = Periodic3DRankNParentGaugeCaseFieldSampler(model).execute(
+            self._coordinates(request.construction_size, 0.5),
+            self._coordinates(
+                request.evaluation_size,
+                0.5 + request.evaluation_shift,
+            ),
+        )
+        fields_without_inverse = replace(
+            fields,
+            comparison_inverse_construction_right_actions=None,
+            comparison_inverse_evaluation_right_actions=None,
+        )
+        full_policy = self._policy(request, model.ambient_dimension)
+        policy_without_oracle = replace(
+            full_policy,
+            gauge_alignments=full_policy.gauge_alignments[:-1],
+        )
+
+        analysis = Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer(
+            policy=policy_without_oracle,
+            geometry=self._field_geometry(self._simple_cubic_case(request)),
+            fields=fields_without_inverse,
+        ).execute()
+
+        assert tuple(item.alignment for item in analysis.alignments) == (
+            Periodic3DRankNGaugeAlignment.IDENTITY,
+            Periodic3DRankNGaugeAlignment.GLOBAL_UNITARY,
+            Periodic3DRankNGaugeAlignment.POINTWISE_UNITARY,
+        )
+        with pytest.raises(ValueError, match="requires prescribed actions"):
+            Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer(
+                policy=full_policy,
+                geometry=self._field_geometry(self._simple_cubic_case(request)),
+                fields=fields_without_inverse,
+            )
+
     def test_parent_alignment_and_transport_reference_is_independent(self) -> None:
         request = self._request()
-        model = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
-        ).execute()[1]
+        model = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()[1]
         case = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
             model=model,
-            geometry=request.cases[0],
+            geometry=self._simple_cubic_case(request),
         ).execute()
 
         reference = Periodic3DRankNBandEquivalenceHoppingLocalityReferenceAnalyzer(
@@ -194,13 +354,11 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_fourier_shell_and_support_reference_uses_direct_sums(self) -> None:
         request = self._request()
-        model = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
-        ).execute()[1]
+        model = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()[1]
         case = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
             model=model,
-            geometry=request.cases[0],
+            geometry=self._simple_cubic_case(request),
         ).execute()
 
         reference = Periodic3DRankNBandEquivalenceHoppingLocalityFourierReferenceAnalyzer(  # noqa: E501
@@ -220,13 +378,11 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_case_verification_composes_both_independent_routes(self) -> None:
         request = self._request()
-        model = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
-        ).execute()[1]
+        model = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()[1]
         case = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
             model=model,
-            geometry=request.cases[0],
+            geometry=self._simple_cubic_case(request),
         ).execute()
 
         verification = Periodic3DRankNBandEquivalenceHoppingLocalityCaseVerifier(
@@ -259,13 +415,11 @@ class TestPeriodic3DRankNBandEquivalenceHoppingLocalityAnalyzer:
 
     def test_aggregate_analysis_round_trips_canonical_json(self) -> None:
         request = self._request()
-        model = Periodic3DRankNBandEquivalenceHoppingLocalityCaseExpander(
-            request=request
-        ).execute()[0]
+        model = SyntheticPeriodic3DRankNCaseExpander(request=request).execute()[0]
         case = Periodic3DRankNBandEquivalenceHoppingLocalityCaseAnalyzer(
             request=request,
             model=model,
-            geometry=request.cases[0],
+            geometry=self._simple_cubic_case(request),
         ).execute()
         failure_type = (
             Periodic3DRankNBandEquivalenceHoppingLocalityInapplicableAlignmentAnalysis

@@ -46,12 +46,45 @@ Dimensional roles
 .. autoclass:: Periodic3DBandEquivalenceHoppingLocalityAnalysis
 .. autoclass:: Periodic3DBandEquivalenceHoppingLocalityAnalyzer
 
+Periodic-3D rank-N represented-field boundary
+----------------------------------------------
+
+The sampled-field value separates analysis operands from the producer that supplied
+them. The parent/gauge sampler and the in-memory Wannier-field producer are separate
+adapters to the same immutable boundary. The construction inventory is the regular
+transform mesh, while evaluation coordinates may be either a tensor product or an
+arbitrary ordered reciprocal-point inventory. Concrete analytic parents and any PhysKit
+block-hopping representations remain calculation or verification-support composition.
+
+.. currentmodule:: ksdft2effmass.periodic3d.rankN.band_equivalence_hopping_locality
+
+.. autoclass:: Periodic3DRankNLatticeControlEnum
+   :members:
+.. autoclass:: Periodic3DRankNParentGaugeCase
+   :members:
+.. autoclass:: Periodic3DRankNBandEquivalenceFieldSamples
+   :members:
+.. autoclass:: Periodic3DRankNBandEquivalenceHoppingLocalityFieldGeometry
+   :members:
+.. autoclass:: Periodic3DRankNBandEquivalenceHoppingLocalityPolicy
+   :members:
+.. autoclass:: Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalyzer
+   :members:
+.. autoclass:: Periodic3DRankNBandEquivalenceHoppingLocalityFieldAnalysis
+   :members:
+.. autoclass:: Periodic3DRankNWannierFieldSource
+   :members:
+.. autoclass:: Periodic3DRankNWannierFieldProducer
+   :members:
+.. autoclass:: Periodic3DRankNParentGaugeCaseFieldSampler
+   :members:
+
 Rank ownership
 --------------
 
 Top-level rank-two studies and the concrete Periodic1D rank-N rank/depth calculation
 expose ``band_subspace_rank``. Periodic2D/3D rank-N family requests, analyses,
-analyzers, case expanders, and family actions expose ``band_subspace_ranks``. Their
+analyzers and family actions expose ``band_subspace_ranks``. Their
 concrete case analyses, independent references, and case actions instead expose singular
 ``band_subspace_rank``. Rank-two and rank-N remain sibling specializations.
 

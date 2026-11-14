@@ -1,13 +1,15 @@
-Periodic toy-model catalog
-==========================
+Periodic control-model catalog
+==============================
 
-.. currentmodule:: ksdft2effmass.periodic
+.. currentmodule:: ksdft2effmass.periodic.catalog
 
-The toy-model catalog is an immutable explicit inventory. It accepts a nonempty exact
+The control-model catalog is an immutable explicit inventory. It accepts a nonempty exact
 ``tuple`` and preserves caller-owned registration order. Each member must:
 
-* inherit :class:`PeriodicModel` and the matching nominal dimension branch;
-* declare the exact :attr:`PeriodicModelRole.TOY` role;
+* inherit :class:`~ksdft2effmass.periodic.models.PeriodicModel` and the matching
+  nominal dimension branch;
+* declare the exact
+  :attr:`~ksdft2effmass.periodic.models.PeriodicModelRole.CONTROL_MODEL` role;
 * expose an exact nonempty ``str`` identity; and
 * have an identity unique within the catalog.
 
@@ -16,5 +18,5 @@ observations, apply thresholds, or establish scientific acceptance. Campaigns ma
 consume a selected immutable catalog snapshot after concrete model migration supplies
 registered entries.
 
-.. autoclass:: PeriodicToyModelCatalog
+.. autoclass:: PeriodicControlModelCatalog
    :members:

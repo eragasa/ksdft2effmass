@@ -1,0 +1,15 @@
+{
+  "current_successor_manifest": {
+    "path": "calculations/Si/bulk/analysis/c6-b20-w21-tau1-tau2-posthoc-exploration/figures-v5/single-witness-manifest.json",
+    "sha256": "b30a1274c0fa821b1053a6db4eb3f02e439b470aea8bae40d607145954873e02"
+  },
+  "note": "The renderer received a strict typing-only colorbar edit after version-4 rendering; version 4 is superseded and is not a manuscript input.",
+  "original_manifest": {
+    "path": "single-witness-manifest.json",
+    "sha256": "b6a69ec0874f02218f4c4f4c2708f03fb364011db27d050bebdb4c5f1ae1c4dd"
+  },
+  "record_type": "superseded_figure_rendering_manifest_amendment",
+  "schema_version": 1,
+  "scientific_data_changed": false,
+  "status": "superseded-not-current-manuscript-input"
+}

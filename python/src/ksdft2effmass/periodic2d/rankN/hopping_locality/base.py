@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import final
 
+from ksdft2effmass.hopping_locality.base import PeriodicRankNHoppingLocalityCapability
 from ksdft2effmass.periodic2d.hopping_locality.base import (
     Periodic2DHoppingLocality,
     Periodic2DHoppingLocalityAnalysis,
@@ -13,7 +13,11 @@ from ksdft2effmass.periodic2d.hopping_locality.base import (
 )
 
 
-class Periodic2DRankNHoppingLocalityCapability(Periodic2DHoppingLocality, ABC):
+class Periodic2DRankNHoppingLocalityCapability(
+    Periodic2DHoppingLocality,
+    PeriodicRankNHoppingLocalityCapability,
+    ABC,
+):
     """Identify unchanged periodic-2D finite-rank hopping coefficients."""
 
     __slots__ = ()
@@ -57,7 +61,6 @@ class Periodic2DRankNHoppingLocalityAnalyzerRole[
     __slots__ = ()
 
     @property
-    @final
     def band_subspace_rank(self) -> int:
         """Return the unchanged hopping-block rank."""
         return self.request.band_subspace_rank

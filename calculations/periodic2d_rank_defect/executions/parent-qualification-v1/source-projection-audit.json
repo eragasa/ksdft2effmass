@@ -1,0 +1,56 @@
+{
+  "audit_script_sha256": "605e72ceaf2655c124194b9f4a87c864a5648da672e529c178836501a66120dc",
+  "calculation_family": "periodic2d-rank-defect",
+  "claim_boundary": "Read-only authentication of a compact historical synthetic parent projection; no new parent calculation, defect campaign, material validation, convergence claim, or protected execution.",
+  "execution_id": "parent-qualification-v1",
+  "outcome": "passed",
+  "projection_checks": {
+    "anisotropic_parameters_exact_match": true,
+    "anisotropic_pretruncation_digest": "7dbf6061da547657564b28697e3db1895c24dbcc610c80d3d0afbf2e4aa2c2ed",
+    "compact_parent_digests_match_stage_c": true,
+    "historical_stage_c_all_criteria_passed": true,
+    "isotropic_compact_count": 61,
+    "isotropic_compact_digest": "5733135bd535483a0a12089dc4419c222e254d419d0795baa0bfe4e0687a9e9c",
+    "isotropic_compact_exact_record_match": true,
+    "isotropic_pretruncation_count": 225,
+    "isotropic_pretruncation_digest": "c2c0a12a114f3a1ba461f6097a22cd41a367dd0fdbc41ff1f2c7a0270540fba0",
+    "isotropic_pretruncation_exact_record_match": true
+  },
+  "record_type": "periodic2d_rank_defect_parent_qualification_source_audit",
+  "request_sha256": "61e4865806c4dff8f0da3ea4e50c369b058c28af317c1176a4ce2856c60a339f",
+  "schema_version": 1,
+  "software_versions": {
+    "ksdft2effmass": "0.1.0.dev0",
+    "matplotlib": "3.11.1",
+    "numpy": "2.5.1",
+    "projectkoios_physkit": "0.1.3.dev0",
+    "scipy": "1.18.0"
+  },
+  "source_revision": "c5d34a93b4710a4a430738c404c775865d418d42",
+  "sources": [
+    {
+      "bytes": 1074,
+      "path": "calculations/research-monograph/periodic-2d/input.json",
+      "role": "accepted_periodic_parent_input",
+      "sha256": "82e9915101e755f7cc77cb8901478f88d878ffaa808732036631b7ae5cfd78ec"
+    },
+    {
+      "bytes": 239133,
+      "path": "calculations/research-monograph/periodic-2d/result.json",
+      "role": "accepted_periodic_parent_result",
+      "sha256": "4eb55bde9d456d86bad1d65c8ac60267c07873c6936f8af876b07fd3e1d27be6"
+    },
+    {
+      "bytes": 3035507,
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-b-result.json",
+      "role": "accepted_stage_b_parent_and_route_evidence",
+      "sha256": "711c91064e498a183fab9a0ad48f115779bdcb6059e0c23d84270aac75867d9b"
+    },
+    {
+      "bytes": 2211037,
+      "path": "calculations/research-monograph/impurity-defect-2d/stage-c-accepted-parent-result.json",
+      "role": "accepted_stage_c_numerical_verification_result",
+      "sha256": "b5ff50b6a2494dc4314854fff61c830f7ca562543ab5a42c9e15b41087902cc4"
+    }
+  ]
+}

@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from enum import StrEnum
 
 import numpy as np
 from projectkoios.physkit.units import (
@@ -12,6 +11,8 @@ from projectkoios.physkit.units import (
     Unitless,
     VectorQuantity,
 )
+
+from ksdft2effmass.serialization import StrWireEnum
 
 
 @dataclass(frozen=True, slots=True)
@@ -97,7 +98,7 @@ class PlaneWaveBasis1D:
         return 2 * self.cutoff + 1
 
 
-class ReciprocalSewingDirection1D(StrEnum):
+class ReciprocalSewingDirection1D(StrWireEnum):
     """Supported direction of a one-dimensional reciprocal-index sewing map."""
 
     PLUS_RECIPROCAL_VECTOR = "plus_reciprocal_vector"

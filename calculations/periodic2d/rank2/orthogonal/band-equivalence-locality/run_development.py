@@ -11,17 +11,15 @@ from projectkoios.physkit.periodic.lattice import (
     DirectLatticeMetric,
 )
 
-from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
-    BandEquivalenceHoppingLocalityCase,
-    BandEquivalenceHoppingLocalityFamilyEnum,
-    GaugeNormalizationEnum,
-    ParentEnum,
-)
 from ksdft2effmass.band_equivalence_hopping_locality.calculation import (
     BandEquivalenceHoppingLocalityVerifier,
 )
 from ksdft2effmass.band_equivalence_hopping_locality.definitions import (
     FOUR_STATE_LOCALITY_DEVELOPMENT_MODEL_V1,
+    BandEquivalenceHoppingLocalityCase,
+    BandEquivalenceHoppingLocalityFamilyEnum,
+    GaugeNormalizationEnum,
+    ParentEnum,
 )
 from ksdft2effmass.band_equivalence_hopping_locality.records import (
     BandEquivalenceHoppingLocalityVerificationDiagnostics,
@@ -37,7 +35,18 @@ from ksdft2effmass.periodic2d.rank2.band_equivalence_hopping_locality.result imp
     Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder,
     Periodic2DRank2BandEquivalenceHoppingLocalityCalculationResult,
 )
+from ksdft2effmass.sewing import (
+    IdentityReciprocalSewing,
+    ReciprocalEndpointSewingInventory,
+)
 
+IDENTITY_RECIPROCAL_SEWING = IdentityReciprocalSewing(ambient_dimension=4)
+ENDPOINT_SEWING = ReciprocalEndpointSewingInventory(
+    positive_axis_maps=(
+        IDENTITY_RECIPROCAL_SEWING.endpoint_map,
+        IDENTITY_RECIPROCAL_SEWING.endpoint_map,
+    )
+)
 SQUARE_METRIC = DirectLatticeMetric(
     DirectLattice2D(
         a1=np.array((1.0, 0.0), dtype=np.float64),
@@ -77,8 +86,13 @@ def construct_artifacts(
     BandEquivalenceHoppingLocalityVerificationDiagnostics,
 ]:
     """Calculate and independently verify one typed result."""
-    analysis = Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(request=request).execute()
-    result = Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(analysis).result()
+    analysis = Periodic2DRank2BandEquivalenceHoppingLocalityAnalyzer(
+        request=request,
+        endpoint_sewing=ENDPOINT_SEWING,
+    ).execute()
+    result = Periodic2DRank2BandEquivalenceHoppingLocalityAnalysisRecorder(
+        analysis
+    ).result()
     verification = BandEquivalenceHoppingLocalityVerifier(
         request=request,
         result=result.diagnostics,

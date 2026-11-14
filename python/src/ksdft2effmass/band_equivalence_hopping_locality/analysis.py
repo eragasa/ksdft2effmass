@@ -44,6 +44,9 @@ from ksdft2effmass.real_space_support_truncation import (
     SupportToleranceSelectionOutcome,
     SupportToleranceUnresolved,
 )
+from ksdft2effmass.sewing import (
+    ReciprocalEndpointSewingInventory,
+)
 
 from .alignment import (
     FrameTransportDiagnostic,
@@ -107,12 +110,22 @@ class BandEquivalenceHoppingLocalityAnalysis(
     """Represent the complete correlated analysis of one locality request."""
 
     request: BandEquivalenceHoppingLocalityRequest
+    endpoint_sewing: ReciprocalEndpointSewingInventory
     status: str
     cases: tuple[BandEquivalenceHoppingLocalityCaseAnalysis, ...]
 
     def __post_init__(self) -> None:
         if not isinstance(self.request, BandEquivalenceHoppingLocalityRequest):
             raise TypeError("request must be BandEquivalenceHoppingLocalityRequest")
+        if type(self.endpoint_sewing) is not ReciprocalEndpointSewingInventory:
+            raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingInventory")
+        if self.endpoint_sewing.spatial_dimension != self.request.dimension:
+            raise ValueError("endpoint sewing must match the request dimension")
+        ambient_dimension = int(
+            self.request.synthetic_model.retained_seed.magnitude.shape[0]
+        )
+        if self.endpoint_sewing.ambient_dimension != ambient_dimension:
+            raise ValueError("endpoint sewing must match the parent ambient dimension")
         if type(self.status) is not str or not self.status:
             raise TypeError("status must be a nonempty built-in string")
         if (
@@ -154,12 +167,32 @@ class Rank2BandEquivalenceHoppingLocalityAnalyzer(
 ):
     """Perform the complete shared rank-two locality analysis of one bound request."""
 
-    __slots__ = ("_request",)
+    __slots__ = ("_endpoint_sewing", "_request")
 
-    def __init__(self, *, request: BandEquivalenceHoppingLocalityRequest) -> None:
+    def __init__(
+        self,
+        *,
+        request: BandEquivalenceHoppingLocalityRequest,
+        endpoint_sewing: ReciprocalEndpointSewingInventory,
+    ) -> None:
         if not isinstance(request, BandEquivalenceHoppingLocalityRequest):
             raise TypeError("request must be BandEquivalenceHoppingLocalityRequest")
+        if type(endpoint_sewing) is not ReciprocalEndpointSewingInventory:
+            raise TypeError("endpoint_sewing must be ReciprocalEndpointSewingInventory")
+        if endpoint_sewing.spatial_dimension != request.dimension:
+            raise ValueError("endpoint sewing must match the request dimension")
+        ambient_dimension = int(
+            request.synthetic_model.retained_seed.magnitude.shape[0]
+        )
+        if endpoint_sewing.ambient_dimension != ambient_dimension:
+            raise ValueError("endpoint sewing must match the parent ambient dimension")
         self._request = request
+        self._endpoint_sewing = endpoint_sewing
+
+    @property
+    def endpoint_sewing(self) -> ReciprocalEndpointSewingInventory:
+        """Return positive reciprocal-axis maps in lattice-axis order."""
+        return self._endpoint_sewing
 
     @property
     def request(self) -> BandEquivalenceHoppingLocalityRequest:
@@ -180,6 +213,7 @@ class Rank2BandEquivalenceHoppingLocalityAnalyzer(
             dimension,
             rank_absolute,
             rank_relative,
+            endpoint_sewing=self.endpoint_sewing,
         )
 
     def analyze_restricted_gauge_alignment(
@@ -279,7 +313,11 @@ class Rank2BandEquivalenceHoppingLocalityAnalyzer(
         direct: ComplexArray,
     ) -> BandEquivalenceHoppingLocalityErrorChannels:
         """Return rank-normalized matrix and ordered-band error channels."""
-        return error_channels(approximation, direct)
+        return error_channels(
+            approximation,
+            direct,
+            norm_energy_scale=1.0,
+        )
 
     def complete_shell_fields(
         self,
@@ -359,10 +397,10 @@ class Rank2BandEquivalenceHoppingLocalityAnalyzer(
         sublattice[..., 0, 1] = gamma
         sublattice[..., 1, 0] = gamma.conjugate()
         sublattice[..., 1, 1] = 0.0
-        parent_dimension = int(model.onsite.magnitude.shape[0])
+        ambient_dimension = int(model.onsite.magnitude.shape[0])
         retained_rank = model.retained_rank
         result = np.zeros(
-            (*shape, parent_dimension, parent_dimension),
+            (*shape, ambient_dimension, ambient_dimension),
             dtype=np.complex128,
         )
         identity = np.eye(retained_rank, dtype=np.complex128)
@@ -790,6 +828,7 @@ class Rank2BandEquivalenceHoppingLocalityAnalyzer(
         )
         return BandEquivalenceHoppingLocalityAnalysis(
             request=definition,
+            endpoint_sewing=self.endpoint_sewing,
             status="development-smoke-not-retained-evidence",
             cases=case_results,
         )

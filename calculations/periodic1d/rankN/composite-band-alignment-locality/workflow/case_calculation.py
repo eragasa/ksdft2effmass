@@ -225,7 +225,7 @@ class HigherRankD1CaseCalculator:
             rank=definition.rank,
             depth=definition.depth,
             exact_isolation=EXACT_ISOLATION,
-            exact_attack_angle_bound=constructor.exact_attack_angle_bound(
+            exact_transformation_angle_bound=constructor.exact_transformation_angle_bound(
                 definition.rank
             ),
             basis_identifier=definition.basis_identifier,
@@ -308,7 +308,7 @@ class HigherRankD1CaseCalculator:
                 - np.max(fields.retained_energies, axis=1)
             )
         )
-        sampled_angle = HigherRankD1ModelConstructor.sampled_attack_angle_maximum(
+        sampled_angle = HigherRankD1ModelConstructor.sampled_transformation_angle_maximum(
             rank, definition.depth, fields.reduced_coordinates
         )
         coordinate_defect = self._coordinate_defect(fields.reduced_coordinates)
@@ -446,7 +446,7 @@ class HigherRankD1CaseCalculator:
             )
             aligned_operators = np.asarray(
                 np.swapaxes(transformation.conjugate(), -1, -2)
-                @ fields.attacked_operators
+                @ fields.gauge_transformed_operators
                 @ transformation,
                 dtype=np.complex128,
             )
@@ -480,7 +480,7 @@ class HigherRankD1CaseCalculator:
         return HigherRankD1MeshDiagnostics(
             mesh_size=mesh_size,
             sampled_isolation=sampled_isolation,
-            sampled_attack_angle=sampled_angle,
+            sampled_transformation_angle=sampled_angle,
             coordinate_maximum_defect=coordinate_defect,
             parent_hermiticity=parent_hermiticity,
             reference_isometry=reference_isometry,
@@ -1046,13 +1046,13 @@ class HigherRankD1CaseCalculator:
         a1: HigherRankD1A1Selection,
     ) -> Complex128Array:
         if channel == "A0":
-            return evaluation.attacked_operators
+            return evaluation.gauge_transformed_operators
         if channel == "A1":
             if type(a1) is not HigherRankD1A1QualifiedSelection:
                 raise ValueError("A1 direct field is inapplicable")
             unitary = a1.transformation
             values = np.asarray(
-                unitary.conjugate().T @ evaluation.attacked_operators @ unitary,
+                unitary.conjugate().T @ evaluation.gauge_transformed_operators @ unitary,
                 dtype=np.complex128,
             )
             return immutable_complex128_array(values, "a1_direct_evaluation")

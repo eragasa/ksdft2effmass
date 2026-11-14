@@ -90,9 +90,7 @@ figure_data = Periodic1DRank2CompleteFiveScaleFigureData.from_record(
     record,
     source_sha256=verification.subject_sha256,
 )
-visualizations = Periodic1DRank2CompleteFiveScaleFigureRenderer(
-    figure_data
-).execute()
+visualizations = Periodic1DRank2CompleteFiveScaleFigureRenderer(figure_data).execute()
 figure_sha256 = {
     visualization.filename: hashlib.sha256(visualization.png).hexdigest()
     for visualization in visualizations

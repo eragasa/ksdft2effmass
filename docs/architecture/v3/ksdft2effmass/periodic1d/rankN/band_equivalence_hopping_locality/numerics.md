@@ -1,6 +1,6 @@
 # Numerical formulation of higher-rank frame alignment
 
-## Analytic parent and attacked representations
+## Analytic parent and gauge-transformed representations
 
 For retained orbital $a=1,\ldots,r$, define
 $x_{r,a}=(2a-r-1)/(r-1)$ and let the physical reciprocal coordinate be
@@ -18,9 +18,13 @@ $$
 \left(0.75\cos k+0.25\cos 2k\right).
 $$
 
-The ambient basis orders all $r$ retained orbitals before the $r$ exterior orbitals.
-The reference frame embeds the retained coordinate axes into this $2r$-dimensional
-basis, and endpoint sewing is the ambient identity. A depth-$L$ product of disjoint
+The ambient coordinate order places all $r$ retained orbitals before the $r$ exterior
+orbitals. Independently, the analytic model retains one exact
+`Periodic1DBasisIdentity` for retained-operator rows and columns. The admitted ranks
+$3$, $4$, $8$, and $16$ each have a separately enumerated coordinate inventory; labels
+are not generated from a legacy string or from the integer rank. The reference frame
+embeds the retained coordinate axes into this $2r$-dimensional ambient space, and
+endpoint sewing is the ambient identity. A depth-$L$ product of disjoint
 nearest-neighbor real rotations defines $G_{r,L}(k)$. For one-indexed pair start $j$ in
 layer $\ell$,
 
@@ -38,7 +42,7 @@ $$
 
 Pairs satisfy $j\equiv\ell\pmod 2$, factors within a layer commute, and layers are
 multiplied in increasing order. All pair and diagonal phases vanish, so
-$G_{r,L}(k)\in SO(r)$. The attacked frame and represented retained operator are
+$G_{r,L}(k)\in SO(r)$. The gauge-transformed frame and represented retained operator are
 
 $$
 F'_{r,L}(k)=F_r(k)G_{r,L}(k),
@@ -229,7 +233,7 @@ successive-tail monotonicity are separate diagnostics.
 
 ## Bounded independent transport reference
 
-For this P0 specialization the analytic retained frame is constant, the endpoint sewing
+For this constant-subspace specialization the analytic retained frame is constant, the endpoint sewing
 map is the ambient identity, and every neighbor and closure overlap is $I_r$. The
 independent transport slice therefore reconstructs the exact closed route without
 calling the transporter. Each link has singular spectrum $(1,\ldots,1)$, cutoff
@@ -243,7 +247,7 @@ tolerance $10^{-10}$.
 ## Bounded independent Procrustes reference
 
 The independent selection slice reconstructs the global cross matrix directly from the
-analytic attack at the one frozen selection mesh:
+analytic transformation at the one frozen selection mesh:
 
 $$
 C_{\mathrm{global}}=\frac{1}{2049}\sum_{j=0}^{2048}G(q_j)^\dagger.

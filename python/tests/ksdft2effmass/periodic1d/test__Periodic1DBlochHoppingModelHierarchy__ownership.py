@@ -4,16 +4,21 @@ import inspect
 
 import pytest
 
-from ksdft2effmass.model.blochhopping import BlochHoppingModel
-from ksdft2effmass.periodic1d.model.blochhopping import Periodic1DBlochHoppingModel
-from ksdft2effmass.periodic1d.rank1.model.blochhopping import (
-    Periodic1DRank1BlochHoppingModel,
+from ksdft2effmass.models.blochhopping import BlochHoppingModel
+from ksdft2effmass.periodic.periodic1d.models.blochhopping import (
+    Periodic1DBlochHoppingModel,
 )
-from ksdft2effmass.periodic1d.rank2.model.blochhopping import (
+from ksdft2effmass.periodic.periodic1d.rank2.models import Periodic1DRank2Model
+from ksdft2effmass.periodic.periodic1d.rank2.models.blochhopping import (
     Periodic1DRank2BlochHoppingModel,
 )
-from ksdft2effmass.periodic1d.rankN.model.blochhopping import (
+from ksdft2effmass.periodic.periodic1d.rankN.models import Periodic1DRankNModel
+from ksdft2effmass.periodic.periodic1d.rankN.models.blochhopping import (
     Periodic1DRankNBlochHoppingModel,
+)
+from ksdft2effmass.periodic1d.rank1.models import Periodic1DRank1Model
+from ksdft2effmass.periodic1d.rank1.models.blochhopping import (
+    Periodic1DRank1BlochHoppingModel,
 )
 
 pytestmark = [pytest.mark.unit, pytest.mark.software_verification]
@@ -56,22 +61,23 @@ class TestPeriodic1DBlochHoppingModelHierarchy:
                 Periodic1DRankNBlochHoppingModel,
                 Periodic1DBlochHoppingModel,
             ),
-        ) == (True, True, True, True)
+            issubclass(Periodic1DRank1BlochHoppingModel, Periodic1DRank1Model),
+            issubclass(Periodic1DRank2BlochHoppingModel, Periodic1DRank2Model),
+            issubclass(Periodic1DRankNBlochHoppingModel, Periodic1DRankNModel),
+        ) == (True, True, True, True, True, True, True)
 
-    def test__Periodic1DBlochHoppingModelHierarchy__keeps_rank_siblings(
+    def test__Periodic1DBlochHoppingModelHierarchy__refines_finite_rank(
         self,
     ) -> None:
-        """Keep rank-two and rank-N as siblings rather than parent and child."""
-        assert (
-            issubclass(
-                Periodic1DRank2BlochHoppingModel,
-                Periodic1DRankNBlochHoppingModel,
-            ),
-            issubclass(
-                Periodic1DRankNBlochHoppingModel,
-                Periodic1DRank2BlochHoppingModel,
-            ),
-        ) == (False, False)
+        """Make rank two a strict refinement of the finite-rank capability."""
+        assert issubclass(
+            Periodic1DRank2BlochHoppingModel,
+            Periodic1DRankNBlochHoppingModel,
+        )
+        assert not issubclass(
+            Periodic1DRankNBlochHoppingModel,
+            Periodic1DRank2BlochHoppingModel,
+        )
 
     def test__Periodic1DBlochHoppingModelHierarchy__retains_package_layers(
         self,
@@ -87,9 +93,9 @@ class TestPeriodic1DBlochHoppingModelHierarchy:
                 Periodic1DRankNBlochHoppingModel,
             )
         ) == (
-            "ksdft2effmass.model.blochhopping.base",
-            "ksdft2effmass.periodic1d.model.blochhopping.base",
-            "ksdft2effmass.periodic1d.rank1.model.blochhopping.model",
-            "ksdft2effmass.periodic1d.rank2.model.blochhopping.base",
-            "ksdft2effmass.periodic1d.rankN.model.blochhopping.base",
+            "ksdft2effmass.models.blochhopping.base",
+            "ksdft2effmass.periodic.periodic1d.models.blochhopping.base",
+            "ksdft2effmass.periodic1d.rank1.models.blochhopping.model",
+            "ksdft2effmass.periodic.periodic1d.rank2.models.blochhopping.base",
+            "ksdft2effmass.periodic.periodic1d.rankN.models.blochhopping.base",
         )

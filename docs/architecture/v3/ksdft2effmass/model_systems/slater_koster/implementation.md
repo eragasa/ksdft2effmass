@@ -1,42 +1,46 @@
-# Slater--Koster implementation
+# Diamond Slater--Koster implementation boundary
 
-## Ownership
+## Source layout
 
-The reusable package is
-`python/src/ksdft2effmass/model_systems/slater_koster/`:
+- `geometry.py` owns the concrete FCC primitive cell, descriptive diamond-center
+  identifiers, shell representatives, and their composition into PhysKit spatial-basis
+  and directed-bond records.
+- `parameters.py` owns KSD's concrete onsite and first-/second-neighbor grouping,
+  stable fifteen-value order, electron-volt admission, and composition into PhysKit
+  seven-channel integral records. The omitted first-neighbor channels are supplied as
+  explicit zeros rather than inferred.
+- `model.py` owns the KSD model definition, onsite block, shell inventory, represented
+  basis correlation, and evaluation wrapper. It composes the exact hopping definition
+  and delegates two-center construction, generated Hermitian reverses, ordinary-cell
+  assembly, seven-channel linear parameterization, ordered reciprocal-sample evaluation,
+  cell-gauge Bloch evaluation, and orbital-center gauge construction directly to PhysKit.
+- `serialization.py` owns the concrete model-definition wire and records the PhysKit
+  mechanics owner without serializing a fit or scientific disposition.
 
-- `geometry.py` uses PhysKit's `DirectLattice3D` and PhysKit scalar quantities rather
-  than defining a competing lattice primitive;
-- `parameters.py` owns immutable eV parameter records and the stable vector map;
-- `model.py` owns bond-direction maps, Bloch assembly, and exact-Hermitian refinement;
-- `serialization.py` delegates canonical bytes to `TypedJsonMappingSerializer`; and
-- `__init__.py` declares the supported public imports.
+The public records and model are frozen, slotted, and keyword-only. Public numeric
+boundaries reject booleans, numeric strings, wrong shapes, and nonfinite values.
 
-Campaign declarations, authorization, scientific coordinates, evidence disposition,
-and acceptance remain under `calculations/Si/bulk/`. The reusable package has no
-filesystem or calculator effects.
+## Dependency direction
 
-## Numeric boundaries
+```text
+KSD diamond geometry and shell policy
+KSD concrete parameter grouping and onsite terms
+KSD represented-basis and wire correlation
+                    |
+                    v
+Project Koios PhysKit Slater--Koster mechanics
+Project Koios PhysKit linear channel models and reciprocal evaluation
+Project Koios PhysKit block-hopping Bloch evaluation
+Project Koios PhysKit orbital-center gauge construction
+```
 
-Public array inputs require NumPy arrays with real integer or floating dtype. Boolean
-arrays, numeric strings, nonfinite values, and incorrect shapes are rejected rather
-than coerced. Energies require PhysKit `ScalarQuantity` values in `electron_volt`; the
-lattice parameter requires `angstrom`. Returned parameter and hopping arrays use
-immutable byte-backed binary64 storage. Arithmetic is not clipped; nonfinite phase or
-matrix results from binary64 overflow raise `OverflowError`.
+The reusable layer does not import KSD. KSD does not retain copied reusable hopping or
+assembly implementations. The `calculations/` predecessor is not an import provider,
+compatibility package, or fallback path.
 
-## Synthetic verification
+## Deliberate exclusions
 
-Focused tests under
-`python/tests/ksdft2effmass/model_systems/slater_koster/` check:
-
-- right-handed primitive geometry and complete first/second shells;
-- parameter order, units, immutability, and invalid numeric boundaries;
-- $T(-d)=T(d)^\mathsf{T}$ and fixed-zero first-neighbor channels;
-- analytic Gamma-point shell sums;
-- Hermiticity and spinless time reversal at a generic k point;
-- reciprocal-shift gauge covariance and cubic-axis spectral symmetry; and
-- deterministic convention-rich typed JSON.
-
-These are software-verification tests with synthetic parameters. They do not validate a
-silicon fit or authorize Level 2.
+The implementation does not own fitting, residual construction, sample selection,
+weighting, alignment admission, evidence interpretation, model selection, or
+scientific acceptance. It does not add heteropolar bonds, spin, spin--orbit coupling,
+$f$ orbitals, overlap matrices, or generalized eigenproblems.

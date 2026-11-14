@@ -35,7 +35,6 @@ from typing import Any
 
 import pytest
 
-from ksdft2effmass import provenance as legacy_provenance
 from ksdft2effmass.workflows import (
     ArtifactContentIdentity,
     ArtifactIdentity,
@@ -59,7 +58,6 @@ from ksdft2effmass.workflows import (
     ResultObjectIdentity,
     TaskActivationIdentity,
     TaskInstanceIdentity,
-    UnknownLegacyProducer,
     WorkflowIdentity,
     WorkflowRunIdentity,
 )
@@ -249,18 +247,18 @@ def make_entry() -> ArtifactManifestEntry:
     )
 
 
-def make_legacy_entry(
+def make_fixture_entry(
     name: str,
     digit: str,
     parents: tuple[ArtifactIdentity, ...] = (),
 ) -> ArtifactManifestEntry:
-    """Return one explicitly limited synthetic legacy entry.
+    """Return one explicitly limited synthetic retained-fixture entry.
 
     Evidence ID: Helper owns no identifier.
 
     Requirement: Support parent-graph closure evidence without an independent claim.
 
-    Method: Construct matching unknown-legacy producer and manifest-entry records.
+    Method: Construct matching retained-fixture producer and manifest-entry records.
 
     Oracle: Consuming tests own expected graph behavior.
 
@@ -268,20 +266,28 @@ def make_legacy_entry(
 
     Interpretation: Failure blocks consuming evidence owners.
 
-    Limitations: Synthetic legacy state is not calculated physical data.
+    Limitations: Synthetic retained-fixture state is not calculated physical data.
     """
     artifact = ArtifactIdentity(f"artifact.{name}")
     content = make_content(digit * 64, 1)
-    producer = UnknownLegacyProducer(
+    producer = ImportedRetainedFixture(
         ArtifactProducerProvenanceIdentity(f"producer.{name}"),
         1,
-        ArtifactProducerKind.UNKNOWN_LEGACY,
+        ArtifactProducerKind.IMPORTED_RETAINED_FIXTURE,
         artifact,
         content,
         (f"evidence.{name}",),
-        ("claim.synthetic-legacy-only",),
-        "synthetic parent-graph partition",
-        ("producer lineage intentionally unavailable",),
+        ("claim.synthetic-fixture-only",),
+        f"fixture.{name}",
+        "fixture.revision.1",
+        f"source.{name}",
+        f"fixtures/{name}",
+        f"import.{name}",
+        f"import.receipt.{name}",
+        f"retained.source.{name}",
+        content,
+        f"retained.checksum.{name}",
+        f"retained.provenance.{name}",
         "synthetic_test_data",
     )
     return ArtifactManifestEntry(
@@ -435,16 +441,16 @@ def test_artifact__content_identity__is_strict_fixed_sha256_and_u64() -> None:
         ArtifactContentIdentity("sha512", "0" * 64, 1)
 
 
-def test_artifact__producer_union__retains_five_non_interchangeable_variants() -> None:
+def test_artifact__producer_union__retains_four_non_interchangeable_variants() -> None:
     """Evidence ID: SV-WFA-003
 
-    Requirement: Producer provenance is closed over five separately shaped variants;
+    Requirement: Producer provenance is closed over four separately shaped variants;
     inapplicable Workflow lineage cannot leak into non-Workflow records.
 
     Method: Construct one value of every public variant and inspect its discriminator
     and source-specific fields.
 
-    Oracle: The accepted Workflow artifact architecture defines the five variants and
+    Oracle: The accepted Workflow artifact architecture defines the four variants and
     prohibits a sparse bag of mostly absent fields.
 
     Acceptance: Kinds are exhaustive and distinct; only the represented producer has
@@ -454,8 +460,8 @@ def test_artifact__producer_union__retains_five_non_interchangeable_variants() -
 
     Limitations: Synthetic non-Workflow identities establish no external truth.
     """
-    artifact_ids = tuple(ArtifactIdentity(f"artifact.{index}") for index in range(5))
-    content = tuple(make_content(str(index) * 64, index + 1) for index in range(5))
+    artifact_ids = tuple(ArtifactIdentity(f"artifact.{index}") for index in range(4))
+    content = tuple(make_content(str(index) * 64, index + 1) for index in range(4))
     represented = make_workflow_producer(
         artifact_identity=artifact_ids[0], content_identity=content[0]
     )
@@ -515,19 +521,7 @@ def test_artifact__producer_union__retains_five_non_interchangeable_variants() -
         "review.1",
         "authorship.record.1",
     )
-    legacy = UnknownLegacyProducer(
-        ArtifactProducerProvenanceIdentity("producer.legacy"),
-        1,
-        ArtifactProducerKind.UNKNOWN_LEGACY,
-        artifact_ids[4],
-        content[4],
-        ("evidence.legacy-checksum",),
-        ("claim.legacy-bytes-only",),
-        "producer record unavailable",
-        ("attempt identity unavailable", "Workflow identity unavailable"),
-        "incomplete_producer_provenance",
-    )
-    producers = (represented, external, fixture, authored, legacy)
+    producers = (represented, external, fixture, authored)
     assert {producer.kind for producer in producers} == set(ArtifactProducerKind)
     assert external.limitation_values == (
         "external Workflow execution records are unavailable",
@@ -565,7 +559,7 @@ def test_artifact__producer_variants__reject_wrong_tags_and_incomplete_boundarie
         RepresentedWorkflowProducer(
             producer.identity,
             1,
-            ArtifactProducerKind.UNKNOWN_LEGACY,
+            ArtifactProducerKind.HUMAN_AUTHORED_COMPACT_INPUT,
             producer.artifact_identity,
             producer.content_identity,
             producer.evidence_identity_values,
@@ -873,7 +867,7 @@ def test_artifact__manifest__is_immutable_canonical_revision_chain() -> None:
             (entry,),
         )
 
-    dangling = make_legacy_entry("dangling", "1", (ArtifactIdentity("missing"),))
+    dangling = make_fixture_entry("dangling", "1", (ArtifactIdentity("missing"),))
     with pytest.raises(ValueError, match="parent artifact identity"):
         ArtifactManifest(
             first_identity,
@@ -887,8 +881,8 @@ def test_artifact__manifest__is_immutable_canonical_revision_chain() -> None:
         )
     left_identity = ArtifactIdentity("artifact.left")
     right_identity = ArtifactIdentity("artifact.right")
-    left = make_legacy_entry("left", "2", (right_identity,))
-    right = make_legacy_entry("right", "3", (left_identity,))
+    left = make_fixture_entry("left", "2", (right_identity,))
+    right = make_fixture_entry("right", "3", (left_identity,))
     with pytest.raises(ValueError, match="must be acyclic"):
         ArtifactManifest(
             first_identity,
@@ -899,39 +893,4 @@ def test_artifact__manifest__is_immutable_canonical_revision_chain() -> None:
             run,
             evidence_closure(left, right),
             (left, right),
-        )
-
-
-def test_artifact__public_owner__does_not_alias_legacy_provenance_identity() -> None:
-    """Evidence ID: SV-WFA-007
-
-    Requirement: Workflow-owned v2 identities are explicit new owners, not aliases of
-    equal-looking transitional ``ksdft2effmass.provenance`` records.
-
-    Method: Compare public class identities and reject a legacy identity in a Workflow
-    manifest entry.
-
-    Oracle: The migration crosswalk requires explicit adaptation rather than aliases.
-
-    Acceptance: The classes are distinct and a legacy identity raises ``TypeError``.
-
-    Interpretation: Failure identifies owner collapse or accidental compatibility.
-
-    Limitations: This test does not implement or authorize a migration adapter.
-    """
-    assert ArtifactIdentity is not legacy_provenance.ArtifactIdentity
-    entry = make_entry()
-    legacy = legacy_provenance.ArtifactIdentity("legacy", "0" * 64, 1)
-    with pytest.raises(TypeError, match="ArtifactIdentity"):
-        ArtifactManifestEntry(
-            entry.identity,
-            legacy,  # type: ignore[arg-type]
-            entry.content_identity,
-            entry.native_format,
-            entry.semantic_role,
-            entry.retention_classification,
-            (),
-            None,
-            entry.lineage_relations,
-            entry.producer_provenance,
         )

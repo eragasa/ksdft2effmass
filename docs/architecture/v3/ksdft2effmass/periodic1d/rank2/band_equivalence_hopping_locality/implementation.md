@@ -8,7 +8,7 @@ scientific values without mapping or JSON methods. `analysis.py` composes instal
 Fourier, cyclic-to-ordinary, interpolation, and truncation owners around harmonic
 maximizers configured internally from each request's declared harmonic controls.
 Reusable `solidstate.GaugeRotation` definitions bind their matrix rank and all
-rotation parameters, while `solidstate.GaugeAttack` evaluates the definition on an
+rotation parameters, while `solidstate.GaugeTransformation` evaluates the definition on an
 explicit coordinate inventory, validates its unitary matrices against the producer's
 declared tolerance, and applies the right-acting similarity transformation. The
 installed sinusoidal rank-two rotation supplies the calculation-specific matrix field;
@@ -123,14 +123,14 @@ aliases are not retained; canonical result bytes do not depend on those Python n
 
 The KSD transport diagnostic action explicitly labels its derived link quantity as the
 maximum primitive-link Frobenius residual. It does not present that derived value as a
-verbatim PhysKit or Optimization-owner diagnostic. Reference and attacked hopping powers
+verbatim PhysKit or Optimization-owner diagnostic. Reference and gauge-transformed hopping powers
 are paired only after two complete single-channel inventories have been calculated; no
 zero-valued comparison placeholder is used.
 
 ## Dependency direction
 
 The implementation depends downward on `ksdft2effmass.solidstate`, including the
-generic `GaugeRotation`/`GaugeAttack` boundary, PhysKit quantities
+generic `GaugeRotation`/`GaugeTransformation` boundary, PhysKit quantities
 and closed-loop transport, and Project Koios Optimization harmonic maximization. It does
 not import calculation or experiment trees. The independent flat reference uses NumPy
 directly and does not call the production transform, interpolation, Nyquist-conversion,
