@@ -13,7 +13,7 @@
       ],
       "output": "QeCalculatorInputBinding",
       "provider_inputs": [
-        "projectkoios.simulations.calculator.input.CalculatorInputRecord"
+        "projectkoios.simulations.calculator_input.CalculatorInputRecord"
       ],
       "required_checks": [
         "explicit KSD admission-policy identity",
@@ -255,8 +255,8 @@
   "provider_baseline": {
     "audit_owner_count": 101,
     "ksd_audit_commit": "aa4098b3d32fe05436a1ba8dab18903a4347b20d",
-    "ksd_dependency_pin": "a3916ca442be546839a39d131642e660a04c1495",
-    "projectkoios_simulations_commit": "a3916ca442be546839a39d131642e660a04c1495",
+    "ksd_dependency_pin": "841f5e34afd0a83c9a63da10c41a9d513c1caa80",
+    "projectkoios_simulations_commit": "841f5e34afd0a83c9a63da10c41a9d513c1caa80",
     "qualification_path": "docs/provenance/quantumespresso-execution-evidence-boundary.json",
     "qualification_sha256": "ed29c76fe02913315faa1565504c6739aaf82aae457a0558cffe0817332baf88"
   },

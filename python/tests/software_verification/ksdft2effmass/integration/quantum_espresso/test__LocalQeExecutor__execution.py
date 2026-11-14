@@ -34,8 +34,8 @@ from dataclasses import replace
 from pathlib import Path
 
 import pytest
-from projectkoios.simulations.calculator import CalculatorIntegrationId
-from projectkoios.simulations.calculator.input import (
+from projectkoios.simulations.calculator import CalculatorIntegrationEnum
+from projectkoios.simulations.calculator_input import (
     CalculatorExternalInputRequirement,
     CalculatorInputArtifact,
     CalculatorInputRecord,
@@ -141,7 +141,7 @@ class TestLocalQeExecutor:
                 byte_size=1,
                 sha256="1" * 64,
             ),
-            integration_id=CalculatorIntegrationId("quantum-espresso"),
+            integration_id=CalculatorIntegrationEnum.QUANTUM_ESPRESSO,
             calculator_name="Quantum ESPRESSO pw.x fixture",
             calculator_version_constraint="fixture-pw-v1",
             representation="quantum-espresso-pw-input",
@@ -167,7 +167,6 @@ class TestLocalQeExecutor:
                     element_symbol="Si",
                 ),
             ),
-            mappings=(),
             preparation_operation="projectkoios.qe.pw.fixture.prepare",
             preparation_version="1",
         )

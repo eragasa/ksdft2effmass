@@ -21,7 +21,7 @@ import stat
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 
-from projectkoios.simulations.calculator.input import (
+from projectkoios.simulations.calculator_input import (
     CalculatorExternalInputRequirement,
 )
 from projectkoios.simulations.execution import (

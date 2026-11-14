@@ -5,8 +5,8 @@ from __future__ import annotations
 import hashlib
 from dataclasses import dataclass
 
-from projectkoios.simulations.calculator import CalculatorIntegrationId
-from projectkoios.simulations.calculator.input import (
+from projectkoios.simulations.calculator import CalculatorIntegrationEnum
+from projectkoios.simulations.calculator_input import (
     CalculatorExternalInputRequirement,
     CalculatorInputArtifact,
     CalculatorInputRecord,
@@ -118,7 +118,7 @@ def calculator_input_admission_scenario(
             byte_size=100,
             sha256="1" * 64,
         ),
-        integration_id=CalculatorIntegrationId("quantum-espresso"),
+        integration_id=CalculatorIntegrationEnum.QUANTUM_ESPRESSO,
         calculator_name="Quantum ESPRESSO pw.x",
         calculator_version_constraint=">=7.5,<8",
         representation="quantum-espresso-pw-input",
@@ -144,7 +144,6 @@ def calculator_input_admission_scenario(
                 element_symbol="Si",
             ),
         ),
-        mappings=(),
         preparation_operation="projectkoios.qe.pw.scf.prepare",
         preparation_version="1",
     )

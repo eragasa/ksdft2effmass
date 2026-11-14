@@ -12,7 +12,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import final
 
-from projectkoios.simulations.calculator.input import CalculatorInputRecord
+from projectkoios.simulations.calculator_input import CalculatorInputRecord
 
 from ksdft2effmass.workflows import (
     ArtifactManifestEntryIdentity,

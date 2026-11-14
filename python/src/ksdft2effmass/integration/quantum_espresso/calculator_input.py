@@ -11,8 +11,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import PurePosixPath
 
-from projectkoios.simulations.calculator import CalculatorIntegrationId
-from projectkoios.simulations.calculator.input import (
+from projectkoios.simulations.calculator import CalculatorIntegrationEnum
+from projectkoios.simulations.calculator_input import (
     CalculatorExternalInputRequirement,
     CalculatorInputArtifact,
     CalculatorInputRecord,
@@ -28,7 +28,6 @@ from .contracts import (
     QePseudopotentialArtifact,
 )
 
-_QE_INTEGRATION_ID_VALUE: str = "quantum-espresso"
 _QE_PW_INPUT_REPRESENTATION: str = "quantum-espresso-pw-input"
 _QE_PROVIDER_SCHEMA_VERSION: int = 1
 
@@ -166,7 +165,7 @@ class QeCalculatorInputBinding:
         Exact KSD admission policy applied to the bound instances.
     calculator_input
         The exact immutable provider record instance. Its native bytes, canonical
-        record identity, source reference, mappings, and external requirements are
+        record identity, source reference, and external requirements are
         retained without translation or copying.
     primary_input_artifact
         Exact nominal provider artifact admitted as the single primary input.
@@ -387,7 +386,7 @@ class QeCalculatorInputAdmission:
         if (
             calculator_input.schema_version != _QE_PROVIDER_SCHEMA_VERSION
             or calculator_input.integration_id
-            != CalculatorIntegrationId(_QE_INTEGRATION_ID_VALUE)
+            is not CalculatorIntegrationEnum.QUANTUM_ESPRESSO
             or calculator_input.representation != _QE_PW_INPUT_REPRESENTATION
         ):
             return self._failure(

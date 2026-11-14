@@ -163,7 +163,7 @@ override-dependencies = ["projectkoios-physkit==0.1.3.dev0"]
 [tool.uv.sources]
 projectkoios-optimization = { git = "https://github.com/eragasa/projectkoios-optimization.git", rev = "f0fa13693543c89b2c40f11583a1140df0cf7b0b" }
 projectkoios-physkit = { git = "https://github.com/eragasa/projectkoios-physkit.git", rev = "de47fb7b895cdd5b4d9ab6ef1ed4f418029bace4" }
-projectkoios-simulations = { git = "https://github.com/eragasa/projectkoios-simulations.git", rev = "a3916ca442be546839a39d131642e660a04c1495" }
+projectkoios-simulations = { git = "https://github.com/eragasa/projectkoios-simulations.git", rev = "841f5e34afd0a83c9a63da10c41a9d513c1caa80" }
 
 
 [tool.mypy]

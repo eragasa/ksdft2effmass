@@ -1043,7 +1043,7 @@ requires-dist = [
     { name = "pip", marker = "extra == 'dev'", specifier = ">=25.2" },
     { name = "projectkoios-optimization", extras = ["numpy", "scipy"], git = "https://github.com/eragasa/projectkoios-optimization.git?rev=f0fa13693543c89b2c40f11583a1140df0cf7b0b" },
     { name = "projectkoios-physkit", git = "https://github.com/eragasa/projectkoios-physkit.git?rev=de47fb7b895cdd5b4d9ab6ef1ed4f418029bace4" },
-    { name = "projectkoios-simulations", git = "https://github.com/eragasa/projectkoios-simulations.git?rev=a3916ca442be546839a39d131642e660a04c1495" },
+    { name = "projectkoios-simulations", git = "https://github.com/eragasa/projectkoios-simulations.git?rev=841f5e34afd0a83c9a63da10c41a9d513c1caa80" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0" },
     { name = "python-flint", marker = "extra == 'certificates'", specifier = "==0.9.0" },
@@ -1605,7 +1605,7 @@ dependencies = [
 [[package]]
 name = "projectkoios-simulations"
 version = "0.1.0.dev0"
-source = { git = "https://github.com/eragasa/projectkoios-simulations.git?rev=a3916ca442be546839a39d131642e660a04c1495#a3916ca442be546839a39d131642e660a04c1495" }
+source = { git = "https://github.com/eragasa/projectkoios-simulations.git?rev=841f5e34afd0a83c9a63da10c41a9d513c1caa80#841f5e34afd0a83c9a63da10c41a9d513c1caa80" }
 dependencies = [
     { name = "numpy" },
     { name = "projectkoios-physkit" },

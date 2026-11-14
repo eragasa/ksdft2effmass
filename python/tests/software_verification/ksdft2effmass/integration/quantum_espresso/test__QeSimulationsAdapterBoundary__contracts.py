@@ -127,7 +127,7 @@ class TestQeSimulationsAdapterBoundary:
             "pw_terminal_evidence_and_result_assembly_reachable"
         )
         assert contract["provider_baseline"]["ksd_dependency_pin"] == (
-            "a3916ca442be546839a39d131642e660a04c1495"
+            "841f5e34afd0a83c9a63da10c41a9d513c1caa80"
         )
         assert contract["claim_boundary"] == [
             "This design authorizes no Quantum ESPRESSO or Wannier90 execution.",
@@ -148,7 +148,7 @@ class TestQeSimulationsAdapterBoundary:
             (repository_root / "python" / "pyproject.toml").read_text(encoding="utf-8")
         )
         lock = (repository_root / "python" / "uv.lock").read_text(encoding="utf-8")
-        expected_commit = "a3916ca442be546839a39d131642e660a04c1495"
+        expected_commit = "841f5e34afd0a83c9a63da10c41a9d513c1caa80"
 
         assert (
             project["tool"]["uv"]["sources"]["projectkoios-simulations"]["rev"]

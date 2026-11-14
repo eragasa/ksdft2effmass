@@ -8,13 +8,22 @@ correlation, persistence, campaign policy, or scientific interpretation out of t
 repository. It refines the earlier package-ownership and Task decisions; it does not
 authorize calculator execution or a dependency revision.
 
-The provider baseline is Project Koios Simulations named-exit-disposition commit
+The KSD dependency pin is Project Koios Simulations reconciliation commit
+`841f5e34afd0a83c9a63da10c41a9d513c1caa80`. It retains the execution-observation
+owners originally introduced by named-exit-disposition commit
 `a3916ca442be546839a39d131642e660a04c1495`, extending execution-observation commit
 `2491859a3cc9edddae97d013aeba6016c8e3c07b`, based on merge commit
 `f0aa79573988ce89bb8f8df43c55bb9dc3d43fdd`. Its provenance record
 `docs/provenance/quantumespresso-execution-evidence-boundary.json` qualifies 101 KSD
 owners in seven capability groups. The corresponding machine-readable KSD transition
 plan is [simulations-adapter-boundary.json](../simulations-adapter-boundary.json).
+
+Input admission uses `CalculatorIntegrationEnum` and `calculator_input` with that
+exact reconciled provider revision. No retired import aliases or dual-contract
+admission are introduced. The existing KSD PhysKit pin and UV override remain at
+`de47fb7b895cdd5b4d9ab6ef1ed4f418029bace4`; this differs from the provider's
+standalone PhysKit selection, so KSD compatibility checks use the resolved KSD
+dependency graph rather than a provider source overlay.
 
 ## Ownership decision
 
@@ -87,13 +96,13 @@ or a serializer that treats an external provider object as a KSD Workflow result
 ### Prepared calculator input
 
 `QeCalculatorInputAdmission` consumes the exact immutable
-`projectkoios.simulations.calculator.input.CalculatorInputRecord` instance together
+`projectkoios.simulations.calculator_input.CalculatorInputRecord` instance together
 with the existing KSD `QeExecutionInput` Workflow and predecessor correlations. It
 returns `QeCalculatorInputBinding`, which retains both instances directly. The binding
 also retains every exact provider `CalculatorExternalInputRequirement` instance through
 `QeExternalInputResourceBinding`, paired only with the KSD artifact identity and
 root-confined deployment destination. It is not a wire adapter and does not copy
-provider bytes, digests, mappings, source references, or external requirements into a
+provider bytes, digests, source references, or external requirements into a
 second calculator-input model.
 
 The effect-free admission action requires an explicit KSD policy identity and verifies

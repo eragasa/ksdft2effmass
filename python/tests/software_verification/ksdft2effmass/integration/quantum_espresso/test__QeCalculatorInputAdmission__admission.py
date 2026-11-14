@@ -8,8 +8,8 @@ import hashlib
 from dataclasses import FrozenInstanceError, replace
 
 import pytest
-from projectkoios.simulations.calculator import CalculatorIntegrationId
-from projectkoios.simulations.calculator.input import (
+from projectkoios.simulations.calculator import CalculatorIntegrationEnum
+from projectkoios.simulations.calculator_input import (
     CalculatorExternalInputRequirement,
     CalculatorInputArtifact,
     CalculatorInputRecord,
@@ -103,13 +103,19 @@ class TestQeCalculatorInputAdmission:
         with pytest.raises(ValueError, match="exact provider requirement"):
             replace(result, external_input_resources=(copied_resource,))
 
+    @pytest.mark.parametrize(
+        "integration_id",
+        (CalculatorIntegrationEnum.VASP, CalculatorIntegrationEnum.ABINIT),
+    )
     def test__QeCalculatorInputAdmission__rejects_wrong_integration(
-        self, admission_scenario: CalculatorInputAdmissionScenario
+        self,
+        admission_scenario: CalculatorInputAdmissionScenario,
+        integration_id: CalculatorIntegrationEnum,
     ) -> None:
         """A provider record for another calculator integration fails closed."""
         provider_input: CalculatorInputRecord = replace(
             admission_scenario.provider_input,
-            integration_id=CalculatorIntegrationId("vasp"),
+            integration_id=integration_id,
         )
 
         result: AdmissionResult = admission_scenario.admission.execute(

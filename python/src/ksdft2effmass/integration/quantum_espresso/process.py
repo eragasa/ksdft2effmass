@@ -18,7 +18,7 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from projectkoios.simulations.calculator.input import (
+from projectkoios.simulations.calculator_input import (
     CalculatorExternalInputRequirement,
     CalculatorInputArtifact,
 )
