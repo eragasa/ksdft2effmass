@@ -24,6 +24,21 @@ labelled downstream development and exploratory analysis while retaining these l
 Production and publication-grade acceptance remain pending, and this directory
 authorizes no additional Quantum ESPRESSO or Wannier90 execution.
 
+## Prospective parent and retained development source
+
+The future common B/Si/P baseline is **PseudoDojo ONCVPSP v0.5, PBE,
+scalar-relativistic, stringent**, as selected by the
+[pseudopotential-library specification](../../../specification/dft-pseudopotential-library/v1/index.md).
+Exact current native-file identities and convergence remain pending; this selection
+is not a production-qualified parent. Final B:Si acceptor/SOC work retains its separate
+fully relativistic branch with a matching Si host.
+
+The existing common-space diagnosis targets the retained **SSSP 1.3.0 PBE Efficiency**
+Wannier source under its own authenticated identities and development limits. It does
+not relabel that source as PseudoDojo, inherit its cutoff or structure qualification,
+or require repeating the native calculation merely because the prospective parent
+family differs.
+
 ## Local artifact storage
 
 The completed native Quantum ESPRESSO and Wannier90 occurrence directories are stored
@@ -62,6 +77,12 @@ library owners. Workflow integration is intentionally outside this extraction.
 
 ## Contents
 
+- [`canonical-layout-migration.md`](canonical-layout-migration.md) — proposed target
+  hierarchy, family-level old-to-new path crosswalk, migration gates, and
+  legacy-retirement sequence; no retained bytes have been moved or deleted yet.
+- [`protocol/decisions/qe-simulation-design-from-rankn.md`](protocol/decisions/qe-simulation-design-from-rankn.md)
+  — new-parent QE campaign design derived from finite-rank workflow lessons and the
+  authoritative bulk specifications; planning only, with no execution authority.
 - [`development-plan.md`](development-plan.md) — gated calculation sequence from the
   audited bootstrap through a retained joint-fidelity result.
 - [`provisional-use-disposition.md`](provisional-use-disposition.md) — successor

@@ -75,6 +75,21 @@ jobs:
               --config-file python/pyproject.toml "${test_module}"
           done < /tmp/changed-python-test-modules.txt
 
+      - name: Check silicon common-space diagnostic software
+        env:
+          PYTHONPATH: calculations/Si/bulk
+          MYPYPATH: calculations/Si/bulk
+        run: |
+          python/.venv/bin/python -m pytest -q \
+            calculations/Si/bulk/common_space/diagnostics/tests
+          python/.venv/bin/python -m ruff check --config calculations/.ruff.toml \
+            calculations/Si/bulk/common_space/diagnostics
+          python/.venv/bin/python -m ruff format --check --config calculations/.ruff.toml \
+            calculations/Si/bulk/common_space/diagnostics
+          python/.venv/bin/python -m mypy --strict --config-file python/pyproject.toml \
+            calculations/Si/bulk/common_space/diagnostics/diagnosis.py \
+            calculations/Si/bulk/common_space/diagnostics/tests/test__CommonSpaceRankDiagnosis.py
+
       - name: Build documentation
         env:
           PYTHONPATH: python/src

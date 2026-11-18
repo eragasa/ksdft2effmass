@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import io
+import itertools
 import json
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
@@ -23,6 +26,7 @@ from common_space.diagnostics.diagnosis import (
     FileSourceDeclaration,
     authenticate_file,
     authenticate_provider,
+    reconstruct_rank_gate,
     validate_retained_source_contract,
 )
 
@@ -115,6 +119,20 @@ class TestCommonSpaceRankDiagnosis:
 
         assert len(identities) == 6
 
+    def test__provider_sources__rejects_a_changed_digest(self) -> None:
+        request = read_request(path=DEFAULT_REQUEST)
+        request = replace(
+            request,
+            provider_modules=(
+                replace(request.provider_modules[0], sha256="0" * 64),
+                *request.provider_modules[1:],
+            ),
+        )
+        reporter = HumanReadableProgressReporter(stream=io.StringIO())
+
+        with pytest.raises(RuntimeError, match="provider module SHA-256 differs"):
+            authenticate_provider(request, reporter)
+
     def test__retained_contract__matches_authenticated_repository_results(self) -> None:
         request = read_request(path=DEFAULT_REQUEST)
         retained_labels = {
@@ -131,6 +149,73 @@ class TestCommonSpaceRankDiagnosis:
         validate_retained_source_contract(
             request=request,
             source_paths=source_paths,
+        )
+
+    def test__native_parser_boundary__rejects_a_different_trial_count(
+        self, tmp_path: Path
+    ) -> None:
+        """Parse synthetic native bytes, then stop before rank reconstruction."""
+        request = read_request(path=DEFAULT_REQUEST)
+        points = tuple(itertools.product(range(6), repeat=3))
+        payloads = {
+            "AMN": (
+                "Synthetic parser-boundary fixture; not silicon evidence.\n"
+                "20 216 1\n"
+                + "".join(
+                    f"{band} 1 {index} {int(band == 1)}.0 0.0\n"
+                    for index in range(1, 217)
+                    for band in range(1, 21)
+                )
+            ).encode("utf-8")
+        }
+        for label, rows in (("gauge", 10), ("disentanglement", 20)):
+            matrix = "".join(
+                f"{int(row == column)}.0 0.0\n"
+                for column in range(10)
+                for row in range(rows)
+            )
+            payloads[label] = (
+                "Synthetic parser-boundary fixture; not silicon evidence.\n"
+                f"216 10 {rows}\n"
+                + "".join(
+                    f"\n{x / 6:.16f} {y / 6:.16f} {z / 6:.16f}\n{matrix}"
+                    for x, y, z in points
+                )
+            ).encode("utf-8")
+        native_sources: dict[str, FileSourceDeclaration] = {}
+        reporter = HumanReadableProgressReporter(stream=io.StringIO())
+        for label, payload in payloads.items():
+            path = tmp_path / label
+            path.write_bytes(payload)
+            source = FileSourceDeclaration(
+                label=label,
+                location="absolute",
+                declared_path=str(path),
+                byte_size=len(payload),
+                sha256=hashlib.sha256(payload).hexdigest(),
+            )
+            authenticate_file(source, reporter)
+            native_sources[label] = source
+        request = replace(
+            request,
+            file_sources=tuple(
+                native_sources.get(source.label, source)
+                for source in request.file_sources
+            ),
+        )
+
+        with pytest.raises(RuntimeError, match="parsed artifact dimensions differ"):
+            reconstruct_rank_gate(request, reporter)
+
+        assert "Computing raw overlap singular values" not in reporter.transcript()
+
+    def test__continuation__requires_independent_verification_before_symmetry(
+        self,
+    ) -> None:
+        assert CommonSpaceRankDiagnosis.NEXT_CONTROLLED_STEPS == (
+            "CSD1: complete higher-precision sensitivity and symmetry-related point inventory.",
+            "CSD1-V: independently verify the rank diagnosis after authenticated parsing.",
+            "CSD2 remains blocked until complete CSD1 and independent CSD1-V pass.",
         )
 
     def test__execute__requires_a_fresh_output_root(self, tmp_path: Path) -> None:

@@ -28,6 +28,17 @@ It requires a nonexistent output root and creates artifacts exclusively; existin
 roots are rejected before source processing. There is no compatibility module at the
 former flat implementation path.
 
+The AMN boundary uses the pinned provider's constructor-owned
+`Wannier90TrialOrbitalOverlapParser(payload=...).parse()` and explicit
+`trial_orbital_count`. The unretained development request binds the current provider
+module bytes; historical S30, S105, and S110 identities are unchanged. Synthetic
+native-file tests exercise the real provider parsers and require a different trial
+count to fail before rank reconstruction. They are not retained silicon calculations.
+
+The producer's human-readable and JSON continuation reports require the remaining CSD1
+extensions and independent CSD1-V verification before CSD2. Reproducing the old rank gate
+must not be reported as permission to skip those missing stages.
+
 ## Migration boundary
 
 This is an incubation package, not a supported repository library. A later review must
@@ -36,7 +47,7 @@ threshold policy, evidence comparison, artifact persistence, and scientific
 interpretation before moving any behavior into `python/src/ksdft2effmass/`.
 
 The current producer does not import `run_definition_fit.py`, but it implements only the
-projector-rank reconstruction subset of CSD1. The separately implemented verifier,
+projector-rank reconstruction subset of CSD1. The separately implemented CSD1-V verifier,
 higher-precision sensitivity extension, symmetry-related deficient-point inventory, and
 CSD2 symmetry attribution remain absent. No retained execution, evidence promotion, fit,
 Quantum ESPRESSO run, or Wannier90 run is authorized by this package.

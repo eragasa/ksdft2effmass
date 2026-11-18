@@ -11,7 +11,8 @@ This document freezes the numerical **protocols** and provenance requirements us
 
 - Physical parent problem: [`PhysicalSpecification-v1`](ksdft2Effmass.physical-specification.v1.md).
 - Active-paper boundary: bulk silicon only; no dopants, continuum reductions, charged-defect branches, or projector searches are introduced into `P01` by this numerical specification.
-- Pseudopotential source inspected on 2026-07-28: `https://www.pseudo-dojo.org/pseudos/nc-sr-04_pbe_standard/`.
+- Current family/release/table authority: [DFT Pseudopotential Library Specification v1](dft-pseudopotential-library/v1/index.md). It supersedes the earlier standard-table source selection; exact current native-file identities remain pending.
+- The 2026-07-28 standard-table inspection is retained below as a historical identity, not as a v0.5 artifact.
 
 ## Software-stack provenance protocol
 
@@ -20,7 +21,7 @@ Production executables are not acceptance prerequisites for this task. They are 
 | Component | Frozen protocol | Downstream provenance record | Status |
 |---|---|---|---|
 | Python package | Use repository package `ksdft2effmass`, Python `3.14` as declared in `python/pyproject.toml`. | Python executable path, Python version, package commit, installed dependency versions, and relevant test command output. | Frozen |
-| Numerical Python libraries | Use NumPy `>=1.26` and SciPy `>=1.12` as declared in `python/pyproject.toml`. | Exact installed versions in each run manifest. | Frozen |
+| Numerical Python libraries | Use NumPy `>=2.3,<3` and SciPy `>=1.18,<2` as declared in `python/pyproject.toml`. | Exact installed versions in each run manifest. | Frozen |
 | Development checks | Use the repository-declared development tools when an implementation artifact is accepted. | Exact `pytest`, `ruff`, `mypy`, and coverage-tool versions when used. | Frozen |
 | Quantum ESPRESSO SCF/NSCF/relaxation | Use `pw.x` for bulk SCF, NSCF, band-path, and lattice-optimization tasks. | `pw.x --version`, executable path, module/container name, MPI/OpenMP settings, compile/build provenance when available, and run command. | Frozen provenance protocol |
 | Quantum ESPRESSO to Wannier90 interface | Use `pw2wannier90.x` for QE-to-Wannier90 conversion. The `pw.x`, `pw2wannier90.x`, and `wannier90.x` records must be mutually compatible: same QE installation for `pw.x`/`pw2wannier90.x`, matching file-format expectations, and a successful interface smoke test before accepted Wannier production. | `pw2wannier90.x --version` or QE version banner, executable path, associated `pw.x` path/version, conversion input, output checksums, and interface smoke-test result. | Frozen provenance protocol |
@@ -29,31 +30,59 @@ Production executables are not acceptance prerequisites for this task. They are 
 
 ## Bulk pseudopotential protocol
 
-Use the scalar-relativistic PseudoDojo optimized norm-conserving Vanderbilt PBE standard-table silicon pseudopotential at:
+### Current source-library selection
+
+The common B/Si/P baseline is **PseudoDojo ONCVPSP v0.5, PBE, scalar-relativistic,
+stringent**. Quantum ESPRESSO uses UPF2; ABINIT uses the separately identified PSP8
+representation. The source entry may be shared, but its native representations have
+different exact byte identities and do not establish cross-code numerical agreement.
+
+The accepted library specification records these starting hints for silicon:
+
+| Element | Low | Normal | High |
+|---|---:|---:|---:|
+| Si | 14 Ha / 28 Ry | 18 Ha / 36 Ry | 24 Ha / 48 Ry |
+
+These are source-library recommendations, not accepted project cutoffs. Exact native-file
+URLs, byte counts, complete SHA-256 identities, local set membership, and current-byte
+verification remain pending before use. No historical `Si.upf` hash is substituted for
+the selected v0.5 stringent artifact.
+
+The exact P and B artifacts are selected and verified by `06.01.01` and `07.01.01`
+within their approved branches. Final B:Si acceptor/SOC work uses the separate PseudoDojo
+v0.4 PBE fully relativistic stringent branch with a matching Si host; it does not reuse
+the scalar pilot as its spinor reference.
+
+### Historical artifact identity — not the current release
+
+The original inspection recorded this standard-table URL:
 
 ```text
 https://www.pseudo-dojo.org/pseudos/nc-sr-04_pbe_standard/Si.upf.gz
 ```
 
+Its metadata labels and byte identities are preserved as originally recorded:
+
 | Element | File | PseudoDojo table | PseudoDojo version | Type | Relativistic flag | Valence electrons | Normal hint (Ha) | High hint (Ha) | SHA-256 of downloaded `.upf.gz` | SHA-256 of decompressed `.upf` | Status |
 |---|---|---|---|---|---|---:|---:|---:|---|---|---|
-| Si | `Si.upf.gz` | `nc-sr-04_pbe_standard` | `1.0` | NC | scalar | 4 | 18 | 24 | `bfbd01ccd4b67584dcf19a490a76e9b688c25026775ce2f4a4b6a13f900dad81` | `39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282` | Frozen |
+| Si | `Si.upf.gz` | `nc-sr-04_pbe_standard` | `1.0` | NC | scalar | 4 | 18 | 24 | `bfbd01ccd4b67584dcf19a490a76e9b688c25026775ce2f4a4b6a13f900dad81` | `39822757f53f36e3bf3bfb779356152a8d3f21199c7db9dd5a931e5d18c45282` | Historical identity only |
 
-The `.djrepo.gz` metadata report PseudoDojo hint cutoffs in Hartree. Quantum ESPRESSO uses Ry for `ecutwfc`; therefore the normal/high silicon hints correspond to `ecutwfc = 36 Ry` and `48 Ry`.
-
-P and B pseudopotential files are not selected by this bulk protocol-freezing artifact. Their exact choices, checksums, relativistic form, and branch compatibility are outputs of the later impurity-specialization tasks `06.01.01` and `07.01.01`.
+The retained SSSP 1.3.0 PBE Efficiency silicon parent is another distinct historical
+development source. Its `42/336 Ry` observations, structure, and Wannier outputs are not
+v0.5/stringent convergence evidence. Neither that retained source nor the separately
+authorized SSSP v2.0 Precision comparison replaces the approved common baseline.
 
 ## Plane-wave cutoff refinement rules
 
 Cutoff convergence is a protocol, not a completed value in this artifact.
 
-1. Keep the physical branch, pseudopotential, lattice parameter, occupation convention, and $k$-mesh fixed while varying the cutoff.
-2. Start with the silicon PseudoDojo normal and high hints: `ecutwfc = 36 Ry` and `48 Ry`.
-3. Use a monotone candidate sequence that brackets and extends the hints, for example `30, 36, 42, 48, 54, 60 Ry`, unless an execution task records a justified narrower or wider sequence.
-4. Set the first charge-density cutoff trial to `ecutrho = 4 * ecutwfc` for the norm-conserving Si pseudopotential.
-5. If the accepted `ecutwfc` is controlled by charge-density sensitivity, refine `ecutrho / ecutwfc` at fixed `ecutwfc` using a monotone sequence such as `4, 6, 8`.
-6. Change only one controlled variable per convergence table.
-7. Select the smallest cutoff pair satisfying all declared convergence tolerances for the target bulk observables, then retain one higher setting as a guard calculation when computationally affordable.
+1. Keep the physical branch, exact pseudopotential bytes, lattice parameter, occupation convention, and $k$-mesh fixed while varying a cutoff coordinate.
+2. Start from the selected PseudoDojo silicon normal/high hints, `ecutwfc = 36 Ry` and `48 Ry`, as recommendations only.
+3. Freeze a monotone candidate sequence that brackets and extends those hints, for example `30, 36, 42, 48, 54, 60 Ry`; an execution preflight must declare any justified narrower or wider sequence before execution.
+4. `ecutrho = 4 * ecutwfc` is an initial norm-conserving screening trial, not an accepted density cutoff. A wavefunction-cutoff qualification axis holds the density cutoff at one prospectively frozen sufficiently conservative value.
+5. Refine the density cutoff independently at fixed wavefunction cutoff, including a higher guard. Ratios such as `4, 6, 8` describe starting candidates, not transferable accepted settings.
+6. Change only one controlled variable per convergence table; coupled screening scans do not replace the separate axes. Retain prospectively declared mixed cutoff/mesh corner controls where required.
+7. Select the smallest cutoff pair satisfying all declared convergence tolerances for the target bulk observables, then retain one higher setting on each relevant axis as a guard calculation when computationally affordable.
 8. Record rejected values and the observable that rejected them; do not update accepted values merely to make later tests pass.
 
 ## $k$-mesh refinement rules
@@ -111,10 +140,14 @@ These tolerances test numerical stability relative to the selected Kohn--Sham pa
 
 | Reference | Candidate | Metric | Tolerance | Result |
 |---|---|---|---|---|
-| Frozen Si URL and SHA-256 hashes listed in this file | Fresh download and decompression of `Si.upf.gz` | Exact SHA-256 match for compressed and decompressed files | Exact string equality | Passed in this session |
+| Historical Si URL and SHA-256 identities listed above | Original standard-table download and decompression record | Exact compressed and decompressed SHA-256 identities | Exact string equality | Historical passed record; not repeated by this reconciliation |
+| Accepted pseudopotential-library specification | Current family, release, relativity, table, and native-format declarations | Consistent source-library selection without reusing historical artifact identities | Exact declared branch | Selection specified; exact current artifact admission remains pending |
 | Protocol scope requested by PI | This artifact | No requirement for production executables or final converged numerical values at `01.01.02` | Protocol-only acceptance | Passed |
 
-This regression verifies artifact reproducibility and protocol completeness only. It does not validate any electronic-structure result.
+The historical regression records the earlier artifact identity only. The current
+source-library selection does not claim a new download, current-byte verification,
+catalog admission, completed convergence, or validation of any electronic-structure
+result.
 
 ## Explicit non-results
 
@@ -122,4 +155,4 @@ This regression verifies artifact reproducibility and protocol completeness only
 - No Wannier90 calculation was run.
 - No production executable version is accepted here.
 - No lattice constant, band gap, effective mass, converged cutoff, converged $k$-mesh, or Wannier window is reported.
-- P and B pseudopotential choices are deferred to `06.01.01` and `07.01.01`.
+- Exact current Si, P, and B artifact identities and qualification remain downstream requirements; the common family/release/table and separate final B:Si SOC branch are already selected.

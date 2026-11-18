@@ -30,8 +30,8 @@
     "hopping_first_protocol": {
       "location": "repository",
       "path": "calculations/Si/bulk/research-protocol/controlled-reduction-protocol-hopping-first.tex",
-      "byte_size": 45973,
-      "sha256": "d28146dc2c481d4793b7e8294c4bc43196eba387bce3052b24d8bde269859f79"
+      "byte_size": 66421,
+      "sha256": "7efcbb64c043c5ba34aed500902059891faae836b509bac07f2d90437cf3a1ef"
     },
     "AMN": {
       "location": "absolute",
@@ -56,10 +56,10 @@
     "distribution": "projectkoios-simulations",
     "version": "0.1.0.dev0",
     "modules": {
-      "projectkoios.integrations.wannier90": "55743d319e496edd30a31c628289ed9ea013b225c480e283af901b776d0ddd12",
+      "projectkoios.integrations.wannier90": "9689f50bc5906d911d626c3cdd16a4edb778320191402ced3ad0b94ca25cfd47",
       "projectkoios.integrations.wannier90._matrix_conventions": "95d7d19b520548cc860d6c56d53b0cec477b078a307c3e4bcb2feddbc8f2ee65",
       "projectkoios.integrations.wannier90._parsing": "07de9ab225fbc7cfd5317f1592b5dcd0105d5eaec982d814980272cdd578439a",
-      "projectkoios.integrations.wannier90.interface_data": "5b4033f5b99373eca5bd7ce1b492f52f3d16cad43945e0e2ddf845121193b078",
+      "projectkoios.integrations.wannier90.interface_data": "0bd702d1999891129237f4523150abca5bb24a3b9e76b42d19c899dd9b3e3a79",
       "projectkoios.integrations.wannier90.unitary_matrices": "33ebad1a82f887f0dd59787c066bded1989b6dd9b7220c3e551b0c5cb798e75f",
       "projectkoios.integrations.wannier90.disentanglement_matrices": "64ede7d0e45b9d1b200026322f48d832fe7587b5b99c7eb292bfae2d7390fdd7"
     }
