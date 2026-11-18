@@ -8,13 +8,13 @@ import json
 from dataclasses import dataclass
 from importlib.metadata import version
 from pathlib import Path
-from typing import TextIO, cast
+from typing import ClassVar, TextIO, cast
 
 import numpy as np
 from numpy.typing import NDArray
 from projectkoios.integrations.wannier90 import (
     Wannier90DisentanglementMatrixParser,
-    Wannier90ProjectionParser,
+    Wannier90TrialOrbitalOverlapParser,
     Wannier90UnitaryMatrixParser,
 )
 
@@ -393,6 +393,12 @@ class CommonSpaceRankDiagnosis:
 
     __slots__ = ()
 
+    NEXT_CONTROLLED_STEPS: ClassVar[tuple[str, ...]] = (
+        "CSD1: complete higher-precision sensitivity and symmetry-related point inventory.",
+        "CSD1-V: independently verify the rank diagnosis after authenticated parsing.",
+        "CSD2 remains blocked until complete CSD1 and independent CSD1-V pass.",
+    )
+
     def execute(
         self,
         *,
@@ -449,7 +455,7 @@ class CommonSpaceRankDiagnosis:
         reporter.line(f"  Scientific disposition: {scientific_status}")
         reporter.line("  Fit invoked: NO")
         reporter.line("  QE or Wannier90 invoked: NO")
-        reporter.line("  Independent CSD1 verifier: NOT IMPLEMENTED")
+        reporter.line("  Independent CSD1-V verifier: NOT IMPLEMENTED")
         reporter.line("  Higher-precision sensitivity extension: NOT IMPLEMENTED")
         reporter.line("  Symmetry-related point inventory extension: NOT IMPLEMENTED")
         reporter.line("  CSD2 symmetry attribution: NOT RUN")
@@ -466,12 +472,8 @@ class CommonSpaceRankDiagnosis:
         )
         reporter.line()
         reporter.line("Next controlled step:")
-        reporter.line(
-            "  Audit whether authenticated parent-space symmetry actions exist for CSD2."
-        )
-        reporter.line(
-            "  If they do not, record INSUFFICIENT_RETAINED_SYMMETRY_DATA and stop."
-        )
+        for step in self.NEXT_CONTROLLED_STEPS:
+            reporter.line(f"  {step}")
         reporter.line()
         reporter.line("Artifacts:")
         reporter.line(f"  {output_root / RESULT_NAME}")
@@ -503,7 +505,7 @@ class CommonSpaceRankDiagnosis:
                 "outcome": "not-implemented",
                 "reason": (
                     "the current implementation is a producer independent of S110; "
-                    "a separately implemented CSD1 verifier is still required"
+                    "a separately implemented CSD1-V verifier is required before CSD2"
                 ),
             },
             "CSD2": {
@@ -966,16 +968,18 @@ def reconstruct_rank_gate(
     source_paths = {source.label: source.resolve() for source in request.file_sources}
     validate_retained_source_contract(request=request, source_paths=source_paths)
     reporter.line("  Authenticated S30, S105, and S110 semantic contracts matched")
-    projections = Wannier90ProjectionParser().execute(source_paths["AMN"].read_bytes())
+    trial_overlaps = Wannier90TrialOrbitalOverlapParser(
+        payload=source_paths["AMN"].read_bytes()
+    ).parse()
     gauge = Wannier90UnitaryMatrixParser().execute(source_paths["gauge"].read_bytes())
     disentanglement = Wannier90DisentanglementMatrixParser().execute(
         source_paths["disentanglement"].read_bytes()
     )
     state = request.state_space
     if (
-        projections.kpoint_count != state.kpoint_count
-        or projections.band_count != state.parent_band_count
-        or projections.projection_count != state.retained_rank
+        trial_overlaps.kpoint_count != state.kpoint_count
+        or trial_overlaps.band_count != state.parent_band_count
+        or trial_overlaps.trial_orbital_count != state.retained_rank
         or gauge.kpoint_count != state.kpoint_count
         or gauge.wannier_count != state.retained_rank
         or disentanglement.kpoint_count != state.kpoint_count
@@ -1011,7 +1015,7 @@ def reconstruct_rank_gate(
 
     amn_matrices = tuple(
         np.asarray(value.magnitude, dtype=np.complex128)
-        for value in projections.matrices
+        for value in trial_overlaps.matrices
     )
     maximum_amn = max(float(np.max(np.abs(value))) for value in amn_matrices)
     native_bound = singular_value_uncertainty_bound(
@@ -1241,10 +1245,7 @@ def reconstruct_rank_gate(
         ),
         "fit_invoked": False,
         "calculator_invocations": 0,
-        "next_stage": (
-            "CSD2 must authenticate parent-space symmetry actions or record "
-            "INSUFFICIENT_RETAINED_SYMMETRY_DATA"
-        ),
+        "next_stage": " ".join(CommonSpaceRankDiagnosis.NEXT_CONTROLLED_STEPS),
     }
 
 

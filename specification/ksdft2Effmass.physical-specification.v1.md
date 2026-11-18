@@ -6,6 +6,22 @@ Scope: pristine bulk silicon, substitutional phosphorus in silicon, and substitu
 
 This document freezes the **physical parent problems** used by downstream Kohn--Sham, projection, Wannier, alignment, impurity-extraction, lattice-reduction, and continuum-reduction tasks. It intentionally does **not** specify plane-wave cutoffs, charge-density cutoffs, $k$-point meshes, convergence tolerances, eigensolver settings, or production input files; those are numerical approximations for `01.01.02`.
 
+## Pseudopotential selection authority
+
+The accepted [DFT Pseudopotential Library Specification v1](dft-pseudopotential-library/v1/index.md)
+governs the family, release, table, and native-representation choices. The common
+B/Si/P baseline is **PseudoDojo ONCVPSP v0.5, PBE, scalar-relativistic, stringent**:
+UPF2 for Quantum ESPRESSO and PSP8 for ABINIT. Exact native-file identities and
+observable-specific convergence remain downstream requirements, not consequences of
+this family selection.
+
+Final B:Si acceptor/SOC work instead uses the separately selected **PseudoDojo ONCVPSP
+v0.4, PBE, fully relativistic, stringent** branch with a matching fully relativistic
+Si host. A scalar host must not be subtracted from a spinor doped operator. The retained
+SSSP 1.3.0 PBE Efficiency silicon calculations remain development evidence of their
+own parent; they are not relabeled as PseudoDojo v0.5 results. The separately authorized
+SSSP v2.0 Precision comparison remains distinct from both branches.
+
 ## Status labels
 
 | Status | Meaning |
@@ -41,7 +57,7 @@ The boron parent problem is a periodic silicon supercell in which one Si atom is
 | Parent electronic-structure theory | Self-consistent Kohn--Sham DFT within the Born--Oppenheimer fixed-ion framework. | Existing research notes define the parent operator as the converged Kohn--Sham one-particle operator, not a many-body excitation Hamiltonian. | All reductions measure fidelity to the chosen Kohn--Sham parent, not to the exact quasiparticle spectrum or experiment. | Yes. | All stages, especially `02`, `03`, `05`--`10`. | Frozen |
 | Material system | Silicon host; dopants limited to substitutional P and substitutional B. | This is the declared initial application and avoids scope expansion to other defects/materials. | Supercell generation and operator metadata need only encode pristine Si, P:Si, and B:Si in v1. | Yes. | `02`, `06`, `07`, `08`, `09`. | Frozen |
 | Exchange-correlation approximation | PBE GGA for the v1 parent reference. | PBE is the approved semilocal solid-state baseline with compatible PseudoDojo ONCV pseudopotentials. The project tests operator reductions relative to the DFT parent; PBE band-gap error must be reported as parent-model error, not reduction error. | Produces a reproducible semilocal Kohn--Sham parent but underestimates the Si gap; numerical convergence and validation tolerances must be relative to this parent. | Yes; changing XC between bulk and doped systems invalidates direct impurity-operator subtraction. | `01.01.02`, `02`, `03`, `04`, `06`, `07`, `08`, `09`. | Frozen |
-| Pseudopotential family | Optimized norm-conserving Vanderbilt pseudopotentials from compatible PseudoDojo PBE standard tables; use the bulk Si UPF selected by `01.01.02`, with P and B UPF choices selected later by their impurity-specialization gates. | A compatible PBE ONCV source family fixes the electron--ion representation so impurity differences are physical dopant perturbations rather than pseudopotential-family artifacts. | `01.01.02` selects and records exact bulk-Si UPF metadata and protocol rules. `06.01.01` and `07.01.01` select and record exact P and B UPF metadata, including branch-specific relativistic compatibility. | Yes; Si, P, and B must use compatible PseudoDojo PBE standard-table UPF files, with species choices recorded by the relevant branch gate. | `01.01.02`, `02.01.01`, `06.01.01`, `07.01.01`. | Frozen |
+| Pseudopotential family | Common B/Si/P baseline: PseudoDojo ONCVPSP v0.5 PBE scalar-relativistic stringent. Final B:Si SOC: the separate v0.4 PBE fully relativistic stringent branch. | Family selection is explicit; exact bytes, branch-compatible state spaces, and observable-specific convergence are still required before an impurity difference is interpreted. | Quantum ESPRESSO uses UPF2 and ABINIT uses PSP8. `01.01.02`, `06.01.01`, and `07.01.01` record exact species artifacts and branch compatibility before use. | Shared within each compatible branch; final B:Si SOC requires a matching fully relativistic Si host, not the scalar bulk pilot. | `01.01.02`, `02.01.01`, `06.01.01`, `07.01.01`. | Frozen family selection; exact artifacts pending |
 | Si valence configuration | Si $3s^2 3p^2$ with frozen core. | These are the chemically active valence states for tetrahedral silicon bonding. | Determines electron count, occupied bands, and valence basis content; semicore-free Si keeps the parent problem focused. | Yes wherever Si appears. | `01.01.02`, `02`, `03`, `06`, `07`. | Frozen |
 | P valence configuration | P $3s^2 3p^3$ with frozen core. | Captures the extra group-V valence electron responsible for donor behavior relative to Si. | Neutral P:Si supercells contain one additional valence electron relative to the replaced Si site and therefore have an odd total valence-electron count for any supercell containing an integer number of Si primitive cells. | Applies to P:Si branch and any P-specific comparison. | `06`, `08-P`, `09-P`. | Frozen |
 | B valence configuration | B $2s^2 2p^1$ with frozen core. | Captures the group-III acceptor valence deficiency relative to Si. | Neutral B:Si supercells contain one fewer valence electron relative to the replaced Si site and therefore have an odd total valence-electron count for any supercell containing an integer number of Si primitive cells. | Applies to B:Si branch and any B-specific comparison. | `07`, `08-B`, `09-B`. | Frozen |
@@ -72,7 +88,7 @@ For the **immediate bulk-silicon pilot**, the operational physical branch is:
 
 - Kohn--Sham DFT parent for pristine diamond-structure Si;
 - PBE GGA;
-- optimized norm-conserving Vanderbilt Si pseudopotential from a PseudoDojo PBE standard table, with exact release and UPF metadata selected in `01.01.02`;
+- PseudoDojo ONCVPSP v0.5 PBE scalar-relativistic stringent Si pseudopotential, with exact UPF2 identity selected and verified in `01.01.02`;
 - scalar-relativistic, non-SOC, non-spin-polarized baseline;
 - diamond-lattice convention with a production lattice constant determined by zero-pressure PBE bulk relaxation using the selected Si pseudopotential;
 - required bulk observables: indirect Kohn--Sham gap, conduction-valley position, longitudinal electron effective mass, transverse electron effective mass, and withheld-point band errors.
@@ -86,7 +102,7 @@ For the **complete dopant program**, the same host and parent choices must be ex
 The physical Bulk Pilot gate is frozen by this specification. It fixes:
 
 - PBE GGA for the pristine-Si parent;
-- PseudoDojo PBE standard-table ONCV pseudopotential family, with exact Si UPF metadata to be selected in `01.01.02` rather than as a prerequisite for entering `01.01.02`;
+- PseudoDojo ONCVPSP v0.5 PBE scalar-relativistic stringent family, with exact Si UPF2 identity selected and verified in `01.01.02` rather than inferred from historical files;
 - Si $3s^2 3p^2$ valence;
 - zero-pressure PBE-relaxed production lattice constant to be determined in `02.01.04` using the selected Si pseudopotential;
 - scalar-relativistic, non-SOC, non-spin-polarized bulk branch;
@@ -131,6 +147,7 @@ Eligible after the P:Si specialization gate and remaining prerequisites pass:
 - B $2s^2 2p^1$ valence;
 - primary neutral B$_\mathrm{Si}^0$ branch and deferral of charged B$_\mathrm{Si}^{-}$ to a separate controlled branch;
 - fully relativistic noncollinear spinor calculation with SOC for final acceptor and continuum claims;
+- a matching fully relativistic Si host from the same accepted branch before host/dopant operator subtraction;
 - scalar-relativistic non-SOC B:Si calculation only as an early method-development branch;
 - dopant internal-relaxation protocol at fixed approved host lattice vectors;
 - Stage `05` energy-alignment estimator and uncertainty protocol once Stage `05` supplies it;

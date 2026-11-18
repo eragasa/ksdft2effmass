@@ -75,12 +75,13 @@ zero selected spatial-truncation error. It does not create a post-observation th
 or repurpose parent numerical-convergence tolerances. The separately authorized S110
 attempt stopped at the mandatory common-space gate: the projected ten-orbital `sp3s*`
 frame has resolved rank 9 at Gamma and one additional C6 point. No fit ran, no parameter
-vector exists, and S50 remains blocked. Stopping remains the default. The retained first
+vector exists, and S50 remains blocked. Stopping remains the default. The frozen
 [post-S110 protocol](../../../research-protocol/controlled-reduction-protocol-post-s110.tex)
-defined separately authorized foundation, spectral-only, global-unitary, rank-9, and
-new-source continuation levels. The current
+retains the exact first continuation definitions adopted by this historical plan.
+The current shared-parser/independent-matrix CSD sequence, HF0--HF4 prerequisites, and
+mutually exclusive successor questions are defined prospectively by the controlling
 [hopping-first protocol](../../../research-protocol/controlled-reduction-protocol-hopping-first.tex)
-preserves those options but places HF0--HF4 before any future fit. Level 1 reusable
+provides the detailed stage chapters and gates. Level 1 reusable
 foundations are implemented with synthetic software verification only; no fit or
 series-stage prerequisite changed, and Level 2 remains unauthorized. The protocol-only
 [hopping Pareto synthesis contract](../../../analysis/c6-b20-w21-hopping-pareto-synthesis/)
@@ -98,9 +99,9 @@ and authorization sequence, not a prerequisite for controlled reduction.
 
 | Artifact | SHA-256 |
 |---|---|
-| S90-through-S110 controlled-reduction protocol | `80cf67acf00d6b906a64471ed06379a321bca71ed5b6636174c634a30d8b2380` |
-| retained first post-S110 controlled-reduction protocol | `3ec2902a94ebe78eba1e223a0ee4ef99075f4bd86238398b67d370fa88224653` |
-| current hopping-first protocol (not rebound into retained `series-plan.json`) | `d28146dc2c481d4793b7e8294c4bc43196eba387bce3052b24d8bde269859f79` |
+| historical execution-time S90-through-S110 protocol identity retained by `series-plan.json` | `80cf67acf00d6b906a64471ed06379a321bca71ed5b6636174c634a30d8b2380` |
+| historical execution-time first post-S110 protocol identity | `3ec2902a94ebe78eba1e223a0ee4ef99075f4bd86238398b67d370fa88224653` |
+| controlling staged CSD/hopping-first protocol (not rebound into retained `series-plan.json`) | `7efcbb64c043c5ba34aed500902059891faae836b509bac07f2d90437cf3a1ef` |
 | series plan | `6dca2bfcbb0b00259a2ddf7d8630b82ee693f325ade0aedaabc70d4dcbc67eb7` |
 | localization campaign preflight | `b7e6b150e28e4ae79eadffbc8799eb593554ccd4f9792347fbd6852ca9a1977d` |
 | localization authorization request | `02375507dbe487f1ad5dee2569151faf04c2e5a5fa3aadd9b0007d977bc26aa7` |

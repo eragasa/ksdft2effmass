@@ -18,7 +18,7 @@ pytestmark = [pytest.mark.integration, pytest.mark.software_verification]
 
 
 class TestBulkSiliconHoppingFirstProtocol:
-    """Preserve bound protocols and keep Pareto characterization hopping-first."""
+    """Preserve historical bindings and keep the maintained protocols coherent."""
 
     def test_preserves_bound_protocol_bytes_and_selects_new_authority(
         self,
@@ -38,7 +38,7 @@ class TestBulkSiliconHoppingFirstProtocol:
                 "3ec2902a94ebe78eba1e223a0ee4ef99075f4bd86238398b67d370fa88224653"
             ),
             "controlled-reduction-protocol-hopping-first.tex": (
-                "d28146dc2c481d4793b7e8294c4bc43196eba387bce3052b24d8bde269859f79"
+                "7efcbb64c043c5ba34aed500902059891faae836b509bac07f2d90437cf3a1ef"
             ),
         }
 
@@ -51,8 +51,24 @@ class TestBulkSiliconHoppingFirstProtocol:
         owner = (protocol_root / "README.md").read_text(encoding="utf-8")
         assert "controlled-reduction-protocol-hopping-first.tex" in owner
         assert "controlled-reduction-protocol-post-s110.tex" in owner
-        assert "retained byte-for-byte" in owner
+        assert "Historical retained records continue to bind" in owner
         assert "HF0--HF4" in owner
+        for historical_hash in (
+            "230aa0cebb37cf28a2e2e7cdcf1186d5ded98971217be3bbb8beadc2879d9dad",
+            "80cf67acf00d6b906a64471ed06379a321bca71ed5b6636174c634a30d8b2380",
+            "3ec2902a94ebe78eba1e223a0ee4ef99075f4bd86238398b67d370fa88224653",
+        ):
+            assert historical_hash in owner
+
+        assert "retained byte-for-byte" in owner
+        protocol = (
+            protocol_root / "controlled-reduction-protocol-hopping-first.tex"
+        ).read_text(encoding="utf-8")
+        assert r"\documentclass[11pt]{report}" in protocol
+        assert r"\chapter{Identifier-to-description crosswalk}" in protocol
+        assert "CSD1-V" in protocol
+        assert "HF0" in protocol
+        assert "HF4" in protocol
 
     def test_orders_complete_hopping_analysis_before_slater_koster(
         self,
@@ -68,13 +84,24 @@ class TestBulkSiliconHoppingFirstProtocol:
         ).read_text(encoding="utf-8")
 
         ordered_markers = (
-            r"\section{Hopping-before-Slater--Koster dependency}",
-            r"\subsection{HF0: representation and authority gate}",
-            r"\subsection{HF1: complete hopping representation before support removal}",
-            r"\subsection{HF2: development evaluation and descriptive locality}",
-            r"\subsection{HF3: support consequence and current disposition}",
-            r"\subsection{HF4: handoff to constrained parameterization}",
-            r"\section{Post-S110 Slater--Koster continuation after hopping analysis}",
+            (
+                r"\chapter{CSD0: source, state-space, and convention "
+                r"authentication}"
+            ),
+            r"\chapter{CSD1: common-space rank reconstruction}",
+            r"\chapter{CSD1-V: independent rank verification}",
+            r"\chapter{CSD2: symmetry-sector diagnosis}",
+            r"\chapter{CSD3: scientific disposition and successor selection}",
+            r"\chapter{Hopping-before-Slater--Koster dependency}",
+            r"\chapter{HF0: representation and authority gate}",
+            (
+                r"\chapter{HF1: complete hopping representation before support "
+                r"removal}"
+            ),
+            r"\chapter{HF2: development evaluation and descriptive locality}",
+            r"\chapter{HF3: support consequence and current disposition}",
+            r"\chapter{HF4: handoff to constrained parameterization}",
+            r"\chapter{Post-S110 successor-branch boundary}",
         )
         positions = tuple(protocol.index(marker) for marker in ordered_markers)
         assert positions == tuple(sorted(positions))
@@ -103,6 +130,24 @@ class TestBulkSiliconHoppingFirstProtocol:
         assert "fixed-gauge finite enumeration" in protocol
         assert "reimplement Wannier90" in protocol
         assert "authorizes no calculator invocation, analysis execution" in protocol
+        assert "CSD0 does\nnot require" in protocol
+        assert "this protocol forbids, a second implementation" in protocol
+        assert (
+            "independent verification begins after the file-format boundary" in protocol
+        )
+        assert "INSUFFICIENT\\_RETAINED\\_SYMMETRY\\_DATA" in protocol
+        assert "CSD3 may select at most one active successor question" in protocol
+        assert r"\chapter{Identifier-to-description crosswalk}" in protocol
+        assert (
+            "Identifiers are provenance shorthand, not scientific descriptions"
+            in protocol
+        )
+        assert "Gram matrix squares the singular-value conditioning" in protocol
+        assert "straddles the" in protocol
+        assert "No new numeric verification tolerance" in protocol
+        assert "separately\nauthorized analysis run" in protocol
+        assert "The retained controlled-reduction source" in protocol
+        assert "Blocked ten-orbital trial-to-Wannier common-space alignment" in protocol
 
         for superseded_claim in (
             "operational diagnostics predict those labels",
