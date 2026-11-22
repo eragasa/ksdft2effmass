@@ -33,16 +33,19 @@ applications without redefining the primary discussion.
 8. `chapters/projection-and-retained-spaces.tex` — projection, exact retained
    operators, eliminated-space downfolding, and projection-induced loss of exact
    finite range;
-9. `chapters/sewing-maps-and-periodic-fibers.tex` — periodic-fiber identity,
-   basis embedding, Bloch conventions, seven distinct sewing problems, projected
-   sewing, reciprocal loops, and sewn-loop covariance;
-10. `chapters/isolated-band-fourier-reduction.tex` — one-dimensional Bloch
-   fibers, isolated scalar bands, complete hopping transforms, finite-range
-   truncation, direct fitting, and withheld evaluation;
-11. `chapters/composite-band-gauge-alignment.tex` — composite Bloch frames, the
+9. `chapters/symmetry-actions-and-represented-subspaces.tex` — metric-aware
+   actions, retained-subspace closure, covariance, intertwiners, isotypic
+   projectors and the conditional sector-multiplicity rank bound;
+10. `chapters/sewing-maps-and-periodic-fibers.tex` — periodic-fiber identity,
+    basis embedding, Bloch conventions, seven distinct sewing problems, projected
+    sewing, reciprocal loops, and sewn-loop covariance;
+11. `chapters/isolated-band-fourier-reduction.tex` — one-dimensional Bloch
+    fibers, isolated scalar bands, complete hopping transforms, finite-range
+    truncation, direct fitting, and withheld evaluation;
+12. `chapters/composite-band-gauge-alignment.tex` — composite Bloch frames, the
     Bloch--Wannier bridge, polar transport, reciprocal closure, Procrustes
     alignment, block hoppings, and gauge-dependent locality; and
-12. `chapters/verification-and-evidence-vocabulary.tex` — bounded claims,
+13. `chapters/verification-and-evidence-vocabulary.tex` — bounded claims,
     verification, validation, uncertainty, and negative evidence.
 
 ## Part II model-adequacy sequence
@@ -66,6 +69,9 @@ applications without redefining the primary discussion.
 | Computational quantity and metadata | `chapters/computational-quantities.tex` (`ch:training-computational-quantities`) | `chapters/finite-representations.tex`; `chapters/operator-comparison.tex` | Numbers, units, references, axis meanings, and operation-relative metadata |
 | Fractional and Cartesian coordinates | `chapters/periodic-geometry.tex` (`ch:training-periodic-geometry`) | `chapters/computational-quantities.tex`; `chapters/bloch-periodic-finite-differences.tex` | Periodic coordinate map after general coordinate metadata |
 | Vectors, bases, and matrices | `chapters/finite-representations.tex` (`ch:training-finite-representations`) | `chapters/quantum-states-and-operators.tex`; `chapters/operator-comparison.tex` | Finite coordinate representations |
+| Ascending/decreasing ordered spectra and maximum/RMS errors | `chapters/hermitian-eigensystems.tex` (`sec:training-spectral-order-bridge`) | `chapters/mechanization-status.tex`; `chapters/computational-quantities.tex` | Explicit full-vector reversal with multiplicity; distinct Weyl and Hoffman--Wielandt normalizations, not runtime authentication |
+| Auxiliary lattice, finite-decision, Bessel and synthetic Bain mathematics | `appendices/N-auxiliary-mathematical-constructions.tex` (`app:auxiliary-mathematical-constructions`) | `chapters/mechanization-status.tex`; `chapters/composite-band-gauge-alignment.tex` | Bounded treatments of additional source families, with numerical-certificate and material-execution limits; not exhaustive declaration-level coverage |
+| Source-neutral Formal proof library versus PRF-05 admission | `chapters/mechanization-status.tex` (`sec:mechanization-library-versus-admission`) | `chapters/proof-architecture.tex` | Proof existence, statement matching, admission, independent backend completion, runtime binding and physical validation remain separate |
 | Hermitian eigensystems | `chapters/hermitian-eigensystems.tex` (`ch:training-hermitian-eigensystems`) | `chapters/quantum-states-and-operators.tex`; `chapters/particle-in-a-box-higher-dimensions.tex`; `chapters/projection-and-retained-spaces.tex` | Eigenpairs, spectral decomposition, Rayleigh quotients, degeneracy, projectors, coordinate freedoms, and numerical diagnostics |
 | One-dimensional particle in a box | `chapters/quantum-states-and-operators.tex` (`ch:training-quantum-operators`) | `appendices/D-particle-in-a-box-residuals.tex` | Characteristic-equation solution, Born interpretation, and finite representation on $[a,b]$ |
 | Differential characteristic equation | `chapters/quantum-states-and-operators.tex` | `chapters/hermitian-eigensystems.tex` | Converts a constant-coefficient operator polynomial into an algebraic root problem |
@@ -73,7 +79,8 @@ applications without redefining the primary discussion.
 | Dirichlet Laplacian on an interval | `chapters/quantum-states-and-operators.tex` | `appendices/D-particle-in-a-box-residuals.tex` | Continuum operator, centered difference, and discrete sine eigensystem |
 | Two- and three-dimensional particle in a box | `chapters/particle-in-a-box-higher-dimensions.tex` (`ch:training-particle-box-higher-dimensions`) | `chapters/quantum-states-and-operators.tex` | Separable continuum and finite box models |
 | Kronecker product and Kronecker sum | `chapters/particle-in-a-box-higher-dimensions.tex` | `chapters/bloch-periodic-finite-differences.tex` | Separate coordinate actions, flattening order, and sparse multidimensional assembly |
-| Gram metric | `chapters/periodic-geometry.tex` | `chapters/bloch-periodic-finite-differences.tex`; `appendices/H-two-dimensional-wannier-reduction.tex` | Intrinsic lengths, angles, and differential geometry |
+| State-space basis Gram metric and metric adjoint | `chapters/symmetry-actions-and-represented-subspaces.tex` | `appendices/A-notation-and-status.tex`; `chapters/sewing-maps-and-periodic-fibers.tex` | Inner products in coefficient bases, not spatial lattice geometry |
+| Spatial lattice Gram metric | `chapters/periodic-geometry.tex` | `chapters/bloch-periodic-finite-differences.tex`; `appendices/H-two-dimensional-wannier-reduction.tex` | Intrinsic lengths, angles, and differential geometry |
 | Embedded periodic plane | `chapters/periodic-geometry.tex` | `chapters/bloch-periodic-finite-differences.tex` | Distinguishes a full-column-rank $3\times2$ plane from a slab |
 | Dual reciprocal basis | `chapters/periodic-geometry.tex` | `chapters/bulk-representations.tex` | Direct--reciprocal duality for square and rectangular bases |
 | Metric scalar Laplacian | `chapters/bloch-periodic-finite-differences.tex` (`ch:training-bloch-finite-differences`) | `appendices/H-two-dimensional-wannier-reduction.tex` | Coordinate-aware geometric operator |
@@ -102,6 +109,7 @@ applications without redefining the primary discussion.
 | Isolated Bloch band | `chapters/projection-and-retained-spaces.tex` | `chapters/isolated-band-fourier-reduction.tex`; `appendices/G-periodic-reduction-experiments.tex` | Fiberwise rank-one retention separated from phase gauge and localization |
 | Periodic-fiber family and basis embedding | `chapters/sewing-maps-and-periodic-fibers.tex` (`ch:training-sewing-periodic-fibers`) | `chapters/periodic-geometry.tex`; `chapters/projection-and-retained-spaces.tex`; `chapters/bulk-representations.tex` | Correlates one admitted ordered basis identity with reciprocal fibers and fractional embedded positions without synthesizing basis identity |
 | Reciprocal-shift sewing | `chapters/sewing-maps-and-periodic-fibers.tex` | `chapters/composite-band-gauge-alignment.tex`; `appendices/G-periodic-reduction-experiments.tex`; `appendices/H-two-dimensional-wannier-reduction.tex` | Explicit directed map between reciprocal representatives, including identity, embedding-position, permutation--phase, and plane-wave-index cases |
+| Metric-aware symmetry actions, closure, intertwiners and isotypic sectors | `chapters/symmetry-actions-and-represented-subspaces.tex` (`ch:symmetry-actions-represented-subspaces`) | `chapters/sewing-maps-and-periodic-fibers.tex`; `appendices/A-notation-and-status.tex`; `appendices/M-preliminary-silicon-work.tex` | Ordinary finite-group theory with a conditional sector-rank bound; not implemented symmetry software or a silicon sector attribution |
 | Projected-subspace, symmetry, and finite-boundary sewing | `chapters/sewing-maps-and-periodic-fibers.tex` | `chapters/bloch-periodic-finite-differences.tex`; `chapters/composite-band-gauge-alignment.tex`; `chapters/bulk-representations.tex` | Keeps distinct state-space identifications separate instead of treating every closure or boundary operation as one generic sewing category |
 | Sewn reciprocal loop and Wilson diagnostic | `chapters/sewing-maps-and-periodic-fibers.tex` | `chapters/composite-band-gauge-alignment.tex`; `chapters/operator-comparison.tex`; `appendices/G-periodic-reduction-experiments.tex` | Defines loop orientation, closing shift, endpoint sewing, gauge covariance, and the limitation of full-space holonomy |
 | Composite Bloch frame and projector | `chapters/composite-band-gauge-alignment.tex` (`ch:training-composite-band-gauge-alignment`) | `chapters/projection-and-retained-spaces.tex`; `appendices/G-periodic-reduction-experiments.tex` | Higher-rank retained space separated from its gauge-dependent frame |

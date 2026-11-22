@@ -1,0 +1,941 @@
+\chapter{Symmetry Actions and Represented Subspaces}
+\label{ch:symmetry-actions-represented-subspaces}
+\index{symmetry!represented action|textbf}
+\index{representation!finite group}
+
+\chapterstatus{finite-dimensional mathematical foundations, not a report of
+implemented symmetry software or electronic symmetry extraction. The sector
+results below concern ordinary complex-linear representations of finite groups.
+They establish no silicon symmetry-sector attribution and claim no new
+representation-theory theorem. The sector results remain manuscript proofs;
+the separate coordinate-algebra mechanization note below has a strictly
+narrower scope.}
+
+\section{Three distinct symmetry statements}
+
+A geometric operation preserving a crystal motif is not yet an action on its
+electronic states. An electronic action preserving the inner product is not yet
+a symmetry of a particular Hamiltonian. These are three separate claims:
+geometry, represented state-space action, and operator covariance. Each needs
+its own hypotheses. Orbital labels, degeneracies, geometric stars, and calculator
+symmetry flags do not supply electronic action matrices.
+
+\begin{definition}[Finite group and composition convention]
+\label{def:symmetry-finite-group}
+A finite group $\mathcal G$ is a finite set of operations equipped with an
+associative multiplication. Its identity element $e$ satisfies $eg=ge=g$,
+and every element $g$ has an inverse $g^{-1}$ satisfying
+$gg^{-1}=g^{-1}g=e$. Products remain in $\mathcal G$. The positive integer
+$|\mathcal G|$ is the number of group elements, called the group order.
+We read $gh$ as applying $h$ first and $g$ second. Thus a multiplication table
+and its composition convention, not operation names alone, define the group
+used in a calculation.
+\end{definition}
+
+\section{State spaces, representations and inner products}
+\index{Gram matrix!state-space basis}
+
+\begin{definition}[Source and target spaces of a state map]
+\label{def:symmetry-source-target-spaces}
+Choose two finite-dimensional complex inner-product state spaces
+$\mathcal H_{\mathrm s}$ and $\mathcal H_{\mathrm t}$ in the declared model,
+and a map $\widehat A:\mathcal H_{\mathrm s}\to\mathcal H_{\mathrm t}$.
+The \emph{source space} is its domain $\mathcal H_{\mathrm s}$: the space
+from which input states are taken. The \emph{target space} is its codomain
+$\mathcal H_{\mathrm t}$: the declared space containing the output states.
+The target need not equal the image, which is the set of outputs actually
+reached by this map. The subscripts $\mathrm s$ and $\mathrm t$ name these
+roles, not species, symmetry sectors or particular physical approximations.
+\end{definition}
+
+Source and target are relative to a specified map; they are not additional
+kinds of quantum state space. For an action within one space,
+$\mathcal H_{\mathrm s}=\mathcal H_{\mathrm t}$, the same space has both
+roles. For symmetry sewing between reciprocal fibers, they can instead be
+the state spaces at two symmetry-related momenta. Neither their dimensions
+nor the words source and target establish a physical identification between
+them. Such an identification requires a declared map and its qualifications.
+
+\begin{definition}[Coefficient space of an ordered state basis]
+\label{def:symmetry-coefficient-space}
+For each role $a\in\{\mathrm s,\mathrm t\}$, let
+$\mathcal B_a=(b_{a,1},\ldots,b_{a,n_a})$ be an ordered basis of
+$\mathcal H_a$, where $n_a=\dim\mathcal H_a$ is its dimension. Its
+\emph{coefficient space} is $\mathcal V_a=\mathbb C^{n_a}$, consisting of
+complex column vectors $x_a=(x_{a,1},\ldots,x_{a,n_a})^{\mathsf T}$.
+Here $\mathsf T$ means transpose; no conjugation is used to arrange the
+entries into a column. The basis reconstruction map $\iota_a$ associates
+each such coefficient vector with a state:
+\begin{equation}
+  \iota_a:\mathcal V_a\longrightarrow\mathcal H_a,
+  \qquad \iota_a(x_a)=\sum_{i=1}^{n_a}x_{a,i}b_{a,i}.
+  \label{eq:symmetry-basis-reconstruction}
+\end{equation}
+The index $i$ enumerates basis vectors, and $x_{a,i}$ is the complex
+coefficient multiplying the $i$th vector. Linear independence and spanning
+make $\iota_a$ a linear bijection. The vector $x_a$ is a coordinate
+representation of a state, not a real-space position, a basis vector itself,
+or a column extracted from an unspecified data matrix. The state basis need
+not be orthogonal.
+\end{definition}
+
+Thus the \emph{source coefficient space} is
+$\mathcal V_{\mathrm s}=\mathbb C^{n_{\mathrm s}}$, and the
+\emph{target coefficient space} is
+$\mathcal V_{\mathrm t}=\mathbb C^{n_{\mathrm t}}$. The state map
+$\widehat A$ has the coordinate form
+$\iota_{\mathrm t}^{-1}\widehat A\iota_{\mathrm s}$: reconstruct the input
+state, apply the state map, then express the output in the target basis.
+If this map is complex-linear, its coordinate form is multiplication by the
+matrix $M$ introduced below. This explains both the direction of $M$ and why
+its columns and rows refer to different bases. Inner products throughout this
+chapter are conjugate-linear in the first argument and linear in the second.
+
+\begin{definition}[Ordinary complex-linear representation]
+\label{def:symmetry-ordinary-representation}
+On a coefficient space $\mathcal V=\mathbb C^n$ constructed from an ordered
+state basis as above, a representation assigns to each $g\in\mathcal G$
+an invertible $n\times n$ complex matrix $D(g)$. Here $n$ is the dimension
+of the represented space. Its action sends a coefficient vector
+$x\in\mathcal V$ to $D(g)x$. Complex linearity means that sums and complex
+scalar multiples of coefficient vectors are preserved. The assignment
+respects group composition:
+\begin{equation}
+  D(e)=I,\qquad D(gh)=D(g)D(h).
+  \label{eq:symmetry-ordinary-law}
+\end{equation}
+Here $I$ is the identity matrix on $\mathcal V$; the equations also imply
+$D(g^{-1})=D(g)^{-1}$. The word \emph{ordinary} excludes an additional scalar
+phase in the multiplication law. Distinct group elements may have the same
+matrix: the representation is \emph{faithful} only when this never happens.
+Faithfulness is not assumed in this chapter.
+\end{definition}
+
+A represented action includes both its space and its assignment of matrices.
+The same geometric group can act differently on different state spaces.
+For example, an action on atomic trial coordinates and one on retained band
+coordinates are not identified merely because both have dimension ten.
+Reciprocal fibers, reciprocal closure and translation phases require additional
+structure, addressed in Chapter~\ref{ch:training-sewing-periodic-fibers}.
+
+\begin{definition}[State-space basis Gram matrix]
+\label{def:symmetry-state-gram}
+The matrix $\mathsf G_a\in\mathbb C^{n_a\times n_a}$ has entries
+$(\mathsf G_a)_{ij}=\langle b_{a,i},b_{a,j}\rangle_{\mathcal H_a}$.
+Consequently the represented inner product and norm are
+\begin{equation}
+  \langle x,y\rangle_{\mathsf G_a}=x^{\dagger}\mathsf G_a y,
+  \qquad \|x\|_{\mathsf G_a}=\sqrt{x^{\dagger}\mathsf G_a x}.
+  \label{eq:symmetry-coordinate-inner-product}
+\end{equation}
+Here $x,y\in\mathcal V_a$ are coefficient columns, and $\dagger$ on a matrix
+or column means conjugate transpose. A Gram matrix of a basis is Hermitian,
+meaning $\mathsf G_a^{\dagger}=\mathsf G_a$, and positive definite, meaning
+$x^{\dagger}\mathsf G_a x>0$ for every nonzero $x$. These properties ensure
+that the squared norm is real and positive and that $\mathsf G_a$ is invertible.
+An orthonormal basis has $\mathsf G_a=I$; a square array alone does not justify
+this choice.
+\end{definition}
+
+Here basis Gram entries and coefficient columns are dimensionless. This
+state-space metric is not the spatial lattice metric
+$G_{ij}=\mathbf a_i\cdot\mathbf a_j$: the latter pairs direct-lattice vectors
+$\mathbf a_i$ and has units of length squared.
+
+\begin{definition}[Metric adjoint, isometry and unitary identification]
+\label{def:symmetry-metric-map}
+A complex-linear map from $\mathcal V_{\mathrm s}$ to $\mathcal V_{\mathrm t}$
+has a coefficient matrix $M\in\mathbb C^{n_{\mathrm t}\times n_{\mathrm s}}$.
+Its metric adjoint $M^{\sharp}$ maps in the reverse direction and is defined
+by $\langle Mx,y\rangle_{\mathsf G_{\mathrm t}}
+=\langle x,M^{\sharp}y\rangle_{\mathsf G_{\mathrm s}}$ for every coefficient
+vector $x\in\mathcal V_{\mathrm s}$ representing a source state and every
+coefficient vector $y\in\mathcal V_{\mathrm t}$ representing a target state. The map is an \emph{isometry} when it
+preserves these inner products. In coordinates these statements give
+\begin{equation}
+  M^{\sharp}=\mathsf G_{\mathrm s}^{-1}M^{\dagger}\mathsf G_{\mathrm t},
+  \qquad M^{\dagger}\mathsf G_{\mathrm t}M=\mathsf G_{\mathrm s}.
+  \label{eq:symmetry-metric-isometry}
+\end{equation}
+Thus $M^{\sharp}$ has size $n_{\mathrm s}\times n_{\mathrm t}$.
+An isometry is injective but need not fill the target. It is a \emph{unitary
+identification} when it is also surjective; for equal finite source and target
+dimensions, isometry already implies surjectivity. A metric-preserving
+representation means that every $D(g)$ is unitary with respect to the stated
+Gram matrix, not necessarily with respect to the Euclidean coefficient norm.
+\end{definition}
+
+Inverse notation here and below states identities, not a prescription for
+explicit numerical inversion. To change source or target bases, let $A_a$ be
+an invertible $n_a\times n_a$ matrix whose columns are the new basis vectors
+in the old coordinates. Old and new columns are related by $x_a=A_a x'_a$.
+For a complex-linear map, the same physical inner products and map are then
+represented by
+\begin{equation}
+  \mathsf G'_a=A_a^{\dagger}\mathsf G_a A_a,
+  \qquad M'=A_{\mathrm t}^{-1}MA_{\mathrm s}.
+  \label{eq:symmetry-basis-change}
+\end{equation}
+Primes denote the new coordinates, not a different physical action. Changing
+$M$ without changing the associated Gram matrices generally changes the problem.
+
+\begin{definition}[Coefficient-action operator and covariance]
+\label{def:symmetry-operator-covariance}
+Let $h_a\in\mathbb C^{n_a\times n_a}$ represent a Hamiltonian acting on
+$\mathcal H_a$: acting on a state with column $x$ produces a state with
+column $h_a x$. The operator is \emph{self-adjoint} when its metric adjoint
+equals itself. The source and target Hamiltonians are \emph{covariant under
+$M$} when mapping and Hamiltonian evolution agree in either order.
+In coordinates, source self-adjointness and covariance mean, respectively,
+\begin{equation}
+  h_{\mathrm s}^{\dagger}\mathsf G_{\mathrm s}
+    =\mathsf G_{\mathrm s}h_{\mathrm s},
+  \qquad h_{\mathrm t}M=Mh_{\mathrm s}.
+  \label{eq:symmetry-operator-covariance}
+\end{equation}
+Target self-adjointness has the analogous equation with subscript $\mathrm t$.
+When source and target are the same space and Hamiltonian, covariance reduces
+to commutation, $hM=Mh$. In that case a qualified unitary $M$ is a symmetry
+of that Hamiltonian, not merely an inner-product-preserving change of states.
+Compatible physical conventions, including energy references, remain part of
+the comparison.
+\end{definition}
+
+The matrix element $\langle b_{a,i},\widehat H_a b_{a,j}\rangle$ is instead
+entry $(i,j)$ of $\mathsf G_a h_a$, where $\widehat H_a$ denotes the abstract
+Hamiltonian. This matrix is Hermitian for a self-adjoint Hamiltonian, whereas
+$h_a$ need not be Euclidean Hermitian. Both carry energy units. Confusing
+matrix elements with coefficient actions changes the covariance equation.
+
+\begin{definition}[Antiunitary identification]
+\label{def:symmetry-antiunitary-map}
+Let $\mathcal A:\mathcal V_{\mathrm s}\to\mathcal V_{\mathrm t}$ be the
+coordinate form of a conjugate-linear state map. For any two coefficient
+vectors $x,y\in\mathcal V_{\mathrm s}$ representing source states and any
+complex scalars $\alpha,\beta$, conjugate linearity means
+$\mathcal A(\alpha x+\beta y)=\overline\alpha\,\mathcal A x
++\overline\beta\,\mathcal A y$.
+Unlike $y$ in the adjoint identity above, both vectors here belong to the
+source coefficient space. An overline means complex conjugation. In coordinates write
+$\mathcal A=MK$, so that $\mathcal A x=M\overline x$, where
+$Kx=\overline x$ is componentwise conjugation in the declared source basis
+and $M$ is the $n_{\mathrm t}\times n_{\mathrm s}$ matrix multiplying the
+conjugated column. The map is \emph{antiunitary} when it is bijective
+and norm-preserving; without surjectivity it is only a conjugate-linear
+isometry. Norm preservation requires
+\begin{equation}
+  M^{\dagger}\mathsf G_{\mathrm t}M=\overline{\mathsf G_{\mathrm s}}.
+  \label{eq:symmetry-antiunitary-metric}
+\end{equation}
+Indeed the transformed squared norm is
+$x^{\mathsf T}M^{\dagger}\mathsf G_{\mathrm t}M\overline{x}$, which equals
+$x^{\dagger}\mathsf G_{\mathrm s}x$ under this condition. Antiunitary operator
+covariance uses $h_{\mathrm t}M=M\overline{h_{\mathrm s}}$, not the second
+identity in Eq.~\eqref{eq:symmetry-operator-covariance}. Products must retain
+conjugation: $(MK)(NK)=M\overline N$. Antiunitary sector theory is outside the
+ordinary representation results below. In the product above $N$ is the
+coefficient matrix of a second, composable conjugate-linear map, and each
+conjugation acts in its corresponding coordinate space.
+\end{definition}
+
+\begin{lemma}[Change of coordinates for a conjugate-linear map]
+\label{lem:symmetry-antiunitary-basis-change}
+Let $A_{\mathrm s}$ and $A_{\mathrm t}$ be the invertible source and target
+basis matrices defined in Eq.~\eqref{eq:symmetry-basis-change}. If the old
+coordinate action is $x\mapsto M\overline x$, its new matrix is
+\begin{equation}
+  M'=A_{\mathrm t}^{-1}M\overline{A_{\mathrm s}}.
+  \label{eq:symmetry-antiunitary-basis-change}
+\end{equation}
+Here $M'$ multiplies the conjugate of the new source coefficient vector;
+the transformed Gram matrices remain
+$\mathsf G'_a=A_a^{\dagger}\mathsf G_a A_a$.
+\end{lemma}
+\begin{proof}
+For a new source vector $x'$, the old vector is $A_{\mathrm s}x'$.
+Transforming its output to the new target coordinates gives
+$A_{\mathrm t}^{-1}M\overline{A_{\mathrm s}x'}
+=A_{\mathrm t}^{-1}M\overline{A_{\mathrm s}}\,\overline{x'}$,
+which proves the formula. If the original map preserves norms, substitution
+also gives
+\begin{equation}
+  (M')^{\dagger}\mathsf G'_{\mathrm t}M'
+  =A_{\mathrm s}^{\mathsf T}\overline{\mathsf G_{\mathrm s}}
+      \overline{A_{\mathrm s}}
+  =\overline{\mathsf G'_{\mathrm s}}.
+  \label{eq:symmetry-antiunitary-metric-basis-change}
+\end{equation}
+Thus the antiunitary metric condition is preserved by the same coordinate
+change; surjectivity is also unchanged because the basis maps are bijective.
+\end{proof}
+
+\paragraph{Mechanization boundary.}
+External Lean evidence for the coordinate basis-change identity, algebraic
+metric-equation preservation and conjugate-linear composition is described in
+Section~\ref{sec:mechanization-conjugate-linear-coordinate-algebra}, including
+its exact hypotheses and provisional source bindings. This does not mechanize
+the norm or physical interpretation, the sector results, or the whole chapter.
+
+For an analytical check, start with componentwise conjugation on $\mathbb C^2$,
+so $M=I_2$, and change both bases by
+$A_{\mathrm s}=A_{\mathrm t}=\operatorname{diag}(i,1)$, where $i^2=-1$.
+The correct new matrix is $\operatorname{diag}(-1,1)$; incorrectly using the
+linear formula gives $I_2$. Both preserve the identity metric, so a norm
+check alone would not detect the wrong action. For the new input vector
+$(1,1)^{\mathsf T}$, their outputs are respectively $(-1,1)^{\mathsf T}$
+and $(1,1)^{\mathsf T}$, which represent different states even up to a common
+nonzero scalar. This illustrates why the conjugation convention belongs to
+the action's definition, not just to a numerical norm test.
+
+\section{Closure precedes an induced representation}
+\index{subspace!symmetry closure}
+
+\begin{definition}[Retained frame and induced metric]
+\label{def:symmetry-retained-frame}
+For each source or target space, choose a positive retained dimension
+$r_a\leq n_a$. A \emph{frame} here is an $n_a\times r_a$ matrix $F_a$ whose
+columns are linearly independent ambient coefficient columns; it is not a
+redundant frame. The notation $\operatorname{Ran}F_a$ means the set of all
+columns $F_a u$ with $u\in\mathbb C^{r_a}$. This range is the retained
+subspace $\mathcal S_a\subseteq\mathcal V_a$, whereas $u$ is its coordinate
+column in the frame. The induced Gram matrix $\mathsf G_{F_a}$ has size
+$r_a\times r_a$ and pairs retained coordinate columns so that their inner
+product equals that of the ambient columns they represent.
+\end{definition}
+
+\begin{definition}[Metric projection, compressed map and leakage]
+\label{def:symmetry-compression-leakage}
+The projector $P_{F_a}$ maps ambient columns onto $\mathcal S_a$, orthogonally
+in the ambient metric $\mathsf G_a$. For an ambient map $M$, the compressed
+matrix $D$ maps source retained coordinates to the target coordinates of the
+metric projection of $MF_{\mathrm s}u$. The residual matrix $L$, called
+\emph{leakage}, maps the same source coordinates to the portion left outside
+the target subspace. Their formulas are
+\begin{align}
+  \mathsf G_{F_a}&=F_a^{\dagger}\mathsf G_a F_a,
+    &a&\in\{\mathrm s,\mathrm t\},
+    \label{eq:symmetry-frame-metric}\\
+  P_{F_a}&=F_a\mathsf G_{F_a}^{-1}F_a^{\dagger}\mathsf G_a,
+    \label{eq:symmetry-frame-projector}\\
+  D&=\mathsf G_{F_{\mathrm t}}^{-1}
+      F_{\mathrm t}^{\dagger}\mathsf G_{\mathrm t}MF_{\mathrm s},
+    \label{eq:symmetry-compressed-action}\\
+  L&=MF_{\mathrm s}-F_{\mathrm t}D.
+    \label{eq:symmetry-leakage}
+\end{align}
+In these formulas $P_{F_a}$ has size $n_a\times n_a$, $D$ has size
+$r_{\mathrm t}\times r_{\mathrm s}$, and $L$ has size
+$n_{\mathrm t}\times r_{\mathrm s}$. Full column rank and a positive-definite
+ambient metric make $\mathsf G_{F_a}$ positive definite. The projector
+satisfies $P_{F_a}^2=P_{F_a}$, has range $\mathcal S_a$, and is self-adjoint
+in that metric. It need not be a Euclidean Hermitian matrix.
+For each source column $u$, $Du$ is the unique target column minimizing
+$\|MF_{\mathrm s}u-F_{\mathrm t}v\|_{\mathsf G_{\mathrm t}}$ over target
+retained columns $v$. Orthogonality of the minimizing residual gives
+$F_{\mathrm t}^{\dagger}\mathsf G_{\mathrm t}L=0$.
+The symbol $D$ here denotes a compressed map, not yet a representation.
+\end{definition}
+
+\begin{definition}[Closure and invariant subspace]
+\label{def:symmetry-subspace-closure}
+The map \emph{closes from the source to the target retained subspace} when
+$M\mathcal S_{\mathrm s}\subseteq\mathcal S_{\mathrm t}$, equivalently
+$L=0$. Equality is a stronger claim unless dimensions and injectivity supply
+it. For an action on one ambient space, a subspace $\mathcal S$ is
+\emph{invariant} under the group when $M(g)\mathcal S\subseteq\mathcal S$
+for every $g\in\mathcal G$. Since inverses are also included, group
+invariance implies $M(g)\mathcal S=\mathcal S$. This is invariance of a
+space, not a requirement that each of its vectors be fixed.
+\end{definition}
+
+For an antiunitary action, the source term in the leakage is instead
+$M\overline{F_{\mathrm s}}$, with an accompanying conjugate-linear retained map.
+
+\begin{proposition}[Metric closure criterion]
+If $M$ is an isometry and the frames have equal finite rank, the compressed
+linear map is an isometry exactly when $M\operatorname{Ran}F_{\mathrm s}
+=\operatorname{Ran}F_{\mathrm t}$.
+\end{proposition}
+\begin{proof}
+Orthogonality of the leakage gives
+\begin{equation}
+  D^{\dagger}\mathsf G_{F_{\mathrm t}}D
+  =\mathsf G_{F_{\mathrm s}}-L^{\dagger}\mathsf G_{\mathrm t}L.
+  \label{eq:symmetry-leakage-defect}
+\end{equation}
+Positive definiteness makes the last term zero exactly when $L=0$.
+This gives inclusion of the transformed source subspace in the target;
+isometry and equal rank promote inclusion to equality.
+\end{proof}
+
+\begin{definition}[Restriction versus compression]
+\label{def:symmetry-restriction-compression}
+On one ambient space, the \emph{restriction} $M|_{\mathcal S}$ applies $M$
+only to source vectors in a chosen subspace $\mathcal S$. Its outputs still
+belong to the ambient space unless $\mathcal S$ is invariant. In contrast,
+\emph{compression} onto $\mathcal S$ applies the metric projector
+$P_{\mathcal S}$ after $M$, giving $P_{\mathcal S}M|_{\mathcal S}$.
+This always maps into $\mathcal S$, but can discard part of the transformed
+state. Restriction and compression represent the same map on $\mathcal S$
+exactly when $M\mathcal S\subseteq\mathcal S$.
+\end{definition}
+
+To obtain a retained representation, let $M(g)$ be an ordinary ambient
+representation and let one frame $F$ span a subspace invariant under every
+$M(g)$. Closure gives $M(g)F=FD(g)$. For group elements $g,h$, acting twice
+on a retained column gives
+\begin{equation}
+  FD(gh)=M(gh)F=M(g)M(h)F=FD(g)D(h).
+  \label{eq:symmetry-restricted-group-law}
+\end{equation}
+The independent columns of $F$ make the coordinate map injective, so one can
+cancel $F$ and obtain the group law for $D$. The same argument at the identity
+gives $D(e)=I_r$, where $r$ is the number of columns of $F$. Thus the
+compressed matrices become the coordinates of a genuine restricted
+representation only after closure is established. A polar factor or
+pseudoinverse does not establish the missing invariance.
+
+For a metric-unitary ambient representation, invariance also has an equivalent
+projector formulation:
+\begin{equation}
+  M(g)P_{\mathcal S}=P_{\mathcal S}M(g)
+  \quad\hbox{for every }g\in\mathcal G.
+  \label{eq:symmetry-invariant-projector-commutation}
+\end{equation}
+To see why, let $x$ be orthogonal to $\mathcal S$ and let $y\in\mathcal S$.
+Unitarity gives $\langle M(g)x,y\rangle
+=\langle x,M(g)^{-1}y\rangle=0$, because inverse group actions also preserve
+$\mathcal S$. Hence both the subspace and its metric-orthogonal complement
+are invariant, so projection commutes with the action. Conversely,
+commutation gives $M(g)P_{\mathcal S}x=P_{\mathcal S}M(g)x\in\mathcal S$,
+which proves invariance. The inner products in this argument are the same
+ambient metric inner products, not Euclidean products introduced by convenience.
+
+\section{Overlap forms and intertwiners}
+\index{intertwiner|textbf}
+
+\begin{definition}[Intertwiner of represented actions]
+\label{def:symmetry-intertwiner}
+Let $\mathcal C=\mathbb C^{r_C}$ and $\mathcal W=\mathbb C^{r_W}$ be identified
+coefficient spaces carrying representations $D_C(g)$ and $D_W(g)$ of the
+same group. An \emph{intertwiner} is a complex-linear map
+$T:\mathcal C\to\mathcal W$ satisfying $D_W(g)T=TD_C(g)$ for every group
+element. Its $r_W\times r_C$ matrix may be rectangular, noninvertible or zero.
+The condition means that applying the source action before $T$ agrees with
+applying the target action afterwards. It asserts neither isometry nor
+Hamiltonian covariance, which involve additional structures.
+\end{definition}
+
+For a construction that may yield such a map, use one ambient coefficient
+space $\mathbb C^n$ with positive-definite metric $\mathsf G$. Let
+$W\in\mathbb C^{n\times r_W}$ and $C\in\mathbb C^{n\times r_C}$ be
+full-column-rank frames. Here $C$ and $W$ are frame matrices, while
+$\mathcal C$ and $\mathcal W$ are their retained coordinate spaces, not
+additional ambient spaces. Overlaps and orthogonal projections can be defined
+without a symmetry action and without an invariance assumption. Whether the
+resulting map intertwines qualified actions is a separate question.
+
+\begin{definition}[Overlap form and projected coefficient map]
+\label{def:symmetry-overlap-form}
+The overlap matrix $B\in\mathbb C^{r_W\times r_C}$ and projected coefficient
+map $T$ are
+\begin{equation}
+  B=W^{\dagger}\mathsf G C,\qquad
+  T=\mathsf G_W^{-1}B,\qquad \mathsf G_W=W^{\dagger}\mathsf G W.
+  \label{eq:symmetry-overlap-coefficient-map}
+\end{equation}
+For columns $u\in\mathcal W$ and $v\in\mathcal C$, the scalar
+$u^{\dagger}Bv$ is the ambient inner product $\langle Wu,Cv\rangle_{\mathsf G}$.
+Thus $B$ stores pairings, rather than the coordinates of projected states.
+The frame metric $\mathsf G_W$ is $r_W\times r_W$; solving
+$\mathsf G_W Tv=Bv$ converts the overlap pairings to coefficients. In
+particular, $WTv=P_W Cv$, where $P_W$ is the metric projector built from $W$.
+If $\mathsf G_W=I$, then $T=B$; otherwise there is no general identification
+of the two, although they can coincide for particular overlaps.
+\end{definition}
+
+\begin{proposition}[Overlap invariance and coefficient intertwining]
+Suppose additionally that both frame ranges are invariant under the same
+metric-preserving ordinary ambient representation $M(g)$. Define their
+induced representations by $M(g)C=CD_C(g)$ and $M(g)W=WD_W(g)$. Then
+\begin{equation}
+  D_W(g)^{\dagger}BD_C(g)=B,
+  \qquad D_W(g)T=TD_C(g).
+  \label{eq:symmetry-overlap-intertwiner}
+\end{equation}
+\end{proposition}
+\begin{proof}
+Insert $M(g)W=WD_W(g)$ and $M(g)C=CD_C(g)$ in
+$W^{\dagger}M(g)^{\dagger}\mathsf G M(g)C=B$ to obtain the first identity.
+Metric preservation on $W$ gives
+$D_W(g)^{\dagger}\mathsf G_W=\mathsf G_WD_W(g)^{-1}$.
+Substitution of $B=\mathsf G_WT$ yields the second identity. The same algebra
+shows their equivalence for metric-preserving $D_W(g)$.
+\end{proof}
+
+\subsection{Normalized overlaps and principal angles}
+
+The distinction between pairings and coordinate maps also matters for angles.
+Let $\mathsf G_C=C^{\dagger}\mathsf G C$ be the positive-definite induced
+metric of the $C$ frame, complementing $\mathsf G_W$ defined above. For either
+frame metric, the power $-1/2$ denotes the inverse of its unique positive-definite
+Hermitian square root. The normalized overlap is
+\begin{equation}
+  \widetilde B=\mathsf G_W^{-1/2}B\mathsf G_C^{-1/2}.
+  \label{eq:symmetry-normalized-overlap}
+\end{equation}
+It pairs the metric-orthonormal frames $W\mathsf G_W^{-1/2}$ and
+$C\mathsf G_C^{-1/2}$ spanning the original subspaces. It does not change
+those subspaces or select a new retained space.
+
+\begin{definition}[Principal angles between represented subspaces]
+\label{def:symmetry-principal-angles}
+Write $p=\min(r_W,r_C)$ for the smaller frame dimension and let
+$s_1\geq\cdots\geq s_p$ be the singular values of $\widetilde B$.
+The \emph{principal angles} are the numbers
+$0\leq\theta_1\leq\cdots\leq\theta_p\leq\pi/2$ defined by
+$\cos\theta_i=s_i$. Their cosines lie in $[0,1]$ because the frames are
+orthonormal in the same ambient inner product. Angles are unchanged by
+invertible changes of coordinates within either frame's range, provided the
+metrics are transformed consistently. Equal-dimensional subspaces have all
+principal angles zero exactly when the subspaces coincide. With unequal
+dimensions, all zero angles establish containment of the smaller subspace,
+not equality of the two spaces.
+\end{definition}
+
+For a simple analytical illustration, use a one-dimensional ambient space
+with metric $\mathsf G=(1)$, and choose frames $W=(2)$ and $C=(1)$.
+Both span the whole space, but $\mathsf G_W=(4)$, $\mathsf G_C=(1)$,
+$B=(2)$, $T=(1/2)$ and $\widetilde B=(1)$. The raw overlap singular value
+is two, whereas the sole principal angle is zero. The projected coefficient
+$1/2$ is also correct: multiplying it by the frame vector two reproduces the
+state with ambient coefficient one. Thus raw overlap values, projection
+coefficients and angle cosines answer different questions. Normalization is
+an explicit mathematical conversion, not permission to apply an unchanged
+raw-coordinate gate to a different numerical quantity.
+
+\section{Isotypic sectors and a conditional rank obstruction}
+\index{isotypic projector|textbf}
+
+\begin{definition}[Irreducibility and equivalence]
+\label{def:symmetry-irreducibility}
+A nonzero represented space is \emph{irreducible} when its only invariant
+subspaces are the zero space and the whole space. An \emph{irrep} is an
+irreducible representation. Two representations are \emph{equivalent} when
+an invertible intertwiner identifies them. Equivalence is a statement about
+all group actions under one consistent change of basis, not merely equal
+dimension or a shared eigenvalue of a Hamiltonian.
+\end{definition}
+
+\begin{lemma}[Invariant inner product and complete reducibility]
+\label{lem:symmetry-complete-reducibility}
+Every ordinary finite-dimensional complex representation of a finite group
+admits an invariant positive-definite inner product. It is \emph{completely
+reducible}: its space is a direct sum of invariant irreducible subspaces.
+\end{lemma}
+\begin{proof}
+Let $D(g)$ act on a coefficient space $\mathcal V$, and choose any
+positive-definite inner product $\langle\cdot,\cdot\rangle_0$ on that space.
+For vectors $x,y\in\mathcal V$, define its group average by
+\begin{equation}
+  \langle x,y\rangle_{\mathrm{av}}
+    =\frac{1}{|\mathcal G|}\sum_{g\in\mathcal G}
+         \langle D(g)x,D(g)y\rangle_0.
+  \label{eq:symmetry-averaged-inner-product}
+\end{equation}
+The subscript $\mathrm{av}$ denotes this averaged inner product, not a
+statistical expectation. A sum of positive squared norms is positive for
+nonzero $x$, so the average is positive definite. For each group element
+$h$, the bijection $g\mapsto gh$ of $\mathcal G$ proves
+$\langle D(h)x,D(h)y\rangle_{\mathrm{av}}
+=\langle x,y\rangle_{\mathrm{av}}$.
+An invariant subspace therefore has an invariant orthogonal complement, by
+the argument in Eq.~\eqref{eq:symmetry-invariant-projector-commutation}.
+Splitting a nontrivial invariant subspace from its complement and inducting
+on dimension yields a direct sum of irreducibles; the zero-dimensional space
+is the empty sum. This construction proves existence of an invariant metric.
+It does not replace the specified physical metric in a numerical check.
+\end{proof}
+
+\begin{lemma}[Intertwiners between irreducible representations]
+\label{lem:symmetry-schur}
+A nonzero intertwiner between two finite-dimensional complex irreducible
+representations is an isomorphism. An intertwining endomorphism of one such
+representation is a scalar multiple of the identity.
+\end{lemma}
+\begin{proof}
+The kernel and image of an intertwiner are invariant. Irreducibility and a
+nonzero map make the kernel zero and the image the whole target, proving
+invertibility. For an intertwining endomorphism $T$ on a nonzero complex
+finite-dimensional space, choose an eigenvalue $\lambda\in\mathbb C$.
+The nonzero eigenspace $\ker(T-\lambda I)$ is invariant and hence is the
+whole space. Thus $T=\lambda I$. In particular, the vector space of
+intertwiners between inequivalent irreducibles has dimension zero; between
+a chosen irreducible and itself it has dimension one.
+\end{proof}
+
+\begin{definition}[Character and irreducible multiplicity]
+\label{def:symmetry-character-multiplicity}
+For an ordinary representation $D(g)$ on a retained coefficient space
+$\mathbb C^r$, its \emph{character} is $\chi_D(g)=\operatorname{tr}D(g)$,
+where the trace is the sum of diagonal entries. Trace is invariant under a
+change of basis, so the character does not depend on a chosen frame within
+that represented space. Choose an index set $\mathcal I$ containing one
+representative of every equivalence class of complex irreps of $\mathcal G$.
+For $\alpha\in\mathcal I$, let $V_\alpha$ be its irreducible coefficient
+space, $d_\alpha=\dim V_\alpha$ its positive dimension, and
+$D_\alpha(g)$ its action matrix. Its character is
+$\chi_\alpha(g)=\operatorname{tr}D_\alpha(g)$.
+
+The \emph{multiplicity} $m_{F,\alpha}$ is the number of copies of
+$V_\alpha$ occurring in the representation on the coordinates of frame $F$.
+Lemma~\ref{lem:symmetry-complete-reducibility} gives a change of coordinates
+with
+\begin{equation}
+  \mathbb C^r\simeq\bigoplus_{\alpha\in\mathcal I}
+     \left(V_\alpha\otimes\mathbb C^{m_{F,\alpha}}\right),
+  \qquad r=\sum_{\alpha\in\mathcal I}d_\alpha m_{F,\alpha}.
+  \label{eq:symmetry-isotypic-decomposition}
+\end{equation}
+Here $\simeq$ means representation equivalence, $\bigoplus$ is a direct sum,
+and $\otimes$ is a tensor product. The group acts on $V_\alpha$ and as the
+identity on the multiplicity space $\mathbb C^{m_{F,\alpha}}$; a zero
+multiplicity means that irrep is absent. In this notation $F$ identifies the
+frame carrying $D$, not a group element.
+\end{definition}
+
+\begin{lemma}[Orthogonality of irreducible characters]
+\label{lem:symmetry-character-orthogonality}
+For complex-valued functions $u,v:\mathcal G\to\mathbb C$, define the
+normalized character-space inner product by
+\begin{equation}
+  \langle u,v\rangle_{\mathcal G}
+    =\frac{1}{|\mathcal G|}\sum_{g\in\mathcal G}\overline{u(g)}v(g).
+  \label{eq:symmetry-character-inner-product}
+\end{equation}
+This is an inner product on functions of group elements, not a state-space
+Gram metric. For the chosen inequivalent irreps it obeys
+$\langle\chi_\alpha,\chi_\beta\rangle_{\mathcal G}=\delta_{\alpha\beta}$,
+where $\delta_{\alpha\beta}$ is one when $\alpha=\beta$ and zero otherwise.
+\end{lemma}
+\begin{proof}
+Let $\operatorname{Hom}(V_\alpha,V_\beta)$ denote the vector space of all
+complex-linear maps between the two irreducible spaces. Its elements have
+$d_\beta\times d_\alpha$ matrices $X$. Define a linear averaging operator
+$Q_{\alpha\beta}$ on this space by
+\begin{equation}
+  Q_{\alpha\beta}(X)=\frac{1}{|\mathcal G|}\sum_{g\in\mathcal G}
+      D_\beta(g)X D_\alpha(g)^{-1}.
+  \label{eq:symmetry-intertwiner-average}
+\end{equation}
+Reindexing by left multiplication of group elements shows that its output
+intertwines the two representations. Conversely, every intertwiner is fixed
+by this average. Hence $Q_{\alpha\beta}$ is an idempotent operator whose
+image is precisely the intertwiner space. By Lemma~\ref{lem:symmetry-schur},
+that image has dimension $\delta_{\alpha\beta}$. An idempotent is the
+identity on its image and zero on its kernel, so its trace equals this
+dimension.
+
+For square matrices $A$ on $V_\beta$ and $B$ on $V_\alpha$, the operator
+$X\mapsto AXB$ on this matrix space has trace
+$(\operatorname{tr}A)(\operatorname{tr}B)$: in the basis of matrices with
+one entry equal to one, its diagonal coefficient at position $(i,j)$ is
+$A_{ii}B_{jj}$, and summing over $i,j$ gives the product. Applying this fact
+to the average computes the same trace as
+$|\mathcal G|^{-1}\sum_g\chi_\beta(g)\operatorname{tr}(D_\alpha(g)^{-1})$.
+Using the invariant inner product of
+Lemma~\ref{lem:symmetry-complete-reducibility}, the irreducible matrices may
+be written in unitary coordinates. Their inverse
+traces are therefore $\overline{\chi_\alpha(g)}$; trace is unchanged by
+returning to the original coordinates. Equating the two trace expressions
+proves the asserted orthogonality.
+\end{proof}
+
+Orthogonality also shows that there are at most $|\mathcal G|$ inequivalent
+irreps: their nonzero, mutually orthogonal characters belong to the
+$|\mathcal G|$-dimensional space of complex-valued functions on the group.
+Thus the complete irrep index set $\mathcal I$ is finite.
+
+\begin{definition}[Isotypic sector]
+\label{def:symmetry-isotypic-sector}
+The \emph{isotypic sector} for $\alpha$ is the sum of all invariant copies
+equivalent to $V_\alpha$; its dimension is $d_\alpha m_{F,\alpha}$, not just
+the number of copies. This sector does not select a unique basis or a unique
+splitting of repeated copies.
+\end{definition}
+
+\begin{proposition}[Character projector onto an isotypic sector]
+\label{prop:symmetry-character-projector}
+For an ordinary representation $D(g)$ preserving the induced frame metric
+$\mathsf G_F$, the metric-orthogonal projector onto sector $\alpha$ is
+\begin{equation}
+  \Pi_\alpha=\frac{d_\alpha}{|\mathcal G|}
+     \sum_{g\in\mathcal G}\overline{\chi_\alpha(g)}D(g).
+  \label{eq:symmetry-isotypic-projector}
+\end{equation}
+The sum is over every group element, and the overline conjugates the
+character, not the representation matrix. Each $\Pi_\alpha$ has size
+$r\times r$. It is the identity on copies of irrep $\alpha$ and zero on
+inequivalent irreps. Consequently
+$\Pi_\alpha^2=\Pi_\alpha$ (idempotence),
+$\Pi_\alpha\Pi_\beta=0$ for distinct labels $\alpha,\beta$ (mutual
+orthogonality), and $\sum_{\alpha\in\mathcal I}\Pi_\alpha=I_r$
+(completeness). Orthogonality is in the frame metric:
+$\Pi_\alpha^{\dagger}\mathsf G_F=\mathsf G_F\Pi_\alpha$.
+\end{proposition}
+\begin{proof}
+Characters are invariant under conjugating group elements, because
+$D_\alpha(hgh^{-1})=D_\alpha(h)D_\alpha(g)D_\alpha(h)^{-1}$ has the
+same trace as $D_\alpha(g)$. Reindexing the projector sum therefore shows
+that $\Pi_\alpha$ commutes with every group action. It also preserves each
+invariant irreducible summand, since each term in the sum does.
+On a copy of irrep $\beta$, Lemma~\ref{lem:symmetry-schur} makes its
+restriction a scalar $c_{\alpha\beta}$ times the identity. Taking the trace
+on that copy and applying Lemma~\ref{lem:symmetry-character-orthogonality}
+gives $d_\beta c_{\alpha\beta}=d_\alpha\delta_{\alpha\beta}$.
+Thus the scalar is one for $\beta=\alpha$ and zero otherwise, proving
+idempotence, product orthogonality and completeness on the irreducible
+decomposition.
+
+Different isotypic sectors are orthogonal in the given invariant metric.
+Indeed, metric projection onto an invariant irreducible copy commutes with
+the group action by Eq.~\eqref{eq:symmetry-invariant-projector-commutation}.
+Its restriction to an inequivalent irreducible copy is an intertwiner and
+hence zero by Lemma~\ref{lem:symmetry-schur}. Summing such copies establishes
+orthogonality of the sectors. Since $\Pi_\alpha$ acts as identity on one
+sector and zero on all others, it is the metric-orthogonal projector and
+satisfies the asserted metric self-adjointness identity.
+\end{proof}
+
+For exact ordinary representations with the qualified complete irrep list,
+Lemma~\ref{lem:symmetry-character-orthogonality} also recovers each multiplicity:
+\begin{equation}
+  m_{F,\alpha}=\frac{1}{|\mathcal G|}
+    \sum_{g\in\mathcal G}\overline{\chi_\alpha(g)}\chi_D(g).
+  \label{eq:symmetry-character-multiplicity}
+\end{equation}
+To obtain this formula, take the trace of the direct-sum representation in
+Eq.~\eqref{eq:symmetry-isotypic-decomposition}, giving
+$\chi_D(g)=\sum_{\beta\in\mathcal I}m_{F,\beta}\chi_\beta(g)$, and pair
+it with $\chi_\alpha$ using Eq.~\eqref{eq:symmetry-character-inner-product}.
+Orthogonality removes every term except $m_{F,\alpha}$. Since the character
+is independent of the decomposition, this formula also proves that the
+multiplicities are unique even though the individual equivalent copies need
+not be. This value is a nonnegative integer under those hypotheses. Supplied character
+data, operation correspondence and the group law must first be qualified.
+Rounding a computed trace or multiplicity to an integer does not establish
+those hypotheses. An energy degeneracy likewise does not determine an irrep
+or its multiplicity.
+
+\begin{proposition}[Sector multiplicities bound intertwiner rank]
+\label{prop:symmetry-sector-rank-bound}
+Let $T:\mathcal C\to\mathcal W$ intertwine ordinary finite-dimensional
+complex representations on identified coefficient spaces $\mathcal C$ and
+$\mathcal W$ of a finite group. Write $m_{C,\alpha}$ and $m_{W,\alpha}$ for
+the numbers of copies of the same irrep $V_\alpha$ in source and target.
+The rank of $T$ is the dimension of its image; its kernel $\ker T$ is the
+source subspace sent to zero. Both sums below run over the complete irrep
+index set $\mathcal I$ introduced above. Then
+\begin{align}
+  \operatorname{rank}T
+    &\leq\sum_\alpha d_\alpha
+        \min(m_{C,\alpha},m_{W,\alpha}),
+    \label{eq:symmetry-intertwiner-rank-bound}\\
+  \dim\ker T
+    &\geq\sum_\alpha d_\alpha
+        \max(m_{C,\alpha}-m_{W,\alpha},0).
+    \label{eq:symmetry-intertwiner-kernel-bound}
+\end{align}
+\end{proposition}
+\begin{proof}
+Decompose the source and target using
+Lemma~\ref{lem:symmetry-complete-reducibility}. By
+Lemma~\ref{lem:symmetry-schur}, every map between inequivalent irreducible
+copies is zero, and every map between fixed equivalent copies is scalar
+after their representations are identified. Therefore in irreducible
+coordinates $T$ has blocks
+$I_{d_\alpha}\otimes K_\alpha$, where $I_{d_\alpha}$ is the identity on
+$V_\alpha$ and $K_\alpha$ is an $m_{W,\alpha}\times m_{C,\alpha}$ matrix
+between the multiplicity spaces. Each block has rank at most
+$d_\alpha\min(m_{C,\alpha},m_{W,\alpha})$. Summing and subtracting from
+$\dim\mathcal C=\sum_\alpha d_\alpha m_{C,\alpha}$ proves both bounds.
+\end{proof}
+
+Matching multiplicities permit full-rank intertwiners but do not force them:
+a block $K_\alpha$ may itself be deficient. For the overlap construction,
+$\operatorname{rank}B=\operatorname{rank}T$ because $\mathsf G_W$ is invertible.
+The proposition concerns exact ranks under exact representation and closure
+hypotheses. Small numerical covariance residuals alone do not justify its
+application as an exact rank certificate. Quantitative approximate versions
+need separately derived perturbation bounds.
+
+\subsection{A worked sector-mismatch example}
+
+Consider a two-element group $\mathcal G=\{e,g\}$ with $g^2=e$.
+Its two complex irreps are one-dimensional: label them $+$ and $-$, with
+characters $\chi_+(e)=\chi_-(e)=1$ and $\chi_+(g)=1$, $\chi_-(g)=-1$.
+Let the source and target coefficient spaces both be $\mathbb C^3$ with
+identity metrics, but give them different actions:
+\begin{equation}
+  D_C(g)=\operatorname{diag}(1,1,-1),\qquad
+  D_W(g)=\operatorname{diag}(1,-1,-1).
+  \label{eq:symmetry-sector-example-actions}
+\end{equation}
+At $e$ both representations equal $I_3$. Their characters at $g$ are
+$\chi_{D_C}(g)=1$ and $\chi_{D_W}(g)=-1$, while both identity characters
+are three. Equation~\eqref{eq:symmetry-character-multiplicity} gives
+$m_{C,+}=2$, $m_{C,-}=1$, $m_{W,+}=1$ and $m_{W,-}=2$.
+For example, the source $+$ multiplicity is $(3+1)/2=2$, not the trace at
+$g$ alone. The source isotypic projectors are
+$(I_3+D_C(g))/2=\operatorname{diag}(1,1,0)$ for $+$ and
+$(I_3-D_C(g))/2=\operatorname{diag}(0,0,1)$ for $-$.
+The first selects a two-dimensional sector containing two equivalent copies;
+it does not select a preferred one-dimensional basis within that sector.
+
+The intertwining equation forces every source-to-target matrix to have the
+form
+\begin{equation}
+  T=\begin{pmatrix}a&b&0\\0&0&c\\0&0&d\end{pmatrix},
+  \qquad a,b,c,d\in\mathbb C.
+  \label{eq:symmetry-sector-example-intertwiner}
+\end{equation}
+Here $a,b$ map the two source $+$ coordinates into the single target $+$
+coordinate, while $c,d$ map the single source $-$ coordinate into the two
+target $-$ coordinates. Opposite sectors cannot couple through an
+intertwiner. The rank bound is therefore at most
+$\min(2,1)+\min(1,2)=2$, and at least one source direction lies in the kernel
+despite equal total dimensions. This upper bound is attained when both pairs
+$(a,b)$ and $(c,d)$ are nonzero.
+
+For contrast, take both actions to be $\operatorname{diag}(1,-1)$ on
+$\mathbb C^2$ and choose $T=\operatorname{diag}(1,0)$. This map intertwines
+the identical representations but has rank one. Equal multiplicities have
+removed the forced sector mismatch, not every possible cause of rank loss.
+Consequently an observed rank loss does not by itself prove a sector mismatch.
+These are exact analytical examples, not silicon sector assignments or retained
+numerical results.
+
+\section{Analytical controls and numerical interpretation}
+
+Two illustrative controls expose mistakes that orthonormal positive cases miss.
+Take the two-element group $\mathcal G=\{e,g\}$ with $g^2=e$. On the
+orthonormal coefficient space $\mathbb C^2$, let $D(e)=I_2$ and let $D(g)$
+be the reflection matrix $R=\operatorname{diag}(1,-1)$, which fixes the first
+coordinate and reverses the second. Let $A$ have columns equal to the new
+basis vectors in these old coordinates. The new metric $\mathsf G$ and action
+$M$ follow from Eq.~\eqref{eq:symmetry-basis-change}:
+\begin{equation}
+  A=\begin{pmatrix}1&1\\0&1\end{pmatrix},\quad
+  \mathsf G=A^{\dagger}A=\begin{pmatrix}1&1\\1&2\end{pmatrix},\quad
+  M=A^{-1}RA=\begin{pmatrix}1&2\\0&-1\end{pmatrix}.
+  \label{eq:symmetry-nonorthogonal-control}
+\end{equation}
+Direct multiplication gives $M^2=I$ and $M^{\dagger}\mathsf G M=\mathsf G$,
+but $M^{\dagger}M\ne I$. Euclidean unitarity would reject a valid action.
+Conversely, in the original orthonormal coordinates retain only
+$f=(1,1)^{\mathsf T}/\sqrt2$. Then $f^{\dagger}Rf=0$ and $Rf$ is orthogonal
+to $f$. Compression of an exact ambient representation has lost closure and
+is not a one-dimensional group representation. These are analytical examples,
+not completed software tests or calculated silicon results.
+
+\begin{definition}[Metric-compatible operator norm]
+\label{def:symmetry-metric-operator-norm}
+For a linear matrix $X$ from a nonzero source space with metric
+$\mathsf G_{\mathrm s}$ to a target with metric $\mathsf G_{\mathrm t}$,
+define
+\begin{equation}
+  \|X\|_{\mathsf G_{\mathrm t}\leftarrow\mathsf G_{\mathrm s}}
+  =\sup_{x\ne0}\frac{\|Xx\|_{\mathsf G_{\mathrm t}}}
+                         {\|x\|_{\mathsf G_{\mathrm s}}}.
+  \label{eq:symmetry-metric-operator-norm}
+\end{equation}
+The supremum is over nonzero source coefficient columns. It measures the
+largest target norm obtained per unit source norm. In particular, leakage
+$L$ uses the source retained metric $\mathsf G_{F_{\mathrm s}}$ and the
+target ambient metric $\mathsf G_{\mathrm t}$, not two ambient metrics of
+unrelated sizes. Hamiltonian covariance residuals carry energy units, whereas
+action and leakage residuals in the present convention are dimensionless.
+\end{definition}
+
+\subsection{Residuals must retain their mathematical type}
+
+To specify reusable diagnostics, let $D(g)$ now denote candidate
+$r\times r$ action matrices on one coefficient space with metric
+$\mathsf G_F$, not matrices already assumed to pass the representation law.
+For group elements $g_1,g_2$, define the identity residual $E_{\mathrm{id}}$,
+composition residual $E_{\mathrm{law}}$, and isometry residual
+$E_{\mathrm{iso}}$ by
+\begin{align}
+  E_{\mathrm{id}}&=D(e)-I_r,
+    \label{eq:symmetry-identity-residual}\\
+  E_{\mathrm{law}}(g_1,g_2)
+    &=D(g_1g_2)-D(g_1)D(g_2),
+    \label{eq:symmetry-group-law-residual}\\
+  E_{\mathrm{iso}}(g)&=D(g)^{\sharp}D(g)-I_r.
+    \label{eq:symmetry-isometry-residual}
+\end{align}
+Every residual in these formulas is a dimensionless coefficient map from the
+same retained space to itself. The metric adjoint uses $\mathsf G_F$ on both
+sides, so their operator norms also use $\mathsf G_F$ as both source and
+target metric. In contrast, the array
+$D(g)^{\dagger}\mathsf G_FD(g)-\mathsf G_F$ is an inner-product form.
+Left multiplication by $\mathsf G_F^{-1}$ converts that form into
+$E_{\mathrm{iso}}(g)$. An array's shape alone does not distinguish these
+mathematical types or choose their norm.
+
+For a candidate ambient map $M$ between source and target Hamiltonian spaces,
+the covariance residual is the coefficient map
+\begin{equation}
+  E_{\mathrm{cov}}=h_{\mathrm t}M-Mh_{\mathrm s}.
+  \label{eq:symmetry-covariance-residual}
+\end{equation}
+It has size $n_{\mathrm t}\times n_{\mathrm s}$ and energy units.
+Its operator norm uses the ambient source and target metrics. It is not the
+same object as the dimensionless leakage $L$, which uses a retained source
+metric, or the overlap invariance residual
+$D_W(g)^{\dagger}BD_C(g)-B$, which is a pairing between retained spaces.
+A single untyped norm test cannot replace these distinctions.
+
+Candidate projectors on one represented space have separate residuals:
+$\Pi_\alpha^2-\Pi_\alpha$ for idempotence,
+$\Pi_\alpha\Pi_\beta$ for distinct-sector orthogonality,
+$\sum_{\alpha\in\mathcal I}\Pi_\alpha-I_r$ for completeness, and
+$\Pi_\alpha^{\sharp}-\Pi_\alpha$ for metric self-adjointness.
+Here $\alpha,\beta\in\mathcal I$ are distinct irrep labels when testing
+orthogonality. The metric adjoint again belongs to the represented space;
+Euclidean Hermiticity is not a substitute in a nonorthogonal frame.
+
+Numerical qualification needs declared norms, conditioning and error bounds
+for each of these quantities. An exact identity proved under exact hypotheses
+is different from a bounded residual meeting a declared numerical tolerance.
+An interval containing zero does not prove an exact residual is zero; an
+interval straddling a decision threshold leaves that decision inconclusive.
+No rounded character, repaired action or removed direction supplies a missing
+hypothesis of the sector-rank proposition.
+Input printing/parsing, arithmetic, finite-representation, model
+reduction and parent-physics errors remain distinct. There is no universal
+symmetry tolerance, silent polar repair, rank reduction, or permission to
+apply a raw-overlap threshold to normalized singular values. Principal-angle
+cosines require metric-orthonormal frames (or their explicitly justified
+normalization); raw trial-coordinate overlaps need not have that meaning.
+Higher precision addresses an actual arithmetic ambiguity, not missing native
+digits or unqualified source conventions.
+
+\section{Scientific and implementation boundary}
+
+The first proposed reusable software slice is ordinary finite groups and
+complex-linear metric-preserving actions. Antiunitary corepresentations,
+projective factors, nonsymmorphic little-group theory and spinful double-valued
+actions require separate contracts; the ordinary character formula does not
+cover them by relabeling an operation. General sewing remains a separate
+state-space identification category.
+
+For silicon, source-bound parent, trial and Wannier actions, their metrics,
+phases, closure and compatible character data must precede a sector diagnosis.
+Appendix~\ref{app:preliminary-silicon-work} reports a verified numerical rank
+stop, not an application of Proposition~\ref{prop:symmetry-sector-rank-bound}.
+Geometric symmetry or a nearly vanishing overlap does not establish its
+hypotheses. Native wavefunction extraction, reusable mathematics, and campaign
+source admission and scientific disposition have distinct owners. Proposed
+package incubation or later migration is not evidence that extraction or
+symmetry-sector software already exists.

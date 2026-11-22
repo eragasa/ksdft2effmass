@@ -69,6 +69,11 @@ type CountBoundaryFamily = Literal[
 class TestResearchMonographCitationSnapshotIntegrityValidator:
     """Own software evidence for complete result integrity replay."""
 
+    @pytest.fixture(autouse=True)
+    def bind_baseline(self, citation_baseline_repository: Path) -> None:
+        """Replay the same frozen inputs regardless of working manuscript edits."""
+        self.baseline_repository = citation_baseline_repository
+
     @pytest.mark.parametrize(
         "family",
         (
@@ -198,7 +203,7 @@ class TestResearchMonographCitationSnapshotIntegrityValidator:
         """
         first = self.compile_result()
         second = self.compile_result()
-        repository_root = Path(__file__).resolve().parents[7].as_posix()
+        repository_root = self.baseline_repository.as_posix()
 
         assert first.request_id == second.request_id
         assert first.result_id == second.result_id
@@ -228,10 +233,9 @@ class TestResearchMonographCitationSnapshotIntegrityValidator:
         with pytest.raises(ValueError):
             SUT().validate_canonical_projection_size(20_000_001)
 
-    @staticmethod
-    def compile_result() -> ResearchMonographCitationSnapshotResult:
-        """Compile the exact maintained repository through the public owner API."""
-        repository_root = Path(__file__).resolve().parents[7]
+    def compile_result(self) -> ResearchMonographCitationSnapshotResult:
+        """Compile the exact frozen baseline through the public owner API."""
+        repository_root = self.baseline_repository
         return ResearchMonographCitationSnapshotCompiler().execute(
             ResearchMonographCitationSnapshotRequest(repository_root.as_posix())
         )

@@ -424,6 +424,82 @@ Isospectral matrices can attach the same eigenvalues to different physical
 sites, orbitals, spin channels, or spatial regions. Spectral agreement is
 valuable evidence, but it supplies no physical alignment map by itself.
 
+\subsection{Ascending arrays and the decreasing formal carrier}
+\label{sec:training-spectral-order-bridge}
+\index{eigensystem!ascending/decreasing bridge}
+
+Let $A$ and $B$ be two Hermitian $N\times N$ matrices with $N\geq1$.
+Write $\lambda_i^{\uparrow}(A)$ for the $i$th eigenvalue of $A$ in
+nondecreasing order, including every repeated eigenvalue, with
+$i=1,\ldots,N$. Use the same convention for $B$.
+Write $\lambda_j^{\downarrow}(A)$ for the decreasing carrier, now indexed
+by $j=0,\ldots,N-1$. The exact bridge is
+\begin{equation}
+  \lambda_j^{\downarrow}(A)=\lambda_{N-j}^{\uparrow}(A),
+  \qquad
+  \lambda_j^{\downarrow}(B)=\lambda_{N-j}^{\uparrow}(B).
+  \label{eq:training-spectral-order-reversal}
+\end{equation}
+The different starting indices in this equation are deliberate. In a
+zero-based ascending Python array, conversion is full-array reversal:
+entry $j$ of the decreasing array is entry $N-1-j$ of the ascending array.
+Do not remove repeated eigenvalues or reverse only one of two compared
+arrays. Reversal is an indexing conversion, not band tracking, an
+interspace alignment, or a choice of eigenvectors within a degenerate block.
+
+In \texttt{projectkoios-formal},
+\path{ProjectKoios/BandGauge/Foundations/HermitianSpectralError.lean}
+uses Mathlib's decreasing, multiplicity-retaining \texttt{eigenvalues}\(_0\)
+on the canonical finite index set of cardinality $N$.
+The arbitrary-type-indexed \path{eigenvalues} function is not substituted
+for this ordered carrier. The manuscript's ascending examples and Python's
+\path{eigh} outputs must cross the explicit reversal above before being
+identified with it. This is a mathematical source-convention bridge, not
+proof that a particular floating-point output has been authenticated.
+
+Define the maximum paired error $E_{\max}$ and single-matrix-pair
+root-mean-square error $E_{\mathrm{rms}}$ by
+\begin{equation}
+  E_{\max}=\max_{1\leq i\leq N}
+      |\lambda_i^{\uparrow}(A)-\lambda_i^{\uparrow}(B)|,
+  \qquad
+  E_{\mathrm{rms}}=
+    \left(\frac1N\sum_{i=1}^{N}
+      |\lambda_i^{\uparrow}(A)-\lambda_i^{\uparrow}(B)|^2\right)^{1/2}.
+  \label{eq:training-ordered-spectral-errors}
+\end{equation}
+Both quantities retain the eigenvalue units, such as energy for Hamiltonians.
+Replacing both ascending lists by their decreasing lists leaves both errors
+unchanged: $j\mapsto N-j$ is a bijection between the two index sets, so
+it preserves the set of absolute differences and their squared sum.
+In particular $E_{\mathrm{rms}}\leq E_{\max}$. The nonempty dimension
+$N\geq1$ supplies both the maximum's domain and the RMS divisor; no
+empty-spectrum convention is silently selected.
+
+For example, the synthetic ascending lists $(-2,-2,3)$ and $(-1,-1,5)$
+have absolute differences $(1,1,2)$. Reversing both gives differences
+$(2,1,1)$, so $E_{\max}=2$ and $E_{\mathrm{rms}}=\sqrt2$ in either
+convention. The repeated level remains present twice.
+
+The maximum/Weyl and RMS/Hoffman--Wielandt bounds are distinct
+statements~\cite{hornJohnson2013}. For compatible exact Hermitian matrices,
+\begin{equation}
+  E_{\max}\leq\|A-B\|_2,
+  \qquad
+  E_{\mathrm{rms}}\leq\frac{\|A-B\|_{\mathrm F}}{\sqrt N}.
+  \label{eq:training-weyl-hoffman-wielandt-distinction}
+\end{equation}
+Here $\|\cdot\|_2$ is the induced Euclidean operator norm and
+$\|\cdot\|_{\mathrm F}$ is the entrywise Frobenius norm. The second bound
+comes from the square-sum inequality, not from relabeling the maximum bound.
+The first-principles, retained and reduced operators must still be identified
+on compatible spaces before either difference is physically meaningful.
+A weighted, multi-sample, energy-normalized loss elsewhere in this monograph
+is not this single-pair RMS: its sampling weights, rank divisor and energy
+scale require a separate aggregation argument. No Formal theorem about
+this carrier alone certifies that larger runtime loss or changes a frozen
+\texttt{PRF-05} status.
+
 \section{Computing and checking a Hermitian eigensystem}
 \index{eigensolver}
 \index{eigenpair residual}

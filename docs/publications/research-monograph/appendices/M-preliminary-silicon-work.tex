@@ -87,7 +87,7 @@ must not be combined as though they were refinements of one calculation.
 
 Table~\ref{tab:preliminary-si-sources} identifies the records from which this
 appendix is projected. Repository paths are relative to the repository root.
-The complete package in the final row remains external. A bounded publication
+The complete external Wannier prototype package remains external. A bounded publication
 extraction containing the primary result, selected finite-mesh records and figures,
 and a copy of the external output manifest is retained locally; the omitted package
 payloads remain external.
@@ -468,8 +468,8 @@ $sp^3$ hybrids and two radial $s$ projections---to the two-site atomic order
 $(s,p_x,p_y,p_z,s^{\ast})$. The construction is an instance of the general
 common-space gate in Eq.~\eqref{eq:sk-full-rank-gate}.
 
-The uncertainty bound derived from the retained decimal precision and matrix
-dimensions was
+The historical S110 gate threshold, originally derived from the retained
+decimal precision and matrix dimensions, was
 \begin{equation}
   \eta_{\mathrm{native}}
   =5.890206739032098\times10^{-7}.
@@ -480,8 +480,8 @@ every one of the 216 construction points. Two points failed:
 \begin{table}[htbp]
   \centering
   \small
-  \caption{Retained deficient points in the projection-anchored
-  $sp^3s^{\ast}$ common-space gate.}
+  \caption{Historical S110 deficient-point values in the projection-anchored
+  $sp^3s^{\ast}$ common-space gate; not replacement CSD1 checkpoint values.}
   \label{tab:preliminary-si-sk-rank}
   \begin{tabular}{lrrr}
     \toprule
@@ -513,12 +513,130 @@ no Slater--Koster parameter vector or aligned operator residual exists, and the
 reserved fit/validation split was not activated. A spectral-only fit was not
 substituted for the failed operator-alignment contract.
 
-The retained diagnosis does not yet identify a symmetry-sector cause. A
-producer independent of the original fit implementation can reconstruct the
-complete singular-value field and invariant controls, but the separately
-implemented verifier remains absent. A future global-unitary rank-10 study, a
+The historical result above remains unchanged. The subsequent retained CSD1
+producer and independent CSD1-V verification are reported below. Neither
+identifies a symmetry-sector cause. A future global-unitary rank-10 study, a
 rank-nine model, and a newly designed Wannier source are distinct successor
 questions. None is authorized or scientifically selected by this result.
+
+\subsection{Adopted source and geometry distinctions}
+
+The source-specific scientific decision is retained at
+\path{calculations/Si/bulk/protocol/decisions/s30-state-identification.md};
+the bound declaration is
+\path{calculations/Si/bulk/analysis/wannier-window-remedy/source-state-assertions.json}.
+This adopts the complete fixed S30 HR/WSvec model, including all 383 effective
+integer representatives, its native ordering, positive integer-translation
+Fourier phase, explicit Hermitian-part evaluation, eV units and unchanged
+energy zero. It is not the full KS operator or an aligned atomic model.
+The modeled maps $J_j=\Phi_jV_j$, with $V_j=U_{\mathrm{dis},j}U_j$, associate
+its coordinate fibers with the native retained spaces at 216 authenticated
+source indices. This is not an assertion of exact equality with parent
+compression. The interpolant exists on its model reciprocal torus, but no
+off-mesh KS embedding or global native frame is claimed.
+
+The nonzero executed QE cell entry is $2.73459105$~\AA, whereas the nominal
+S30 analysis entry is $2.7345910468201033$~\AA. WIN and NNKP retain their own
+printed presentations. These are distinct declarations, not equal geometries
+or an implicit tolerance waiver. Nominal-geometry masses, distances and
+locality diagnostics retain their original meanings. Construction indices
+correlate the respective native coordinate presentations through occurrence
+lineage; no coordinate snapping or resampling is introduced. The adopted
+external EIG relocation is explicit and does not repair the absent historical
+relative path in the original S30 script.
+
+For the historical ultrasoft source, AMN represents overlaps with the
+ultrasoft overlap operator $S$. A qualified $S$-orthonormal parent-band frame
+has an identity coefficient metric; this does not make the raw plane-wave
+metric the identity or call for a second $S$ factor in coefficient products.
+Ideal backend frames, computed frames and rounded file matrices remain
+distinct. Source lineage, backend-frame meaning, nearest decimal rounding and
+source-to-build correspondence remain assumptions; hashes authenticate bytes,
+not those physical interpretations or historical process integrity.
+
+\subsection{Retained producer and independent Gram verification}
+\index{silicon!independent common-space verification}
+
+The actual CSD1 checkpoint is retained under
+\path{calculations/Si/bulk/analysis/common-space-producer/run-001/}, including
+\path{result.json}, \path{point-inventory.json} and
+\path{producer-completion.json}. The producer result has SHA-256
+\path{761d58b83a43a9544ad2aae1872ef91cd4ef5387dbae9a6db169a32ee5498dd8}.
+Its minimum singular values are approximately
+$5.3610157578\times10^{-13}$ at index 0 and
+$2.0186562342\times10^{-7}$ at index 12. These checkpoint values are distinct
+from the historical S110 displays in Table~\ref{tab:preliminary-si-sk-rank}.
+
+The independent CSD1-V route reconstructed the overlap by exact rational
+arithmetic after the shared authenticated native parsing boundary. It used
+Gram eigenvalue candidates with exact eigenpair-residual and eigenframe-defect
+bounds, not producer reconstruction, rank or direction code. The unchanged
+strict gate is
+\begin{equation}
+  \lambda_j(B^{\dagger}B)>\tau^2,
+  \qquad \tau=5.890206739032098\times10^{-7},
+  \label{eq:appendix-m-csd1v-gate}
+\end{equation}
+where $\tau$ denotes the exact value of the original binary64 threshold, not
+a newly rounded decimal rational. Intervals certify which eigenvalues lie
+above or below this gate. All 216 points were conclusive: 214 resolved rank-ten
+points and two resolved rank-nine points at indices 0 and 12. Native/parse
+coverage and fixed retained-basis unitary controls passed at every point;
+both deficient minimum directions were isolated and enclosed under the
+contract. These ranks are threshold-resolved ranks, not a proof that an exact
+physical matrix has a zero singular value.
+
+Approximate maxima of the dimensionless retained bounds are
+$9.3844\times10^{-9}$ for native printing contributions,
+$3.4327\times10^{-15}$ for parsing,
+$5.7578\times10^{-15}$ for eigenframe orthonormality defects,
+$1.0118\times10^{-13}$ for Gram spectral error, and
+$2.9231\times10^{-14}$ for eigenpair residuals. These rounded displays are not
+outward-rounded certificates or new tolerances: the JSON retains exact rational
+endpoints. Printing and arithmetic bounds do not cover DFT, geometry, physical
+fidelity or model-reduction error. Exact physical orthogonality at $\Gamma$
+remains native-input-limited. Direction weights are atomic-trial-coordinate
+diagnostics, not charges, populations or an identification of physical Si4s.
+Raw singular values are not principal-angle cosines for unnormalized trial
+frames; diagnostic whitening does not license replacing the frozen raw gate.
+No arithmetic ambiguity triggered higher-precision escalation.
+
+The independent result was persisted before producer correlation. Run 001
+completed the independent field but stopped at metadata correlation; its
+records remain preserved. Run 002, under
+\path{calculations/Si/bulk/analysis/common-space-verification/run-002/},
+completed correlation with zero mismatches. The two independent numerical
+JSON files are byte-identical, SHA-256
+\path{3ed6f7bb54086ac8005acea8c34a9a47c475b14878618da4b5c6eaa01ac532ee};
+\path{producer-correlation.json} records the subsequent outcome separately.
+The correlation repair linked authenticated descriptive request fields to
+source-declaration identities; it changed neither numerical inputs nor
+kernels, bounds, geometry declarations or gate. Manifests bind executed source
+bytes; the dirty checkout's HEAD alone does not identify those implementations.
+This is independent numerical reconstruction, not independent human review,
+physical validation, production qualification or acceptance of a reduced model.
+
+\subsection{Electronic symmetry remains an open diagnosis}
+
+The retained geometric inventory has 48 operations and 16 construction-index
+orbits. Index 12 belongs to the star
+$\{2,4,12,24,72,86,144,172\}$, of which only index 12 fails the frozen gate.
+This index relation does not establish physical symmetry breaking. Geometric
+operations do not supply parent, trial or Wannier electronic actions or
+establish closure of their represented spaces.
+
+CSD2 is not complete: authenticated action matrices, metrics, phases, closure
+and compatible character/projector evidence remain unestablished. Raw retained
+wavefunctions have not been parsed for symmetry actions; lack of a supported
+extractor is not proof that the retained data contain insufficient information.
+The sector-rank bound in
+Proposition~\ref{prop:symmetry-sector-rank-bound} is therefore a conditional
+mathematical tool, not an explanation already demonstrated for this source.
+CSD3, HF0--HF4, selection of a successor or window, new localization and fitting
+remain separate questions. The 216 construction, revealed-408 development and
+withheld-402 confirmation roles remain distinct; the withheld 402 points remain
+unobserved. Historical SSSP evidence does not qualify the required production
+PseudoDojo ONCVPSP v0.5 PBE scalar-relativistic stringent branch.
 
 \section{What has not yet been established}
 
