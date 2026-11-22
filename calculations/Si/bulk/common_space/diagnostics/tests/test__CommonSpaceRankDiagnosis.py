@@ -8,8 +8,11 @@ import io
 import itertools
 import json
 from dataclasses import replace
+from fractions import Fraction
 from pathlib import Path
 
+import common_space.diagnostics.diagnosis as producer
+import common_space.verification.tests.test__CommonSpaceNativeOverlapReconstruction as native_fixture
 import numpy as np
 import pytest
 from common_space.diagnostics import (
@@ -28,6 +31,13 @@ from common_space.diagnostics.diagnosis import (
     authenticate_provider,
     reconstruct_rank_gate,
     validate_retained_source_contract,
+)
+from common_space.verification import (
+    CommonSpaceDeficientDirectionAnalysis,
+    CommonSpaceDirectionOutcome,
+    CommonSpaceNativeOverlapReconstruction,
+    CommonSpaceNativePrecisionAssessment,
+    CommonSpaceNativeRoundingModel,
 )
 
 
@@ -209,12 +219,179 @@ class TestCommonSpaceRankDiagnosis:
 
         assert "Computing raw overlap singular values" not in reporter.transcript()
 
+    def test__reconstruction__retains_distinct_non_gamma_direction_weights(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        """Run producer arithmetic on synthetic bytes; upstream review is tested separately."""
+        points = tuple(
+            (x / 6, y / 6, z / 6) for x, y, z in itertools.product(range(6), repeat=3)
+        )
+        loader, _ = native_fixture.TestCommonSpaceNativeOverlapReconstruction._fixture(
+            points=points,
+            bands=20,
+            constant_target=True,
+            deficient_indices=(0, 12),
+            mixed_direction_indices=(12,),
+            # Synthetic amplitude chosen to exercise the unchanged frozen gate.
+            outside_frame_amplitude=complex(2.944603369441934),
+        )
+        request = read_request(path=DEFAULT_REQUEST)
+        sources: dict[str, FileSourceDeclaration] = {}
+        for label, artifact in zip(
+            ("AMN", "gauge", "disentanglement"), loader.artifacts, strict=True
+        ):
+            path = tmp_path / artifact.name
+            path.write_bytes(artifact.payload)
+            sources[label] = FileSourceDeclaration(
+                label=label,
+                location="absolute",
+                declared_path=str(path),
+                byte_size=artifact.identity.byte_count,
+                sha256=artifact.identity.sha256,
+            )
+        request = replace(
+            request,
+            status="synthetic-software-test-only",
+            file_sources=tuple(
+                sources.get(item.label, item) for item in request.file_sources
+            ),
+            retained_comparison=replace(
+                request.retained_comparison,
+                deficient_indices=(0, 12),
+                minimum_singular_values=(0.0, 0.0),
+                gamma_atomic_orbital_weights=tuple(
+                    (label, float(index == 9))
+                    for index, label in enumerate(request.state_space.basis_order)
+                ),
+            ),
+        )
+
+        def reviewed_elsewhere(
+            *,
+            request: producer.CommonSpaceDiagnosisRequest,
+            source_paths: dict[str, Path],
+        ) -> None:
+            assert request.status == "synthetic-software-test-only"
+            assert all(source_paths[label].parent == tmp_path for label in sources)
+
+        monkeypatch.setattr(
+            producer, "validate_retained_source_contract", reviewed_elsewhere
+        )
+        result = reconstruct_rank_gate(
+            request, HumanReadableProgressReporter(stream=io.StringIO())
+        )
+        table = result["complete_kpoint_diagnostics"]
+        assert type(table) is list and len(table) == 216
+        gamma, second, full = table[0], table[12], table[1]
+        assert type(gamma) is dict and type(second) is dict and type(full) is dict
+        expected_gamma = [0.0] * 9 + [1.0]
+        expected_second = [0.25 if i in (0, 4, 5, 9) else 0.0 for i in range(10)]
+
+        def numeric_weights(value: producer.JsonValue) -> tuple[float, ...]:
+            assert type(value) is list
+            numbers: list[float] = []
+            for item in value:
+                assert type(item) is float
+                numbers.append(item)
+            return tuple(numbers)
+
+        np.testing.assert_allclose(
+            np.asarray(
+                numeric_weights(gamma["minimum_direction_atomic_weights"]),
+                dtype=np.float64,
+            ),
+            np.asarray(expected_gamma, dtype=np.float64),
+            atol=2e-14,
+            rtol=0,
+        )
+        np.testing.assert_allclose(
+            np.asarray(
+                numeric_weights(second["minimum_direction_atomic_weights"]),
+                dtype=np.float64,
+            ),
+            np.asarray(expected_second, dtype=np.float64),
+            atol=2e-14,
+            rtol=0,
+        )
+        np.testing.assert_allclose(
+            np.asarray(
+                numeric_weights(second["minimum_direction_group_weights_s_p_s_star"]),
+                dtype=np.float64,
+            ),
+            np.asarray([0.5, 0.0, 0.5], dtype=np.float64),
+            atol=2e-14,
+            rtol=0,
+        )
+        assert full["minimum_direction_atomic_weights"] == []
+        assert full["minimum_direction_group_weights_s_p_s_star"] == []
+        assert (
+            result["singular_value_native_uncertainty_bound"]
+            == request.retained_comparison.native_uncertainty_bound
+        )
+        old_gamma = result["gamma_null_direction_atomic_orbital_weights"]
+        assert type(old_gamma) is dict
+        assert [old_gamma[label] for label in request.state_space.basis_order] == gamma[
+            "minimum_direction_atomic_weights"
+        ]
+        deficient = result["deficient_kpoints"]
+        assert type(deficient) is list
+        assert deficient == [gamma, second]
+        assert result["producer_scope"] == "projector-rank-reconstruction-subset"
+        assert result["unimplemented_CSD1_extensions"] == [
+            "integration with independent verification of this producer result",
+            "symmetry-related deficient-point inventory",
+        ]
+        # Cross-route software check on the SAME synthetic native bytes. No source
+        # review or completion declaration is manufactured by this selected-point test.
+        parsed = loader.execute()
+        for index in (0, 12, 1):
+            row = table[index]
+            assert type(row) is dict
+            overlap = CommonSpaceNativeOverlapReconstruction(
+                parsed_inputs=parsed, ordered_index=index
+            ).execute()
+            assessment = CommonSpaceNativePrecisionAssessment(
+                overlap=overlap,
+                rounding_model=CommonSpaceNativeRoundingModel.from_nearest_decimal_places(
+                    amn=request.native_precision.amn_decimal_places,
+                    gauge=request.native_precision.gauge_decimal_places,
+                    disentanglement=request.native_precision.disentanglement_decimal_places,
+                ),
+                frozen_rank_threshold=Fraction.from_float(
+                    request.retained_comparison.native_uncertainty_bound
+                ),
+            ).execute()
+            assert assessment.resolved_rank == row["resolved_rank_at_native_bound"]
+            direction = CommonSpaceDeficientDirectionAnalysis(
+                assessment=assessment
+            ).execute()
+            weights = numeric_weights(row["minimum_direction_atomic_weights"])
+            if index == 1:
+                assert direction.outcome is CommonSpaceDirectionOutcome.full_rank
+                assert weights == ()
+            else:
+                assert direction.outcome is CommonSpaceDirectionOutcome.enclosed
+                for interval, value in zip(
+                    direction.orbital_intervals, weights, strict=True
+                ):
+                    assert (
+                        interval.lower <= Fraction.from_float(value) <= interval.upper
+                    )
+                grouped = numeric_weights(
+                    row["minimum_direction_group_weights_s_p_s_star"]
+                )
+                for interval, value in zip(
+                    direction.group_intervals, grouped, strict=True
+                ):
+                    assert (
+                        interval.lower <= Fraction.from_float(value) <= interval.upper
+                    )
+
     def test__continuation__requires_independent_verification_before_symmetry(
         self,
     ) -> None:
         assert CommonSpaceRankDiagnosis.NEXT_CONTROLLED_STEPS == (
-            "CSD1: complete higher-precision sensitivity and symmetry-related point inventory.",
-            "CSD1-V: independently verify the rank diagnosis after authenticated parsing.",
+            "CSD1-V: independently verify the complete producer result; higher precision remains conditional on arithmetic ambiguity or independent-route disagreement.",
             "CSD2 remains blocked until complete CSD1 and independent CSD1-V pass.",
         )
 

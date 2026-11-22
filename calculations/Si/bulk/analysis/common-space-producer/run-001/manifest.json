@@ -1,0 +1,56 @@
+{
+  "artifacts": [
+    {
+      "byte_size": 189612,
+      "path": "result.json",
+      "sha256": "761d58b83a43a9544ad2aae1872ef91cd4ef5387dbae9a6db169a32ee5498dd8"
+    },
+    {
+      "byte_size": 5677,
+      "path": "human-readable-summary.txt",
+      "sha256": "a1f339ae9a6170e9dfb0150d24413a1dba8da5122f9f5a4db2ea0febf6606b81"
+    },
+    {
+      "byte_size": 5458,
+      "label": "request",
+      "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/analysis/c6-b20-w21-slater-koster-definition-fit/common-space-diagnosis-request.json",
+      "sha256": "0dd0d97cdc6134a30073b9d54a54077bba93b579882ef709de47534ca59ff89e"
+    },
+    {
+      "byte_size": 69009,
+      "label": "implementation",
+      "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/common_space/diagnostics/diagnosis.py",
+      "sha256": "6e5315cd4e978d7d90908f804c11e10fcd8b536eb779be745709ef7d7ebd47d3"
+    },
+    {
+      "byte_size": 1992,
+      "label": "entrypoint",
+      "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/analysis/c6-b20-w21-slater-koster-definition-fit/run_common_space_diagnosis.py",
+      "sha256": "ebdc291f9a953c646d2aebb43b492f79f3337869bfb158d1da5cd3628ee6d775"
+    },
+    {
+      "byte_size": 202169,
+      "path": "point-inventory.json",
+      "sha256": "fd23080496ee077e967631a1cf4258301f4efc41d045557a03365d8bcaed19c7"
+    },
+    {
+      "byte_size": 810,
+      "path": "producer-completion.json",
+      "sha256": "0d03312dea85e6881fa432ee15f402ab9d0011e9312bfff749dcf2dc9d28c452"
+    },
+    {
+      "byte_size": 14416,
+      "label": "source-association-implementation",
+      "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/common_space/diagnostics/source_association.py",
+      "sha256": "b3ed8ca6d58ba413d46c20a35be9f0716b125015fce6b3fc8a8d03c161e0bacc"
+    },
+    {
+      "byte_size": 10573,
+      "label": "point-inventory-implementation",
+      "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/common_space/diagnostics/point_inventory.py",
+      "sha256": "f213cfe71556dcaa44fea162f0be328dbd1b47cceb4283862cd1d6480e565d91"
+    }
+  ],
+  "record_type": "c6_b20_w21_common_space_rank_diagnosis_manifest",
+  "schema_version": 1
+}

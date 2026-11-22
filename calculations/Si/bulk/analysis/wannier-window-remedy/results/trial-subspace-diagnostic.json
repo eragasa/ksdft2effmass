@@ -1,0 +1,5764 @@
+{
+  "scope": "authorized local trial-independence and nominal-principal-angle diagnostic; not retained protocol completion or scientific acceptance",
+  "native_rounding_assumption": "nearest absolute decimal rounding: AMN 12 places, U and U_dis 10; correctly rounded binary64 parsing",
+  "angle_status": "nominal SVD diagnostics only; no certified angle intervals or exact-orthogonality inference",
+  "arithmetic_method": "exact rational left-inverse residual and Frobenius bounds; Weyl input-error subtraction; unitary trial-coordinate change leaves singular values and span unchanged",
+  "request_sha256": "0dd0d97cdc6134a30073b9d54a54077bba93b579882ef709de47534ca59ff89e",
+  "source_identities": {
+    "S30_untruncated_characterization": {
+      "location": "repository",
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/characterization-result.json",
+      "byte_size": 56310,
+      "sha256": "37f654ae31bc21e43b768bf2b9da5edabd88c195e3f6e1c87708eaa1c4773c18"
+    },
+    "S105_full_support_disposition": {
+      "location": "repository",
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-disposition/spatial-truncation-disposition.json",
+      "byte_size": 6187,
+      "sha256": "519adfcf1101f7caa7916e04f3bf37879f4ad82b0f30e4ef38adc39770224f68"
+    },
+    "S110_blocked_result": {
+      "location": "repository",
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-slater-koster-definition-fit/slater-koster-definition-fit-result.json",
+      "byte_size": 119010,
+      "sha256": "b9b8403dfc8b24df01e1671f582697440e1a211d60e0e70c9b0f621dfa086e98"
+    },
+    "hopping_first_protocol": {
+      "location": "repository",
+      "path": "calculations/Si/bulk/research-protocol/controlled-reduction-protocol-hopping-first.tex",
+      "byte_size": 68518,
+      "sha256": "2cfc03bbd4edce4387c7dad3e0cf75129b35b61a45594a33c036d6217e605ec4"
+    },
+    "AMN": {
+      "location": "absolute",
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.amn",
+      "byte_size": 2894499,
+      "sha256": "9186cd5b8802bede18f81b96188f0a2035eb97565c2f811f5ca7769f2ebefece"
+    },
+    "gauge": {
+      "location": "absolute",
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u.mat",
+      "byte_size": 679824,
+      "sha256": "41758b721b79cae233689b4fb9fa359e750b82da8ed5bcd13b1d5faf3c5d8bf3"
+    },
+    "disentanglement": {
+      "location": "absolute",
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u_dis.mat",
+      "byte_size": 1349424,
+      "sha256": "3c1d3574f3bf783cf7b54d8e9fd00fa5811ef05a56240850d46f43a2c95b7ace"
+    }
+  },
+  "provider_modules": {
+    "projectkoios.integrations.wannier90": "9689f50bc5906d911d626c3cdd16a4edb778320191402ced3ad0b94ca25cfd47",
+    "projectkoios.integrations.wannier90._matrix_conventions": "95d7d19b520548cc860d6c56d53b0cec477b078a307c3e4bcb2feddbc8f2ee65",
+    "projectkoios.integrations.wannier90._parsing": "07de9ab225fbc7cfd5317f1592b5dcd0105d5eaec982d814980272cdd578439a",
+    "projectkoios.integrations.wannier90.interface_data": "0bd702d1999891129237f4523150abca5bb24a3b9e76b42d19c899dd9b3e3a79",
+    "projectkoios.integrations.wannier90.unitary_matrices": "33ebad1a82f887f0dd59787c066bded1989b6dd9b7220c3e551b0c5cb798e75f",
+    "projectkoios.integrations.wannier90.disentanglement_matrices": "64ede7d0e45b9d1b200026322f48d832fe7587b5b99c7eb292bfae2d7390fdd7",
+    "projectkoios.integrations.wannier90.artifacts": "f4f4736ef96093ecb5f06f7a5f27cd2a215e726b0b68146e4e9b83f99c6f4be8"
+  },
+  "script_sha256": "a56d0755fc8ec4f9f6ddf58a5896d409e2f21cf055c13112758aba76076672ac",
+  "numpy_version": "2.5.1",
+  "frozen_overlap_threshold": 5.890206739032098e-07,
+  "trial_independence_proved_point_count": 216,
+  "selected_points": [
+    {
+      "ordered_index": 0,
+      "fractional_coordinates": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.08536372303479658,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.08060557812387747,
+      "trial_input_error_upper_display": 1.0000401475775072e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 5.36005729712979e-13,
+      "overlap_rank_at_frozen_threshold_nominal": 9,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        1.3281600966983096e-05,
+        0.37619078507733816,
+        0.3794266468217472,
+        4.011339195309381,
+        16.7429132855133,
+        16.744396139471622,
+        19.261886192516766,
+        89.95925810637897,
+        89.99999999965299
+      ],
+      "overlap_sigma_min_exact_arithmetic_lower_display": 5.356866254385785e-13,
+      "overlap_sigma_min_exact_arithmetic_upper_display": 5.360393931790786e-13,
+      "overlap_input_error_upper_display": 9.384378732461327e-09,
+      "parsed_overlap_injectivity_proved": true,
+      "overlap_injective_under_declared_rounding": false,
+      "overlap_below_frozen_threshold_even_with_input_error": true,
+      "overlap_sigma_min_lower_after_input_error_display": 0.0
+    },
+    {
+      "ordered_index": 12,
+      "fractional_coordinates": [
+        0.0,
+        0.3333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.036249063231443016,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03586340023941025,
+      "trial_input_error_upper_display": 1.0000226995222335e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 2.0186562348476098e-07,
+      "overlap_rank_at_frozen_threshold_nominal": 9,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        0.009305646795654364,
+        10.9095100276131,
+        10.90992678362218,
+        11.259135993333704,
+        20.36316218026854,
+        23.47490362711117,
+        23.51355468270325,
+        89.9110280764091,
+        89.99972677648282
+      ],
+      "overlap_sigma_min_exact_arithmetic_lower_display": 2.0186561756018e-07,
+      "overlap_sigma_min_exact_arithmetic_upper_display": 2.0186562355130468e-07,
+      "overlap_input_error_upper_display": 4.2355863563859505e-09,
+      "parsed_overlap_injectivity_proved": true,
+      "overlap_injective_under_declared_rounding": true,
+      "overlap_below_frozen_threshold_even_with_input_error": true,
+      "overlap_sigma_min_lower_after_input_error_display": 1.9763003120379405e-07
+    }
+  ],
+  "points": [
+    {
+      "ordered_index": 0,
+      "fractional_coordinates": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.08536372303479658,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.08060557812387747,
+      "trial_input_error_upper_display": 1.0000401475775072e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 5.36005729712979e-13,
+      "overlap_rank_at_frozen_threshold_nominal": 9,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        1.3281600966983096e-05,
+        0.37619078507733816,
+        0.3794266468217472,
+        4.011339195309381,
+        16.7429132855133,
+        16.744396139471622,
+        19.261886192516766,
+        89.95925810637897,
+        89.99999999965299
+      ],
+      "overlap_sigma_min_exact_arithmetic_lower_display": 5.356866254385785e-13,
+      "overlap_sigma_min_exact_arithmetic_upper_display": 5.360393931790786e-13,
+      "overlap_input_error_upper_display": 9.384378732461327e-09,
+      "parsed_overlap_injectivity_proved": true,
+      "overlap_injective_under_declared_rounding": false,
+      "overlap_below_frozen_threshold_even_with_input_error": true,
+      "overlap_sigma_min_lower_after_input_error_display": 0.0
+    },
+    {
+      "ordered_index": 1,
+      "fractional_coordinates": [
+        0.0,
+        0.0,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.04975316189133623,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.04879628403183707,
+      "trial_input_error_upper_display": 1.0000355203715097e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 6.525769301721546e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        5.921275708622771e-05,
+        2.387835858770233,
+        10.310861785801029,
+        12.596230802964838,
+        13.686028484828887,
+        18.76191053387887,
+        19.310222590074225,
+        26.26028564163442,
+        76.5173806195661,
+        89.97183725338263
+      ]
+    },
+    {
+      "ordered_index": 2,
+      "fractional_coordinates": [
+        0.0,
+        0.0,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.03624906312088396,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.035863400131904956,
+      "trial_input_error_upper_display": 1.0000228931853272e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 6.056913747884831e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.427534671407998,
+        8.856976918446255,
+        10.921494144902248,
+        11.447334104824801,
+        19.715035344147545,
+        23.31224621349536,
+        27.397757180022694,
+        71.92691670816497,
+        89.99262185999235
+      ]
+    },
+    {
+      "ordered_index": 3,
+      "fractional_coordinates": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.04166465543263631,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03976700075359719,
+      "trial_input_error_upper_display": 1.0000198513519357e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 3.377345434324945e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.4787793334710982e-06,
+        0.24371109912700362,
+        10.946216692494328,
+        11.01253013602132,
+        11.693971991541321,
+        19.874767460900735,
+        26.343352173490402,
+        48.01457456122241,
+        64.32131625249444,
+        89.9877828799056
+      ]
+    },
+    {
+      "ordered_index": 4,
+      "fractional_coordinates": [
+        0.0,
+        0.0,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.03624906315232524,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03586340016314858,
+      "trial_input_error_upper_display": 1.0000226263103555e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 4.824987770011445e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.427647516715028,
+        8.856728926521171,
+        10.921489622712299,
+        11.447312058220618,
+        19.714964433749785,
+        23.312716976054855,
+        27.39736176068792,
+        71.92517086096726,
+        89.99412243516299
+      ]
+    },
+    {
+      "ordered_index": 5,
+      "fractional_coordinates": [
+        0.0,
+        0.0,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.04975316188443654,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.048796284025935034,
+      "trial_input_error_upper_display": 1.0000388546338966e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 6.089071194015248e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        5.3774186043556866e-05,
+        2.387768156212404,
+        10.310928063043692,
+        12.59589104150158,
+        13.686289321315051,
+        18.762495552069403,
+        19.309541538643007,
+        26.260245644290595,
+        76.51607796541771,
+        89.97370508258439
+      ]
+    },
+    {
+      "ordered_index": 6,
+      "fractional_coordinates": [
+        0.0,
+        0.1666666667,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.04975316188568811,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.04879628402809366,
+      "trial_input_error_upper_display": 1.0000389417839933e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.070246339420556e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.8211614282110064e-05,
+        0.004418396249916664,
+        12.535850734387362,
+        12.555230547791004,
+        12.562893656008786,
+        18.818427794783624,
+        18.827486479316164,
+        25.59601494263987,
+        89.94040918878541,
+        89.99885509502855
+      ]
+    },
+    {
+      "ordered_index": 7,
+      "fractional_coordinates": [
+        0.0,
+        0.1666666667,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.06651507919355755,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06431164349504052,
+      "trial_input_error_upper_display": 1.0000291218762134e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00029410318683425015,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        4.068536885866232,
+        9.888434422672123,
+        11.264968102527114,
+        17.876643710857376,
+        23.83944838360356,
+        24.180243491663784,
+        25.40070876823179,
+        78.58129422142187,
+        89.95729051461723
+      ]
+    },
+    {
+      "ordered_index": 8,
+      "fractional_coordinates": [
+        0.0,
+        0.1666666667,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.051589338860623446,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547368375397,
+      "trial_input_error_upper_display": 1.0000224849846941e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.0984926429646343e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.00016568928913151843,
+        5.27778131602599,
+        7.539094684790436,
+        9.277284340840916,
+        18.07672992664661,
+        27.220611710160664,
+        27.415238858903923,
+        29.85040083050977,
+        78.92227194688562,
+        89.98940654394522
+      ]
+    },
+    {
+      "ordered_index": 9,
+      "fractional_coordinates": [
+        0.0,
+        0.1666666667,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.03881288881115695,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037812392574812455,
+      "trial_input_error_upper_display": 1.0000195179075154e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 5.9983744095891816e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.00021090801333198625,
+        1.4266448803695446,
+        8.821223521771014,
+        9.154852423230723,
+        15.136199104937042,
+        24.527311330532072,
+        29.699067595415183,
+        40.81136182395609,
+        64.78682509309304,
+        89.99327472603258
+      ]
+    },
+    {
+      "ordered_index": 10,
+      "fractional_coordinates": [
+        0.0,
+        0.1666666667,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.07311362853257573,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584768057135,
+      "trial_input_error_upper_display": 1.0000196238294987e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.791890190942575e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.7075472925031877e-06,
+        3.003310056919101,
+        7.772222941134087,
+        9.717442448199877,
+        11.111071461067533,
+        22.340860129721282,
+        27.08848929002123,
+        30.043080560351203,
+        52.43042682876853,
+        89.99128169575629
+      ]
+    },
+    {
+      "ordered_index": 11,
+      "fractional_coordinates": [
+        0.0,
+        0.1666666667,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.055134094139669056,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05386803461378622,
+      "trial_input_error_upper_display": 1.0000267763589444e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00013228446604966618,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        1.2632583657910141,
+        7.865324648686915,
+        12.59914380657471,
+        16.28718403425207,
+        21.770889290603996,
+        23.55919678960118,
+        27.95067504932771,
+        48.43412452518119,
+        89.96167066628506
+      ]
+    },
+    {
+      "ordered_index": 12,
+      "fractional_coordinates": [
+        0.0,
+        0.3333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.036249063231443016,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03586340023941025,
+      "trial_input_error_upper_display": 1.0000226995222335e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 2.0186562348476098e-07,
+      "overlap_rank_at_frozen_threshold_nominal": 9,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        0.009305646795654364,
+        10.9095100276131,
+        10.90992678362218,
+        11.259135993333704,
+        20.36316218026854,
+        23.47490362711117,
+        23.51355468270325,
+        89.9110280764091,
+        89.99972677648282
+      ],
+      "overlap_sigma_min_exact_arithmetic_lower_display": 2.0186561756018e-07,
+      "overlap_sigma_min_exact_arithmetic_upper_display": 2.0186562355130468e-07,
+      "overlap_input_error_upper_display": 4.2355863563859505e-09,
+      "parsed_overlap_injectivity_proved": true,
+      "overlap_injective_under_declared_rounding": true,
+      "overlap_below_frozen_threshold_even_with_input_error": true,
+      "overlap_sigma_min_lower_after_input_error_display": 1.9763003120379405e-07
+    },
+    {
+      "ordered_index": 13,
+      "fractional_coordinates": [
+        0.0,
+        0.3333333333,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.05158933848441116,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.050535473330024755,
+      "trial_input_error_upper_display": 1.0000225760782214e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 4.94888345159767e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        6.726414370288939e-05,
+        5.173060822445416,
+        7.064482343583749,
+        9.259270473194833,
+        19.733657545240533,
+        27.38132597838344,
+        27.534474915401137,
+        29.743516690365166,
+        81.45226863937647,
+        89.95598328651145
+      ]
+    },
+    {
+      "ordered_index": 14,
+      "fractional_coordinates": [
+        0.0,
+        0.3333333333,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.07311730570929917,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06995845623444207,
+      "trial_input_error_upper_display": 1.0000210409314189e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00026807891395453466,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.1692217252951256,
+        6.547903225023732,
+        8.31431579161363,
+        17.63311295573693,
+        28.48547982138166,
+        29.456611820492554,
+        33.91260722234407,
+        64.40201451719557,
+        89.95603965748587
+      ]
+    },
+    {
+      "ordered_index": 15,
+      "fractional_coordinates": [
+        0.0,
+        0.3333333333,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.06607711660057043,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576715222128,
+      "trial_input_error_upper_display": 1.0000204627908183e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 4.6000453904858016e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.004404990500802393,
+        2.0869284847416147,
+        6.965431903521496,
+        7.7016537361545865,
+        15.926169614813983,
+        29.0727851380598,
+        29.381253685679535,
+        32.50481071651001,
+        52.641621086983,
+        89.97588639988047
+      ]
+    },
+    {
+      "ordered_index": 16,
+      "fractional_coordinates": [
+        0.0,
+        0.3333333333,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.08776898938806289,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06325036959689169,
+      "trial_input_error_upper_display": 1.0000192625679931e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 7.274014924768345e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.2074182697257333e-06,
+        2.617121633137637,
+        5.328482522303614,
+        5.757931076957951,
+        8.922589834875792,
+        22.164752504442475,
+        26.56018439153277,
+        31.83356223263865,
+        42.921678157153124,
+        89.99690335315881
+      ]
+    },
+    {
+      "ordered_index": 17,
+      "fractional_coordinates": [
+        0.0,
+        0.3333333333,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.07311362757749773,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584685731962,
+      "trial_input_error_upper_display": 1.0000201788083846e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 7.516424083941731e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        3.2233734274819756,
+        7.725956893907264,
+        9.71744256655598,
+        12.384793149525041,
+        19.81231668655052,
+        27.088490416674748,
+        28.82140949690926,
+        54.51977226251172,
+        89.96801129881418
+      ]
+    },
+    {
+      "ordered_index": 18,
+      "fractional_coordinates": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.04166465550613885,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.039767000820165196,
+      "trial_input_error_upper_display": 1.0000189675479207e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 5.63588783800241e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        0.0011273436851797014,
+        10.949981146212814,
+        11.012806018091508,
+        11.012875812141472,
+        26.640495144838653,
+        26.70953145610873,
+        31.399437369577992,
+        89.89999534330848,
+        89.99794479501467
+      ]
+    },
+    {
+      "ordered_index": 19,
+      "fractional_coordinates": [
+        0.0,
+        0.5,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.038812888334477824,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037812392132353136,
+      "trial_input_error_upper_display": 1.0000190684132338e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 3.940376860834418e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0057482141126976435,
+        1.3042156402958538,
+        8.81499126413873,
+        9.084688886443338,
+        16.69948886215911,
+        22.667918110521178,
+        29.970358620804106,
+        39.91916364435605,
+        67.54486953841491,
+        89.957454148214
+      ]
+    },
+    {
+      "ordered_index": 20,
+      "fractional_coordinates": [
+        0.0,
+        0.5,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.06607711585826652,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576668291267,
+      "trial_input_error_upper_display": 1.000019166410734e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00012013941327333737,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.010600620289570116,
+        2.1297416332659855,
+        7.0358113579002515,
+        7.701256556182559,
+        16.086893571617615,
+        28.87559767179798,
+        29.572331438479353,
+        32.37042823630458,
+        53.1454281065298,
+        89.93780392469884
+      ]
+    },
+    {
+      "ordered_index": 21,
+      "fractional_coordinates": [
+        0.0,
+        0.5,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.047923891895885584,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.033641502293588255,
+      "trial_input_error_upper_display": 1.0000187059408904e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 2.6783913357876867e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        0.0,
+        10.273848108150275,
+        10.377339165094867,
+        15.237066394961593,
+        28.080450352916667,
+        39.834208168605905,
+        46.9055704780315,
+        76.40560363173404,
+        89.97024297121493
+      ]
+    },
+    {
+      "ordered_index": 22,
+      "fractional_coordinates": [
+        0.0,
+        0.5,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.0660771143990749,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576568582841,
+      "trial_input_error_upper_display": 1.0000190139040687e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00012316937438624245,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.010660374177089423,
+        2.129709955225181,
+        7.035907670538601,
+        7.7012589055619305,
+        16.087033228203566,
+        28.875551633105307,
+        29.572618018550923,
+        32.37032762635456,
+        53.14559495159735,
+        89.93623446437432
+      ]
+    },
+    {
+      "ordered_index": 23,
+      "fractional_coordinates": [
+        0.0,
+        0.5,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.03881288919444349,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037812392924955245,
+      "trial_input_error_upper_display": 1.000019898364421e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 4.0359180004550766e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.005798292511869572,
+        1.30423072481096,
+        8.814995000994115,
+        9.08468146807028,
+        16.699696724253123,
+        22.667613999749562,
+        29.970633035497244,
+        39.91916295457958,
+        67.54427214908068,
+        89.95642178264808
+      ]
+    },
+    {
+      "ordered_index": 24,
+      "fractional_coordinates": [
+        0.0,
+        0.6666666667,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.03624906312781642,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.035863400139773446,
+      "trial_input_error_upper_display": 1.0000232859521595e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 8.336191390666983e-07,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.2074182697257333e-06,
+        0.009330965114944433,
+        10.909509315106508,
+        10.909926414826586,
+        11.259140066214542,
+        20.363163587351934,
+        23.47481738778293,
+        23.51363740307398,
+        89.90956193019571,
+        89.99887125484213
+      ]
+    },
+    {
+      "ordered_index": 25,
+      "fractional_coordinates": [
+        0.0,
+        0.6666666667,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.07311362734407865,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584665920655,
+      "trial_input_error_upper_display": 1.0000205332378306e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 7.969021210762762e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        3.2234184187763,
+        7.72613196889978,
+        9.717442574909828,
+        12.384768936888658,
+        19.812223386836834,
+        27.0884907268716,
+        28.82137602056942,
+        54.51890271054013,
+        89.96608637423606
+      ]
+    },
+    {
+      "ordered_index": 26,
+      "fractional_coordinates": [
+        0.0,
+        0.6666666667,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.08776898936319975,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06325036959707045,
+      "trial_input_error_upper_display": 1.000020179010904e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 7.358604851368403e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.2074182697257333e-06,
+        2.6171200756472794,
+        5.328483179134725,
+        5.757931124144616,
+        8.922601980099289,
+        22.164733797014165,
+        26.560186321251553,
+        31.83356221131417,
+        42.921673565347,
+        89.99686734484933
+      ]
+    },
+    {
+      "ordered_index": 27,
+      "fractional_coordinates": [
+        0.0,
+        0.6666666667,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.06607711530528863,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.057955766186563944,
+      "trial_input_error_upper_display": 1.000019150599224e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 4.69983553756422e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.004372520857396988,
+        2.0868896718284913,
+        6.965514428264025,
+        7.701655320654899,
+        15.926249159371658,
+        29.072833394127173,
+        29.381530911051918,
+        32.504758248812024,
+        52.64167862192645,
+        89.97536293310726
+      ]
+    },
+    {
+      "ordered_index": 28,
+      "fractional_coordinates": [
+        0.0,
+        0.6666666667,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.07311730571712807,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06995845624330194,
+      "trial_input_error_upper_display": 1.0000199831960986e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0002967255883020864,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.169201510754673,
+        6.547881022223708,
+        8.314416843191763,
+        17.633171555793954,
+        28.485479091205193,
+        29.45710681783911,
+        33.91212133245528,
+        64.40088989446768,
+        89.95130862918867
+      ]
+    },
+    {
+      "ordered_index": 29,
+      "fractional_coordinates": [
+        0.0,
+        0.6666666667,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.05158933848199031,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547332644189,
+      "trial_input_error_upper_display": 1.0000227029190943e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 5.307481159383678e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        6.856286131958877e-05,
+        5.17307744580604,
+        7.064525620178389,
+        9.259311202555597,
+        19.73348900886859,
+        27.381260520451786,
+        27.535033794422525,
+        29.743567484358582,
+        81.45255411003157,
+        89.9527916282367
+      ]
+    },
+    {
+      "ordered_index": 30,
+      "fractional_coordinates": [
+        0.0,
+        0.8333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.04975316188691204,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.048796284031956974,
+      "trial_input_error_upper_display": 1.000035001111791e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 2.506889703054961e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.967387943764322e-05,
+        0.004403031631991803,
+        12.535809561645767,
+        12.555264785162013,
+        12.562908493460801,
+        18.81832774021473,
+        18.827581842690698,
+        25.59601281725339,
+        89.93843847509635,
+        89.99731297711837
+      ]
+    },
+    {
+      "ordered_index": 31,
+      "fractional_coordinates": [
+        0.0,
+        0.8333333333,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.055134094145272136,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05386803461791421,
+      "trial_input_error_upper_display": 1.0000271716217307e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00014754926327771074,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        1.2631912344443683,
+        7.865191394133213,
+        12.59914379484731,
+        16.287442696637473,
+        21.770986762636916,
+        23.55919979509061,
+        27.950436763730327,
+        48.434882038357024,
+        89.95725275226575
+      ]
+    },
+    {
+      "ordered_index": 32,
+      "fractional_coordinates": [
+        0.0,
+        0.8333333333,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.0731136277595468,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584701780207,
+      "trial_input_error_upper_display": 1.0000196638951885e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 2.1716544291670447e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.9090959104164224e-06,
+        3.0032222738779164,
+        7.772034069399375,
+        9.717442427235357,
+        11.111300693151666,
+        22.3408696289026,
+        27.08848897670333,
+        30.043390570133404,
+        52.43130837847058,
+        89.98943400688633
+      ]
+    },
+    {
+      "ordered_index": 33,
+      "fractional_coordinates": [
+        0.0,
+        0.8333333333,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.03881289007727365,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239374342031,
+      "trial_input_error_upper_display": 1.0000188666786626e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 5.864182435801081e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0002521698187196263,
+        1.4266955626851092,
+        8.821226414604364,
+        9.15486936651853,
+        15.135942193087264,
+        24.527640129827258,
+        29.6993363696682,
+        40.81171510328749,
+        64.78576882137054,
+        89.99342507666616
+      ]
+    },
+    {
+      "ordered_index": 34,
+      "fractional_coordinates": [
+        0.0,
+        0.8333333333,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.05158933920873439,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547401072735,
+      "trial_input_error_upper_display": 1.00002277869553e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.2838764572376613e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0001690062131063763,
+        5.277800170865939,
+        7.539169822783527,
+        9.277311059995506,
+        18.076452915158107,
+        27.22052297791957,
+        27.41579348052634,
+        29.85044897485883,
+        78.92082401652021,
+        89.98761787193976
+      ]
+    },
+    {
+      "ordered_index": 35,
+      "fractional_coordinates": [
+        0.0,
+        0.8333333333,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.06651507922728492,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06431164352606565,
+      "trial_input_error_upper_display": 1.0000297448966636e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0003377786548141401,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        4.068552878843235,
+        9.888494825143036,
+        11.264896470384558,
+        17.876722428156707,
+        23.83904570330261,
+        24.180683101035807,
+        25.400461205612558,
+        78.57946397986848,
+        89.95070799437998
+      ]
+    },
+    {
+      "ordered_index": 36,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.0,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.04975316187230293,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.04879628401403959,
+      "trial_input_error_upper_display": 1.000038541347532e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.6967742423737585e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        6.776618231767655e-06,
+        2.388484406018513,
+        10.306291087530775,
+        12.595219189523563,
+        13.681614364894417,
+        18.76255133411234,
+        19.31604956436147,
+        26.26581238041202,
+        76.51657539124786,
+        89.99263658691238
+      ]
+    },
+    {
+      "ordered_index": 37,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.0,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.0665150792597956,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06431164355572126,
+      "trial_input_error_upper_display": 1.0000335429260143e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00026806948033530664,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        8.537736462515939e-07,
+        4.068515532379284,
+        9.88833502973005,
+        11.265208290510087,
+        17.876268960633233,
+        23.84054336033056,
+        24.179223229049118,
+        25.4012576974528,
+        78.58157538707611,
+        89.96113599768684
+      ]
+    },
+    {
+      "ordered_index": 38,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.0,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.05158933889206433,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547371066327,
+      "trial_input_error_upper_display": 1.000022723289617e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.004522073249338074,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.036862146351959516,
+        5.3462744750890785,
+        6.992584231993225,
+        9.316679225936356,
+        19.31552009553888,
+        27.325396326053426,
+        27.654898056683056,
+        33.53788569407232,
+        74.90361405625994,
+        85.14713974379305
+      ]
+    },
+    {
+      "ordered_index": 39,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.0,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.038812888754806485,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239252422466,
+      "trial_input_error_upper_display": 1.000019652183313e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.006429072647922538,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.9995820421371425,
+        1.4262776630383627,
+        8.547368975815713,
+        9.589185549852035,
+        17.247838120280083,
+        23.38407922567444,
+        28.09921977145281,
+        47.72009547090727,
+        60.996082728439866,
+        81.9117510986365
+      ]
+    },
+    {
+      "ordered_index": 40,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.0,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.07311362756487291,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584684763047,
+      "trial_input_error_upper_display": 1.0000207749469725e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.008254994214471113,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        3.0279543234125135,
+        7.545228942325203,
+        9.724104001643326,
+        11.668063187438717,
+        20.61500445703539,
+        27.03702433624622,
+        29.033623630247796,
+        52.35019526249232,
+        86.17572312408387
+      ]
+    },
+    {
+      "ordered_index": 41,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.0,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.05513409415113697,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.053868034623572404,
+      "trial_input_error_upper_display": 1.0000252454398014e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00683516572704125,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.091309789151873e-06,
+        1.2579417745663974,
+        7.8556515711074395,
+        12.597987608805859,
+        16.664060718586697,
+        20.303761957182928,
+        23.368307971142713,
+        28.176072667307235,
+        48.17245984473765,
+        88.001825916884
+      ]
+    },
+    {
+      "ordered_index": 42,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.1666666667,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.06651507920109853,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.0643116435030893,
+      "trial_input_error_upper_display": 1.0000344434205372e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 3.093324257668827e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        8.537736462515939e-07,
+        4.068528311866286,
+        9.888854973936887,
+        11.263447501736913,
+        17.87882189537074,
+        23.833961618459888,
+        24.18520723225483,
+        25.397867959810302,
+        78.58017034732525,
+        89.99546067902003
+      ]
+    },
+    {
+      "ordered_index": 43,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.1666666667,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.04975316190902511,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.048796284050265246,
+      "trial_input_error_upper_display": 1.000034701588948e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 5.2541721134288925e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        4.056098795516726e-05,
+        2.3876828250387065,
+        10.311859240815291,
+        12.596361904766699,
+        13.687019596684037,
+        18.76183660547189,
+        19.30890521108475,
+        26.259111898315535,
+        76.51722868303602,
+        89.97734533221578
+      ]
+    },
+    {
+      "ordered_index": 44,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.1666666667,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.055134094147451775,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05386803462040555,
+      "trial_input_error_upper_display": 1.0000264331574807e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.006926394035412517,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        8.537736462515939e-07,
+        1.2565931728787476,
+        7.85604940746697,
+        12.597982859047258,
+        16.66019391077488,
+        20.290518649331453,
+        23.368528277511267,
+        28.172596274859963,
+        48.17930504702028,
+        87.98089597664024
+      ]
+    },
+    {
+      "ordered_index": 45,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.1666666667,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.07311362785097311,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584709817164,
+      "trial_input_error_upper_display": 1.0000208806769152e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.008271703440644504,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        3.0257708030206096,
+        7.546649976097092,
+        9.724117495170692,
+        11.671995986500562,
+        20.61116985256551,
+        27.036666870769306,
+        29.031886050216116,
+        52.35655057291867,
+        86.16959181050733
+      ]
+    },
+    {
+      "ordered_index": 46,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.1666666667,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.038812890145317844,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239380568679,
+      "trial_input_error_upper_display": 1.0000195748930317e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.006431371455688341,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.9993191342265891,
+        1.4267453675536186,
+        8.547665415499992,
+        9.5899770812463,
+        17.249971306153842,
+        23.38164158208768,
+        28.095428425137335,
+        47.719614369793625,
+        60.986821905706364,
+        81.90854145139012
+      ]
+    },
+    {
+      "ordered_index": 47,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.1666666667,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.05158933838759187,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547323741481,
+      "trial_input_error_upper_display": 1.000023097398639e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.004530068688173807,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.036769770006386565,
+        5.346091043853222,
+        6.992813525351574,
+        9.316701878508647,
+        19.321386081203634,
+        27.32449236733449,
+        27.647271931372146,
+        33.529520141564426,
+        74.87721723514066,
+        85.13800778534052
+      ]
+    },
+    {
+      "ordered_index": 48,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.3333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.05158933925426527,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547405163645,
+      "trial_input_error_upper_display": 1.0000221906210876e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 6.019331300094303e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.5438909500480757e-05,
+        5.173253098961598,
+        7.0644765543052666,
+        9.259309231014022,
+        19.733663436792813,
+        27.38166443677059,
+        27.55559178579897,
+        29.74581933491548,
+        81.4760099016291,
+        89.99465289972738
+      ]
+    },
+    {
+      "ordered_index": 49,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.3333333333,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.055134094149757666,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05386803462037681,
+      "trial_input_error_upper_display": 1.0000251000969438e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00011435441203174912,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        1.2634841011953495,
+        7.865896873742419,
+        12.599143797827102,
+        16.285311324617265,
+        21.769601690976703,
+        23.55919125205551,
+        27.950065112343424,
+        48.43610075775618,
+        89.96687791196135
+      ]
+    },
+    {
+      "ordered_index": 50,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.3333333333,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.051589338631293634,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547346739591,
+      "trial_input_error_upper_display": 1.0000218048772657e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.004523644877413267,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.03686565100292857,
+        5.346340231298014,
+        6.992474151315242,
+        9.317247322602137,
+        19.31423802135904,
+        27.325051894667673,
+        27.652170799174552,
+        33.53342487764079,
+        74.90197545622615,
+        85.1452721780132
+      ]
+    },
+    {
+      "ordered_index": 51,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.3333333333,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.06101613839569345,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816615613988,
+      "trial_input_error_upper_display": 1.0000195748636649e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.02746608092645191,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8401045573905348,
+        5.471366497283342,
+        7.68654259998602,
+        9.147117480435185,
+        15.59458272658844,
+        21.911644310032123,
+        28.968357571018764,
+        32.402525773159475,
+        50.81839451810127,
+        74.5472440659866
+      ]
+    },
+    {
+      "ordered_index": 52,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.3333333333,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.04509605209129782,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037800711153121,
+      "trial_input_error_upper_display": 1.00002090315781e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.015453347625216605,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.3973576105976377,
+        3.7921210521353172,
+        6.326301856189916,
+        6.76443130742764,
+        16.63895168416323,
+        22.851627978086814,
+        30.70135009016012,
+        44.796379298850056,
+        60.302653342878756,
+        72.27211070104245
+      ]
+    },
+    {
+      "ordered_index": 53,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.3333333333,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.061016138383906085,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816614484628,
+      "trial_input_error_upper_display": 1.0000200239149434e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.02779105838119117,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8534343290715228,
+        5.5362500041221825,
+        7.336402942327378,
+        9.058295364602133,
+        16.1113384054867,
+        22.154016418478243,
+        29.002658892218797,
+        32.43631379824897,
+        50.802396851009384,
+        74.33586623938945
+      ]
+    },
+    {
+      "ordered_index": 54,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.5,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.038812890450351294,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239409141045,
+      "trial_input_error_upper_display": 1.0000204830483895e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 6.087066115331019e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.001083643603051848,
+        1.303942208539009,
+        8.815452696751015,
+        9.08529294273212,
+        16.711092878902825,
+        22.669889564406294,
+        30.007369049087327,
+        39.89624320164788,
+        67.54078291671935,
+        89.99342682990675
+      ]
+    },
+    {
+      "ordered_index": 55,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.5,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.07311362756293305,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584684608924,
+      "trial_input_error_upper_display": 1.0000200634186315e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 6.339479787615457e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        3.2225549129966065,
+        7.7256224986358815,
+        9.717442641121657,
+        12.387299836782413,
+        19.81034737828048,
+        27.08849020970465,
+        28.82244058051405,
+        54.52362386584905,
+        89.97301865228192
+      ]
+    },
+    {
+      "ordered_index": 56,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.5,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.061016138401099394,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816616435061,
+      "trial_input_error_upper_display": 1.0000192076361859e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027843294925508175,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8532253527131195,
+        5.535155608191865,
+        7.3320945519545,
+        9.058237263030767,
+        16.101681446231222,
+        22.15426872845377,
+        29.0029706401661,
+        32.44339765157298,
+        50.786181793245504,
+        74.31142576119252
+      ]
+    },
+    {
+      "ordered_index": 57,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.5,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.06607711561595013,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576648438031,
+      "trial_input_error_upper_display": 1.000019426885829e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.03023455248273151,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.1266250121163004,
+        4.519335947611819,
+        6.904111162647915,
+        7.744372790538118,
+        20.55719148590457,
+        23.08678338733484,
+        30.35558803555788,
+        34.95762112989295,
+        58.910407405588934,
+        70.30263782190765
+      ]
+    },
+    {
+      "ordered_index": 58,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.5,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.041140011907274364,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.028939408360727004,
+      "trial_input_error_upper_display": 1.0000212837531801e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.010249945872759812,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.6516610014018004,
+        0.7614473808556179,
+        6.311419722564553,
+        6.322115180610253,
+        24.69640307874807,
+        25.32731795662751,
+        35.76694574193842,
+        35.77167708236924,
+        75.98519731659381,
+        77.3481978499018
+      ]
+    },
+    {
+      "ordered_index": 59,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.5,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.04509605210943951,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.0378007116471021,
+      "trial_input_error_upper_display": 1.0000202142240748e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.01435484287919719,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.399266859881483,
+        3.758029236285715,
+        6.329884536842736,
+        6.916303899217,
+        16.877320305358296,
+        22.902712958779894,
+        30.340861245980648,
+        43.919615331934146,
+        59.32665988146878,
+        73.7708115594404
+      ]
+    },
+    {
+      "ordered_index": 60,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.6666666667,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.0731136259593432,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584547029239,
+      "trial_input_error_upper_display": 1.000019705758687e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.704774143445991e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.9090959104164224e-06,
+        3.2276592718855115,
+        7.7284684855182295,
+        9.717442427129381,
+        12.37353047202165,
+        19.820530143535226,
+        27.088489326320403,
+        28.816175674430898,
+        54.496948188042495,
+        89.99274875671668
+      ]
+    },
+    {
+      "ordered_index": 61,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.6666666667,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.03881288889102713,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239265025218,
+      "trial_input_error_upper_display": 1.000018910267706e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 3.278647219330327e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.004900543001020033,
+        1.3042818557760272,
+        8.814916831203265,
+        9.084564424262185,
+        16.69711053407519,
+        22.66757419806939,
+        29.96231622571112,
+        39.924126337806,
+        67.54517171480097,
+        89.96459964655634
+      ]
+    },
+    {
+      "ordered_index": 62,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.6666666667,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.045096052065107174,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071171275831,
+      "trial_input_error_upper_display": 1.0000196825621372e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.014301298156911441,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.3960277567219133,
+        3.761314531798027,
+        6.329845990941598,
+        6.917614333900367,
+        16.860760150957336,
+        22.889722790239333,
+        30.339866475578788,
+        43.93435522698518,
+        59.306153688575066,
+        73.83081749710888
+      ]
+    },
+    {
+      "ordered_index": 63,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.6666666667,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.041140011766844106,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.028939408203946186,
+      "trial_input_error_upper_display": 1.0000208160728978e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.010214806268353803,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.6514847727841974,
+        0.7614646091343392,
+        6.31136721093829,
+        6.322094332807472,
+        24.707374374230707,
+        25.31682848802929,
+        35.76409716796951,
+        35.774895893631836,
+        75.93816289188219,
+        77.39054019912622
+      ]
+    },
+    {
+      "ordered_index": 64,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.6666666667,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.06607711529538896,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.057955766227238,
+      "trial_input_error_upper_display": 1.0000187509867334e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.030223516710919943,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.1253201000860817,
+        4.509772148659529,
+        6.9039530586495355,
+        7.744153100368575,
+        20.55998915532843,
+        23.115578686106474,
+        30.357569960825654,
+        34.968248019371174,
+        58.87470115475213,
+        70.3340859393766
+      ]
+    },
+    {
+      "ordered_index": 65,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.6666666667,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.06101613838060846,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816614586786,
+      "trial_input_error_upper_display": 1.0000199306008378e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.02779932708053308,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8536384585655222,
+        5.535583331563558,
+        7.337632365014027,
+        9.056973227790337,
+        16.112051476761966,
+        22.15401754705507,
+        29.004648823562622,
+        32.44003968975825,
+        50.802382009072645,
+        74.33348340131994
+      ]
+    },
+    {
+      "ordered_index": 66,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.8333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.05513409414687524,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05386803462015648,
+      "trial_input_error_upper_display": 1.0000268742064177e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 3.3383206688506386e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        1.2615106930261644,
+        7.862416799729957,
+        12.599143793896243,
+        16.2964287001806,
+        21.7785438180857,
+        23.559184003147593,
+        27.952517213761713,
+        48.42696735049176,
+        89.99031524382255
+      ]
+    },
+    {
+      "ordered_index": 67,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.8333333333,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.051589339074482675,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547388282985,
+      "trial_input_error_upper_display": 1.0000226847800878e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 4.217456366689261e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        5.70433257782792e-05,
+        5.17301821507378,
+        7.064493485033247,
+        9.25923227722951,
+        19.73376649776687,
+        27.38128953652365,
+        27.529943480131678,
+        29.74304048592981,
+        81.44746886964448,
+        89.96248023676816
+      ]
+    },
+    {
+      "ordered_index": 68,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.8333333333,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.06101613839318916,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816615187277,
+      "trial_input_error_upper_display": 1.000019532564495e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.02784314296791744,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8532730178918392,
+        5.535143763898442,
+        7.332634604508425,
+        9.057964927396709,
+        16.10217127349388,
+        22.15425107902264,
+        29.002550151050862,
+        32.444763734728205,
+        50.786951335583545,
+        74.3117448451142
+      ]
+    },
+    {
+      "ordered_index": 69,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.8333333333,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.04509605213518146,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071163148767,
+      "trial_input_error_upper_display": 1.0000203370235176e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.015463030695574951,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.3957891519807353,
+        3.791444896876739,
+        6.326350771084074,
+        6.763796834420416,
+        16.63577706254339,
+        22.856367482639367,
+        30.701764107623084,
+        44.78800560266869,
+        60.3033619222638,
+        72.26186698940111
+      ]
+    },
+    {
+      "ordered_index": 70,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.8333333333,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.06101613837402303,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816613755985,
+      "trial_input_error_upper_display": 1.0000198551757002e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027424697619253657,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8406437260584348,
+        5.472490356214873,
+        7.690242552368245,
+        9.145530957648942,
+        15.605301188214485,
+        21.91358593027542,
+        28.95238995763609,
+        32.411092680895116,
+        50.83005227324596,
+        74.56339345652655
+      ]
+    },
+    {
+      "ordered_index": 71,
+      "fractional_coordinates": [
+        0.1666666667,
+        0.8333333333,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.051589338308112895,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547316386706,
+      "trial_input_error_upper_display": 1.0000228765891247e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.004524167233539998,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.03676560100870965,
+        5.345808902344739,
+        6.993059635354714,
+        9.314068258140898,
+        19.327353806477024,
+        27.325763762067368,
+        27.658802543112415,
+        33.54714271937468,
+        74.88092423501936,
+        85.14480186049404
+      ]
+    },
+    {
+      "ordered_index": 72,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.0,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.036249063145559646,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03586340015683086,
+      "trial_input_error_upper_display": 1.0000221475861536e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 7.158186546616617e-07,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.4194020461245063,
+        8.867596998557245,
+        10.921438645056277,
+        11.447274737307326,
+        19.716908341639034,
+        23.31698784826874,
+        27.42014820036536,
+        71.93683027305721,
+        89.99912767001842
+      ]
+    },
+    {
+      "ordered_index": 73,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.0,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.051589338971261035,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547378717559,
+      "trial_input_error_upper_display": 1.0000221524155086e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.004522015697324581,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.036789557897748924,
+        5.345862208358709,
+        6.992899274768233,
+        9.314175612557056,
+        19.326173527458998,
+        27.32578164058835,
+        27.659827270205316,
+        33.54812162301905,
+        74.88496898891896,
+        85.14722478777585
+      ]
+    },
+    {
+      "ordered_index": 74,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.0,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.0731173057085784,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06995845623616101,
+      "trial_input_error_upper_display": 1.0000213819924771e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.000256306401995406,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.169307560820128,
+        6.548179804586215,
+        8.31356211049499,
+        17.632441339603247,
+        28.485487010295785,
+        29.452955948336403,
+        33.91711990390254,
+        64.40379138877591,
+        89.95800080893977
+      ]
+    },
+    {
+      "ordered_index": 75,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.0,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.06607711674251132,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576746451083,
+      "trial_input_error_upper_display": 1.0000200897648869e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.030227264646875397,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.1263519191401696,
+        4.516919907533635,
+        6.904249726570775,
+        7.744375853525164,
+        20.557499885362173,
+        23.091160960306574,
+        30.35562660630774,
+        34.960824316300204,
+        58.90483822954616,
+        70.31272970339644
+      ]
+    },
+    {
+      "ordered_index": 76,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.0,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.08776898938072232,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06325036959901806,
+      "trial_input_error_upper_display": 1.0000191817967126e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0024453156876813043,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.091309789151873e-06,
+        2.484456333055313,
+        5.451350802976946,
+        5.7643505263513175,
+        8.950151169080305,
+        21.348602868504422,
+        26.565493617912473,
+        31.83194430672401,
+        43.111973122096614,
+        88.96067796514816
+      ]
+    },
+    {
+      "ordered_index": 77,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.0,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.073113626797361,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584618972149,
+      "trial_input_error_upper_display": 1.0000209180983839e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.008270723596859045,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        8.537736462515939e-07,
+        3.030241484097014,
+        7.5500048536887325,
+        9.724085774531986,
+        11.66649041889159,
+        20.617951102303486,
+        27.036509955030553,
+        29.037670801576034,
+        52.37765321047258,
+        86.16842960566031
+      ]
+    },
+    {
+      "ordered_index": 78,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.1666666667,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.051589338815189865,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547364009757,
+      "trial_input_error_upper_display": 1.0000220895991222e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.7428363665799523e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.5168227639631914e-05,
+        5.277573718980533,
+        7.5359735365359715,
+        9.27794275804315,
+        18.086695521089386,
+        27.221072711825837,
+        27.423706251940935,
+        29.851047830803488,
+        78.90966825084209,
+        89.9983185789526
+      ]
+    },
+    {
+      "ordered_index": 79,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.1666666667,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.05513409414684295,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.053868034620420384,
+      "trial_input_error_upper_display": 1.000026772502286e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.006836069580561472,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        8.537736462515939e-07,
+        1.2577879337236726,
+        7.855600365194125,
+        12.597986800350169,
+        16.663709799771908,
+        20.3013040588181,
+        23.368338984858017,
+        28.175508224801213,
+        48.173414529255425,
+        88.00249236783546
+      ]
+    },
+    {
+      "ordered_index": 80,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.1666666667,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.051589339444961566,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547423082424,
+      "trial_input_error_upper_display": 1.0000227483083961e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.2256318278581956e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.00013414302863732863,
+        5.277828268465082,
+        7.539747409047129,
+        9.277114393524712,
+        18.07479909448366,
+        27.220518521056604,
+        27.413520698656992,
+        29.85029992729074,
+        78.92400237137805,
+        89.98818128822894
+      ]
+    },
+    {
+      "ordered_index": 81,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.1666666667,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.06101613838485743,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.058798166146422144,
+      "trial_input_error_upper_display": 1.0000199090055154e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.02745938556509365,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.840149405888488,
+        5.471704564502444,
+        7.687540272024415,
+        9.147047411796358,
+        15.595907390947104,
+        21.91140840512941,
+        28.96569997216697,
+        32.40412183152015,
+        50.821167409723955,
+        74.55105915669277
+      ]
+    },
+    {
+      "ordered_index": 82,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.1666666667,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.04509605206358669,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037800711640575205,
+      "trial_input_error_upper_display": 1.0000199653558308e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.016264435884847963,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.2807753518830913,
+        3.8140998328223943,
+        6.326438465698843,
+        6.613943195741475,
+        16.335740487784175,
+        22.69259308984338,
+        30.807349949951153,
+        45.6772081025044,
+        61.43034876401665,
+        71.01927020077655
+      ]
+    },
+    {
+      "ordered_index": 83,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.1666666667,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.061016138357253766,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816612176173,
+      "trial_input_error_upper_display": 1.0000198002822076e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027449035264628368,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8404814298665848,
+        5.471167552995696,
+        7.686631900190665,
+        9.14586252488058,
+        15.602069927519361,
+        21.91377838967884,
+        28.966139033625012,
+        32.402158246641314,
+        50.82146993899173,
+        74.54895160255933
+      ]
+    },
+    {
+      "ordered_index": 84,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.3333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.07311730570188571,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06995845622888949,
+      "trial_input_error_upper_display": 1.00001923878532e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 4.086535062600082e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.168801678434497,
+        6.546474902164523,
+        8.317771244193757,
+        17.636746255945212,
+        28.485446663635,
+        29.473784714693345,
+        33.89068900679704,
+        64.39554483538326,
+        89.99327299194893
+      ]
+    },
+    {
+      "ordered_index": 85,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.3333333333,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.05158933845447943,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547330202419,
+      "trial_input_error_upper_display": 1.0000220903851313e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.004530099094439957,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.03678045928051861,
+        5.346166269190895,
+        6.9927985580866245,
+        9.317207919938395,
+        19.31923140817326,
+        27.32446392784365,
+        27.646571916760166,
+        33.52798388738866,
+        74.88159442774608,
+        85.1379918156436
+      ]
+    },
+    {
+      "ordered_index": 86,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.3333333333,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.036249063066593694,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.0358634000802703,
+      "trial_input_error_upper_display": 1.0000232502808016e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 3.1519050408462477e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.4292752565779585,
+        8.85470056362948,
+        10.921502022123649,
+        11.447339550023482,
+        19.714622089998677,
+        23.31137531284677,
+        27.39288576299663,
+        71.92413241607292,
+        89.99616083892897
+      ]
+    },
+    {
+      "ordered_index": 87,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.3333333333,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.0731136273917384,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584669405862,
+      "trial_input_error_upper_display": 1.000020832269052e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.008267996733440267,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        3.02575727535351,
+        7.546027329847754,
+        9.724121717784723,
+        11.671506237999749,
+        20.611406006719598,
+        27.036741454997934,
+        29.03083810301094,
+        52.349275922948664,
+        86.17140709830726
+      ]
+    },
+    {
+      "ordered_index": 88,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.3333333333,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.08776898939703044,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06325036960550068,
+      "trial_input_error_upper_display": 1.0000195352970327e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0024508582021869796,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.4850908147832604,
+        5.452801697005586,
+        5.7643868002774035,
+        8.949931802529404,
+        21.339944192836292,
+        26.565543230311263,
+        31.831980253321312,
+        43.11130449904918,
+        88.95833689511909
+      ]
+    },
+    {
+      "ordered_index": 89,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.3333333333,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.06607711559905538,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576649304417,
+      "trial_input_error_upper_display": 1.0000193702938187e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.030252150967645795,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.1264775700146132,
+        4.51947938517713,
+        6.903862844963508,
+        7.744128476239104,
+        20.558019618204895,
+        23.102839150228768,
+        30.357820718416804,
+        34.955601295034526,
+        58.892572754465135,
+        70.29550190451535
+      ]
+    },
+    {
+      "ordered_index": 90,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.5,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.0660771172570601,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576769454291,
+      "trial_input_error_upper_display": 1.000019243346461e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.948410716238799e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0017204541015231538,
+        2.1297458948412866,
+        7.037834923723543,
+        7.701333873290708,
+        16.097465264844498,
+        28.872859682507908,
+        29.603708313921654,
+        32.361622143333136,
+        53.138106221007114,
+        89.98991280785668
+      ]
+    },
+    {
+      "ordered_index": 91,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.5,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.06101613832004915,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.0587981660938459,
+      "trial_input_error_upper_display": 1.0000204101875405e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027794943746624393,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8533750016415564,
+        5.53625832062467,
+        7.335774211833892,
+        9.058498828518056,
+        16.110664121426723,
+        22.153903875633183,
+        29.00120480185531,
+        32.437768774991305,
+        50.800311186935964,
+        74.33436841416011
+      ]
+    },
+    {
+      "ordered_index": 92,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.5,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.07311362674387195,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584614260307,
+      "trial_input_error_upper_display": 1.0000195231045575e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.256802915628912e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        3.003877715653767,
+        7.772359247163325,
+        9.717442414077778,
+        11.11012782746126,
+        22.341919462597684,
+        27.08848919626516,
+        30.041694168600767,
+        52.422734464424884,
+        89.9938856659988
+      ]
+    },
+    {
+      "ordered_index": 93,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.5,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.038812887484586146,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.0378123913428478,
+      "trial_input_error_upper_display": 1.0000200964802223e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.006430404834405524,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.0004860081615226,
+        1.4268067164111733,
+        8.546823527479846,
+        9.589529248054232,
+        17.24664846174374,
+        23.379203169031104,
+        28.09126045871343,
+        47.72596487658224,
+        60.98927794532505,
+        81.90964733736996
+      ]
+    },
+    {
+      "ordered_index": 94,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.5,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.04509605209359295,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071139541162,
+      "trial_input_error_upper_display": 1.0000204629174448e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.01625445665578429,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.2798393466099003,
+        3.814730937588317,
+        6.3264501913083135,
+        6.613857331240202,
+        16.332476735246278,
+        22.690018163253598,
+        30.8074573751032,
+        45.67990389927825,
+        61.42634012774053,
+        71.03143035078438
+      ]
+    },
+    {
+      "ordered_index": 95,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.5,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.04114001125087899,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.02893940818260697,
+      "trial_input_error_upper_display": 1.0000214178150047e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.010254852053378397,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.652048522003949,
+        0.7614210188915241,
+        6.311349247208623,
+        6.322103156763453,
+        24.69697801753848,
+        25.325697292583637,
+        35.76590277900689,
+        35.77257249218329,
+        75.99082753121473,
+        77.34278742444393
+      ]
+    },
+    {
+      "ordered_index": 96,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.6666666667,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.0877689893883038,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06325036962205545,
+      "trial_input_error_upper_display": 1.0000190605383763e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.0338718157384085e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.617985029079369,
+        5.327617780777395,
+        5.75793044937126,
+        8.922551612499149,
+        22.171918186690323,
+        26.560199146142555,
+        31.83356212747385,
+        42.92531791459681,
+        89.999559870305
+      ]
+    },
+    {
+      "ordered_index": 97,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.6666666667,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.0450960520948046,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071171487393,
+      "trial_input_error_upper_display": 1.000019841990779e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.014345641104262941,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.3987473939974713,
+        3.758614255513449,
+        6.329876388456849,
+        6.916539004011244,
+        16.87457295778895,
+        22.90045175861611,
+        30.340836751133757,
+        43.92249499981907,
+        59.32318248760079,
+        73.78102230667298
+      ]
+    },
+    {
+      "ordered_index": 98,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.6666666667,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.08776898938933407,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06325036962162126,
+      "trial_input_error_upper_display": 1.000019284178102e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 6.544447083223582e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.6170394680766957,
+        5.328662979335597,
+        5.757930806221174,
+        8.922605371891448,
+        22.163247259862338,
+        26.560187958404786,
+        31.83356188250344,
+        42.92102610348616,
+        89.9972139414516
+      ]
+    },
+    {
+      "ordered_index": 99,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.6666666667,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.04509605210198941,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071166633694,
+      "trial_input_error_upper_display": 1.0000202374538848e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.01545784426922855,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.395195723361182,
+        3.7917769606078,
+        6.32635446458237,
+        6.763862908623283,
+        16.633732600286134,
+        22.854023189346922,
+        30.70224291420242,
+        44.79015914237261,
+        60.301911606766886,
+        72.26743028449818
+      ]
+    },
+    {
+      "ordered_index": 100,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.6666666667,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.08776898938116351,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06325036958883712,
+      "trial_input_error_upper_display": 1.0000191396666785e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0024458984217962327,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.484510541007997,
+        5.451606114525288,
+        5.764354791156819,
+        8.950140201176392,
+        21.347103153775123,
+        26.56549805083965,
+        31.831950587175132,
+        43.1115575571208,
+        88.96043176317012
+      ]
+    },
+    {
+      "ordered_index": 101,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.6666666667,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.045096052105378266,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037800711144564285,
+      "trial_input_error_upper_display": 1.00002026342553e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.015464090355694063,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.3991835911786845,
+        3.791389748929742,
+        6.326280708078033,
+        6.764060186387402,
+        16.644266417237827,
+        22.85957780852157,
+        30.69914946098174,
+        44.789510210286146,
+        60.30361176217935,
+        72.26228334400744
+      ]
+    },
+    {
+      "ordered_index": 102,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.8333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.07311362699119071,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.0695658463567893,
+      "trial_input_error_upper_display": 1.0000201994886608e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 3.958548294168055e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        3.000411538998258,
+        7.770706117309403,
+        9.717442417038706,
+        11.116564349359068,
+        22.33604442056878,
+        27.08848967493874,
+        30.051334484385134,
+        52.46976530365173,
+        89.99807333243236
+      ]
+    },
+    {
+      "ordered_index": 103,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.8333333333,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.06101613839464274,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816615804835,
+      "trial_input_error_upper_display": 1.0000199481197057e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.02781173660225045,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.853595898346688,
+        5.535262168261693,
+        7.336722772505943,
+        9.05692663885923,
+        16.109415140586457,
+        22.15439137877346,
+        29.00610505737813,
+        32.44084057405553,
+        50.79886829244964,
+        74.32754367622282
+      ]
+    },
+    {
+      "ordered_index": 104,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.8333333333,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.06607711445268474,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576561296588,
+      "trial_input_error_upper_display": 1.00001958409558e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00010167250683847214,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.008577340904032537,
+        2.129708036472317,
+        7.035415239719767,
+        7.701241189771485,
+        16.084702662436754,
+        28.876219650294114,
+        29.565487830143784,
+        32.37232571806293,
+        53.14698964125136,
+        89.94736413620073
+      ]
+    },
+    {
+      "ordered_index": 105,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.8333333333,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.04114001159888255,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.028939408142129905,
+      "trial_input_error_upper_display": 1.0000205184523541e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.010211440245352378,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.6513996517891767,
+        0.7614772634826452,
+        6.311390770225206,
+        6.322085353887616,
+        24.70748469810187,
+        25.31694901687583,
+        35.764273076003896,
+        35.774753510169745,
+        75.93408895069349,
+        77.39452559340567
+      ]
+    },
+    {
+      "ordered_index": 106,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.8333333333,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.04509605210630503,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071167923813,
+      "trial_input_error_upper_display": 1.0000202048762339e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.016310982700051394,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.28500697505834,
+        3.8111629761501624,
+        6.32637473217914,
+        6.614343224163979,
+        16.350090704740506,
+        22.704718797562506,
+        30.806945527924768,
+        45.66473282423425,
+        61.447600551444836,
+        70.96247717014325
+      ]
+    },
+    {
+      "ordered_index": 107,
+      "fractional_coordinates": [
+        0.3333333333,
+        0.8333333333,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.03881288880266274,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239256752057,
+      "trial_input_error_upper_display": 1.000019350207151e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.006427095473219291,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.9955961020925052,
+        1.4246128807531253,
+        8.549762699299263,
+        9.588521096833313,
+        17.254888603861854,
+        23.399685195580027,
+        28.12631483335037,
+        47.70142708747766,
+        61.0159595761725,
+        81.91548217562864
+      ]
+    },
+    {
+      "ordered_index": 108,
+      "fractional_coordinates": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.04166465555553419,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03976700086910265,
+      "trial_input_error_upper_display": 1.00001953414835e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 4.6617881312147544e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.4787793334710982e-06,
+        0.2425439631293824,
+        10.947054834942957,
+        11.012545030710768,
+        11.695751648564192,
+        19.92923657192416,
+        26.35176315682383,
+        48.01481212567839,
+        64.35922715894316,
+        89.99831389239044
+      ]
+    },
+    {
+      "ordered_index": 109,
+      "fractional_coordinates": [
+        0.5,
+        0.0,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.038812888842591,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239260501977,
+      "trial_input_error_upper_display": 1.000019174655103e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.006426803119254809,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.9958892980474869,
+        1.4246097783849667,
+        8.549565224414586,
+        9.58844213679953,
+        17.254258291738658,
+        23.398382285532648,
+        28.12539636608544,
+        47.703954480783885,
+        61.01548971392063,
+        81.9158309491539
+      ]
+    },
+    {
+      "ordered_index": 110,
+      "fractional_coordinates": [
+        0.5,
+        0.0,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.06607711712978119,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576759063779,
+      "trial_input_error_upper_display": 1.0000191394046243e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.030218776894556158,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.12536880538939,
+        4.509906873168203,
+        6.903956640878395,
+        7.744203231662935,
+        20.5601513716616,
+        23.11119929410746,
+        30.35700879871838,
+        34.96849389101699,
+        58.87888350921351,
+        70.33579041375091
+      ]
+    },
+    {
+      "ordered_index": 111,
+      "fractional_coordinates": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.047923891894653424,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.033641502292808205,
+      "trial_input_error_upper_display": 1.0000196708697783e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 2.6056563757174538e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        8.537736462515939e-07,
+        10.273853251490122,
+        10.377403181205471,
+        15.235821776480073,
+        28.074904033457436,
+        39.837427011263514,
+        46.90749116141922,
+        76.40976241377848,
+        89.97105158817782
+      ]
+    },
+    {
+      "ordered_index": 112,
+      "fractional_coordinates": [
+        0.5,
+        0.0,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.06607711656795803,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576719824449,
+      "trial_input_error_upper_display": 1.0000183302422357e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0302200277047579,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.1253533010810177,
+        4.509887789680116,
+        6.903907960423965,
+        7.7441983074325,
+        20.560133186942885,
+        23.111155536964354,
+        30.3570674611953,
+        34.96817178675909,
+        58.87910234697316,
+        70.33478282134968
+      ]
+    },
+    {
+      "ordered_index": 113,
+      "fractional_coordinates": [
+        0.5,
+        0.0,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.038812889691434954,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037812393388800394,
+      "trial_input_error_upper_display": 1.00001963332695e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0064271328443219295,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.9958206526736963,
+        1.4246299542766259,
+        8.549594362004694,
+        9.588442076656573,
+        17.25455588870109,
+        23.39842107130318,
+        28.124850772421706,
+        47.704101270042976,
+        61.01548708676339,
+        81.9153707326517
+      ]
+    },
+    {
+      "ordered_index": 114,
+      "fractional_coordinates": [
+        0.5,
+        0.1666666667,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.038812889942239394,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239362028392,
+      "trial_input_error_upper_display": 1.0000192985171486e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.750592544227811e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0005027168289318091,
+        1.4267944686489866,
+        8.82137480328115,
+        9.15665226623974,
+        15.142269771470145,
+        24.534359853098096,
+        29.707274954488295,
+        40.81697915427006,
+        64.79484294325398,
+        89.99803744132262
+      ]
+    },
+    {
+      "ordered_index": 115,
+      "fractional_coordinates": [
+        0.5,
+        0.1666666667,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.07311362689418872,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584627762717,
+      "trial_input_error_upper_display": 1.000020390892941e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.008271788526354537,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        3.030284735795199,
+        7.550497396641641,
+        9.724087466673915,
+        11.666046499321675,
+        20.61865287839147,
+        27.036462956409107,
+        29.03725269789471,
+        52.37703049020116,
+        86.16821841259151
+      ]
+    },
+    {
+      "ordered_index": 116,
+      "fractional_coordinates": [
+        0.5,
+        0.1666666667,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.061016138408938485,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816617040982,
+      "trial_input_error_upper_display": 1.0000193205278935e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.02742787681795912,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8405793629387542,
+        5.4725366009518135,
+        7.69002111789661,
+        9.145761659822641,
+        15.603904314847549,
+        21.913405950444904,
+        28.952126734019046,
+        32.41183602741653,
+        50.82846544961345,
+        74.56297905484247
+      ]
+    },
+    {
+      "ordered_index": 117,
+      "fractional_coordinates": [
+        0.5,
+        0.1666666667,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.06607711685707761,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576741437437,
+      "trial_input_error_upper_display": 1.0000195716723383e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 4.3183371472220534e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0030039051176949157,
+        2.0868669299333398,
+        6.965676325220408,
+        7.701630695852665,
+        15.925469721022425,
+        29.072596229810085,
+        29.379589582316587,
+        32.506526915161146,
+        52.64139885799585,
+        89.97736339485807
+      ]
+    },
+    {
+      "ordered_index": 118,
+      "fractional_coordinates": [
+        0.5,
+        0.1666666667,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.04114001152211663,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.028939408081989387,
+      "trial_input_error_upper_display": 1.0000213911659875e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.010245708752341192,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.6515723820603719,
+        0.7614552736334422,
+        6.311411224611722,
+        6.322131333872046,
+        24.69807889618173,
+        25.325956701991146,
+        35.766569464499675,
+        35.77210477319555,
+        75.97991680103928,
+        77.35316129794971
+      ]
+    },
+    {
+      "ordered_index": 119,
+      "fractional_coordinates": [
+        0.5,
+        0.1666666667,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.045096052122729685,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.0378007117026292,
+      "trial_input_error_upper_display": 1.0000202747488536e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.015460964850249498,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.398670789861673,
+        3.7915631869017608,
+        6.326289884935653,
+        6.763987138306257,
+        16.64265525190609,
+        22.85923160998181,
+        30.699150343567737,
+        44.78963774759792,
+        60.30208270685478,
+        72.26605700379449
+      ]
+    },
+    {
+      "ordered_index": 120,
+      "fractional_coordinates": [
+        0.5,
+        0.3333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.06607711587410044,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.0579557667025327,
+      "trial_input_error_upper_display": 1.0000187249108066e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.011945536310906e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0007329854350935585,
+        2.0872298857438576,
+        6.9643510349263185,
+        7.701764414991491,
+        15.930368267134762,
+        29.073543540494438,
+        29.389608196392064,
+        32.49630962226511,
+        52.64266999908397,
+        89.99469486676809
+      ]
+    },
+    {
+      "ordered_index": 121,
+      "fractional_coordinates": [
+        0.5,
+        0.3333333333,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.06101613845512064,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816621277764,
+      "trial_input_error_upper_display": 1.0000195265444775e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027454497674050934,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8404040495559324,
+        5.471106603084628,
+        7.686340001880848,
+        9.146122493958503,
+        15.600421332988276,
+        21.913233581365382,
+        28.968950831673748,
+        32.40017230722403,
+        50.82071734582903,
+        74.54666212766394
+      ]
+    },
+    {
+      "ordered_index": 122,
+      "fractional_coordinates": [
+        0.5,
+        0.3333333333,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.0731136289576124,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584804431414,
+      "trial_input_error_upper_display": 1.0000196293126565e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00825569410423702,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        3.026671822064901,
+        7.544308573371204,
+        9.724107036153649,
+        11.670080251732056,
+        20.612629857778074,
+        27.03705552738671,
+        29.032621065184262,
+        52.34707797767589,
+        86.1755215929478
+      ]
+    },
+    {
+      "ordered_index": 123,
+      "fractional_coordinates": [
+        0.5,
+        0.3333333333,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.03881288896757355,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239272019252,
+      "trial_input_error_upper_display": 1.0000200611166837e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 5.616426621058195e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0009165044360119404,
+        1.4266111236481376,
+        8.821204539616815,
+        9.15450947867647,
+        15.13503572537608,
+        24.525961702954948,
+        29.697485465468937,
+        40.810020603360876,
+        64.78469910176067,
+        89.99370279876476
+      ]
+    },
+    {
+      "ordered_index": 124,
+      "fractional_coordinates": [
+        0.5,
+        0.3333333333,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.04509605208293665,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071169630026,
+      "trial_input_error_upper_display": 1.0000200989798007e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.015456876232738162,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.3970569759905302,
+        3.791905565978481,
+        6.326315808131198,
+        6.764410110883378,
+        16.638827149900813,
+        22.85181867190857,
+        30.70185342113509,
+        44.795350932956765,
+        60.30436612049145,
+        72.26753247390874
+      ]
+    },
+    {
+      "ordered_index": 125,
+      "fractional_coordinates": [
+        0.5,
+        0.3333333333,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.04114001145998211,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.028939408028982545,
+      "trial_input_error_upper_display": 1.0000213828421816e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.010244793352217235,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.6520016563015272,
+        0.7614260811064834,
+        6.311365021727221,
+        6.322081085208302,
+        24.69927934694289,
+        25.323654165448936,
+        35.76605092363203,
+        35.77245546439236,
+        75.97856944151016,
+        77.35493355937167
+      ]
+    },
+    {
+      "ordered_index": 126,
+      "fractional_coordinates": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.04792389189828294,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03364150229131185,
+      "trial_input_error_upper_display": 1.000020517608747e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 6.921308697059556e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        0.0,
+        10.273824558263474,
+        10.377022613859353,
+        15.243214931397489,
+        28.10589427308802,
+        39.81941926765611,
+        46.89606617326949,
+        76.38653654409347,
+        89.99230970682541
+      ]
+    },
+    {
+      "ordered_index": 127,
+      "fractional_coordinates": [
+        0.5,
+        0.5,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.06607711553715409,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576642848181,
+      "trial_input_error_upper_display": 1.00001909057004e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.03025315441546032,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.1266468405720445,
+        4.520596880942441,
+        6.904017196047698,
+        7.744160513132273,
+        20.557317292991975,
+        23.100255660154367,
+        30.357624616220182,
+        34.95460106128379,
+        58.896343668649465,
+        70.29222408605442
+      ]
+    },
+    {
+      "ordered_index": 128,
+      "fractional_coordinates": [
+        0.5,
+        0.5,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.03881289054453637,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239417540641,
+      "trial_input_error_upper_display": 1.0000191697568123e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.006431570962894695,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.9999078534157395,
+        1.4270604126254716,
+        8.547312385815548,
+        9.59010796618107,
+        17.248707512658203,
+        23.37991244059179,
+        28.091158337004682,
+        47.721321418819116,
+        60.98351299822999,
+        81.90811701189884
+      ]
+    },
+    {
+      "ordered_index": 129,
+      "fractional_coordinates": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.04166465550964608,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03976700082464457,
+      "trial_input_error_upper_display": 1.0000198472847096e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 2.711678623020278e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        0.2439584299158039,
+        10.94603854939848,
+        11.012527454191083,
+        11.69362519276524,
+        19.86317124592056,
+        26.34171244763596,
+        48.01454728219743,
+        64.31302324586883,
+        89.99019061366671
+      ]
+    },
+    {
+      "ordered_index": 130,
+      "fractional_coordinates": [
+        0.5,
+        0.5,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.03881288865724853,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239243275316,
+      "trial_input_error_upper_display": 1.0000195237877428e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.006431511495426145,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.9999548291019982,
+        1.427035928601173,
+        8.547297294394877,
+        9.590098387233645,
+        17.248607237986114,
+        23.37985256207705,
+        28.091122263156766,
+        47.721163591123556,
+        60.98330879779748,
+        81.90819332736594
+      ]
+    },
+    {
+      "ordered_index": 131,
+      "fractional_coordinates": [
+        0.5,
+        0.5,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.06607711576143208,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576666244462,
+      "trial_input_error_upper_display": 1.000019207009462e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.030253063933282472,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.1266480035895612,
+        4.520593298105627,
+        6.904021583841856,
+        7.74416063956026,
+        20.55728170127796,
+        23.1002397531296,
+        30.357609649246086,
+        34.95455667987124,
+        58.89630440394531,
+        70.29227895764389
+      ]
+    },
+    {
+      "ordered_index": 132,
+      "fractional_coordinates": [
+        0.5,
+        0.6666666667,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.06607711600670782,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576678175995,
+      "trial_input_error_upper_display": 1.000019717694858e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.5558807967010577e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0007938414726226377,
+        2.0872307167055,
+        6.964349736115702,
+        7.701764364738108,
+        15.930364256475915,
+        29.073543307754402,
+        29.389599728590426,
+        32.49631102931112,
+        52.642667765773275,
+        89.99184328331461
+      ]
+    },
+    {
+      "ordered_index": 133,
+      "fractional_coordinates": [
+        0.5,
+        0.6666666667,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.041140011690338735,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.028939408104662112,
+      "trial_input_error_upper_display": 1.0000212346650654e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.010244825141134836,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.6520012036857051,
+        0.7614172184094125,
+        6.3113683940186425,
+        6.322080062180781,
+        24.699310180483316,
+        25.323632253615838,
+        35.766058262706586,
+        35.772449121920204,
+        75.97861634850882,
+        77.35488666908208
+      ]
+    },
+    {
+      "ordered_index": 134,
+      "fractional_coordinates": [
+        0.5,
+        0.6666666667,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.04509605206781046,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071137848663,
+      "trial_input_error_upper_display": 1.0000197314183925e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.015456636286721765,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.397067891975076,
+        3.7919221754680277,
+        6.3263171850168565,
+        6.7643754292069085,
+        16.638769302060187,
+        22.85178906583245,
+        30.701873090993743,
+        44.795475199168834,
+        60.30475705011293,
+        72.26782660083491
+      ]
+    },
+    {
+      "ordered_index": 135,
+      "fractional_coordinates": [
+        0.5,
+        0.6666666667,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.03881289036327629,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239400669062,
+      "trial_input_error_upper_display": 1.0000185240831932e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 6.155623034362828e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0009668883826671473,
+        1.4266613525517975,
+        8.821207404044529,
+        9.154526995312143,
+        15.134792483981283,
+        24.526279497420294,
+        29.697754846716773,
+        40.810378148142284,
+        64.78367735417054,
+        89.99309814084457
+      ]
+    },
+    {
+      "ordered_index": 136,
+      "fractional_coordinates": [
+        0.5,
+        0.6666666667,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.07311362763757619,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584691393844,
+      "trial_input_error_upper_display": 1.0000203482104066e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.008256409365534772,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        3.0265585731083298,
+        7.544066313738167,
+        9.724109443019785,
+        11.67016911673543,
+        20.612573363219695,
+        27.037093139573134,
+        29.0327270838997,
+        52.347383393336266,
+        86.17510463576583
+      ]
+    },
+    {
+      "ordered_index": 137,
+      "fractional_coordinates": [
+        0.5,
+        0.6666666667,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.061016138408538895,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816617211905,
+      "trial_input_error_upper_display": 1.0000193765907326e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027453976807345463,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8404066012854519,
+        5.471072045753093,
+        7.686244980408036,
+        9.146133841103067,
+        15.600861077853367,
+        21.913008424597074,
+        28.969087342283956,
+        32.400035490441994,
+        50.82032052260076,
+        74.54688814275734
+      ]
+    },
+    {
+      "ordered_index": 138,
+      "fractional_coordinates": [
+        0.5,
+        0.8333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.03881288942212644,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037812393140758314,
+      "trial_input_error_upper_display": 1.0000194228071662e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 3.3956528950506922e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0006018159531340011,
+        1.426793622982283,
+        8.821374643298316,
+        9.156651389843494,
+        15.142269079968342,
+        24.534356718515333,
+        29.707266441458298,
+        40.81696648802602,
+        64.79485408795858,
+        89.99619319349353
+      ]
+    },
+    {
+      "ordered_index": 139,
+      "fractional_coordinates": [
+        0.5,
+        0.8333333333,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.04509605208449617,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071138036815,
+      "trial_input_error_upper_display": 1.0000196749912568e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.015460833740549044,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.3986164374484726,
+        3.791554149459759,
+        6.326292372776461,
+        6.763984829684394,
+        16.64260160877708,
+        22.859181443962726,
+        30.699009641008352,
+        44.789355374468606,
+        60.302135298535624,
+        72.2663454189257
+      ]
+    },
+    {
+      "ordered_index": 140,
+      "fractional_coordinates": [
+        0.5,
+        0.8333333333,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.04114001167569939,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.028939408105815485,
+      "trial_input_error_upper_display": 1.0000207197928327e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.010245629987811795,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.6515729399908343,
+        0.7614594019313647,
+        6.311407610389535,
+        6.322132073527165,
+        24.69808629129945,
+        25.325931063654128,
+        35.76656610700662,
+        35.7721080321673,
+        75.97974847113595,
+        77.35327112142521
+      ]
+    },
+    {
+      "ordered_index": 141,
+      "fractional_coordinates": [
+        0.5,
+        0.8333333333,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.06607711588806257,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576671418356,
+      "trial_input_error_upper_display": 1.0000195545893501e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 4.514308284467551e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0029890348324576503,
+        2.086829109758488,
+        6.965756790446481,
+        7.701632312761396,
+        15.925552469319499,
+        29.072642997119075,
+        29.379868057862556,
+        32.506474339984635,
+        52.641457333257776,
+        89.9763357787481
+      ]
+    },
+    {
+      "ordered_index": 142,
+      "fractional_coordinates": [
+        0.5,
+        0.8333333333,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.061016138394993195,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.058798166158129946,
+      "trial_input_error_upper_display": 1.0000194058611267e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027428834313078448,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8405747605074849,
+        5.472520880975287,
+        7.690054485109506,
+        9.145763051300245,
+        15.603735661804953,
+        21.913605998709258,
+        28.9520709619572,
+        32.41186698363284,
+        50.8286809098571,
+        74.56208061433509
+      ]
+    },
+    {
+      "ordered_index": 143,
+      "fractional_coordinates": [
+        0.5,
+        0.8333333333,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.07311362696582106,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584633626485,
+      "trial_input_error_upper_display": 1.0000201313021077e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.008270397986673835,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.2588727439225506e-06,
+        3.030499745715932,
+        7.550741546754436,
+        9.724087995160689,
+        11.665749348250111,
+        20.618888612403758,
+        27.036419896819964,
+        29.03730237002808,
+        52.37619270014516,
+        86.16888994698616
+      ]
+    },
+    {
+      "ordered_index": 144,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.0,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.036249063083442425,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.035863400096131676,
+      "trial_input_error_upper_display": 1.0000231052017943e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 2.3261918071504376e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.9090959104164224e-06,
+        2.419399055145494,
+        8.867598350098946,
+        10.921439102425026,
+        11.4472763575691,
+        19.716908935085257,
+        23.316975146978674,
+        27.42015313020179,
+        71.9368407889429,
+        89.99716519522794
+      ]
+    },
+    {
+      "ordered_index": 145,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.0,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.07311362745817213,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584675530046,
+      "trial_input_error_upper_display": 1.0000197563718844e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.008272148546457818,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        8.537736462515939e-07,
+        3.0300254088957246,
+        7.5497616419465325,
+        9.724085262694864,
+        11.666791907359448,
+        20.61770503758762,
+        27.036553087103457,
+        29.037616903832053,
+        52.37847334400031,
+        86.16774428679979
+      ]
+    },
+    {
+      "ordered_index": 146,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.0,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.08776898937563749,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06325036959681003,
+      "trial_input_error_upper_display": 1.0000186583244107e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00244524037826011,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        8.537736462515939e-07,
+        2.484448103811408,
+        5.451344939546677,
+        5.764349792939322,
+        8.950146950174332,
+        21.34858858414879,
+        26.565493039850395,
+        31.831943477679992,
+        43.11202279684755,
+        88.96070960465086
+      ]
+    },
+    {
+      "ordered_index": 147,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.0,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.06607711641531908,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576708048578,
+      "trial_input_error_upper_display": 1.0000201485654368e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.03022842731036241,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.126334707969812,
+        4.51690268201314,
+        6.904205023193508,
+        7.744370736275804,
+        20.557445113098005,
+        23.091092535301986,
+        30.355669563657848,
+        34.960455074571215,
+        58.905022355037225,
+        70.31176931689302
+      ]
+    },
+    {
+      "ordered_index": 148,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.0,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.07311730558008513,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.0699584561200142,
+      "trial_input_error_upper_display": 1.0000202112796508e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0002870065070950254,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        8.537736462515939e-07,
+        2.169287031449667,
+        6.548157814078364,
+        8.313663087395975,
+        17.632499080951625,
+        28.485485938560924,
+        29.453450713121686,
+        33.91662892735806,
+        64.40267128210965,
+        89.95293821689576
+      ]
+    },
+    {
+      "ordered_index": 149,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.0,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.05158933775211031,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547264110764,
+      "trial_input_error_upper_display": 1.0000229821682825e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0045234886093817595,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.03678687979923539,
+        5.345851232935485,
+        6.992902595430494,
+        9.314089726153169,
+        19.326467465903608,
+        27.325795679435316,
+        27.659645966692153,
+        33.54756562589053,
+        74.88373310292835,
+        85.14552740405418
+      ]
+    },
+    {
+      "ordered_index": 150,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.1666666667,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.07311362730884192,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584662784789,
+      "trial_input_error_upper_display": 1.0000213675107856e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 6.492097830864252e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        8.537736462515939e-07,
+        3.0004112345270086,
+        7.770701969768778,
+        9.717442424005046,
+        11.116568348128435,
+        22.336044160476238,
+        27.088489262719445,
+        30.05134336743591,
+        52.46976769002453,
+        89.99684022686635
+      ]
+    },
+    {
+      "ordered_index": 151,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.1666666667,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.03881289027325453,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239392468428,
+      "trial_input_error_upper_display": 1.0000189442756823e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.006426764374454856,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.995664328903797,
+        1.424593421212771,
+        8.549733431585555,
+        9.588521593595193,
+        17.25458481499903,
+        23.399648505316218,
+        28.126862642722973,
+        47.701280461234816,
+        61.01594466853881,
+        81.91594432377605
+      ]
+    },
+    {
+      "ordered_index": 152,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.1666666667,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.045096052093070396,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071161606137,
+      "trial_input_error_upper_display": 1.0000202897351303e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.016310763960403936,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.28487266969291,
+        3.8111864105484097,
+        6.32638114649697,
+        6.614236096648323,
+        16.349736251413127,
+        22.704591881244685,
+        30.806939566856496,
+        45.664750337882325,
+        61.44854140540732,
+        70.96282810745477
+      ]
+    },
+    {
+      "ordered_index": 153,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.1666666667,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.041140011505602064,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.028939408047393398,
+      "trial_input_error_upper_display": 1.0000210062940258e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.010211479302922485,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.6513967968980708,
+        0.7614808215736295,
+        6.311390848192542,
+        6.322085788891548,
+        24.707446463480146,
+        25.31699400249736,
+        35.76426785413852,
+        35.77475554018386,
+        75.93420489490612,
+        77.39447289085788
+      ]
+    },
+    {
+      "ordered_index": 154,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.1666666667,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.06607711582049403,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.057955766649799574,
+      "trial_input_error_upper_display": 1.0000185231903527e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00010491905169924577,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.00864020512667313,
+        2.1296783061465017,
+        7.035509581444992,
+        7.701243528319655,
+        16.08484258905323,
+        28.87617665338134,
+        29.565774851917418,
+        32.37222638319265,
+        53.14715251249044,
+        89.94568269095994
+      ]
+    },
+    {
+      "ordered_index": 155,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.1666666667,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.0610161383230995,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.058798166090831085,
+      "trial_input_error_upper_display": 1.0000196722447042e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027811025352391452,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.853596550309529,
+        5.535233133704507,
+        7.336659528622046,
+        9.05694631819632,
+        16.109814856312155,
+        22.154288866340785,
+        29.00619578032491,
+        32.44067017690322,
+        50.79870876282136,
+        74.32776123730045
+      ]
+    },
+    {
+      "ordered_index": 156,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.3333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.0877689893794961,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06325036962337904,
+      "trial_input_error_upper_display": 1.000019249105707e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 9.909534155676546e-07,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.1262047877356564e-05,
+        2.6179859863578594,
+        5.327617839715318,
+        5.757930440752301,
+        8.922551818690293,
+        22.171918571661195,
+        26.56019915880315,
+        31.833562093015576,
+        42.92531647908897,
+        89.99957814110637
+      ]
+    },
+    {
+      "ordered_index": 157,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.3333333333,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.045096052155512587,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037800712526660334,
+      "trial_input_error_upper_display": 1.0000206793066507e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.015463944411864538,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.3991286742749205,
+        3.7913833123756198,
+        6.326283411984896,
+        6.764040991339084,
+        16.644218549345013,
+        22.859521124662606,
+        30.699003641089867,
+        44.789226395176165,
+        60.30367848175523,
+        72.26259400390543
+      ]
+    },
+    {
+      "ordered_index": 158,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.3333333333,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.08776898938186899,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06325036959810876,
+      "trial_input_error_upper_display": 1.0000195705369169e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.002445827493070616,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.4845028361532404,
+        5.451600443413949,
+        5.764354083463261,
+        8.950136049859495,
+        21.347089581241782,
+        26.56549749426593,
+        31.831949609517334,
+        43.111605300967035,
+        88.96046156346655
+      ]
+    },
+    {
+      "ordered_index": 159,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.3333333333,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.04509605215534138,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071256308095,
+      "trial_input_error_upper_display": 1.0000206832409021e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.015458219817853348,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.395239087125624,
+        3.7917699253117605,
+        6.326350397031555,
+        6.763899459753434,
+        16.633844458262242,
+        22.854101380441666,
+        30.702367641098803,
+        44.79031951554299,
+        60.301461214548006,
+        72.266840909396
+      ]
+    },
+    {
+      "ordered_index": 160,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.3333333333,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.0877689893879619,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.063250369597373,
+      "trial_input_error_upper_display": 1.000018493806266e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 6.458433653174556e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.2074182697257333e-06,
+        2.617039684446695,
+        5.328662436279373,
+        5.757930769247011,
+        8.922593550722505,
+        22.16326485132493,
+        26.560186083776422,
+        31.83356216003315,
+        42.92103230428858,
+        89.99725055615977
+      ]
+    },
+    {
+      "ordered_index": 161,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.3333333333,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.045096052105147603,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071146070443,
+      "trial_input_error_upper_display": 1.0000199379630008e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.014345290405971422,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.3987449921932,
+        3.7586111068456822,
+        6.329879276419797,
+        6.916549029440268,
+        16.874658644856133,
+        22.90043401168807,
+        30.340656579684158,
+        43.92231102918009,
+        59.32328005670374,
+        73.78151816581583
+      ]
+    },
+    {
+      "ordered_index": 162,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.5,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.06607711618327665,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576690482269,
+      "trial_input_error_upper_display": 1.0000191503782489e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 2.588454813297592e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0018371980932369145,
+        2.1297469249989183,
+        7.037833067739721,
+        7.701333821404397,
+        16.097461801466252,
+        28.872859842932872,
+        29.60369960837522,
+        32.3616246349853,
+        53.13810287116768,
+        89.98659921364033
+      ]
+    },
+    {
+      "ordered_index": 163,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.5,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.041140011796487415,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.028939408220207227,
+      "trial_input_error_upper_display": 1.0000211889500818e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.010254882199436061,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.6520481080597277,
+        0.7614132346460663,
+        6.3113525472010465,
+        6.322102063021059,
+        24.69700926034783,
+        25.325675966405466,
+        35.76590686492771,
+        35.772567930762335,
+        75.99087285752795,
+        77.3427426944031
+      ]
+    },
+    {
+      "ordered_index": 164,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.5,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.04509605210020139,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037800711746277034,
+      "trial_input_error_upper_display": 1.0000204756775882e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.016254577019266744,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.2799063561915274,
+        3.814719574736813,
+        6.326446922273568,
+        6.613909081607178,
+        16.33265559692709,
+        22.690078505076706,
+        30.80746125858579,
+        45.679896600649634,
+        61.4258672174489,
+        71.03123847607303
+      ]
+    },
+    {
+      "ordered_index": 165,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.5,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.03881289107456996,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239467026649,
+      "trial_input_error_upper_display": 1.0000192722490518e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.006430674534620324,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.0004620925021253,
+        1.4268025817926255,
+        8.546836987076192,
+        9.589517567455472,
+        17.246855269980355,
+        23.379171853878052,
+        28.090667434304386,
+        47.725958134833704,
+        60.98907674364083,
+        81.90926520434942
+      ]
+    },
+    {
+      "ordered_index": 166,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.5,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.07311362760898472,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584688597259,
+      "trial_input_error_upper_display": 1.0000201587652857e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.0339460615953903e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        3.003962369775506,
+        7.772546722437479,
+        9.717442429122555,
+        11.109902996364264,
+        22.341911244954552,
+        27.08848919612533,
+        30.041384315907884,
+        52.42189282817675,
+        89.9949698505391
+      ]
+    },
+    {
+      "ordered_index": 167,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.5,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.061016138365290434,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816612941146,
+      "trial_input_error_upper_display": 1.0000195498451653e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027795326517596686,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8533759058775767,
+        5.536294715050056,
+        7.335871421354664,
+        9.058507598616874,
+        16.11014589124037,
+        22.15407394646737,
+        29.001134630616562,
+        32.43790214704062,
+        50.800528312314185,
+        74.33403914080277
+      ]
+    },
+    {
+      "ordered_index": 168,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.6666666667,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.07311730575236708,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06995845627618096,
+      "trial_input_error_upper_display": 1.000019433570505e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00010188422097681743,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.1688024395588035,
+        6.546475548285216,
+        8.317768344306966,
+        17.63674484522875,
+        28.485447009464583,
+        29.473770501980635,
+        33.890704784190845,
+        64.39557314906497,
+        89.98322865118747
+      ]
+    },
+    {
+      "ordered_index": 169,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.6666666667,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.06607711579603183,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576662918079,
+      "trial_input_error_upper_display": 1.0000191174175347e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.030252177849144295,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.126476902686488,
+        4.519480540307065,
+        6.903859904292234,
+        7.7441285436492295,
+        20.558057997094892,
+        23.102858767790266,
+        30.357834552026954,
+        34.95565973229129,
+        58.89260305848768,
+        70.2955030806817
+      ]
+    },
+    {
+      "ordered_index": 170,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.6666666667,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.0877689893909615,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.0632503696022882,
+      "trial_input_error_upper_display": 1.0000187947918335e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0024510258838742753,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        9.035490975690211e-06,
+        2.4851023555686957,
+        5.452812713364895,
+        5.764388442800429,
+        8.949939481345814,
+        21.339966169674675,
+        26.565543960813738,
+        31.831982472184066,
+        43.111212467964634,
+        88.95826623439565
+      ]
+    },
+    {
+      "ordered_index": 171,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.6666666667,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.07311362790735851,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584714399187,
+      "trial_input_error_upper_display": 1.000020170643219e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00826729592265724,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.7075472925031877e-06,
+        3.0258601884039567,
+        7.546036146565752,
+        9.724124230311654,
+        11.671287347897692,
+        20.61159758178193,
+        27.036739072897003,
+        29.030995245802565,
+        52.34875065172533,
+        86.17166979223396
+      ]
+    },
+    {
+      "ordered_index": 172,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.6666666667,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.036249063245370014,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03586340025324602,
+      "trial_input_error_upper_display": 1.0000221942123376e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 2.1313596212875715e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        2.42938110694593,
+        8.854461818993027,
+        10.921498120061784,
+        11.44731902030839,
+        19.714553649971734,
+        23.31184276372555,
+        27.39250136343807,
+        71.92244589590742,
+        89.9974038740221
+      ]
+    },
+    {
+      "ordered_index": 173,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.6666666667,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.05158933883992487,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547366084048,
+      "trial_input_error_upper_display": 1.0000227935473616e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0045297189859450976,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.03678212410651688,
+        5.346170539678009,
+        6.992818226864249,
+        9.317227834743273,
+        19.319073942453144,
+        27.324472416208557,
+        27.64654936648374,
+        33.527967867730744,
+        74.88070649058372,
+        85.13843653321048
+      ]
+    },
+    {
+      "ordered_index": 174,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.8333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.05158933864592795,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.050535473481172245,
+      "trial_input_error_upper_display": 1.000022758610318e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 7.34012436769634e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        3.519163418936902e-05,
+        5.277573616746932,
+        7.535973564967439,
+        9.277941888990357,
+        18.08669536930664,
+        27.22107286634403,
+        27.423690832560347,
+        29.851049155976774,
+        78.90968012600132,
+        89.99291853816416
+      ]
+    },
+    {
+      "ordered_index": 175,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.8333333333,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.06101613851882451,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816626950654,
+      "trial_input_error_upper_display": 1.0000197908768487e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027449550187623725,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8404798166485227,
+        5.471203043700847,
+        7.68672790186332,
+        9.145850448319468,
+        15.601628438804545,
+        21.913996960020768,
+        28.965999898534957,
+        32.402301356133655,
+        50.82186649225012,
+        74.5487437899227
+      ]
+    },
+    {
+      "ordered_index": 176,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.8333333333,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.04509605208248241,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071156863663,
+      "trial_input_error_upper_display": 1.000020083608722e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.01626455027536492,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.280839098507318,
+        3.8140884190598037,
+        6.32643541798485,
+        6.613995687901252,
+        16.335908953661733,
+        22.692651683748966,
+        30.8073533823341,
+        45.67720058610983,
+        61.4299007413154,
+        71.01908788131912
+      ]
+    },
+    {
+      "ordered_index": 177,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.8333333333,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.061016138389824726,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.058798166154606715,
+      "trial_input_error_upper_display": 1.0000192520258872e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.02745979252184199,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8401480201337306,
+        5.471653034578154,
+        7.687475214185279,
+        9.14706168978871,
+        15.596181795954026,
+        21.9113776166113,
+        28.965785226645853,
+        32.404008140349326,
+        50.8209799906672,
+        74.5503898871202
+      ]
+    },
+    {
+      "ordered_index": 178,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.8333333333,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.05158933806228061,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.050535472933217904,
+      "trial_input_error_upper_display": 1.0000219320834633e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.4829726559218759e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0001381452194010044,
+        5.277844883259525,
+        7.539818370606933,
+        9.277141029289865,
+        18.074533056374893,
+        27.220434017211108,
+        27.414074378359246,
+        29.850344799918854,
+        78.92259248750977,
+        89.98569874035147
+      ]
+    },
+    {
+      "ordered_index": 179,
+      "fractional_coordinates": [
+        0.6666666667,
+        0.8333333333,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.05513409415004664,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05386803462295663,
+      "trial_input_error_upper_display": 1.0000271377049447e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0068539586400985075,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        1.2577898540983072,
+        7.855638096051995,
+        12.597986841208106,
+        16.663643903921212,
+        20.30132933691811,
+        23.368341963621354,
+        28.175468088615084,
+        48.17350200191957,
+        87.99707598182086
+      ]
+    },
+    {
+      "ordered_index": 180,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.0,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.04975316189365364,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.04879628403607917,
+      "trial_input_error_upper_display": 1.0000378991679353e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 2.540446052022358e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        3.527438946928262e-05,
+        2.3884859163252044,
+        10.306292214251558,
+        12.595229148478994,
+        13.681612614463528,
+        18.762537296163888,
+        19.31605922356655,
+        26.26580893367322,
+        76.51658972105474,
+        89.98897544570973
+      ]
+    },
+    {
+      "ordered_index": 181,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.0,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.055134094148274464,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05386803462082435,
+      "trial_input_error_upper_display": 1.0000271206344951e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00681624308656374,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        1.2579395401863607,
+        7.855611276019887,
+        12.597987571894128,
+        16.664130032647854,
+        20.303733538356294,
+        23.36830560448109,
+        28.176115006855564,
+        48.1723673598474,
+        88.0075542202453
+      ]
+    },
+    {
+      "ordered_index": 182,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.0,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.07311362775797547,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584701445985,
+      "trial_input_error_upper_display": 1.0000211775979039e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.008254289015599305,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        8.537736462515939e-07,
+        3.0280625659225398,
+        7.545470267970293,
+        9.724101742679515,
+        11.667984274754446,
+        20.615057932893983,
+        27.0369856179921,
+        29.033512236631157,
+        52.34993202348822,
+        86.17613628861355
+      ]
+    },
+    {
+      "ordered_index": 183,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.0,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.038812888967361826,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239272033354,
+      "trial_input_error_upper_display": 1.0000190388875246e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00642933917413032,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.9995612889572304,
+        1.4262726490759865,
+        8.54738167468704,
+        9.589176084463602,
+        17.24803402338606,
+        23.38404799322897,
+        28.098625129431383,
+        47.72008044400604,
+        60.99585675085029,
+        81.91137191322132
+      ]
+    },
+    {
+      "ordered_index": 184,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.0,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.0515893388520024,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547367488722,
+      "trial_input_error_upper_display": 1.0000224024224942e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.00452318445835959,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.03686103251820887,
+        5.346269642004706,
+        6.992609498417849,
+        9.316614563006288,
+        19.31565316389086,
+        27.325418576726896,
+        27.654691489012382,
+        33.537297823058786,
+        74.90143576273223,
+        85.14586658813997
+      ]
+    },
+    {
+      "ordered_index": 185,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.0,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.06651507915675363,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.0643116434621499,
+      "trial_input_error_upper_display": 1.0000333802942745e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0003172767155940222,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        4.068533174395831,
+        9.888395474845415,
+        11.26513687381538,
+        17.876346288116082,
+        23.840137616940197,
+        24.179659465186678,
+        25.401012221302775,
+        78.57978674074562,
+        89.9537806019643
+      ]
+    },
+    {
+      "ordered_index": 186,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.1666666667,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.05513409414716522,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.053868034622295426,
+      "trial_input_error_upper_display": 1.0000265350067665e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.605560833361937e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        8.537736462515939e-07,
+        1.26150967853859,
+        7.862415597831306,
+        12.599143789854013,
+        16.29642996003394,
+        21.778543586564155,
+        23.5591840807135,
+        27.952511184707248,
+        48.4269822602313,
+        89.99534213788655
+      ]
+    },
+    {
+      "ordered_index": 187,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.1666666667,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.05158933830791199,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547316479107,
+      "trial_input_error_upper_display": 1.0000227349034502e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.004522684185606917,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.036768498483152216,
+        5.345818075730776,
+        6.993057583488331,
+        9.314155607626551,
+        19.327054428547893,
+        27.325750684064822,
+        27.658980770120664,
+        33.54769468166761,
+        74.88219434617206,
+        85.14651051739902
+      ]
+    },
+    {
+      "ordered_index": 188,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.1666666667,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.06101613829384595,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816606632538,
+      "trial_input_error_upper_display": 1.0000198862805878e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027423717719442634,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8406480821865612,
+        5.47250749114767,
+        7.69021210379842,
+        9.145529223255764,
+        15.605460852725628,
+        21.913388750153256,
+        28.95244144390965,
+        32.41106437861609,
+        50.82984516980646,
+        74.56431188452244
+      ]
+    },
+    {
+      "ordered_index": 189,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.1666666667,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.045096052078685264,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037800711788749844,
+      "trial_input_error_upper_display": 1.0000202269548422e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.01546340594704848,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.3958340475130804,
+        3.791435471528771,
+        6.3263467300999014,
+        6.76384175824247,
+        16.63589195988105,
+        22.856449414607944,
+        30.70188312212541,
+        44.788155469334235,
+        60.30290156778692,
+        72.2612809367759
+      ]
+    },
+    {
+      "ordered_index": 190,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.1666666667,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.06101613840011288,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.058798166161749044,
+      "trial_input_error_upper_display": 1.000019784812409e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027842878300085114,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.853276974652415,
+        5.535153646712579,
+        7.3326692672571205,
+        9.057993044384183,
+        16.102037208264786,
+        22.15432082978216,
+        29.002574725446156,
+        32.44472929189414,
+        50.78701266607407,
+        74.31159406511483
+      ]
+    },
+    {
+      "ordered_index": 191,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.1666666667,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.05158933899752192,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547381247518,
+      "trial_input_error_upper_display": 1.000022259539979e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 4.5981721452863216e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        6.03346800649083e-05,
+        5.173034670814623,
+        7.064533351908159,
+        9.259272531615112,
+        19.733595157220286,
+        27.381226085020455,
+        27.530499845893523,
+        29.7430887413412,
+        81.44776342425787,
+        89.95909143683559
+      ]
+    },
+    {
+      "ordered_index": 192,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.3333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.07311362745263832,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584674649026,
+      "trial_input_error_upper_display": 1.0000191684828417e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 8.402134766206929e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.2074182697257333e-06,
+        3.2276598465591086,
+        7.728473125207756,
+        9.717442400235205,
+        12.37353057782689,
+        19.82053066021731,
+        27.0884885617328,
+        28.816175257088723,
+        54.496933665871865,
+        89.9964261609784
+      ]
+    },
+    {
+      "ordered_index": 193,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.3333333333,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.06101613835485777,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816612369809,
+      "trial_input_error_upper_display": 1.0000196486321134e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027800031583937353,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8536361453214031,
+        5.535611368421615,
+        7.337692709624005,
+        9.056953152412184,
+        16.111666178892214,
+        22.154117924582398,
+        29.004556335979455,
+        32.44020678581254,
+        50.80253250244357,
+        74.33327342070207
+      ]
+    },
+    {
+      "ordered_index": 194,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.3333333333,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.06607711564689295,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.057955766518446285,
+      "trial_input_error_upper_display": 1.0000197789156651e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.030222266418006852,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.1253374505676268,
+        4.509793186928406,
+        6.9040028917476235,
+        7.7441583872729645,
+        20.56000511713363,
+        23.11562460660031,
+        30.357509955121504,
+        34.968575902414486,
+        58.87447714230749,
+        70.33509022903972
+      ]
+    },
+    {
+      "ordered_index": 195,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.3333333333,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.04114001162772808,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.028939408184436185,
+      "trial_input_error_upper_display": 1.0000205468233943e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.010214848392974872,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.6514832452592131,
+        0.7614645510529654,
+        6.311367460363844,
+        6.32209484013076,
+        24.70733598652525,
+        25.316874781911746,
+        35.764091589679374,
+        35.77489921814689,
+        75.93828574836387,
+        77.39048337735126
+      ]
+    },
+    {
+      "ordered_index": 196,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.3333333333,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.045096052079119264,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037800711615958,
+      "trial_input_error_upper_display": 1.0000201256327845e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.014300577067872114,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.396020370077913,
+        3.7613092669730963,
+        6.329851968765664,
+        6.917631371152548,
+        16.860932725331224,
+        22.889686760347487,
+        30.339498209467912,
+        43.933976768026696,
+        59.30635073125832,
+        73.83183553450002
+      ]
+    },
+    {
+      "ordered_index": 197,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.3333333333,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.03881289488675828,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239818394551,
+      "trial_input_error_upper_display": 1.0000186068338602e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 3.380110021908504e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.004953407222394509,
+        1.3042950732905478,
+        8.814920595734055,
+        9.08455412919777,
+        16.69731635413374,
+        22.667272727105516,
+        29.962591117254973,
+        39.92413194227298,
+        67.5445907056535,
+        89.96350350506843
+      ]
+    },
+    {
+      "ordered_index": 198,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.5,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.038812890911830794,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03781239451219976,
+      "trial_input_error_upper_display": 1.0000198164709138e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 8.063657790501519e-06,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0011846327013773537,
+        1.3039412296360078,
+        8.815452552097085,
+        9.085293528997784,
+        16.711087256262907,
+        22.66989398896719,
+        30.007360163502415,
+        39.89623968656337,
+        67.54079202241367,
+        89.99129239241384
+      ]
+    },
+    {
+      "ordered_index": 199,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.5,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.045096052178107374,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.03780071170513919,
+      "trial_input_error_upper_display": 1.000020130203955e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.014355214745829304,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.3992696458350524,
+        3.7580322433863085,
+        6.329881535247717,
+        6.916294811972079,
+        16.87722995680082,
+        22.90273280595766,
+        30.341052140486436,
+        43.91980965154063,
+        59.32655681386545,
+        73.77028564497857
+      ]
+    },
+    {
+      "ordered_index": 200,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.5,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.041140011667142914,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.028939408130471248,
+      "trial_input_error_upper_display": 1.000021903016626e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.010249867056471277,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.6516619520698138,
+        0.7614526828705762,
+        6.311416087983421,
+        6.3221159164115255,
+        24.69641081172505,
+        25.32729094379989,
+        35.766942645273694,
+        35.77168066069026,
+        75.98502602776263,
+        77.3483078713987
+      ]
+    },
+    {
+      "ordered_index": 201,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.5,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.06607711319593788,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05795576478137574,
+      "trial_input_error_upper_display": 1.000019207794353e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.030235715348077546,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.1266108280047928,
+        4.519311623949165,
+        6.904064810469278,
+        7.7443675913802705,
+        20.557140754583735,
+        23.086717261124758,
+        30.355631921235254,
+        34.95724825208126,
+        58.9105961422319,
+        70.30168080791425
+      ]
+    },
+    {
+      "ordered_index": 202,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.5,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.061016138339850506,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816610510749,
+      "trial_input_error_upper_display": 1.0000196046730253e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027843022107625615,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8532276703562931,
+        5.535164573269886,
+        7.3321263829654,
+        9.058265880099071,
+        16.10156458176983,
+        22.154335880779396,
+        29.002999502477092,
+        32.443357749500215,
+        50.7862400048862,
+        74.3112798977903
+      ]
+    },
+    {
+      "ordered_index": 203,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.5,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.07311362778287601,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584703532906,
+      "trial_input_error_upper_display": 1.0000205573396831e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 5.868505586293064e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.7075472925031877e-06,
+        3.22251048115049,
+        7.725447894974623,
+        9.71744249890625,
+        12.387323862764003,
+        19.810437277391458,
+        27.088489910980993,
+        28.822473778046437,
+        54.5244731538122,
+        89.97502224591801
+      ]
+    },
+    {
+      "ordered_index": 204,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.6666666667,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.05158933844666059,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547329640952,
+      "trial_input_error_upper_display": 1.0000229910765159e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 1.3522239649024946e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.5655862555125284e-05,
+        5.173252594193198,
+        7.06447556912061,
+        9.259308213453723,
+        19.73366905308888,
+        27.381666931293648,
+        27.555575445400198,
+        29.74582226273295,
+        81.47599222522794,
+        89.98798789562122
+      ]
+    },
+    {
+      "ordered_index": 205,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.6666666667,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.061016138397323484,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816616325627,
+      "trial_input_error_upper_display": 1.0000202223546001e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.02779068536461406,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8534331882563312,
+        5.536213987057954,
+        7.336306495560379,
+        9.058285451582167,
+        16.1118537380437,
+        22.153845707656124,
+        29.002727452598634,
+        32.43618685963751,
+        50.80218280026805,
+        74.33619993764809
+      ]
+    },
+    {
+      "ordered_index": 206,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.6666666667,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.04509605210162916,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037800711729664004,
+      "trial_input_error_upper_display": 1.0000205129472915e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.015453100611918135,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        2.3973638767313807,
+        3.792139090587052,
+        6.32630345211846,
+        6.76438414203005,
+        16.63888863411456,
+        22.85159026996563,
+        30.70136732106102,
+        44.79649838839557,
+        60.303057630267396,
+        72.2724179395929
+      ]
+    },
+    {
+      "ordered_index": 207,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.6666666667,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.061016138332976644,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05879816610364295,
+      "trial_input_error_upper_display": 1.0000194749226494e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.027466545134731252,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.8401041860273119,
+        5.471315747990302,
+        7.686480081323406,
+        9.147131417857333,
+        15.594842569530606,
+        21.91161942103657,
+        28.96843874863438,
+        32.402418209715606,
+        50.81822099262922,
+        74.54653856763584
+      ]
+    },
+    {
+      "ordered_index": 208,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.6666666667,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.051589338969746906,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547378987675,
+      "trial_input_error_upper_display": 1.000022934321171e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.004524784301524186,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.03686444902721693,
+        5.346335107942161,
+        6.992496788290691,
+        9.317180183671503,
+        19.3143835674826,
+        27.325074196796972,
+        27.651967877528527,
+        33.53284251760239,
+        74.89980329393052,
+        85.14396658406973
+      ]
+    },
+    {
+      "ordered_index": 209,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.6666666667,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.05513409414663579,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05386803462022588,
+      "trial_input_error_upper_display": 1.0000263854983398e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 9.938724163406455e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.9090959104164224e-06,
+        1.263549251140398,
+        7.866025003521405,
+        12.599143796474472,
+        16.28506232267185,
+        21.769509881411533,
+        23.559189007406584,
+        27.950302979330598,
+        48.435350809978125,
+        89.97120969989464
+      ]
+    },
+    {
+      "ordered_index": 210,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.8333333333,
+        0.0
+      ],
+      "trial_sigma_min_nominal": 0.0665150791466843,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06431164345237789,
+      "trial_input_error_upper_display": 1.0000341435216283e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0001284617975601931,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.0,
+        4.068526788472508,
+        9.888853180630193,
+        11.263449184631257,
+        17.878819969320276,
+        23.833973648890694,
+        24.18519738015388,
+        25.39787369171562,
+        78.58020483290886,
+        89.98115008516756
+      ]
+    },
+    {
+      "ordered_index": 211,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.8333333333,
+        0.1666666667
+      ],
+      "trial_sigma_min_nominal": 0.05158933857792227,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05053547341625138,
+      "trial_input_error_upper_display": 1.0000226626167942e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.004530394035627659,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.03676809720643687,
+        5.346087438541909,
+        6.992791848696099,
+        9.316684268360142,
+        19.32153827097411,
+        27.324481783820293,
+        27.647306153486745,
+        33.52957321774434,
+        74.87816758006781,
+        85.1376261337757
+      ]
+    },
+    {
+      "ordered_index": 212,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.8333333333,
+        0.3333333333
+      ],
+      "trial_sigma_min_nominal": 0.03881289144562271,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.037812395012879474,
+      "trial_input_error_upper_display": 1.0000197130340423e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.0064314173920479055,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        0.999273400217023,
+        1.4267699442429473,
+        8.547680010377958,
+        9.589986659789357,
+        17.250066765480177,
+        23.38170093218737,
+        28.095495957819185,
+        47.71977191856562,
+        60.98705068940018,
+        81.90848462207913
+      ]
+    },
+    {
+      "ordered_index": 213,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.8333333333,
+        0.5
+      ],
+      "trial_sigma_min_nominal": 0.07311362632429157,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.06956584578324186,
+      "trial_input_error_upper_display": 1.0000207339008753e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.008271066366215775,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.7075472925031877e-06,
+        3.0258661009782406,
+        7.54664695998456,
+        9.72412032699005,
+        11.671785818685322,
+        20.611350584177135,
+        27.03666461520563,
+        29.032043960355107,
+        52.35602698014452,
+        86.16982258750106
+      ]
+    },
+    {
+      "ordered_index": 214,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.8333333333,
+        0.6666666667
+      ],
+      "trial_sigma_min_nominal": 0.05513409415414613,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.05386803462671571,
+      "trial_input_error_upper_display": 1.000027125340546e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 0.006963203769661781,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        1.4787793334710982e-06,
+        1.2565977386212928,
+        7.8561304899978275,
+        12.59798292945875,
+        16.66006059530258,
+        20.29056873078617,
+        23.368533300958187,
+        28.172519819885444,
+        48.17944498984142,
+        87.96977194232818
+      ]
+    },
+    {
+      "ordered_index": 215,
+      "fractional_coordinates": [
+        0.8333333333,
+        0.8333333333,
+        0.8333333333
+      ],
+      "trial_sigma_min_nominal": 0.0497531619084922,
+      "trial_sigma_min_exact_arithmetic_lower_display": 0.048796284048392695,
+      "trial_input_error_upper_display": 1.0000352891488566e-11,
+      "trial_injective_under_declared_rounding": true,
+      "overlap_sigma_min_nominal": 5.2014313030554325e-05,
+      "overlap_rank_at_frozen_threshold_nominal": 10,
+      "principal_angles_degrees_nominal": [
+        4.645030828250759e-05,
+        2.3876157590885527,
+        10.311920847484012,
+        12.596024015469252,
+        13.687270229950732,
+        18.762415118361428,
+        19.308242990729568,
+        26.259081498524623,
+        76.51595706567856,
+        89.97755854158659
+      ]
+    }
+  ]
+}

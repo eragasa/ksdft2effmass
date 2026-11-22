@@ -1,0 +1,25 @@
+{
+  "completed_evidence": [
+    {
+      "identity": {
+        "byte_count": 189612,
+        "name": "result.json",
+        "sha256": "761d58b83a43a9544ad2aae1872ef91cd4ef5387dbae9a6db169a32ee5498dd8"
+      },
+      "role": "complete-rank-reconstruction"
+    },
+    {
+      "identity": {
+        "byte_count": 202169,
+        "name": "point-inventory.json",
+        "sha256": "fd23080496ee077e967631a1cf4258301f4efc41d045557a03365d8bcaed19c7"
+      },
+      "role": "symmetry-related-point-inventory"
+    }
+  ],
+  "full_grid_reconstruction_complete": true,
+  "record_type": "common-space-producer-prerequisites-v1",
+  "review_scope": "reviewed-retained-source-declaration",
+  "state_assertions_sha256": "c01997f800728dfb7ac1925e8719af22033d4437949c72a3294850dd87a3add3",
+  "symmetry_inventory_complete": true
+}

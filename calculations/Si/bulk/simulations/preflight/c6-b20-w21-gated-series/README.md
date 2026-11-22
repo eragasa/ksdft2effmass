@@ -101,7 +101,7 @@ and authorization sequence, not a prerequisite for controlled reduction.
 |---|---|
 | historical execution-time S90-through-S110 protocol identity retained by `series-plan.json` | `80cf67acf00d6b906a64471ed06379a321bca71ed5b6636174c634a30d8b2380` |
 | historical execution-time first post-S110 protocol identity | `3ec2902a94ebe78eba1e223a0ee4ef99075f4bd86238398b67d370fa88224653` |
-| controlling staged CSD/hopping-first protocol (not rebound into retained `series-plan.json`) | `7efcbb64c043c5ba34aed500902059891faae836b509bac07f2d90437cf3a1ef` |
+| controlling staged CSD/hopping-first protocol, including prospective conditional arithmetic-precision escalation (not rebound into retained `series-plan.json`) | `2cfc03bbd4edce4387c7dad3e0cf75129b35b61a45594a33c036d6217e605ec4` |
 | series plan | `6dca2bfcbb0b00259a2ddf7d8630b82ee693f325ade0aedaabc70d4dcbc67eb7` |
 | localization campaign preflight | `b7e6b150e28e4ae79eadffbc8799eb593554ccd4f9792347fbd6852ca9a1977d` |
 | localization authorization request | `02375507dbe487f1ad5dee2569151faf04c2e5a5fa3aadd9b0007d977bc26aa7` |

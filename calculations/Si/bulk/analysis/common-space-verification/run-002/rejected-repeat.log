@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/analysis/common-space-verification/run_verification.py", line 401, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/analysis/common-space-verification/run_verification.py", line 371, in main
+    raise FileExistsError("independent output root must not exist")
+FileExistsError: independent output root must not exist

@@ -3,14 +3,16 @@
 The controlling current methodology is
 [`controlled-reduction-protocol-hopping-first.tex`](controlled-reduction-protocol-hopping-first.tex).
 Its prospective guidance incorporates the current common-space and hopping-first
-handoff without rewriting the three historical protocol files.
+handoff without rewriting the three historical protocol files. The authorized prospective
+precision amendment makes arithmetic-precision escalation conditional on unresolved
+arithmetic or plausibly arithmetic route disagreement, not a routine admission gate.
 
 | Protocol | Role | Bytes | SHA-256 |
 |---|---|---:|---|
 | [`research-protocol.tex`](research-protocol.tex) | Frozen parent-construction protocol | 22455 | `230aa0cebb37cf28a2e2e7cdcf1186d5ded98971217be3bbb8beadc2879d9dad` |
 | [`controlled-reduction-protocol.tex`](controlled-reduction-protocol.tex) | Frozen S90--S110 controlled-reduction protocol | 28724 | `80cf67acf00d6b906a64471ed06379a321bca71ed5b6636174c634a30d8b2380` |
 | [`controlled-reduction-protocol-post-s110.tex`](controlled-reduction-protocol-post-s110.tex) | Frozen first post-S110 continuation protocol | 37018 | `3ec2902a94ebe78eba1e223a0ee4ef99075f4bd86238398b67d370fa88224653` |
-| [`controlled-reduction-protocol-hopping-first.tex`](controlled-reduction-protocol-hopping-first.tex) | Current CSD/hopping-first methodology | 66421 | `7efcbb64c043c5ba34aed500902059891faae836b509bac07f2d90437cf3a1ef` |
+| [`controlled-reduction-protocol-hopping-first.tex`](controlled-reduction-protocol-hopping-first.tex) | Current CSD/hopping-first methodology with conditional arithmetic-precision escalation | 68518 | `2cfc03bbd4edce4387c7dad3e0cf75129b35b61a45594a33c036d6217e605ec4` |
 
 Historical retained records continue to bind the first three exact paths and hashes.
 Those files are retained byte-for-byte. Listing an old digest in a revision table is
@@ -24,6 +26,22 @@ The current producer is a partial reconstruction implementation. Its software te
 are not a completed silicon reconstruction, independent verification, or scientific
 acceptance.
 
+The scientific owner has [adopted the reviewed S30 source identification](../protocol/decisions/s30-state-identification.md)
+for its existing 216-point domain. The complete fixed HR/WSvec model and its native
+source-point interpretation are distinguished from nominal-geometry diagnostics;
+no off-mesh KS embedding or production claim is adopted. This is a source-specific
+scientific declaration under the existing CSD0 meaning, not a general protocol
+amendment, a tolerance waiver, CSD3, or successful admission. The `.tex` files and
+all old request/replay bindings remain unchanged. A v1 source declaration was prepared
+without granting execution authority. Separate operator authorization subsequently
+produced the [CSD1 checkpoint](../analysis/common-space-producer/): all 216 raw rank
+records, the geometric construction-index inventory and actual completion evidence.
+The separately authorized [independent CSD1-V checkpoint](../analysis/common-space-verification/)
+now authenticates the complete verifier bundle and passes all-point verification and
+original-producer correlation under the declared contract. No protocol/request bytes or
+numeric gates were changed; legacy descriptions remain distinct from explicitly linked
+source IDs. No electronic symmetry action, CSD2/CSD3 disposition or later gate is established.
+
 The exact protocol-only
 [hopping-first Pareto synthesis contract](../analysis/c6-b20-w21-hopping-pareto-synthesis/)
 binds S30, S90, S100, and S105. Its calculation-owned action implements conservative
@@ -36,8 +54,12 @@ The current protocol requires:
 
 - CSD0 authentication of source bytes, state space, basis, gauge, geometry, units,
   energy reference, and reciprocal-point order;
-- complete CSD1 reconstruction, including its remaining precision and deficient-point
-  extensions, followed by a separately implemented CSD1-V Gram/eigen verifier;
+- complete CSD1 reconstruction and deficient-point inventory, followed by a separately
+  implemented CSD1-V Gram/eigen verifier;
+- higher arithmetic precision only when justified error bounds leave relevant arithmetic
+  ambiguity or independent routes disagree for plausibly arithmetic reasons after
+  source/convention and software checks; no extra precision run or completion artifact
+  is required when bounds are decisive and independent routes agree;
 - shared provider parsing without shared producer matrix, rank, weight, comparison,
   or serialization implementations;
 - separate arithmetic-error and native-serialization uncertainty treatment, with

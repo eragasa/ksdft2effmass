@@ -1,0 +1,25 @@
+Authenticated all nine real evidence roles, adopted source bindings, and shared 216-point native records.
+Starting independent 216-point exact reconstruction / Gram enclosures / direction and unitary controls.
+Independent result retained: independent-result-complete-pending-comparison
+Traceback (most recent call last):
+  File "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/analysis/common-space-verification/run_verification.py", line 401, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/analysis/common-space-verification/run_verification.py", line 393, in main
+    ).execute()
+      ~~~~~~~^^
+  File "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/common_space/verification/verification_io.py", line 253, in execute
+    ).execute()
+      ~~~~~~~^^
+  File "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/common_space/verification/producer_result.py", line 262, in execute
+    self._equal(
+    ~~~~~~~~~~~^
+        self._field(request, "state_space"), expected_state, "request state space"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/common_space/verification/producer_result.py", line 91, in _equal
+    raise ValueError(
+        f"producer {subject} differs from reviewed source contract"
+    )
+ValueError: producer request state space differs from reviewed source contract

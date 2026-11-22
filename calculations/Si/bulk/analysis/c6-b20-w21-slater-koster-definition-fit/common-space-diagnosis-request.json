@@ -30,8 +30,8 @@
     "hopping_first_protocol": {
       "location": "repository",
       "path": "calculations/Si/bulk/research-protocol/controlled-reduction-protocol-hopping-first.tex",
-      "byte_size": 66421,
-      "sha256": "7efcbb64c043c5ba34aed500902059891faae836b509bac07f2d90437cf3a1ef"
+      "byte_size": 68518,
+      "sha256": "2cfc03bbd4edce4387c7dad3e0cf75129b35b61a45594a33c036d6217e605ec4"
     },
     "AMN": {
       "location": "absolute",

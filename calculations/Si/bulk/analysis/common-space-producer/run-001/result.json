@@ -1,0 +1,4279 @@
+{
+  "CSD0": {
+    "authenticated_files": [
+      {
+        "byte_size": 56310,
+        "label": "S30_untruncated_characterization",
+        "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/characterization-result.json",
+        "sha256": "37f654ae31bc21e43b768bf2b9da5edabd88c195e3f6e1c87708eaa1c4773c18"
+      },
+      {
+        "byte_size": 6187,
+        "label": "S105_full_support_disposition",
+        "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-disposition/spatial-truncation-disposition.json",
+        "sha256": "519adfcf1101f7caa7916e04f3bf37879f4ad82b0f30e4ef38adc39770224f68"
+      },
+      {
+        "byte_size": 119010,
+        "label": "S110_blocked_result",
+        "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/analysis/c6-b20-w21-slater-koster-definition-fit/slater-koster-definition-fit-result.json",
+        "sha256": "b9b8403dfc8b24df01e1671f582697440e1a211d60e0e70c9b0f621dfa086e98"
+      },
+      {
+        "byte_size": 68518,
+        "label": "hopping_first_protocol",
+        "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/research-protocol/controlled-reduction-protocol-hopping-first.tex",
+        "sha256": "2cfc03bbd4edce4387c7dad3e0cf75129b35b61a45594a33c036d6217e605ec4"
+      },
+      {
+        "byte_size": 2894499,
+        "label": "AMN",
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.amn",
+        "sha256": "9186cd5b8802bede18f81b96188f0a2035eb97565c2f811f5ca7769f2ebefece"
+      },
+      {
+        "byte_size": 679824,
+        "label": "gauge",
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u.mat",
+        "sha256": "41758b721b79cae233689b4fb9fa359e750b82da8ed5bcd13b1d5faf3c5d8bf3"
+      },
+      {
+        "byte_size": 1349424,
+        "label": "disentanglement",
+        "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u_dis.mat",
+        "sha256": "3c1d3574f3bf783cf7b54d8e9fd00fa5811ef05a56240850d46f43a2c95b7ace"
+      }
+    ],
+    "outcome": "passed",
+    "provider_distribution": "projectkoios-simulations",
+    "provider_modules": [
+      {
+        "byte_size": 2782,
+        "module_name": "projectkoios.integrations.wannier90",
+        "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/python/.venv/lib/python3.14/site-packages/projectkoios/integrations/wannier90/__init__.py",
+        "sha256": "9689f50bc5906d911d626c3cdd16a4edb778320191402ced3ad0b94ca25cfd47"
+      },
+      {
+        "byte_size": 299,
+        "module_name": "projectkoios.integrations.wannier90._matrix_conventions",
+        "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/python/.venv/lib/python3.14/site-packages/projectkoios/integrations/wannier90/_matrix_conventions.py",
+        "sha256": "95d7d19b520548cc860d6c56d53b0cec477b078a307c3e4bcb2feddbc8f2ee65"
+      },
+      {
+        "byte_size": 3795,
+        "module_name": "projectkoios.integrations.wannier90._parsing",
+        "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/python/.venv/lib/python3.14/site-packages/projectkoios/integrations/wannier90/_parsing.py",
+        "sha256": "07de9ab225fbc7cfd5317f1592b5dcd0105d5eaec982d814980272cdd578439a"
+      },
+      {
+        "byte_size": 16700,
+        "module_name": "projectkoios.integrations.wannier90.interface_data",
+        "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/python/.venv/lib/python3.14/site-packages/projectkoios/integrations/wannier90/interface_data.py",
+        "sha256": "0bd702d1999891129237f4523150abca5bb24a3b9e76b42d19c899dd9b3e3a79"
+      },
+      {
+        "byte_size": 6524,
+        "module_name": "projectkoios.integrations.wannier90.unitary_matrices",
+        "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/python/.venv/lib/python3.14/site-packages/projectkoios/integrations/wannier90/unitary_matrices.py",
+        "sha256": "33ebad1a82f887f0dd59787c066bded1989b6dd9b7220c3e551b0c5cb798e75f"
+      },
+      {
+        "byte_size": 7077,
+        "module_name": "projectkoios.integrations.wannier90.disentanglement_matrices",
+        "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/python/.venv/lib/python3.14/site-packages/projectkoios/integrations/wannier90/disentanglement_matrices.py",
+        "sha256": "64ede7d0e45b9d1b200026322f48d832fe7587b5b99c7eb292bfae2d7390fdd7"
+      }
+    ],
+    "provider_version": "0.1.0.dev0",
+    "request": {
+      "byte_size": 5458,
+      "label": "request",
+      "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/analysis/c6-b20-w21-slater-koster-definition-fit/common-space-diagnosis-request.json",
+      "sha256": "0dd0d97cdc6134a30073b9d54a54077bba93b579882ef709de47534ca59ff89e"
+    },
+    "source_association": {
+      "additional_source_bindings": [
+        {
+          "byte_size": 168480,
+          "label": "EIG-explicit-relocation",
+          "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.eig",
+          "sha256": "a54f31f8f72cd32b63ad78e47378cd0a8ce97474ad223606f88d48c97c890dd2"
+        },
+        {
+          "byte_size": 1396475,
+          "label": "HR",
+          "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_hr.dat",
+          "sha256": "24a411c875b3e66bba37e28cc6bf2d95c38ef521c39f81fde40cd0bfa294ea55"
+        },
+        {
+          "byte_size": 1365185,
+          "label": "WSvec",
+          "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_wsvec.dat",
+          "sha256": "f40fa7f81afaa9bcf9614c6e3c53c14db0db6b0b429b84bfd10f2e40474de1a0"
+        },
+        {
+          "byte_size": 13911,
+          "label": "NSCF-input",
+          "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/simulations/evidence/sssp-1.3.0-pbe-efficiency-qe-7.5-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20/input/pw.in",
+          "sha256": "20a6ee6e55d632bb66b1afcaac91592bf49c73a3e53e275659d1ccb03e47e1f9"
+        },
+        {
+          "byte_size": 371723,
+          "label": "NSCF-XML",
+          "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/tmp/system.save/data-file-schema.xml",
+          "sha256": "2e1b5e157142d18210d18710fb9f5f3e813b17d8331acf96e11af9b9d4f7ef8c"
+        },
+        {
+          "byte_size": 44898,
+          "label": "NSCF-saved-state-manifest",
+          "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier-nscf-6x6x6-b20-david-c6-b20-v1/run/nscf-saved-state-manifest.json",
+          "sha256": "24ee9d483141ab54d099bc6e6403d0da46108cc7a30c5b019992da3a1d7ef3ac"
+        },
+        {
+          "byte_size": 758,
+          "label": "S1-nominal-geometry",
+          "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/simulations/structures/Si.PrimitiveUnitCell.RightHanded.RelaxedS1.json",
+          "sha256": "d131107753512c53dc0a32b9e07e0081f8277d8eeafcb9fad5f1fc7f153ded03"
+        },
+        {
+          "byte_size": 1413,
+          "label": "localization-input-manifest",
+          "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/simulations/evidence/wannier-localization/run-001/input/localization-input-manifest.json",
+          "sha256": "523515dffc883abf1bc0ff3e1427eea13e85a12774a5ce2040e3dd43c396568e"
+        }
+      ],
+      "assumptions": "Reviewed lineage, modeled backend frames, native rounding and source-to-build assumptions remain explicit in the unchanged adopted decision. No exact nominal/native geometry equality or off-mesh KS embedding is asserted.",
+      "decision": {
+        "byte_size": 12492,
+        "label": "adopted-source-decision",
+        "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/protocol/decisions/s30-state-identification.md",
+        "sha256": "3c74b8bbd684b0aac6d47d44fdc52920c6435ad1f21292b8983c4f91f64ecf51"
+      },
+      "declaration": {
+        "byte_size": 17424,
+        "label": "source-state-assertions",
+        "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/analysis/wannier-window-remedy/source-state-assertions.json",
+        "sha256": "c01997f800728dfb7ac1925e8719af22033d4437949c72a3294850dd87a3add3"
+      },
+      "geometry_identity": "s30-source-geometry:sha256:3c74b8bbd684b0aac6d47d44fdc52920c6435ad1f21292b8983c4f91f64ecf51",
+      "native_provider_binding": [
+        {
+          "module_name": "projectkoios.integrations.wannier90",
+          "sha256": "9689f50bc5906d911d626c3cdd16a4edb778320191402ced3ad0b94ca25cfd47"
+        },
+        {
+          "module_name": "projectkoios.integrations.wannier90._matrix_conventions",
+          "sha256": "95d7d19b520548cc860d6c56d53b0cec477b078a307c3e4bcb2feddbc8f2ee65"
+        },
+        {
+          "module_name": "projectkoios.integrations.wannier90._parsing",
+          "sha256": "07de9ab225fbc7cfd5317f1592b5dcd0105d5eaec982d814980272cdd578439a"
+        },
+        {
+          "module_name": "projectkoios.integrations.wannier90.artifacts",
+          "sha256": "f4f4736ef96093ecb5f06f7a5f27cd2a215e726b0b68146e4e9b83f99c6f4be8"
+        },
+        {
+          "module_name": "projectkoios.integrations.wannier90.interface_data",
+          "sha256": "0bd702d1999891129237f4523150abca5bb24a3b9e76b42d19c899dd9b3e3a79"
+        },
+        {
+          "module_name": "projectkoios.integrations.wannier90.unitary_matrices",
+          "sha256": "33ebad1a82f887f0dd59787c066bded1989b6dd9b7220c3e551b0c5cb798e75f"
+        },
+        {
+          "module_name": "projectkoios.integrations.wannier90.disentanglement_matrices",
+          "sha256": "64ede7d0e45b9d1b200026322f48d832fe7587b5b99c7eb292bfae2d7390fdd7"
+        }
+      ],
+      "scope": "adopted complete fixed S30 model, native retained-space association at 216 source indices only"
+    }
+  },
+  "CSD1": {
+    "calculator_invocations": 0,
+    "complete_kpoint_diagnostics": [
+      {
+        "condition_number": 8125310483606.061,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": false,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707963267888405,
+        "maximum_singular_value": 4.355991753997849,
+        "minimum_direction_atomic_weights": [
+          0.09746474789699827,
+          2.0112411183982718e-21,
+          2.043748798651003e-21,
+          2.0388206151122437e-21,
+          0.4025352606254223,
+          0.09746471137372995,
+          2.0158023351001163e-21,
+          2.008098232671155e-21,
+          1.9930097977277987e-21,
+          0.40253528010384965
+        ],
+        "minimum_direction_group_weights_s_p_s_star": [
+          0.19492945927072822,
+          1.2110720897660589e-20,
+          0.805070540729272
+        ],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 6.055948590215461e-12,
+        "minimum_singular_value": 5.361015757842935e-13,
+        "next_to_minimum_singular_value": 0.0004012285201801002,
+        "ordered_kpoint_index_zero_based": 0,
+        "resolved_rank_at_native_bound": 9
+      },
+      {
+        "condition_number": 53012.61339718165,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5703047941400188,
+        "maximum_singular_value": 3.4594808511082213,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0004915326350850348,
+        "minimum_singular_value": 6.525769301711393e-05,
+        "next_to_minimum_singular_value": 0.053279731697798274,
+        "ordered_kpoint_index_zero_based": 1,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 288428.3878969899,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706675539590897,
+        "maximum_singular_value": 1.746985867896416,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00012877283545098515,
+        "minimum_singular_value": 6.056913747756131e-06,
+        "next_to_minimum_singular_value": 0.1524677166819413,
+        "ordered_kpoint_index_zero_based": 2,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 33088.40060485871,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5705830978241375,
+        "maximum_singular_value": 1.117509587121325,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0002132289691432906,
+        "minimum_singular_value": 3.3773454343309344e-05,
+        "next_to_minimum_singular_value": 0.021242456450515795,
+        "ordered_kpoint_index_zero_based": 3,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 362070.5814446243,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706937439364894,
+        "maximum_singular_value": 1.7469861273391036,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0001025828582272515,
+        "minimum_singular_value": 4.824987769977912e-06,
+        "next_to_minimum_singular_value": 0.15248366843679417,
+        "ordered_kpoint_index_zero_based": 4,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 56814.61591077679,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570337393909455,
+        "maximum_singular_value": 3.4594824114129055,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0004589328693315764,
+        "minimum_singular_value": 6.089071194014178e-05,
+        "next_to_minimum_singular_value": 0.053318785126320344,
+        "ordered_kpoint_index_zero_based": 5,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 3230981.9494976955,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.1666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707763444335139,
+        "maximum_singular_value": 3.457946603963526,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 1.9982361381269784e-05,
+        "minimum_singular_value": 1.0702463393523803e-06,
+        "next_to_minimum_singular_value": 0.0005949203371794422,
+        "ordered_kpoint_index_zero_based": 6,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 10923.130847912,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.1666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570050905653135,
+        "maximum_singular_value": 3.212527592577144,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0007454210727289309,
+        "minimum_singular_value": 0.00029410318683413295,
+        "next_to_minimum_singular_value": 0.020318411655293012,
+        "ordered_kpoint_index_zero_based": 7,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 170067.45185871737,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.1666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706114361075756,
+        "maximum_singular_value": 1.8681784467476608,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.000184890686267561,
+        "minimum_singular_value": 1.0984926429659451e-05,
+        "next_to_minimum_singular_value": 0.09883873081026115,
+        "ordered_kpoint_index_zero_based": 8,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 187235.17411985193,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.1666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706789486210662,
+        "maximum_singular_value": 1.123106676994361,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00011737817356085441,
+        "minimum_singular_value": 5.99837440947631e-06,
+        "next_to_minimum_singular_value": 0.08515775664365521,
+        "ordered_kpoint_index_zero_based": 9,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68176.7427747525,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.1666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706441636806534,
+        "maximum_singular_value": 1.2216523662874863,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00015216311365607563,
+        "minimum_singular_value": 1.7918901909463085e-05,
+        "next_to_minimum_singular_value": 0.2010062272530602,
+        "ordered_kpoint_index_zero_based": 10,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 17674.031085659382,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.1666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5701273537214755,
+        "maximum_singular_value": 2.3379997651124365,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0006689730235240623,
+        "minimum_singular_value": 0.0001322844660497105,
+        "next_to_minimum_singular_value": 0.12152897768079304,
+        "ordered_kpoint_index_zero_based": 11,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 8648498.17061873,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": false,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707915581449279,
+        "maximum_singular_value": 1.7458344748654475,
+        "minimum_direction_atomic_weights": [
+          0.09753854528083389,
+          0.00021064832771823056,
+          0.00021070436115623587,
+          0.00021070369787782125,
+          0.40306454213332604,
+          0.09800302972680945,
+          0.0002337922868794127,
+          0.00023376004343657791,
+          0.00023375888538186584,
+          0.40006051525658115
+        ],
+        "minimum_direction_group_weights_s_p_s_star": [
+          0.19554157500764335,
+          0.001333367602450144,
+          0.8031250573899071
+        ],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 4.768649968669468e-06,
+        "minimum_singular_value": 2.018656234207826e-07,
+        "next_to_minimum_singular_value": 0.000853456267544871,
+        "ordered_kpoint_index_zero_based": 12,
+        "resolved_rank_at_native_bound": 9
+      },
+      {
+        "condition_number": 37742.05776289718,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570028090218614,
+        "maximum_singular_value": 1.8678104509213922,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0007682365007155071,
+        "minimum_singular_value": 4.94888345160016e-05,
+        "next_to_minimum_singular_value": 0.07074139138435376,
+        "ordered_kpoint_index_zero_based": 13,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 5038.074600839571,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5700290740777205,
+        "maximum_singular_value": 1.350601567414867,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0007672526418986283,
+        "minimum_singular_value": 0.0002680789139545087,
+        "next_to_minimum_singular_value": 0.046047909232231045,
+        "ordered_kpoint_index_zero_based": 14,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 23658.912508352783,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570375465078301,
+        "maximum_singular_value": 1.088320714281415,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0004208617041712786,
+        "minimum_singular_value": 4.600045390493681e-05,
+        "next_to_minimum_singular_value": 0.0681338592624531,
+        "ordered_kpoint_index_zero_based": 15,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 153041.03623985188,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707422801117463,
+        "maximum_singular_value": 1.1132227817239353,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 5.404668312386266e-05,
+        "minimum_singular_value": 7.274014924854855e-06,
+        "next_to_minimum_singular_value": 0.07494766708082308,
+        "ordered_kpoint_index_zero_based": 16,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 16254.110719094257,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5702380186357674,
+        "maximum_singular_value": 1.221727892720502,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0005583081301242367,
+        "minimum_singular_value": 7.516424083941403e-05,
+        "next_to_minimum_singular_value": 0.16370211290749542,
+        "ordered_kpoint_index_zero_based": 17,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 198227.04091626115,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.5,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707604567010995,
+        "maximum_singular_value": 1.1171853690663656,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 3.5870093789416006e-05,
+        "minimum_singular_value": 5.635887838018569e-06,
+        "next_to_minimum_singular_value": 9.60674573282062e-05,
+        "ordered_kpoint_index_zero_based": 18,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 28484.61735273546,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.5,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570053761598166,
+        "maximum_singular_value": 1.1224012710670772,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00074256512848853,
+        "minimum_singular_value": 3.94037686084377e-05,
+        "next_to_minimum_singular_value": 0.07426515285188416,
+        "ordered_kpoint_index_zero_based": 19,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 9058.225440374727,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.5,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.569710800499073,
+        "maximum_singular_value": 1.0882498897033905,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.001085526082632105,
+        "minimum_singular_value": 0.00012013941327324386,
+        "next_to_minimum_singular_value": 0.06677244226336414,
+        "ordered_kpoint_index_zero_based": 20,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 40581.95825785713,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.5,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5702769686669862,
+        "maximum_singular_value": 1.0869436538708577,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0005193581045623056,
+        "minimum_singular_value": 2.678391335786299e-05,
+        "next_to_minimum_singular_value": 0.011454874993030432,
+        "ordered_kpoint_index_zero_based": 21,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 8835.392876030162,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.5,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.569683408248931,
+        "maximum_singular_value": 1.0882498129973437,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0011129183162243753,
+        "minimum_singular_value": 0.00012316937438624758,
+        "next_to_minimum_singular_value": 0.06677273515213696,
+        "ordered_kpoint_index_zero_based": 22,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 27810.30769610377,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.5,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5700357434199557,
+        "maximum_singular_value": 1.1224012142894002,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0007605833016095515,
+        "minimum_singular_value": 4.0359180004565315e-05,
+        "next_to_minimum_singular_value": 0.07426767245732839,
+        "ordered_kpoint_index_zero_based": 23,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 2094283.1134497249,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.6666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707766264754752,
+        "maximum_singular_value": 1.7458344859971504,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 1.97003194200927e-05,
+        "minimum_singular_value": 8.336191390673029e-07,
+        "next_to_minimum_singular_value": 0.0008678648010770981,
+        "ordered_kpoint_index_zero_based": 24,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 15330.965111136053,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.6666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5702044223640261,
+        "maximum_singular_value": 1.221727861520638,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0005919043963079948,
+        "minimum_singular_value": 7.969021210759938e-05,
+        "next_to_minimum_singular_value": 0.16370015346798295,
+        "ordered_kpoint_index_zero_based": 25,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 151281.77301564382,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.6666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570741651648188,
+        "maximum_singular_value": 1.1132227888330424,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 5.46751466813303e-05,
+        "minimum_singular_value": 7.358604851345348e-06,
+        "next_to_minimum_singular_value": 0.07494776286121939,
+        "ordered_kpoint_index_zero_based": 26,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 23156.568921250804,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.6666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5703663288595842,
+        "maximum_singular_value": 1.0883206554422835,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0004299979220613997,
+        "minimum_singular_value": 4.699835537567617e-05,
+        "next_to_minimum_singular_value": 0.06813448600730121,
+        "ordered_kpoint_index_zero_based": 27,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 4551.685532682819,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.6666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5699465020569294,
+        "maximum_singular_value": 1.3506015674515348,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.000849824635676292,
+        "minimum_singular_value": 0.00029672558830211494,
+        "next_to_minimum_singular_value": 0.04608132583316432,
+        "ordered_kpoint_index_zero_based": 28,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35192.05212943645,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.6666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5699723852731216,
+        "maximum_singular_value": 1.8678115363726313,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0008239414285488732,
+        "minimum_singular_value": 5.30748115939024e-05,
+        "next_to_minimum_singular_value": 0.07074253501295934,
+        "ordered_kpoint_index_zero_based": 29,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 1379377.2412275323,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.8333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707494293985333,
+        "maximum_singular_value": 3.4579466026312056,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 4.689739634601028e-05,
+        "minimum_singular_value": 2.5068897030328828e-06,
+        "next_to_minimum_singular_value": 0.0006157995105564615,
+        "ordered_kpoint_index_zero_based": 30,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 15845.548944093216,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.8333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5700502465757682,
+        "maximum_singular_value": 2.3379990729329574,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0007460801499124966,
+        "minimum_singular_value": 0.00014754926327777991,
+        "next_to_minimum_singular_value": 0.12151307739934349,
+        "ordered_kpoint_index_zero_based": 31,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 56254.45141654544,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.8333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.57061191542632,
+        "maximum_singular_value": 1.2216522857930414,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00018441136753124913,
+        "minimum_singular_value": 2.171654429170616e-05,
+        "next_to_minimum_singular_value": 0.20100302704477177,
+        "ordered_kpoint_index_zero_based": 32,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 191519.79148779804,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.8333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706815727346548,
+        "maximum_singular_value": 1.1231069973688121,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00011475405998991612,
+        "minimum_singular_value": 5.864182435893925e-06,
+        "next_to_minimum_singular_value": 0.08516162513650916,
+        "ordered_kpoint_index_zero_based": 33,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 145510.86164089298,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.8333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5705802178918415,
+        "maximum_singular_value": 1.8681796953487761,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00021610890137287734,
+        "minimum_singular_value": 1.2838764572498146e-05,
+        "next_to_minimum_singular_value": 0.09885886732853336,
+        "ordered_kpoint_index_zero_based": 34,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 9510.752266538784,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.8333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5699360190019158,
+        "maximum_singular_value": 3.212529106861438,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0008603076868575955,
+        "minimum_singular_value": 0.0003377786548140805,
+        "next_to_minimum_singular_value": 0.020421037876834736,
+        "ordered_kpoint_index_zero_based": 35,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 203883.54076135976,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706678109923329,
+        "maximum_singular_value": 3.459443404047018,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00012851580221001117,
+        "minimum_singular_value": 1.6967742423583882e-05,
+        "next_to_minimum_singular_value": 0.0535789683059357,
+        "ordered_kpoint_index_zero_based": 36,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 11983.935313389664,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.0,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5701180219940292,
+        "maximum_singular_value": 3.212527311833586,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0006783047488531092,
+        "minimum_singular_value": 0.0002680694803354142,
+        "next_to_minimum_singular_value": 0.020284041261869144,
+        "ordered_kpoint_index_zero_based": 37,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.2051202175734,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.0,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4860979371849097,
+        "maximum_singular_value": 1.8685438206254024,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.08459715746711947,
+        "minimum_singular_value": 0.004522073249338052,
+        "next_to_minimum_singular_value": 0.14792596079449583,
+        "ordered_kpoint_index_zero_based": 38,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.64504631896696,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.0,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.429629752745289,
+        "maximum_singular_value": 1.1228056903844408,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.14069817971516213,
+        "minimum_singular_value": 0.00642907264792257,
+        "next_to_minimum_singular_value": 0.1023922949593674,
+        "ordered_kpoint_index_zero_based": 39,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.99637303879905,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.0,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5040501038022782,
+        "maximum_singular_value": 1.221709203197992,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.06669667431207683,
+        "minimum_singular_value": 0.008254994214471094,
+        "next_to_minimum_singular_value": 0.18976735062265504,
+        "ordered_kpoint_index_zero_based": 40,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 342.23522385456005,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.0,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5359216100165038,
+        "maximum_singular_value": 2.339234472677049,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.03486764783657466,
+        "minimum_singular_value": 0.006835165727041455,
+        "next_to_minimum_singular_value": 0.1233358764927178,
+        "ordered_kpoint_index_zero_based": 41,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 103853.61311263344,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.1666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707171006979912,
+        "maximum_singular_value": 3.212529006888825,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 7.922609682255681e-05,
+        "minimum_singular_value": 3.0933242576786495e-05,
+        "next_to_minimum_singular_value": 0.02053401688920092,
+        "ordered_kpoint_index_zero_based": 42,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 65842.71179101134,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.1666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5704009282511169,
+        "maximum_singular_value": 3.45948940164817,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.000395398533476966,
+        "minimum_singular_value": 5.254172113428125e-05,
+        "next_to_minimum_singular_value": 0.05323261903347869,
+        "ordered_kpoint_index_zero_based": 43,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 337.73157316851473,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.1666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5355563136470038,
+        "maximum_singular_value": 2.33926195396488,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.03523271974897462,
+        "minimum_singular_value": 0.006926394035412498,
+        "next_to_minimum_singular_value": 0.12298074499319196,
+        "ordered_kpoint_index_zero_based": 44,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.69709677345924,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.1666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5039430921928945,
+        "maximum_singular_value": 1.2217065835542447,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.06680344725637388,
+        "minimum_singular_value": 0.008271703440644623,
+        "next_to_minimum_singular_value": 0.1896860730689445,
+        "ordered_kpoint_index_zero_based": 45,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.5830606499604,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.1666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4295737338330128,
+        "maximum_singular_value": 1.1228085129108647,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.140753641160481,
+        "minimum_singular_value": 0.006431371455688358,
+        "next_to_minimum_singular_value": 0.1024228185768885,
+        "ordered_kpoint_index_zero_based": 46,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 412.47686070303484,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.1666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4859385544427586,
+        "maximum_singular_value": 1.8685485112669837,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0847559677844503,
+        "minimum_singular_value": 0.004530068688173653,
+        "next_to_minimum_singular_value": 0.14819256720535195,
+        "ordered_kpoint_index_zero_based": 47,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 310300.1926124239,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570703002289705,
+        "maximum_singular_value": 1.8677996618156782,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 9.332450505605689e-05,
+        "minimum_singular_value": 6.0193313000892245e-06,
+        "next_to_minimum_singular_value": 0.0704586644366315,
+        "ordered_kpoint_index_zero_based": 48,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 20445.253745435253,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.3333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5702182373034856,
+        "maximum_singular_value": 2.33800497089823,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0005780894592126469,
+        "minimum_singular_value": 0.0001143544120317034,
+        "next_to_minimum_singular_value": 0.12148188078958075,
+        "ordered_kpoint_index_zero_based": 49,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.06279060531625,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.3333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4860653420130538,
+        "maximum_singular_value": 1.8685493767717984,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.08462963574800501,
+        "minimum_singular_value": 0.004523644877413341,
+        "next_to_minimum_singular_value": 0.14794776397916753,
+        "ordered_kpoint_index_zero_based": 50,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.806700030755465,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.3333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3010948572392707,
+        "maximum_singular_value": 1.1757322872390812,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2664437098535282,
+        "minimum_singular_value": 0.027466080926451912,
+        "next_to_minimum_singular_value": 0.1747570223738563,
+        "ordered_kpoint_index_zero_based": 51,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.8813230071195,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.3333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2613862890990173,
+        "maximum_singular_value": 1.1108070721895047,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.30449674248018455,
+        "minimum_singular_value": 0.015453347625216699,
+        "next_to_minimum_singular_value": 0.04069009253268262,
+        "ordered_kpoint_index_zero_based": 52,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.3068804435941,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.3333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2974056181994416,
+        "maximum_singular_value": 1.175752984334001,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2699977633979718,
+        "minimum_singular_value": 0.027791058381191225,
+        "next_to_minimum_singular_value": 0.17440445076920014,
+        "ordered_kpoint_index_zero_based": 53,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 184388.12181458334,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.5,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706816033344757,
+        "maximum_singular_value": 1.1223826883751435,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00011472346016909446,
+        "minimum_singular_value": 6.0870661153747584e-06,
+        "next_to_minimum_singular_value": 0.07426168341997101,
+        "ordered_kpoint_index_zero_based": 54,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 19271.710510342225,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.5,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5703254134405906,
+        "maximum_singular_value": 1.2217261925311487,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0004709133369010431,
+        "minimum_singular_value": 6.3394797876167e-05,
+        "next_to_minimum_singular_value": 0.16369766771851543,
+        "ordered_kpoint_index_zero_based": 55,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.227517576804956,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.5,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2969790513841426,
+        "maximum_singular_value": 1.1757532258630603,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.27040846334995605,
+        "minimum_singular_value": 0.027843294925508164,
+        "next_to_minimum_singular_value": 0.17440578200127546,
+        "ordered_kpoint_index_zero_based": 56,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.9771725859145,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.5,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2270125028293835,
+        "maximum_singular_value": 1.0877537127291215,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3370519140071848,
+        "minimum_singular_value": 0.030234552482731512,
+        "next_to_minimum_singular_value": 0.06967999544919964,
+        "ordered_kpoint_index_zero_based": 57,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.91043292528254,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.5,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3499807229647856,
+        "maximum_singular_value": 1.106076096590217,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2190254961058768,
+        "minimum_singular_value": 0.010249945872759745,
+        "next_to_minimum_singular_value": 0.011327567078165918,
+        "ordered_kpoint_index_zero_based": 58,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 77.37899815342824,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.5,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2875435535805282,
+        "maximum_singular_value": 1.1107633606421519,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.27948027644492945,
+        "minimum_singular_value": 0.01435484287919719,
+        "next_to_minimum_singular_value": 0.04152201347063793,
+        "ordered_kpoint_index_zero_based": 59,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71665.55884595634,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.6666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706697687247393,
+        "maximum_singular_value": 1.22173591695641,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00012655806981937685,
+        "minimum_singular_value": 1.7047741434382817e-05,
+        "next_to_minimum_singular_value": 0.16370107422917457,
+        "ordered_kpoint_index_zero_based": 60,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 34233.7900561205,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.6666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570178474070935,
+        "maximum_singular_value": 1.1224052057439906,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0006178526846514423,
+        "minimum_singular_value": 3.2786472193233564e-05,
+        "next_to_minimum_singular_value": 0.07426824345232746,
+        "ordered_kpoint_index_zero_based": 61,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 77.66884662636315,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.6666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2885908547635887,
+        "maximum_singular_value": 1.1107653331070502,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2784745556241001,
+        "minimum_singular_value": 0.01430129815691151,
+        "next_to_minimum_singular_value": 0.041561994520823556,
+        "ordered_kpoint_index_zero_based": 62,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 108.28146047420799,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.6666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3507197363717816,
+        "maximum_singular_value": 1.1060741411984567,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.21830436683927962,
+        "minimum_singular_value": 0.010214806268353917,
+        "next_to_minimum_singular_value": 0.011366293680023058,
+        "ordered_kpoint_index_zero_based": 63,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.99023789916627,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.6666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2275613760227708,
+        "maximum_singular_value": 1.0877515565754379,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.33653510680064536,
+        "minimum_singular_value": 0.03022351671092,
+        "next_to_minimum_singular_value": 0.06963884468079896,
+        "ordered_kpoint_index_zero_based": 64,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.294326731437394,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.6666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2973640298295859,
+        "maximum_singular_value": 1.175753822458168,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2700378069817479,
+        "minimum_singular_value": 0.02779932708053323,
+        "next_to_minimum_singular_value": 0.1743802731256504,
+        "ordered_kpoint_index_zero_based": 65,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 70034.37143920524,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.8333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570627295912347,
+        "maximum_singular_value": 2.337971897046509,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00016903088174458284,
+        "minimum_singular_value": 3.338320668839062e-05,
+        "next_to_minimum_singular_value": 0.121689212488969,
+        "ordered_kpoint_index_zero_based": 66,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 44287.66185851015,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.8333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5701414833919316,
+        "maximum_singular_value": 1.8678128147091875,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0006548433561632493,
+        "minimum_singular_value": 4.217456366688447e-05,
+        "next_to_minimum_singular_value": 0.07079698398687495,
+        "ordered_kpoint_index_zero_based": 67,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.227754673148176,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.8333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2969846204491664,
+        "maximum_singular_value": 1.1757534105786054,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2704031017524158,
+        "minimum_singular_value": 0.02784314296791737,
+        "next_to_minimum_singular_value": 0.17439973668374878,
+        "ordered_kpoint_index_zero_based": 68,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.8363127159996,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.8333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2612075026032517,
+        "maximum_singular_value": 1.1108071085844256,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3046670341416037,
+        "minimum_singular_value": 0.015463030695574987,
+        "next_to_minimum_singular_value": 0.04068810162691472,
+        "ordered_kpoint_index_zero_based": 69,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.87136044104097,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.8333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.301376717276384,
+        "maximum_singular_value": 1.1757340966215806,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.26617202834099396,
+        "minimum_singular_value": 0.027424697619253632,
+        "next_to_minimum_singular_value": 0.17476748409473225,
+        "ordered_kpoint_index_zero_based": 70,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.0098490270361,
+        "fractional_reciprocal_coordinates": [
+          0.1666666667,
+          0.8333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4860571334238148,
+        "maximum_singular_value": 1.868525626097337,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.08463781488589182,
+        "minimum_singular_value": 0.004524167233539801,
+        "next_to_minimum_singular_value": 0.14813986374382745,
+        "ordered_kpoint_index_zero_based": 71,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 2440510.501580244,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707811017645559,
+        "maximum_singular_value": 1.7469629436790506,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 1.5225030340096643e-05,
+        "minimum_singular_value": 7.158186545593155e-07,
+        "next_to_minimum_singular_value": 0.15247387529032896,
+        "ordered_kpoint_index_zero_based": 72,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.2066378289847,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.0,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4860994214824177,
+        "maximum_singular_value": 1.8685269025012994,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.08459567849037576,
+        "minimum_singular_value": 0.004522015697324381,
+        "next_to_minimum_singular_value": 0.1480986207048968,
+        "ordered_kpoint_index_zero_based": 73,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 5269.480422731067,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.0,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5700633026277213,
+        "maximum_singular_value": 1.350601567535034,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0007330241015298946,
+        "minimum_singular_value": 0.0002563064019953307,
+        "next_to_minimum_singular_value": 0.04601182046886847,
+        "ordered_kpoint_index_zero_based": 74,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.98581923976721,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.0,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2271886393890836,
+        "maximum_singular_value": 1.0877528816950646,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.33688607866349446,
+        "minimum_singular_value": 0.030227264646875418,
+        "next_to_minimum_singular_value": 0.06966983731988773,
+        "ordered_kpoint_index_zero_based": 75,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 455.22294177805344,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.0,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5526567352982048,
+        "maximum_singular_value": 1.113163800922291,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.018138596723410283,
+        "minimum_singular_value": 0.002445315687681269,
+        "next_to_minimum_singular_value": 0.07537636380413483,
+        "ordered_kpoint_index_zero_based": 76,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.71462882248915,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.0,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5039228078917315,
+        "maximum_singular_value": 1.2217068662034667,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.06682368623180104,
+        "minimum_singular_value": 0.008270723596859252,
+        "next_to_minimum_singular_value": 0.18964862410277308,
+        "ordered_kpoint_index_zero_based": 77,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 1071913.7688661527,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.1666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707669804615079,
+        "maximum_singular_value": 1.8681702981937665,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 2.9346333384395807e-05,
+        "minimum_singular_value": 1.7428363665576167e-06,
+        "next_to_minimum_singular_value": 0.09898981409601018,
+        "ordered_kpoint_index_zero_based": 78,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 342.19070349936766,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.1666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5359332417799094,
+        "maximum_singular_value": 2.339239458942954,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.034856023143635666,
+        "minimum_singular_value": 0.006836069580561462,
+        "next_to_minimum_singular_value": 0.12327815802576701,
+        "ordered_kpoint_index_zero_based": 79,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 152425.89718824773,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.1666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5705900513611475,
+        "maximum_singular_value": 1.8681803098373517,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00020627543228622877,
+        "minimum_singular_value": 1.2256318278580494e-05,
+        "next_to_minimum_singular_value": 0.0988167310781315,
+        "ordered_kpoint_index_zero_based": 80,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.81713285831652,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.1666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3011614431333562,
+        "maximum_singular_value": 1.175732159948356,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2663795304168787,
+        "minimum_singular_value": 0.027459385565093704,
+        "next_to_minimum_singular_value": 0.17474698099777192,
+        "ordered_kpoint_index_zero_based": 81,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68.2929383291169,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.1666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2395200973670442,
+        "maximum_singular_value": 1.1107461168418125,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3252501312515444,
+        "minimum_singular_value": 0.016264435884848178,
+        "next_to_minimum_singular_value": 0.0396759234366395,
+        "ordered_kpoint_index_zero_based": 82,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.83336599837204,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.1666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3011246593745631,
+        "maximum_singular_value": 1.1757345737920475,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2664149849327765,
+        "minimum_singular_value": 0.02744903526462836,
+        "next_to_minimum_singular_value": 0.174805734634995,
+        "ordered_kpoint_index_zero_based": 83,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 33050.04231729834,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706789183555971,
+        "maximum_singular_value": 1.3506015674977618,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00011740843902972732,
+        "minimum_singular_value": 4.0865350625916114e-05,
+        "next_to_minimum_singular_value": 0.046233763063173075,
+        "ordered_kpoint_index_zero_based": 84,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 412.47472373865116,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.3333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4859382757189654,
+        "maximum_singular_value": 1.8685513724878997,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.08475624550531938,
+        "minimum_singular_value": 0.004530099094440114,
+        "next_to_minimum_singular_value": 0.1481512234735806,
+        "ordered_kpoint_index_zero_based": 85,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 554265.0509234674,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.3333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570729320793692,
+        "maximum_singular_value": 1.7469908080272438,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 6.700600115432582e-05,
+        "minimum_singular_value": 3.151905040948482e-06,
+        "next_to_minimum_singular_value": 0.15247428739694982,
+        "ordered_kpoint_index_zero_based": 86,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.76342979800626,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.3333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5039747749418748,
+        "maximum_singular_value": 1.221707554891841,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.06677183524823062,
+        "minimum_singular_value": 0.008267996733440234,
+        "next_to_minimum_singular_value": 0.1897117030997956,
+        "ordered_kpoint_index_zero_based": 87,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 454.19253739786,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.3333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5526158759181778,
+        "maximum_singular_value": 1.1131615056536754,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.018179449366186328,
+        "minimum_singular_value": 0.00245085820218701,
+        "next_to_minimum_singular_value": 0.07538398472375211,
+        "ordered_kpoint_index_zero_based": 88,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.95627567856757,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.3333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.226887957575737,
+        "maximum_singular_value": 1.0877546800623128,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3371691690133381,
+        "minimum_singular_value": 0.03025215096764568,
+        "next_to_minimum_singular_value": 0.06967921540822139,
+        "ordered_kpoint_index_zero_based": 89,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 55853.06113107488,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.5,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706202720797144,
+        "maximum_singular_value": 1.08824702842188,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00017605471427275076,
+        "minimum_singular_value": 1.948410716232729e-05,
+        "next_to_minimum_singular_value": 0.06675881946919776,
+        "ordered_kpoint_index_zero_based": 90,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.300958411246995,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.5,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2973794762175692,
+        "maximum_singular_value": 1.1757527594689077,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2700229343991933,
+        "minimum_singular_value": 0.02779494374662438,
+        "next_to_minimum_singular_value": 0.1744033234886763,
+        "ordered_kpoint_index_zero_based": 91,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 97203.28339892057,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.5,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706896115350093,
+        "maximum_singular_value": 1.2216536998503493,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0001067152596848105,
+        "minimum_singular_value": 1.2568029156347569e-05,
+        "next_to_minimum_singular_value": 0.20102197758544446,
+        "ordered_kpoint_index_zero_based": 92,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.6097745419036,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.5,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4295930351845128,
+        "maximum_singular_value": 1.1228115383487116,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.14073453193443933,
+        "minimum_singular_value": 0.006430404834405502,
+        "next_to_minimum_singular_value": 0.10242475056749598,
+        "ordered_kpoint_index_zero_based": 93,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68.33483740229613,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.5,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2397323320222178,
+        "maximum_singular_value": 1.110745652635691,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.32504942889110366,
+        "minimum_singular_value": 0.01625445665578431,
+        "next_to_minimum_singular_value": 0.039682633810953175,
+        "ordered_kpoint_index_zero_based": 94,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.85883072269922,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.5,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3498862932266125,
+        "maximum_singular_value": 1.1060763517116505,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2191176320317457,
+        "minimum_singular_value": 0.010254852053378262,
+        "next_to_minimum_singular_value": 0.011322279832716541,
+        "ordered_kpoint_index_zero_based": 95,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 1076751.7776091883,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.6666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707886450825834,
+        "maximum_singular_value": 1.1132233155775209,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 7.681712313061623e-06,
+        "minimum_singular_value": 1.0338718158880718e-06,
+        "next_to_minimum_singular_value": 0.074937884144808,
+        "ordered_kpoint_index_zero_based": 96,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 77.42865678781662,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.6666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2877217647388235,
+        "maximum_singular_value": 1.1107637214631716,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.27930916230871095,
+        "minimum_singular_value": 0.014345641104262962,
+        "next_to_minimum_singular_value": 0.04152890216793528,
+        "ordered_kpoint_index_zero_based": 97,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 170101.8617341424,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.6666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707477009000737,
+        "maximum_singular_value": 1.1132226328885335,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 4.862589480382053e-05,
+        "minimum_singular_value": 6.544447083291919e-06,
+        "next_to_minimum_singular_value": 0.07494967880805546,
+        "ordered_kpoint_index_zero_based": 98,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.86037537352908,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.6666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2613046004199533,
+        "maximum_singular_value": 1.1108064916523266,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3045745510237158,
+        "minimum_singular_value": 0.015457844269228657,
+        "next_to_minimum_singular_value": 0.04069189339561356,
+        "ordered_kpoint_index_zero_based": 99,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 455.11437764339206,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.6666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5526524382630629,
+        "maximum_singular_value": 1.1131635380146407,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.018142893051445556,
+        "minimum_singular_value": 0.0024458984217959985,
+        "next_to_minimum_singular_value": 0.07537802069127834,
+        "ordered_kpoint_index_zero_based": 100,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.83161481288766,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.6666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2612147693619868,
+        "maximum_singular_value": 1.1108105818619076,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.30466011284436767,
+        "minimum_singular_value": 0.015464090355694071,
+        "next_to_minimum_singular_value": 0.04068170475872602,
+        "ordered_kpoint_index_zero_based": 101,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 308609.55834290315,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.8333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707627001022495,
+        "maximum_singular_value": 1.2216458407627442,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 3.3626692640748535e-05,
+        "minimum_singular_value": 3.958548294234443e-06,
+        "next_to_minimum_singular_value": 0.20091219362837556,
+        "ordered_kpoint_index_zero_based": 102,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.275458960498646,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.8333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2972603620699785,
+        "maximum_singular_value": 1.1757539293486454,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.27013762200380403,
+        "minimum_singular_value": 0.02781173660225065,
+        "next_to_minimum_singular_value": 0.17438170187898602,
+        "ordered_kpoint_index_zero_based": 103,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 10703.489064333273,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.8333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5698776576669677,
+        "maximum_singular_value": 1.0882505650887433,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0009186689987098145,
+        "minimum_singular_value": 0.0001016725068384541,
+        "next_to_minimum_singular_value": 0.06677589298789341,
+        "ordered_kpoint_index_zero_based": 104,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 108.31713698530844,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.8333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.350789294623947,
+        "maximum_singular_value": 1.1060739718731174,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.21823648575316626,
+        "minimum_singular_value": 0.010211440245352307,
+        "next_to_minimum_singular_value": 0.011369743533948918,
+        "ordered_kpoint_index_zero_based": 105,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68.09819414345068,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.8333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.238528871990308,
+        "maximum_singular_value": 1.1107484665785712,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3261873018047563,
+        "minimum_singular_value": 0.01631098270005148,
+        "next_to_minimum_singular_value": 0.0396469011231654,
+        "ordered_kpoint_index_zero_based": 106,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.69584245566895,
+        "fractional_reciprocal_coordinates": [
+          0.3333333333,
+          0.8333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4296948723234477,
+        "maximum_singular_value": 1.1227868582370544,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.14063370761344857,
+        "minimum_singular_value": 0.006427095473219257,
+        "next_to_minimum_singular_value": 0.10228716975764703,
+        "ordered_kpoint_index_zero_based": 107,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 239710.10123047876,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707668986655667,
+        "maximum_singular_value": 1.1174777048571003,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 2.9428129325553393e-05,
+        "minimum_singular_value": 4.661788131250494e-06,
+        "next_to_minimum_singular_value": 0.02119830134304785,
+        "ordered_kpoint_index_zero_based": 108,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.70404571739434,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.0,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4297009595698071,
+        "maximum_singular_value": 1.1227885059629834,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.1406276808613935,
+        "minimum_singular_value": 0.006426803119254802,
+        "next_to_minimum_singular_value": 0.10229035483912056,
+        "ordered_kpoint_index_zero_based": 109,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.995882361987945,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.0,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2275911247126183,
+        "maximum_singular_value": 1.0877515382196046,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3365070931755928,
+        "minimum_singular_value": 0.030218776894556203,
+        "next_to_minimum_singular_value": 0.06964063937825715,
+        "ordered_kpoint_index_zero_based": 110,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 41714.74521021111,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.0,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5702910816953761,
+        "maximum_singular_value": 1.0869429181817383,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.000505245078024605,
+        "minimum_singular_value": 2.6056563757116554e-05,
+        "next_to_minimum_singular_value": 0.011451607444091287,
+        "ordered_kpoint_index_zero_based": 111,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.9943956951902,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.0,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.227573538907698,
+        "maximum_singular_value": 1.0877516351246657,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3365236533407116,
+        "minimum_singular_value": 0.03022002770475788,
+        "next_to_minimum_singular_value": 0.06964070073828177,
+        "ordered_kpoint_index_zero_based": 112,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.69504476433548,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.0,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4296929272765713,
+        "maximum_singular_value": 1.1227882599451655,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.14063563332959034,
+        "minimum_singular_value": 0.006427132844322016,
+        "next_to_minimum_singular_value": 0.10229063718939047,
+        "ordered_kpoint_index_zero_based": 113,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 641555.9221373326,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.1666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707620736842127,
+        "maximum_singular_value": 1.1231030139496476,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 3.425311067718018e-05,
+        "minimum_singular_value": 1.7505925441511772e-06,
+        "next_to_minimum_singular_value": 0.08511143636036833,
+        "ordered_kpoint_index_zero_based": 114,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.69563794794527,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.1666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5039191218773236,
+        "maximum_singular_value": 1.221707083370423,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.06682736400677343,
+        "minimum_singular_value": 0.008271788526354507,
+        "next_to_minimum_singular_value": 0.18963931710597348,
+        "ordered_kpoint_index_zero_based": 115,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.866380564127184,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.1666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3013694846025712,
+        "maximum_singular_value": 1.175733805744642,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.26617900009306006,
+        "minimum_singular_value": 0.02742787681795923,
+        "next_to_minimum_singular_value": 0.17476166775728094,
+        "ordered_kpoint_index_zero_based": 116,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 25202.305070944487,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.1666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5704012435036956,
+        "maximum_singular_value": 1.0883205018347304,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0003950832809228003,
+        "minimum_singular_value": 4.3183371472216854e-05,
+        "next_to_minimum_singular_value": 0.0681347321422795,
+        "ordered_kpoint_index_zero_based": 117,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.95503587560785,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.1666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.350067351475474,
+        "maximum_singular_value": 1.106075855930019,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.21894097018855577,
+        "minimum_singular_value": 0.010245708752341157,
+        "next_to_minimum_singular_value": 0.011332072852932557,
+        "ordered_kpoint_index_zero_based": 118,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.84614371726501,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.1666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2612806321501224,
+        "maximum_singular_value": 1.1108107026386125,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.30459738043760975,
+        "minimum_singular_value": 0.015460964850249559,
+        "next_to_minimum_singular_value": 0.04068421444561193,
+        "ordered_kpoint_index_zero_based": 119,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107547.46787354631,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707037347527428,
+        "maximum_singular_value": 1.0883218005584825,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 9.259204202131645e-05,
+        "minimum_singular_value": 1.0119455363078608e-05,
+        "next_to_minimum_singular_value": 0.06813092506255497,
+        "ordered_kpoint_index_zero_based": 120,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.82483352313999,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.3333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3010847004994972,
+        "maximum_singular_value": 1.1757342923526688,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2664534994182997,
+        "minimum_singular_value": 0.02745449767405101,
+        "next_to_minimum_singular_value": 0.1748052633230772,
+        "ordered_kpoint_index_zero_based": 121,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.98375679310635,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.3333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5040465864204084,
+        "maximum_singular_value": 1.2217086284797085,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.06670018386137182,
+        "minimum_singular_value": 0.008255694104237123,
+        "next_to_minimum_singular_value": 0.1897800093176682,
+        "ordered_kpoint_index_zero_based": 122,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 199968.31614010117,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.3333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706864198996804,
+        "maximum_singular_value": 1.1231073741479072,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00010990689499485416,
+        "minimum_singular_value": 5.616426621110512e-06,
+        "next_to_minimum_singular_value": 0.0851690853280301,
+        "ordered_kpoint_index_zero_based": 123,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.86485859064231,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.3333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2613063839616308,
+        "maximum_singular_value": 1.1108062247187929,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.30457285222029423,
+        "minimum_singular_value": 0.015456876232738228,
+        "next_to_minimum_singular_value": 0.040688410173201656,
+        "ordered_kpoint_index_zero_based": 124,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.96467756920426,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.3333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3500982832724924,
+        "maximum_singular_value": 1.106075811035257,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2189107887507828,
+        "minimum_singular_value": 0.010244793352217198,
+        "next_to_minimum_singular_value": 0.011332350941188712,
+        "ordered_kpoint_index_zero_based": 125,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 157043.57064741885,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.5,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706621058585566,
+        "maximum_singular_value": 1.0869470313504166,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0001342209359370354,
+        "minimum_singular_value": 6.921308697130553e-06,
+        "next_to_minimum_singular_value": 0.011469854023744714,
+        "ordered_kpoint_index_zero_based": 126,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.955087037482045,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.5,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2268307488513117,
+        "maximum_singular_value": 1.08775480016626,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3372230272763625,
+        "minimum_singular_value": 0.03025315441546032,
+        "next_to_minimum_singular_value": 0.0696837167456755,
+        "ordered_kpoint_index_zero_based": 127,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.57802868890613,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.5,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.429566325966414,
+        "maximum_singular_value": 1.1228109800749562,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.14076097527532622,
+        "minimum_singular_value": 0.006431570962894641,
+        "next_to_minimum_singular_value": 0.10244020315656541,
+        "ordered_kpoint_index_zero_based": 128,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 41211.238683223666,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706251207057806,
+        "maximum_singular_value": 1.1175163496478167,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00017120608827957327,
+        "minimum_singular_value": 2.7116786230032366e-05,
+        "next_to_minimum_singular_value": 0.021251834623268143,
+        "ordered_kpoint_index_zero_based": 129,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.57964828700187,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.5,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4295676579225862,
+        "maximum_singular_value": 1.1228110148253272,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.14075965658050538,
+        "minimum_singular_value": 0.006431511495426268,
+        "next_to_minimum_singular_value": 0.10244080681058053,
+        "ordered_kpoint_index_zero_based": 130,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.95519553811469,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.5,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.226831706541214,
+        "maximum_singular_value": 1.0877548293482533,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3372221256831954,
+        "minimum_singular_value": 0.03025306393328239,
+        "next_to_minimum_singular_value": 0.069683821074152,
+        "ordered_kpoint_index_zero_based": 131,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 69948.91929894988,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.6666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570653965232584,
+        "maximum_singular_value": 1.0883218028738426,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00014236156183164197,
+        "minimum_singular_value": 1.5558807967032898e-05,
+        "next_to_minimum_singular_value": 0.06813092211846608,
+        "ordered_kpoint_index_zero_based": 132,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.96434263859433,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.6666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3500974648825517,
+        "maximum_singular_value": 1.1060758118099796,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.21891158729050217,
+        "minimum_singular_value": 0.010244825141134953,
+        "next_to_minimum_singular_value": 0.01133231948819436,
+        "ordered_kpoint_index_zero_based": 133,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.86597214938595,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.6666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2613115174449094,
+        "maximum_singular_value": 1.110806192904729,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.30456796262970387,
+        "minimum_singular_value": 0.015456636286721686,
+        "next_to_minimum_singular_value": 0.040687913032594614,
+        "ordered_kpoint_index_zero_based": 134,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 182452.3161407636,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.6666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706758666281253,
+        "maximum_singular_value": 1.123107679912718,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00012046016647997275,
+        "minimum_singular_value": 6.1556230343835716e-06,
+        "next_to_minimum_singular_value": 0.08517280135441123,
+        "ordered_kpoint_index_zero_based": 135,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.97093506049347,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.6666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5040393091447426,
+        "maximum_singular_value": 1.2217086140603977,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.06670744492923787,
+        "minimum_singular_value": 0.008256409365534784,
+        "next_to_minimum_singular_value": 0.18978273044614616,
+        "ordered_kpoint_index_zero_based": 136,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.825647095917795,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.6666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3010886452070363,
+        "maximum_singular_value": 1.1757343221308867,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2664496973186436,
+        "minimum_singular_value": 0.027453976807345418,
+        "next_to_minimum_singular_value": 0.17480710316335912,
+        "ordered_kpoint_index_zero_based": 137,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 330747.2958772397,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.8333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707298854873721,
+        "maximum_singular_value": 1.123103012761253,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 6.64413074756279e-05,
+        "minimum_singular_value": 3.3956528950069e-06,
+        "next_to_minimum_singular_value": 0.08511141155923864,
+        "ordered_kpoint_index_zero_based": 138,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.84674980240881,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.8333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.261285665943773,
+        "maximum_singular_value": 1.1108106534938658,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3045925858399353,
+        "minimum_singular_value": 0.01546083374054902,
+        "next_to_minimum_singular_value": 0.04068408889457232,
+        "ordered_kpoint_index_zero_based": 139,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.95586482616409,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.8333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.350069268256716,
+        "maximum_singular_value": 1.106075846023095,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2189390999116549,
+        "minimum_singular_value": 0.010245629987811719,
+        "next_to_minimum_singular_value": 0.011332195586330418,
+        "ordered_kpoint_index_zero_based": 140,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 24108.243691126572,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.8333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5703833082191303,
+        "maximum_singular_value": 1.0883204421864028,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00041301856402389445,
+        "minimum_singular_value": 4.514308284460293e-05,
+        "next_to_minimum_singular_value": 0.06813533092074484,
+        "ordered_kpoint_index_zero_based": 141,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.86488422045512,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.8333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3013538038575827,
+        "maximum_singular_value": 1.1757338071321632,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2661941151007652,
+        "minimum_singular_value": 0.027428834313078656,
+        "next_to_minimum_singular_value": 0.17476413711630506,
+        "ordered_kpoint_index_zero_based": 142,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.72047505893892,
+        "fractional_reciprocal_coordinates": [
+          0.5,
+          0.8333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5039308423635513,
+        "maximum_singular_value": 1.221707119517956,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.06681566971648063,
+        "minimum_singular_value": 0.00827039798667387,
+        "next_to_minimum_singular_value": 0.18964092199356639,
+        "ordered_kpoint_index_zero_based": 143,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 750996.9519612979,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707468501179735,
+        "maximum_singular_value": 1.746962956761959,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 4.947667690290854e-05,
+        "minimum_singular_value": 2.3261918070367713e-06,
+        "next_to_minimum_singular_value": 0.15247372742786117,
+        "ordered_kpoint_index_zero_based": 144,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.6891794339171,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.0,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5039108468211895,
+        "maximum_singular_value": 1.2217068309818206,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.06683562056217084,
+        "minimum_singular_value": 0.008272148546457787,
+        "next_to_minimum_singular_value": 0.1896470002513272,
+        "ordered_kpoint_index_zero_based": 145,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 455.23695228426124,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.0,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5526572875117002,
+        "maximum_singular_value": 1.1131637774015208,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.01813804460076105,
+        "minimum_singular_value": 0.0024452403782600535,
+        "next_to_minimum_singular_value": 0.07537631611003748,
+        "ordered_kpoint_index_zero_based": 146,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.984439345405235,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.0,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2271718774825076,
+        "maximum_singular_value": 1.0877530090567258,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3369018607124644,
+        "minimum_singular_value": 0.03022842731036237,
+        "next_to_minimum_singular_value": 0.06967001552062625,
+        "ordered_kpoint_index_zero_based": 147,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 4705.822112215869,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.0,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.569974943727868,
+        "maximum_singular_value": 1.3506015674374714,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0008213829746681197,
+        "minimum_singular_value": 0.0002870065070949957,
+        "next_to_minimum_singular_value": 0.046044840371795265,
+        "ordered_kpoint_index_zero_based": 148,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.07193335361734,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.0,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4860697965478016,
+        "maximum_singular_value": 1.8685261853803832,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.08462519719316249,
+        "minimum_singular_value": 0.004523488609381745,
+        "next_to_minimum_singular_value": 0.14811341971790154,
+        "ordered_kpoint_index_zero_based": 149,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 188174.2808097041,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.1666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707411783500989,
+        "maximum_singular_value": 1.2216458402978978,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 5.514844476982537e-05,
+        "minimum_singular_value": 6.49209783101718e-06,
+        "next_to_minimum_singular_value": 0.20091219440819377,
+        "ordered_kpoint_index_zero_based": 150,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.70488193161356,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.1666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4297029383302526,
+        "maximum_singular_value": 1.1227871112414398,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.14062572176450325,
+        "minimum_singular_value": 0.006426764374454878,
+        "next_to_minimum_singular_value": 0.1022869553625192,
+        "ordered_kpoint_index_zero_based": 151,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68.09910014614434,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.1666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2385349970018622,
+        "maximum_singular_value": 1.1107483483996623,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.32618151179361504,
+        "minimum_singular_value": 0.016310763960403832,
+        "next_to_minimum_singular_value": 0.03964571874204588,
+        "ordered_kpoint_index_zero_based": 152,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 108.31672361314976,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.1666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.350788374790964,
+        "maximum_singular_value": 1.1060739813360594,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.21823738341432444,
+        "minimum_singular_value": 0.010211479302922535,
+        "next_to_minimum_singular_value": 0.011369656498120793,
+        "ordered_kpoint_index_zero_based": 153,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 10372.286749919424,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.1666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5698483109113242,
+        "maximum_singular_value": 1.0882504897545768,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.000948015741570017,
+        "minimum_singular_value": 0.00010491905169928231,
+        "next_to_minimum_singular_value": 0.06677617460522929,
+        "ordered_kpoint_index_zero_based": 154,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.276540724078025,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.1666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2972641592271072,
+        "maximum_singular_value": 1.1757539458887392,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.27013396601649764,
+        "minimum_singular_value": 0.02781102535239135,
+        "next_to_minimum_singular_value": 0.17438376605468556,
+        "ordered_kpoint_index_zero_based": 155,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 1123386.1238017064,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707889639682238,
+        "maximum_singular_value": 1.113223316376099,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 7.362826672762655e-06,
+        "minimum_singular_value": 9.909534155618596e-07,
+        "next_to_minimum_singular_value": 0.07493788671744907,
+        "ordered_kpoint_index_zero_based": 156,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.83228944247995,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.3333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.261220191400062,
+        "maximum_singular_value": 1.1108105309154732,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.30465494855934455,
+        "minimum_singular_value": 0.015463944411864529,
+        "next_to_minimum_singular_value": 0.04068156105476681,
+        "ordered_kpoint_index_zero_based": 157,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 455.12756659557243,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.3333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5526529583763538,
+        "maximum_singular_value": 1.113163515233789,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.018142373023760795,
+        "minimum_singular_value": 0.002445827493070639,
+        "next_to_minimum_singular_value": 0.07537797463102013,
+        "ordered_kpoint_index_zero_based": 158,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.85863485314783,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.3333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2612943138838932,
+        "maximum_singular_value": 1.1108065733708183,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3045843488149051,
+        "minimum_singular_value": 0.015458219817853365,
+        "next_to_minimum_singular_value": 0.040692524757000775,
+        "ordered_kpoint_index_zero_based": 159,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 172367.27741004503,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.3333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570748339947286,
+        "maximum_singular_value": 1.1132226251449415,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 4.7986847592293834e-05,
+        "minimum_singular_value": 6.458433653254805e-06,
+        "next_to_minimum_singular_value": 0.07494958385843171,
+        "ordered_kpoint_index_zero_based": 160,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 77.4305473438207,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.3333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2877304191134928,
+        "maximum_singular_value": 1.110763687940427,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.27930085235709495,
+        "minimum_singular_value": 0.01434529040597142,
+        "next_to_minimum_singular_value": 0.041528701636319894,
+        "ordered_kpoint_index_zero_based": 161,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42042.342183545545,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.5,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5705624389505641,
+        "maximum_singular_value": 1.0882470298705669,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00023388784220002137,
+        "minimum_singular_value": 2.5884548132917366e-05,
+        "next_to_minimum_singular_value": 0.06675881675251699,
+        "ordered_kpoint_index_zero_based": 162,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.85851370813296,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.5,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3498855125401241,
+        "maximum_singular_value": 1.1060763522831758,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2191183937462748,
+        "minimum_singular_value": 0.01025488219943618,
+        "next_to_minimum_singular_value": 0.011322249694701487,
+        "ordered_kpoint_index_zero_based": 163,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68.33433501969917,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.5,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2397289831767546,
+        "maximum_singular_value": 1.1107457116380792,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.32505259588248286,
+        "minimum_singular_value": 0.01625457701926678,
+        "next_to_minimum_singular_value": 0.03968323232892408,
+        "ordered_kpoint_index_zero_based": 164,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.60241756876658,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.5,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4295863657051229,
+        "maximum_singular_value": 1.122811320342617,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.14074113503182736,
+        "minimum_singular_value": 0.006430674534620356,
+        "next_to_minimum_singular_value": 0.10242560843051274,
+        "ordered_kpoint_index_zero_based": 165,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 118154.49791420226,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.5,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707085341249367,
+        "maximum_singular_value": 1.2216537777720728,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 8.779266984702956e-05,
+        "minimum_singular_value": 1.0339460615872408e-05,
+        "next_to_minimum_singular_value": 0.20102504264237067,
+        "ordered_kpoint_index_zero_based": 166,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.30037741555309,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.5,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2973737293133452,
+        "maximum_singular_value": 1.175752802082872,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2700284678238263,
+        "minimum_singular_value": 0.027795326517596714,
+        "next_to_minimum_singular_value": 0.17440348829442515,
+        "ordered_kpoint_index_zero_based": 167,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 13256.238842396877,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.6666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5705036115381175,
+        "maximum_singular_value": 1.3506015675378644,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0002927152525989211,
+        "minimum_singular_value": 0.00010188422097663868,
+        "next_to_minimum_singular_value": 0.04623311599763999,
+        "ordered_kpoint_index_zero_based": 168,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.95624259143991,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.6666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2268879781037128,
+        "maximum_singular_value": 1.0877546456632188,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3371691496873967,
+        "minimum_singular_value": 0.03025217784914434,
+        "next_to_minimum_singular_value": 0.06967908991221619,
+        "ordered_kpoint_index_zero_based": 169,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 454.1614825786151,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.6666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5526146426559015,
+        "maximum_singular_value": 1.1131615492589182,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.018180682424639927,
+        "minimum_singular_value": 0.002451025883874312,
+        "next_to_minimum_singular_value": 0.07538407819764141,
+        "ordered_kpoint_index_zero_based": 170,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.775958064403,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.6666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5039793598158206,
+        "maximum_singular_value": 1.2217075755726015,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.06676726060578043,
+        "minimum_singular_value": 0.008267295922657208,
+        "next_to_minimum_singular_value": 0.18971611516448736,
+        "ordered_kpoint_index_zero_based": 171,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 819660.377649971,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.6666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707510158487863,
+        "maximum_singular_value": 1.7469910321068838,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 4.5310946094809746e-05,
+        "minimum_singular_value": 2.1313596213051563e-06,
+        "next_to_minimum_singular_value": 0.15248982085367208,
+        "ordered_kpoint_index_zero_based": 172,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 412.5093849037294,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.6666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4859460375047502,
+        "maximum_singular_value": 1.8685515926789675,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.08474851164609412,
+        "minimum_singular_value": 0.004529718985945123,
+        "next_to_minimum_singular_value": 0.14815863918848626,
+        "ordered_kpoint_index_zero_based": 173,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 254514.80023435122,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.8333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570672731970007,
+        "maximum_singular_value": 1.8681702871512929,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00012359482457505294,
+        "minimum_singular_value": 7.340124367742566e-06,
+        "next_to_minimum_singular_value": 0.09898962137915604,
+        "ordered_kpoint_index_zero_based": 174,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.832561402173425,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.8333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3011210323598272,
+        "maximum_singular_value": 1.1757345438734335,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2664184808597205,
+        "minimum_singular_value": 0.027449550187623708,
+        "next_to_minimum_singular_value": 0.17480376744496023,
+        "ordered_kpoint_index_zero_based": 175,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 68.29246145490477,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.8333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2395169152922212,
+        "maximum_singular_value": 1.1107461727617127,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.32525314030901187,
+        "minimum_singular_value": 0.01626455027536482,
+        "next_to_minimum_singular_value": 0.039676489658662675,
+        "ordered_kpoint_index_zero_based": 176,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.81649938039836,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.8333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3011497621757315,
+        "maximum_singular_value": 1.1757321894973187,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.26639078930254045,
+        "minimum_singular_value": 0.027459792521842073,
+        "next_to_minimum_singular_value": 0.17475142906744046,
+        "ordered_kpoint_index_zero_based": 177,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 125975.4526353785,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.8333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5705467227268468,
+        "maximum_singular_value": 1.868181515763642,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00024960406545803776,
+        "minimum_singular_value": 1.4829726559275632e-05,
+        "next_to_minimum_singular_value": 0.09883640966798109,
+        "ordered_kpoint_index_zero_based": 178,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 341.2976416899111,
+        "fractional_reciprocal_coordinates": [
+          0.6666666667,
+          0.8333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5358387080103948,
+        "maximum_singular_value": 2.339239920105808,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.03495049931326879,
+        "minimum_singular_value": 0.0068539586400985,
+        "next_to_minimum_singular_value": 0.12328936297336869,
+        "ordered_kpoint_index_zero_based": 179,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 136174.64486905898,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706039120239652,
+        "maximum_singular_value": 3.459443389410384,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00019241476974399184,
+        "minimum_singular_value": 2.54044605200687e-05,
+        "next_to_minimum_singular_value": 0.05357841524519116,
+        "ordered_kpoint_index_zero_based": 180,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 343.1852359405801,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.0,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5360215877707109,
+        "maximum_singular_value": 2.339233991890784,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.03476773070087675,
+        "minimum_singular_value": 0.006816243086563911,
+        "next_to_minimum_singular_value": 0.12332417753294934,
+        "ordered_kpoint_index_zero_based": 181,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 148.0090185373667,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.0,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5040573148836724,
+        "maximum_singular_value": 1.2217092159226313,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.06668947928588004,
+        "minimum_singular_value": 0.008254289015599383,
+        "next_to_minimum_singular_value": 0.18976444164045356,
+        "ordered_kpoint_index_zero_based": 182,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.63777376720554,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.0,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4296231347113189,
+        "maximum_singular_value": 1.1228054801644198,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.14070473191339028,
+        "minimum_singular_value": 0.006429339174130417,
+        "next_to_minimum_singular_value": 0.10239324414197369,
+        "ordered_kpoint_index_zero_based": 183,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.10349993774406,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.0,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.486075716426873,
+        "maximum_singular_value": 1.8685433306123131,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.08461929854807768,
+        "minimum_singular_value": 0.004523184458359487,
+        "next_to_minimum_singular_value": 0.14794870877533578,
+        "ordered_kpoint_index_zero_based": 184,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 10125.32170642698,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.0,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5699896461208835,
+        "maximum_singular_value": 3.212528815348851,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.000806680586523926,
+        "minimum_singular_value": 0.00031727671559410504,
+        "next_to_minimum_singular_value": 0.020384837139584038,
+        "ordered_kpoint_index_zero_based": 185,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 145617.1478372026,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.1666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707150317649134,
+        "maximum_singular_value": 2.337971892325693,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 8.1295029893456e-05,
+        "minimum_singular_value": 1.6055608333570056e-05,
+        "next_to_minimum_singular_value": 0.12168896496842962,
+        "ordered_kpoint_index_zero_based": 186,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 413.14544588627945,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.1666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.486086955112592,
+        "maximum_singular_value": 1.8685263744654639,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.08460810016618923,
+        "minimum_singular_value": 0.004522684185607085,
+        "next_to_minimum_singular_value": 0.1481247359441667,
+        "ordered_kpoint_index_zero_based": 187,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.87289223683568,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.1666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3013927468688535,
+        "maximum_singular_value": 1.1757340945190684,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.26615657697318224,
+        "minimum_singular_value": 0.027423717719442707,
+        "next_to_minimum_singular_value": 0.17476492486503586,
+        "ordered_kpoint_index_zero_based": 188,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.83457474921752,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.1666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2611972740553514,
+        "maximum_singular_value": 1.1108071903807482,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.30467677639737367,
+        "minimum_singular_value": 0.015463405947048472,
+        "next_to_minimum_singular_value": 0.04068874235234942,
+        "ordered_kpoint_index_zero_based": 189,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.228158257644985,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.1666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2969819888417318,
+        "maximum_singular_value": 1.1757534712043518,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2704056353241571,
+        "minimum_singular_value": 0.02784287830008531,
+        "next_to_minimum_singular_value": 0.17440196781357004,
+        "ordered_kpoint_index_zero_based": 190,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 40620.79033660468,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.1666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5700823376754176,
+        "maximum_singular_value": 1.8678138664573243,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0007139890588159601,
+        "minimum_singular_value": 4.598172145297178e-05,
+        "next_to_minimum_singular_value": 0.07079794552060752,
+        "ordered_kpoint_index_zero_based": 191,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 145407.79816643594,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707339515370333,
+        "maximum_singular_value": 1.2217359162413182,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 6.23752578228699e-05,
+        "minimum_singular_value": 8.402134766134763e-06,
+        "next_to_minimum_singular_value": 0.1637010329047118,
+        "ordered_kpoint_index_zero_based": 192,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.293254304006076,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.3333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2973603649764383,
+        "maximum_singular_value": 1.175753805438861,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.27004133568276056,
+        "minimum_singular_value": 0.027800031583937297,
+        "next_to_minimum_singular_value": 0.17437821194099698,
+        "ordered_kpoint_index_zero_based": 193,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.99172357984093,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.3333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2275789041840355,
+        "maximum_singular_value": 1.087751458873213,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.33651860098920133,
+        "minimum_singular_value": 0.03022226641800688,
+        "next_to_minimum_singular_value": 0.06963879890460771,
+        "ordered_kpoint_index_zero_based": 194,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 108.2810148910845,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.3333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3507187446447209,
+        "maximum_singular_value": 1.1060741509498768,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.21830533464650254,
+        "minimum_singular_value": 0.010214848392974818,
+        "next_to_minimum_singular_value": 0.011366201423461411,
+        "ordered_kpoint_index_zero_based": 195,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 77.67275819347215,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.3333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.288608622867973,
+        "maximum_singular_value": 1.110765264619952,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.27845749031788203,
+        "minimum_singular_value": 0.01430057706787222,
+        "next_to_minimum_singular_value": 0.04156159243149838,
+        "ordered_kpoint_index_zero_based": 196,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 33206.171959802894,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.3333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5701593427929033,
+        "maximum_singular_value": 1.1224051463022453,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0006369839589174797,
+        "minimum_singular_value": 3.380110021898796e-05,
+        "next_to_minimum_singular_value": 0.0742706846195227,
+        "ordered_kpoint_index_zero_based": 197,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 139190.26825241803,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.5,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5706443503725458,
+        "maximum_singular_value": 1.1223826909593444,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0001519764217656545,
+        "minimum_singular_value": 8.063657790528371e-06,
+        "next_to_minimum_singular_value": 0.0742616567529078,
+        "ordered_kpoint_index_zero_based": 198,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 77.37699616146658,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.5,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2875343746415857,
+        "maximum_singular_value": 1.1107633962850605,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.27948908960453867,
+        "minimum_singular_value": 0.014355214745829278,
+        "next_to_minimum_singular_value": 0.041522225180487315,
+        "ordered_kpoint_index_zero_based": 199,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 107.9112617134324,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.5,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3499826432021544,
+        "maximum_singular_value": 1.106076086458775,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.21902362249312687,
+        "minimum_singular_value": 0.010249867056471408,
+        "next_to_minimum_singular_value": 0.0113276919341024,
+        "ordered_kpoint_index_zero_based": 200,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 35.97579311446991,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.5,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.2269957997842103,
+        "maximum_singular_value": 1.0877538400304454,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.33706763964441094,
+        "minimum_singular_value": 0.030235715348077685,
+        "next_to_minimum_singular_value": 0.06968015500393306,
+        "ordered_kpoint_index_zero_based": 201,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.22793347489075,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.5,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.296976505587516,
+        "maximum_singular_value": 1.1757532853007262,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2704109143038088,
+        "minimum_singular_value": 0.027843022107625598,
+        "next_to_minimum_singular_value": 0.1744080213331857,
+        "ordered_kpoint_index_zero_based": 202,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 20818.353255620837,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.5,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5703603827464123,
+        "maximum_singular_value": 1.2217262237813897,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.00043594403467599055,
+        "minimum_singular_value": 5.868505586298141e-05,
+        "next_to_minimum_singular_value": 0.16369963378950336,
+        "ordered_kpoint_index_zero_based": 203,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 138127.98015380773,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.6666666667,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.570586676023393,
+        "maximum_singular_value": 1.867799649868576,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0002096507699677416,
+        "minimum_singular_value": 1.352223964897446e-05,
+        "next_to_minimum_singular_value": 0.0704588654212282,
+        "ordered_kpoint_index_zero_based": 204,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.30744669473182,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.6666666667,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.297411442332762,
+        "maximum_singular_value": 1.1757529396734747,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.2699921555628545,
+        "minimum_singular_value": 0.027790685364614095,
+        "next_to_minimum_singular_value": 0.174404191769001,
+        "ordered_kpoint_index_zero_based": 205,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 71.8824697800106,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.6666666667,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.261391651423313,
+        "maximum_singular_value": 1.1108070377436674,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.3044916347901819,
+        "minimum_singular_value": 0.01545310061191812,
+        "next_to_minimum_singular_value": 0.04068957763455115,
+        "ordered_kpoint_index_zero_based": 206,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 42.805977618661366,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.6666666667,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.3010825439701836,
+        "maximum_singular_value": 1.1757323162992563,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.26645557798365993,
+        "minimum_singular_value": 0.027466545134731207,
+        "next_to_minimum_singular_value": 0.17476146231790632,
+        "ordered_kpoint_index_zero_based": 207,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 412.9586565251656,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.6666666667,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4860425551000467,
+        "maximum_singular_value": 1.8685488462234667,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.08465234089046889,
+        "minimum_singular_value": 0.004524784301523893,
+        "next_to_minimum_singular_value": 0.1479705051111989,
+        "ordered_kpoint_index_zero_based": 208,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 23524.20295813419,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.6666666667,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5702938412654208,
+        "maximum_singular_value": 2.3380056436484735,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.0005024855083301116,
+        "minimum_singular_value": 9.938724163404818e-05,
+        "next_to_minimum_singular_value": 0.12149761295551918,
+        "ordered_kpoint_index_zero_based": 209,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 25007.66020254422,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.8333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5704673337173496,
+        "maximum_singular_value": 3.212528982395948,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.000328993071612088,
+        "minimum_singular_value": 0.00012846179756029766,
+        "next_to_minimum_singular_value": 0.020532534562056264,
+        "ordered_kpoint_index_zero_based": 210,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 412.4471909092796,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.8333333333,
+          0.1666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.485931893366357,
+        "maximum_singular_value": 1.8685482937067737,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.08476260489068149,
+        "minimum_singular_value": 0.004530394035627637,
+        "next_to_minimum_singular_value": 0.1481844432849814,
+        "ordered_kpoint_index_zero_based": 211,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 174.58180922892637,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.8333333333,
+          0.3333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.4295727419744237,
+        "maximum_singular_value": 1.1228084842100967,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.1407546231447032,
+        "minimum_singular_value": 0.006431417392047849,
+        "next_to_minimum_singular_value": 0.10242211056195653,
+        "ordered_kpoint_index_zero_based": 212,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 147.70847556326768,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.8333333333,
+          0.5
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.503947120011273,
+        "maximum_singular_value": 1.2217066042363587,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.06679942843497651,
+        "minimum_singular_value": 0.008271066366215846,
+        "next_to_minimum_singular_value": 0.18969059601365373,
+        "ordered_kpoint_index_zero_based": 213,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 335.9463526886895,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.8333333333,
+          0.6666666667
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.535362162622154,
+        "maximum_singular_value": 2.339262909446069,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.03542674956698604,
+        "minimum_singular_value": 0.0069632037696619594,
+        "next_to_minimum_singular_value": 0.12300379506599879,
+        "ordered_kpoint_index_zero_based": 214,
+        "resolved_rank_at_native_bound": 10
+      },
+      {
+        "condition_number": 66510.36473170502,
+        "fractional_reciprocal_coordinates": [
+          0.8333333333,
+          0.8333333333,
+          0.8333333333
+        ],
+        "full_rank_gate_passed": true,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5704046494566335,
+        "maximum_singular_value": 3.459490930927569,
+        "minimum_direction_atomic_weights": [],
+        "minimum_direction_group_weights_s_p_s_star": [],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 0.000391677328248458,
+        "minimum_singular_value": 5.201431303049905e-05,
+        "next_to_minimum_singular_value": 0.05327119013661285,
+        "ordered_kpoint_index_zero_based": 215,
+        "resolved_rank_at_native_bound": 10
+      }
+    ],
+    "deficient_kpoint_count": 2,
+    "deficient_kpoints": [
+      {
+        "condition_number": 8125310483606.061,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "full_rank_gate_passed": false,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707963267888405,
+        "maximum_singular_value": 4.355991753997849,
+        "minimum_direction_atomic_weights": [
+          0.09746474789699827,
+          2.0112411183982718e-21,
+          2.043748798651003e-21,
+          2.0388206151122437e-21,
+          0.4025352606254223,
+          0.09746471137372995,
+          2.0158023351001163e-21,
+          2.008098232671155e-21,
+          1.9930097977277987e-21,
+          0.40253528010384965
+        ],
+        "minimum_direction_group_weights_s_p_s_star": [
+          0.19492945927072822,
+          1.2110720897660589e-20,
+          0.805070540729272
+        ],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 6.055948590215461e-12,
+        "minimum_singular_value": 5.361015757842935e-13,
+        "next_to_minimum_singular_value": 0.0004012285201801002,
+        "ordered_kpoint_index_zero_based": 0,
+        "resolved_rank_at_native_bound": 9
+      },
+      {
+        "condition_number": 8648498.17061873,
+        "fractional_reciprocal_coordinates": [
+          0.0,
+          0.3333333333,
+          0.0
+        ],
+        "full_rank_gate_passed": false,
+        "maximum_principal_angle_radians_after_trial_frame_orthonormalization": 1.5707915581449279,
+        "maximum_singular_value": 1.7458344748654475,
+        "minimum_direction_atomic_weights": [
+          0.09753854528083389,
+          0.00021064832771823056,
+          0.00021070436115623587,
+          0.00021070369787782125,
+          0.40306454213332604,
+          0.09800302972680945,
+          0.0002337922868794127,
+          0.00023376004343657791,
+          0.00023375888538186584,
+          0.40006051525658115
+        ],
+        "minimum_direction_group_weights_s_p_s_star": [
+          0.19554157500764335,
+          0.001333367602450144,
+          0.8031250573899071
+        ],
+        "minimum_principal_cosine_after_trial_frame_orthonormalization": 4.768649968669468e-06,
+        "minimum_singular_value": 2.018656234207826e-07,
+        "next_to_minimum_singular_value": 0.000853456267544871,
+        "ordered_kpoint_index_zero_based": 12,
+        "resolved_rank_at_native_bound": 9
+      }
+    ],
+    "fit_invoked": false,
+    "formula": "B(k) = [U_dis(k) U(k)]^dagger A(k) T^dagger; rank is resolved against the conservative native-format singular-value uncertainty bound",
+    "gamma_combined_orbital_weights": {
+      "p": -2.220446049250313e-16,
+      "s": 0.19492945927072822,
+      "s-star": 0.805070540729272
+    },
+    "gamma_null_direction_atomic_orbital_weights": {
+      "diamond_body_diagonal_quarter_center:px": 2.0158023351001163e-21,
+      "diamond_body_diagonal_quarter_center:py": 2.008098232671155e-21,
+      "diamond_body_diagonal_quarter_center:pz": 1.9930097977277987e-21,
+      "diamond_body_diagonal_quarter_center:s": 0.09746471137372995,
+      "diamond_body_diagonal_quarter_center:s-star": 0.40253528010384965,
+      "diamond_origin_center:px": 2.0112411183982718e-21,
+      "diamond_origin_center:py": 2.043748798651003e-21,
+      "diamond_origin_center:pz": 2.0388206151122437e-21,
+      "diamond_origin_center:s": 0.09746474789699827,
+      "diamond_origin_center:s-star": 0.4025352606254223
+    },
+    "maximum_native_AMN_absolute_value": 2.944603369441934,
+    "next_stage": "CSD1-V: independently verify the complete producer result; higher precision remains conditional on arithmetic ambiguity or independent-route disagreement. CSD2 remains blocked until complete CSD1 and independent CSD1-V pass.",
+    "outcome": "rank-deficiency-reproduced",
+    "point_inventory_artifact": {
+      "byte_size": 202169,
+      "path": "point-inventory.json",
+      "sha256": "fd23080496ee077e967631a1cf4258301f4efc41d045557a03365d8bcaed19c7"
+    },
+    "principal_angle_note": "Principal angles are computed only after independently orthonormalizing both represented ten-column frames. Raw B(k) singular values remain the frozen gate because unnormalized AMN columns are not principal-angle cosines.",
+    "producer_deliverables": "complete-reconstruction-and-geometric-index-inventory",
+    "producer_scope": "projector-rank-reconstruction-subset",
+    "retained_result_reproduction": {
+      "deficient_indices_match": true,
+      "gamma_weights_within_native_uncertainty_bound": true,
+      "maximum_gamma_weight_absolute_difference": 2.1575796704809136e-13,
+      "minimum_singular_values_within_native_uncertainty_bound": true
+    },
+    "scientific_disposition": "blocked-orbital-alignment-rank-deficient-no-fit",
+    "singular_value_native_uncertainty_bound": 5.890206739032098e-07,
+    "state_space": {
+      "basis_order": [
+        "diamond_origin_center:s",
+        "diamond_origin_center:px",
+        "diamond_origin_center:py",
+        "diamond_origin_center:pz",
+        "diamond_origin_center:s-star",
+        "diamond_body_diagonal_quarter_center:s",
+        "diamond_body_diagonal_quarter_center:px",
+        "diamond_body_diagonal_quarter_center:py",
+        "diamond_body_diagonal_quarter_center:pz",
+        "diamond_body_diagonal_quarter_center:s-star"
+      ],
+      "construction_grid_size_per_axis": 6,
+      "energy_reference": "unchanged native S30 Wannier reference",
+      "geometry": "two-site primitive bulk-silicon cell retained from S30",
+      "kpoint_count": 216,
+      "operator_units": "electronvolt",
+      "parent_band_count": 20,
+      "retained_rank": 10,
+      "spin_convention": "spinless scalar-relativistic non-SOC"
+    },
+    "unimplemented_CSD1_extensions": [],
+    "unitary_basis_invariance_control": {
+      "interpretation": "energy-degenerate retained eigenvectors may be unitarily mixed without changing these singular values; degeneracy is therefore not established as the cause of the rank loss",
+      "maximum_singular_value_absolute_difference": 3.552713678800501e-15,
+      "passed": true,
+      "scope": "diagnostic-only momentum-point-dependent unitary basis changes within the retained rank-10 subspace; not a candidate pointwise model alignment Q(k)",
+      "tolerance": 1.4210854715202004e-13
+    }
+  },
+  "CSD2": {
+    "outcome": "not-run",
+    "reason": "parent-space symmetry actions have not been authenticated"
+  },
+  "CSD3": {
+    "authorization_inferred": false,
+    "outcome": "human-disposition-required"
+  },
+  "calculator_invocations": 0,
+  "claim_boundary": "Read-only no-calculator reconstruction of the S110 common-space rank gate. It authorizes no fit, QE or Wannier90 execution, target-space change, evidence promotion, symmetry attribution, or scientific acceptance.",
+  "execution_outcome": "completed",
+  "fit_invocations": 0,
+  "implementation_identity": {
+    "byte_size": 69009,
+    "label": "implementation",
+    "path": "/Users/eugene/worktrees/ksdft2effmass-silicon-main-package-0matampv/calculations/Si/bulk/common_space/diagnostics/diagnosis.py",
+    "sha256": "6e5315cd4e978d7d90908f804c11e10fcd8b536eb779be745709ef7d7ebd47d3"
+  },
+  "independent_verification": {
+    "outcome": "not-run",
+    "reason": "separate rank-verification software must run after reviewed source admission and completion of reconstruction and point-inventory evidence"
+  },
+  "record_type": "c6_b20_w21_common_space_rank_diagnosis",
+  "request_id": "CSD0-CSD1-c6-b20-w21-common-space-diagnosis-v1",
+  "review_scope": "reviewed-retained-source-declaration",
+  "schema_version": 1,
+  "scientific_disposition": "blocked-orbital-alignment-rank-deficient-no-fit"
+}

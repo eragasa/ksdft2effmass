@@ -1,0 +1,1195 @@
+\documentclass[11pt]{report}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\title{Bulk-Silicon Wannier Construction and\\Controlled-Reduction Diagnosis Research Protocol\\Common-Space Diagnosis, Hopping Analysis, and Post-S110 Continuation}
+\author{Project Koios}
+\date{Calculation-owned staged protocol}
+
+\begin{document}
+\pagenumbering{roman}
+\maketitle
+
+\begin{abstract}
+This protocol separates scientific target-space design, local numerical optimization,
+arithmetic or toolchain instability, common-space rank diagnosis, independent
+verification, symmetry-sector diagnosis, scientific disposition, complete hopping
+characterization, support reduction, Slater--Koster parameterization, and hidden-parent
+evaluation in the bulk-silicon Wannier route.  It prevents failed localization from
+being mislabeled as either proof of physical infeasibility or evidence of
+floating-point instability, and it prevents successful Wannier90 convergence from being
+promoted directly to physical validation.
+
+The post-S110 order is mandatory:
+\begin{align*}
+ \mathrm{CSD0}&\longrightarrow\mathrm{CSD1}
+ \longrightarrow\mathrm{CSD1\mbox{-}V}
+ \longrightarrow\mathrm{CSD2}\longrightarrow\mathrm{CSD3},\\
+ &\longrightarrow\mathrm{HF0}\longrightarrow\cdots
+ \longrightarrow\mathrm{HF4},\\
+ &\longrightarrow\text{one authorized successor branch}.
+\end{align*}
+CSD1-V shares the authenticated Wannier90 parsers and parsed matrix records used by the
+producer; its independence begins at the parsed-matrix boundary and covers the
+scientific matrix construction and numerical diagnosis.  The full untruncated Wannier
+operator is subsequently analyzed as a complete real-space hopping representation
+without removing support.  Descriptive hopping locality precedes any new support
+decision, and the hopping-first disposition precedes activation of a Slater--Koster
+successor branch.  Direct Kohn--Sham parent values at withheld points remain an
+evaluation oracle rather than an operational reduction gate.  The protocol preserves
+the completed full-source characterization (S30), revealed-parent development evaluation
+(S40), shell-family design (S90), shell-family evaluation (S100), full-support disposition
+(S105), and blocked ten-orbital alignment attempt (S110).  Exact thresholds, execution
+authority, and evidence dispositions remain calculation-owned.
+\end{abstract}
+
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Scope and authority}
+
+The protocol applies after an authenticated plane-wave parent, ordered NSCF Bloch frame,
+Wannier90 neighbor topology, and AMN/MMN/EIG interface have been established.  Reusable
+software owns parsing, identity checks, bounded execution, matrix invariants, and lineage.
+The calculation owns rank, projections, windows, convergence coordinates, observable
+tolerances, candidate selection, and scientific acceptance.
+
+A trial projection initializes a Wannier gauge.  It does not impose a Slater--Koster
+Hamiltonian, hopping shell, or fitted parameter set.  The complete real-space hopping
+representation is analyzed before support removal.  A support disposition is then made
+without turning descriptive locality into an atomic-orbital parameterization.  Only
+after those gates may a Slater--Koster study begin, and only after its state spaces have
+been explicitly aligned.  Agreement with withheld direct-parent values is not a
+prerequisite for using the full operator as the fixed controlled-study source; such
+agreement controls only physical-fidelity claims about the source and its reductions.
+
+\chapter{Identifier-to-description crosswalk}
+
+Identifiers are provenance shorthand, not scientific descriptions.  After the following
+crosswalk, later chapters may use an identifier only for the construction or retained
+stage defined here.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}p{0.19\textwidth}p{0.74\textwidth}@{}}
+\toprule
+Identifier & Scientific construction \\
+\midrule
+$C_6$ & Gamma-origin $6\times6\times6$ mesh with 216 reciprocal points,
+12 calculated parent bands, retained rank ten, outer window
+$[-5.85,19.02]$~eV, frozen window $[-5.85,8.0]$~eV, and the declared
+silicon $sp^3$ plus second radial-$s$ projection family. \\
+$C_{6\text{-}T1}$ & The same 12-band construction with only the outer window
+expanded to $[-6.0,21.0]$~eV. \\
+$C_{6\text{-}B20}$ & The same mesh, retained rank, frozen window, and projection
+family with the calculated parent-band inventory increased from 12 to 20, before the
+final outer-window selection. \\
+$C_{6\text{-}B20\text{-}W21}$ & The retained controlled-reduction source: the
+20-band construction with outer window $[-6.0,21.0]$~eV and frozen window
+$[-5.85,8.0]$~eV. \\
+$C_8$ & A separately proposed $8\times8\times8$ construction-mesh study; not an
+automatic successor. \\
+$C_{12}$ & A separately proposed $12\times12\times12$ upper mesh diagnostic; not an
+automatic successor. \\
+\bottomrule
+\end{tabular}
+\caption{Construction identifiers and their complete scientific meanings.}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}p{0.19\textwidth}p{0.74\textwidth}@{}}
+\toprule
+Identifier & Retained stage or disposition \\
+\midrule
+S30 & Complete untruncated-source characterization and source-mesh reconstruction. \\
+S40 & Revealed 408-point direct-parent development evaluation. \\
+S90 & Complete physical-radius shell-family design for spatial truncation. \\
+S100 & Complete-shell evaluation relative to the full untruncated source. \\
+S105 & Scientific disposition retaining all support, so
+$H_{\mathrm{T}}=H_{\mathrm{W}}$. \\
+S110 & Blocked ten-orbital trial-to-Wannier common-space alignment; no fit executed and
+no Slater--Koster parameter vector produced. \\
+\bottomrule
+\end{tabular}
+\caption{Retained stage identifiers and their scientific meanings.}
+\end{table}
+
+\chapter{Distinct failure classes}
+
+The following classes shall not be conflated.
+
+\section{Target-space or construction failure}
+
+Rank, parent-band inventory, outer and frozen windows, projections, reciprocal mesh, and
+neighbor topology define the represented state space and initialization.  Sensitivity to
+these coordinates is scientific-construction evidence.  A construction can create a
+poorly conditioned or strongly nonconvex optimization landscape without implying
+arithmetic failure.
+
+\section{Local-optimizer failure}
+
+Wannier90 uses a projection-initialized local optimization; it does not provide a
+certificate of the global minimum of the spread functional.  Iteration exhaustion,
+large late spread excursions, or materially different gauges from different optimizer
+coordinates establish nonstationarity or local-optimizer sensitivity.  They do not prove
+that no acceptable gauge exists.
+
+\section{Arithmetic or toolchain instability}
+
+Arithmetic or toolchain instability requires direct evidence such as non-finite values,
+corrupt or inconsistent artifacts, failed matrix identities beyond declared tolerances,
+same-input nondeterminism, or controlled sensitivity to arithmetic library or executable
+choice.  Optimizer excursions alone are insufficient for this diagnosis.
+
+\section{Hidden-parent discrepancy and physical inadequacy}
+
+A converged and structurally valid Wannier occurrence can still disagree materially
+with direct Kohn--Sham parent values.  Interpolation, valley identity and location, edge
+energy, derivatives, curvature or effective mass, and real-space locality are separate
+evaluation channels.  At withheld points these discrepancies are known only because the
+controlled study evaluates the parent model.  They are oracle labels, not diagnostics
+available to a deployed reduction, and shall not be used as convergence tests,
+truncation-selection rules, fitting objectives, or automatic successor triggers.
+Failure of a parent-fidelity target limits physical claims but does not invalidate a
+structurally eligible operator as the fixed source in a controlled reduction study.
+
+\chapter{Mandatory diagnostic procedure}
+
+For every localization occurrence:
+
+\begin{enumerate}
+  \item Require exact executable and input identities, a bounded authorization record,
+    a fresh or explicitly declared restart state, and no silent retry.
+  \item Assess disentanglement and Wannierisation separately using their native
+    convergence messages and criteria.  A zero return code is not a substitute.
+  \item Verify finite dimensions and k-point ordering, gauge unitarity,
+    disentanglement isometry when applicable, Hamiltonian representative pairing, and
+    Hermiticity.
+  \item Inspect convergence trajectories.  Distinguish smooth contraction toward a
+    declared threshold from intermittent plateaus, renewed excursions, and budget
+    exhaustion.
+  \item Hold authenticated interface artifacts fixed when diagnosing optimizer or
+    target-space changes.  Record every changed scientific and algorithmic coordinate.
+  \item Permit only a prospectively bounded optimizer study.  If the trajectory remains
+    irregular and observably gauge-sensitive, revise the scientific construction rather
+    than performing an open-ended optimizer search.
+  \item After native convergence, qualify the full operator using checks available
+    without withheld parent values.  Record direct-parent comparisons separately as
+    development-oracle or confirmation-oracle evidence.
+\end{enumerate}
+
+\chapter{Controlled-reduction and hidden-oracle policy}
+
+Let $H_{\mathrm{W}}$ denote the full untruncated Wannier operator,
+$H_{\mathrm{T}}$ a spatially truncated operator, $H_{\mathrm{SK}}$ a declared
+Slater--Koster parameterization, and $H_{\mathrm{KS}}$ the direct Kohn--Sham parent on
+an aligned comparison space.  The controlled reduction studies
+\begin{equation}
+  H_{\mathrm{W}}\longrightarrow H_{\mathrm{T}}
+  \longrightarrow H_{\mathrm{SK}}.
+\end{equation}
+The study shall keep at least the following channels separate:
+\begin{align}
+  \text{parent-to-source discrepancy} &: H_{\mathrm{KS}}-H_{\mathrm{W}},\\
+  \text{spatial-truncation error} &: H_{\mathrm{W}}-H_{\mathrm{T}},\\
+  \text{parameterization error} &: H_{\mathrm{T}}-H_{\mathrm{SK}},\\
+  \text{oracle end-to-end discrepancy} &: H_{\mathrm{KS}}-H_{\mathrm{SK}}.
+\end{align}
+These expressions are schematic until basis, gauge, state space, energy reference, and
+units have been aligned.  Observable comparisons may replace operator subtraction when
+no justified operator alignment exists.
+
+Operational diagnostics are quantities available without a new direct-parent
+calculation at the target point.  They include native convergence, finite dimensions,
+unitarity and isometry residuals, pair Hermiticity, authenticated source reconstruction,
+real-space shell and tail measures, full-to-truncated operator or spectral differences,
+stability across prospectively declared truncations and stencils, and fit residuals to
+the declared reduction source.  Direct-parent discrepancies are evaluation overlays.
+They do not calibrate, validate, or serve as targets for the operational diagnostics,
+and no claim is made that an operational diagnostic predicts parent error.
+
+The reciprocal-space roles are fixed.  The 216-point C6 construction mesh establishes
+source reconstruction.  The revealed 408-point geometry is the development evaluation
+inventory: complete-shell errors are measured there relative to full
+$H_{\mathrm{W}}$, while direct-parent comparisons are displayed only as a separate
+evaluation overlay.  The frozen 402-point geometry is confirmation-only.  Neither its
+geometry nor any future parent value may define or tune diagnostics, candidates,
+frontiers, truncation selection, fitting, retry selection, thresholds, or numerical
+comparison policy.  The disjoint 108/108 construction-grid split remains reserved for a
+future separately authorized Slater--Koster study and has no role in hopping analysis.
+
+\chapter{Global-minimum policy}
+
+Structural eligibility for controlled reduction does not require an unsupported claim
+that a global spread minimum was found.  A locally converged candidate may serve as the
+fixed reduction source only if it is structurally valid, reproducible under the declared
+protocol, and satisfies the declared operational eligibility checks.  This status does
+not establish physical fidelity to hidden parent values.  Competing-minimum studies
+become necessary when two
+or more converged initializations or constructions produce materially different target
+observables or locality conclusions.  Comparisons shall use gauge-invariant spectra and
+within-candidate locality metrics unless an explicit alignment map exists.
+
+The lowest final spread among different target spaces is not, by itself, a selection
+rule because changing the frozen manifold changes the represented optimization problem.
+
+\chapter{Prospective convergence policy}
+
+For prospective $C_{6\text{-}B20\text{-}W21}$ localization, the calculation adopts
+the convergence-derived tuple from the precise protocol in pinned
+\texttt{aiida-wannier90-workflows} 3.1.0.  Its builder multiplies the per-atom tolerance
+meta-parameters by the number of sites.  For the exact two-atom primitive cell this
+gives
+\begin{align}
+  \texttt{conv\_tol} &= 2.0\times10^{-9}\ \text{\AA}^{2}, &
+  \texttt{conv\_window} &= 6, \\
+  \texttt{dis\_conv\_tol} &= 2.0\times10^{-9}, &
+  \texttt{num\_cg\_steps} &= 200,
+\end{align}
+with \texttt{num\_iter}=40000 and \texttt{dis\_num\_iter}=40000.  The emitted
+\texttt{dis\_conv\_tol} remains dimensionless; ``per atom'' describes the workflow's
+scaling convention.  Both native convergence messages remain mandatory, and the
+40000-step values are fixed eligibility ceilings rather than evidence of a global
+minimum or scientific adequacy.
+
+This adaptation does not adopt the precise protocol's factor-three band count,
+automatic 0.1~\AA$^{-1}$ mesh rule, PBEsol pseudopotential family, projections, energy
+windows, MPI policy, or restart handlers.  Historical occurrences retain the exact
+policies under which they ran and are not reclassified retrospectively.  No automatic
+extension beyond the adopted ceilings is permitted.
+
+\chapter{Current silicon evidence}
+
+The all-conduction-frozen rank-10 construction froze eight conduction states and no
+valence states at every source k point.  Its localization trajectories remained
+nonstationary through as many as 4000 iterations, including 277 post-1000 spread changes
+larger than $0.05\ \text{\AA}^{2}$ and a final large excursion at iteration 3934.  A
+500/1000 diagnostic found close source-mesh conduction spectra but material dense-grid,
+valley, and curvature differences.  These observations support optimization-landscape
+and target-space sensitivity, not arithmetic instability.
+
+The successor retained the executable, rank, projections, mesh, and byte-identical
+AMN, MMN, EIG, and NNKP interface artifacts, but changed the frozen interval to
+$[-5.85,8.00]$~eV in the native QE energy reference.  This freezes all four valence
+states and zero to two sampled low-energy conduction states per k point.  With
+\texttt{dis\_num\_iter = 2000}, disentanglement converged at iteration 1290 and
+Wannierisation converged at iteration 189.  The final total spread was
+$19.532839107\ \text{\AA}^{2}$; retained gauge-unitarity and disentanglement-isometry
+residuals were approximately $1.58\times10^{-10}$ and $1.32\times10^{-10}$, and the
+maximum Hamiltonian Hermiticity residual was $0.0$~eV.
+
+Because the same authenticated interface and executable admit convergence after the
+target-space revision, the supported diagnosis is that the earlier obstruction arose
+primarily from construction-induced optimization geometry.  This is not a proof that
+the new occurrence is a global spread minimum or a scientifically accepted operator.
+
+The subsequent no-calculator characterization verified source reconstruction and
+recorded the candidate's interpolation, valley, curvature, and locality behavior without
+assigning pass/fail status to candidate-only observations.  A prospectively frozen
+408-point direct-parent NSCF then supplied development-oracle labels.  All six
+candidate-to-parent valley displacements, $0.02120$--$0.03086$~\AA$^{-1}$, met the
+$0.034465$~\AA$^{-1}$ target.  The candidate indirect gap was $0.52261$~eV versus the
+direct-parent $0.61125$~eV, a 14.50\% relative discrepancy against the 5\% evaluation
+target.  On the frozen candidate-centered primary stencils, all transverse-mass
+comparisons and two of six longitudinal-mass comparisons exceeded the 8\% evaluation
+target.  These values limit physical-fidelity claims and provide controlled labels for
+diagnostic development.  They are not operational rejection criteria for a reduction
+whose fixed source is the full Wannier operator.
+
+\chapter{CSD0: source, state-space, and convention authentication}
+
+\section{Process}
+
+CSD0 shall bind the exact development request, the authenticated S30 full-source
+operator record, the S105 full-support disposition, the blocked S110 result, and the
+native AMN, gauge, and disentanglement artifacts.  It shall verify every source path and
+SHA-256 digest before parsing, reject paths outside the declared repository roots, and
+reject an existing output root.  The shared Wannier90 parsers owned by
+\texttt{projectkoios-simulations} are the only admitted file-format boundary.  CSD0 does
+not require, and this protocol forbids, a second implementation of those parsers.
+
+The admitted state space has 216 Gamma-origin construction points, 20 parent bands, and
+a retained dimension of ten.  The basis order, two descriptive diamond-center labels,
+radial-channel convention, spin convention, geometry, units, energy reference, and
+reciprocal-point order shall be explicit and exact.  Legacy one-letter center labels may
+appear only while correlating immutable S110 bytes with the descriptive current basis.
+
+\section{Mathematics}
+
+Let $A(\mathbf{k})$ be the parsed AMN trial-column matrix,
+$U_{\mathrm{dis}}(\mathbf{k})$ the parsed disentanglement isometry, and
+$U(\mathbf{k})$ the parsed Wannier gauge.  CSD0 authenticates their dimensions and the
+common ordered point set before any product is formed.  It also authenticates the exact
+unitary transformation $T$ from the native eight $sp^3$ hybrids plus two radial
+$s$ projections to the ordered two-center
+$(s,p_x,p_y,p_z,s^*)$ trial basis.  Here $s^*$ is radial channel one of the $s$
+component, not a principal quantum number.
+
+The CSD0 gate is identity-level rather than tolerance-level.  Write
+\begin{equation}
+ \mathcal{S}_{\mathrm{CSD0}}=(h,d,K,\mathcal{B},\mathcal{G},\mathcal{U},E_0),
+\end{equation}
+where $h$ is the ordered source-hash ledger, $d$ the exact dimensions, $K$ the ordered
+reciprocal-point set, $\mathcal{B}$ the basis definition, $\mathcal{G}$ the geometry and
+gauge conventions, $\mathcal{U}$ the unit system, and $E_0$ the energy reference.  A
+missing or unequal member of $\mathcal{S}_{\mathrm{CSD0}}$ stops the sequence.  It is
+not repaired by filename inference, orbital count, matrix size, a compatibility alias,
+or a guessed convention.
+
+\section{Scientific interpretation and gate}
+
+CSD0 establishes that subsequent matrices refer to the same declared physical and
+represented state spaces.  It does not establish rank, fit feasibility, symmetry
+content, or physical adequacy.  Passing CSD0 makes the no-calculator CSD1 reconstruction eligible for a separately
+authorized analysis run; it does not itself grant execution authority.  It authorizes
+no QE or Wannier90 execution, target-space change, evidence promotion, fit, or
+scientific acceptance.
+
+\chapter{CSD1: common-space rank reconstruction}
+
+\section{Process}
+
+CSD1 shall reconstruct the complete 216-point trial-to-Wannier overlap field from the
+CSD0-authenticated parsed records.  The producer may use the existing direct singular
+value decomposition route.  It shall record every point, not only deficient points, and
+shall retain the maximum, next-to-minimum, and minimum singular values, resolved rank,
+condition number when finite, normalized principal-angle diagnostic, and the full-rank
+gate outcome.  It shall also retain the Gamma deficient-direction weights in the exact
+ordered atomic trial basis.
+
+The current calculation-owned producer implements this projector-rank reconstruction
+subset without importing the S110 calculation implementation.  It is designed to
+reconstruct the retained deficient-point inventory.  Its synthetic software checks do
+not establish that the current producer has completed a silicon reconstruction, and
+neither software passage nor a producer-only result is independent CSD1 verification
+or retained scientific acceptance.
+
+\section{Prospective amendment: conditional arithmetic-precision escalation}
+
+Source authentication, physical state-space associations, independent rank
+reconstruction, and justified arithmetic/native-input error bounds remain mandatory.
+Higher precision is a conditional diagnostic, not a routine completion requirement.
+When the arithmetic bounds are decisive and the independent routes agree, no
+higher-precision run or completion artifact is required.  This amendment does not
+relax a rank threshold, uncertainty bound, agreement criterion, or scientific gate.
+
+Escalation is required before progression only if arithmetic-error bounds leave a
+relevant rank or direction diagnosis ambiguous, or if a discrepancy between independent
+routes remains plausibly arithmetic after checking source identities, basis/gauge
+conventions, and implementation errors.  A source mismatch must be repaired at its
+source; it is not a reason to manufacture agreement by increasing precision.  A
+bounded escalation may target the affected points rather than repeat the complete
+216-point field at arbitrarily high precision.  Its arithmetic budget and stopping
+condition shall be declared before that follow-up; no blanket 128/256-bit campaign
+is required.  Unresolved arithmetic or disagreement still stops the sequence.
+
+Arithmetic precision shall be kept separate from native-file precision.  The same
+CSD0-authenticated parsed inputs, transformation, energy reference, native-uncertainty
+model, and frozen singular-value threshold shall be used.  Extra arithmetic digits
+do not recover discarded source digits, establish a rounding model, or repair
+uncertain physical source/subspace associations.  If native-input uncertainty rather
+than arithmetic is limiting, more arithmetic alone cannot resolve it.  No retained
+analysis, calculator execution, fitted map, or evidence promotion is authorized by
+this prospective amendment.
+
+\section{Mathematics}
+
+Define the retained parent-space frame and atomic trial columns by
+\begin{align}
+ W(\mathbf{k}) &= U_{\mathrm{dis}}(\mathbf{k})U(\mathbf{k}),\\
+ C(\mathbf{k}) &= A(\mathbf{k})T^{\dagger},
+\end{align}
+and define the raw common-space overlap
+\begin{equation}
+ B(\mathbf{k})=W(\mathbf{k})^{\dagger}C(\mathbf{k}).
+ \label{eq:csd1-overlap}
+\end{equation}
+For
+\begin{equation}
+ B(\mathbf{k})=L(\mathbf{k})\Sigma(\mathbf{k})R(\mathbf{k})^{\dagger},
+\end{equation}
+the resolved rank is
+\begin{equation}
+ r_{\delta}(\mathbf{k})=
+ \#\{j:\sigma_j(\mathbf{k})>\delta_{\mathrm{native}}\},
+ \label{eq:csd1-resolved-rank}
+\end{equation}
+where $\delta_{\mathrm{native}}$ is the prospectively declared conservative perturbation
+bound induced by the retained decimal precision of AMN, gauge, and disentanglement
+records.  The raw singular values in Equation~\eqref{eq:csd1-resolved-rank} remain the
+frozen gate.  Principal angles may be reported only after independently
+orthonormalizing the two ten-column frames; raw AMN columns are not assumed orthonormal.
+
+Under the retained native bound
+$\delta_{\mathrm{native}}=5.890206739032098\times10^{-7}$, the reconstructed field has
+resolved rank nine at Gamma and at the ordered point $(0,1/3,0)$.  Their retained
+minimum singular values are respectively
+$5.362000386100462\times10^{-13}$ and
+$2.0186562353866025\times10^{-7}$.  These are retained S110 comparison values, not
+new results of the current CSD1 producer or newly accepted evidence.
+
+\section{Scientific interpretation and gate}
+
+A rank-nine result means that the declared ten-dimensional atomic trial frame and the
+retained ten-dimensional Wannier subspace do not admit a resolved unitary
+identification under the frozen gate.  It is an orbital-subspace alignment failure.  It
+is not established as an energy-degeneracy failure, a floating-point failure, or proof
+that every possible silicon tight-binding model is impossible.  No pseudoinverse,
+pointwise completion, deleted orbital, or reduced-rank fit may be manufactured inside
+CSD1.  CSD1 passes forward only to CSD1-V; it does not authorize CSD2 or a fit by itself.
+
+\chapter{CSD1-V: independent rank verification}
+
+\section{Process and independence boundary}
+
+CSD1-V shall consume the same CSD0-authenticated parsed matrix records.  Parser sharing
+is required: independent verification begins after the file-format boundary.  The
+verifier shall not import the producer's overlap, rank, singular-value, deficient-vector,
+weight-aggregation, comparison, or serialization implementations.  It shall not use a
+producer-generated matrix, singular value, rank, or deficient vector as a computational
+input.  Producer and verifier outputs may be correlated only after the verifier has
+completed its own result.
+
+The verifier shall use a separately implemented Gram/eigen route and write a distinct,
+fail-closed verification record under a nonexistent output root.  Repository tests shall
+forbid imports from \texttt{common\_space.diagnostics} and the S110 definition-fit
+action while permitting the shared provider parsers and immutable parsed record types.
+
+\section{Mathematics}
+
+Using an independently assembled $\widetilde B(\mathbf{k})$ from the shared parsed
+records, define
+\begin{equation}
+ G(\mathbf{k})=\widetilde B(\mathbf{k})^{\dagger}\widetilde B(\mathbf{k}).
+ \label{eq:csd1v-gram}
+\end{equation}
+A Hermitian eigendecomposition
+\begin{equation}
+ G(\mathbf{k})V(\mathbf{k})=
+ V(\mathbf{k})\Lambda(\mathbf{k})
+\end{equation}
+provides independently reconstructed singular values
+\begin{equation}
+ \widetilde\sigma_j(\mathbf{k})=
+ \sqrt{\max(\lambda_j(\mathbf{k}),0)}.
+\end{equation}
+Forming a Gram matrix squares the singular-value conditioning.  The displayed
+nonnegative square root is not permission to hide a materially negative eigenvalue or
+an unresolved rank classification.  Before a verification run, the verifier shall
+derive and test arithmetic-error bounds for its Gram formation and eigensolution,
+separately from the retained native-decimal uncertainty bound.  Clamping a negative
+eigenvalue to zero is admissible only when its arithmetic-error interval includes
+zero.  A materially negative interval or a singular-value interval that straddles the
+frozen rank threshold gives numerical inconclusiveness and stops progression; it is
+not rounded into agreement with the producer.  Conditional arithmetic-precision
+escalation follows the preceding amendment; an inconclusive result never passes merely
+because escalation is optional in already decisive cases.  No new numeric verification tolerance
+is selected by this protocol revision.
+
+The verifier shall report Hermiticity, orthonormality, and eigenpair residuals, including
+\begin{equation}
+ \rho_j(\mathbf{k})=
+ \left\|G(\mathbf{k})v_j(\mathbf{k})-
+ \lambda_j(\mathbf{k})v_j(\mathbf{k})\right\|_2.
+\end{equation}
+It shall derive the deficient atomic-trial direction from the minimum-eigenvalue
+coordinate and independently aggregate its $s$, $p$, and $s^*$ weights.  It shall also
+verify that a unitary basis change within the retained Wannier subspace does not change
+the overlap singular spectrum.  This invariance control is not a fitted
+momentum-dependent alignment $Q(\mathbf{k})$.
+
+\section{Scientific interpretation and gate}
+
+CSD1-V passes only if source identities, the complete 216-point rank field, deficient
+point inventory, native-bound classification, deficient-direction weights, residuals,
+and unitary-invariance controls agree within prospectively declared bounds.  A mismatch,
+source-identity failure, numerical inconclusiveness, or independence-contract violation
+produces an unresolved CSD1 disposition and stops the sequence.  Agreement verifies the
+rank diagnosis under the declared finite-precision contract; it does not identify the
+symmetry cause and does not validate a Slater--Koster model.
+
+\chapter{CSD2: symmetry-sector diagnosis}
+
+\section{Process}
+
+CSD2 begins only after CSD1-V passes.  It shall inventory the little-group operations
+available at each deficient point and authenticate their action on both the parent-space
+trial columns and retained Wannier frame.  No symmetry representation may be inferred
+from filenames, nominal orbital labels, energy degeneracy, or geometric expectation.  If
+the retained artifacts do not determine the necessary actions and correlations, CSD2
+shall record \texttt{INSUFFICIENT\_RETAINED\_SYMMETRY\_DATA} and stop.
+
+\section{Mathematics}
+
+For a deficient point $\mathbf{k}_*$ with little group
+$\mathcal{G}_{\mathbf{k}_*}$, let $D_C(g)$ and $D_W(g)$ denote authenticated actions on
+the trial and retained represented subspaces.  The overlap is symmetry-compatible only
+when the corresponding intertwining relation is satisfied within a declared residual:
+\begin{equation}
+ D_W(g)^{\dagger}B(\mathbf{k}_*)D_C(g)=B(\mathbf{k}_*)
+ \qquad (g\in\mathcal{G}_{\mathbf{k}_*}).
+ \label{eq:csd2-intertwiner}
+\end{equation}
+When authenticated characters and group closure are available, sector projectors may be
+constructed as
+\begin{equation}
+ \Pi_{\alpha}=\frac{d_{\alpha}}{|\mathcal{G}_{\mathbf{k}_*}|}
+ \sum_{g\in\mathcal{G}_{\mathbf{k}_*}}
+ \chi_{\alpha}(g)^*D(g).
+\end{equation}
+CSD2 shall compare trial and retained sector dimensions and localize the rank loss only
+when those projectors, their idempotence, orthogonality, completeness, and representation
+residuals are authenticated.
+
+\section{Scientific interpretation and gate}
+
+CSD2 distinguishes a symmetry-sector mismatch from an unexplained orbital-subspace
+rank loss.  Energy degeneracy alone is not a symmetry label, and a symmetry-sector
+finding does not establish that the source is physically inadequate.  CSD2 may report a
+supported sector mismatch, a supported absence of such a mismatch under the admitted
+data, or insufficient retained data.  It does not select a successor branch.
+
+\chapter{CSD3: scientific disposition and successor selection}
+
+\section{Process}
+
+CSD3 is a human scientific decision over the authenticated CSD0 record, the independently
+verified CSD1 result, and the CSD2 disposition.  The decision record shall name the
+scientific question, admissible branch, fixed source, state space, basis, gauge, energy
+reference, units, geometry, prohibited fallbacks, and the evidence required to stop or
+continue.  It shall not reinterpret a failed rank-ten gate as a successful fit.
+
+\section{Decision alternatives}
+
+The admissible alternatives are:
+\begin{enumerate}
+ \item retain the blocked S110 conclusion and perform no successor study;
+ \item select a spectral-only feasibility branch with no operator-equivalence claim;
+ \item select a global-unitary rank-ten branch with a prospectively frozen
+   momentum-independent $Q\in U(10)$;
+ \item select a separately declared rank-nine projected-source branch; or
+ \item select a new atomic-semantic Wannier source requiring separate scientific review
+   and separately authorized QE/Wannier90 execution.
+\end{enumerate}
+CSD3 may select at most one active successor question for the next protocol tranche.
+Selection does not execute that branch.  Before any selected branch is activated, the
+HF0--HF4 hopping-first prerequisites below must be completed and accepted.
+
+\section{Scientific interpretation and gate}
+
+CSD3 owns interpretation and branch choice; software does not.  A global-unitary study
+asks whether one fixed basis transformation can align the represented operators.  A
+spectral-only study asks a weaker eigenvalue question.  A rank-nine study changes the
+represented state space.  A new-source study changes the physical construction.  These
+questions are not interchangeable, and failure or success in one shall not be promoted
+to another.
+
+\chapter{Hopping-before-Slater--Koster dependency}
+
+This calculation adopts the dependency logic of the
+\href{../../../periodic/multiband/analysis-order.md}{periodic multiband analysis-order
+record}: identify the common state space, verify the complete Fourier representation,
+measure withheld interpolation before support removal, characterize hopping locality
+descriptively, make any irreversible support decision, report its separate
+consequences, and only then attempt a constrained parameterization.  That program-level
+record donates order and vocabulary only.  It transfers no silicon geometry, gauge,
+threshold, shell decision, evidence status, or validation claim.
+
+The historical chronology is retained rather than rewritten.  S30 characterized the
+complete operator, S90 froze the complete shell family, S100 evaluated every shell,
+S105 retained full support, and S110 then stopped before fitting because its proposed
+atomic frame failed the common-space rank gate.  The reusable Level-1 Slater--Koster
+software foundation was later implemented with synthetic tests only.  None of those
+records is discarded or relabeled.  This protocol adds the prospective CSD0--CSD3
+diagnosis and disposition sequence, followed by the HF0--HF4 hopping-first synthesis
+gate, before any future spectral-only fit, global-unitary fit, rank-nine study, or
+new-source Slater--Koster study.
+
+\chapter{HF0: representation and authority gate}
+
+\section{Process}
+
+The hopping study shall authenticate the exact S30 full source, its direct lattice,
+Wannier90 degeneracy convention, element-resolved WS shifts, gauge matrices, energy
+reference, units, and the retained S90, S100, S105, and S110 dispositions.  Its source is
+$H_{\mathrm{W}}$; under S105 the selected $H_{\mathrm{T}}$ equals
+$H_{\mathrm{W}}$.  The revealed 408-point parent data may be used only as labeled
+development-oracle evidence, and the 402-point parent values remain unobserved.  A
+failed identity, basis, gauge, or convention check yields an unresolved hopping study
+rather than a guessed conversion.
+
+\section{Mathematics}
+
+HF0 fixes the represented Fourier pair
+\begin{equation}
+ H_{\mathrm{W}}(\mathbf{k})=
+ \sum_{\mathbf{R}}H_{\mathrm{W}}(\mathbf{R})
+ \exp\!\left(+2\pi i\,\mathbf{k}\cdot\mathbf{R}\right),
+ \label{eq:hf0-fourier-pair}
+\end{equation}
+with the exact ordinary-cell displacement, degeneracy convention, basis order, gauge,
+and reciprocal-coordinate convention attached to every coefficient.  Fractional orbital
+centers, when used by a later admitted model, enter through a separate diagonal gauge
+transformation and do not redefine $\mathbf{R}$.
+
+\section{Scientific interpretation and gate}
+
+HF0 establishes the identity of the fixed source and the meaning of its coefficients.
+It does not establish locality, atomic semantics, a finite-range model, or physical
+accuracy.  HF0 passes only when the source and every convention are exact and
+order-sensitive.
+
+\chapter{HF1: complete hopping representation before support removal}
+
+\section{Process and mathematics}
+
+Analyze the complete set of 383 element-resolved WS representatives; do not preselect a
+radius, retain only the largest entries, or infer a Slater--Koster shell map.  For every
+representative and every complete physical-radius shell, retain the integer lattice
+translation, element-resolved WS displacement convention, multiplicity or degeneracy,
+pair partner, and matrix spectral, Frobenius, and maximum-entry norms.  Distinguish the
+Bravais translation from any center-to-center physical displacement.  Verify
+$R\leftrightarrow -R$ closure, Hermitian pairing, exact source-mesh Fourier
+reconstruction within the native-serialization bound, and the applicable finite
+Parseval identity under the declared convention.
+
+These matrices live in the fixed rank-ten Wannier gauge.  Individual entries and an
+entry-wise ``orbital hopping'' interpretation are gauge dependent.  The failed S110
+TB-anchored alignment means that the existing source does not acquire two-site
+$(s,p_x,p_y,p_z,s^*)$ semantics merely because its matrix rank is ten.  Site, orbital,
+$\sigma$, or $\pi$ labels are forbidden unless a separately admitted common-space map
+supports them.  Until then, report gauge-fixed matrix blocks, complete-shell norms, and
+gauge-invariant spectra with the limitation explicit.
+
+\section{Scientific interpretation and gate}
+
+HF1 establishes a complete, convention-authenticated representation of the fixed
+source.  Decay of shell norms is descriptive evidence in the retained Wannier gauge.
+It neither removes support nor grants the matrix entries site-orbital meaning.  Missing
+representatives, failed reverse closure, failed reconstruction, or failed Parseval
+controls stop the sequence.
+
+\chapter{HF2: development evaluation and descriptive locality}
+
+\section{Process}
+
+Before removing support, evaluate the full $H_{\mathrm{W}}(\mathbf{k})$ and every
+complete-shell candidate on the exact 408-point development inventory.  Measure each
+candidate relative to full $H_{\mathrm{W}}$ in the same rank-ten Wannier gauge.  This is
+fixed-gauge finite enumeration: it does not modify, wrap, rerun, or reimplement Wannier90
+optimization.  The C6 construction mesh remains reconstruction evidence, not the development evaluation
+inventory.  The frozen 402-point geometry and parent values are forbidden inputs.  A
+revealed 408-point direct-parent comparison may be displayed only as a separate
+evaluation overlay and may not affect candidates, metrics, frontier membership,
+truncation selection, fitting, or thresholds.
+
+\section{Mathematics and channel separation}
+
+Report cumulative retained norm, excluded-tail norm, the spectral triangle tail bound,
+the Frobenius/Parseval tail, shellwise anisotropy, cancellation and nonmonotonicity, and
+stability of spectra, valleys, curvature, masses, and named edge observables as complete
+shells are traversed.  Tail norms and bounds remain diagnostics rather than substitutes
+for measured channel errors.  Descriptive locality does not itself remove a hopping and
+does not establish exponential decay, a continuum bound, an atomic-orbital
+interpretation, or a finite-range Slater--Koster model.
+
+For each exact scalar metric, classify a separate descriptive Pareto frontier between
+retained support cost and that metric.  The required channels are operator error,
+ordered-spectrum error, gap change, valley displacement and energy change, and each
+named curvature/mass measure, all relative to full $H_{\mathrm{W}}$ on the 408-point
+inventory.  Do not scalarize channels, average ranks, or select a compromise shell.
+Undefined valley or mass observables retain typed inapplicable outcomes rather than
+numeric sentinels.  Exact identities, formulas, controls, outputs, and typed dispositions
+are fixed by
+\path{calculations/Si/bulk/analysis/c6-b20-w21-hopping-pareto-synthesis/README.md}.
+The selected numerical policy uses exact integer support cost and conservative
+uncertainty intervals.  One candidate robustly dominates another only when it is no
+worse under interval ordering and strictly better in at least one cost/error coordinate;
+positive interval overlaps remain unresolved and incomparable.
+
+\section{Scientific interpretation and gate}
+
+HF2 characterizes support/error tradeoffs relative to the fixed full source.  A frontier
+is not an acceptance rule, a hidden-parent predictor, or a scalar model-selection
+objective.  HF2 passes when every required channel has an exact or typed unresolved
+outcome and the 402-point confirmation boundary and reserved 108/108 fitting split have
+not been consumed.
+
+\chapter{HF3: support consequence and current disposition}
+
+\section{Process and mathematics}
+
+Only after HF1 and HF2 may support be removed.  The existing S90/S100/S105 branch is the
+retained support study for this source: all 18 complete shells were evaluated, no
+prospective nontrivial acceptance threshold existed, and full support was retained.
+Thus the current controlled chain has
+\begin{equation}
+ H_{\mathrm{T}}=H_{\mathrm{W}},\qquad
+ H_{\mathrm{W}}-H_{\mathrm{T}}=0.
+\end{equation}
+The other 17 shells remain descriptive evidence and are not retroactively rejected.
+Any future nontrivial support choice requires a new prospective disposition and cannot
+reuse parent numerical-convergence tolerances as model-reduction tolerances.
+
+\section{Scientific interpretation and gate}
+
+For the present source, HF3 preserves the full operator and therefore introduces no
+spatial-truncation error.  This identity does not imply that the source is physically
+accurate or that a short Slater--Koster model exists.  A future support change is a new
+scientific decision, not a reinterpretation of S105.
+
+\chapter{HF4: handoff to constrained parameterization}
+
+\section{Process}
+
+A hopping-first synthesis shall freeze its inputs, complete-shell inventory,
+channel-specific descriptive frontiers, limitations, and unchanged S105 full-support
+disposition before a future Slater--Koster fit is authorized.  It shall not claim hidden
+error prediction.  Hopping locality and Slater--Koster parameterization remain distinct:
+small long-range coefficients do not prove that a chosen angular parameter family spans
+the retained operator, and a short Slater--Koster model does not retroactively define
+the source's gauge or orbital semantics.  Model classes, neighbor maps, alignment
+family, fit and validation roles, optimizer budgets, and failure outcomes require their
+own prospective contract.
+
+\section{Scientific interpretation and gate}
+
+HF4 freezes the hopping evidence supplied to the selected successor branch.  It keeps
+model definition separate from fit, residual construction, sample policy, model
+selection, evidence, and acceptance.  Completion of HF4 permits preparation of the
+CSD3-selected branch; it does not authorize execution or establish model adequacy.
+
+The already implemented reusable model-definition foundation is preserved as software
+evidence, but it does not close HF0--HF4 and does not authorize a scientific fit.  After
+HF4 is accepted, only the CSD3-selected branch remains available for preparation under
+separate human authorization.
+
+\chapter{Post-S110 successor-branch boundary}
+
+The spatial-truncation disposition retained complete support, so the selected
+$H_{\mathrm{T}}$ equals $H_{\mathrm{W}}$ and the selected spatial-truncation error is
+identically zero.  The subsequent S110 attempt tested the declared ten-orbital
+TB-anchored map
+\begin{equation}
+ B(\mathbf{k})=
+ \left[U_{\mathrm{dis}}(\mathbf{k})U(\mathbf{k})\right]^{\dagger}
+ A(\mathbf{k})T^{\dagger},
+\end{equation}
+where $T$ converts the eight native $sp^3$ hybrids and two radial $s$ projections to
+two site-resolved $(s,p_x,p_y,p_z,s^*)$ blocks.  A unitary common-space identification
+requires all ten singular values of $B(\mathbf{k})$ to be resolved at every construction
+point.  Under the conservative native-format singular-value uncertainty bound
+$5.890206739032098\times10^{-7}$, the resolved rank is nine at Gamma and at the ordered
+point $(0,1/3,0)$.  Their minimum singular values are respectively
+$5.362000386100462\times10^{-13}$ and
+$2.0186562353866025\times10^{-7}$.  No fit ran and no Slater--Koster parameter vector
+exists.  Thus S50 remains blocked under the original TB-anchored operator contract.
+
+Stopping the Slater--Koster branch and retaining this rank failure is the default
+disposition under that contract.  Continuation is permitted only as a separately named, separately authorized study.
+CSD3 selects the scientific question; HF0--HF4 must then close before the selected
+branch is activated.  The following chapters define the available branches.  They are
+alternatives, not an automatic ladder.
+
+\chapter{Reusable Slater--Koster model-definition foundation}
+
+\section{Process, mathematics, and scientific boundary}
+
+Before any successor fit, reusable software shall implement the spinless ten-orbital
+$sp^3s^*$ Hamiltonian, exact geometry and phase conventions, first- and second-neighbor
+shell maps, real parameter domains, Hermiticity, symmetry checks, and deterministic
+serialization.  Campaign declarations and evidence remain calculation-owned.  The
+initial nearest-neighbor model has on-site parameters $E_s$, $E_p$, and $E_{s^*}$ and
+hoppings $V_{ss\sigma}^{(1)}$, $V_{sp\sigma}^{(1)}$,
+$V_{pp\sigma}^{(1)}$, $V_{pp\pi}^{(1)}$, and
+$V_{s^*p\sigma}^{(1)}$; first-neighbor $ss^*$ and $s^*s^*$ channels remain fixed to
+zero.  The declared second-neighbor extension adds
+$V_{ss\sigma}^{(2)}$, $V_{sp\sigma}^{(2)}$,
+$V_{pp\sigma}^{(2)}$, $V_{pp\pi}^{(2)}$,
+$V_{s^*p\sigma}^{(2)}$, $V_{ss^*\sigma}^{(2)}$, and
+$V_{s^*s^*\sigma}^{(2)}$.  Synthetic software tests establish implementation behavior
+only; this level performs no scientific fit and establishes no model adequacy.
+
+\chapter{Spectral-only feasibility branch}
+
+\section{Process and mathematics}
+
+A spectral-only study may fit the ordered eigenvalues or prospectively declared
+symmetry-aware spectral invariants of $H_{\mathrm{SK}}$ to those of $H_{\mathrm{T}}$.
+The already frozen, disjoint 108/108 construction-grid fit and validation roles are
+reserved exclusively for that future, separately authorized study; they are not consumed
+or reinterpreted by the hopping synthesis.  The study shall record every band-matching
+convention, fit the declared model classes separately, and validate held-out spectra,
+gap, valleys, curvatures, and masses.  It may use neither the revealed 408-point parent
+values nor the unobserved 402-point values as fitting objectives or selection criteria.
+
+\section{Scientific interpretation and gate}
+
+Because this study supplies no justified orbital map, it shall not evaluate or claim an
+operator difference $H_{\mathrm{T}}-H_{\mathrm{SK}}$.  Its outputs are spectral and
+observable discrepancies only.  A successful result establishes at most descriptive
+spectral feasibility for the declared construction source; it does not satisfy S110's
+aligned-operator contract.
+
+\chapter{Global-unitary rank-ten operator branch}
+
+\section{Process and mathematics}
+
+The preferred no-calculator continuation for the full rank-ten operator question is a
+new study that fits one $\mathbf{k}$-independent unitary $Q\in U(10)$ jointly with the
+Slater--Koster parameters $\theta$:
+\begin{equation}
+ \min_{Q\in U(10),\,\theta}
+ \sum_{\mathbf{k}\in K_{\mathrm{fit}}}
+ \left\|
+ H_{\mathrm{T}}(\mathbf{k})-
+ QH_{\mathrm{SK}}(\mathbf{k};\theta)Q^{\dagger}
+ \right\|_{F}^{2}.
+\end{equation}
+The unitary must be common to every k point and must preserve the frozen geometry,
+energy reference, orbital order, and spin convention.  Before fitting, the study shall
+freeze its unitary parameterization, deterministic initializations, alternating or
+manifold optimizer, stopping rules, model-class order, held-out validation, and failure
+disposition.  With $Q$ fixed, linear parameter solves may be used; with $\theta$ fixed,
+optimization of $Q$ remains a constrained nonlinear problem.  A spectral-only solution
+may be declared as one initialization only if that role is recorded before the joint
+fit.
+
+\section{Scientific interpretation and gate}
+
+The result shall report start-to-start stability, parameter identifiability, unitary
+non-uniqueness, fit and validation operator residuals, spectra, and source-relative
+observables.  A fit is not accepted merely because one initialization reaches a small
+training residual.  This level changes the alignment method from TB-anchored
+identification to learned global identification, but, if its gates pass, it retains a
+well-defined rank-ten $H_{\mathrm{T}}-H_{\mathrm{SK}}$ operator channel.
+
+\chapter{Rank-nine projected-source branch}
+
+\section{Process and mathematics}
+
+A rank-nine study changes the reduction chain.  It shall first define and freeze a
+nine-dimensional source map $W_9(\mathbf{k})$ and then distinguish
+\begin{equation}
+ H_{\mathrm{T}}(\mathbf{k})
+ \longrightarrow
+ H_9(\mathbf{k})=W_9(\mathbf{k})^{\dagger}
+ H_{\mathrm{T}}(\mathbf{k})W_9(\mathbf{k})
+ \longrightarrow H_{\mathrm{SK}}^{(9)}(\mathbf{k}).
+\end{equation}
+The $H_{\mathrm{T}}\rightarrow H_9$ target-space error is separate from the subsequent
+parameterization error and cannot be hidden inside it.  Eligibility requires resolved
+rank across the full construction grid, smooth and periodic $W_9(\mathbf{k})$, symmetry
+covariance, a fixed energy reference, Hermiticity, and acceptable real-space locality
+after transformation.  The unresolved Gamma direction alone does not prove that one
+globally smooth and symmetry-compatible rank-nine subspace exists.  This level cannot
+be described as the original rank-ten $sp^3s^*$ reduction.
+
+\section{Scientific interpretation and gate}
+
+A successful rank-nine construction would establish only a separately defined
+nine-dimensional source and parameterization question.  It cannot satisfy the failed
+rank-ten gate and cannot conceal the $H_{\mathrm{T}}\rightarrow H_9$ target-space
+change.
+
+\chapter{New atomic-semantic Wannier-source branch}
+
+\section{Process and scientific boundary}
+
+If site-resolved atomic $sp^3s^*$ interpretation is essential, a new target-space and
+projection construction may be designed to make the ten-orbital trial frame full rank.
+It defines a new source candidate rather than repairing the retained $H_{\mathrm{W}}$.
+Fresh preprocessing, conversion, and localization each require their own bounded
+calculator authorization.  Any eligible new operator must repeat source
+characterization, hopping-first Pareto characterization, spatial-reduction disposition,
+alignment, fitting, candidate freeze, and confirmation under new identities.  The
+existing source and its failures remain immutable evidence.  No $C6$ band-count
+extension, $C8$, or $C12$ occurrence follows automatically from this option.
+
+\chapter{Successor regularization and progression rules}
+
+Singular-value flooring, pseudoinverse alignment, or a singular nonorthogonal metric may
+be implemented only as a labeled sensitivity experiment.  It shall not be accepted as
+the operator reduction because its result depends on a regularization coordinate at the
+point where state-space identification failed.
+
+The mandatory progression is CSD0, CSD1, CSD1-V, CSD2, CSD3, and HF0--HF4.  After
+HF4, only the branch selected by CSD3 may be activated under separate authorization.
+The spectral-only, global-unitary, rank-nine, and new-source branches are not automatic
+successors to one another.  Failure or non-identifiability at the
+hopping/common-space or global-unitary level stops its dependent route.  Rank-nine
+projection and a new Wannier source are separate research questions, not retries.  Every
+reduction fit and model-class decision in the selected branch shall use the declared construction
+source rather than the revealed 408-point parent values.  Those values may be displayed
+only as a separate development evaluation overlay and may not calibrate or select a
+model.  Every level must preserve the confirmation-only 402-point boundary, record any
+use of construction-source information in a later initialization, and freeze all
+hopping results, reductions, diagnostics, fits, and evaluation definitions before
+confirmation-parent values are observed.
+
+\chapter{Construction-mesh successor recommendation}
+
+The negative parent-fidelity result ends optimizer tuning intended to repair that
+candidate retrospectively.  It shall not be repaired by tolerance changes, additional
+localization iterations, or mixing optimizer changes with a scientific-construction
+revision.  It does not block controlled component-operator construction or
+Slater--Koster reduction from the already converged and structurally eligible full
+operator.  Such reductions inherit the source operator's physical-fidelity limitation,
+and their reduction diagnostics and reduction errors shall be reported separately from
+that limitation.
+
+The first successor shall isolate reciprocal construction-mesh density.  Candidate
+$C_6$ uses a Gamma-origin $6\times6\times6$ ordered mesh while holding fixed the accepted
+$S_1$ structure and parent, QE 42/336~Ry cutoffs, fixed occupations,
+\texttt{nosym} and \texttt{noinv} set true, \texttt{conv\_thr} set to
+$1.0\times10^{-12}$~Ry, full-accuracy Davidson diagonalization, 12 parent bands,
+rank 10, non-spinorial character, outer window
+$[-5.85,19.02]$~eV, frozen window $[-5.85,8.00]$~eV, and the two projection lines
+\texttt{Si:sp3} and \texttt{Si:l=0:r=2}.  The localization controls also remain
+\texttt{dis\_num\_iter} 2000, \texttt{dis\_conv\_tol} $1.0\times10^{-10}$,
+\texttt{dis\_conv\_window} 3, \texttt{dis\_mix\_ratio} 0.2,
+\texttt{num\_iter} 4000, \texttt{conv\_tol} $2.0\times10^{-9}$~\AA$^2$,
+\texttt{conv\_window} 6, enabled \texttt{precond}, \texttt{num\_cg\_steps} 200,
+native-default \texttt{trial\_step} 2.0, unset \texttt{fixed\_step}, and disabled
+\texttt{guiding\_centres}.
+
+The $C_6$ route consists of distinct NSCF, Wannier90 preprocessing,
+\texttt{pw2wannier90.x}, and localization occurrences.  Each calculator invocation
+requires its own exact preflight and bounded authorization.  No occurrence in this
+protocol is automatically authorized.
+
+The first exact $C_6$ localization occurrence retained
+\texttt{dis\_num\_iter}=2000 and completed natively, but exhausted that budget at an
+absolute fractional change of $4.679\times10^{-8}$ against the unchanged dimensionless
+$1.0\times10^{-10}$ criterion.  Wannierisation subsequently converged at iteration 316,
+but cannot repair the unconverged subspace.  This is an optimizer-budget failure and
+produces no provider-eligible operator.  The monotonically decreasing changes over
+iterations 1800--2000 support preparation of one fresh bounded eligibility test with
+\texttt{dis\_num\_iter}=4000.  Every target-space coordinate and all other optimizer
+controls remain fixed, and no failed checkpoint or output may be consumed.  This budget
+extension is an explicit optimizer-coordinate amendment, not evidence that the original
+occurrence converged or that either local optimization reaches a global minimum.  The
+fresh occurrence subsequently converged Disentanglement at iteration 3068, but
+Wannierisation did not meet its six-consecutive-step spread-change gate by iteration
+4000.  Its final absolute spread change was $1.26\times10^{-5}$~\AA$^2$ against the
+unchanged $2.0\times10^{-9}$~\AA$^2$ criterion, and the late trajectory remained
+nonmonotonic with large excursions.  The provider therefore rejected the output.  The
+prospective stop rule now applies: no further automatic budget extension follows and
+$C_8$ shall not be selected merely because $C_6$ lacks an eligible operator.
+
+\section{Target-space candidate \texorpdfstring{$C_{6\text{-}T1}$}{C6-T1}}
+
+The authenticated $C_6$ parent eigenvalues span
+$[-5.8341319732,20.8036050385]$~eV.  The inherited outer window
+$[-5.85,19.02]$~eV contains 12 parent states at 142 construction points, 11 at 62,
+and only the rank-minimum 10 at 12; 86 states across 74 points lie above its maximum.
+The fixed numerical window therefore does not define a mesh-stable parent-band
+inventory.  This observation does not prove the cause of either optimizer failure, but
+it ends pure mesh-only attribution and motivates a separate target-space candidate.
+
+Candidate $C_{6\text{-}T1}$ changes only the outer window to
+$[-6.0,21.0]$~eV.  On the authenticated 216-point interface this defines the outer
+subspace as the span of all 12 computed parent states at every construction point, with
+finite lower and upper margins of 0.1658680268 and 0.1963949615~eV.  The frozen window,
+rank, projections, mesh, source order, energy reference, interface bytes, and all
+optimizer controls remain fixed, including \texttt{dis\_num\_iter}=4000 and
+\texttt{num\_iter}=4000.  The occurrence shall start fresh and consume no checkpoint or
+failed localization output.  Because the window does not change NNKP topology or the
+QE-generated EIG, AMN, and MMN data, those authenticated interface artifacts may be
+reused without new preprocessing or conversion.
+
+$C_{6\text{-}T1}$ is not a continuation of the one-variable mesh test.  Its prepared
+localization request remains unexecuted and is not selected as the next occurrence after
+the parent-band review below.
+
+\section{AiiDA-moderate parent-band candidate
+\texorpdfstring{$C_{6\text{-}B20}$}{C6-B20}}
+
+The next selected target-space stage adopts the band-count heuristic, but not the
+complete protocol, from \texttt{aiida-wannier90-workflows} release 3.1.0 at pinned
+commit \texttt{1c0115cb7c77}.  The pinned moderate
+workflow sets \texttt{num\_bands\_factor}=2.0, and its estimator takes the maximum of
+the factor-scaled occupied-state and projection counts and the corresponding counts
+plus four.\footnote{\href{https://github.com/aiidateam/aiida-wannier90-workflows/blob/1c0115cb7c77541a0bd549bc05005df435d651b6/src/aiida_wannier90_workflows/workflows/protocols/base/wannier90.yaml\#L6-L25}{Pinned moderate-protocol source};
+\href{https://github.com/aiidateam/aiida-wannier90-workflows/blob/1c0115cb7c77541a0bd549bc05005df435d651b6/src/aiida_wannier90_workflows/utils/pseudo/__init__.py\#L292-L342}{pinned band-estimator implementation}.}
+For the non-spin-polarized two-atom cell, eight pseudopotential valence electrons, and
+ten declared trial projections, this gives
+\begin{equation}
+  N_{\mathrm{bands}}=\max(8,8,20,14)=20.
+\end{equation}
+For this parent-band decision, the calculation-owned adaptation cites the AiiDA
+workflow only for that factor-two inventory rule.  The separately declared precise
+convergence adaptation controls prospective localization and does not alter the band
+count.  Neither adaptation adopts the workflow's default PBEsol pseudopotential,
+derives projections through its pseudo machinery, or claims that AiiDA executed or
+validated this campaign.
+
+Candidate $C_{6\text{-}B20}$ changes only the NSCF parent-band count from 12 to 20.
+The accepted structure and parent, PBE pseudopotential, 42/336~Ry cutoffs, ordered
+Gamma-origin $6\times6\times6$ mesh, occupations, $10^{-12}$~Ry electronic threshold,
+full-accuracy Davidson solver, and symmetry controls remain fixed.  Rank 10 remains the
+prospective represented dimension; 20 calculated bands do not imply rank 20.
+
+One separately authorized $C_{6\text{-}B20}$ NSCF completed successfully.  Its QEXSD
+contains 216 points and 20 finite bands spanning $[-5.8341319732,30.2720123939]$~eV,
+and its saved state verifies.  The ordered points and weights match the earlier
+12-band $C_6$ occurrence exactly, while its first 12 eigenvalues agree within
+$4.14\times10^{-11}$~eV.  Under the inherited $[-5.85,19.02]$~eV window, the enlarged
+inventory contains 10--14 states per point with histogram
+$\{10\!:\!12,11\!:\!62,12\!:\!96,13\!:\!24,14\!:\!22\}$.  Under the prepared
+$[-6.0,21.0]$~eV window it contains 12--14 states with histogram
+$\{12\!:\!48,13\!:\!108,14\!:\!60\}$.  Bands 13 and 14 therefore enter both
+investigated windows; band 15 remains above 21~eV everywhere.
+
+These observations authenticate the broader parent inventory.  The subsequent
+calculation-owned target-space decision selects candidate
+$C_{6\text{-}B20\text{-}W21}$ with outer window $[-6.0,21.0]$~eV.  This places the
+upper boundary 0.1964~eV above the observed band-12 maximum and 0.2572~eV below the
+observed band-15 minimum, while admitting 12--14 states and therefore at least two
+outer-space dimensions beyond rank 10 at every point.  The frozen window, rank, and
+projection family remain unchanged.  This selection is an optimizer-eligibility
+target-space redesign, not evidence of convergence, a global minimum, or scientific
+adequacy.
+
+Bands 13--20 require new interface artifacts; the existing 12-band NNKP, EIG, AMN, and
+MMN data cannot be reused.  Fresh preprocessing, conversion, and localization remain
+distinct occurrences with separate authorization.  The AiiDA precise factor of 3.0
+would give 30 bands under the same adaptation, but $C_{6\text{-}B30}$ is a conditional
+upper diagnostic and does not follow automatically from failure of
+$C_{6\text{-}B20\text{-}W21}$.
+
+The separately authorized preprocessing, conversion, and localization occurrences later
+completed for $C_{6\text{-}B20\text{-}W21}$.  Native disentanglement and
+Wannierisation converged, and no-calculator characterization established a finite,
+Hermitian, source-reconstructing full untruncated operator.  It is therefore eligible as
+the fixed source for controlled reduction.  Its revealed 408-point comparison passed
+all six valley-position criteria but failed the gap criterion and 17 of 18
+principal-mass criteria.  Those failures are development-oracle labels: they limit
+physical-fidelity claims, but they neither revoke structural eligibility nor block the
+controlled reduction and diagnostic study.
+
+The revealed 408-point parent set is the development evaluation overlay, but it is no
+longer withheld for $C_6$ or any later candidate.  The existing 5\% indirect-gap, 3\%
+Gamma--X valley-position, and 8\% per-mass targets remain unchanged parent-evaluation
+criteria.  They are not operational diagnostics and do not define candidates,
+frontiers, truncation selection, fitting objectives, or thresholds.  The exact full
+operator, reduction declarations, diagnostic rules, fitting conventions, and evaluation
+definitions shall be frozen before any new parent values are observed.  Failure of a
+development-oracle criterion
+does not trigger an automatic $8\times8\times8$ successor.  A separately declared
+$C_8$ mesh study is appropriate only for a separately stated source-fidelity question;
+it is not a repair step required by the controlled-reduction protocol.  Rank, band
+inventory, windows, projections, and mesh remain separate scientific coordinates and
+shall not be changed together without an explicit new study.
+
+A $12\times12\times12$ construction, denoted $C_{12}$, is a bounded upper mesh
+diagnostic rather than an automatic successor.  The $C_4$, $C_6$, $C_8$, and $C_{12}$
+meshes contain 64, 216, 512, and 1728 points, respectively, so $C_{12}$ is 27 times the
+original source-point inventory.  It becomes scientifically eligible for a separate
+preflight only when a completed $C_8$ review still supports the mesh-density hypothesis
+and either the intended-use criteria remain unmet or material mesh sensitivity remains.
+No direct jump from $C_4$ to $C_{12}$ is part of this protocol.
+
+Passing the development and prospective confirmation criteria at $C_{12}$ would
+establish adequacy only for that finite represented operator and declared intended use.
+A stronger claim of construction-mesh convergence requires either comparison with a
+finer declared mesh or a prospective real-space tail/aliasing bound showing that omitted
+Fourier content cannot materially change the target observables.  Mesh size alone does
+not supply that bound, and $C_{12}$ cannot repair an inadequate band inventory, rank,
+window, or projection family.
+
+A future confirmation set shall remain disjoint from the $C_4$, $C_6$, possible $C_8$,
+and possible $C_{12}$ construction meshes and from the revealed 408-point set.  Its geometry is fixed
+prospectively as follows.  Six symmetry-projected centers lie on the signed Cartesian
+axes at the mean revealed parent-valley radius
+$0.9629174643168844$~\AA$^{-1}$, equal to $0.8381689694043609$ of Gamma--X.  Around each
+center, use the right-handed rotated Cartesian basis
+\begin{equation}
+ U=\begin{pmatrix}
+ 1/\sqrt{3} &  1/\sqrt{2} &  1/\sqrt{6} \\
+ 1/\sqrt{3} & -1/\sqrt{2} &  1/\sqrt{6} \\
+ 1/\sqrt{3} &  0           & -2/\sqrt{6}
+ \end{pmatrix}.
+\end{equation}
+For each center, include the center, all six axial and twelve mixed-sign quadratic
+points at each of $0.002$, $0.006$, and $0.012$~\AA$^{-1}$, and the twelve axial capture
+points at $0.024$ and $0.048$~\AA$^{-1}$.  After periodic de-duplication the intended
+inventory contains 402 points.  Exact fractional coordinates, construction-disjointness,
+and point roles must be generated and authenticated before use.
+
+This confirmation geometry is parent-informed because its centers use the already
+revealed parent minima; it shall not be described as blind to geometry.  Its direct
+parent eigenvalues nevertheless remain unobserved.  The geometry is confirmation-only:
+it may not define or tune diagnostics, candidates, Pareto frontiers, truncation
+selection, fitting, thresholds, or numerical comparison policies.  Reduction
+definitions, operational diagnostics, fitting conventions, and evaluation criteria must
+be frozen before a separately authorized direct-parent occurrence reveals those values.
+
+\chapter{Controlled-reduction and confirmation sequence}
+
+For the retained Gamma-origin $6\times6\times6$ source with 20 calculated parent
+bands, retained rank ten, outer window $[-6.0,21.0]$~eV, frozen window
+$[-5.85,8.0]$~eV, and the declared silicon $sp^3$ plus second radial-$s$ projection
+family, post-S110 work shall first complete CSD0, CSD1, CSD1-V, CSD2, and CSD3 in that
+order.  It shall then complete
+HF0--HF4 before activating the single successor branch selected by CSD3.  A stopped,
+unresolved, or insufficient-data disposition at any gate blocks every dependent stage;
+there is no automatic fallback or branch substitution.
+
+For $C_6$ and any separately approved source operator:
+
+\begin{enumerate}
+  \item verify native convergence, exact source-mesh reconstruction, finite dimensions,
+    transformation identities, representative closure, and Hermiticity without using
+    withheld parent values as an eligibility gate;
+  \item freeze the full untruncated operator as $H_{\mathrm{W}}$ and declare its basis,
+    gauge, energy reference, geometry, units, and known source-fidelity limitations;
+  \item characterize the complete real-space hopping representation and its Fourier
+    reconstruction without removing support or assigning unsupported atomic-orbital
+    semantics;
+  \item evaluate all complete shells relative to full $H_{\mathrm{W}}$ on the 408-point
+    development inventory and retain separate channel-specific Pareto frontiers without
+    scalarization or support selection;
+  \item only then define and evaluate any spatial truncation, retaining shell and tail
+    diagnostics and separate full-to-truncated consequences;
+  \item only after the support disposition define a Slater--Koster parameterization,
+    common-space map, model class, neighbor inventory, fit roles, and validation roles;
+  \item retain separately hopping-locality evidence, support-removal error,
+    parameterization error, spectral and observable stability, and every failed
+    reduction;
+  \item display revealed 408-point parent comparisons only as separate development
+    evaluation overlays that cannot change frontier membership, support, fits, or
+    thresholds;
+  \item freeze the hopping results, reductions, diagnostic rules, fitting conventions,
+    and evaluation criteria before observing confirmation parent values; and
+  \item reveal the 402-point parent values only through a separately authorized
+    occurrence, then report confirmation comparisons without refitting, recalibration,
+    frontier revision, support reselection, or a hidden-error-prediction claim.
+\end{enumerate}
+
+Failure in any channel shall be attributed to the applicable parent-model,
+discretization, subspace, gauge, interpolation, spatial-truncation, or parameterization
+error class.  A parent-fidelity failure limits physical claims but does not erase the
+controlled reduction.  Conversely, small internal reduction error does not repair or
+hide a large parent-to-source discrepancy.  Passing software checks or native
+convergence establishes operational eligibility only, not physical validation.
+
+\chapter{Nonclaims}
+
+This protocol does not certify a global minimum, physical accuracy, pseudopotential
+transferability, mesh convergence, effective masses, locality, or an accepted
+Slater--Koster model.  It does not claim that an operational diagnostic predicts,
+calibrates, or equals parent error.  Pareto frontiers are descriptive internal
+full-source tradeoff summaries; parent comparisons are separate evaluation overlays.
+The protocol authorizes no calculator invocation, analysis execution, evidence
+publication, release, or retrospective acceptance.
+
+\end{document}

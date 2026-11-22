@@ -1,0 +1,90 @@
+{
+  "scope": "Byte-exact retained diagnostic checkpoint; no window selection, protocol completion or scientific acceptance.",
+  "files": [
+    {
+      "path": "original_scripts/ksd-silicon-trial-subspace-diagnostic.py",
+      "byte_count": 10977,
+      "sha256": "a56d0755fc8ec4f9f6ddf58a5896d409e2f21cf055c13112758aba76076672ac"
+    },
+    {
+      "path": "original_scripts/ksd_silicon_gamma_excluded_bands.py",
+      "byte_count": 9799,
+      "sha256": "8e704afd6d726d52ac652765e206c1546b0ebe02f3abe1bd89c327a284f1fee8"
+    },
+    {
+      "path": "original_scripts/ksd_silicon_gamma_window.py",
+      "byte_count": 7507,
+      "sha256": "eddc12e617e55dd210877292c81039e73d52dd2dc7da8de5006f08f0fb144d7b"
+    },
+    {
+      "path": "original_scripts/ksd_silicon_trial_whitening.py",
+      "byte_count": 12292,
+      "sha256": "7e84941aaae539fb099ea8e501a311e7c8e4d83c43a65897d727ee1ee11916de"
+    },
+    {
+      "path": "original_scripts/ksd_silicon_window_feasibility.py",
+      "byte_count": 12199,
+      "sha256": "e33b4241b7fa2f851f85f15eb7e9bb550ea3a31dc1f9b51b3953339ce4aca615"
+    },
+    {
+      "path": "results/gamma-excluded-bands.json",
+      "byte_count": 8499,
+      "sha256": "029f8909204f1d9cb4884be0d13dfa7efeef8858fffbbc4aa90803477911a0f3"
+    },
+    {
+      "path": "results/gamma-window.json",
+      "byte_count": 4027,
+      "sha256": "d224115991a4f65bdf6cf542b20c168dc86d99bb7abf287dc6075a30f1ffcf49"
+    },
+    {
+      "path": "results/trial-subspace-diagnostic.json",
+      "byte_count": 185587,
+      "sha256": "7e8df9f678c5c77e997be492dad0bc68a0c7f1a214e0bc889e02a16d26954a28"
+    },
+    {
+      "path": "results/trial-whitening.json",
+      "byte_count": 296042,
+      "sha256": "fea454ee5687d75f09e0cec102dadd101622745f478513dacdaf5e89fb3ee75c"
+    },
+    {
+      "path": "results/window-feasibility.json",
+      "byte_count": 195056,
+      "sha256": "515794a998ee09d5c27104667d13e0ede0cc5b87c1c518e5d360cc12b1c8bf45"
+    },
+    {
+      "path": "inputs/characterization-result.json",
+      "byte_count": 56310,
+      "sha256": "37f654ae31bc21e43b768bf2b9da5edabd88c195e3f6e1c87708eaa1c4773c18"
+    },
+    {
+      "path": "inputs/protocol-at-diagnosis.tex",
+      "byte_count": 68518,
+      "sha256": "2cfc03bbd4edce4387c7dad3e0cf75129b35b61a45594a33c036d6217e605ec4"
+    },
+    {
+      "path": "inputs/request.json",
+      "byte_count": 5458,
+      "sha256": "0dd0d97cdc6134a30073b9d54a54077bba93b579882ef709de47534ca59ff89e"
+    },
+    {
+      "path": "inputs/slater-koster-definition-fit-result.json",
+      "byte_count": 119010,
+      "sha256": "b9b8403dfc8b24df01e1671f582697440e1a211d60e0e70c9b0f621dfa086e98"
+    },
+    {
+      "path": "inputs/spatial-truncation-disposition.json",
+      "byte_count": 6187,
+      "sha256": "519adfcf1101f7caa7916e04f3bf37879f4ad82b0f30e4ef38adc39770224f68"
+    }
+  ],
+  "source_head": "dac209a60aec502ae05fe84abd0c5eca23d3b4df",
+  "source_state": "uncommitted calculation-local numerical modules, bound by SHA-256 in trial-whitening result",
+  "python": "3.14.6",
+  "distributions": {
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "projectkoios-physkit": "0.1.3.dev0",
+    "projectkoios-simulations": "0.1.0.dev0"
+  },
+  "dependency_lock_sha256": "57b01f767559ec22d1cec8b24f7a516387d0176d2d58b8fc5e05827d12cc1133"
+}

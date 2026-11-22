@@ -358,7 +358,7 @@ false negative caused by comparing ten-decimal matrix coordinates with lossy
 eight-decimal NNKP values. No-calculator reverification against the canonical WIN block
 measured `3.300004713935323e-11`, passing the unchanged `1.0e-10` gate. Compact eligible
 evidence is retained under
-[`evidence/sssp-1.3.0-pbe-efficiency-wannier90-3.1.0-accepted-s1-localization-c6-b20-w21-aiida-precise-eligible/`](evidence/sssp-1.3.0-pbe-efficiency-wannier90-3.1.0-accepted-s1-localization-c6-b20-w21-aiida-precise-eligible/).
+[Wannier localization, run 001](evidence/wannier-localization/run-001/).
 S10 and S20 are complete. The
 [`provider reference-space correction`](localization-provider-reference-correction.md)
 records the exact technical and evidence disposition. The separately authorized

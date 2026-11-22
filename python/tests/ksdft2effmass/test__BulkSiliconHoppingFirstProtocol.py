@@ -38,7 +38,7 @@ class TestBulkSiliconHoppingFirstProtocol:
                 "3ec2902a94ebe78eba1e223a0ee4ef99075f4bd86238398b67d370fa88224653"
             ),
             "controlled-reduction-protocol-hopping-first.tex": (
-                "7efcbb64c043c5ba34aed500902059891faae836b509bac07f2d90437cf3a1ef"
+                "2cfc03bbd4edce4387c7dad3e0cf75129b35b61a45594a33c036d6217e605ec4"
             ),
         }
 
@@ -69,6 +69,36 @@ class TestBulkSiliconHoppingFirstProtocol:
         assert "CSD1-V" in protocol
         assert "HF0" in protocol
         assert "HF4" in protocol
+
+    def test_precision_amendment__keeps_escalation_conditional(
+        self, repository_root: Path
+    ) -> None:
+        protocol = (
+            repository_root
+            / "calculations/Si/bulk/research-protocol"
+            / "controlled-reduction-protocol-hopping-first.tex"
+        ).read_text(encoding="utf-8")
+        assert (
+            "Prospective amendment: conditional arithmetic-precision escalation"
+            in protocol
+        )
+        assert (
+            "When the arithmetic bounds are decisive and the "
+            "independent routes agree, no\n"
+            "higher-precision run or completion artifact is required" in protocol
+        )
+        assert (
+            "Escalation is required before progression only if arithmetic-error bounds"
+            in protocol
+        )
+        assert "after checking source identities, basis/gauge" in protocol
+        assert "no blanket 128/256-bit campaign" in protocol
+        assert (
+            "Unresolved arithmetic or disagreement still stops the sequence" in protocol
+        )
+        assert "Extra arithmetic digits" in protocol
+        assert "do not recover discarded source digits" in protocol
+        assert r"\delta_{\mathrm{native}}=5.890206739032098\times10^{-7}" in protocol
 
     def test_orders_complete_hopping_analysis_before_slater_koster(
         self,

@@ -1,0 +1,122 @@
+{
+  "scope": "Locate the Gamma trial-direction loss without changing the frozen window.\n\nThis is an authorized local diagnostic, not CSD2 symmetry attribution or a new\nsource selection. Native data use the maintained Simulations parsers. Numerical\nbounds reuse the authenticated scratch whitening experiment's exact residual\nmethods. No Hamiltonian fit or calculator is invoked.\n",
+  "window_unchanged_ev": [
+    -6.0,
+    21.0
+  ],
+  "request_sha256": "0dd0d97cdc6134a30073b9d54a54077bba93b579882ef709de47534ca59ff89e",
+  "helper_script_sha256": "7e84941aaae539fb099ea8e501a311e7c8e4d83c43a65897d727ee1ee11916de",
+  "script_sha256": "eddc12e617e55dd210877292c81039e73d52dd2dc7da8de5006f08f0fb144d7b",
+  "eig_identity": {
+    "band_count": 20,
+    "bounded_parse_succeeded": true,
+    "byte_size": 168480,
+    "kpoint_count": 216,
+    "maximum_absolute_qexsd_difference_ev": 5.364597654988756e-13,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.eig",
+    "qexsd_shape_matches": true,
+    "sha256": "a54f31f8f72cd32b63ad78e47378cd0a8ce97474ad223606f88d48c97c890dd2",
+    "unit": "eV"
+  },
+  "gamma_eigenvalues_ev": [
+    -5.8341319732,
+    5.983119128119,
+    5.983119128119,
+    5.983119128119,
+    8.537149638683,
+    8.537149638683,
+    8.537149638683,
+    9.101479814204,
+    13.701151335477,
+    13.701151335477,
+    13.863772291022,
+    17.171553892211,
+    17.171553892211,
+    17.171553892211,
+    21.257167314276,
+    28.749819003985,
+    28.749819003985,
+    28.749819003985,
+    29.78177869836,
+    29.781778698362
+  ],
+  "included_parent_bands_one_based": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "closest_outer_window_boundary_distance_ev": 0.16586802680000012,
+  "trial_input_error_upper_display": 1.0000401475775072e-11,
+  "input_error_model": "nearest rounding: AMN and EIG twelve decimal places; correctly rounded binary64 parsing",
+  "raw_gate_unchanged": 5.890206739032098e-07,
+  "results": {
+    "full_parent_trials": {
+      "row_count": 20,
+      "singular_values_nominal": [
+        4.622869805656235,
+        0.848330250134541,
+        0.8483302500651263,
+        0.8483302500033985,
+        0.7119211051367123,
+        0.659184585286109,
+        0.6591845852851984,
+        0.6591845852848967,
+        0.5279883199037232,
+        0.08536372303479649
+      ],
+      "minimum_exact_arithmetic_lower_display": 0.08060557812387721,
+      "minimum_exact_arithmetic_upper_display": 0.08536372303479653,
+      "minimum_lower_after_trial_input_error_display": 0.08060557811387681,
+      "minimum_upper_after_trial_input_error_display": 0.08536372304479693,
+      "injective_under_declared_input_error": true
+    },
+    "outer_window_trials": {
+      "row_count": 14,
+      "singular_values_nominal": [
+        4.622869805656234,
+        0.8395210372188698,
+        0.8395210372100261,
+        0.8395210372084629,
+        0.6865953039239623,
+        0.6591845852849446,
+        0.6591845852840822,
+        0.6591845852837785,
+        0.5279883199037038,
+        1.2430719394114775e-12
+      ],
+      "minimum_exact_arithmetic_lower_display": 1.2429430663324707e-12,
+      "minimum_exact_arithmetic_upper_display": 1.243044785295718e-12,
+      "minimum_lower_after_trial_input_error_display": 0.0,
+      "minimum_upper_after_trial_input_error_display": 1.124344626107079e-11,
+      "injective_under_declared_input_error": false
+    },
+    "retained_overlap": {
+      "row_count": 10,
+      "singular_values_nominal": [
+        4.3559917539978485,
+        0.8124348853819969,
+        0.8124274273392548,
+        0.8119698782326717,
+        0.6759743618635403,
+        0.6591162089793726,
+        0.6591150393639063,
+        0.6541759883297891,
+        0.0004012285201800788,
+        5.362274776283969e-13
+      ],
+      "minimum_exact_arithmetic_lower_display": 5.357529320121079e-13,
+      "minimum_exact_arithmetic_upper_display": 5.360396569174897e-13
+    }
+  }
+}
