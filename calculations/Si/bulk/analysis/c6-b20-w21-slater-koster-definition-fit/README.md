@@ -56,28 +56,34 @@ The calculation now includes a separate CSD0/CSD1 producer that does not import
   calculation-incubated producer that authenticates those identities and reconstructs
   the full 216-point singular-value field, normalized principal-angle diagnostics,
   Gamma deficient-direction weights, and a retained-subspace unitary-invariance control;
-  higher-precision sensitivity and symmetry-related deficient-point inventory extensions
-  remain unimplemented;
+  the retained route additionally authenticates the adopted source declaration and
+  enumerates geometric construction-index stars, without inferring electronic symmetry
+  actions. Higher arithmetic precision remains conditional, not a routine prerequisite;
 - `run_common_space_diagnosis.py` provides human-readable live stdout that distinguishes
   successful diagnostic execution from the scientifically blocked fit disposition.
 
-Run it only with a fresh output directory:
+After applicable authorization, run it only with a fresh output directory and the
+explicit adopted source declaration:
 
 ```bash
 cd python
-uv run python \
+.venv/bin/python \
   ../calculations/Si/bulk/analysis/c6-b20-w21-slater-koster-definition-fit/\
 run_common_space_diagnosis.py \
+  --source-declaration ../calculations/Si/bulk/analysis/wannier-window-remedy/source-state-assertions.json \
   --output-root /tmp/c6-b20-w21-common-space-diagnosis
 ```
 
 The entrypoint requires a nonexistent output root, then creates `result.json`,
-`human-readable-summary.txt`, and `manifest.json` without overwriting existing paths.
+`human-readable-summary.txt`, `manifest.json`, `point-inventory.json`, and an actual
+`producer-completion.json` without overwriting existing paths.
 This producer does not share S110's calculation implementation; it is not the
 separately implemented CSD1 verifier required by the successor protocol.
-The implementation and its tests do not constitute a retained CSD execution, independent
-verification, a CSD2 symmetry attribution, a CSD3 human disposition, or scientific
-authorization for a fit or calculator run.
+The separately authorized [retained producer run](../common-space-producer/) now
+contains actual CSD1 deliverables and preserves the blocked rank gate. Software tests
+alone do not constitute retained execution, and that producer run is not independent
+verification, CSD2 symmetry attribution, CSD3, or scientific authorization for a fit or
+calculator run.
 
 ## Disposition
 

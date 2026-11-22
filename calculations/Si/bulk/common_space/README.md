@@ -16,9 +16,27 @@ competing permanent source tree.
 
 ## Current package
 
-- [`diagnostics/`](diagnostics/) contains the unretained CSD0/CSD1 producer used to
-  authenticate the frozen C6-B20-W21 inputs and reconstruct the blocked S110 rank gate.
+- [`diagnostics/`](diagnostics/) contains the CSD0/CSD1 producer used to authenticate
+  the adopted C6-B20-W21 source meaning and reconstruct the blocked S110 rank gate.
+  Its [retained checkpoint](../analysis/common-space-producer/) includes the complete
+  216-point field and an exhaustive geometric construction-index inventory.
 
-No independent CSD1 verifier, higher-precision sensitivity extension,
-symmetry-related deficient-point inventory, CSD2 symmetry attribution, CSD3 human
-disposition, fit, or calculator execution is implemented or authorized here.
+- [`verification/`](verification/) contains declared native-byte correlation through
+  shared provider parsers, independently reconstructed exact overlaps, rational
+  Gram-rank enclosures, conditional native/parse error propagation, direction and
+  unitary controls, complete-grid composition, separate numerical artifacts, and later
+  producer comparison. Reviewed source assertions and producer prerequisites must be
+  supplied externally; matching declarations alone do not substantiate them. Only
+  synthetic tests and the separately authorized [retained CSD1-V run](../analysis/common-space-verification/)
+  have exercised its verification/correlation. An authenticated adapter consumes
+  the producer's original reconstruction result after independent computation. It does
+  not manufacture completed point-inventory evidence or source review. Higher arithmetic
+  precision is a conditional follow-up to unresolved arithmetic or route disagreement,
+  not a routine prerequisite when existing bounds and agreement are decisive.
+
+The source review/adoption and actual producer/inventory/completion evidence are now
+retained. The complete verifier bundle and independent numerical reconstruction now
+pass all-point producer correlation under the declared contract. The geometric index
+inventory still does not supply electronic symmetry actions; CSD2 remains unrun.
+No symmetry attribution, scientific disposition, fit, or calculator execution is supplied
+by these numerical software checks.

@@ -33,11 +33,29 @@ $P_{\mathcal S}$ & Orthogonal projector from the ambient space onto
 $\mathcal S$. \\
 $\mathcal B$ & An ordered basis for a represented finite space. \\
 $N$ or $M$ & A finite represented or retained dimension, as locally defined. \\
-$\dagger$ & Adjoint or conjugate transpose in the stated finite-dimensional
-inner-product setting. \\
+$\dagger$ & Abstract adjoint, or conjugate transpose on coordinate matrices;
+in nonorthogonal coordinates these must not be identified without the metric. \\
+$\sharp$ & Metric adjoint of a linear coefficient map:
+$M^{\sharp}=\mathsf G_{\mathrm s}^{-1}M^{\dagger}\mathsf G_{\mathrm t}$. \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\section{Symmetry and metric notation}
+
+Chapter~\ref{ch:symmetry-actions-represented-subspaces} uses
+$\mathsf G_{\mathrm s},\mathsf G_{\mathrm t}$ for dimensionless Hermitian
+state-space basis Gram matrices and $\mathsf G_F=F^{\dagger}\mathsf G F$
+for an induced frame metric. They differ from both the spatial lattice metric
+$G_{ij}=\mathbf a_i\cdot\mathbf a_j$, with units of length squared, and
+unitary gauge changes denoted $G$ elsewhere. The local definition owns the symbol.
+For ordinary finite groups, $\mathcal G$ is the group, $D(g)$ its represented
+action, $\chi_\alpha$ an irreducible character, $d_\alpha$ its dimension,
+and $\Pi_\alpha$ an isotypic projector. Multiplicity $m_{F,\alpha}$ counts
+copies of irrep $\alpha$ in a represented space, not an energy degeneracy.
+An antiunitary action is $MK$, where $K$ is coefficient conjugation.
+The overlap $B=W^{\dagger}\mathsf G C$ is a form; the corresponding
+projected coefficient map is $T=\mathsf G_W^{-1}B$.
 
 \section{Periodic and Wannier notation}
 \index{notation!Bloch and Wannier}

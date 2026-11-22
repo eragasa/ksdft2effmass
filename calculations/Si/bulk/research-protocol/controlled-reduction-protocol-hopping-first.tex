@@ -372,6 +372,34 @@ not establish that the current producer has completed a silicon reconstruction, 
 neither software passage nor a producer-only result is independent CSD1 verification
 or retained scientific acceptance.
 
+\section{Prospective amendment: conditional arithmetic-precision escalation}
+
+Source authentication, physical state-space associations, independent rank
+reconstruction, and justified arithmetic/native-input error bounds remain mandatory.
+Higher precision is a conditional diagnostic, not a routine completion requirement.
+When the arithmetic bounds are decisive and the independent routes agree, no
+higher-precision run or completion artifact is required.  This amendment does not
+relax a rank threshold, uncertainty bound, agreement criterion, or scientific gate.
+
+Escalation is required before progression only if arithmetic-error bounds leave a
+relevant rank or direction diagnosis ambiguous, or if a discrepancy between independent
+routes remains plausibly arithmetic after checking source identities, basis/gauge
+conventions, and implementation errors.  A source mismatch must be repaired at its
+source; it is not a reason to manufacture agreement by increasing precision.  A
+bounded escalation may target the affected points rather than repeat the complete
+216-point field at arbitrarily high precision.  Its arithmetic budget and stopping
+condition shall be declared before that follow-up; no blanket 128/256-bit campaign
+is required.  Unresolved arithmetic or disagreement still stops the sequence.
+
+Arithmetic precision shall be kept separate from native-file precision.  The same
+CSD0-authenticated parsed inputs, transformation, energy reference, native-uncertainty
+model, and frozen singular-value threshold shall be used.  Extra arithmetic digits
+do not recover discarded source digits, establish a rounding model, or repair
+uncertain physical source/subspace associations.  If native-input uncertainty rather
+than arithmetic is limiting, more arithmetic alone cannot resolve it.  No retained
+analysis, calculator execution, fitted map, or evidence promotion is authorized by
+this prospective amendment.
+
 \section{Mathematics}
 
 Define the retained parent-space frame and atomic trial columns by
@@ -461,7 +489,9 @@ separately from the retained native-decimal uncertainty bound.  Clamping a negat
 eigenvalue to zero is admissible only when its arithmetic-error interval includes
 zero.  A materially negative interval or a singular-value interval that straddles the
 frozen rank threshold gives numerical inconclusiveness and stops progression; it is
-not rounded into agreement with the producer.  No new numeric verification tolerance
+not rounded into agreement with the producer.  Conditional arithmetic-precision
+escalation follows the preceding amendment; an inconclusive result never passes merely
+because escalation is optional in already decisive cases.  No new numeric verification tolerance
 is selected by this protocol revision.
 
 The verifier shall report Hermiticity, orthonormality, and eigenpair residuals, including

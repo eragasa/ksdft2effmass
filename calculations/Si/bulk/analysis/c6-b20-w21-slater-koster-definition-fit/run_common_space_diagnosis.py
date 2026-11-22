@@ -41,6 +41,12 @@ def main() -> None:
         required=True,
         help="fresh directory for result.json, the stdout transcript, and manifest.json",
     )
+    parser.add_argument(
+        "--source-declaration",
+        type=Path,
+        required=True,
+        help="Explicit path to the existing adopted source-state declaration; not execution authority.",
+    )
     arguments = parser.parse_args()
     reporter = HumanReadableProgressReporter(stream=sys.stdout)
     try:
@@ -48,6 +54,7 @@ def main() -> None:
             request_path=arguments.request,
             output_root=arguments.output_root,
             reporter=reporter,
+            source_declaration_path=arguments.source_declaration,
         )
     except Exception as error:
         reporter.line()

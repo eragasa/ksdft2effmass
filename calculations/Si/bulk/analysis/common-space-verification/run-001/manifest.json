@@ -1,0 +1,61 @@
+{
+  "implementation": [
+    {
+      "byte_count": 3078,
+      "name": "__init__.py",
+      "sha256": "9cc7c03ef86bf5bab2ded16522768eb843d04802e7286c181f77519aeae24379"
+    },
+    {
+      "byte_count": 12497,
+      "name": "controls.py",
+      "sha256": "1bea5f6fd22ab628e0345b61486af34dcb01aa9640c7bbb6a9f65d1f031758e1"
+    },
+    {
+      "byte_count": 19127,
+      "name": "gram_rank.py",
+      "sha256": "03facf33078d5ede40e72a2a60656979ef4ba8daced3a27a6fdb7151393609b5"
+    },
+    {
+      "byte_count": 14392,
+      "name": "grid_verification.py",
+      "sha256": "a952532320e92a2adb247c508f05fe99e424bd6d4dd63b8573e7f3b16f5139a4"
+    },
+    {
+      "byte_count": 13403,
+      "name": "native_inputs.py",
+      "sha256": "4757593fd187445031de13a07aa47779761033f52c4e60961ec4f80d19fde6a9"
+    },
+    {
+      "byte_count": 6357,
+      "name": "native_overlap.py",
+      "sha256": "1a15d1b75bb0e165a9562878c4a1c40d71dbcac185bdbe3fdb6f7da9a017aba0"
+    },
+    {
+      "byte_count": 14408,
+      "name": "native_precision.py",
+      "sha256": "7cad4e1ebfbf0e49e1d79f56110da908487dbe37728fe39b4429182c2fa0aed3"
+    },
+    {
+      "byte_count": 16734,
+      "name": "producer_result.py",
+      "sha256": "a6715bbd715423366c53fbb7124c57134eeef5821027834c85366bd0e8e1ef13"
+    },
+    {
+      "byte_count": 12595,
+      "name": "source_admission.py",
+      "sha256": "5226bb68f8220d7c0348fc0eadf9eba69bb3cb079bae4caf6425f5fce1b7b319"
+    },
+    {
+      "byte_count": 12319,
+      "name": "verification_io.py",
+      "sha256": "0c3ccd6af2e1224ac6de2afdd883a65dfee6636f73829f7bd646ff825343a5c8"
+    }
+  ],
+  "record_type": "common-space-independent-verification-manifest-v1",
+  "result": {
+    "byte_count": 3700679,
+    "name": "independent-verification.json",
+    "sha256": "3ed6f7bb54086ac8005acea8c34a9a47c475b14878618da4b5c6eaa01ac532ee"
+  },
+  "review_scope": "reviewed-retained-source-declaration"
+}

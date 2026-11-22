@@ -1,0 +1,21 @@
+{
+  "independent_manifest": {
+    "byte_count": 1898,
+    "name": "manifest.json",
+    "sha256": "9db48ea644da434c60205542837a103669193fb23020067e5024fff3b61da3de"
+  },
+  "independent_result": {
+    "byte_count": 3700679,
+    "name": "independent-verification.json",
+    "sha256": "3ed6f7bb54086ac8005acea8c34a9a47c475b14878618da4b5c6eaa01ac532ee"
+  },
+  "mismatches": [],
+  "outcome": "rank-diagnosis-correlated-under-declared-contract",
+  "producer_result": {
+    "byte_count": 189612,
+    "name": "result.json",
+    "sha256": "761d58b83a43a9544ad2aae1872ef91cd4ef5387dbae9a6db169a32ee5498dd8"
+  },
+  "record_type": "common-space-producer-correlation-v1",
+  "review_scope": "reviewed-retained-source-declaration"
+}

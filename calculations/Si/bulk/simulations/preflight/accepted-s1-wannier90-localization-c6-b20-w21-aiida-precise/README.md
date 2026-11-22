@@ -97,7 +97,7 @@ Wannierisation at iteration 378. An initial provider false negative compared mat
 coordinates with lossy NNKP presentation values. No-calculator reverification against
 the canonical WIN block measured `3.300004713935323e-11`, passing the unchanged
 `1.0e-10` fractional gate. Compact evidence is retained under
-[`../../evidence/sssp-1.3.0-pbe-efficiency-wannier90-3.1.0-accepted-s1-localization-c6-b20-w21-aiida-precise-eligible/`](../../evidence/sssp-1.3.0-pbe-efficiency-wannier90-3.1.0-accepted-s1-localization-c6-b20-w21-aiida-precise-eligible/).
+[Wannier localization, run 001](../../evidence/wannier-localization/run-001/).
 The request cannot authorize a retry. The HR, `u`, and `u_dis` artifacts are now eligible
 for the separately gated S30 full untruncated characterization. Confirmation, spatial
 truncation, and Slater--Koster reduction remain blocked.

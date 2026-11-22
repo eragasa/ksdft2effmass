@@ -1,0 +1,393 @@
+"""Post-computation adaptation of the campaign producer's actual version-one JSON."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from fractions import Fraction
+from math import isfinite
+from pathlib import PurePosixPath
+
+from projectkoios.integrations.wannier90 import Wannier90NativeArtifactIdentity
+
+from .grid_verification import (
+    CommonSpaceIndependentGridResult,
+    CommonSpaceProducerPoint,
+    CommonSpaceProducerReference,
+)
+from .source_admission import (
+    CommonSpaceEvidenceRole,
+    CommonSpaceVerificationJson,
+    JsonValue,
+)
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class CommonSpaceProducerResultAdapter:
+    """Authenticate and decode original producer bytes only after independent work.
+
+    No producer implementation, numerical helper, native parser, or serialization
+    implementation is imported. Historical stage names occur only as literal fields
+    of the producer's versioned wire contract. Metadata paths are never followed.
+    Upstream reviewed declarations remain the source of physical associations and
+    prerequisite completion; a matching producer document cannot establish either.
+
+    Numeric JSON scalars must be finite built-in int/float, never bool or strings.
+    Values become exact Fractions of the encoded integers or parsed binary64 numbers.
+    Spectra/weights are dimensionless; rational conversion has no fixed-width overflow.
+    No missing atomic/group weights, point coordinates, or source bindings are inferred.
+    """
+
+    independent: CommonSpaceIndependentGridResult
+
+    def __post_init__(self) -> None:
+        if type(self.independent) is not CommonSpaceIndependentGridResult:
+            raise TypeError("adapter requires a completed independent grid result")
+
+    @staticmethod
+    def _object(value: JsonValue) -> dict[str, JsonValue]:
+        if type(value) is not dict:
+            raise ValueError("producer contract requires an object")
+        return value
+
+    @staticmethod
+    def _list(value: JsonValue) -> list[JsonValue]:
+        if type(value) is not list:
+            raise ValueError("producer contract requires an array")
+        return value
+
+    @staticmethod
+    def _text(value: JsonValue) -> str:
+        if type(value) is not str or not value:
+            raise ValueError("producer contract requires a nonempty string")
+        return value
+
+    @staticmethod
+    def _integer(value: JsonValue) -> int:
+        if type(value) is not int:
+            raise ValueError("producer contract requires a built-in integer")
+        return value
+
+    @staticmethod
+    def _number(value: JsonValue) -> Fraction:
+        if type(value) is int:
+            return Fraction(value)
+        if type(value) is float and isfinite(value):
+            return Fraction.from_float(value)
+        raise ValueError(
+            "producer numeric value must be a finite int/float, not bool or string"
+        )
+
+    @staticmethod
+    def _field(data: dict[str, JsonValue], name: str) -> JsonValue:
+        if name not in data:
+            raise ValueError(f"producer contract is missing {name}")
+        return data[name]
+
+    @classmethod
+    def _equal(cls, actual: JsonValue, expected: JsonValue, subject: str) -> None:
+        # Canonical JSON equality also distinguishes 1 from True and 1.0 from 1.
+        wire = CommonSpaceVerificationJson
+        if wire.encode(actual) != wire.encode(expected):
+            raise ValueError(
+                f"producer {subject} differs from reviewed source contract"
+            )
+
+    @classmethod
+    def _file(
+        cls, value: JsonValue, expected: Wannier90NativeArtifactIdentity, label: str
+    ) -> None:
+        row = cls._object(value)
+        cls._equal(cls._field(row, "label"), label, "source role")
+        cls._equal(
+            cls._field(row, "byte_size"), expected.byte_count, "source byte count"
+        )
+        cls._equal(cls._field(row, "sha256"), expected.sha256, "source SHA-256")
+        name = PurePosixPath(cls._text(cls._field(row, "path"))).name
+        if name != expected.name:
+            raise ValueError(
+                "producer source filename differs from its explicit artifact identity"
+            )
+
+    def execute(self) -> CommonSpaceProducerReference:
+        admission = self.independent.admission
+        # Reauthenticate every reviewed byte identity before decoding any producer
+        # numeric values. The independent result itself already contains all points.
+        admission.authenticate()
+        evidence = {item.role: item for item in admission.evidence}
+        original = evidence[CommonSpaceEvidenceRole.producer_reconstruction]
+        wire = CommonSpaceVerificationJson
+        data = self._object(wire.decode(original.artifact.payload))
+        request = self._object(
+            wire.decode(evidence[CommonSpaceEvidenceRole.request].artifact.payload)
+        )
+        self._equal(self._field(data, "schema_version"), 1, "schema version")
+        self._equal(self._field(request, "schema_version"), 1, "request schema version")
+        self._equal(
+            self._field(data, "record_type"),
+            "c6_b20_w21_common_space_rank_diagnosis",
+            "record type",
+        )
+        self._equal(
+            self._field(data, "execution_outcome"), "completed", "execution outcome"
+        )
+        self._equal(
+            self._text(self._field(data, "request_id")),
+            self._text(self._field(request, "request_id")),
+            "request identifier",
+        )
+        for key in ("calculator_invocations", "fit_invocations"):
+            if self._integer(self._field(data, key)) != 0:
+                raise ValueError(
+                    "producer record is not a no-calculator/no-fit reconstruction"
+                )
+        source = self._object(self._field(data, "CSD0"))
+        self._equal(self._field(source, "outcome"), "passed", "source outcome")
+        self._file(
+            self._field(source, "request"),
+            evidence[CommonSpaceEvidenceRole.request].expected,
+            "request",
+        )
+        contract = admission.parsed_inputs.contract
+        roles = {
+            "S30_untruncated_characterization": evidence[
+                CommonSpaceEvidenceRole.full_source
+            ].expected,
+            "S105_full_support_disposition": evidence[
+                CommonSpaceEvidenceRole.full_support
+            ].expected,
+            "S110_blocked_result": evidence[
+                CommonSpaceEvidenceRole.blocked_alignment
+            ].expected,
+            "hopping_first_protocol": evidence[
+                CommonSpaceEvidenceRole.protocol
+            ].expected,
+            "AMN": contract.trial_overlap_identity,
+            "gauge": contract.gauge_identity,
+            "disentanglement": contract.disentanglement_identity,
+        }
+        rows = self._list(self._field(source, "authenticated_files"))
+        declared_sources = self._object(self._field(request, "sources"))
+        if len(rows) != len(roles) or set(declared_sources) != set(roles):
+            raise ValueError("producer source inventory is incomplete")
+        seen: set[str] = set()
+        for raw in rows:
+            row = self._object(raw)
+            label = self._text(self._field(row, "label"))
+            if label not in roles or label in seen:
+                raise ValueError("producer source roles are duplicated or unexpected")
+            seen.add(label)
+            self._file(row, roles[label], label)
+            declaration = self._object(declared_sources[label])
+            # The reviewed request and reported input must describe the same bytes.
+            for key in ("path", "byte_size", "sha256"):
+                expected = self._field(declaration, key)
+                if key == "path":
+                    expected = PurePosixPath(self._text(expected)).name
+                    actual: JsonValue = PurePosixPath(
+                        self._text(self._field(row, key))
+                    ).name
+                else:
+                    actual = self._field(row, key)
+                self._equal(actual, expected, "request/source correlation")
+
+        provider = self._object(self._field(request, "provider"))
+        binding = admission.parsed_inputs.provider_binding
+        self._equal(
+            self._field(source, "provider_distribution"),
+            "projectkoios-simulations",
+            "provider distribution",
+        )
+        self._equal(
+            self._field(provider, "distribution"),
+            "projectkoios-simulations",
+            "request provider",
+        )
+        self._equal(
+            self._field(source, "provider_version"),
+            binding.distribution_version,
+            "provider version",
+        )
+        self._equal(
+            self._field(provider, "version"),
+            binding.distribution_version,
+            "request provider version",
+        )
+        # The original producer consumes six parser modules; only the verifier also
+        # consumes the provider's native-artifact correlator module.
+        required_modules = {
+            item.module_name: item.sha256
+            for item in binding.modules
+            if item.module_name != "projectkoios.integrations.wannier90.artifacts"
+        }
+        self._equal(
+            self._field(provider, "modules"),
+            dict(required_modules),
+            "provider source closure",
+        )
+        module_rows = self._list(self._field(source, "provider_modules"))
+        modules: dict[str, JsonValue] = {}
+        for raw in module_rows:
+            row = self._object(raw)
+            name = self._text(self._field(row, "module_name"))
+            if name in modules:
+                raise ValueError("producer module inventory has duplicate names")
+            modules[name] = self._field(row, "sha256")
+        self._equal(modules, dict(required_modules), "reported provider source closure")
+
+        analysis = self._object(self._field(data, "CSD1"))
+        self._equal(
+            self._field(analysis, "producer_scope"),
+            "projector-rank-reconstruction-subset",
+            "numeric producer scope",
+        )
+        self._equal(
+            self._field(analysis, "outcome"),
+            "rank-deficiency-reproduced",
+            "reconstruction outcome",
+        )
+        self._equal(self._field(analysis, "fit_invoked"), False, "fit observation")
+        if self._integer(self._field(analysis, "calculator_invocations")) != 0:
+            raise ValueError("producer analysis is not a no-calculator reconstruction")
+        expected_state: dict[str, JsonValue] = {
+            "construction_grid_size_per_axis": 6,
+            "kpoint_count": 216,
+            "parent_band_count": 20,
+            "retained_rank": 10,
+            "basis_order": list(contract.atomic_basis_order),
+            "geometry": contract.geometry_identity,
+            "spin_convention": "spinless scalar-relativistic non-SOC",
+            "operator_units": "electronvolt",
+            "energy_reference": contract.energy_reference_identity,
+        }
+        self._equal(
+            self._field(request, "state_space"), expected_state, "request state space"
+        )
+        self._equal(self._field(analysis, "state_space"), expected_state, "state space")
+        precision = self._object(self._field(request, "native_precision"))
+        names = (
+            "AMN_decimal_places",
+            "gauge_decimal_places",
+            "disentanglement_decimal_places",
+        )
+        errors = (
+            admission.rounding_model.amn_component_error,
+            admission.rounding_model.gauge_component_error,
+            admission.rounding_model.disentanglement_component_error,
+        )
+        if set(precision) != set(names):
+            raise ValueError("producer precision declaration is incomplete")
+        for name, error, expected_places in zip(
+            names, errors, (12, 10, 10), strict=True
+        ):
+            places = self._integer(precision[name])
+            if places != expected_places or error != Fraction(1, 2 * 10**places):
+                raise ValueError(
+                    "producer decimal precision differs from admitted rounding model"
+                )
+        threshold = self._number(
+            self._field(analysis, "singular_value_native_uncertainty_bound")
+        )
+        if threshold != admission.frozen_rank_threshold:
+            raise ValueError("producer frozen rank threshold differs")
+        comparison = self._object(self._field(request, "retained_diagnosis_comparison"))
+        if (
+            self._number(self._field(comparison, "native_uncertainty_bound"))
+            != threshold
+        ):
+            raise ValueError("producer request frozen rank threshold differs")
+
+        table = self._list(self._field(analysis, "complete_kpoint_diagnostics"))
+        if len(table) != 216:
+            raise ValueError("producer result must contain all 216 ordered points")
+        points: list[CommonSpaceProducerPoint] = []
+        deficient: list[JsonValue] = []
+        for index, raw in enumerate(table):
+            row = self._object(raw)
+            if (
+                self._integer(self._field(row, "ordered_kpoint_index_zero_based"))
+                != index
+            ):
+                raise ValueError("producer point order differs")
+            coordinates = self._list(
+                self._field(row, "fractional_reciprocal_coordinates")
+            )
+            if (
+                len(coordinates) != 3
+                or any(type(value) is not float for value in coordinates)
+                or tuple(coordinates) != contract.ordered_fractional_kpoints[index]
+            ):
+                # Match the shared parsed-record contract's exact numeric equality,
+                # including +0.0 == -0.0, without tolerances or coordinate coercion.
+                raise ValueError(
+                    "producer point coordinates differ from declared order"
+                )
+            rank = self._integer(self._field(row, "resolved_rank_at_native_bound"))
+            self._equal(
+                self._field(row, "full_rank_gate_passed"),
+                rank == 10,
+                "point full-rank flag",
+            )
+            points.append(
+                CommonSpaceProducerPoint(
+                    ordered_index=index,
+                    resolved_rank=rank,
+                    singular_values=(
+                        self._number(self._field(row, "maximum_singular_value")),
+                        self._number(
+                            self._field(row, "next_to_minimum_singular_value")
+                        ),
+                        self._number(self._field(row, "minimum_singular_value")),
+                    ),
+                    atomic_weights=tuple(
+                        self._number(value)
+                        for value in self._list(
+                            self._field(row, "minimum_direction_atomic_weights")
+                        )
+                    ),
+                    group_weights=tuple(
+                        self._number(value)
+                        for value in self._list(
+                            self._field(
+                                row, "minimum_direction_group_weights_s_p_s_star"
+                            )
+                        )
+                    ),
+                )
+            )
+            if rank < 10:
+                deficient.append(raw)
+        gamma = self._object(
+            self._field(analysis, "gamma_null_direction_atomic_orbital_weights")
+        )
+        gamma_row = self._object(table[0])
+        gamma_values = self._list(
+            self._field(gamma_row, "minimum_direction_atomic_weights")
+        )
+        if len(gamma_values) != 10:
+            raise ValueError(
+                "frozen producer Gamma point must report a deficient direction"
+            )
+        self._equal(
+            gamma,
+            dict(zip(contract.atomic_basis_order, gamma_values, strict=True)),
+            "Gamma duplicate weights",
+        )
+        self._equal(
+            self._field(analysis, "deficient_kpoint_count"),
+            len(deficient),
+            "deficient point count",
+        )
+        self._equal(
+            self._field(analysis, "deficient_kpoints"),
+            deficient,
+            "deficient point inventory",
+        )
+        return CommonSpaceProducerReference(
+            state_assertions_sha256=evidence[
+                CommonSpaceEvidenceRole.state_assertions
+            ].expected.sha256,
+            producer_result_identity=original.expected,
+            native_identities=contract.identities,
+            frozen_rank_threshold=threshold,
+            points=tuple(points),
+        )

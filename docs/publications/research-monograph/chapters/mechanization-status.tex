@@ -12,6 +12,13 @@
 \index{Rocq}
 
 
+The following table and its immediately following backend-status paragraphs
+concern only KSD admission of the frozen \texttt{PRF-05} contracts. They are
+not an inventory of all results in \texttt{projectkoios-formal}. A related
+Lean proposition can exist in that library while a KSD backend contract
+remains unencoded: exact statement matching, source provenance and admission
+are separate obligations.
+
 The current prover-neutral \texttt{PRF-05} target set contains nine frozen
 contracts:
 
@@ -45,6 +52,142 @@ Lean 4, mathlib, Isabelle/HOL, and Rocq. Provisional keys:
 \texttt{nipkowPaulsonWenzel2002}, and \texttt{bertotCasteran2004}. The table's
 checked and unencoded statuses require durable internal provenance; system
 citations do not establish those statuses.}
+
+\subsection{Source-neutral proof library versus contract admission}
+\label{sec:mechanization-library-versus-admission}
+
+A source-level coverage review of the formal repository based at
+\path{95a0565deb19bf6522f858ce5118b2c58195c238}, with the separately
+byte-inventoried eleven-path coordinate-algebra overlay, captured 1772
+repository-owned declarations across 130 modules and 34 semantic families.
+Of these, 1187 are theorem/lemma declarations including private helpers.
+These are source-inventory counts for that captured tree, not counts of
+independently reviewed scientific results or admitted KSD contracts. The
+external review crosswalk is
+\path{/Users/eugene/worktrees/projectkoios-formal-monograph-coverage-review/review/monograph-coverage/crosswalks/formal-module-family-crosswalk.tsv}.
+Like the coordinate-algebra evidence below, it is a local working-review
+record, not an immutable publication deposit.
+
+The library extends beyond the two surfaces explicitly summarized here.
+Its source-neutral families include finite-frame and projector algebra,
+Procrustes and polar witnesses, ordered Hermitian spectral errors,
+compression and perturbation bounds, finite Fourier and support identities,
+finite-lattice coordinate maps, residual channels, and finite decision
+mathematics. Some are relevant to subjects named by \texttt{PRF-05}; thematic
+relevance alone is not admission. The owning declaration manifest, exact
+hypotheses, source crosswalk and axiom reports must be checked for each
+proposition actually relied upon.
+
+Six questions must therefore remain separate: whether a proof exists;
+whether its exact proposition and conventions match the manuscript;
+whether KSD has admitted that encoding for its frozen contract; whether
+independent backends and semantic review meet completion criteria; whether
+runtime arrays and procedures are authenticated against the exact objects;
+and whether the physical model is validated for a declared use. A positive
+answer to one is not a positive answer to the others. In particular,
+\texttt{unencoded} in the table above does not mean that no supporting Lean
+algebra exists, and a supporting theorem does not change that table.
+
+The ascending/decreasing spectral-index bridge in
+Section~\ref{sec:training-spectral-order-bridge} records a concrete convention
+obligation. Appendix~\ref{app:auxiliary-mathematical-constructions} supplies
+bounded exposition for several additional source families. Neither addition
+asserts exhaustive declaration-level coverage, fresh Lean compilation,
+contract admission or a change to any frozen backend status.
+
+\subsection{Source-neutral conjugate-linear coordinate algebra}
+\label{sec:mechanization-conjugate-linear-coordinate-algebra}
+\index{mechanized proof!conjugate-linear coordinates}
+
+Separate external Lean evidence concerns a small algebraic slice of
+Chapter~\ref{ch:symmetry-actions-represented-subspaces}, not the frozen
+\texttt{PRF-05} contracts above. The owning repository is
+\texttt{projectkoios-formal}; its module is
+\path{ProjectKoios/BandGauge/Alignment/ConjugateLinearCoordinates.lean}.
+The declaration manifest owns definitions \texttt{BG-ALIGNMENT-DEF-050}
+through \texttt{056} and supporting lemmas \texttt{BG-ALIGNMENT-LEM-012}
+through \texttt{019}. Three named lemmas supply the relevant conclusions:
+\begin{itemize}
+  \item \texttt{BG-ALIGNMENT-LEM-014} proves the basis-change action
+    with $M'=A_{\mathrm t}^{-1}M\overline{A_{\mathrm s}}$. Here $M$ is a
+    rectangular complex matrix acting on conjugated source coefficients,
+    $A_{\mathrm s}$ and $A_{\mathrm t}$ are independently invertible source
+    and target basis matrices, and the overline is entrywise complex
+    conjugation. Source and target finite dimensions may differ.
+  \item \texttt{BG-ALIGNMENT-LEM-018} proves that the algebraic equation
+    $M^{\dagger}G_{\mathrm t}M=\overline{G_{\mathrm s}}$ is preserved under
+    that coordinate change and $G'_a=A_a^{\dagger}G_aA_a$. In this statement
+    $G_{\mathrm s}$ and $G_{\mathrm t}$ are arbitrary square complex
+    matrices of compatible sizes, not already qualified inner-product metrics;
+    the dagger is conjugate transpose and $a$ denotes either space.
+  \item \texttt{BG-ALIGNMENT-LEM-019} proves that composing coordinate
+    actions $x\mapsto N\overline x$ and $y\mapsto M\overline y$ gives
+    $x\mapsto M\overline N x$. The source vector $x$, intermediate vector
+    $y$ and matrices have explicitly compatible source, middle and target
+    coordinate types.
+\end{itemize}
+The exact names and hypotheses are retained in
+\path{declaration-signatures.log}; the module's formal manifest and provisional
+source crosswalk distinguish definitions from proved supporting lemmas.
+
+\paragraph{Validation evidence and limits.}
+The formal-owner logs separately record a successful targeted module build
+(1877 jobs) and a successful repository-wide \path{lake build} (3936 jobs).
+The admission scan, named axiom-report coverage, dependency-pin check,
+relative-link check and diff check also report passage. These results use
+\path{leanprover/lean4:v4.35.0} and Mathlib revision
+\path{56a005855ea17e0b0958f73ec801ae140b0a1679}. All eight new supporting
+lemmas have named reports listing only \texttt{propext},
+\texttt{Classical.choice} and \texttt{Quot.sound}; no admitted declaration
+markers were reported. This documentation pass inspected the source,
+signatures and reports and authenticated the evidence bytes; it did not rerun
+Lean or conduct an independent formal review.
+
+The conclusions are conditional finite-coordinate algebra. They do not prove
+Hermiticity or positive definiteness of the supplied matrices, bijectivity,
+norm preservation, isometry or antiunitarity of a state map. Nor do they
+construct an electronic symmetry action, prove subspace closure or sector
+projectors, mechanize the sector-rank proposition, verify floating-point
+operations or metadata, establish a runtime-array binding, or validate a
+physical model. The Chapter 9 norm and physical interpretations still require
+their separately stated hypotheses. No Isabelle/Rocq encoding, cross-backend
+check, \texttt{PRF-05} status change, reviewed proof-package completion,
+publication readiness or scientific validation is inferred.
+
+\paragraph{Provisional source and build identities.}
+At evidence capture the formal repository was on \texttt{main}, based at
+\path{95a0565deb19bf6522f858ce5118b2c58195c238}, with eleven uncommitted
+paths. The module above has SHA-256
+\path{ffe1e5922a935590c2f9491b6b2d4b9f9ac316ae1c9d5e9a085eb3d7334f3fa7}.
+The complete eleven-path changed-source inventory is
+\path{changed-source-byte-inventory.tsv}, SHA-256
+\path{85c25bce631ba5a906148c0fcc316639c627d2686b1781d08e0070fad46465a4}.
+The base commit alone does not identify the tested dirty tree. Its
+\path{lake-manifest.json} has SHA-256
+\path{3b189da2837c60b3458a3d1cff6a01d584c8d8e4ee5f46b7d71053510ef98ec9}.
+
+The formal crosswalk inspected an untracked Chapter 9 in the dirty KSD
+checkout based at \path{dac209a60aec502ae05fe84abd0c5eca23d3b4df}; its
+inspected source SHA-256 is
+\path{6618147457500455e6b1c50e788436440622733769b3827b935cb3bb35386b34}.
+That digest identifies the pre-note Chapter 9 bytes, not this later annotated
+file. The historical binding is not silently updated by adding this note.
+The owner crosswalk is
+\path{docs/BandGauge/ksdft2effmass/conjugate-linear-coordinate-algebra-crosswalk.md}
+in \texttt{projectkoios-formal}. It remains provisional rather than an
+immutable publication-source or runtime binding.
+
+The durable local evidence root is
+\path{/Users/eugene/.local/share/projectkoios-formal/chapter9-conjugate-linear/2026-11-08/evidence/}.
+Its \path{evidence-sha256.txt} manifest has SHA-256
+\path{7a09096447df32936280db6707c605ce0acc9252caf90c3fdfea00a6483ac98d}
+and binds the source inventory, signatures, reports, identity records and
+validation logs. These are external local records, not a portable repository
+evidence deposit. Hash authentication establishes byte identity, not the
+truth of every recorded process claim, semantic source fidelity, scientific
+acceptance or execution authority. A reviewed publication snapshot still
+requires separately authorized immutable source provenance and semantic
+crosswalk review; this working-draft note performs neither.
 
 \section{Novelty and evidence boundary}
 \index{proof!evidence boundary}

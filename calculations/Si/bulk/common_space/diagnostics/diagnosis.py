@@ -18,6 +18,9 @@ from projectkoios.integrations.wannier90 import (
     Wannier90UnitaryMatrixParser,
 )
 
+from common_space.verification.native_inputs import CommonSpaceParsedNativeInputs
+from common_space.verification.source_admission import CommonSpaceReviewScope
+
 type JsonScalar = None | bool | int | float | str
 type JsonValue = JsonScalar | list[JsonValue] | dict[str, JsonValue]
 type JsonObject = dict[str, JsonValue]
@@ -284,7 +287,17 @@ class ProviderIdentity:
 
 @dataclass(frozen=True, slots=True, kw_only=True)
 class KPointDiagnosis:
-    """One separately reconstructed rank and subspace-overlap diagnostic."""
+    """One raw rank, nominal minimum direction, and subspace-overlap diagnostic.
+
+    Spectrum and weights are dimensionless finite built-in int/float scalars,
+    excluding bool and numeric strings. Ten nominal squared SVD-vector magnitudes
+    follow EXPECTED_BASIS_ORDER only at deficient points; full-rank points have no
+    deficient direction. They are not certified intervals or an exact-nullspace
+    claim or a unique diagnosis when several directions are unresolved. Floating
+    summation need not be exactly one. These are trial-coordinate weights, not
+    orbital populations or charges. Nonfinite values, including floating overflow,
+    are rejected. Weight tuples are immutable.
+    """
 
     ordered_index: int
     fractional_coordinates: tuple[float, float, float]
@@ -296,18 +309,23 @@ class KPointDiagnosis:
     minimum_principal_cosine: float
     maximum_principal_angle_radians: float
     full_rank_gate_passed: bool
+    minimum_direction_atomic_weights: tuple[float, ...]
 
     def __post_init__(self) -> None:
         """Validate one finite diagnostic record and its optional condition number."""
         if type(self.ordered_index) is not int or self.ordered_index < 0:
             raise ValueError("ordered_index must be a nonnegative integer")
-        if len(self.fractional_coordinates) != 3 or any(
-            type(value) not in {int, float} or not np.isfinite(value)
-            for value in self.fractional_coordinates
+        if (
+            type(self.fractional_coordinates) is not tuple
+            or len(self.fractional_coordinates) != 3
+            or any(
+                type(value) not in {int, float} or not np.isfinite(value)
+                for value in self.fractional_coordinates
+            )
         ):
             raise ValueError("fractional_coordinates must contain three finite reals")
-        if type(self.resolved_rank) is not int or self.resolved_rank < 0:
-            raise ValueError("resolved_rank must be a nonnegative integer")
+        if type(self.resolved_rank) is not int or not 0 <= self.resolved_rank <= 10:
+            raise ValueError("resolved_rank must be an integer in [0, 10]")
         for name, value in (
             ("maximum_singular_value", self.maximum_singular_value),
             ("next_to_minimum_singular_value", self.next_to_minimum_singular_value),
@@ -337,6 +355,37 @@ class KPointDiagnosis:
             )
         if type(self.full_rank_gate_passed) is not bool:
             raise ValueError("full_rank_gate_passed must be a boolean")
+        if self.full_rank_gate_passed != (self.resolved_rank == 10):
+            raise ValueError("full-rank flag differs from the resolved rank")
+        if type(self.minimum_direction_atomic_weights) is not tuple or any(
+            type(value) not in {int, float}
+            or not np.isfinite(value)
+            or not 0.0 <= value <= 1.0
+            for value in self.minimum_direction_atomic_weights
+        ):
+            raise ValueError(
+                "minimum-direction weights must be an immutable tuple of finite probabilities"
+            )
+        if len(self.minimum_direction_atomic_weights) != (
+            0 if self.full_rank_gate_passed else 10
+        ):
+            raise ValueError(
+                "each deficient point requires ten minimum-direction weights"
+            )
+        if self.minimum_direction_atomic_weights and not any(
+            self.minimum_direction_atomic_weights
+        ):
+            raise ValueError("minimum-direction weights must have nonzero mass")
+
+    @property
+    def minimum_direction_group_weights(self) -> tuple[float, ...]:
+        """Aggregate nominal s, p, s-star weights in the declared atomic order."""
+        if not self.minimum_direction_atomic_weights:
+            return ()
+        return tuple(
+            sum(self.minimum_direction_atomic_weights[index] for index in indices)
+            for indices in ((0, 5), (1, 2, 3, 6, 7, 8), (4, 9))
+        )
 
     def to_json(self) -> JsonObject:
         """Return a strict JSON representation."""
@@ -355,6 +404,12 @@ class KPointDiagnosis:
                 self.maximum_principal_angle_radians
             ),
             "full_rank_gate_passed": self.full_rank_gate_passed,
+            "minimum_direction_atomic_weights": list(
+                self.minimum_direction_atomic_weights
+            ),
+            "minimum_direction_group_weights_s_p_s_star": list(
+                self.minimum_direction_group_weights
+            ),
         }
 
 
@@ -394,8 +449,7 @@ class CommonSpaceRankDiagnosis:
     __slots__ = ()
 
     NEXT_CONTROLLED_STEPS: ClassVar[tuple[str, ...]] = (
-        "CSD1: complete higher-precision sensitivity and symmetry-related point inventory.",
-        "CSD1-V: independently verify the rank diagnosis after authenticated parsing.",
+        "CSD1-V: independently verify the complete producer result; higher precision remains conditional on arithmetic ambiguity or independent-route disagreement.",
         "CSD2 remains blocked until complete CSD1 and independent CSD1-V pass.",
     )
 
@@ -405,8 +459,22 @@ class CommonSpaceRankDiagnosis:
         request_path: Path,
         output_root: Path,
         reporter: HumanReadableProgressReporter,
+        source_declaration_path: Path | None = None,
+        source_scope: CommonSpaceReviewScope = CommonSpaceReviewScope.retained,
     ) -> JsonObject:
-        """Run CSD0 and CSD1, then retain deterministic diagnostic artifacts."""
+        """Retain source-authenticated CSD1 producer deliverables, not verification.
+
+        The request is data, not execution permission. Separate operator authority
+        is required; no electronic symmetry attribution or model selection occurs.
+        """
+        from .source_association import (
+            AdoptedSiliconSourceAssociation,
+            AuthenticatedSiliconSourceAssociation,
+        )
+
+        if type(source_scope) is not CommonSpaceReviewScope:
+            raise TypeError("source_scope must use CommonSpaceReviewScope")
+
         request_candidate = request_path.absolute()
         if not request_candidate.is_file() or request_candidate.is_symlink():
             raise FileNotFoundError(
@@ -423,10 +491,32 @@ class CommonSpaceRankDiagnosis:
             if path.exists():
                 raise FileExistsError(f"refusing to overwrite {path}")
 
+        if source_scope is CommonSpaceReviewScope.retained:
+            if source_declaration_path is None:
+                raise ValueError(
+                    "retained producer execution requires the adopted source declaration"
+                )
+            authenticate_file(
+                FileSourceDeclaration(
+                    label="request",
+                    location="absolute",
+                    declared_path=str(request_path),
+                    byte_size=5458,
+                    sha256="0dd0d97cdc6134a30073b9d54a54077bba93b579882ef709de47534ca59ff89e",
+                ),
+                reporter,
+            )
+        elif source_declaration_path is not None:
+            raise ValueError(
+                "synthetic development cannot consume a retained source declaration"
+            )
         request = read_request(path=request_path)
         reporter.heading("C6-B20-W21 common-space rank diagnosis")
         reporter.line(f"Request: {request.request_id}")
         reporter.line("Execution class: read-only, no-calculator diagnostic")
+        reporter.line(
+            f"Source scope: {source_scope.to_wire()} (not execution authority)"
+        )
         reporter.line("Authorized calculator invocations: 0")
         reporter.line("Authorized fit invocations: 0")
 
@@ -441,11 +531,49 @@ class CommonSpaceRankDiagnosis:
             f"{len(provider_identities)} provider modules authenticated"
         )
 
+        association: AuthenticatedSiliconSourceAssociation | None = None
+        if source_scope is CommonSpaceReviewScope.retained:
+            assert source_declaration_path is not None
+            association = AdoptedSiliconSourceAssociation(
+                declaration_path=source_declaration_path,
+            ).execute(request=request, request_path=request_path, reporter=reporter)
+            reporter.line(
+                "  [OK] adopted full-S30 source association and exact native point declarations authenticated"
+            )
+        else:
+            reporter.line(
+                "  Synthetic source-contract checks only; no retained CSD0 claim"
+            )
         reporter.stage(
             "CSD1",
             "Reconstruct the 216-point trial-to-Wannier overlap rank gate",
         )
-        analysis = reconstruct_rank_gate(request, reporter)
+        inventory_bytes: bytes | None = None
+        if association is None:
+            analysis = reconstruct_rank_gate(request, reporter)
+        else:
+            analysis = reconstruct_rank_gate(
+                request,
+                reporter,
+                parsed_inputs=association.parsed_inputs,
+                inventory_geometry_identity=association.parsed_inputs.contract.geometry_identity,
+            )
+            inventory = require_object(
+                analysis.pop("geometric_point_inventory"), "point inventory"
+            )
+            inventory["state_assertions_sha256"] = association.declaration.sha256
+            inventory["request_sha256"] = request_identity.sha256
+            inventory_bytes = canonical_json(inventory)
+            analysis["point_inventory_artifact"] = artifact_record(
+                "point-inventory.json", inventory_bytes
+            )
+            analysis["unimplemented_CSD1_extensions"] = []
+            analysis["producer_deliverables"] = (
+                "complete-reconstruction-and-geometric-index-inventory"
+            )
+            reporter.line(
+                "  [OK] exhaustive geometric construction-index inventory retained; no electronic symmetry actions inferred"
+            )
         reporter.line("  [OK] retained deficient-point inventory reproduced")
         reporter.line("  [OK] retained-subspace unitary-invariance control passed")
 
@@ -455,9 +583,15 @@ class CommonSpaceRankDiagnosis:
         reporter.line(f"  Scientific disposition: {scientific_status}")
         reporter.line("  Fit invoked: NO")
         reporter.line("  QE or Wannier90 invoked: NO")
-        reporter.line("  Independent CSD1-V verifier: NOT IMPLEMENTED")
-        reporter.line("  Higher-precision sensitivity extension: NOT IMPLEMENTED")
-        reporter.line("  Symmetry-related point inventory extension: NOT IMPLEMENTED")
+        reporter.line("  Independent rank verification of this result: NOT RUN")
+        reporter.line(
+            "  Higher arithmetic precision: CONDITIONAL; not run by this producer"
+        )
+        reporter.line(
+            "  Geometric construction-index point inventory: COMPLETED (not electronic symmetry representations)"
+            if association is not None
+            else "  Geometric construction-index point inventory: NOT RUN (synthetic numeric subset)"
+        )
         reporter.line("  CSD2 symmetry attribution: NOT RUN")
         reporter.line("  Human CSD3 branch selection: REQUIRED")
         reporter.line()
@@ -479,9 +613,13 @@ class CommonSpaceRankDiagnosis:
         reporter.line(f"  {output_root / RESULT_NAME}")
         reporter.line(f"  {output_root / SUMMARY_NAME}")
         reporter.line(f"  {output_root / MANIFEST_NAME}")
+        if association is not None:
+            reporter.line(f"  {output_root / 'point-inventory.json'}")
+            reporter.line(f"  {output_root / 'producer-completion.json'}")
 
         result: JsonObject = {
             "schema_version": 1,
+            "review_scope": source_scope.to_wire(),
             "record_type": "c6_b20_w21_common_space_rank_diagnosis",
             "request_id": request.request_id,
             "execution_outcome": "completed",
@@ -502,10 +640,10 @@ class CommonSpaceRankDiagnosis:
             },
             "CSD1": analysis,
             "independent_verification": {
-                "outcome": "not-implemented",
+                "outcome": "not-run",
                 "reason": (
-                    "the current implementation is a producer independent of S110; "
-                    "a separately implemented CSD1-V verifier is required before CSD2"
+                    "separate rank-verification software must run after reviewed source "
+                    "admission and completion of reconstruction and point-inventory evidence"
                 ),
             },
             "CSD2": {
@@ -521,16 +659,85 @@ class CommonSpaceRankDiagnosis:
                 "implementation", Path(__file__).resolve()
             ).to_json(),
         }
+        if association is not None:
+            require_object(result["CSD0"], "CSD0")["source_association"] = (
+                association.to_json()
+            )
         result_bytes = canonical_json(result)
         summary_bytes = reporter.transcript().encode("utf-8")
+        if association is None:
+            # Explicit synthetic route retains the real numeric producer schema,
+            # never a retained-source association or a completion receipt.
+            manifest = build_manifest(
+                request_path=request_path,
+                result_bytes=result_bytes,
+                summary_bytes=summary_bytes,
+            )
+            output_root.mkdir(parents=True, exist_ok=False)
+            write_exclusive(output_root / RESULT_NAME, result_bytes)
+            write_exclusive(output_root / SUMMARY_NAME, summary_bytes)
+            write_exclusive(output_root / MANIFEST_NAME, canonical_json(manifest))
+            return result
+        if inventory_bytes is None:
+            raise RuntimeError(
+                "retained producer requires actual point-inventory bytes"
+            )
+        completion: JsonObject = {
+            "record_type": "common-space-producer-prerequisites-v1",
+            "state_assertions_sha256": association.declaration.sha256,
+            "full_grid_reconstruction_complete": True,
+            "symmetry_inventory_complete": True,
+            "completed_evidence": [
+                {
+                    "role": role,
+                    "identity": {
+                        "name": name,
+                        "byte_count": len(payload),
+                        "sha256": hashlib.sha256(payload).hexdigest(),
+                    },
+                }
+                for role, name, payload in (
+                    ("complete-rank-reconstruction", RESULT_NAME, result_bytes),
+                    (
+                        "symmetry-related-point-inventory",
+                        "point-inventory.json",
+                        inventory_bytes,
+                    ),
+                )
+            ],
+            "review_scope": "reviewed-retained-source-declaration",
+        }
+        completion_bytes = canonical_json(completion)
         manifest = build_manifest(
             request_path=request_path,
             result_bytes=result_bytes,
             summary_bytes=summary_bytes,
         )
+        manifest_artifacts = require_list(manifest["artifacts"], "manifest artifacts")
+        manifest_artifacts.extend(
+            [
+                artifact_record("point-inventory.json", inventory_bytes),
+                artifact_record("producer-completion.json", completion_bytes),
+                identity_for_path(
+                    "source-association-implementation", ROOT / "source_association.py"
+                ).to_json(),
+                identity_for_path(
+                    "point-inventory-implementation", ROOT / "point_inventory.py"
+                ).to_json(),
+            ]
+        )
         output_root.mkdir(parents=True, exist_ok=False)
         write_exclusive(output_root / RESULT_NAME, result_bytes)
         write_exclusive(output_root / SUMMARY_NAME, summary_bytes)
+        write_exclusive(output_root / "point-inventory.json", inventory_bytes)
+        # Completion bytes are written only after both actual deliverables exist.
+        if (output_root / RESULT_NAME).read_bytes() != result_bytes or (
+            output_root / "point-inventory.json"
+        ).read_bytes() != inventory_bytes:
+            raise RuntimeError(
+                "producer deliverables changed before completion persistence"
+            )
+        write_exclusive(output_root / "producer-completion.json", completion_bytes)
         write_exclusive(output_root / MANIFEST_NAME, canonical_json(manifest))
         return result
 
@@ -963,18 +1170,46 @@ def validate_retained_source_contract(
 def reconstruct_rank_gate(
     request: CommonSpaceDiagnosisRequest,
     reporter: HumanReadableProgressReporter,
+    *,
+    parsed_inputs: CommonSpaceParsedNativeInputs | None = None,
+    inventory_geometry_identity: str | None = None,
 ) -> JsonObject:
     """Reconstruct the complete singular-value field without importing S110 code."""
     source_paths = {source.label: source.resolve() for source in request.file_sources}
     validate_retained_source_contract(request=request, source_paths=source_paths)
     reporter.line("  Authenticated S30, S105, and S110 semantic contracts matched")
-    trial_overlaps = Wannier90TrialOrbitalOverlapParser(
-        payload=source_paths["AMN"].read_bytes()
-    ).parse()
-    gauge = Wannier90UnitaryMatrixParser().execute(source_paths["gauge"].read_bytes())
-    disentanglement = Wannier90DisentanglementMatrixParser().execute(
-        source_paths["disentanglement"].read_bytes()
-    )
+    if parsed_inputs is None:
+        trial_overlaps = Wannier90TrialOrbitalOverlapParser(
+            payload=source_paths["AMN"].read_bytes()
+        ).parse()
+        gauge = Wannier90UnitaryMatrixParser().execute(
+            source_paths["gauge"].read_bytes()
+        )
+        disentanglement = Wannier90DisentanglementMatrixParser().execute(
+            source_paths["disentanglement"].read_bytes()
+        )
+    else:
+        if type(parsed_inputs) is not CommonSpaceParsedNativeInputs:
+            raise TypeError("parsed_inputs must use the shared immutable native record")
+        for label, identity in zip(
+            ("AMN", "gauge", "disentanglement"),
+            parsed_inputs.contract.identities,
+            strict=True,
+        ):
+            source = next(item for item in request.file_sources if item.label == label)
+            if (identity.name, identity.byte_count, identity.sha256) != (
+                source.resolve().name,
+                source.byte_size,
+                source.sha256,
+            ):
+                raise ValueError(
+                    "shared parsed inputs differ from producer source identities"
+                )
+        trial_overlaps, gauge, disentanglement = (
+            parsed_inputs.trial_overlaps,
+            parsed_inputs.gauge,
+            parsed_inputs.disentanglement,
+        )
     state = request.state_space
     if (
         trial_overlaps.kpoint_count != state.kpoint_count
@@ -1075,6 +1310,9 @@ def reconstruct_rank_gate(
         condition_number = (
             float(singular_values[0] / minimum) if minimum > 0.0 else None
         )
+        minimum_direction_weights = tuple(
+            float(abs(value) ** 2) for value in right_adjoint[-1].conj()
+        )
         record = KPointDiagnosis(
             ordered_index=index,
             fractional_coordinates=cast(
@@ -1089,6 +1327,9 @@ def reconstruct_rank_gate(
             minimum_principal_cosine=minimum_principal_cosine,
             maximum_principal_angle_radians=maximum_principal_angle,
             full_rank_gate_passed=resolved_rank == state.retained_rank,
+            minimum_direction_atomic_weights=(
+                minimum_direction_weights if resolved_rank < state.retained_rank else ()
+            ),
         )
         records.append(record)
         if not record.full_rank_gate_passed:
@@ -1099,10 +1340,8 @@ def reconstruct_rank_gate(
                 f"sigma_min={minimum:.16e}"
             )
         if index == 0:
-            null_vector = right_adjoint[-1].conj()
             gamma_weights = tuple(
-                (label, float(abs(value) ** 2))
-                for label, value in zip(state.basis_order, null_vector, strict=True)
+                zip(state.basis_order, minimum_direction_weights, strict=True)
             )
 
         phases = np.exp(
@@ -1176,12 +1415,11 @@ def reconstruct_rank_gate(
         "defined under the declared contract"
     )
 
-    return {
+    analysis: JsonObject = {
         "outcome": "rank-deficiency-reproduced",
         "producer_scope": "projector-rank-reconstruction-subset",
         "unimplemented_CSD1_extensions": [
-            "separately implemented independent verification",
-            "higher-precision sensitivity using the same retained decimal data",
+            "integration with independent verification of this producer result",
             "symmetry-related deficient-point inventory",
         ],
         "scientific_disposition": "blocked-orbital-alignment-rank-deficient-no-fit",
@@ -1247,6 +1485,14 @@ def reconstruct_rank_gate(
         "calculator_invocations": 0,
         "next_stage": " ".join(CommonSpaceRankDiagnosis.NEXT_CONTROLLED_STEPS),
     }
+    if inventory_geometry_identity is not None:
+        from .point_inventory import DiamondConstructionPointInventory
+
+        analysis["geometric_point_inventory"] = DiamondConstructionPointInventory(
+            records=tuple(records),
+            geometry_identity=inventory_geometry_identity,
+        ).execute()
+    return analysis
 
 
 def atomic_to_projection_transform() -> ComplexArray:

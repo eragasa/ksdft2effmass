@@ -1,0 +1,165 @@
+{
+  "scope": "Attribute the Gamma window-loss direction to existing excluded parent bands.\n\nNo window, retained subspace, calculator input or source operator is changed.\nFractions below are shares of one trial combination's squared parent-band\nresponse, NOT occupations, charges, physical orbital populations or irreps.\n\nThe leading nine right-singular candidates F yield a certified lower bound on\nsigma_9(C_window): sigma_min(C_window F)/||F||. A Rayleigh residual for the\ntenth candidate then bounds its projector error using the separated second\nGram eigenvalue. For native error epsilon, Gram perturbation is at most\n2*||C_window||*epsilon+epsilon^2. If gap>2*perturbation, the minimum-projector\nchange is bounded by perturbation/(gap-perturbation). Per-band squared-response\nbounds also include parent-row input errors. All bound tests use Fractions;\nserialized floating values are displays, not outward-rounded certificates.\n",
+  "request_sha256": "0dd0d97cdc6134a30073b9d54a54077bba93b579882ef709de47534ca59ff89e",
+  "whitening_result_sha256": "fea454ee5687d75f09e0cec102dadd101622745f478513dacdaf5e89fb3ee75c",
+  "window_result_sha256": "d224115991a4f65bdf6cf542b20c168dc86d99bb7abf287dc6075a30f1ffcf49",
+  "helper_script_sha256": "7e84941aaae539fb099ea8e501a311e7c8e4d83c43a65897d727ee1ee11916de",
+  "script_sha256": "8e704afd6d726d52ac652765e206c1546b0ebe02f3abe1bd89c327a284f1fee8",
+  "source_identities": {
+    "S30_untruncated_characterization": {
+      "location": "repository",
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-untruncated-characterization/characterization-result.json",
+      "byte_size": 56310,
+      "sha256": "37f654ae31bc21e43b768bf2b9da5edabd88c195e3f6e1c87708eaa1c4773c18"
+    },
+    "S105_full_support_disposition": {
+      "location": "repository",
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-spatial-truncation-disposition/spatial-truncation-disposition.json",
+      "byte_size": 6187,
+      "sha256": "519adfcf1101f7caa7916e04f3bf37879f4ad82b0f30e4ef38adc39770224f68"
+    },
+    "S110_blocked_result": {
+      "location": "repository",
+      "path": "calculations/Si/bulk/analysis/c6-b20-w21-slater-koster-definition-fit/slater-koster-definition-fit-result.json",
+      "byte_size": 119010,
+      "sha256": "b9b8403dfc8b24df01e1671f582697440e1a211d60e0e70c9b0f621dfa086e98"
+    },
+    "hopping_first_protocol": {
+      "location": "repository",
+      "path": "calculations/Si/bulk/research-protocol/controlled-reduction-protocol-hopping-first.tex",
+      "byte_size": 68518,
+      "sha256": "2cfc03bbd4edce4387c7dad3e0cf75129b35b61a45594a33c036d6217e605ec4"
+    },
+    "AMN": {
+      "location": "absolute",
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.amn",
+      "byte_size": 2894499,
+      "sha256": "9186cd5b8802bede18f81b96188f0a2035eb97565c2f811f5ca7769f2ebefece"
+    },
+    "gauge": {
+      "location": "absolute",
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u.mat",
+      "byte_size": 679824,
+      "sha256": "41758b721b79cae233689b4fb9fa359e750b82da8ed5bcd13b1d5faf3c5d8bf3"
+    },
+    "disentanglement": {
+      "location": "absolute",
+      "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-wannier90-localization-c6-b20-w21-aiida-precise-v1/run/silicon_u_dis.mat",
+      "byte_size": 1349424,
+      "sha256": "3c1d3574f3bf783cf7b54d8e9fd00fa5811ef05a56240850d46f43a2c95b7ace"
+    }
+  },
+  "eig_identity": {
+    "band_count": 20,
+    "bounded_parse_succeeded": true,
+    "byte_size": 168480,
+    "kpoint_count": 216,
+    "maximum_absolute_qexsd_difference_ev": 5.364597654988756e-13,
+    "path": "/Users/eugene/projects/ksdft2effmass/si-accepted-s1-pw2wannier90-c6-b20-w21-aiida-precise-v1/run/silicon.eig",
+    "qexsd_shape_matches": true,
+    "sha256": "a54f31f8f72cd32b63ad78e47378cd0a8ce97474ad223606f88d48c97c890dd2",
+    "unit": "eV"
+  },
+  "rounding_model": "nearest absolute decimal rounding: AMN/EIG twelve decimal places; correctly rounded binary64 parsing",
+  "frozen_window_unchanged_ev": [
+    -6,
+    21
+  ],
+  "frozen_raw_threshold_unchanged": 5.890206739032098e-07,
+  "minimum_direction_gram_gap_lower_display": 0.05911599955954078,
+  "minimum_direction_arithmetic_projector_error_upper_display": 5.1876932222086426e-14,
+  "minimum_direction_native_projector_error_upper_display": 1.7097984981211033e-09,
+  "trial_coordinate_group_weights_nominal": {
+    "s": 0.19492945927267977,
+    "p": 2.8908078369744292e-25,
+    "s_star": 0.8050705407273202
+  },
+  "excluded_band_responses": [
+    {
+      "parent_band_one_based": 15,
+      "energy_ev": 21.257167314276,
+      "squared_trial_response_nominal": 0.00783445471584243,
+      "squared_trial_response_lower_display": 0.007834454638689163,
+      "squared_trial_response_upper_display": 0.007834454792995696,
+      "share_of_excluded_squared_response_nominal": 1.0
+    },
+    {
+      "parent_band_one_based": 16,
+      "energy_ev": 28.749819003985,
+      "squared_trial_response_nominal": 2.0488971726728425e-23,
+      "squared_trial_response_lower_display": 0.0,
+      "squared_trial_response_upper_display": 2.786199046269439e-11,
+      "share_of_excluded_squared_response_nominal": 2.615239026820422e-21
+    },
+    {
+      "parent_band_one_based": 17,
+      "energy_ev": 28.749819003985,
+      "squared_trial_response_nominal": 1.3128045363041832e-22,
+      "squared_trial_response_lower_display": 0.0,
+      "squared_trial_response_upper_display": 2.7861990399237882e-11,
+      "share_of_excluded_squared_response_nominal": 1.6756808021999253e-20
+    },
+    {
+      "parent_band_one_based": 18,
+      "energy_ev": 28.749819003985,
+      "squared_trial_response_nominal": 7.133854040017052e-23,
+      "squared_trial_response_lower_display": 0.0,
+      "squared_trial_response_upper_display": 2.7861990653034336e-11,
+      "share_of_excluded_squared_response_nominal": 9.105744175904599e-21
+    },
+    {
+      "parent_band_one_based": 19,
+      "energy_ev": 29.78177869836,
+      "squared_trial_response_nominal": 8.411519765679922e-22,
+      "squared_trial_response_lower_display": 0.0,
+      "squared_trial_response_upper_display": 8.69999618093294e-19,
+      "share_of_excluded_squared_response_nominal": 1.0736573342712135e-19
+    },
+    {
+      "parent_band_one_based": 20,
+      "energy_ev": 29.781778698362,
+      "squared_trial_response_nominal": 1.0592763460118447e-20,
+      "squared_trial_response_lower_display": 0.0,
+      "squared_trial_response_upper_display": 5.920046853219165e-18,
+      "share_of_excluded_squared_response_nominal": 1.352074119300008e-18
+    }
+  ],
+  "dominant_excluded_band_one_based": 15,
+  "dominant_band_share_lower_under_bounds_display": 0.9999999893309769,
+  "algebraic_inclusion_checks_not_window_selections": [
+    {
+      "included_parent_band_count_at_gamma": 14,
+      "minimum_trial_singular_value_nominal": 1.2430719394114775e-12,
+      "minimum_lower_after_input_error_display": 0.0,
+      "minimum_upper_after_input_error_display": 1.124344626107079e-11,
+      "trial_independence_resolved_under_rounding": false
+    },
+    {
+      "included_parent_band_count_at_gamma": 15,
+      "minimum_trial_singular_value_nominal": 0.08536372303479654,
+      "minimum_lower_after_input_error_display": 0.08058255952499203,
+      "minimum_upper_after_input_error_display": 0.08536372304479693,
+      "trial_independence_resolved_under_rounding": true
+    },
+    {
+      "included_parent_band_count_at_gamma": 18,
+      "minimum_trial_singular_value_nominal": 0.0853637230347965,
+      "minimum_lower_after_input_error_display": 0.08060557811387674,
+      "minimum_upper_after_input_error_display": 0.08536372304479693,
+      "trial_independence_resolved_under_rounding": true
+    },
+    {
+      "included_parent_band_count_at_gamma": 20,
+      "minimum_trial_singular_value_nominal": 0.08536372303479649,
+      "minimum_lower_after_input_error_display": 0.08060557811387681,
+      "minimum_upper_after_input_error_display": 0.08536372304479693,
+      "trial_independence_resolved_under_rounding": true
+    }
+  ],
+  "nonclaims": [
+    "No irrep or symmetry-protection attribution.",
+    "No tracking of band 15 across reciprocal space.",
+    "Restoring trial independence at Gamma does not establish that a final rank-ten Wannier subspace retains it.",
+    "No new window, source, fit, calculator run or production qualification."
+  ]
+}

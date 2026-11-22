@@ -1,0 +1,325 @@
+\chapter{Auxiliary Lattice, Decision, and Fourier Constructions}
+\label{app:auxiliary-mathematical-constructions}
+\index{finite barrier!lattice matching}
+\index{Pareto order}
+\index{Bessel function}
+\index{Bain path}
+
+\chapterstatus{bounded mathematical exposition of additional repository-owned
+source families. No numerical experiment, material result, new implementation,
+complete source-signature crosswalk, backend admission or scientific validation
+is claimed. Algebraic, analytical, software and proposed-campaign statements
+below have distinct scopes.}
+
+\section{A finite lattice barrier and its interface coordinates}
+
+Let $j\in\mathbb Z$ label lattice sites and let $\psi_j\in\mathbb C$ be a
+scalar lattice amplitude. In the source-neutral convention the negative
+centered difference has coefficient one. The energy $\varepsilon$ and onsite
+potential $v_j$ are dimensionless; a physical interpretation requires a
+separately chosen positive energy scale $\kappa$, with physical energy
+$\kappa\varepsilon$ and onsite energy $\kappa v_j$. No particular mass,
+lattice spacing or semiconductor parent is selected by this normalization.
+The zero-residual equation is
+\begin{equation}
+  2\psi_j-\psi_{j-1}-\psi_{j+1}+(v_j-\varepsilon)\psi_j=0.
+  \label{eq:auxiliary-lattice-barrier-recurrence}
+\end{equation}
+For a constant region with potential $v$, define the two-coordinate transfer
+state $s_j=(\psi_j,\psi_{j-1})^{\mathsf T}$ and transfer matrix $T(v,\varepsilon)$:
+\begin{equation}
+  s_{j+1}=T(v,\varepsilon)s_j,\qquad
+  T(v,\varepsilon)=\begin{pmatrix}2+v-\varepsilon&-1\\1&0\end{pmatrix},
+  \qquad \det T=1.
+  \label{eq:auxiliary-one-site-transfer}
+\end{equation}
+The first row is the recurrence solved for $\psi_{j+1}$; the second row
+retains $\psi_j$. A nonzero character root $z\in\mathbb C$ solves this
+recurrence through $\psi_j=z^j$ exactly when
+$z+z^{-1}=2+v-\varepsilon$. Its reciprocal is another root. A superposition
+$\psi_j=a z^{j-o}+b z^{-(j-o)}$, with interface origin $o\in\mathbb Z$
+and amplitudes $a,b\in\mathbb C$, has interface state
+\begin{equation}
+  s_o=S(z)\begin{pmatrix}a\\b\end{pmatrix},\qquad
+  S(z)=\begin{pmatrix}1&1\\z^{-1}&z\end{pmatrix},\qquad
+  \det S(z)=z-z^{-1}.
+  \label{eq:auxiliary-lead-interface}
+\end{equation}
+Thus amplitude coordinates are nonsingular away from coincident reciprocal
+roots $z=z^{-1}$, that is $z=\pm1$ for nonzero $z$.
+
+Take a barrier of width $L\in\mathbb N$, with $v_j=v_{\mathrm L}$ for
+$j<0$, $v_j=v_{\mathrm B}$ for $0\leq j<L$, and $v_j=v_{\mathrm R}$ for
+$j\geq L$. Propagation over its sites gives $s_L=T(v_{\mathrm B},\varepsilon)^L s_0$.
+If $z_{\mathrm L},z_{\mathrm R}$ are the respective nonzero lead roots,
+matching amplitude columns $a_{\mathrm L}$ and $a_{\mathrm R}$ means
+\begin{equation}
+  S(z_{\mathrm R})a_{\mathrm R}
+    =T(v_{\mathrm B},\varepsilon)^L S(z_{\mathrm L})a_{\mathrm L}.
+  \label{eq:auxiliary-barrier-amplitude-matching}
+\end{equation}
+Each column contains its forward and backward amplitudes in that order;
+the right origin is $L$, not zero. A fixed left interface state has unique
+right amplitude coordinates if $z_{\mathrm R}\ne z_{\mathrm R}^{-1}$,
+because $S(z_{\mathrm R})$ is then invertible. This does not solve the
+different boundary-value problem of fixing an incident amplitude on one side
+and a vanishing incoming amplitude on the other. For $L=0$ and equal lead
+roots, unchanged amplitudes satisfy matching since $T^0=I_2$.
+
+The corresponding source families are
+\path{ProjectKoios/QuantumMechanics/FiniteDifference/ConstantPotential1D.lean},
+\path{FiniteBarrier1D.lean} and \path{BarrierMatching1D.lean} in
+\texttt{projectkoios-formal}; the last two paths use the same directory.
+Their exact algebra allows complex potentials and energies. Physical
+self-adjoint scattering, incoming/outgoing classification, current
+normalization, transmission/reflection probabilities, continuum limits and
+numerical conditioning need additional assumptions and analysis. No silicon
+barrier result or probability-conservation claim follows here.
+
+\section{Finite decisions: dominance, intervals and first passing}
+
+Let $D$ be a nonempty finite family of candidates already admitted to the
+same structural comparison problem: same spaces, source, observations,
+units, gauge constraints and required channels. For each candidate $d\in D$,
+let $E_i(d)\geq0$ be its error in channel $i=1,\ldots,m$, where $m\geq1$.
+Channel errors may have different units; each is compared only with its own
+budget $\tau_i$ in the same units. The upper-budget predicate is
+$E_i(d)\leq\tau_i$ for every channel. This is not the strict lower-bound
+rank gate used in silicon common-space admission.
+
+\begin{definition}[Strict Pareto dominance]
+Candidate $a$ dominates $b$ when $E_i(a)\leq E_i(b)$ for every channel and
+the inequality is strict in at least one channel. A candidate is efficient
+when no admitted candidate dominates it; the efficient subset is the Pareto
+front. This order compares an error vector, not physical state vectors.
+\end{definition}
+If a dominated candidate meets all upper budgets, its dominator also meets
+them. Repeating strict dominance in a finite set terminates, so any feasible
+candidate has an efficient feasible weak improver. Hence a finite admitted
+family is feasible exactly when its Pareto front contains a feasible member.
+This does not supply a unique optimum or combine incompatible structural
+gates into one numerical score. A minimizer of a weighted error sum is
+efficient when every weight is strictly positive and the weighted terms have
+compatible declared units: a dominator would strictly lower that sum.
+
+Suppose instead that a channel has a justified enclosure
+$\ell_i(d)\leq E_i(d)\leq u_i(d)$. The symbols $\ell_i,u_i$ denote lower
+and upper endpoints, not additional tolerances. For an upper budget,
+\begin{equation}
+  u_i(d)\leq\tau_i\ \Longrightarrow\ \text{accepted},\qquad
+  \ell_i(d)>\tau_i\ \Longrightarrow\ \text{rejected}.
+  \label{eq:auxiliary-interval-decisions}
+\end{equation}
+If neither implication applies, that channel is unresolved. Joint acceptance
+requires acceptance in every mandatory channel; one rejected channel rules
+out that candidate. An unresolved candidate is not a failed candidate.
+These conclusions require actual enclosures, not merely repeated binary64
+agreement, and say nothing about omitted candidates or missing observations.
+
+Let $C\subseteq\mathbb N$ be a finite ordered set of allowed cutoffs and
+let $P(c)$ state that all declared gates pass at cutoff $c$. If the passing
+subset is nonempty, its least member
+\begin{equation}
+  c_* = \min\{c\in C:P(c)\}
+  \label{eq:auxiliary-first-passing-cutoff}
+\end{equation}
+is the unique first passing cutoff value. Its certificate must establish
+$P(c_*)$ and failure at every earlier allowed cutoff. No monotonic error
+law is needed for this finite statement. With interval evidence, every earlier
+cutoff must be decisively rejected before the first-passing conclusion is
+certified. Existence of several candidates at one cutoff does not imply a
+unique candidate. Failure on a finite family is not a global impossibility
+result over an unexamined continuous domain.
+
+These constructions correspond to the source-neutral Formal families
+\path{BandGauge/Certificates/FinitePareto.lean},
+\path{BandGauge/Certificates/IntervalDecision.lean},
+\path{BandGauge/Decision/FiniteCutoff.lean} and
+\path{BandGauge/Decision/FinitePareto.lean}, beneath \path{ProjectKoios/}.
+They provide decision mathematics, not campaign authority or automatic
+promotion of a software diagnostic to a scientific certificate.
+
+\section{Normalized torus averages and constrained Bessel coefficients}
+
+Write $q=(q_1,\ldots,q_d)\in[0,1)^d$ for a dimensionless reduced torus
+coordinate. The normalized average of an integrable function $f$ is
+$\langle f\rangle=\int_{[0,1)^d}f(q)\,dq$, so $\langle1\rangle=1$.
+For real $x$ and integer $n$, define the integer-order Bessel coefficient by
+\begin{equation}
+  J_n(x)=\frac1{2\pi}\int_0^{2\pi}
+       e^{ix\sin\theta}e^{-in\theta}\,d\theta.
+  \label{eq:auxiliary-bessel-coefficient}
+\end{equation}
+Here $\theta=2\pi q$ is an angle, and the Fourier coefficient uses a negative
+forward phase. Expanding
+$e^{ix\sin\theta}=\exp[(x/2)(e^{i\theta}-e^{-i\theta})]$
+in absolutely convergent exponential series gives, for $n\geq0$,
+\begin{equation}
+  J_n(x)=\sum_{k=0}^{\infty}
+     \frac{(-1)^k(x/2)^{n+2k}}{k!(n+k)!},\qquad
+  J_{-n}(x)=(-1)^nJ_n(x).
+  \label{eq:auxiliary-bessel-series}
+\end{equation}
+The summation index $k$ is an auxiliary nonnegative integer, not a wavevector.
+Absolute convergence justifies termwise integration and extraction of the
+matching exponential power. In particular
+$\langle e^{ix\sin(2\pi q)}\rangle=J_0(x)$. For a sum of functions of
+independent torus coordinates, Fubini factorizes the exponential average;
+for example $\langle\exp[i\sum_{j=1}^d x_j\sin(2\pi q_j)]\rangle
+=\prod_{j=1}^d J_0(x_j)$. This is the normalized circle/product-torus
+construction, not a statement that arbitrary dependent bond phases factorize.
+
+To expose the dependence, let $b_1,\ldots,b_m\in\mathbb Z^d$ be oriented
+bond vectors and let $\mathsf B$ be the $d\times m$ integer matrix with
+these columns. For the unit-modulus scalar field
+$f(q)=\exp[ix\sum_{\nu=1}^m\sin(2\pi b_\nu\cdot q)]$, its coefficient
+at displacement $p\in\mathbb Z^d$ is
+\begin{equation}
+  c_p=\sum_{\ell\in\mathbb Z^m:\,\mathsf B\ell=p}
+           \prod_{\nu=1}^m J_{\ell_\nu}(x).
+  \label{eq:auxiliary-constrained-bessel-coefficient}
+\end{equation}
+The vector $\ell$ lists Bessel orders; the integer constraint enforces the
+Fourier displacement. At $p=0$ this is a constrained zero-mode sum, not in
+general $J_0(x)^m$. Orientation matters because reversing a bond reverses
+its sine phase.
+
+The maintained triangular kernel uses bonds $(1,0),(0,1),(1,-1)$.
+Writing $p=(p_1,p_2)$, its coefficient is
+\begin{equation}
+ c_p=\sum_{k\in\mathbb Z}J_{p_1-k}(x)J_{p_2+k}(x)J_k(x).
+ \label{eq:auxiliary-triangular-bessel-kernel}
+\end{equation}
+The FCC kernel uses $e_1,e_2,e_3,e_2-e_1,e_3-e_1,e_3-e_2$, where $e_j$
+are the standard integer coordinate vectors. For $p=(p_1,p_2,p_3)$ it is
+\begin{equation}
+ c_p=\sum_{a,b,c\in\mathbb Z}
+ J_{p_1+a+b}(x)J_{p_2-a+c}(x)J_{p_3-b-c}(x)J_a(x)J_b(x)J_c(x).
+ \label{eq:auxiliary-fcc-bessel-kernel}
+\end{equation}
+Here $a,b,c$ are auxiliary Bessel indices, unrelated to basis-change matrices
+in other chapters. These are scalar Fourier constructions, not atomic
+populations or authenticated electronic symmetry actions.
+
+\subsection{Kernel truncation versus displacement-shell truncation}
+
+Let $h=|x|/2$. The series above gives
+$|J_n(x)|\leq e^{h^2}h^{|n|}/|n|!$, while the integral gives $|J_n(x)|\leq1$.
+Thus an absolute bilateral sum bound is
+$C(h)=e^{h^2}(2e^h-1)$. If $K\geq0$ is an integer kernel-index cap and
+$h/(K+2)<1$, its omitted bilateral tail is bounded by
+\begin{equation}
+ T_K(h)=\frac{2e^{h^2}h^{K+1}}{(K+1)!\,[1-h/(K+2)]}.
+ \label{eq:auxiliary-bessel-index-tail}
+\end{equation}
+Indeed the factorial-series terms after $K$ have successive ratios at most
+$h/(K+2)$, so their sum is bounded by a geometric series. At $h=0$ the
+omitted tail is zero. Truncating the triangular kernel to $|k|\leq K$
+has coefficient remainder at most $T_K$, because its other two factors have
+modulus at most one. Truncating the FCC kernel to $|a|,|b|,|c|\leq K$
+has remainder at most $3T_K C(h)^2$, by a union bound on the three omitted
+index directions. These are uniform coefficient bounds, not yet shell-tail
+powers.
+
+For a displacement $p$, define the dimensionless shell index
+$Q(p)=p_1^2+p_2^2+p_1p_2$ in the triangular case, and
+$Q(p)=p_1^2+p_2^2+p_3^2+p_1p_2+p_1p_3+p_2p_3$ in the FCC case.
+Both obey $Q(p)\geq\|p\|_2^2/2$, so the shell $Q(p)\leq S$, with
+$S\geq0$, is fully enumerated in the coordinate box
+$|p_j|\leq\lceil\sqrt{2S}\rceil$. The shell cap $S$ and kernel cap $K$
+are different truncations.
+
+Normalized Parseval gives $\sum_p|c_p|^2=1$ because $|f|=1$.
+If an approximate coefficient $\widehat c_p$ has a justified total error
+bound $R_K+\eta_p$, where $R_K$ is the appropriate kernel remainder and
+$\eta_p$ bounds the remaining numerical error, then
+\begin{equation}
+ \sum_{Q(p)>S}|c_p|^2
+ \leq1-\sum_{Q(p)\leq S}
+       \bigl[\max(0,|\widehat c_p|-R_K-\eta_p)\bigr]^2.
+ \label{eq:auxiliary-bessel-shell-tail}
+\end{equation}
+The right-hand side is an exact-real conditional bound. To turn its numerical
+evaluation into a rigorous enclosure, bounds must cover special-function
+values, input error and the accumulation arithmetic as well as kernel
+truncation. Clipping a binary64 result to $[0,1]$ does not supply that proof.
+
+The maintained owner is
+\path{python/src/ksdft2effmass/band_equivalence_hopping_locality/constrained_bessel.py}.
+Its zero-mode request accepts an independent argument $x\in[0,\pi/2]$;
+its tail request uses $x=2\alpha/m$, with maximum rotation amplitude
+$\alpha\in[0,\pi/4]$ and bond count $m=3$ or $6$.
+Geometry-specific kernel caps and the displacement-shell resource cap are
+software policies, not physical convergence claims. Its SciPy/binary64 values
+and explicitly supplied numerical margin are diagnostics, not a formal
+interval-arithmetic certificate. The Formal normalized-circle, product-torus
+and Bessel-zero families supply separate exact analysis; this appendix does
+not claim they mechanize these dependent-bond kernels, runtime sums or tail
+outputs.
+
+\section{Synthetic Bain geometry and a common state space}
+
+The selected geometry subprotocol at
+\path{calculations/periodic3d_rankN_strain/geometry-common-state-space.md}
+defines a synthetic homogeneous metric path, not material strain or phase
+stability. Let $s\in[0,1]$ be its dimensionless path fraction and $\ell_0$
+its declared synthetic direct-length unit. Set
+\begin{equation}
+ \begin{gathered}
+ \gamma(s)=\sqrt2+s(1-\sqrt2),\quad
+ t(s)=[2/\gamma(s)]^{1/3},\quad l(s)=2/t(s)^2,\\
+ A_B(s)=\frac{\ell_0}{2}
+ \begin{pmatrix}t&-t&t\\t&t&-t\\l&l&l\end{pmatrix}.
+ \end{gathered}
+ \label{eq:auxiliary-bain-metric-path}
+\end{equation}
+The columns of $A_B$ are primitive direct vectors in fixed Cartesian axes;
+$t,l$ are dimensionless scales and $\gamma=l/t$. Direct multiplication
+shows $\det A_B=\ell_0^3t^2l/2=\ell_0^3$.
+The metric $G_B=A_B^{\mathsf T}A_B$ has units $\ell_0^2$, while the
+reciprocal matrix $K_B=2\pi A_B^{-\mathsf T}$ has units $\ell_0^{-1}$.
+A fixed reduced coordinate $q_B$ labels the same abstract torus point, but
+not a fixed Cartesian wavevector $K_B(s)q_B$ along the path. The endpoints
+are FCC and BCC primitive geometries, not identified phases of silicon.
+
+Let $U$ be the exact integer coordinate bridge
+\begin{equation}
+ U=\begin{pmatrix}1&1&0\\0&0&1\\0&-1&0\end{pmatrix},\quad
+ U^{-1}=\begin{pmatrix}1&0&1\\0&0&-1\\0&1&0\end{pmatrix},\quad \det U=1.
+ \label{eq:auxiliary-bain-integer-bridge}
+\end{equation}
+With the endpoint orientation fixed by $A_F=A_B(0)U^{-1}$, cell coordinates
+obey $n_F=Un_B$ and reciprocal coordinates obey $q_B=U^{\mathsf T}q_F$.
+The integer vectors $n_B,n_F$ label cells, not internal state components.
+The inverse integer matrix proves bijection on the infinite cell lattice.
+For a finite quotient with positive period triple $(N_1,N_2,N_3)$,
+let $D_N=\operatorname{diag}(N_1,N_2,N_3)$. A well-defined two-sided bridge
+also requires preservation of $D_N\mathbb Z^3$ by $U$ and $U^{-1}$.
+Integrality of $D_N^{-1}UD_N$ requires
+$N_1\mid N_2$, $N_2\mid N_3$ and $N_3\mid N_2$; positivity makes this
+exactly $N_2=N_3$ and $N_1\mid N_2$. Under those conditions the inverse
+also preserves the period lattice. Every positive cubic quotient qualifies;
+an arbitrary mixed-period quotient does not. This is applicability, not a
+mesh selection or runtime-execution certificate.
+
+For an admitted positive internal retained rank $r$, the selected common fiber is
+$\mathbb C^r_{\mathrm{ret}}\oplus\mathbb C^r_{\mathrm{ext}}=\mathbb C^{2r}$,
+with reference frame $F_0=[I_r\;0]^{\mathsf T}$. The infinite common space
+is $\ell^2(\mathbb Z^3)\otimes\mathbb C^{2r}$, where $\ell^2(\mathbb Z^3)$
+is the space of square-summable complex cell sequences. At an admitted finite
+quotient its cell factor is replaced by that quotient's state space. The
+endpoint map sends $|n_B,\nu\rangle$ to $|Un_B,\nu\rangle$, leaving
+the internal index $\nu=0,\ldots,2r-1$ unchanged. It is a unitary
+permutation, not a new physical strain response. Geometry basis offsets
+classify physical support and do not add an unselected sublattice tensor
+factor. For geometry endpoint labels $a,b$, let $\tau^a,\tau^b$ be the
+specified dimensionless Bain-coordinate offsets; these labels are not the
+internal index $\nu$. A bond with cell displacement $R\in\mathbb Z^3$
+has physical vector $A_B(s)(R+\tau^b-\tau^a)$, not length determined by
+its integer translation label alone.
+
+The remaining lattice/rank-specific strain program choices stay with their
+calculation-owned protocols. Geometry selection alone does not select
+Hamiltonian controls, meshes, tolerances, retained evidence or execution.
+This exposition neither reports those calculations as completed nor supplies
+elasticity, phase-transition or material-transferability results.

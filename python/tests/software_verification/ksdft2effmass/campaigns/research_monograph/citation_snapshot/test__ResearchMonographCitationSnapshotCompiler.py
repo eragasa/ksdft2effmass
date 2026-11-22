@@ -40,20 +40,31 @@ SUT = ResearchMonographCitationSnapshotCompiler
 
 
 class TestResearchMonographCitationSnapshotCompiler:
-    """Own software evidence for canonical monograph citation compilation."""
+    """Own frozen regression and separate working-composition citation evidence."""
+
+    @pytest.fixture(autouse=True)
+    def bind_baseline(self, citation_baseline_repository: Path) -> None:
+        """Use the pinned historical inputs without depending on the dirty tree."""
+        self.baseline_repository = citation_baseline_repository
 
     def test_method__execute__matches_authorized_repository_baseline(self) -> None:
         """Evidence ID: SV-CITATION-SNAPSHOT-COMPILER-001
 
         Requirement: The compiler must cover the authorized monograph graph and
-        rendered citation semantics while recording the exact current repository
-        revision.
+        rendered citation semantics while recording the exact frozen baseline
+        repository revision.
 
         Acceptance: The result has 49 files, 138 groups, 257 calls, 329 occurrences,
         43 todos, 138 bibliography entries, two source gaps, and no closure gaps.
         """
         snapshot = self.compile_repository()
 
+        assert (
+            snapshot.repository_revision
+            == (Path(__file__).parent / "resources/baseline-revision.txt")
+            .read_text(encoding="ascii")
+            .strip()
+        )
         assert len(snapshot.repository_revision) == 40
         assert set(snapshot.repository_revision) <= set("0123456789abcdef")
         assert len(snapshot.source_files) == 49
@@ -160,10 +171,48 @@ class TestResearchMonographCitationSnapshotCompiler:
             for value in snapshot.occurrences
         )
 
-    @staticmethod
-    def compile_repository() -> ManuscriptCitationSnapshot:
-        """Compile the current isolated worktree through the supported API."""
-        repository_root = Path(__file__).resolve().parents[7]
+    def test_method__execute__covers_expanded_working_composition(
+        self, expanded_monograph_repository: Path
+    ) -> None:
+        """Evidence ID: SV-CITATION-SNAPSHOT-COMPILER-005.
+
+        Requirement: The expanded working composition is tested independently of
+        the unchanged historical 49-file regression expectations.
+
+        Acceptance: Chapter 9 and Appendix N are consumed; the composition has
+        51 TeX files, 258 calls, 330 occurrences, and the same 138 bibliography
+        entries, with no missing, duplicate, or uncited keys.
+
+        Limitations: The local fixture HEAD authenticates copied working bytes,
+        not a committed research revision, claim support, or publication status.
+        """
+        snapshot = (
+            SUT()
+            .execute(
+                ResearchMonographCitationSnapshotRequest(
+                    expanded_monograph_repository.as_posix()
+                )
+            )
+            .snapshot
+        )
+        assert len(snapshot.source_files) == 51
+        assert len(snapshot.include_instances) == 51
+        assert len(snapshot.calls) == 258
+        assert len(snapshot.occurrences) == 330
+        assert len(snapshot.bibliography_entries) == 138
+        paths = {source.source_path for source in snapshot.source_files}
+        prefix = "docs/publications/research-monograph/"
+        assert (
+            prefix + "chapters/symmetry-actions-and-represented-subspaces.tex" in paths
+        )
+        assert prefix + "appendices/N-auxiliary-mathematical-constructions.tex" in paths
+        assert snapshot.missing_keys == ()
+        assert snapshot.duplicate_keys == ()
+        assert snapshot.uncited_keys == ()
+
+    def compile_repository(self) -> ManuscriptCitationSnapshot:
+        """Compile the authenticated frozen baseline through the supported API."""
+        repository_root = self.baseline_repository
         return (
             SUT()
             .execute(
