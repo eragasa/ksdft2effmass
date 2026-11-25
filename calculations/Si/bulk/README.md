@@ -96,9 +96,14 @@ library owners. Workflow integration is intentionally outside this extraction.
 - [`analysis/`](analysis/) — verified-input analysis boundary, current supportable
   conclusions, and the calculation-local
   [Vogl 1983 LCAO `sp3s*` control](analysis/controls/vogl-sp3s-star/).
-- [`common_space/`](common_space/) — calculation-owned incubation root for explicit
-  bulk-silicon common-space diagnostics; currently contains the unretained CSD0/CSD1
-  producer, not an independent verifier or a supported library package.
+- [`common_space/`](common_space/) — calculation-owned CSD0/CSD1 producer and
+  independent CSD1-V verification implementation, not a supported library package.
+  The [retained producer checkpoint](analysis/common-space-producer/) and
+  [independent verification checkpoint](analysis/common-space-verification/) cover
+  all 216 construction points under the declared source/uncertainty contract.
+  The two rank-nine failures remain; verification/correlation is not rank-ten
+  admission. CSD2 electronic symmetry actions and a CSD3 successor disposition
+  remain unestablished; no fit or production qualification follows.
 - [`technical-report/`](technical-report/) — calculation-facing synthesis and links to
   the detailed design and retained audits.
 
