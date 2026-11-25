@@ -19,12 +19,18 @@ Those files are retained byte-for-byte. Listing an old digest in a revision tabl
 not a substitute for preserving its bytes. No retained execution, preflight, or
 `series-plan.json` is rebound to the current protocol.
 
+The [historical protocol and scientific-setting reconciliation](../protocol/decisions/historical-protocol-settings-reconciliation.md)
+explains the bootstrap, retained SSSP parent/Wannier source, current diagnosis and
+prospective PseudoDojo branches without rewriting those execution-time identities.
+
 The current sequence is CSD0, CSD1, independent CSD1-V verification, CSD2, CSD3,
 HF0--HF4, and then one explicitly selected successor branch. CSD1-V shares the
 authenticated provider parsers; independence starts at the parsed-matrix boundary.
-The current producer is a partial reconstruction implementation. Its software tests
-are not a completed silicon reconstruction, independent verification, or scientific
-acceptance.
+The producer and independent verifier now have the separately authorized retained
+checkpoints linked below. Their software tests alone do not establish completed
+silicon reconstruction, independent numerical verification or scientific acceptance;
+the retained execution evidence must be read separately. Verification/correlation
+does not waive the two rank-nine failures or establish rank-ten admission.
 
 The scientific owner has [adopted the reviewed S30 source identification](../protocol/decisions/s30-state-identification.md)
 for its existing 216-point domain. The complete fixed HR/WSvec model and its native
