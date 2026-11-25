@@ -36,6 +36,13 @@ qualify the production parent, a Wannier bridge, or the planned local-model hier
 
 ## Current supportable conclusions
 
+- The separately authorized [CSD1 producer checkpoint](common-space-producer/)
+  authenticates the adopted S30 source meaning and retains the actual 216-point rank
+  reconstruction, geometric construction-index inventory and completion evidence.
+  It preserves the two rank-nine raw-gate failures. The subsequently authorized
+  [independent CSD1-V checkpoint](common-space-verification/) verifies and correlates
+  the complete field under the declared source/uncertainty contract. Geometric index
+  relations are not electronic symmetry actions or physical validation; CSD2 is unrun.
 - The no-calculator
   [construction-mesh adequacy recommendation](construction-mesh-adequacy-recommendation/)
   records the protocol-first `C6` successor: change only the Gamma-origin construction
@@ -161,6 +168,11 @@ qualify the production parent, a Wannier bridge, or the planned local-model hier
   [hopping-first post-S110 protocol](../research-protocol/controlled-reduction-protocol-hopping-first.tex)
   preserves the blocked result and requires the characterization-only Pareto synthesis
   before any separately authorized continuation fit.
+- The retained [Wannier window-remedy diagnostic checkpoint](wannier-window-remedy/)
+  separates parent-trial independence, Gamma window loss, excluded-band response,
+  and sampled frozen-state feasibility. Its tested cap remains unselected, the
+  original S110 alignment remains blocked, and it supplies no new Wannier operator,
+  symmetry attribution, CSD1-V completion, or production qualification.
 - The
   [withheld-parent validation package](withheld-parent-validation-preflight/)
   froze 408 candidate-conditioned, construction-disjoint QE coordinates and exact
