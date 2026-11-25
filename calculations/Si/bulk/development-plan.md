@@ -241,6 +241,71 @@ centers, spreads, convergence status, symmetry conventions, reciprocal sewing, a
 energy reference. Compare direct-parent and Wannier bands, projectors, and represented
 operators on construction and withheld meshes.
 
+### Pending — qualify a window-remedy Wannier candidate
+
+**Status: pending; no candidate window or successor selected, and no calculator
+execution authorized by this task.**
+
+Follow the [current hopping-first protocol](research-protocol/controlled-reduction-protocol-hopping-first.tex):
+CSD0, complete CSD1, independent CSD1-V, CSD2, the human CSD3 decision, and HF0--HF4
+remain prerequisites to activating a selected successor. The retained
+[window-remedy diagnostics](analysis/wannier-window-remedy/) motivate this task;
+pointwise algebraic feasibility is not a qualified Wannier source.
+The earlier [source-association review](analysis/wannier-window-remedy/source-association-review.md)
+reported an inconclusive nominal/executed geometry identification before the later
+full-source identification and source-specific adoption.
+The [geometry-identification draft](protocol/decisions/geometry-identification-draft.md)
+received [independent review](protocol/decisions/geometry-identification-review.md)
+with no remaining technical blockers after a focused wording correction. It remains
+unadopted and addresses only a native coefficient-space sub-obligation, not the full
+S30 physical-space association required for CSD0.
+The subsequent [full S30 identification review](analysis/wannier-window-remedy/s30-state-identification-review.md)
+found no blocking findings and conditionally supports that association on the declared
+216-point domain. No additional physical map is missing for that bounded association;
+off-mesh KS embedding is not a CSD0 requirement. The scientific owner subsequently
+[adopted that bounded source interpretation](protocol/decisions/s30-state-identification.md),
+with explicit source paths and a [prepared v1 declaration](analysis/wannier-window-remedy/source-state-assertions.json).
+The general CSD0 rule and protocol bytes are unchanged; this is not CSD3 or a window
+selection. Declaration preparation alone promoted no gate or execution authority.
+The separately authorized [CSD1 producer checkpoint](analysis/common-space-producer/)
+now contains the 216-point reconstruction, complete geometric construction-index
+inventory and actual completion evidence. It preserves two rank-nine points under
+the frozen gate. The subsequent authorized [independent CSD1-V checkpoint](analysis/common-space-verification/)
+now authenticates the complete real bundle and verifies/correlates all 216 points under
+the declared source/uncertainty contract. A strict declaration-link repair kept legacy
+request descriptions distinct from content-addressed IDs, without rewriting historical
+inputs or changing numeric bounds. CSD2 electronic symmetry actions/cause remain
+unestablished and unrun; CSD3, HF gates and candidate selection remain stopped.
+
+- [x] Retain and review the compact window-diagnostic results and reproduction scripts,
+  with input identities, error assumptions, and the distinction between sampled
+  feasibility and unestablished off-mesh behavior, frame smoothness, and fidelity.
+  See the [retained checkpoint and bounded review](analysis/wannier-window-remedy/validation.md);
+  this does not complete CSD1-V or select a new construction.
+- [ ] Review the candidate window, parent/interface compatibility, and prospective
+  validation criteria. Record any actual window-selection decision under
+  [`protocol/decisions/`](protocol/decisions/). Keep historical SSSP development separate
+  from production qualification of the required PseudoDojo parent; do not transfer a
+  native-reference energy cap unchanged between parents.
+- [ ] Prepare an exact preflight and obtain separate authorization for a fresh Wannier
+  construction. Reuse authenticated parent/interface inputs only after establishing
+  compatibility; old localization matrices are not evidence for the new candidate.
+- [ ] Assess native convergence, gauge-aware neighboring-frame consistency, reciprocal
+  sewing, and localization through spreads and hopping decay. Finite-grid checks do
+  not prove existence of a globally smooth localized frame.
+- [ ] Evaluate off-mesh interpolation near Gamma, window-entry boundaries, and conduction
+  valleys. Compare gap, valley positions, and electron effective masses against the
+  same DFT parent under prospectively declared criteria and adequate sampling and
+  derivative controls; separate parent-model error from interpolation error.
+- [ ] Reconstruct the trial-to-Wannier overlap from the new matrices over the complete
+  construction grid and independently verify the unchanged raw-overlap gate, including
+  arithmetic and native-input uncertainty. Do not apply the raw threshold to whitened
+  singular values or reuse the old operator's gate result.
+
+Respect the reconstruction, development, and confirmation roles below. Confirmation
+geometry and values must not select the candidate window or its criteria; any
+confirmation evaluation requires its own freeze and authorization.
+
 ### Separated reconstruction, development, and confirmation inventories
 
 Use four reciprocal-space roles without transferring one role into another:
